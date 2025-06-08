@@ -9,6 +9,7 @@ import time
 import sys
 import constantes
 import os
+from clefs_et_mots_de_passe import clef_api_gemini
 
 
 def creer_liste_pays_multilangue(
@@ -303,7 +304,7 @@ liste_langues = [
 if __name__ == "__main__":
 
     # Clef API
-    genai.configure(api_key="AIzaSyDmsVD4UJNqrEkW0tdRtnKGTnZVmcjwdsE")
+    genai.configure(api_key=clef_api_gemini)
 
     # Choix du modèle de Google Gemini
     liste_modeles = [

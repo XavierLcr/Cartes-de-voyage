@@ -15,6 +15,7 @@ __pycache__/
 
 # Fichiers de sauvegarde individuel
 sauvegarde_param.yaml
+clefs_et_mots_de_passe.py
 
 # Fichiers d’IDE
 .vscode/

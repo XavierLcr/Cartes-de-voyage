@@ -6,9 +6,12 @@
 import google.generativeai as genai
 import yaml
 import time
-import sys
-import constantes
 import os
+import sys
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+import constantes
+
 from clefs_et_mots_de_passe import clef_api_gemini
 
 
@@ -333,95 +336,97 @@ if __name__ == "__main__":
     )
 
     # YAML des régions
-    if os.path.exists(
-        os.path.join(constantes.direction_generale, "liste_pays_regions.yaml")
-    ):
+    try:
         with open(
-            os.path.join(constantes.direction_generale, "liste_pays_regions.yaml"),
+            os.path.join(
+                constantes.direction_donnees_application, "liste_pays_regions.yaml"
+            ),
             "r",
             encoding="utf-8",
         ) as file:
             liste_regions = yaml.safe_load(file)
 
-    else:
-        assert 0 == 1, "Problème"
+    except:
+        liste_regions = {}
+        print("Fichiers YAML des régions par pays non trouvé.")
 
     # YAML des pays regroupés
-    if os.path.exists(
-        os.path.join(constantes.direction_donnees, "liste_pays_groupes.yaml")
-    ):
+    try:
         with open(
-            os.path.join(constantes.direction_donnees, "liste_pays_groupes.yaml"),
+            os.path.join(
+                constantes.direction_donnees_application, "liste_pays_groupes.yaml"
+            ),
             "r",
             encoding="utf-8",
         ) as file:
             liste_pays_groupes = yaml.safe_load(file)
-
-    else:
-        assert 0 == 1, "Problème"
+    except:
+        print("Fichiers YAML des regroupements de pays non trouvé.")
+        liste_pays_groupes = {}
 
     # Traduction des nomms de pays
-    if os.path.exists(
-        os.path.join(constantes.direction_donnees, "traductions_nom_pays.yaml")
-    ):
+    try:
         with open(
-            os.path.join(constantes.direction_donnees, "traductions_nom_pays.yaml"),
+            os.path.join(
+                constantes.direction_donnees_application, "traductions_nom_pays.yaml"
+            ),
             "r",
             encoding="utf-8",
         ) as file:
             pays_deja_traduits = yaml.safe_load(file)
 
-    else:
+    except:
         pays_deja_traduits = None
 
     # Traduction de l'interface PyQt
-    if os.path.exists(
-        os.path.join(constantes.direction_donnees, "traductions_phrase_outil.yaml")
-    ):
+    try:
         with open(
-            os.path.join(constantes.direction_donnees, "traductions_phrase_outil.yaml"),
+            os.path.join(
+                constantes.direction_donnees_application,
+                "traductions_phrase_outil.yaml",
+            ),
             "r",
             encoding="utf-8",
         ) as file:
             outil_deja_trad = yaml.safe_load(file)
-
-    else:
+    except:
         outil_deja_trad = None
 
     # Traduction des paramètres
-    if os.path.exists(
-        os.path.join(constantes.direction_donnees, "traductions_parametres.yaml")
-    ):
+    try:
         with open(
-            os.path.join(constantes.direction_donnees, "traductions_parametres.yaml"),
+            os.path.join(
+                constantes.direction_donnees_application, "traductions_parametres.yaml"
+            ),
             "r",
             encoding="utf-8",
         ) as file:
             parametres_deja_trad = yaml.safe_load(file)
 
-    else:
+    except:
         parametres_deja_trad = None
 
     # Traduction des langues
-    if os.path.exists(
-        os.path.join(constantes.direction_donnees, "traductions_noms_langues.yaml")
-    ):
+    try:
         with open(
-            os.path.join(constantes.direction_donnees, "traductions_noms_langues.yaml"),
+            os.path.join(
+                constantes.direction_donnees_application,
+                "traductions_noms_langues.yaml",
+            ),
             "r",
             encoding="utf-8",
         ) as file:
             langues_deja_traduites = yaml.safe_load(file)
 
-    else:
+    except:
         langues_deja_traduites = None
 
     # Pour que la limite API arrête de crasher
-    if os.path.exists(
-        os.path.join(constantes.direction_donnees, "appels_api_par_jour.yaml")
-    ):
+    try:
         with open(
-            os.path.join(constantes.direction_donnees, "appels_api_par_jour.yaml"),
+            os.path.join(
+                constantes.direction_donnees_autres, "appels_api_par_jour.yaml"
+            ),
             "r",
             encoding="utf-8",
         ) as file:
@@ -431,25 +436,35 @@ if __name__ == "__main__":
             ).get(liste_modeles[numero_modele]["modèle"], 0)
             appels_api_deja_faits = int(appels_api_deja_faits)
 
-    else:
+    except:
         appels_api_deja_faits = 0
         liste_appels_api_deja_faits = {}
 
     # YAML des teintes
-    with open(
-        os.path.join(constantes.direction_donnees, "teintes_couleurs.yaml"),
-        "r",
-        encoding="utf-8",
-    ) as file:
-        teintes_couleurs = yaml.safe_load(file)
+    try:
+        with open(
+            os.path.join(
+                constantes.direction_donnees_application, "teintes_couleurs.yaml"
+            ),
+            "r",
+            encoding="utf-8",
+        ) as file:
+            teintes_couleurs = yaml.safe_load(file)
+    except:
+        teintes_couleurs = {}
 
     # YAML des thèmes
-    with open(
-        os.path.join(constantes.direction_donnees, "themes_cartes.yaml"),
-        "r",
-        encoding="utf-8",
-    ) as file:
-        themes_cartes = yaml.safe_load(file)
+    try:
+        with open(
+            os.path.join(
+                constantes.direction_donnees_application, "themes_cartes.yaml"
+            ),
+            "r",
+            encoding="utf-8",
+        ) as file:
+            themes_cartes = yaml.safe_load(file)
+    except:
+        themes_cartes = {}
 
     ## Pays
     # Liste des pays
@@ -521,7 +536,9 @@ if __name__ == "__main__":
     )
 
     with open(
-        os.path.join(constantes.direction_donnees, "traductions_parametres.yaml"),
+        os.path.join(
+            constantes.direction_donnees_application, "traductions_parametres.yaml"
+        ),
         "w",
         encoding="utf-8",
     ) as f:
@@ -537,7 +554,9 @@ if __name__ == "__main__":
     )
 
     with open(
-        os.path.join(constantes.direction_donnees, "traductions_noms_langues.yaml"),
+        os.path.join(
+            constantes.direction_donnees_application, "traductions_noms_langues.yaml"
+        ),
         "w",
         encoding="utf-8",
     ) as f:
@@ -627,7 +646,9 @@ if __name__ == "__main__":
     )
 
     with open(
-        os.path.join(constantes.direction_donnees, "traductions_phrase_outil.yaml"),
+        os.path.join(
+            constantes.direction_donnees_application, "traductions_phrase_outil.yaml"
+        ),
         "w",
         encoding="utf-8",
     ) as f:
@@ -645,7 +666,9 @@ if __name__ == "__main__":
     )
 
     with open(
-        os.path.join(constantes.direction_donnees, "traductions_nom_pays.yaml"),
+        os.path.join(
+            constantes.direction_donnees_application, "traductions_nom_pays.yaml"
+        ),
         "w",
         encoding="utf-8",
     ) as f:
@@ -659,7 +682,7 @@ if __name__ == "__main__":
     ] = appels_api_deja_faits
 
     with open(
-        os.path.join(constantes.direction_donnees, "appels_api_par_jour.yaml"),
+        os.path.join(constantes.direction_donnees_autres, "appels_api_par_jour.yaml"),
         "w",
         encoding="utf-8",
     ) as f:

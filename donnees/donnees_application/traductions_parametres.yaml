@@ -1337,6 +1337,19 @@ teintes_couleurs:
     Crépuscule: Schemering
     Fantaisie: Fantasie
     Jungle: Jungle
+    Mer: Zee
+    Montagne: Berg
+    Multicolore: Veelkleurig
+    Nuit d’encre: Inktzwarte Nacht
+    Plage: Strand
+    Printemps: Lente
+    Teintes automnales: Herfsttinten
+    Teintes bohèmes: Boheemse tinten
+    Teintes estivales: Zomertinten
+    Teintes florales: Bloemkleuren
+    Teintes hivernales: Wintertinten
+    Terre: Aarde
+    Écailles de sirène: Zeemeerminstaarten
   népalais:
     Arc en ciel: इन्द्रधनुष
     Arcadie: आर्केडिया
@@ -1359,28 +1372,490 @@ teintes_couleurs:
     Teintes hivernales: हिउँदे रंगहरु
     Terre: पृथ्वी
     Écailles de sirène: जलपरीको कत्ले
-  ourdou: {}
-  ouzbek: {}
-  pachto: {}
-  persan: {}
-  polonais: {}
-  portugais: {}
-  roumain: {}
-  russe: {}
-  serbo-croate: {}
-  slovaque: {}
-  slovène: {}
-  suédois: {}
-  swahili: {}
-  tamoul: {}
-  tchèque: {}
-  thaï: {}
-  tibétain: {}
-  turc: {}
-  turkmène: {}
-  ukrainien: {}
-  vietnamien: {}
-  zoulou: {}
+  ourdou:
+    Arc en ciel: قوس قزح
+    Arcadie: آرکیڈیا
+    Aurore boréale: شفق قطبی
+    Baroque: باروک
+    Champ de lavande: Lavendar ka maidaan
+    Crépuscule: غروب آفتاب
+    Fantaisie: خیال
+    Jungle: جنگل
+    Mer: دریا
+    Montagne: پہاڑ
+    Multicolore: رنگ برنگ
+    Nuit d’encre: سیاہ رات
+    Plage: ساحل
+    Printemps: بہار
+    Teintes automnales: خزاں کے رنگ
+    Teintes bohèmes: بوهیمیائی رنگ
+    Teintes estivales: موسمی رنگ
+    Teintes florales: پھولوں کے رنگ
+    Teintes hivernales: سرد موسم کے رنگ
+    Terre: زمین
+    Écailles de sirène: مچھلی کی چمکتی ہوئی کھال
+  ouzbek:
+    Arc en ciel: Kamalak
+    Arcadie: Arkadiya
+    Aurore boréale: Shimoliy nur
+    Baroque: Barokko
+    Champ de lavande: Lavanda dalasi
+    Crépuscule: Quyosh botishi
+    Fantaisie: Hayol
+    Jungle: O'rmon
+    Mer: Dengiz
+    Montagne: Tog
+    Multicolore: Rangbarang
+    Nuit d’encre: Qora tun
+    Plage: Plyaj
+    Printemps: Bahor
+    Teintes automnales: Kuzgi ranglar
+    Teintes bohèmes: Bohemcha ranglar
+    Teintes estivales: Yozgi ranglar
+    Teintes florales: Gullar ranglari
+    Teintes hivernales: Qish ranglari
+    Terre: Yer
+    Écailles de sirène: Dengiz parisi tangalari
+  pachto:
+    Arc en ciel: رنگين کمان
+    Arcadie: آرکادیا
+    Aurore boréale: د شمالي رڼا
+    Baroque: باروک
+    Champ de lavande: د لېونډو ګیاه کروندې
+    Crépuscule: ماښام
+    Fantaisie: خیال
+    Jungle: ځنګل
+    Mer: سمندر
+    Montagne: غر
+    Multicolore: رنګارنګ
+    Nuit d’encre: تورې شپه
+    Plage: ساحل
+    Printemps: پسرلی
+    Teintes automnales: د مني رنګونه
+    Teintes bohèmes: بوهيمي رنګونه
+    Teintes estivales: د اوړي رنګونه
+    Teintes florales: د ګلونو رنګونه
+    Teintes hivernales: ژمني رنګونه
+    Terre: ځمکه
+    Écailles de sirène: دریایي ورېښم
+  persan:
+    Arc en ciel: رنگین کمان
+    Arcadie: آرْکادیا
+    Aurore boréale: شفق قطبی
+    Baroque: باروک
+    Champ de lavande: مزرعه اسطوخودوس
+    Crépuscule: غروب
+    Fantaisie: خیال‌پردازی
+    Jungle: جنگل
+    Mer: دریا
+    Montagne: کوه
+    Multicolore: رنگارنگ
+    Nuit d’encre: شبِ جوهری
+    Plage: ساحل
+    Printemps: بهار
+    Teintes automnales: رنگ‌های پاییزی
+    Teintes bohèmes: رنگ‌های بوهمیایی
+    Teintes estivales: رنگ های تابستانی
+    Teintes florales: رنگ های گلی
+    Teintes hivernales: رنگ‌های زمستانی
+    Terre: زمین
+    Écailles de sirène: پولک پری دریایی
+  polonais:
+    Arc en ciel: Tęcza
+    Arcadie: Arkadii
+    Aurore boréale: Aurora borealis
+    Baroque: Barok
+    Champ de lavande: Pole lawendy
+    Crépuscule: Zmierzch
+    Fantaisie: Fantazja
+    Jungle: Dżungla
+    Mer: Morze
+    Montagne: Góra
+    Multicolore: Wielokolorowy
+    Nuit d’encre: Noc atramentu
+    Plage: Plaża
+    Printemps: Wiosna
+    Teintes automnales: Jesienne barwy
+    Teintes bohèmes: Bohemskie odcienie
+    Teintes estivales: Letnie barwy
+    Teintes florales: Kwiatowe odcienie
+    Teintes hivernales: Zimowe odcienie
+    Terre: Ziemia
+    Écailles de sirène: Łuski syreny
+  portugais:
+    Arc en ciel: Arco-íris
+    Arcadie: Arcádia
+    Aurore boréale: Aurora boreal
+    Baroque: Barroco
+    Champ de lavande: Campo de lavanda
+    Crépuscule: Crepúsculo
+    Fantaisie: Fantasia
+    Jungle: Selva
+    Mer: Mar
+    Montagne: Montanha
+    Multicolore: Multicolor
+    Nuit d’encre: Noite de Tinta
+    Plage: Praia
+    Printemps: Primavera
+    Teintes automnales: Tons de Outono
+    Teintes bohèmes: Tons boêmios
+    Teintes estivales: Tons de Verão
+    Teintes florales: Tons florais
+    Teintes hivernales: Tons de Inverno
+    Terre: Terra
+    Écailles de sirène: Escamas de sereia
+  roumain:
+    Arc en ciel: Curcubeu
+    Arcadie: Arcadia
+    Aurore boréale: Aurora boreală
+    Baroque: Baroc
+    Champ de lavande: Câmp de lavandă
+    Crépuscule: Amurg
+    Fantaisie: Fantezie
+    Jungle: Junglă
+    Mer: Mare
+    Montagne: Munte
+    Multicolore: Multicolor
+    Nuit d’encre: Noapte de cerneală
+    Plage: Plajă
+    Printemps: Primăvară
+    Teintes automnales: Culori de toamnă
+    Teintes bohèmes: Nuante boeme
+    Teintes estivales: Nuanțe estivale
+    Teintes florales: Nuanțe florale
+    Teintes hivernales: Tonuri hibernale
+    Terre: Pământ
+    Écailles de sirène: Solzi de sirenă
+  russe:
+    Arc en ciel: Радуга
+    Arcadie: Аркадия
+    Aurore boréale: Северное сияние
+    Baroque: Барокко
+    Champ de lavande: Ландовое поле
+    Crépuscule: Сумерки
+    Fantaisie: Фантазия
+    Jungle: Джунгли
+    Mer: Море
+    Montagne: Гора
+    Multicolore: Многоцветный
+    Nuit d’encre: Чернильная ночь
+    Plage: Пляж
+    Printemps: Весна
+    Teintes automnales: Осенние тона
+    Teintes bohèmes: Богемные оттенки
+    Teintes estivales: Летние оттенки
+    Teintes florales: Цветочные оттенки
+    Teintes hivernales: Зимние тона
+    Terre: Земля
+    Écailles de sirène: Русалочьи чешуйки
+  serbo-croate:
+    Arc en ciel: Duga
+    Arcadie: Arkadija
+    Aurore boréale: Polarna svjetlost
+    Baroque: Barok
+    Champ de lavande: Polje lavande
+    Crépuscule: Sumrak
+    Fantaisie: Fantazija
+    Jungle: Džungla
+    Mer: More
+    Montagne: Planina
+    Multicolore: Višebojan
+    Nuit d’encre: Noć mastila
+    Plage: Plaža
+    Printemps: Proleće
+    Teintes automnales: Jesenje boje
+    Teintes bohèmes: Boemske nijanse
+    Teintes estivales: Letnje boje
+    Teintes florales: Cvetni tonovi
+    Teintes hivernales: Zimske nijanse
+    Terre: Zemlja
+    Écailles de sirène: Sirenin ljuske
+  slovaque:
+    Arc en ciel: Dúha
+    Arcadie: Arkadia
+    Aurore boréale: Polárna žiara
+    Baroque: Barok
+    Champ de lavande: Levanduľové pole
+    Crépuscule: Súmrak
+    Fantaisie: Fantázia
+    Jungle: Džungľa
+    Mer: More
+    Montagne: Hora
+    Multicolore: Farebný
+    Nuit d’encre: Čierna noc
+    Plage: Pláž
+    Printemps: Jar
+    Teintes automnales: Jesenné farby
+    Teintes bohèmes: Bohémske tóny
+    Teintes estivales: Letné odtiene
+    Teintes florales: Kvetinové tóny
+    Teintes hivernales: Zimné tóny
+    Terre: Zem
+    Écailles de sirène: Morské šupiny
+  slovène:
+    Arc en ciel: Mavrica
+    Arcadie: Arkadija
+    Aurore boréale: Severni sij
+    Baroque: Barok
+    Champ de lavande: Polje sivke
+    Crépuscule: Somrak
+    Fantaisie: Domišljija
+    Jungle: Džungla
+    Mer: Morje
+    Montagne: Gora
+    Multicolore: Večbarven
+    Nuit d’encre: Črna noč
+    Plage: Plaža
+    Printemps: Pomlad
+    Teintes automnales: Jesenski odtenki
+    Teintes bohèmes: Boemski odtenki
+    Teintes estivales: Poletne barve
+    Teintes florales: Cvetlični toni
+    Teintes hivernales: Zimske barve
+    Terre: Zemlja
+    Écailles de sirène: Luske morske deklice
+  suédois:
+    Arc en ciel: Regnbåge
+    Arcadie: Arkadien
+    Aurore boréale: Norrsken
+    Baroque: Barock
+    Champ de lavande: Lavendelfält
+    Crépuscule: Skymning
+    Fantaisie: Fantasi
+    Jungle: Djungel
+    Mer: Hav
+    Montagne: Berg
+    Multicolore: Flerfärgad
+    Nuit d’encre: Bläcknatts
+    Plage: Strand
+    Printemps: Vår
+    Teintes automnales: Höstfärger
+    Teintes bohèmes: Bohemiska toner
+    Teintes estivales: Sommarfärger
+    Teintes florales: Blommiga nyanser
+    Teintes hivernales: Vintertoner
+    Terre: Jorden
+    Écailles de sirène: Sjöjungfrufjäll
+  swahili:
+    Arc en ciel: Upinde wa mvua
+    Arcadie: Arkadia
+    Aurore boréale: Mwangaza wa Kaskazini
+    Baroque: Baroki
+    Champ de lavande: Shamba la lavanda
+    Crépuscule: Mchana
+    Fantaisie: Ndoto
+    Jungle: Msitu
+    Mer: Bahari
+    Montagne: Mlima
+    Multicolore: Rangi nyingi
+    Nuit d’encre: Usiku wa Wino
+    Plage: Pwani
+    Printemps: Masika
+    Teintes automnales: Rangi za vuli
+    Teintes bohèmes: Rangi za kibohémien
+    Teintes estivales: Rangi za kiangazi
+    Teintes florales: Rangi za maua
+    Teintes hivernales: Rangi za majira ya baridi
+    Terre: Ardhi
+    Écailles de sirène: Mizani ya sireni
+  tamoul:
+    Arc en ciel: வானவில்
+    Arcadie: ஆர்கேடியா
+    Aurore boréale: வடதுருவ ஒளி
+    Baroque: பரொக்
+    Champ de lavande: லாவெண்டர் வயல்
+    Crépuscule: அந்திவேளை
+    Fantaisie: கற்பனை
+    Jungle: காடு
+    Mer: கடல்
+    Montagne: மலை
+    Multicolore: பலவர்ண
+    Nuit d’encre: மையிருள் இரவு
+    Plage: கடற்கரை
+    Printemps: வசந்த காலம்
+    Teintes automnales: இலை உதிர் கால நிறங்கள்
+    Teintes bohèmes: போஹேமியன் வண்ணங்கள்
+    Teintes estivales: கோடை நிறங்கள்
+    Teintes florales: பூவிதழ்கள்
+    Teintes hivernales: குளிர்கால வண்ணங்கள்
+    Terre: பூமி
+    Écailles de sirène: மீன்வால் செதில்கள்
+  tchèque:
+    Arc en ciel: Duhový oblouk
+    Arcadie: Arkadie
+    Aurore boréale: Polární záře
+    Baroque: Baroko
+    Champ de lavande: Levandulové pole
+    Crépuscule: Soumrak
+    Fantaisie: Fantazie
+    Jungle: Džungle
+    Mer: Moře
+    Montagne: Hora
+    Multicolore: Vícebarevný
+    Nuit d’encre: Černá noc
+    Plage: Pláž
+    Printemps: Jaro
+    Teintes automnales: Podzimní barvy
+    Teintes bohèmes: Bohémské tóny
+    Teintes estivales: Letní tóny
+    Teintes florales: Květinové tóny
+    Teintes hivernales: Zimní odstíny
+    Terre: Země
+    Écailles de sirène: Šupiny mořské panny
+  thaï:
+    Arc en ciel: รุ้งกินน้ำ
+    Arcadie: อาร์คาเดีย
+    Aurore boréale: แสงเหนือ
+    Baroque: บาโรก
+    Champ de lavande: ทุ่งลาเวนเดอร์
+    Crépuscule: สนธยา
+    Fantaisie: แฟนตาซี
+    Jungle: ป่า
+    Mer: ทะเล
+    Montagne: ภูเขา
+    Multicolore: หลากสี
+    Nuit d’encre: ราตรีหมึก
+    Plage: หาดทราย
+    Printemps: ฤดูใบไม้ผลิ
+    Teintes automnales: สีสันแห่งฤดูใบไม้ร่วง
+    Teintes bohèmes: สีสันแบบโบฮีเมียน
+    Teintes estivales: สีสันฤดูร้อน
+    Teintes florales: เฉดสีดอกไม้
+    Teintes hivernales: สีสันฤดูหนาว
+    Terre: แผ่นดิน
+    Écailles de sirène: เกล็ดเงือก
+  tibétain:
+    Arc en ciel: འཇའ་ཚོན་
+    Arcadie: གནས་མཆོག་
+    Aurore boréale: བྱང་ཕྱོགས་ཀྱི་འོད་ཟེར
+    Baroque: གཞན་དགའ་པོ།
+    Champ de lavande: ལ་ཝན་དའི་ཞིང་ཁམས
+    Crépuscule: ཕྱི་དྲོ་
+    Fantaisie: སེམས་འཆར་
+    Jungle: དབེན་གནས་
+    Mer: མཚོ
+    Montagne: Ri
+    Multicolore: Tshon kha mang po
+    Nuit d’encre: མཚན་མོ་ནག་པོ།
+    Plage: Gya mtsho'i zhing
+    Printemps: དཔྱིད་ཀ
+    Teintes automnales: དབྱིད་ཀྱི་མདངས་
+    Teintes bohèmes: བོ་ཧེམ་གྱི་ཁ་དོག
+    Teintes estivales: དབྱར་གྱི་མདངས་
+    Teintes florales: མེ་ཏོག་གི་ཁ་དོག
+    Teintes hivernales: དགུན་གྱི་ཁ་དོག
+    Terre: Sa-sa
+    Écailles de sirène: རྒྱ་མཚོའི་མཚན་ལྟ་
+  turc:
+    Arc en ciel: Gökkuşağı
+    Arcadie: Arkadi
+    Aurore boréale: Kutup Işıkları
+    Baroque: Barok
+    Champ de lavande: Lavanta tarlası
+    Crépuscule: Alacakaranlık
+    Fantaisie: Fantezi
+    Jungle: Orman
+    Mer: Deniz
+    Montagne: Dağ
+    Multicolore: Çok renkli
+    Nuit d’encre: Mürekkep Gece
+    Plage: Plaj
+    Printemps: İlkbahar
+    Teintes automnales: Sonbahar Renkleri
+    Teintes bohèmes: Bohem Tarzı
+    Teintes estivales: Yaz renkleri
+    Teintes florales: Çiçeksi Tonlar
+    Teintes hivernales: Kış Tonları
+    Terre: Toprak
+    Écailles de sirène: Denizkızı pulları
+  turkmène:
+    Arc en ciel: Gök guşak
+    Arcadie: Arkadiya
+    Aurore boréale: Demirgazyk şöhleleri
+    Baroque: Barokko
+    Champ de lavande: Lawanda meýdany
+    Crépuscule: Garaňkylyk
+    Fantaisie: Hyýal
+    Jungle: Jeňňel
+    Mer: Deňiz
+    Montagne: Dag
+    Multicolore: Reňkli
+    Nuit d’encre: Gara Gije
+    Plage: Kenarýaka
+    Printemps: Ýaz
+    Teintes automnales: Güz reňkleri
+    Teintes bohèmes: Bohemçilik reňkleri
+    Teintes estivales: Yaz reňkleri
+    Teintes florales: Gül reňkleri
+    Teintes hivernales: Gyş reňkleri
+    Terre: Ýer
+    Écailles de sirène: Suw peri balygyň puljyklary
+  ukrainien:
+    Arc en ciel: Веселка
+    Arcadie: Аркадія
+    Aurore boréale: Північне сяйво
+    Baroque: Бароко
+    Champ de lavande: Поле лаванди
+    Crépuscule: Сутінки
+    Fantaisie: Фантазія
+    Jungle: Джунглі
+    Mer: Море
+    Montagne: Гора
+    Multicolore: Багатобарвний
+    Nuit d’encre: Чорна ніч
+    Plage: Пляж
+    Printemps: Весна
+    Teintes automnales: Осінні барви
+    Teintes bohèmes: Богемні відтінки
+    Teintes estivales: Літні відтінки
+    Teintes florales: Квіткові відтінки
+    Teintes hivernales: Зимові відтінки
+    Terre: Земля
+    Écailles de sirène: Луска русалки
+  vietnamien:
+    Arc en ciel: Cầu vồng
+    Arcadie: Vùng Arcadia
+    Aurore boréale: Bắc Cực quang
+    Baroque: Baroque
+    Champ de lavande: Cánh đồng oải hương
+    Crépuscule: Hoàng hôn
+    Fantaisie: Ảo mộng
+    Jungle: Rừng rậm
+    Mer: Biển
+    Montagne: Núi
+    Multicolore: Đa sắc màu
+    Nuit d’encre: Đêm mực
+    Plage: Bãi biển
+    Printemps: Mùa Xuân
+    Teintes automnales: Màu sắc mùa thu
+    Teintes bohèmes: Màu bohemian
+    Teintes estivales: Màu hè
+    Teintes florales: Màu hoa
+    Teintes hivernales: Màu sắc mùa đông
+    Terre: Đất
+    Écailles de sirène: Vảy nàng tiên cá
+  zoulou:
+    Arc en ciel: Uthente
+    Arcadie: I-Arcadia
+    Aurore boréale: Ukukhanya okusenyakatho
+    Baroque: I-Baroque
+    Champ de lavande: Insimu lelavenda
+    Crépuscule: Ukushona kwelanga
+    Fantaisie: Iphupho
+    Jungle: Ihlathi
+    Mer: Ulwandle
+    Montagne: Intaba
+    Multicolore: Onemibala eminingi
+    Nuit d’encre: Ubusuku obumnyama
+    Plage: Ibhishi
+    Printemps: Intwasahlobo
+    Teintes automnales: Imibala yasekwindla
+    Teintes bohèmes: Izithunzi ze-bohemian
+    Teintes estivales: Izithunzi zasehlobo
+    Teintes florales: Izithunzi zezimbali
+    Teintes hivernales: Imithunzi yasebusika
+    Terre: Umhlaba
+    Écailles de sirène: Izikali zikampompo
 themes_cartes:
   afrikaans:
     Douceur: Soetheid

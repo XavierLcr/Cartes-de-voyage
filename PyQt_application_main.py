@@ -155,7 +155,11 @@ class SettingsApp(QWidget):
         self.setWindowTitle("Cartes de voyage")
         self.setGeometry(300, 40, 800, 300)
         self.setWindowIcon(
-            QIcon(os.path.join(constantes.direction_donnees, "icone_france.ico"))
+            QIcon(
+                os.path.join(
+                    constantes.direction_donnees_application, "icone_france.ico"
+                )
+            )
         )
 
         self.tabs = QTabWidget()
@@ -1973,7 +1977,9 @@ class SettingsApp(QWidget):
             self.nom_individu.addItems(list(sauvegarde.keys()))
 
             with open(
-                os.path.join(constantes.direction_donnees, "sauvegarde_param.yaml"),
+                os.path.join(
+                    constantes.direction_donnees_application, "sauvegarde_param.yaml"
+                ),
                 "w",
                 encoding="utf-8",
             ) as f:

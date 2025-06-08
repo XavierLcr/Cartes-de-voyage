@@ -1,6 +1,9 @@
 from cx_Freeze import setup, Executable
-import constantes
+import sys
 import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+import constantes
 
 setup(
     name="MesVoyages",
@@ -29,14 +32,17 @@ setup(
                 r"C:\Users\xaruo\Documents\Voyages\liste_pays_departements.yaml",
                 r"C:\Users\xaruo\Documents\Voyages\liste_pays_regions.yaml",
                 r"C:\Users\xaruo\Documents\Voyages\LICENSE – MesVoyages.md",
-                (constantes.direction_donnees, "Données"),
+                (constantes.direction_donnees_pickle, "Données pickle"),
+                (constantes.direction_donnees_application, "Données application"),
             ],
         }
     },
     executables=[
         Executable(
             "PyQt_application.py",
-            icon=os.path.join(constantes.direction_donnees, "icone_france.ico"),
+            icon=os.path.join(
+                constantes.direction_donnees_application, "icone_france.ico"
+            ),
             target_name="MesVoyages.exe",
             base="Win32GUI",
         )

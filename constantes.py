@@ -6,17 +6,19 @@ import pickle
 if getattr(sys, "frozen", False):
     # cx_Freeze place tout à côté de l'exécutable
     direction_base = os.path.dirname(sys.executable)
+    direction_donnees_pickle = os.path.join(direction_base, "Données pickle")
+    direction_donnees_application = os.path.join(direction_base, "Données application")
     compilation = True
 else:
     direction_base = os.path.dirname(os.path.abspath(__file__))
+    direction_generale = os.path.dirname(direction_base)
+    direction_donnees = os.path.join(direction_base, "donnees")
+    direction_donnees_pickle = os.path.join(direction_donnees, "donnees_pickle")
+    direction_donnees_application = os.path.join(
+        direction_donnees, "donnees_application"
+    )
+    direction_donnees_autres = os.path.join(direction_donnees, "donnees_autres")
     compilation = False
-
-
-direction_generale = os.path.dirname(direction_base)
-direction_donnees = os.path.join(direction_base, "donnees")
-direction_donnees_pickle = os.path.join(direction_donnees, "donnees_pickle")
-direction_donnees_application = os.path.join(direction_donnees, "donnees_application")
-direction_donnees_autres = os.path.join(direction_donnees, "donnees_autres")
 
 # Import des lieux avec de l'eau
 with open(

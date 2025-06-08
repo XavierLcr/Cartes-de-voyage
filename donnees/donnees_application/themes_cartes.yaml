@@ -1,0 +1,20 @@
+Douceur:
+  max_luminosite: 0.85
+  max_saturation: 0.5
+  min_luminosite: 0.6
+  min_saturation: 0.3
+Fluorescent:
+  max_luminosite: 1.0
+  max_saturation: 1.0
+  min_luminosite: 0.8
+  min_saturation: 0.9
+Pastel:
+  max_luminosite: 0.95
+  max_saturation: 0.4
+  min_luminosite: 0.8
+  min_saturation: 0.2
+Sans restrictions:
+  max_luminosite: 1
+  max_saturation: 1
+  min_luminosite: 0
+  min_saturation: 0

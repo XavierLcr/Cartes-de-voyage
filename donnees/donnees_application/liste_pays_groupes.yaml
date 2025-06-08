@@ -1,0 +1,105 @@
+afrique_sud:
+  categorie: South Africa, Lesotho and Eswatini
+  liste:
+  - Lesotho
+  - South Africa
+  - Swaziland
+archipel_comores:
+  categorie: Comoro Islands
+  liste:
+  - Comoros
+  - Mayotte
+belux:
+  categorie: Belgium and Luxembourg
+  liste:
+  - Belgium
+  - Luxembourg
+caucase_sud:
+  categorie: South Caucasus
+  liste:
+  - Armenia
+  - Azerbaijan
+  - Georgia
+chypre:
+  categorie: Cyprus Island
+  liste:
+  - Akrotiri and Dhekelia
+  - Cyprus
+  - Northern Cyprus
+finlande:
+  categorie: Finland and Åland
+  liste:
+  - Finland
+  - Åland
+france:
+  categorie: France, Monaco and Channel Islands
+  liste:
+  - France
+  - Jersey
+  - Guernsey
+  - Monaco
+ile_hispaniola:
+  categorie: Hispaniola Island
+  liste:
+  - Dominican Republic
+  - Haiti
+ile_saint_martin:
+  categorie: Anguilla and Saint Martin Island
+  liste:
+  - Anguilla
+  - Saint-Martin
+  - Sint Maarten
+iles_britanniques:
+  categorie: British Isles
+  liste:
+  - Ireland
+  - Isle of Man
+  - United Kingdom
+indonesie:
+  categorie: Indonesia, Papua New Guinea and Timor-Leste
+  liste:
+  - Indonesia
+  - Papua New Guinea
+  - Timor-Leste
+jerusalem:
+  categorie: Israel and Palestine
+  liste:
+  - Israel
+  - Palestine
+suisse:
+  categorie: Liechtenstein and Switzerland
+  liste:
+  - Liechtenstein
+  - Switzerland
+malaisie:
+  categorie: Malaysia, Singapore and Brunei
+  liste:
+  - Brunei
+  - Malaysia
+  - Singapore
+mascareignes:
+  categorie: Mauritius and Réunion
+  liste:
+  - Mauritius
+  - Réunion
+pays_iberiques:
+  categorie: Spain and Gibraltar
+  liste:
+  - Gibraltar
+  - Spain
+pays_italiens:
+  categorie: Italy, Vatican City and San Marino
+  liste:
+  - Italy
+  - San Marino
+  - Vatican City
+senegal_gambie:
+  categorie: Senegal and Gambia
+  liste:
+  - Gambia
+  - Senegal
+serbie:
+  categorie: Serbia and Kosovo
+  liste:
+  - Kosovo
+  - Serbia

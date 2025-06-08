@@ -1,0 +1,233 @@
+import random
+import os
+import colorsys
+import matplotlib.pyplot as plt
+from datetime import datetime
+import json
+
+
+def generer_couleur_aleatoire_hex(
+    preset: dict = {},
+    teintes_autorisees: list | None = None,
+):
+    """
+    Génère une couleur aléatoire au format hexadécimal avec des restrictions basées sur un preset.
+
+    Args:
+    - preset (dict) : Un dictionnaire contenant les luminosités et saturations minimales et maximales autorisées (entre 0 et 1).
+    - teintes_autorisees (list): Liste de teintes spécifiques (de 0.0 à 1.0) pour restreindre la génération de couleurs. Défaut : None (toutes les teintes sont autorisées).
+
+    Returns:
+    - couleur_hex (str): Couleur au format hexadécimal.
+    """
+    # Récupération du préset
+    config = {
+        param: max(0, min(preset.get(param, 0.5), 1))
+        for param in [
+            "min_luminosite",
+            "max_luminosite",
+            "min_saturation",
+            "max_saturation",
+        ]
+    }
+
+    # Conversion HSV -> RGB
+    r, g, b = colorsys.hsv_to_rgb(
+        (
+            random.choice(teintes_autorisees) if teintes_autorisees else random.random()
+        ),  # Teinte
+        random.uniform(
+            config["min_saturation"], config["max_saturation"]
+        ),  # Saturation
+        random.uniform(
+            config["min_luminosite"], config["max_luminosite"]
+        ),  # Luminosité
+    )
+
+    # Conversion RGB -> Hex
+    return "#{:02x}{:02x}{:02x}".format(int(r * 255), int(g * 255), int(b * 255))
+
+
+def creer_image_carte(
+    gdf,
+    gdf_monde=None,
+    gdf_regions=None,
+    gdf_eau=None,
+    theme: dict = {
+        "min_luminosite": 0.8,
+        "max_luminosite": 0.95,
+        "min_saturation": 0.2,
+        "max_saturation": 0.4,
+    },
+    teintes_autorisees: None | list = None,
+    couleur_non_visites: str = "#ecebed",
+    couleur_de_fond: str = "#FFFFFF",
+    couleur_lacs: str = "#cee3f5",
+    chemin_impression: str = os.path.dirname(os.path.abspath(__file__)),
+    nom: str = "Carte.jpg",
+    qualite: int = 400,
+    blabla=True,
+    max_cartes_additionnelles: int | None = 10,
+):
+    r"""
+    Crée une image de carte à partir d'un GeoDataFrame et l'exporte dans un fichier d'image.
+
+    Cette fonction génère une carte basée sur un GeoDataFrame donné, applique une couleur spécifique à chaque ligne
+    (en fonction de la colonne "Visite"), puis exporte l'image dans un fichier au format spécifié par le nom de fichier.
+
+    Paramètres :
+    - gdf (GeoDataFrame) : Le GeoDataFrame contenant la carte à créer.
+    - gdf_monde (GeoDataFrame, optionnel) : Le GeoDataFrame contenant les frontières nationales. Par défaut, `None`.
+    - gdf_regions (GeoDataFrame, optionnel) : Le GeoDataFrame contenant les frontières régionales. Par défaut, `None`.
+    - gdf_eau (GeoDataFrame, optionnel) : Le GeoDataFrame contenant les surfaces d'eau. Par défaut, `None`.
+    - theme (dict, optionnel) : Un dictionnaire définissant les paramètres de luminosité et de saturation pour le thème de la carte. Par défaut, il contient des valeurs prédéfinies pour la luminosité et la saturation.
+    - teintes_autorisees (list, optionnel) : Une liste de teintes spécifiques (valeurs comprises entre 0.0 et 1.0) qui limitent les couleurs générées à certains types (par exemple, pour cibler certaines nuances). Par défaut, `None`, ce qui signifie que toutes les teintes peuvent être utilisées.
+    - couleur_non_visites (str) : La couleur à utiliser pour les éléments où la variable "Visite" est False (par exemple, couleur grise pour les éléments non visités). Par défaut, `"#ecebed"`.
+    - couleur_de_fond (str) : La couleur de fond de la carte. Par défaut, `"#FFFFFF"`.
+    - couleur_lacs (str) : La couleur utilisée pour les lacs et autres plans d'eau. Par défaut, `"#cee3f5"`.
+    - chemin_impression (str) : Le chemin où le fichier d'image sera sauvegardé. Par défaut, le répertoire du fichier courant.
+    - nom (str) : Le nom du fichier image exporté. Par défaut, "Carte.jpg".
+    - qualite (int) : La qualité de l'image exportée, exprimée en DPI (points par pouce). Par défaut, 400 DPI.
+    - blabla (bool, optionnel) : Un paramètre booléen permettant l'affichage du suivi d'éxecution de la fonction. Par défaut, `True`.
+    - max_cartes_additionnelles (int, optionnel) : Le nombre maximum de cartes additionnelles à générer. Par défaut, `10`.
+
+    Retourne :
+    - Aucune valeur retournée, mais l'image est enregistrée à l'emplacement spécifié dans chemin_impression.
+    """
+
+    # On ajoute la couleur de chaque ligne
+    gdf["Couleur"] = gdf["Visite"].apply(
+        lambda x: (
+            generer_couleur_aleatoire_hex(
+                preset=theme,
+                teintes_autorisees=teintes_autorisees,
+            )
+            if x
+            else couleur_non_visites
+        )
+    )
+    # On gère la mère Caspienne
+    gdf.loc[gdf["Pays"] == "Caspian Sea", "Couleur"] = couleur_de_fond  # "none"
+
+    # Crée la direction de sauvegarde du résultat si nécessaire
+    if not os.path.exists(chemin_impression):
+        os.makedirs(chemin_impression)
+
+    # Cree le graphique
+    if blabla:
+        print("Création du graphique.", end=" ")
+
+    fig, ax = plt.subplots(figsize=(10, 6))
+    ax.set_axis_off()
+    fig.patch.set_facecolor(couleur_de_fond)
+
+    gdf.plot(ax=ax, color=gdf["Couleur"], edgecolor="black", linewidth=0.008, zorder=1)
+
+    liste_pays = list(gdf["Pays"].unique())
+
+    # Ajout des frontières de façon plus marquée
+    if gdf_monde is not None:
+
+        if blabla:
+            print("Ajout des frontières nationales", end="")
+
+        gdf_monde = gdf_monde[gdf_monde["NAME_0"].isin(liste_pays)]
+
+        if len(gdf_monde) > 0:
+            gdf_monde.plot(
+                ax=ax, color="none", edgecolor="black", linewidth=0.04, zorder=3
+            )
+
+    if gdf_regions is not None:
+
+        liste_pays_regions = list(gdf.loc[(gdf["Granu"] >= 1), "Pays"].unique())
+        gdf_regions = gdf_regions[gdf_regions["NAME_0"].isin(liste_pays_regions)]
+
+        if len(gdf_regions) > 0:
+
+            if blabla:
+                print(", des régions", end="")
+
+            gdf_regions.plot(
+                ax=ax, color="none", edgecolor="black", linewidth=0.017, zorder=2
+            )
+
+    if gdf_eau is not None:
+
+        if blabla:
+            print(", des lacs", end="")
+
+        gdf_eau = gdf_eau[gdf_eau["NAME_0"].isin(liste_pays)]
+
+        if len(gdf_eau) > 0:
+            gdf_eau.plot(ax=ax, color=couleur_lacs, edgecolor="none", alpha=1, zorder=3)
+
+    # Enregistrer la carte dans un fichier sans l'afficher
+    if blabla:
+        print(". Sauvegarde de l'image.", end=" ")
+
+    # On supprime le fichier le plus vieux si necessaire
+    if max_cartes_additionnelles is not None:
+        fichiers = [
+            os.path.join(chemin_impression, f)
+            for f in os.listdir(chemin_impression)
+            if os.path.isfile(os.path.join(chemin_impression, f))
+        ]
+
+        if len(fichiers) >= max(max_cartes_additionnelles, 1):
+            os.remove(min(fichiers, key=os.path.getmtime))
+
+    # On cree un nom qui n'existe pas encore si nécessaire
+    nom = os.path.join(chemin_impression, nom)
+    nom_simple, type_fichier = os.path.splitext(nom)
+    compteur = 1
+    while os.path.exists(nom):
+        nom = f"{nom_simple} ({compteur}){type_fichier}"
+        compteur = compteur + 1
+
+    # Création des métadata
+    metadata = None
+    if type_fichier.strip(". ") in ["png", "jpg", "jpeg", "tiff", "pdf"]:
+        metadata = {
+            "Application": "MesVoyages",
+            "Auteur": "Xavier Lacour",
+            "Date": datetime.now().isoformat(),
+            "HSV": json.dumps(
+                {
+                    "Bornes de uminosité et de saturation": theme,
+                    "Teintes possibles": teintes_autorisees,
+                }
+            ),
+            "Qualité de l'image": str(qualite),
+        }
+
+    plt.savefig(
+        nom, dpi=max(min(qualite, 4500), 100), bbox_inches="tight", metadata=metadata
+    )
+    plt.close()
+
+    if blabla == True:
+        print("Terminé.")
+
+
+def transformer_couleur_texte(bg_color):
+    """
+    Détermine la couleur de texte optimale (noir ou blanc) en fonction de la couleur de fond donnée en hexadécimal.
+
+    Cette fonction convertit une couleur de fond donnée en format hexadécimal en ses composantes RGB,
+    calcule la luminosité de cette couleur selon la formule standard WCAG, puis décide de la couleur
+    de texte à utiliser pour assurer une bonne lisibilité. Si la luminosité est faible, le texte sera blanc,
+    sinon il sera noir.
+
+    Paramètres :
+    - bg_color (str) : La couleur de fond en format hexadécimal (par exemple, "#RRGGBB").
+
+    Retourne :
+    - str : La couleur de texte recommandée en format hexadécimal, soit "#FFFFFF" pour blanc, soit "#000000" pour noir.
+    """
+
+    # Convertir une couleur hexadécimale en RGB
+    r, g, b = [int(bg_color[i : i + 2], 16) for i in (1, 3, 5)]
+
+    # Si la luminosité est faible, mettre du texte blanc, sinon du texte noir
+    return "#FFFFFF" if 0.299 * r + 0.587 * g + 0.114 * b < 128 else "#000000"

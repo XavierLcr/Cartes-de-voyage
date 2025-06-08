@@ -1,0 +1,44 @@
+from cx_Freeze import setup, Executable
+import constantes
+import os
+
+setup(
+    name="MesVoyages",
+    version="2.0",
+    description="Permet de créer ses cartes de voyages.",
+    options={
+        "build_exe": {
+            "packages": [
+                "os",
+                "pandas",
+                "sys",
+                "PyQt6",
+                "geopandas",
+                "random",
+                "matplotlib",
+                "colorsys",
+                "yaml",
+                "gc",
+                "numpy",
+                "time",
+                "pickle",
+                "warnings",
+                "json",
+            ],
+            "include_files": [
+                r"C:\Users\xaruo\Documents\Voyages\liste_pays_departements.yaml",
+                r"C:\Users\xaruo\Documents\Voyages\liste_pays_regions.yaml",
+                r"C:\Users\xaruo\Documents\Voyages\LICENSE – MesVoyages.md",
+                (constantes.direction_donnees, "Données"),
+            ],
+        }
+    },
+    executables=[
+        Executable(
+            "PyQt_application.py",
+            icon=os.path.join(constantes.direction_donnees, "icone_france.ico"),
+            target_name="MesVoyages.exe",
+            base="Win32GUI",
+        )
+    ],
+)

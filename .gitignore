@@ -1,0 +1,23 @@
+# Ignorer les dossiers de données dans /donnees
+donnees/donnees_pickle/
+donnees/donnees_autres/
+
+# Fichiers temporaires
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+*.log
+
+# Fichiers de données
+*.pkl
+*.gpkg
+
+# Fichiers d’IDE
+.vscode/
+.idea/
+*.swp
+
+# Fichiers système
+.DS_Store
+Thumbs.db

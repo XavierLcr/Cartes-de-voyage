@@ -5,12 +5,28 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import constantes
 
+
+# Définition de la liste des fichiers/dossiers à inclure
+include_files = [
+    r"C:\Users\xaruo\Documents\Voyages\liste_pays_departements.yaml",
+    r"C:\Users\xaruo\Documents\Voyages\liste_pays_regions.yaml",
+    r"C:\Users\xaruo\Documents\Voyages\LICENSE – MesVoyages.md",
+    (constantes.direction_donnees_application, "Données application"),
+]
+for f in os.listdir(constantes.direction_donnees_pickle):
+    if f.endswith(".pkl") and not any(chiffre in f for chiffre in ["3", "4", "5"]):
+        chemin_absolu = os.path.join(constantes.direction_donnees_pickle, f)
+        chemin_destination = f"Données pickle/{f}"
+        include_files.append((chemin_absolu, chemin_destination))
+
+
 setup(
     name="MesVoyages",
     version="2.0",
     description="Permet de créer ses cartes de voyages.",
     options={
         "build_exe": {
+            "build_exe": r"C:\MesBuilds\MesVoyages",
             "packages": [
                 "os",
                 "pandas",
@@ -28,18 +44,12 @@ setup(
                 "warnings",
                 "json",
             ],
-            "include_files": [
-                r"C:\Users\xaruo\Documents\Voyages\liste_pays_departements.yaml",
-                r"C:\Users\xaruo\Documents\Voyages\liste_pays_regions.yaml",
-                r"C:\Users\xaruo\Documents\Voyages\LICENSE – MesVoyages.md",
-                (constantes.direction_donnees_pickle, "Données pickle"),
-                (constantes.direction_donnees_application, "Données application"),
-            ],
+            "include_files": include_files,
         }
     },
     executables=[
         Executable(
-            "PyQt_application.py",
+            "PyQt_application_main.py",
             icon=os.path.join(
                 constantes.direction_donnees_application, "icone_france.ico"
             ),

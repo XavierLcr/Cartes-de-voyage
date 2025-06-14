@@ -26,7 +26,7 @@ setup(
     description="Permet de créer ses cartes de voyages.",
     options={
         "build_exe": {
-            "build_exe": r"C:\MesBuilds\MesVoyages",
+            "build_exe": r"C:\Users\xaruo\Documents\Voyages\Application",
             "packages": [
                 "os",
                 "pandas",

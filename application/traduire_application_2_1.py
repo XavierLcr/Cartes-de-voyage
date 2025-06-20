@@ -364,7 +364,7 @@ if __name__ == "__main__":
         print("Fichiers YAML des regroupements de pays non trouvé.")
         liste_pays_groupes = {}
 
-    # Traduction des nomms de pays
+    # Traduction des noms de pays
     try:
         with open(
             os.path.join(
@@ -377,6 +377,15 @@ if __name__ == "__main__":
 
     except:
         pays_deja_traduits = None
+
+    with open(
+        os.path.join(
+            constantes.direction_donnees_application, "phrases_interface.yaml"
+        ),
+        "r",
+        encoding="utf-8",
+    ) as file:
+        phrases_a_traduire = yaml.safe_load(file)
 
     # Traduction de l'interface PyQt
     try:
@@ -569,72 +578,7 @@ if __name__ == "__main__":
     print("\n\n Traduction de l'interface graphique : \n")
 
     ## PyQt - Interfaces
-    phrases_a_traduire = [
-        "Afrique",
-        "Amérique",
-        "Asie",
-        "Aucun lieu n'a été coché",
-        "Autres régions du monde",
-        "Carte du monde",
-        "Cartes de voyage",
-        "Cartes des pays visités",
-        "Cartes des régions visitées",
-        "Cartes à publier",
-        "Chargement de l'application",
-        "Chargement des fichiers YAML",
-        "Charger la liste des départements visités",
-        "Charger la liste des régions visitées",
-        "Charger un fichier YAML",
-        "Choisir le dossier de stockage des cartes",
-        "Cinq cartes",
-        "Couleur",
-        "Couleur du fond de la carte",
-        "Création de la liste des pays visités",
-        "Création des cartes",
-        "Créer les graphes !",
-        "Dix cartes",
-        "Début de l'opération.",
-        "Départements",
-        "Également publier les cartes pour lesquelles la granularité souhaitée n'est pas disponible",
-        "Europe",
-        "Faible",
-        "Format",
-        "Granularité des cartes",
-        "Il faut choisir un répertoire de destination.",
-        "Langue",
-        "Pour un pays donné, si des départements sont cochés, ils sont prioritaires sur les régions cochées. Dans ce cas, la liste des régions visitées est automatiquement reconstituée à partir de la liste des départements. Il n'est donc plus nécessaire de cocher les régions visitées (les régions peuvent rester cochées mais ne seront pas prises en compte)",
-        "Les cartes ont été créées avec succès !",
-        "Liste des lieux visités",
-        "Moyen-Orient",
-        "Nombre maximal de versions d'une carte",
-        "Nombre de versions conservées pour chaque carte",
-        "ou charger manuellement un fichier YAML contenant la liste des lieux visités",
-        "Outil de création de cartes",
-        "Paramètres",
-        "Paramètres de publication des cartes",
-        "Paramètres de l'individu",
-        "Paramètres esthétiques",
-        "Pas de limite",
-        "Pays les plus visités",
-        "Pays non visités",
-        "Pays visités",
-        "Problème.",
-        "Publier les cartes !",
-        "Qualité de l'image",
-        "Quinze cartes",
-        "Régions",
-        "Réinitialiser l'interface",
-        "Sauvegarder mes paramètres",
-        "Selon les départements visités",
-        "Selon les régions visitées",
-        "Sélection des lieux visités",
-        "Sélectionner un dossier",
-        "Supprimer ce profil",
-        "Thème",
-        "Réinitialiser l'application",
-        "Utiliser le style dans l'application",
-        "Élevée",
-    ]
+    phrases_a_traduire = list(phrases_a_traduire.values())
 
     phrases_pays_langues = creer_liste_pays_multilangue(
         liste_pays=phrases_a_traduire,

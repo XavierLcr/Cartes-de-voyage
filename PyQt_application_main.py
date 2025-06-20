@@ -652,41 +652,38 @@ class SettingsApp(QWidget):
             valeur=self.langue_utilisee.currentText(),
         )
 
-        self.setWindowTitle(self.traduire("Cartes de voyage"))
+        self.setWindowTitle(self.traduire_depuis_id("titre_windows"))
+        self.titre.setText(self.traduire_depuis_id(clef="titre_application"))
 
         self.tabs.setTabText(
             self.tabs.indexOf(self.main_tab),
-            self.traduire(
-                "Paramètres", suffixe=" 🎨" if inclure_emojis_onglets else ""
+            self.traduire_depuis_id(
+                "titre_onglet_1", suffixe=" 🎨" if inclure_emojis_onglets else ""
             ),
         )
 
         self.tabs.setTabText(
             self.tabs.indexOf(self.tab_yaml),
-            self.traduire(
-                "Création de la liste des pays visités",
+            self.traduire_depuis_id(
+                "titre_onglet_2",
                 suffixe=" 📌" if inclure_emojis_onglets else "",
             ),
         )
 
         self.tabs.setTabText(
             self.tabs.indexOf(self.tab_resume_pays),
-            self.traduire(
-                "Liste des lieux visités",
+            self.traduire_depuis_id(
+                "titre_onglet_3",
                 suffixe=" 🧭" if inclure_emojis_onglets else "",
             ),
         )
 
         self.tabs.setTabText(
             self.tabs.indexOf(self.top_pays_visites),
-            self.traduire(
-                "Pays les plus visités",
+            self.traduire_depuis_id(
+                "titre_onglet_4",
                 suffixe=" 🏆" if inclure_emojis_onglets else "",
             ),
-        )
-
-        self.titre.setText(
-            self.traduire(constantes.phrases_interface.get("titre_general"))
         )
 
         self.groupe_params_individu.setTitle(self.traduire("Paramètres de l'individu"))
@@ -829,6 +826,14 @@ class SettingsApp(QWidget):
             )
         return (
             prefixe + self.traductions_interface.get(cle, {}).get(langue, cle) + suffixe
+        )
+
+    def traduire_depuis_id(self, clef, langue=None, prefixe="", suffixe=""):
+        return self.traduire(
+            cle=constantes.phrases_interface.get(clef, ""),
+            langue=langue,
+            prefixe=prefixe,
+            suffixe=suffixe,
         )
 
     def maj_style(self):

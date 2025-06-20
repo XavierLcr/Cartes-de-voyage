@@ -686,21 +686,29 @@ class SettingsApp(QWidget):
             ),
         )
 
-        self.groupe_params_individu.setTitle(self.traduire("Paramètres de l'individu"))
+        # Paramètres de l'individu
+        self.groupe_params_individu.setTitle(
+            self.traduire_depuis_id("titre_params_individu")
+        )
         self.dossier_stockage_bouton.setText(
-            self.traduire("Choisir le dossier de stockage des cartes")
+            self.traduire_depuis_id("dossier_stockage_individu")
             if self.dossier_stockage is None
             else os.sep.join(os.path.normpath(self.dossier_stockage).split(os.sep)[-3:])
         )
-        self.label_langue.setText(self.traduire(cle="Langue", suffixe=" :"))
+        self.label_langue.setText(
+            self.traduire_depuis_id(clef="langue_individu", suffixe=" :")
+        )
+        self.suppression_profil.setText(self.traduire_depuis_id("supprimer_profil"))
 
-        self.reinit_parametres.setText(self.traduire("Réinitialiser l'interface"))
-        self.reinit_parametres.setToolTip(
-            self.traduire(
-                "Réinitialise l'interface ainsi que la liste des pays visités.\n Veuillez vérifier d'avoir bien sauvearger les paramètres actuels avant de cliquer."
-            )
+        # Paramètres visuels
+        self.groupe_couleurs.setTitle(self.traduire("Paramètres esthétiques"))
+        self.color_label.setText(self.traduire(cle="Couleur", suffixe=" :"))
+        self.theme_label.setText(self.traduire(cle="Thème", suffixe=" :"))
+        self.utiliser_theme.setText(
+            self.traduire("Utiliser le style dans l'application")
         )
 
+        # Paramètres de format et de qualité
         self.groupe_params_publication.setTitle(
             self.traduire("Paramètres de publication des cartes")
         )
@@ -708,13 +716,6 @@ class SettingsApp(QWidget):
         self.label_qualite.setText(self.traduire("Qualité de l'image", suffixe=" :"))
         self.label_qualite_max.setText(self.traduire("Élevée"))
         self.label_qualite_min.setText(self.traduire("Faible"))
-
-        self.groupe_couleurs.setTitle(self.traduire("Paramètres esthétiques"))
-        self.color_label.setText(self.traduire(cle="Couleur", suffixe=" :"))
-        self.theme_label.setText(self.traduire(cle="Thème", suffixe=" :"))
-        self.utiliser_theme.setText(
-            self.traduire("Utiliser le style dans l'application")
-        )
 
         self.fichier_yaml_1_bouton.setText(
             self.traduire("Charger la liste des régions visitées")
@@ -765,6 +766,12 @@ class SettingsApp(QWidget):
         self.radio_carte_3.setText(self.traduire("Quinze cartes"))
         self.radio_carte_sans_limite.setText(self.traduire("Pas de limite"))
 
+        self.reinit_parametres.setText(self.traduire_depuis_id("reinit_interface"))
+        self.reinit_parametres.setToolTip(
+            self.traduire(
+                "Réinitialise l'interface ainsi que la liste des pays visités.\n Veuillez vérifier d'avoir bien sauvearger les paramètres actuels avant de cliquer."
+            )
+        )
         self.creation_cartes_bouton.setText(self.traduire("Publier les cartes !"))
         self.bouton_sauvegarde.setText(
             self.traduire(
@@ -772,7 +779,6 @@ class SettingsApp(QWidget):
                 suffixe=" 💾" if inclure_emojis else "",
             )
         )
-        self.suppression_profil.setText(self.traduire("Supprimer ce profil"))
 
         # Onglet 4
         self.entete_top_pays_regions.setText(

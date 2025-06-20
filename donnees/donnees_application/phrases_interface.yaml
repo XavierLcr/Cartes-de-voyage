@@ -4,3 +4,8 @@ titre_onglet_1 : Paramètres
 titre_onglet_2 : Création de la liste des pays visités
 titre_onglet_3 : Liste des lieux visités
 titre_onglet_4 : Pays les plus visités
+titre_params_individu : Paramètres de l'individu
+dossier_stockage_individu : Choisir le dossier de stockage des cartes
+langue_individu : Langue
+reinit_interface : Réinitialiser l'interface
+supprimer_profil : Supprimer ce profil

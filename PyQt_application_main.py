@@ -685,7 +685,9 @@ class SettingsApp(QWidget):
             ),
         )
 
-        self.titre.setText(self.traduire("Outil de création de cartes"))
+        self.titre.setText(
+            self.traduire(constantes.phrases_interface.get("titre_general"))
+        )
 
         self.groupe_params_individu.setTitle(self.traduire("Paramètres de l'individu"))
         self.dossier_stockage_bouton.setText(
@@ -696,6 +698,11 @@ class SettingsApp(QWidget):
         self.label_langue.setText(self.traduire(cle="Langue", suffixe=" :"))
 
         self.reinit_parametres.setText(self.traduire("Réinitialiser l'interface"))
+        self.reinit_parametres.setToolTip(
+            self.traduire(
+                "Réinitialise l'interface ainsi que la liste des pays visités.\n Veuillez vérifier d'avoir bien sauvearger les paramètres actuels avant de cliquer."
+            )
+        )
 
         self.groupe_params_publication.setTitle(
             self.traduire("Paramètres de publication des cartes")

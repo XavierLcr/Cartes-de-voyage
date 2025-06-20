@@ -50,6 +50,14 @@ with open(
 ) as file:
     liste_pays_groupes = yaml.safe_load(file)
 
+# Import des phrases de l'interfaces
+with open(
+    os.path.join(direction_donnees_application, "phrases_interface.yaml"),
+    "r",
+    encoding="utf-8",
+) as file:
+    phrases_interface = yaml.safe_load(file)
+
 # Import de la traduction de l'interface
 with open(
     os.path.join(direction_donnees_application, "traductions_phrase_outil.yaml"),

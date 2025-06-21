@@ -6,6 +6,7 @@ import sys
 import yaml
 import copy
 import pickle
+import textwrap
 import warnings
 from PyQt6.QtWidgets import (
     QApplication,
@@ -44,7 +45,7 @@ warnings.filterwarnings("ignore")
 interface_foncee = False
 inclure_emojis_onglets = True
 inclure_emojis = True
-top_n_pays = 300
+top_n_pays = None
 affichage_groupe = False
 
 ## Paramètres des cartes
@@ -686,7 +687,7 @@ class SettingsApp(QWidget):
                 suffixe=" 🏆" if inclure_emojis_onglets else "",
             ),
         )
-        self.tabs.setToolTip(
+        self.tabs.setTabToolTip(
             self.tabs.indexOf(self.top_pays_visites),
             self.traduire_depuis_id("description_onglet_4", suffixe="."),
         )
@@ -730,6 +731,12 @@ class SettingsApp(QWidget):
         self.autres_regions.setText(self.traduire_depuis_id("autres_regions_monde"))
         self.publier_granu_faible.setText(
             self.traduire_depuis_id("publier_cartes_faible_granularite_uniquement")
+        )
+        self.publier_granu_faible.setToolTip(
+            self.traduire_depuis_id(
+                clef="description_publier_cartes_faible_granularite_uniquement",
+                largeur_max=None,
+            )
         )
 
         # Paramètres visuels
@@ -812,6 +819,9 @@ class SettingsApp(QWidget):
         self.groupe_chargement_yaml.setTitle(
             self.traduire_depuis_id("titre_chargement_yamls", prefixe="...\u00a0")
         )
+        self.groupe_chargement_yaml.setToolTip(
+            self.traduire_depuis_id("description_titre_chargement_yamls", suffixe=".")
+        )
         self.fichier_yaml_1_bouton.setText(
             self.traduire_depuis_id("yaml_regions")
             if self.fichier_yaml_1 is None
@@ -874,13 +884,24 @@ class SettingsApp(QWidget):
             prefixe + self.traductions_interface.get(cle, {}).get(langue, cle) + suffixe
         )
 
-    def traduire_depuis_id(self, clef, langue=None, prefixe="", suffixe=""):
-        return self.traduire(
+    def traduire_depuis_id(
+        self, clef, langue=None, prefixe="", suffixe="", largeur_max: int | None = None
+    ):
+        traduction = self.traduire(
             cle=constantes.phrases_interface.get(clef, clef),
             langue=langue,
             prefixe=prefixe,
             suffixe=suffixe,
         )
+        if largeur_max is not None:
+            traduction = textwrap.wrap(
+                traduction,
+                width=largeur_max,
+                break_long_words=False,
+                break_on_hyphens=False,
+            )[0]
+
+        return traduction
 
     def maj_style(self):
         # Récupérer la langue sélectionnée

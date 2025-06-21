@@ -31,6 +31,7 @@ europe : Europe
 moyen_orient : Moyen-Orient
 autres_regions_monde : Autres régions du monde
 publier_cartes_faible_granularite_uniquement : Également publier les cartes pour lesquelles la granularité souhaitée n'est pas disponible
+description_publier_cartes_faible_granularite_uniquement : Permet de choisir si l'on souhaite publier l'entièreté des cartes ou seulement celles qui possède la granularité souhaitée. Veut-on par exemple publier une carte qui n'existe qu'au niveau régional si l'on souhaite des cartes au niveau départemental ?
 
 # Paramètres esthétiques
 titre_params_esthetiques : Paramètres esthétiques
@@ -65,6 +66,7 @@ avertissement_onglet_2 : Pour un pays donné, si des départements sont cochés,
 
 # Chargement des YAMLs
 titre_chargement_yamls : ou charger manuellement un fichier YAML contenant la liste des lieux visités
+description_titre_chargement_yamls : Les deux fichiers YAMLs complets, avec l'entièreté des régions et des départements, sont fournis avec l'application. En cas d'utilisation, ne pas directement modifier les originaux mais plutôt des copies (afin de ne pas perdre la liste des lieux non visités)
 yaml_regions : Charger la liste des régions visitées
 yaml_departements : Charger la liste des départements visités
 pop_up_yaml : Charger un fichier YAML

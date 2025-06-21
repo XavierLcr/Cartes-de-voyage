@@ -42,7 +42,7 @@ warnings.filterwarnings("ignore")
 
 # Paramères
 ## Paramètres d'interface
-interface_foncee = False
+interface_foncee = True
 inclure_emojis_onglets = True
 inclure_emojis = True
 top_n_pays = None
@@ -721,7 +721,7 @@ class SettingsApp(QWidget):
         self.groupe_cartes_a_creer.setTitle(
             self.traduire_depuis_id("titre_cartes_a_publier")
         )
-        self.carte_pays.setText(self.traduire_depuis_id("Cartes des pays visités"))
+        self.carte_pays.setText(self.traduire_depuis_id("cartes_pays_visites"))
         self.carte_monde.setText(self.traduire_depuis_id("carte_du_monde"))
         self.afrique.setText(self.traduire_depuis_id("afrique"))
         self.amerique.setText(self.traduire_depuis_id("amerique"))
@@ -1179,63 +1179,62 @@ class SettingsApp(QWidget):
         else:
 
             # Fond principal
-            couleur_widget = "#0C121D"  # Presque noir avec un soupçon de bleu
-            couleur_widget_texte = "#F0F2F5"  # Texte très clair, légèrement bleuté
+            couleur_widget = "#07215E"  # Bleu-gris très sombre, mais pas noir
+            couleur_widget_texte = "#E8EBEF"  # Gris clair chaud
 
             # Boutons
-            couleur_push = "#271fbf"  # Bleu saturé et profond, sans gris
+            couleur_push = "#3F51B5"  # Bleu moins saturé
             couleur_push_texte = "#FFFFFF"
-
-            couleur_push2 = "#512DA8"  # Violet royal
+            couleur_push2 = "#6A4FB3"  # Violet doux
             couleur_push2_texte = "#FFFFFF"
 
             # Boîtes
-            couleur_box = "#10243D"  # Bleu nuit pur
-            couleur_box_texte = "#E0E0E0"
-            couleur_box_bord = "#1A2F4A"  # Bleu acier sombre, mais pur
+            couleur_box = "#07736F"  # Bleu-gris foncé
+            couleur_box_texte = "#DADDE0"
+            couleur_box_bord = "#5C79A4"
 
             # Lignes
-            couleur_line = "#0F1A25"
-            couleur_line_texte = "#E0E0E0"
-            couleur_line_bord = "#223344"
+            couleur_line = "#1E2734"
+            couleur_line_texte = "#DADDE0"
+            couleur_line_bord = "#32475B"
 
             # Sliders
-            couleur_slider = "#00cfe6"  # Bleu vif foncé
-            couleur_slider2 = "#2bc7d9"  # Variante plus claire (accent)
+            couleur_slider = "#26C6DA"  # Bleu turquoise adouci
+            couleur_slider2 = "#4DD0E1"  # Variante plus claire
 
             # GroupBox
-            couleur_groupbox = "#1A237E"  # Indigo pur
+            couleur_groupbox = "#2C3A82"  # Indigo adouci
 
             # Onglets
-            onglet_selection = "#0D47A1"  # Bleu roi très sombre
+            onglet_selection = "#2D3D80"  # Bleu foncé doux
             onglet_selection_texte = "#FFFFFF"
 
-            onglet_fond = "#0C121D"
-            onglet_texte = "#D0D0D0"
-            onglet_survol = "#512DA8"  # Violet profond, net
+            onglet_fond = "#1A1F2B"
+            onglet_texte = "#CCCCCC"
+            onglet_survol = "#6A4FB3"
 
             # Scroll area
-            couleur_scroll_area_fond = "#0C121D"
-            couleur_scroll_area_texte = "#F0F2F5"
-            couleur_scroll_area_barre_partie = "#0F1F3A"
-            couleur_scroll_area_barre = "#1976D2"
-            couleur_scroll_area_barre_survol = "#2196F3"
-            couleur_scroll_area_bord = "#1A2F4A"
+            couleur_scroll_area_fond = "#1A1F2B"
+            couleur_scroll_area_texte = "#E8EBEF"
+            couleur_scroll_area_barre_partie = "#27364D"
+            couleur_scroll_area_barre = "#3F7DDC"
+            couleur_scroll_area_barre_survol = "#5C9EFF"
+            couleur_scroll_area_bord = "#2C3A4F"
 
             # Widget list
-            couleur_widget_list_fond = "#10243D"
-            couleur_widget_list_texte = "#F0F2F5"
-            couleur_widget_list_select = "#1565C0"
+            couleur_widget_list_fond = "#222B3C"
+            couleur_widget_list_texte = "#E8EBEF"
+            couleur_widget_list_select = "#3F7DDC"
             couleur_widget_list_select_texte = "#FFFFFF"
-            couleur_widget_list_survol_fond = "#1C3D6B"
+            couleur_widget_list_survol_fond = "#2F456A"
             couleur_widget_list_survol_texte = "#FFFFFF"
 
             # Checkbox
-            couleur_checkbox_bord = "#1A237E"
-            couleur_checkbox_cochee_fond = "#00cfe6"
+            couleur_checkbox_bord = "#2C3A82"
+            couleur_checkbox_cochee_fond = "#26C6DA"
 
             # Barre de progression
-            couleur_barre = "#00cfe6"
+            couleur_barre = "#26C6DA"
 
         self.setStyleSheet(
             f"""

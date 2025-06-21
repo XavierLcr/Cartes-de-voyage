@@ -321,15 +321,15 @@ if __name__ == "__main__":
         {
             "modèle": "gemini-2.0-flash",
             "limite_appels_minute": 14,
-            "limite_appels_jour": 200,
+            "limite_appels_jour": 995,
         },
         {
             "modèle": "gemini-1.5-flash",
             "limite_appels_minute": 14,
-            "limite_appels_jour": 1495,
+            "limite_appels_jour": 495,
         },
     ]
-    numero_modele = 1
+    numero_modele = 2
 
     # Récupération du jour
     date_du_jour = time.localtime()

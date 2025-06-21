@@ -68,6 +68,7 @@ def creer_image_carte(
     qualite: int = 400,
     blabla=True,
     max_cartes_additionnelles: int | None = 10,
+    afficher_nom_lieu: bool = True,
 ):
     r"""
     Crée une image de carte à partir d'un GeoDataFrame et l'exporte dans un fichier d'image.
@@ -161,6 +162,24 @@ def creer_image_carte(
 
         if len(gdf_eau) > 0:
             gdf_eau.plot(ax=ax, color=couleur_lacs, edgecolor="none", alpha=1, zorder=3)
+
+    # Affichage du nom de la région
+    if afficher_nom_lieu:
+        for x, y, label, granu, couleur in zip(
+            gdf.geometry.centroid.x,
+            gdf.geometry.centroid.y,
+            gdf["Region"],
+            gdf["Granu"],
+            gdf["Couleur"],
+        ):
+            ax.text(
+                x,
+                y,
+                label,
+                fontsize=3 / 3**granu,
+                ha="center",
+                color=transformer_couleur_texte(couleur),
+            )
 
     # Enregistrer la carte dans un fichier sans l'afficher
     if blabla:

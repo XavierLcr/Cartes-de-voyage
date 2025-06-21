@@ -106,7 +106,7 @@ class CreerCartes(QObject):
         tracker.tracker_pays_en_cours.connect(self.tracker_signal.emit)
 
         carte_main_1_3.cree_graphe_depuis_debut(
-            **self.parametres, tracker=tracker, blabla=False
+            **self.parametres, tracker=tracker, blabla=False, afficher_nom_lieu=False
         )
 
         self.finished.emit()

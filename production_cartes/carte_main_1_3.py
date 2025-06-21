@@ -117,6 +117,7 @@ def creer_graphiques_pays(
     sortir_cartes_granu_inf=True,
     granularite_objectif: int = 1,
     tracker=None,
+    afficher_nom_lieu: bool = True,
 ):
     """Crée les cartes de chaque pays"""
 
@@ -219,6 +220,7 @@ def creer_graphiques_pays(
                 blabla=False,
                 couleur_de_fond=couleur_fond,
                 max_cartes_additionnelles=max_cartes_additionnelles,
+                afficher_nom_lieu=afficher_nom_lieu,
             )
         del gdf_i
         gc.collect()
@@ -250,6 +252,7 @@ def creer_graphique_region(
     max_cartes_additionnelles: int | None = 10,
     sortir_cartes_granu_inf=True,
     granularite_objectif: int = 1,
+    afficher_nom_lieu: bool = True,
 ):
     """Crée la carte d'une région"""
 
@@ -317,6 +320,7 @@ def creer_graphique_region(
                 qualite=qualite,
                 blabla=False,
                 max_cartes_additionnelles=max_cartes_additionnelles,
+                afficher_nom_lieu=afficher_nom_lieu,
             )
 
     del gdf_region, gdf_fond
@@ -352,6 +356,7 @@ def cree_graphe_depuis_debut(
     max_cartes_additionnelles: int | None = 10,
     sortir_cartes_granu_inf: bool = True,
     tracker=None,
+    afficher_nom_lieu: bool = True,
 ):
     r"""
     Cette fonction crée une carte géographique à partir de données mondiales en utilisant des dictionnaires définissant
@@ -420,6 +425,7 @@ def cree_graphe_depuis_debut(
             df_fond_granu_1=liste_dfs[1],
             granularite_objectif=granularite_visite,
             sortir_cartes_granu_inf=sortir_cartes_granu_inf,
+            afficher_nom_lieu=afficher_nom_lieu,
         )
 
     # Carte des pays
@@ -448,6 +454,7 @@ def cree_graphe_depuis_debut(
             granularite_objectif=granularite_visite,
             sortir_cartes_granu_inf=sortir_cartes_granu_inf,
             tracker=tracker,
+            afficher_nom_lieu=afficher_nom_lieu,
         )
 
     if blabla == True:

@@ -1,11 +1,89 @@
+# Titres généraux
 titre_windows : Cartes de voyage
 titre_application : Outil de création de cartes
+
+# Titres d'onglets
 titre_onglet_1 : Paramètres
 titre_onglet_2 : Création de la liste des pays visités
 titre_onglet_3 : Liste des lieux visités
 titre_onglet_4 : Pays les plus visités
+description_onglet_4 : En termes de pourcentage de la superficie visitée pour chaque pays
+
+# Paramètres individuels
 titre_params_individu : Paramètres de l'individu
 dossier_stockage_individu : Choisir le dossier de stockage des cartes
+dossier_stockage_pop_up : Sélectionner un dossier
 langue_individu : Langue
-reinit_interface : Réinitialiser l'interface
 supprimer_profil : Supprimer ce profil
+
+# Granularité des cartes
+titre_granularite : Granularité des cartes
+granularite_pays_visites : Pays visités
+granularite_pays_non_visites : Pays non visités
+
+# Cartes à publier
+titre_cartes_a_publier : Cartes à publier
+carte_du_monde : Carte du monde
+afrique : Afrique
+amerique : Amérique
+asie : Asie
+europe : Europe
+moyen_orient : Moyen-Orient
+autres_regions_monde : Autres régions du monde
+publier_cartes_faible_granularite_uniquement : Également publier les cartes pour lesquelles la granularité souhaitée n'est pas disponible
+
+# Paramètres esthétiques
+titre_params_esthetiques : Paramètres esthétiques
+cartes_couleurs : Couleur
+cartes_theme : Thème
+tick_style_dans_app : Utiliser le style dans l'application
+description_tick_style_dans_app : "Applique les paramètres esthétiques sélectionnés à l'application. Cela permet d'avoir un aperçu de leur rendu"
+
+# Paramètres de format et de qualité
+titre_params_techniques : Paramètres de publication des cartes
+cartes_format : Format
+cartes_qualite : Qualité de l'image
+qualite_elevee : Élevée
+qualite_faible : Faible
+nombre_exemplaires_cartes : Nombre de versions conservées pour chaque carte
+description_nombre_exemplaires_cartes : S'il existe plus de versions d'une carte que la limite sélectionnée, alors la carte la plus ancienne sera supprimée
+cinq_cartes : Cinq cartes
+dix_cartes : Dix cartes
+quinze_cartes : Quinze cartes
+pas_de_limite_de_cartes : Pas de limite
+
+# Boutons finaux du premier onglet
+reinitialisation_interface : Réinitialiser l'interface
+description_bouton_reinitialisation_interface : Réinitialise l'interface ainsi que la liste des pays visités. Veuillez vérifier d'avoir bien sauvearger les paramètres actuels avant de cliquer sur ce bouton
+sauvegarder_profil : Sauvegarder mes paramètres
+bouton_publier_cartes : Publier les cartes !
+description_bouton_publier_cartes : "Publier les cartes sauvegarde également les paramètres"
+
+# Onglet 2
+titre_choix_destinations_visitees : Sélection des lieux visités
+avertissement_onglet_2 : Pour un pays donné, si des départements sont cochés, ils sont prioritaires sur les régions cochées. Dans ce cas, la liste des régions visitées est automatiquement reconstituée à partir de la liste des départements. Il n'est donc plus nécessaire de cocher les régions visitées (les régions peuvent rester cochées mais ne seront pas prises en compte)
+
+# Chargement des YAMLs
+titre_chargement_yamls : ou charger manuellement un fichier YAML contenant la liste des lieux visités
+yaml_regions : Charger la liste des régions visitées
+yaml_departements : Charger la liste des départements visités
+pop_up_yaml : Charger un fichier YAML
+
+# Onglets 3
+titre_regions_visitees : Régions visitées
+titre_departements_visites : Départements visités
+
+# Onglet 4
+classement_selon_regions : Selon les régions visitées
+classement_selon_departements : Selon les départements visités
+
+# Pop_ups de publication des cartes
+titre_pop_up_publication_cartes : Création des cartes
+debut_publication_cartes : Début de l'opération
+publication_cartes_reussie : Les cartes ont été créées avec succès !
+
+# Pop-ups des problèmes
+pop_up_probleme_titre : Problème
+pop_up_aucun_lieu_coche : Aucun lieu n'a été coché
+pop_up_pas_de_dossier_de_stockage : Il est nécessaire choisir un dossier de stockage des cartes
+

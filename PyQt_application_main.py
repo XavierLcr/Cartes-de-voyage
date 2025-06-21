@@ -652,6 +652,7 @@ class SettingsApp(QWidget):
             valeur=self.langue_utilisee.currentText(),
         )
 
+        # Titres généraux
         self.setWindowTitle(self.traduire_depuis_id("titre_windows"))
         self.titre.setText(self.traduire_depuis_id(clef="titre_application"))
 
@@ -685,6 +686,12 @@ class SettingsApp(QWidget):
                 suffixe=" 🏆" if inclure_emojis_onglets else "",
             ),
         )
+        self.tabs.setToolTip(
+            self.tabs.indexOf(self.top_pays_visites),
+            self.traduire_depuis_id("description_onglet_4", suffixe="."),
+        )
+
+        self.traduire_depuis_id("description_bouton_publier_cartes", suffixe=".")
 
         # Paramètres de l'individu
         self.groupe_params_individu.setTitle(
@@ -700,93 +707,131 @@ class SettingsApp(QWidget):
         )
         self.suppression_profil.setText(self.traduire_depuis_id("supprimer_profil"))
 
+        # Granularité des cartes
+        self.groupe_granularite.setTitle(self.traduire_depuis_id("titre_granularite"))
+        self.label_granularite_visite.setText(
+            self.traduire_depuis_id("granularite_pays_visites", suffixe="\u00a0:")
+        )
+        self.label_granularite_fond.setText(
+            self.traduire_depuis_id("granularite_pays_non_visites", suffixe="\u00a0:")
+        )
+
+        # Choix des cartes à publier
+        self.groupe_cartes_a_creer.setTitle(
+            self.traduire_depuis_id("titre_cartes_a_publier")
+        )
+        self.carte_pays.setText(self.traduire_depuis_id("Cartes des pays visités"))
+        self.carte_monde.setText(self.traduire_depuis_id("carte_du_monde"))
+        self.afrique.setText(self.traduire_depuis_id("afrique"))
+        self.amerique.setText(self.traduire_depuis_id("amerique"))
+        self.asie.setText(self.traduire_depuis_id("asie"))
+        self.europe.setText(self.traduire_depuis_id("europe"))
+        self.moyen_orient.setText(self.traduire_depuis_id("moyen_orient"))
+        self.autres_regions.setText(self.traduire_depuis_id("autres_regions_monde"))
+        self.publier_granu_faible.setText(
+            self.traduire_depuis_id("publier_cartes_faible_granularite_uniquement")
+        )
+
         # Paramètres visuels
-        self.groupe_couleurs.setTitle(self.traduire("Paramètres esthétiques"))
-        self.color_label.setText(self.traduire(cle="Couleur", suffixe=" :"))
-        self.theme_label.setText(self.traduire(cle="Thème", suffixe=" :"))
-        self.utiliser_theme.setText(
-            self.traduire("Utiliser le style dans l'application")
+        self.groupe_couleurs.setTitle(
+            self.traduire_depuis_id("titre_params_esthetiques")
+        )
+        self.color_label.setText(
+            self.traduire_depuis_id(clef="cartes_couleurs", suffixe=" :")
+        )
+        self.theme_label.setText(
+            self.traduire_depuis_id(clef="cartes_theme", suffixe=" :")
+        )
+        self.utiliser_theme.setText(self.traduire_depuis_id("tick_style_dans_app"))
+        self.utiliser_theme.setToolTip(
+            self.traduire_depuis_id("description_tick_style_dans_app", suffixe=".")
         )
 
         # Paramètres de format et de qualité
         self.groupe_params_publication.setTitle(
-            self.traduire("Paramètres de publication des cartes")
+            self.traduire_depuis_id("titre_params_techniques")
         )
-        self.label_format.setText(self.traduire("Format", suffixe=" :"))
-        self.label_qualite.setText(self.traduire("Qualité de l'image", suffixe=" :"))
-        self.label_qualite_max.setText(self.traduire("Élevée"))
-        self.label_qualite_min.setText(self.traduire("Faible"))
-
-        self.fichier_yaml_1_bouton.setText(
-            self.traduire("Charger la liste des régions visitées")
-            if self.fichier_yaml_1 is None
-            else os.path.basename(self.chemin_fichier_yaml_1)
+        self.label_format.setText(
+            self.traduire_depuis_id("cartes_format", suffixe=" :")
         )
-        self.fichier_yaml_2_bouton.setText(
-            self.traduire("Charger la liste des départements visités")
-            if self.fichier_yaml_2 is None
-            else os.path.basename(self.chemin_fichier_yaml_2)
+        self.label_qualite.setText(
+            self.traduire_depuis_id("cartes_qualite", suffixe=" :")
         )
-        phrase_chargement_fichiers = "ou charger manuellement un fichier YAML contenant la liste des lieux visités"
-        self.groupe_chargement_yaml.setTitle(
-            self.traduire(phrase_chargement_fichiers, prefixe="...\u00a0")
-        )
-
-        self.groupe_selection_lieux.setTitle(
-            self.traduire("Sélection des lieux visités")
-        )
-
-        self.groupe_granularite.setTitle(self.traduire("Granularité des cartes"))
-        self.label_granularite_visite.setText(
-            self.traduire("Pays visités", suffixe="\u00a0:")
-        )
-        self.label_granularite_fond.setText(
-            self.traduire("Pays non visités", suffixe="\u00a0:")
-        )
-
-        self.groupe_cartes_a_creer.setTitle(self.traduire("Cartes à publier"))
-        self.carte_pays.setText(self.traduire("Cartes des pays visités"))
-        self.carte_monde.setText(self.traduire("Carte du monde"))
-        self.afrique.setText(self.traduire("Afrique"))
-        self.amerique.setText(self.traduire("Amérique"))
-        self.asie.setText(self.traduire("Asie"))
-        self.europe.setText(self.traduire("Europe"))
-        self.moyen_orient.setText(self.traduire("Moyen-Orient"))
-        self.autres_regions.setText(self.traduire("Autres régions du monde"))
-        phrase_publier_granu_faible = "Également publier les cartes pour lesquelles la granularité souhaitée n'est pas disponible"
-        self.publier_granu_faible.setText(self.traduire(phrase_publier_granu_faible))
-
+        self.label_qualite_max.setText(self.traduire_depuis_id("qualite_elevee"))
+        self.label_qualite_min.setText(self.traduire_depuis_id("qualite_faible"))
         self.label_nb_copies_cartes.setText(
-            self.traduire(
-                "Nombre de versions conservées pour chaque carte", suffixe="\u00a0: "
+            self.traduire_depuis_id("nombre_exemplaires_cartes", suffixe="\u00a0: ")
+        )
+        self.label_nb_copies_cartes.setToolTip(
+            self.traduire_depuis_id(
+                "description_nombre_exemplaires_cartes", suffixe="."
             )
         )
-        self.radio_carte_1.setText(self.traduire("Cinq cartes"))
-        self.radio_carte_2.setText(self.traduire("Dix cartes"))
-        self.radio_carte_3.setText(self.traduire("Quinze cartes"))
-        self.radio_carte_sans_limite.setText(self.traduire("Pas de limite"))
+        self.radio_carte_1.setText(self.traduire_depuis_id("cinq_cartes"))
+        self.radio_carte_2.setText(self.traduire_depuis_id("dix_cartes"))
+        self.radio_carte_3.setText(self.traduire_depuis_id("quinze_cartes"))
+        self.radio_carte_sans_limite.setText(
+            self.traduire_depuis_id("pas_de_limite_de_cartes")
+        )
 
-        self.reinit_parametres.setText(self.traduire_depuis_id("reinit_interface"))
+        # Boutons en bas de l'onglet 1
+        self.reinit_parametres.setText(
+            self.traduire_depuis_id("reinitialisation_interface")
+        )
         self.reinit_parametres.setToolTip(
-            self.traduire(
-                "Réinitialise l'interface ainsi que la liste des pays visités.\n Veuillez vérifier d'avoir bien sauvearger les paramètres actuels avant de cliquer."
+            self.traduire_depuis_id(
+                "description_bouton_reinitialisation_interface", suffixe="."
             )
         )
-        self.creation_cartes_bouton.setText(self.traduire("Publier les cartes !"))
+        self.creation_cartes_bouton.setText(
+            self.traduire_depuis_id("bouton_publier_cartes")
+        )
+        self.creation_cartes_bouton.setToolTip(
+            self.traduire_depuis_id("description_bouton_publier_cartes", suffixe=".")
+        )
         self.bouton_sauvegarde.setText(
-            self.traduire(
-                "Sauvegarder mes paramètres",
+            self.traduire_depuis_id(
+                "sauvegarder_profil",
                 suffixe=" 💾" if inclure_emojis else "",
             )
         )
 
+        # Onlet 2
+
+        # Titre
+        self.groupe_selection_lieux.setTitle(
+            self.traduire_depuis_id("titre_choix_destinations_visitees")
+        )
+        self.avertissement_prio.setText(
+            self.traduire_depuis_id(
+                "avertissement_onglet_2", prefixe="⚠️\u00a0", suffixe="."
+            )
+        )
+
+        # Chargement des YAMLs
+        self.groupe_chargement_yaml.setTitle(
+            self.traduire_depuis_id("titre_chargement_yamls", prefixe="...\u00a0")
+        )
+        self.fichier_yaml_1_bouton.setText(
+            self.traduire_depuis_id("yaml_regions")
+            if self.fichier_yaml_1 is None
+            else os.path.basename(self.chemin_fichier_yaml_1)
+        )
+        self.fichier_yaml_2_bouton.setText(
+            self.traduire_depuis_id("yaml_departements")
+            if self.fichier_yaml_2 is None
+            else os.path.basename(self.chemin_fichier_yaml_2)
+        )
+
         # Onglet 4
         self.entete_top_pays_regions.setText(
-            self.traduire("Selon les régions visitées", prefixe="<b>", suffixe="</b>")
+            self.traduire_depuis_id(
+                "classement_selon_regions", prefixe="<b>", suffixe="</b>"
+            )
         )
         self.entete_top_pays_departements.setText(
-            self.traduire(
-                "Selon les départements visités", prefixe="<b>", suffixe="</b>"
+            self.traduire_depuis_id(
+                "classement_selon_departements", prefixe="<b>", suffixe="</b>"
             )
         )
 
@@ -817,11 +862,6 @@ class SettingsApp(QWidget):
             reset_combo(self.color_combo, sorted(teintes.values()))
             reset_combo(self.theme_combo, sorted(themes.values()))
 
-        phrase_avertissement = "Pour un pays donné, si des départements sont cochés, ils sont prioritaires sur les régions cochées. Dans ce cas, la liste des régions visitées est automatiquement reconstituée à partir de la liste des départements. Il n'est donc plus nécessaire de cocher les régions visitées (les régions peuvent rester cochées mais ne seront pas prises en compte)"
-        self.avertissement_prio.setText(
-            self.traduire(phrase_avertissement, prefixe="⚠️\u00a0", suffixe=".")
-        )
-
         self.maj_layout_resume(affichage_groupe=affichage_groupe)
 
     def traduire(self, cle, langue=None, prefixe="", suffixe=""):
@@ -836,7 +876,7 @@ class SettingsApp(QWidget):
 
     def traduire_depuis_id(self, clef, langue=None, prefixe="", suffixe=""):
         return self.traduire(
-            cle=constantes.phrases_interface.get(clef, ""),
+            cle=constantes.phrases_interface.get(clef, clef),
             langue=langue,
             prefixe=prefixe,
             suffixe=suffixe,
@@ -1319,7 +1359,7 @@ class SettingsApp(QWidget):
 
     def choisir_dossier(self):
         dossier = QFileDialog.getExistingDirectory(
-            self, self.traduire("Sélectionner un dossier")
+            self, self.traduire_depuis_id("dossier_stockage_pop_up")
         )
         if dossier:
             self.dossier_stockage = dossier  # Stocke le chemin sélectionné
@@ -1410,25 +1450,24 @@ class SettingsApp(QWidget):
 
         elif self.dicts_granu["dep"] == {} and self.dicts_granu["region"] == {}:
 
-            phrase_yaml = self.traduire(
-                "Aucun lieu n'a été coché", settings["language"], suffixe="."
+            phrase_yaml = self.traduire_depuis_id(
+                "pop_up_aucun_lieu_coche", suffixe="."
             )
             self.montrer_popup(
                 contenu=phrase_yaml,
-                titre=self.traduire("Problème.", settings["language"], suffixe="."),
+                titre=self.traduire_depuis_id("pop_up_probleme_titre", suffixe="."),
                 temps_max=10000,
             )
 
         elif settings["results"] is None:
 
-            phrase_repertoire = self.traduire(
-                "Il faut choisir un répertoire de destination.",
-                settings["language"],
+            phrase_repertoire = self.traduire_depuis_id(
+                "pop_up_pas_de_dossier_de_stockage",
                 suffixe=".",
             )
             self.montrer_popup(
                 contenu=phrase_repertoire,
-                titre=self.traduire("Problème.", settings["language"], suffixe="."),
+                titre=self.traduire_depuis_id("pop_up_probleme_titre", suffixe="."),
                 temps_max=10000,
             )
 
@@ -1594,22 +1633,23 @@ class SettingsApp(QWidget):
         self.barre_progression.setVisible(debut)
         self.creation_cartes_bouton.setVisible(not debut)
 
-        contenu = (
-            "Début de l'opération."
-            if debut
-            else "Les cartes ont été créées avec succès !"
-        )
-
         self.montrer_popup(
-            contenu=self.traduire(cle=contenu, suffixe=" ​​✅​"),
+            contenu=self.traduire_depuis_id(
+                clef=(
+                    "debut_publication_cartes"
+                    if debut
+                    else "publication_cartes_reussie"
+                ),
+                suffixe="." if debut else " ​​✅​",
+            ),
             temps_max=5000 if debut else None,
-            titre=self.traduire(cle="Création des cartes"),
+            titre=self.traduire_depuis_id(clef="titre_pop_up_publication_cartes"),
         )
 
     def charger_yaml(self, num):
         chemin_yaml, _ = QFileDialog.getOpenFileName(
             self,
-            self.traduire("Charger un fichier YAML"),
+            self.traduire_depuis_id("pop_up_yaml"),
             "",
             "YAML Files (*.yaml *.yml)",
         )
@@ -1629,7 +1669,7 @@ class SettingsApp(QWidget):
     def ajouter_partie_a_layout(self, granu, pays_donnees, vbox, affichage_groupe=True):
 
         label_titre_onglet_3 = QLabel(
-            self.traduire(cle=granu, prefixe="<b>", suffixe="</b>")
+            self.traduire_depuis_id(clef=granu, prefixe="<b>", suffixe="</b>")
         )
         label_titre_onglet_3.setAlignment(Qt.AlignmentFlag.AlignCenter)
         vbox.addWidget(label_titre_onglet_3)
@@ -1694,13 +1734,13 @@ class SettingsApp(QWidget):
 
         # Ajouter les nouvelles parties aux layouts
         self.ajouter_partie_a_layout(
-            "Régions",
+            "titre_regions_visitees",
             self.dicts_granu.get("region", {}),
             self.layout_resume_regions,
             affichage_groupe=affichage_groupe,
         )
         self.ajouter_partie_a_layout(
-            "Départements",
+            "titre_departements_visites",
             self.dicts_granu.get("dep", {}),
             self.layout_resume_departements,
             affichage_groupe=affichage_groupe,
@@ -1708,7 +1748,9 @@ class SettingsApp(QWidget):
 
         self.lancer_classement_par_region_departement(top_n=top_n_pays)
 
-    def lancer_classement_pays(self, granularite: int, top_n: int, vbox: QGridLayout):
+    def lancer_classement_pays(
+        self, granularite: int, top_n: int | None, vbox: QGridLayout
+    ):
         dict_regions = (
             self.dicts_granu["region"] if self.dicts_granu["region"] != {} else None
         )
@@ -1780,7 +1822,7 @@ class SettingsApp(QWidget):
 
         # vbox.addStretch()
 
-    def lancer_classement_par_region_departement(self, top_n=10):
+    def lancer_classement_par_region_departement(self, top_n: int | None = 10):
 
         self.lancer_classement_pays(
             granularite=1,

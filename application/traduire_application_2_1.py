@@ -57,8 +57,10 @@ def creer_liste_pays_multilangue(
 
             temps_debut = time.time()
 
-            if j in resultat[i] or appels_api_deja_faits >= nb_max_requetes_par_jour:
+            if j in resultat[i]:
                 resultat[i][j] = resultat[i][j].strip(" .'\n")
+                continue
+            elif appels_api_deja_faits >= nb_max_requetes_par_jour:
                 continue
 
             if blabla == 2:
@@ -314,20 +316,20 @@ if __name__ == "__main__":
         {
             "modèle": "gemini-2.0-flash-lite",
             "limite_appels_minute": 28,
-            "limite_appels_jour": 1500,
+            "limite_appels_jour": 1495,
         },
         {
             "modèle": "gemini-2.0-flash",
             "limite_appels_minute": 14,
-            "limite_appels_jour": 1500,
+            "limite_appels_jour": 200,
         },
         {
             "modèle": "gemini-1.5-flash",
             "limite_appels_minute": 14,
-            "limite_appels_jour": 1500,
+            "limite_appels_jour": 1495,
         },
     ]
-    numero_modele = 0
+    numero_modele = 1
 
     # Récupération du jour
     date_du_jour = time.localtime()

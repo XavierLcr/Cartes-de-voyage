@@ -21,50 +21,68 @@ else:
     compilation = False
 
 # Import des lieux avec de l'eau
-with open(
-    os.path.join(direction_donnees_pickle, "carte_monde_lacs.pkl"),
-    "rb",
-) as f:
-    gdf_lacs = pickle.load(f)
+try:
+    with open(
+        os.path.join(direction_donnees_pickle, "carte_monde_lacs.pkl"),
+        "rb",
+    ) as f:
+        gdf_lacs = pickle.load(f)
+except:
+    gdf_lacs = None
 
 # Import dela table des superficies
-with open(
-    os.path.join(direction_donnees_pickle, "table_superficie.pkl"),
-    "rb",
-) as f:
-    table_superficie = pickle.load(f)
+try:
+    with open(
+        os.path.join(direction_donnees_pickle, "table_superficie.pkl"),
+        "rb",
+    ) as f:
+        table_superficie = pickle.load(f)
+except:
+    table_superficie = None
 
 # Import de la traduction des pays
-with open(
-    os.path.join(direction_donnees_application, "traductions_nom_pays.yaml"),
-    "r",
-    encoding="utf-8",
-) as file:
-    pays_differentes_langues = yaml.safe_load(file)
+try:
+    with open(
+        os.path.join(direction_donnees_application, "traductions_nom_pays.yaml"),
+        "r",
+        encoding="utf-8",
+    ) as file:
+        pays_differentes_langues = yaml.safe_load(file)
+except:
+    pays_differentes_langues = {}
 
 # Import des pays regroupés
-with open(
-    os.path.join(direction_donnees_application, "liste_pays_groupes.yaml"),
-    "r",
-    encoding="utf-8",
-) as file:
-    liste_pays_groupes = yaml.safe_load(file)
+try:
+    with open(
+        os.path.join(direction_donnees_application, "liste_pays_groupes.yaml"),
+        "r",
+        encoding="utf-8",
+    ) as file:
+        liste_pays_groupes = yaml.safe_load(file)
+except:
+    liste_pays_groupes = {}
 
 # Import des phrases de l'interfaces
-with open(
-    os.path.join(direction_donnees_application, "phrases_interface.yaml"),
-    "r",
-    encoding="utf-8",
-) as file:
-    phrases_interface = yaml.safe_load(file)
+try:
+    with open(
+        os.path.join(direction_donnees_application, "phrases_interface.yaml"),
+        "r",
+        encoding="utf-8",
+    ) as file:
+        phrases_interface = yaml.safe_load(file)
+except:
+    phrases_interface = {}
 
 # Import de la traduction de l'interface
-with open(
-    os.path.join(direction_donnees_application, "traductions_phrase_outil.yaml"),
-    "r",
-    encoding="utf-8",
-) as file:
-    outil_differentes_langues = yaml.safe_load(file)
+try:
+    with open(
+        os.path.join(direction_donnees_application, "traductions_phrase_outil.yaml"),
+        "r",
+        encoding="utf-8",
+    ) as file:
+        outil_differentes_langues = yaml.safe_load(file)
+except:
+    outil_differentes_langues = {}
 
 # Import des régions mondiales considérées
 with open(
@@ -107,20 +125,26 @@ with open(
     liste_ambiances = yaml.safe_load(file)
 
 # Import des langues disponibles
-with open(
-    os.path.join(direction_donnees_application, "traductions_noms_langues.yaml"),
-    "r",
-    encoding="utf-8",
-) as file:
-    dict_langues_dispo = yaml.safe_load(file)
+try:
+    with open(
+        os.path.join(direction_donnees_application, "traductions_noms_langues.yaml"),
+        "r",
+        encoding="utf-8",
+    ) as file:
+        dict_langues_dispo = yaml.safe_load(file)
+except:
+    dict_langues_dispo = {}
 
 # Import des paramètres traduits
-with open(
-    os.path.join(direction_donnees_application, "traductions_parametres.yaml"),
-    "r",
-    encoding="utf-8",
-) as file:
-    parametres_traduits = yaml.safe_load(file)
+try:
+    with open(
+        os.path.join(direction_donnees_application, "traductions_parametres.yaml"),
+        "r",
+        encoding="utf-8",
+    ) as file:
+        parametres_traduits = yaml.safe_load(file)
+except:
+    parametres_traduits = {}
 
 emojis_pays = {
     "Antarctica": "🐧​",

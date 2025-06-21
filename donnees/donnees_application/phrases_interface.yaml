@@ -35,8 +35,8 @@ description_publier_cartes_faible_granularite_uniquement : Permet de choisir si 
 
 # Paramètres esthétiques
 titre_params_esthetiques : Paramètres esthétiques
-cartes_couleurs : Couleur
 cartes_theme : Thème
+cartes_couleurs : Teintes
 tick_style_dans_app : Utiliser le style dans l'application
 description_tick_style_dans_app : "Applique les paramètres esthétiques sélectionnés à l'application. Cela permet d'avoir un aperçu de leur rendu"
 

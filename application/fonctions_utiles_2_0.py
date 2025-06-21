@@ -6,7 +6,9 @@ def obtenir_clef_par_valeur(dictionnaire, valeur):
     return None
 
 
-def creer_classement_pays(gdf_visite, table_superficie, granularite=1, top_n=10):
+def creer_classement_pays(
+    gdf_visite, table_superficie, granularite: int = 1, top_n: int | None = None
+):
 
     gdf_visite = gdf_visite[gdf_visite["Granu"] == granularite]
     gdf_visite["Visite"] = gdf_visite["Visite"].astype(int)
@@ -28,6 +30,8 @@ def creer_classement_pays(gdf_visite, table_superficie, granularite=1, top_n=10)
 
     gdf_visite = gdf_visite.sort_values(
         by=["pct_superficie_dans_pays", "superficie"], ascending=[False, False]
-    ).head(top_n)
-
-    return gdf_visite
+    )
+    if top_n is None:
+        return gdf_visite
+    else:
+        return gdf_visite.head(top_n)

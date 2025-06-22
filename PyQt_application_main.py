@@ -42,7 +42,7 @@ warnings.filterwarnings("ignore")
 
 # Paramères
 ## Paramètres d'interface
-interface_foncee = True
+interface_foncee = False
 inclure_emojis_onglets = True
 inclure_emojis = True
 top_n_pays = None

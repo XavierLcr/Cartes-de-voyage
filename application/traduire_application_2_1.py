@@ -329,7 +329,7 @@ if __name__ == "__main__":
             "limite_appels_jour": 495,
         },
     ]
-    numero_modele = 2
+    numero_modele = 0
 
     # Récupération du jour
     date_du_jour = time.localtime()
@@ -608,7 +608,7 @@ if __name__ == "__main__":
         modele_dict=liste_modeles[numero_modele],
         liste_deja_existante=pays_deja_traduits,
         liste_langues=liste_langues,
-        blabla=2,
+        blabla=1,
     )
 
     with open(

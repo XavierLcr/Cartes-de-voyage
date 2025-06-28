@@ -88,5 +88,5 @@ publication_cartes_reussie : Les cartes ont été créées avec succès !
 # Pop-ups des problèmes
 pop_up_probleme_titre : Problème
 pop_up_aucun_lieu_coche : Aucun lieu n'a été coché
-pop_up_pas_de_dossier_de_stockage : Il est nécessaire choisir un dossier de stockage des cartes
+pop_up_pas_de_dossier_de_stockage : Il est nécessaire de choisir un dossier de stockage des cartes
 

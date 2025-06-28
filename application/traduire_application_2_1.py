@@ -324,6 +324,11 @@ if __name__ == "__main__":
             "limite_appels_jour": 995,
         },
         {
+            "modèle": "gemini-2.5-flash-lite-preview-06-17",
+            "limite_appels_minute": 14,
+            "limite_appels_jour": 170,
+        },
+        {
             "modèle": "gemini-1.5-flash",
             "limite_appels_minute": 14,
             "limite_appels_jour": 495,

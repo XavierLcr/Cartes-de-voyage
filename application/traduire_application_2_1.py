@@ -314,24 +314,19 @@ if __name__ == "__main__":
     # Choix du modèle de Google Gemini
     liste_modeles = [
         {
+            "modèle": "gemini-2.5-flash-lite-preview-06-17",
+            "limite_appels_minute": 14,
+            "limite_appels_jour": 999,
+        },
+        {
             "modèle": "gemini-2.0-flash-lite",
             "limite_appels_minute": 28,
-            "limite_appels_jour": 1495,
+            "limite_appels_jour": 199,
         },
         {
             "modèle": "gemini-2.0-flash",
             "limite_appels_minute": 14,
-            "limite_appels_jour": 995,
-        },
-        {
-            "modèle": "gemini-2.5-flash-lite-preview-06-17",
-            "limite_appels_minute": 14,
-            "limite_appels_jour": 170,
-        },
-        {
-            "modèle": "gemini-1.5-flash",
-            "limite_appels_minute": 14,
-            "limite_appels_jour": 495,
+            "limite_appels_jour": 199,
         },
     ]
     numero_modele = 0

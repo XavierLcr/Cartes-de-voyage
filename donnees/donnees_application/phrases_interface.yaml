@@ -56,7 +56,7 @@ pas_de_limite_de_cartes : Pas de limite
 
 # Boutons finaux du premier onglet
 reinitialisation_interface : Réinitialiser l'interface
-description_bouton_reinitialisation_interface : Réinitialise l'interface ainsi que la liste des pays visités. Veuillez vérifier d'avoir bien sauvearger les paramètres actuels avant de cliquer sur ce bouton
+description_bouton_reinitialisation_interface : Réinitialise l'interface ainsi que la liste des pays visités. Veuillez vérifier d'avoir bien sauvegardé les paramètres actuels avant de cliquer sur ce bouton
 sauvegarder_profil : Sauvegarder mes paramètres
 bouton_publier_cartes : Publier les cartes !
 description_bouton_publier_cartes : "Publier les cartes sauvegarde également les paramètres"
@@ -75,6 +75,7 @@ pop_up_yaml : Charger un fichier YAML
 # Onglets 3
 titre_regions_visitees : Régions visitées
 titre_departements_visites : Départements visités
+mise_en_forme_onglet_3 : Affichage regroupé
 
 # Onglet 4
 classement_selon_regions : Selon les régions visitées

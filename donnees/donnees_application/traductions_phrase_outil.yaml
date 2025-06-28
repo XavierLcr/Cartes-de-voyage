@@ -1,3 +1,68 @@
+Affichage regroupé:
+  afrikaans: Gegroepeerde vertoon
+  albanais: Shikim i grupuar
+  allemand: Gruppierte Anzeige
+  anglais: Grouped display
+  arabe: عرض مجمع
+  arménien: Միասնական ցուցադրում
+  basque: Bistaratu bildurik
+  bengali: গোষ্ঠীভুক্ত প্রদর্শন
+  birman: အစုအဝေးပြ display
+  breton: Disposadur dastumad
+  bulgare: Групиран изглед
+  catalan: Visualització agrupada
+  coréen: 집계 보기
+  danois: Grupperet visning
+  espagnol: Visualización agrupada
+  esperanto: Kunigita ekrano
+  estonien: Grupeeritud kuvamine
+  finnois: Ryhmitelty näyttö
+  français: Affichage regroupé
+  gallois: Arddangosfa grŵp
+  grec: Συγκεντρωμένη προβολή
+  géorgien: ჯგუფური ჩვენება
+  hindi: समूहीकृत प्रदर्शन
+  hongrois: Összesített megjelenítés
+  indonésien: Tampilan gabungan
+  irlandais: Taispeántas grúpa
+  islandais: Samankeyptur skjár
+  italien: Visualizzazione raggruppata
+  japonais: 一括表示
+  kazakh: Шоғырландырылған дисплей
+  kurde: Nîşanîna komkirî
+  latin: Propono congregatum
+  letton: Apvienota displeja
+  lituanien: Grupuotas rodinys
+  malais: Paparan berpusat
+  malgache: Fampirantiana mirindra
+  maltais: Wiri magħquda
+  mandarin standard: 分组显示
+  mongol: Бүлэгчилсэн харуулах
+  norvégien: Gruppert visning
+  néerlandais: Gegroepeerde weergave
+  népalais: समूहीकृत प्रदर्शन
+  ourdou: گروپ شدہ ڈسپلے
+  ouzbek: Guruhlangan displey
+  pachto: ګروپي نندارې
+  persan: نمایش گروهی
+  polonais: Wyświetlanie zgrupowane
+  portugais: Exibição agrupada
+  roumain: Afisaj grupat
+  russe: Сгруппированное отображение
+  serbo-croate: Grupisani prikaz
+  slovaque: Zoskupené zobrazenie
+  slovène: Združen prikaz
+  suédois: Grupperad visning
+  swahili: Onyesho la kuunganishwa
+  tamoul: குழுவாக்கப்பட்ட காட்சி
+  tchèque: Seskupené zobrazení
+  thaï: แสดงผลแบบกลุ่ม
+  tibétain: ཚོགས་རེད།
+  turc: Gruplandırılmış Görüntüleme
+  turkmène: Toplanan görkeziliş
+  ukrainien: Групове відображення
+  vietnamien: Hiển thị nhóm
+  zoulou: Ukuhlanganiswa kwemibukiso
 Afrique:
   afrikaans: Afrika
   albanais: Afrikë
@@ -3731,7 +3796,7 @@ Régions visitées:
   vietnamien: Các vùng đã tham quan
   zoulou: Izifunda ezivakashelwe
 ? Réinitialise l'interface ainsi que la liste des pays visités. Veuillez vérifier
-  d'avoir bien sauvearger les paramètres actuels avant de cliquer sur ce bouton
+  d'avoir bien sauvegardé les paramètres actuels avant de cliquer sur ce bouton
 : afrikaans: Herstel die koppelvlak en die lys van besoekte lande. Maak asseblief
     seker dat jy die huidige instellings gestoor het voordat jy op hierdie knoppie
     klik
@@ -3771,7 +3836,7 @@ Régions visitées:
   finnois: Palauta käyttöliittymä sekä luettelo vierailluista maista. Varmista, että
     olet tallentanut nykyiset asetukset ennen tämän painikkeen napsauttamista
   français: Réinitialise l'interface ainsi que la liste des pays visités. Veuillez
-    vérifier d'avoir bien sauvearger les paramètres actuels avant de cliquer sur ce
+    vérifier d'avoir bien sauvegardé les paramètres actuels avant de cliquer sur ce
     bouton
   gallois: Ailosodwch y rhyngwyneb yn ogystal â'r rhestr o wledydd yr ymwelwyd â nhw.
     Gwnewch yn siŵr eich bod wedi cadw'r gosodiadau presennol cyn clicio ar y botwm

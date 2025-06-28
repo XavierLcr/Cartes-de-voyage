@@ -1,3 +1,8 @@
+################################################################################
+# MesVoyages                                                                   #
+# Application principale                                                       #
+################################################################################
+
 import os
 import sys
 
@@ -46,7 +51,6 @@ interface_foncee = False
 inclure_emojis_onglets = True
 inclure_emojis = True
 top_n_pays = None
-affichage_groupe = False
 
 ## Paramètres des cartes
 qualite_min = 200
@@ -545,6 +549,7 @@ class SettingsApp(QWidget):
         self.tab_yaml.setLayout(layout_yaml)
 
         # Troisième onglet
+        self.layout_onglet_3 = QVBoxLayout()
         self.layout_resume_pays = QHBoxLayout()
 
         # Pour les régions
@@ -565,12 +570,18 @@ class SettingsApp(QWidget):
         self.scroll_departements.setWidgetResizable(True)
         self.scroll_departements.setWidget(self.widget_departements)
 
+        # Bouton de mise en forme
+        self.mise_en_forme_onglet_3 = QCheckBox()
+        self.mise_en_forme_onglet_3.stateChanged.connect(self.maj_layout_resume)
+
         # Ajouter les deux scrolls à la ligne principale
         self.layout_resume_pays.addWidget(self.scroll_regions)
         self.layout_resume_pays.addWidget(self.scroll_departements)
-        self.tab_resume_pays.setLayout(self.layout_resume_pays)
+        self.layout_onglet_3.addLayout(self.layout_resume_pays)
+        self.layout_onglet_3.addWidget(self.mise_en_forme_onglet_3)
+        self.tab_resume_pays.setLayout(self.layout_onglet_3)
 
-        # Quatrième obglet
+        # Quatrième onglet
         self.top_pays_visites = QWidget()
         self.tabs.addTab(self.top_pays_visites, "Pays les plus visités")
         self.layout_top_pays = QHBoxLayout()
@@ -833,7 +844,14 @@ class SettingsApp(QWidget):
             else os.path.basename(self.chemin_fichier_yaml_2)
         )
 
+        # Onglet 3
+
+        self.mise_en_forme_onglet_3.setText(
+            self.traduire_depuis_id("mise_en_forme_onglet_3")
+        )
+
         # Onglet 4
+
         self.entete_top_pays_regions.setText(
             self.traduire_depuis_id(
                 "classement_selon_regions", prefixe="<b>", suffixe="</b>"
@@ -872,7 +890,7 @@ class SettingsApp(QWidget):
             reset_combo(self.color_combo, sorted(teintes.values()))
             reset_combo(self.theme_combo, sorted(themes.values()))
 
-        self.maj_layout_resume(affichage_groupe=affichage_groupe)
+        self.maj_layout_resume()
 
     def traduire(self, cle, langue=None, prefixe="", suffixe=""):
         if langue is None:
@@ -1415,6 +1433,7 @@ class SettingsApp(QWidget):
             "dictionnaire_departements": (
                 self.dicts_granu["dep"] if self.dicts_granu["dep"] != {} else None
             ),
+            "format_onglet_3": self.mise_en_forme_onglet_3.isChecked(),
         }
 
         settings["granularity"] = fonctions_utiles_2_0.obtenir_clef_par_valeur(
@@ -1747,7 +1766,7 @@ class SettingsApp(QWidget):
             if widget:
                 widget.deleteLater()
 
-    def maj_layout_resume(self, affichage_groupe=True):
+    def maj_layout_resume(self):
         # Effacer les layouts
         self.vider_layout(self.layout_resume_regions)
         self.vider_layout(self.layout_resume_departements)
@@ -1757,13 +1776,13 @@ class SettingsApp(QWidget):
             "titre_regions_visitees",
             self.dicts_granu.get("region", {}),
             self.layout_resume_regions,
-            affichage_groupe=affichage_groupe,
+            affichage_groupe=self.mise_en_forme_onglet_3.isChecked(),
         )
         self.ajouter_partie_a_layout(
             "titre_departements_visites",
             self.dicts_granu.get("dep", {}),
             self.layout_resume_departements,
-            affichage_groupe=affichage_groupe,
+            affichage_groupe=self.mise_en_forme_onglet_3.isChecked(),
         )
 
         self.lancer_classement_par_region_departement(top_n=top_n_pays)
@@ -1918,6 +1937,9 @@ class SettingsApp(QWidget):
                 else:
                     self.radio_carte_sans_limite.setChecked(True)
 
+            if sauv.get("format_onglet_3") is not None:
+                self.mise_en_forme_onglet_3.setChecked(sauv.get("format_onglet_3"))
+
             self.maj_liste_reg_dep_pays()
             self.lancer_classement_par_region_departement(top_n=top_n_pays)
 
@@ -1934,7 +1956,7 @@ class SettingsApp(QWidget):
         self.liste_niveaux.blockSignals(True)
         self.dicts_granu = {"region": {}, "dep": {}}
         self.maj_liste_reg_dep_pays()
-        self.maj_layout_resume(affichage_groupe=affichage_groupe)
+        self.maj_layout_resume()
 
         self.liste_niveaux.blockSignals(False)
 
@@ -1964,6 +1986,7 @@ class SettingsApp(QWidget):
         self.publier_granu_faible.setChecked(False)
 
         self.utiliser_theme.setChecked(False)
+        self.mise_en_forme_onglet_3.setChecked(False)
 
     def maj_liste_reg_dep_pays(self):
 
@@ -2046,7 +2069,7 @@ class SettingsApp(QWidget):
                 if self.dicts_granu[clef][pays_i] == []:
                     del self.dicts_granu[clef][pays_i]
 
-        self.maj_layout_resume(affichage_groupe=affichage_groupe)
+        self.maj_layout_resume()
 
     def supprimer_clef(self, clef):
         global sauvegarde
@@ -2067,7 +2090,7 @@ class SettingsApp(QWidget):
 
             self.reinitialisation_parametres(True)
             self.dicts_granu = {"region": {}, "dep": {}}
-            self.maj_layout_resume(affichage_groupe=affichage_groupe)
+            self.maj_layout_resume()
             self.maj_langue_interface(True)
 
 

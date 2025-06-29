@@ -158,7 +158,7 @@ class SettingsApp(QWidget):
         self.traductions_interface = constantes.outil_differentes_langues
 
         self.setWindowTitle("Cartes de voyage")
-        self.setGeometry(300, 40, 800, 300)
+        self.setGeometry(300, 40, 900, 300)
         self.setWindowIcon(
             QIcon(
                 os.path.join(
@@ -633,6 +633,19 @@ class SettingsApp(QWidget):
         self.layout_top_pays.addWidget(self.scroll_top_pays_deps)
         self.top_pays_visites.setLayout(self.layout_top_pays)
 
+        # Onglet 5
+        self.description_application = QWidget()
+        self.tabs.addTab(self.description_application, "ℹ️")
+        self.layout_informations_generales = QHBoxLayout()
+
+        self.scroll_informations_generales = QScrollArea()
+        self.scroll_informations_generales.setWidgetResizable(True)
+        self.widget_informations_generales = QLabel()
+        self.widget_informations_generales.setWordWrap(True)
+        self.scroll_informations_generales.setWidget(self.widget_informations_generales)
+        self.layout_informations_generales.addWidget(self.scroll_informations_generales)
+        self.description_application.setLayout(self.layout_informations_generales)
+
         # Définir le QTabWidget comme layout principal pour le widget principal
         main_layout = QVBoxLayout()
         main_layout.addWidget(self.tabs)
@@ -860,6 +873,24 @@ class SettingsApp(QWidget):
         self.entete_top_pays_departements.setText(
             self.traduire_depuis_id(
                 "classement_selon_departements", prefixe="<b>", suffixe="</b>"
+            )
+        )
+
+        # Onglet 5
+        # self.vider_layout(self.layout_informations_generales)
+        debut_onglet_5 = self.traduire_depuis_id(
+            "sous_titre_description_application",
+            prefixe="<h2>MesVoyages – ",
+            suffixe="<br>(",
+        )
+        debut_onglet_5 = self.traduire_depuis_id(
+            "version",
+            prefixe=debut_onglet_5,
+            suffixe=f" {constantes.version_logiciel})</h2><hr>",
+        )
+        self.widget_informations_generales.setText(
+            self.traduire_depuis_id(
+                "description_application", prefixe=debut_onglet_5, suffixe=""
             )
         )
 

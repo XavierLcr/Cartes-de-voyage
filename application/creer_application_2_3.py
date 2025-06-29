@@ -22,7 +22,7 @@ for f in os.listdir(constantes.direction_donnees_pickle):
 
 setup(
     name="MesVoyages",
-    version="2.0",
+    version=constantes.version_logiciel,
     description="Permet de créer ses cartes de voyages.",
     options={
         "build_exe": {

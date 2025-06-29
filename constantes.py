@@ -20,6 +20,8 @@ else:
     direction_donnees_autres = os.path.join(direction_donnees, "donnees_autres")
     compilation = False
 
+version_logiciel = "2.1"
+
 # Import des lieux avec de l'eau
 try:
     with open(

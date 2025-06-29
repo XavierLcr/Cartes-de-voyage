@@ -8,6 +8,7 @@ import yaml
 import time
 import os
 import sys
+import textwrap
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import constantes
@@ -46,11 +47,12 @@ def creer_liste_pays_multilangue(
         resultat = {}
     for i in liste_pays:
 
-        if blabla == 2:
-            print(i, end=" : ")
-        if blabla == 1:
-            print(i, end=" - ")
-        sys.stdout.flush()
+        if blabla > 0:
+            print(
+                textwrap.shorten(i.strip(" \n-="), width=50, placeholder="..."),
+                end=" : " if blabla == 2 else " - ",
+            )
+            sys.stdout.flush()
 
         resultat[i] = resultat.get(i, {})
         for j in liste_langues:

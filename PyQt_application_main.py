@@ -1794,10 +1794,11 @@ class SettingsApp(QWidget):
 
                 vbox.addWidget(QLabel(f"<b>{pays}</b> {emoji_i}:"))
 
-                for item in items:
-                    label = QLabel(f"   • {item}")
-                    label.setWordWrap(True)
-                    vbox.addWidget(label)
+                if items is not None:
+                    for item in items:
+                        label = QLabel(f"   • {item}")
+                        label.setWordWrap(True)
+                        vbox.addWidget(label)
 
             label = QLabel("– " * 3)
             label.setAlignment(

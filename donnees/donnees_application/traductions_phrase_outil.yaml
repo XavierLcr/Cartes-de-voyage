@@ -2334,6 +2334,136 @@ Nombre de versions conservées pour chaque carte:
   ukrainien: Кількість збережених версій для кожної картки
   vietnamien: Số lượng phiên bản được lưu giữ cho mỗi thẻ
   zoulou: Inani lezinguqulo ezigcinwe ebalazweni ngalinye
+Non:
+  afrikaans: Nee
+  albanais: Jo
+  allemand: Nein
+  anglais: 'No'
+  arabe: لا
+  arménien: Ոչ
+  basque: Ez
+  bengali: না
+  birman: မဟုတ်ဘူး
+  breton: Nann
+  bulgare: Не
+  catalan: 'No'
+  coréen: 아니요
+  danois: Nej
+  espagnol: 'No'
+  esperanto: Ne
+  estonien: Ei
+  finnois: Ei
+  français: Non
+  gallois: Nac
+  grec: Όχι
+  géorgien: არა
+  hindi: नहीं
+  hongrois: Nem
+  indonésien: Tidak
+  irlandais: Ní hea
+  islandais: Nei
+  italien: 'No'
+  japonais: いいえ
+  kazakh: Жоқ
+  kurde: Na
+  latin: Non
+  letton: Nē
+  lituanien: Ne
+  malais: Tidak
+  malgache: Tsia
+  maltais: Le
+  mandarin standard: 不 (bù)
+  mongol: Үгүй
+  norvégien: Nei
+  néerlandais: Nee
+  népalais: होइन
+  ourdou: نہیں
+  ouzbek: Yo'q
+  pachto: نه
+  persan: نه
+  polonais: Nie
+  portugais: Não
+  roumain: Nu
+  russe: Нет
+  serbo-croate: Ne
+  slovaque: Nie
+  slovène: Ne
+  suédois: Nej
+  swahili: Hapana
+  tamoul: இல்லை
+  tchèque: Ne
+  thaï: ไม่
+  tibétain: མིན།
+  turc: Hayır
+  turkmène: Ýok
+  ukrainien: Ні
+  vietnamien: Không
+  zoulou: Cha
+Oui:
+  afrikaans: Ja
+  albanais: Po
+  allemand: Ja
+  anglais: 'Yes'
+  arabe: نعم
+  arménien: Այո
+  basque: Bai
+  bengali: হ্যাঁ
+  birman: ဟုတ်ကဲ့။
+  breton: Ya
+  bulgare: Да
+  catalan: Sí
+  coréen: 네
+  danois: Ja
+  espagnol: Sí
+  esperanto: Jes
+  estonien: Jah
+  finnois: Kyllä
+  français: Oui
+  gallois: Ydy
+  grec: Ναι
+  géorgien: დიახ
+  hindi: हाँ।
+  hongrois: Igen
+  indonésien: Ya
+  irlandais: Sea
+  islandais: Já
+  italien: Sì
+  japonais: はい。
+  kazakh: Иә
+  kurde: Erê
+  latin: Sic
+  letton: Jā
+  lituanien: Taip
+  malais: Ya
+  malgache: Eny
+  maltais: Iva
+  mandarin standard: 是的
+  mongol: Тийм
+  norvégien: Ja
+  néerlandais: Ja
+  népalais: हो
+  ourdou: ہاں۔
+  ouzbek: Ha
+  pachto: هو
+  persan: بله
+  polonais: Tak
+  portugais: Sim
+  roumain: Da
+  russe: Да
+  serbo-croate: Da
+  slovaque: Áno
+  slovène: Da
+  suédois: Ja
+  swahili: Ndiyo
+  tamoul: ஆம்
+  tchèque: Ano
+  thaï: ใช่
+  tibétain: ཡན།
+  turc: Evet
+  turkmène: Hawa
+  ukrainien: Так
+  vietnamien: Vâng
+  zoulou: Yebo
 Outil de création de cartes:
   afrikaans: Kaartmakingsinstrument
   albanais: Mjet për krijimin e hartave
@@ -4319,6 +4449,139 @@ Selon les régions visitées:
   ukrainien: Залежно від відвіданих регіонів
   vietnamien: Tùy thuộc vào các khu vực đã ghé thăm
   zoulou: Ngokwezifunda ezihanjelwe
+Soutaitez-vous vraiment supprimer ce profil ? Cette opération est définitive:
+  afrikaans: Wil jy regtig hierdie profiel uitvee? Hierdie aksie is permanent
+  albanais: A dëshironi vërtet të fshini këtë profil? Ky veprim është i përhershëm
+  allemand: Möchten Sie dieses Profil wirklich löschen? Dieser Vorgang ist endgültig
+  anglais: Do you really want to delete this profile? This action is permanent
+  arabe: هل تريد حقًا حذف هذا الملف الشخصي؟ هذه العملية نهائية
+  arménien: Իրո՞ք եք ցանկանում ջնջել այս պրոֆիլը։ Այս գործողությունը վերջնական է։
+  basque: Profil hau ezabatzea benetan nahi duzu? Eragiketa hau behin betikoa da
+  bengali: আপনি কি সত্যিই এই প্রোফাইলটি মুছতে চান? এই কর্মটি অপরিবর্তনীয়।
+  birman: သင်အမှန်တကယ် ဒီပရိုဖိုင်ကို ဖျက်ပစ်မှာလား? ဒီလုပ်ဆောင်ချက်က အပြီးအပိုင်ပါပဲ။
+  breton: Ha fellout a ra deoc'h nullañ ar profil-mañ da vat ? Ar gwezhiadenn-mañ
+    a zo evit atav
+  bulgare: Наистина ли искате да изтриете този профил? Тази операция е окончателна
+  catalan: Realment vols suprimir aquest perfil? Aquesta operació és definitiva
+  coréen: 정말로 이 프로필을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다
+  danois: Vil du virkelig slette denne profil? Denne handling er permanent
+  espagnol: ¿Realmente deseas eliminar este perfil? Esta acción es definitiva
+  esperanto: Ĉu vi vere volas forigi ĉi tiun profilon? Ĉi tiu operacio estas definitiva
+  estonien: Kas sa soovid tõesti seda profiili kustutada? See toiming on lõplik
+  finnois: Haluatko varmasti poistaa tämän profiilin? Tämä toiminto on peruuttamaton
+  français: Soutaitez-vous vraiment supprimer ce profil ? Cette opération est définitive
+  gallois: Ydych chi wir eisiau dileu'r proffil hwn? Mae'r weithred hon yn derfynol
+  grec: Θέλετε πραγματικά να διαγράψετε αυτό το προφίλ; Αυτή η ενέργεια είναι μη αναστρέψιμη
+  géorgien: ნამდვილად გსურთ ამ პროფილის წაშლა? ეს ოპერაცია შეუქცევადია
+  hindi: क्या आप वास्तव में इस प्रोफ़ाइल को हटाना चाहते हैं? यह कार्रवाई स्थायी है।
+  hongrois: Valóban törölni akarja ezt a profilt? Ez a művelet végleges
+  indonésien: Apakah Anda yakin ingin menghapus profil ini? Tindakan ini bersifat
+    permanen
+  irlandais: Ar mhaith leat an próifíl seo a scriosadh i ndáiríre? Tá an oibríocht
+    seo buan
+  islandais: Viltu örugglega eyða þessari prófíl? Þessi aðgerð er óafturkræf
+  italien: Vuole davvero cancellare questo profilo? Questa operazione è definitiva
+  japonais: 本当にこのプロフィールを削除しますか？この操作は取り消せません。
+  kazakh: Сіз бұл профильді шынымен жойғыңыз келе ме? Бұл әрекет қайтарылмайды
+  kurde: Ma hûn bi rastî dixwazin vê profîlê jê bibin? Ev operasyon qet nayê guhertin
+  latin: Visne vere hoc profilum delere? Haec operatio definitiva est
+  letton: Vai tiešām vēlaties izdzēst šo profilu? Šī darbība ir neatgriezeniska
+  lituanien: Ar tikrai norite ištrinti šį profilį? Ši operacija yra neatšaukiama
+  malais: Adakah anda pasti mahu memadam profil ini? Operasi ini adalah kekal
+  malgache: Tena te-hamafa ity mombamomba ity ve ianao? Maharitra ity asa ity
+  maltais: Tixtieq tħassar dan il-profil tassew? Din l-operazzjoni hija permanenti
+  mandarin standard: 你真的要删除这个档案吗？这个操作是永久性的。
+  mongol: Та энэ профайлыг үнэхээр устгахыг хүсч байна уу? Энэ үйлдэл эргэлт буцалтгүй
+  norvégien: Vil du virkelig slette denne profilen? Denne handlingen er permanent
+  néerlandais: Wilt u dit profiel echt verwijderen? Deze actie is definitief
+  népalais: के तपाईं साँच्चै यो प्रोफाइल मेटाउन चाहनुहुन्छ? यो अपरिवर्तनीय छ।
+  ourdou: کیا آپ واقعی یہ پروفائل حذف کرنا چاہتے ہیں؟ یہ عمل مستقل ہے۔
+  ouzbek: Bu profilni o'chirishni istaysizmi? Bu amal qaytarib bo'lmaydi
+  pachto: ایا تاسو واقعیا غواړئ دا پروفایل حذف کړئ؟ دا عمل تلپاتې دی
+  persan: آیا واقعاً می خواهید این پروفایل را حذف کنید؟ این عمل برگشت ناپذیر است
+  polonais: Czy na pewno chcesz usunąć ten profil? Ta operacja jest nieodwracalna
+  portugais: Você realmente deseja excluir este perfil? Esta ação é irreversível
+  roumain: Doriți cu adevărat să ștergeți acest profil? Această acțiune este definitivă
+  russe: Вы действительно хотите удалить этот профиль? Эта операция необратима
+  serbo-croate: Da li zaista želite da obrišete ovaj profil? Ova operacija je nepovratna
+  slovaque: Naozaj chcete odstrániť tento profil? Táto operácia je nezvratná
+  slovène: Ali res želite izbrisati ta profil? Ta operacija je dokončna
+  suédois: Vill du verkligen ta bort den här profilen? Den här åtgärden är permanent
+  swahili: Je, una uhakika unataka kufuta wasifu huu? Uendeshaji huu ni wa kudumu
+  tamoul: இந்த சுயவிவரத்தை நீக்க விரும்புகிறீர்களா? இந்த செயல் நிரந்தரமானது
+  tchèque: Opravdu chcete smazat tento profil? Tato operace je nevratná
+  thaï: คุณต้องการลบโปรไฟล์นี้จริง ๆ หรือไม่ การดำเนินการนี้จะไม่สามารถย้อนกลับได้
+  tibétain: ཁྱེད་རང་མི་མངོན་བྱེད་འདོད་ཡོད་དམ། ལས་འགུལ་འདི་མཇུག་འབྲས་ཡིན།
+  turc: Bu profili silmek istediğinizden emin misiniz? Bu işlem geri alınamaz
+  turkmène: Hasapymy hakykatdanam pozmak isleýärsiňizmi? Bu amal doly ýerine ýetiriler
+  ukrainien: Ви дійсно хочете видалити цей профіль? Ця операція є остаточною
+  vietnamien: Bạn có chắc chắn muốn xóa hồ sơ này không? Thao tác này là vĩnh viễn
+  zoulou: Uyafuna ngempela ukususa le phrofayela? Lesi senzo singunomphela
+Suppression du profil:
+  afrikaans: Profielveeë
+  albanais: Fshirja e profilit
+  allemand: Profil löschen
+  anglais: Profile deletion
+  arabe: حذف الملف الشخصي
+  arménien: Պրոֆիլի ջնջում։
+  basque: Profila ezabatu
+  bengali: প্রোফাইল মুছে ফেলা হচ্ছে।
+  birman: ပရိုဖိုင်ဖျက်ပစ်ပါ
+  breton: Diverradenn ar profil
+  bulgare: Изтриване на профила
+  catalan: Suprimir perfil
+  coréen: 프로필 삭제
+  danois: Slet profil
+  espagnol: Eliminación del perfil
+  esperanto: Profilo forigo
+  estonien: Profiili kustutamine
+  finnois: Profiilin poisto
+  français: Suppression du profil
+  gallois: Dileu'r proffil
+  grec: Διαγραφή προφίλ
+  géorgien: პროფილის წაშლა
+  hindi: प्रोफ़ाइल हटाएँ
+  hongrois: Profil törlése
+  indonésien: Hapus profil
+  irlandais: Scrios próifíl
+  islandais: Eyða prófíl
+  italien: Eliminazione del profilo
+  japonais: プロフィール削除
+  kazakh: Профильді жою
+  kurde: Jêbirina profîlê
+  latin: Profilis Deletio
+  letton: Profila dzēšana
+  lituanien: Profilio ištrynimas
+  malais: Padamkan profil
+  malgache: Fafana ny mombamomba
+  maltais: Tneħħija tal-profil
+  mandarin standard: 删除资料
+  mongol: Профайлыг устгах
+  norvégien: Slett profil
+  néerlandais: Profiel verwijderen
+  népalais: प्रोफाइल मेटाउने
+  ourdou: پروفائل حذف کریں
+  ouzbek: Profilni o'chirish
+  pachto: د پروفایل ړنګول
+  persan: حذف حساب کاربری
+  polonais: Usuwanie profilu
+  portugais: Exclusão do perfil
+  roumain: Ștergere profil
+  russe: Удаление профиля
+  serbo-croate: Brisanje profila
+  slovaque: Zmazať profil
+  slovène: Izbris profila
+  suédois: Ta bort profil
+  swahili: Kufuta wasifu
+  tamoul: சுயவிவரத்தை நீக்கு
+  tchèque: Smazat profil
+  thaï: ลบโปรไฟล์
+  tibétain: མི་མངོན་བཟོ་བ།
+  turc: Profil silme
+  turkmène: Profil ýok etmek
+  ukrainien: Видалити профіль
+  vietnamien: Xóa hồ sơ
+  zoulou: Ukukhishwa kwephrofayela
 Supprimer ce profil:
   afrikaans: Verwyder hierdie profiel
   albanais: Fshije këtë profil

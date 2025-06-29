@@ -15,6 +15,10 @@ dossier_stockage_individu : Choisir le dossier de stockage des cartes
 dossier_stockage_pop_up : Sélectionner un dossier
 langue_individu : Langue
 supprimer_profil : Supprimer ce profil
+titre_pop_up_suppression : Suppression du profil
+contenu_pop_up_suppression : Soutaitez-vous vraiment supprimer ce profil ? Cette opération est définitive
+oui : Oui
+non : Non
 
 # Granularité des cartes
 titre_granularite : Granularité des cartes

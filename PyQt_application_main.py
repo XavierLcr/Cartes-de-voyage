@@ -1522,6 +1522,9 @@ class SettingsApp(QWidget):
         titre="Création des cartes",
         contenu="Début de l'opération.",
         temps_max: int | None = 5000,
+        bouton_ok: bool = True,
+        boutons_oui_non: bool = False,
+        renvoyer_popup: bool = False,
     ):
         # Crée le message box
         msg = QMessageBox(self)
@@ -1530,14 +1533,30 @@ class SettingsApp(QWidget):
         msg.setIcon(QMessageBox.Icon.Information)
 
         # Configure le bouton OK et centre le message box
-        msg.setStandardButtons(QMessageBox.StandardButton.Ok)
-        msg.setDefaultButton(QMessageBox.StandardButton.Ok)
+        if bouton_ok:
+            msg.setStandardButtons(QMessageBox.StandardButton.Ok)
+            msg.setDefaultButton(QMessageBox.StandardButton.Ok)
+
+        if boutons_oui_non:
+            # msg.setStandardButtons(
+            #     QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+            # )
+            msg.addButton(
+                self.traduire_depuis_id(clef="oui"), QMessageBox.ButtonRole.YesRole
+            )
+            msg.addButton(
+                self.traduire_depuis_id(clef="non"), QMessageBox.ButtonRole.NoRole
+            )
+            msg.setIcon(QMessageBox.Icon.Question)
 
         # Timer pour fermer le message box après 3 secondes (3000 ms)
-        if temps_max is not None:
+        if temps_max is not None and not boutons_oui_non:
             QTimer.singleShot(max(3000, temps_max), msg.close)
 
-        msg.exec()  # Affiche le message box
+        if renvoyer_popup == False:
+            msg.exec()  # Affiche le message box
+        else:
+            return msg
 
     def publier_cartes(self, settings):
         # Logique de traitement avec les paramètres validés
@@ -2073,12 +2092,32 @@ class SettingsApp(QWidget):
 
     def supprimer_clef(self, clef):
         global sauvegarde
+
+        # Pop-up afin de s'assurer de la décision
+        message = self.montrer_popup(
+            titre=self.traduire_depuis_id(clef="titre_pop_up_suppression"),
+            contenu=self.traduire_depuis_id(
+                clef="contenu_pop_up_suppression", suffixe="."
+            ),
+            temps_max=None,
+            bouton_ok=False,
+            boutons_oui_non=True,
+            renvoyer_popup=True,
+        )
+        message = message.exec()
+
+        if message != 2:
+            return
+
+        # Suppression de l'individu
         if clef in sauvegarde:
             del sauvegarde[clef]
 
+            # Mise à jour de la liste déroulante
             self.nom_individu.clear()
             self.nom_individu.addItems(list(sauvegarde.keys()))
 
+            # sauvegarde
             with open(
                 os.path.join(
                     constantes.direction_donnees_application, "sauvegarde_param.yaml"
@@ -2088,6 +2127,7 @@ class SettingsApp(QWidget):
             ) as f:
                 yaml.dump(sauvegarde, f, allow_unicode=True, default_flow_style=False)
 
+            # Réinitialisation des paramètres
             self.reinitialisation_parametres(True)
             self.dicts_granu = {"region": {}, "dep": {}}
             self.maj_layout_resume()

@@ -877,20 +877,19 @@ class SettingsApp(QWidget):
         )
 
         # Onglet 5
-        # self.vider_layout(self.layout_informations_generales)
-        debut_onglet_5 = self.traduire_depuis_id(
-            "sous_titre_description_application",
-            prefixe="<h2>MesVoyages – ",
-            suffixe="<br>(",
-        )
-        debut_onglet_5 = self.traduire_depuis_id(
-            "version",
-            prefixe=debut_onglet_5,
-            suffixe=f" {constantes.version_logiciel})</h2><hr>",
-        )
         self.widget_informations_generales.setText(
             self.traduire_depuis_id(
-                "description_application", prefixe=debut_onglet_5, suffixe=""
+                "description_application",
+                prefixe=self.traduire_depuis_id(
+                    "version",
+                    prefixe=self.traduire_depuis_id(
+                        "sous_titre_description_application",
+                        prefixe="<h2>MesVoyages – ",
+                        suffixe="<br>(",
+                    ),
+                    suffixe=f" {constantes.version_logiciel})</h2><hr>",
+                ),
+                suffixe="<br>",
             )
         )
 

@@ -446,7 +446,9 @@ class SettingsApp(QWidget):
         # Choix du format d'image
         self.label_format = QLabel()
         self.format_cartes = QComboBox()
-        self.format_cartes.addItems(["png", "jpg", "svg", "pdf", "tif", "webp"])
+        self.format_cartes.addItems(
+            ["png", "jpg", "svg", "pdf", "tif", "webp", "raw", "ps"]
+        )
 
         # Ajout des widgets au layout horizontal
         layout_format_qualite.addWidget(self.label_format)

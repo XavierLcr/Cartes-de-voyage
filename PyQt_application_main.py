@@ -528,6 +528,8 @@ class SettingsApp(QWidget):
         self.liste_endroits.setWrapping(True)
         self.liste_endroits.setResizeMode(QListWidget.ResizeMode.Adjust)
         self.liste_endroits.setGridSize(QSize(280, 25))
+        self.telecharger_lieux_visites = QPushButton()
+        self.telecharger_lieux_visites.clicked.connect(self.exporter_yamls_visites)
 
         self.dicts_granu = {"region": {}, "dep": {}}
 
@@ -541,6 +543,16 @@ class SettingsApp(QWidget):
         layout_selection_params = QHBoxLayout()
         layout_selection_params.addWidget(self.liste_des_pays)
         layout_selection_params.addWidget(self.liste_niveaux)
+        layout_selection_params.addWidget(self.telecharger_lieux_visites)
+        layout_selection_params.setStretch(
+            0, 3
+        )  # Le premier widget prend plus de place
+        layout_selection_params.setStretch(
+            1, 3
+        )  # Le deuxième widget prend plus de place
+        layout_selection_params.setStretch(
+            2, 1
+        )  # Le troisième widget prend moins de place
 
         layout_selection_lieux.addLayout(layout_selection_params)
         layout_selection_lieux.addWidget(self.avertissement_prio)
@@ -841,6 +853,10 @@ class SettingsApp(QWidget):
             self.traduire_depuis_id(
                 "avertissement_onglet_2", prefixe="⚠️\u00a0", suffixe="."
             )
+        )
+        self.telecharger_lieux_visites.setText("📥")
+        self.telecharger_lieux_visites.setToolTip(
+            self.traduire_depuis_id("telecharger_lieux_visites", suffixe=".")
         )
 
         # Chargement des YAMLs
@@ -2175,6 +2191,77 @@ class SettingsApp(QWidget):
             self.dicts_granu = {"region": {}, "dep": {}}
             self.maj_layout_resume()
             self.maj_langue_interface(True)
+
+    def exporter_yamls_visites(self):
+
+        if self.dossier_stockage is None:
+
+            self.montrer_popup(
+                contenu=self.traduire_depuis_id(
+                    "pop_up_pas_de_dossier_de_stockage",
+                    suffixe=".",
+                ),
+                titre=self.traduire_depuis_id("pop_up_probleme_titre", suffixe="."),
+                temps_max=10000,
+            )
+
+        else:
+
+            langue_actuelle = fonctions_utiles_2_0.obtenir_clef_par_valeur(
+                dictionnaire=constantes.dict_langues_dispo,
+                valeur=self.langue_utilisee.currentText(),
+            )
+            gran = constantes.parametres_traduits["granularite"][langue_actuelle]
+
+            nom = self.nom_individu.currentText()
+            if nom is None:
+                nom = ""
+
+            nom_yaml_regions = f"{nom}{' - ' if nom != '' else nom}{self.traduire_depuis_id(clef='granularite_pays_visites')} - {gran['Régions']}.yaml"
+            nom_yaml_departements = f"{nom}{' - ' if nom != '' else nom}{self.traduire_depuis_id(clef='granularite_pays_visites')} - {gran['Départements']}.yaml"
+
+            try:
+
+                # Export des régions
+                with open(
+                    os.path.join(self.dossier_stockage, nom_yaml_regions),
+                    "w",
+                    encoding="utf-8",
+                ) as f:
+                    yaml.dump(
+                        self.dicts_granu["region"],
+                        f,
+                        allow_unicode=True,
+                        default_flow_style=False,
+                    )
+                # Export des départements
+                with open(
+                    os.path.join(self.dossier_stockage, nom_yaml_departements),
+                    "w",
+                    encoding="utf-8",
+                ) as f:
+                    yaml.dump(
+                        self.dicts_granu["dep"],
+                        f,
+                        allow_unicode=True,
+                        default_flow_style=False,
+                    )
+
+                self.telecharger_lieux_visites.setText("📥✅")
+                QTimer.singleShot(
+                    3000, lambda: self.telecharger_lieux_visites.setText("📥")
+                )
+
+            except:
+
+                self.montrer_popup(
+                    titre=self.traduire_depuis_id("pop_up_probleme_titre", suffixe="."),
+                    contenu=self.traduire_depuis_id(
+                        "export_pas_fonctionnel",
+                        suffixe=".",
+                    ),
+                    temps_max=10000,
+                )
 
 
 if __name__ == "__main__":

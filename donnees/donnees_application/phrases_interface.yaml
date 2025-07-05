@@ -68,6 +68,8 @@ description_bouton_publier_cartes : "Publier les cartes sauvegarde également le
 
 # Onglet 2
 titre_choix_destinations_visitees : Sélection des lieux visités
+telecharger_lieux_visites : Télécharger les fichiers YAML des lieux visités
+export_pas_fonctionnel : L'export n'a pas fonctionné. Veuillez réessayer de nouveau plus tard
 avertissement_onglet_2 : Pour un pays donné, si des départements sont cochés, ils sont prioritaires sur les régions cochées. Dans ce cas, la liste des régions visitées est automatiquement reconstituée à partir de la liste des départements. Il n'est donc plus nécessaire de cocher les régions visitées (les régions peuvent rester cochées mais ne seront pas prises en compte)
 
 # Chargement des YAMLs

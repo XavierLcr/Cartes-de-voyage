@@ -686,16 +686,16 @@ class SettingsApp(QWidget):
         self.nom_individu.currentIndexChanged.connect(
             lambda: self.initialiser_sauvegarde(sauvegarde)
         )
-        self.nom_individu.editTextChanged.connect(
-            lambda: self.initialiser_sauvegarde(sauvegarde)
-        )
+        # self.nom_individu.editTextChanged.connect(
+        #     lambda: self.initialiser_sauvegarde(sauvegarde)
+        # )
 
-        self.nom_individu.editTextChanged.connect(
-            lambda: self.maj_langue_interface(True)
-        )
         self.nom_individu.currentIndexChanged.connect(
             lambda: self.maj_langue_interface(True)
         )
+        # self.nom_individu.editTextChanged.connect(
+        #     lambda: self.maj_langue_interface(True)
+        # )
 
     def maj_langue_interface(self, parametres_aussi=True):
         """Met à jour les textes des widgets selon la langue sélectionnée."""

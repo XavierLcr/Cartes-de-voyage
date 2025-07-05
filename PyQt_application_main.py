@@ -473,7 +473,7 @@ class SettingsApp(QWidget):
         # Création du bouton "Créer cartes"
         self.creation_cartes_bouton = QPushButton()
         self.creation_cartes_bouton.clicked.connect(
-            lambda: self.fonction_principale(False)
+            lambda: self.fonction_principale(False, False)
         )
         self.barre_progression = QProgressBar()
         self.barre_progression.setMinimum(0)
@@ -482,7 +482,9 @@ class SettingsApp(QWidget):
 
         # Bouton de sauvegarde
         self.bouton_sauvegarde = QPushButton()
-        self.bouton_sauvegarde.clicked.connect(lambda: self.fonction_principale(True))
+        self.bouton_sauvegarde.clicked.connect(
+            lambda: self.fonction_principale(True, True)
+        )
 
         # Bouton de réinitialisation
         self.reinit_parametres = QPushButton()
@@ -1434,7 +1436,7 @@ class SettingsApp(QWidget):
         if dossier:
             self.dossier_stockage = dossier  # Stocke le chemin sélectionné
 
-    def fonction_principale(self, sauvegarder_seulement=True):
+    def fonction_principale(self, sauvegarder_seulement=True, pop_up=False):
 
         settings = {
             "name": self.nom_individu.currentText(),
@@ -1519,6 +1521,15 @@ class SettingsApp(QWidget):
             ) as f:
                 yaml.dump(sauvegarde, f, allow_unicode=True, default_flow_style=False)
 
+            if pop_up:
+                self.montrer_popup(
+                    contenu=self.traduire_depuis_id(
+                        "sauvegarde_effectuee", suffixe=" !"
+                    ),
+                    titre=self.traduire_depuis_id("sauvegarder_profil", suffixe=""),
+                    temps_max=10000,
+                )
+
         elif self.dicts_granu["dep"] == {} and self.dicts_granu["region"] == {}:
 
             phrase_yaml = self.traduire_depuis_id(
@@ -1532,19 +1543,18 @@ class SettingsApp(QWidget):
 
         elif settings["results"] is None:
 
-            phrase_repertoire = self.traduire_depuis_id(
-                "pop_up_pas_de_dossier_de_stockage",
-                suffixe=".",
-            )
             self.montrer_popup(
-                contenu=phrase_repertoire,
+                contenu=self.traduire_depuis_id(
+                    "pop_up_pas_de_dossier_de_stockage",
+                    suffixe=".",
+                ),
                 titre=self.traduire_depuis_id("pop_up_probleme_titre", suffixe="."),
                 temps_max=10000,
             )
 
         else:
             # Export des paramètres
-            self.fonction_principale(sauvegarder_seulement=True)
+            self.fonction_principale(sauvegarder_seulement=True, pop_up=False)
 
             # Publication des cartes
             self.publier_cartes(settings)

@@ -190,7 +190,26 @@ def creer_image_carte(
         fichiers = [
             os.path.join(chemin_impression, f)
             for f in os.listdir(chemin_impression)
-            if os.path.isfile(os.path.join(chemin_impression, f))
+            if (
+                os.path.isfile(os.path.join(chemin_impression, f))
+                and os.path.splitext(f)[1].lower()
+                in [
+                    ".eps",
+                    ".jpg",
+                    ".jpeg",
+                    ".pdf",
+                    ".pgf",
+                    ".png",
+                    ".ps",
+                    ".raw",
+                    ".rgba",
+                    ".svg",
+                    ".svgz",
+                    ".tif",
+                    ".tiff",
+                    ".webp",
+                ]
+            )
         ]
 
         if len(fichiers) >= max(max_cartes_additionnelles, 1):

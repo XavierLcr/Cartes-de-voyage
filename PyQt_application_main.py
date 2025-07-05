@@ -1912,6 +1912,12 @@ class SettingsApp(QWidget):
             self.dicts_granu["dep"] if self.dicts_granu["dep"] != {} else None
         )
 
+        if dict_departements is not None:
+            if dict_departements != {} and dict_regions is not None:
+                dict_regions = {
+                    k: v for k, v in dict_regions.items() if k not in dict_departements
+                }
+
         # Met à jour la vbox avec le résultat
         self.vider_layout(vbox)
 

@@ -1,3 +1,8 @@
+################################################################################
+# Projet de cartes de voyage                                                   #
+# 1.3 Création de la base de données et de la production des graphiques        #
+################################################################################
+
 import os
 import gc
 import sys

@@ -1,3 +1,8 @@
+################################################################################
+# Projet de cartes de voyage                                                   #
+# 1.2 - Fichier de création des cartes                                         #
+################################################################################
+
 import random
 import os
 import colorsys

@@ -1,3 +1,8 @@
+################################################################################
+# Projet de cartes de voyage                                                   #
+# Fichier contenant les constantes et les données secondaires                  #
+################################################################################
+
 import os
 import sys
 import yaml

@@ -1,3 +1,7 @@
+################################################################################
+# Projet de cartes de voyage                                                   #
+# 2.3 - Création du .exe                                                       #
+################################################################################
 from cx_Freeze import setup, Executable
 import sys
 import os

@@ -1,3 +1,9 @@
+################################################################################
+# Projet de cartes de voyage                                                   #
+# 2.0 - Fonctions utiles à l'application                                       #
+################################################################################
+
+
 def obtenir_clef_par_valeur(dictionnaire, valeur):
     """Retourne la clé associée à une valeur donnée dans un dictionnaire."""
     for clef, val in dictionnaire.items():

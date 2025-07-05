@@ -1,6 +1,6 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
-# Fichier de traduction des différents paramètres et non de pays               #
+# 2.1 - Fichier de traduction des différents paramètres et non de pays         #
 ################################################################################
 
 import google.generativeai as genai

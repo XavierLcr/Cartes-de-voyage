@@ -44,6 +44,8 @@ cartes_theme : Thème
 cartes_couleurs : Teintes
 tick_style_dans_app : Utiliser le style dans l'application
 description_tick_style_dans_app : "Applique les paramètres esthétiques sélectionnés à l'application. Cela permet d'avoir un aperçu de leur rendu"
+cartes_couleurs_fond : Fond de carte marin
+cartes_couleurs_fond_tool_tip : Permet d'avoir un fond de carte bleu clair et non blanc. Cela est utile pour les régions ou pays entourés de mer
 
 # Paramètres de format et de qualité
 titre_params_techniques : Paramètres de publication des cartes

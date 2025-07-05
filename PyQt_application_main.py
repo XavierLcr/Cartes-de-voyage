@@ -397,7 +397,10 @@ class SettingsApp(QWidget):
 
         # Ajout du layout au QGroupBox puis ajout au layout principal
         self.groupe_cartes_a_creer.setLayout(layout_cartes_a_creer)
-        layout.addWidget(self.groupe_cartes_a_creer)
+        layout_granu_cartes_a_creer = QVBoxLayout()
+        layout_granu_cartes_a_creer.addWidget(self.groupe_granularite)
+        layout_granu_cartes_a_creer.addWidget(self.groupe_cartes_a_creer)
+        # layout.addWidget(self.groupe_cartes_a_creer)
 
         # Boîte des couleurs
         self.groupe_couleurs = QGroupBox()
@@ -423,19 +426,33 @@ class SettingsApp(QWidget):
         self.utiliser_theme = QCheckBox()
         self.utiliser_theme.stateChanged.connect(self.maj_style)
 
+        # Ligne
+        ligne3 = QFrame()
+        ligne3.setFrameShape(QFrame.Shape.HLine)
+        ligne3.setFrameShadow(QFrame.Shadow.Sunken)
+        ligne3.setLineWidth(1)
+
+        # Choix de la couleur de fond
+        self.couleur_fond_checkbox = QCheckBox()
+
         # Ajout des widgets au layout vertical
         layout_theme_color.addLayout(layout_theme)
         layout_theme_color.addLayout(layout_couleurs)
         layout_theme_color.addWidget(self.utiliser_theme)
+        layout_theme_color.addWidget(ligne3)
+        layout_theme_color.addWidget(
+            self.couleur_fond_checkbox, alignment=Qt.AlignmentFlag.AlignHCenter
+        )
 
         # Ajout du layout de couleurs au groupbox et ajout du groupbox au layout principal
         self.groupe_couleurs.setLayout(layout_theme_color)
 
-        # Ajout des groupbox des cartes et des couleurs
-        layout_cartes_et_couleurs.addWidget(self.groupe_cartes_a_creer)
+        # # Ajout des groupbox des cartes et des couleurs
+        # layout_cartes_et_couleurs.addWidget(self.groupe_cartes_a_creer)
+        layout_cartes_et_couleurs.addLayout(layout_granu_cartes_a_creer)
         layout_cartes_et_couleurs.addWidget(self.groupe_couleurs)
 
-        # Ajouter ce layout horizontal au layout principal
+        # # Ajouter ce layout horizontal au layout principal
         layout.addLayout(layout_cartes_et_couleurs)
 
         # Group box et layout des paramètres de publication
@@ -803,6 +820,13 @@ class SettingsApp(QWidget):
         self.utiliser_theme.setText(self.traduire_depuis_id("tick_style_dans_app"))
         self.utiliser_theme.setToolTip(
             self.traduire_depuis_id("description_tick_style_dans_app", suffixe=".")
+        )
+
+        self.couleur_fond_checkbox.setText(
+            self.traduire_depuis_id(clef="cartes_couleurs_fond", suffixe="")
+        )
+        self.couleur_fond_checkbox.setToolTip(
+            self.traduire_depuis_id(clef="cartes_couleurs_fond_tool_tip", suffixe=".")
         )
 
         # Paramètres de format et de qualité
@@ -1475,6 +1499,7 @@ class SettingsApp(QWidget):
             ),
             "theme": self.theme_combo.currentText(),
             "color": self.color_combo.currentText(),
+            "couleur_fond_carte": self.couleur_fond_checkbox.isChecked(),
             "quality": self.curseur_qualite.value(),
             "format": self.format_cartes.currentText(),
             "results": self.dossier_stockage,
@@ -1713,24 +1738,25 @@ class SettingsApp(QWidget):
             "liste_dfs": liste_gdfs,
             "liste_dicts": [dict_regions, settings["dictionnaire_departements"]],
             "gdf_eau": constantes.gdf_lacs,
-            "nom_indiv": settings["name"],
-            "format": settings["format"],
             "noms_pays": constantes.pays_differentes_langues,
-            "langue": settings["language"],
+            "dictionnaire_pays_unis": constantes.liste_pays_groupes,
+            "nom_indiv": settings["name"],
             "direction_resultat": settings["results"],
+            "langue": settings["language"],
             "granularite_visite": granularite,
-            "qualite": settings["quality"],
+            "granularite_reste": granularite_fond,
             "theme": constantes.liste_ambiances[settings["theme"]],
             "teinte": constantes.liste_couleurs[settings["color"]],
-            "granularite_reste": granularite_fond,
-            "pays_individuel": settings["cartes_des_pays"],
-            "liste_regions": liste_regions_temp,
-            "dictionnaire_pays_unis": constantes.liste_pays_groupes,
-            "couleur_fond": "#FFFFFF",
-            "max_cartes_additionnelles": settings["limite_nb_cartes"],
-            "carte_du_monde": settings["carte_du_monde"],
-            "sortir_cartes_granu_inf": settings["publier_granu_faible"],
+            "couleur_fond": "#CDEAF7" if settings["couleur_fond_carte"] else "#FFFFFF",
             "couleur_non_visites": "#ECEBED",
+            "couleur_lacs": "#CEE3F5",
+            "format": settings["format"],
+            "qualite": settings["quality"],
+            "carte_du_monde": settings["carte_du_monde"],
+            "liste_regions": liste_regions_temp,
+            "pays_individuel": settings["cartes_des_pays"],
+            "max_cartes_additionnelles": settings["limite_nb_cartes"],
+            "sortir_cartes_granu_inf": settings["publier_granu_faible"],
         }
 
         self.thread = QThread()
@@ -2029,6 +2055,9 @@ class SettingsApp(QWidget):
             if sauv.get("format_onglet_3") is not None:
                 self.mise_en_forme_onglet_3.setChecked(sauv.get("format_onglet_3"))
 
+            if sauv.get("couleur_fond_carte") is not None:
+                self.couleur_fond_checkbox.setChecked(sauv.get("couleur_fond_carte"))
+
             self.maj_liste_reg_dep_pays()
             self.lancer_classement_par_region_departement(top_n=top_n_pays)
 
@@ -2062,6 +2091,7 @@ class SettingsApp(QWidget):
         # Paramètres de publication
         self.curseur_qualite.setValue(int((qualite_min + qualite_max) / 2))
         self.format_cartes.setCurrentText("png")
+        self.couleur_fond_checkbox.setChecked(False)
 
         # Cartes à créer
         self.carte_monde.setChecked(False)

@@ -4503,6 +4503,71 @@ Faible:
   ukrainien: Слабкий
   vietnamien: Yếu
   zoulou: Buthaka
+Fond de carte marin:
+  afrikaans: Mariene agtergrondkaart
+  albanais: Hartë bazë detare
+  allemand: Meeresgrundkarte
+  anglais: Marine background
+  arabe: خلفية خريطة بحرية
+  arménien: Ծովային քարտեզի հիմք
+  basque: Itsasoko mapa-hondoa
+  bengali: সামুদ্রিক পটভূমি
+  birman: ပင်လယ်ရေကြောင်း နောက်ခံ
+  breton: Skoazell-kartennoù war vor
+  bulgare: Морска карта фон
+  catalan: Fons marí
+  coréen: 해양 지도 배경
+  danois: Marinbaggrund
+  espagnol: Fondo marino
+  esperanto: Mara mapfundo
+  estonien: Mere kaart
+  finnois: Merikartta
+  français: Fond de carte marin
+  gallois: Cartograffiaeth forol
+  grec: Υπόβαθρο θαλάσσιου χάρτη
+  géorgien: საზღვაო ფონის რუკა
+  hindi: समुद्री पृष्ठभूमि
+  hongrois: Tengeri alaptérkép
+  indonésien: Peta dasar laut
+  irlandais: Cúldhreach mhuirí
+  islandais: Veggakort
+  italien: Sfondo nautico
+  japonais: 海底地形図
+  kazakh: Теңіз картасының фон
+  kurde: Nexşeya binavî ya deryayî
+  latin: Fundus marinus cartae
+  letton: Jūras kartes fons
+  lituanien: Jūrinis žemėlapio pagrindas
+  malais: Latar belakang peta laut
+  malgache: Fanaovan-tsary an-tsaha an-dranomasina
+  maltais: Bażi tal-mappa tal-baħar
+  mandarin standard: 海图底图
+  mongol: Далайн газрын зураг
+  norvégien: Sjøkartbakgrunn
+  néerlandais: Zeekaart
+  népalais: समुद्री नक्शा पृष्ठ
+  ourdou: بحری نقشہ پس منظر
+  ouzbek: Dengiz xaritasi fondi
+  pachto: سمندرۍ نقشه پس منظر
+  persan: نقشه پایه دریایی
+  polonais: Morska mapa bazowa
+  portugais: Fundo de mapa marinho
+  roumain: Fundal marin
+  russe: Морская карта
+  serbo-croate: Podloga karte mora
+  slovaque: Morská mapa pozadia
+  slovène: Morska podlaga
+  suédois: Sjökarta
+  swahili: Mandhari ya bahari
+  tamoul: கடல் அடிப்படை வரைபடம்
+  tchèque: Námořní mapový podklad
+  thaï: แผนที่ฐานทางทะเล
+  tibétain: མཚོ་གཟུགས་
+  turc: Deniz harita tabanı
+  turkmène: Ýüzen kartasy fonuny
+  ukrainien: Морська карта основи
+  vietnamien: Bản đồ đáy biển
+  zoulou: Imephu yasolwandle
 Format:
   afrikaans: Formaat
   albanais: Format
@@ -6003,6 +6068,130 @@ Pays visités:
   ukrainien: Відвідані країни
   vietnamien: Các nước đã ghé thăm
   zoulou: Amazwe avakashelwe
+Permet d'avoir un fond de carte bleu clair et non blanc. Cela est utile pour les régions ou pays entourés de mer:
+  afrikaans: Maak voorsiening vir 'n ligblou agtergrond in plaas van wit. Dit is nuttig
+    vir streke of lande wat deur die see omring word
+  albanais: Mundëson një sfond karte blu të çelët dhe jo të bardhë. Kjo është e dobishme
+    për rajone ose vende të rrethuara nga deti
+  allemand: Ermöglicht einen hellblauen Hintergrund anstelle von Weiß. Dies ist nützlich
+    für Regionen oder Länder, die vom Meer umgeben sind
+  anglais: Allows for a light blue background map instead of white. This is useful
+    for regions or countries surrounded by the sea
+  arabe: يسمح بخلفية خريطة زرقاء فاتحة بدلاً من البيضاء. هذا مفيد للمناطق أو البلدان
+    المحاطة بالبحر
+  arménien: Հնարավորություն է տալիս ունենալ բաց կապույտ, այլ ոչ թե սպիտակ, խարիսխի
+    ֆոն։ Սա օգտակար է ծովով շրջապատված տարածաշրջանների կամ երկրների համար։
+  basque: Zuri izan beharrean, mapa urdin argi baten jabe izateko aukera ematen du.
+    Hau baliagarria da itsasoak inguratzen dituen eskualde edo herrialdeetarako
+  bengali: সমুদ্রবেষ্টিত অঞ্চল বা দেশগুলির জন্য, সাদা নয়, বরং হালকা নীল পটভূমি থাকার
+    সুবিধা রয়েছে।
+  birman: သမုဒ္ဒရာများ ဝန်းရံထားသော ဒေသများ သို့မဟုတ် နိုင်ငံများအတွက် အလင်းပြာရောင်နောက်ခံကို
+    ရရှိနိုင်ပြီး အဖြူရောင်မဟုတ်ပါ။
+  breton: A roit ur gwadenn-hent glas sklaer ha n'eo ket gwenn. Talvezout a reer evit
+    ar rannvroioù pe broioù troet gant mor
+  bulgare: Позволява да има светло синя фонова карта, а не бяла. Това е полезно за
+    региони или страни, заобиколени от море
+  catalan: Permet d'avoir un fons de mapa blau clar i no blanc. Això és útil per a
+    regions o països envoltats de mar
+  coréen: 배경을 흰색이 아닌 밝은 파란색으로 설정할 수 있습니다. 이는 바다로 둘러싸인 지역이나 국가에 유용합니다
+  danois: Giver en lyseblå baggrund i stedet for hvid. Dette er nyttigt for regioner
+    eller lande omgivet af hav
+  espagnol: Permite tener un fondo de mapa azul claro y no blanco. Esto es útil para
+    regiones o países rodeados de mar
+  esperanto: Ebligas havi klarbluan fonon de mapo, ne blankan. Tio utilas por regionoj
+    aŭ landoj ĉirkaŭataj de maro
+  estonien: Võimaldab kuvada helesinist kaardipõhja valge asemel. See on kasulik merest
+    ümbritsetud piirkondade või riikide jaoks
+  finnois: Sallii vaaleansinisen taustakartan, ei valkoisen. Tämä on hyödyllistä merialueilla
+    tai maissa
+  français: Permet d'avoir un fond de carte bleu clair et non blanc. Cela est utile
+    pour les régions ou pays entourés de mer
+  gallois: Caniatáu i fod â chefndir map glas golau yn lle gwyn. Mae hyn yn ddefnyddiol
+    ar gyfer rhanbarthau neu wledydd wedi'u hamgylchynu gan y môr
+  grec: Επιτρέπει την ύπαρξη γαλάζιου φόντου χάρτη αντί για λευκό. Αυτό είναι χρήσιμο
+    για περιοχές ή χώρες που περιβάλλονται από θάλασσα
+  géorgien: ნათელ ლურჯ ფონს იძლევა თეთრის ნაცვლად. ეს სასარგებლოა ზღვით გარშემორტყმული
+    რეგიონებისთვის ან ქვეყნებისთვის
+  hindi: हल्का नीला बैकग्राउंड देता है, सफेद नहीं। यह उन क्षेत्रों या देशों के लिए
+    उपयोगी है जो समुद्र से घिरे हैं।
+  hongrois: Világoskék térképalapot biztosít fehér helyett. Ez hasznos lehet tengerrel
+    körülvett régiók vagy országok esetében
+  indonésien: Memungkinkan untuk memiliki latar belakang peta biru muda, bukan putih.
+    Ini berguna untuk wilayah atau negara yang dikelilingi oleh laut
+  irlandais: Ligeann sé duit cúlra léar gorm a bheith agat in ionad bán. Tá sé seo
+    úsáideach do réigiúin nó tíortha atá timpeallaithe ag an bhfarraige
+  islandais: Gerir mögulegt að hafa ljósbláan bakgrunnskort í stað hvítur. Þetta er
+    gagnlegt fyrir svæði eða lönd sem eru umkringd hafi
+  italien: Permette di avere uno sfondo blu chiaro anziché bianco. Questo è utile
+    per regioni o paesi circondati dal mare
+  japonais: これにより、白ではなく薄い青色の地図背景を使用できます。これは海に囲まれた地域や国に役立ちます。
+  kazakh: Ақ емес, ашық көк фонның болуына мүмкіндік береді. Бұл теңізбен қоршалған
+    аймақтар мен елдер үшін пайдалы
+  kurde: Ji bo ku paşnavîn nîvî bişke ve, ne spî. Ev ji bo deverên ku li kêleka deryayê
+    ne, bikêr e
+  latin: Clare caeruleum vel album non tabulam fundum permittit. Hoc utile est regionibus
+    vel nationibus maris circumdatis
+  letton: Tas ļauj iegūt gaiši zilu kartes fona krāsu, nevis baltu. Tas ir noderīgi
+    reģioniem vai valstīm, ko ieskauj jūra
+  lituanien: Suteikia galimybę turėti šviesiai mėlyną, o ne baltą foninę žemėlapį.
+    Tai naudinga regionams ar šalims, apsuptoms jūros
+  malais: Membolehkan latar belakang peta berwarna biru muda dan bukannya putih. Ini
+    berguna untuk kawasan atau negara yang dikelilingi laut
+  malgache: Mamela hanana sarintany manga mazava fa tsy fotsy. Mahasoa izany ho an'ireo
+    faritra na firenena voahodidin'ny ranomasina
+  maltais: Jippermetti li jkollok sfond blu ċar u mhux abjad. Dan huwa utli għal reġjuni
+    jew pajjiżi mdawrin bil-baħar
+  mandarin standard: 使地图背景为浅蓝色而非白色，这对于被海洋环绕的地区或国家很有用。
+  mongol: Далайн тэнгис хүрээлэгдсэн бүс нутаг, улс орнуудад энэ нь тустай. Үүний
+    тусламжтайгаар цагаан биш, хөнгөн цэнхэр газрын зурагтай байх боломжтой
+  norvégien: Gir et lys blå bakgrunnsfarge i stedet for hvit. Dette er nyttig for
+    regioner eller land omgitt av hav
+  néerlandais: Maakt een lichtblauwe achtergrond mogelijk in plaats van wit. Dit is
+    handig voor gebieden of landen omringd door zee
+  népalais: यसले सेतोको सट्टा हल्का नीलो पृष्ठभूमि प्रयोग गर्न अनुमति दिन्छ। यो समुद्रले
+    घेरिएका क्षेत्र वा देशहरूका लागि उपयोगी छ।
+  ourdou: یہ واضح نیلے رنگ کا بیک گراؤنڈ رکھنے کی اجازت دیتا ہے، سفید نہیں۔ یہ ان
+    علاقوں یا ممالک کے لیے مفید ہے جو سمندر سے گھیرے ہوئے ہیں۔
+  ouzbek: Ochiq ko'k, oq emas, fon xaritasiga ega bo'lish imkonini beradi. Bu dengiz
+    bilan o'ralgan mintaqalar yoki mamlakatlar uchun foydalidir
+  pachto: داخلي روښانه نیلي پس منظر ولرئ، سپین نه. دا د هغو سیمو یا هیوادونو لپاره
+    ګټور دي چې د سمندر لخوا احاطه شوي دي
+  persan: این امکان را فراهم می‌کند که پس‌زمینه نقشه آبی روشن باشد و نه سفید. این
+    امر برای مناطق یا کشورهایی که توسط دریا احاطه شده‌اند مفید است
+  polonais: Pozwala na posiadanie jasnoniebieskiego tła mapy zamiast białego. Jest
+    to przydatne w przypadku regionów lub krajów otoczonych morzem
+  portugais: Permite ter um fundo de mapa azul claro e não branco. Isto é útil para
+    regiões ou países rodeados por mar
+  roumain: Permite un fundal de hartă albastru deschis în loc de alb. Acest lucru
+    este util pentru regiunile sau țările înconjurate de mare
+  russe: Позволяет иметь светло-синий фон карты вместо белого. Это полезно для регионов
+    или стран, окруженных морем
+  serbo-croate: Omogućava svijetloplavu pozadinu umjesto bijele. Ovo je korisno za
+    regije ili zemlje okružene morem
+  slovaque: Umožňuje mať svetlomodré pozadie mapy namiesto bieleho. To je užitočné
+    pre regióny alebo krajiny obklopené morom
+  slovène: Omogoča svetlo modro ozadje namesto belega. To je uporabno za regije ali
+    države, obdane z morjem
+  suédois: Möjliggör en ljusblå bakgrundskarta istället för vit. Detta är användbart
+    för regioner eller länder som omges av hav
+  swahili: Inawezesha kuwa na mandhari ya rangi ya buluu iliyofifia badala ya nyeupe.
+    Hii ni muhimu kwa maeneo au nchi zilizo na bahari inayozizunguka
+  tamoul: கடல் சூழ்ந்த பகுதிகள் அல்லது நாடுகளுக்கு இது பயனுள்ளதாக இருக்கும், வெள்ளை
+    நிறத்திற்கு பதிலாக வெளிர் நீல நிற பின்னணி படத்தை இது அனுமதிக்கிறது
+  tchèque: Umožňuje mít světle modré pozadí mapy místo bílého. To je užitečné pro
+    regiony nebo země obklopené mořem
+  thaï: ทำให้พื้นหลังแผนที่เป็นสีฟ้าอ่อนแทนที่จะเป็นสีขาว ซึ่งมีประโยชน์สำหรับภูมิภาคหรือประเทศที่รายล้อมด้วยทะเล
+  tibétain: འདིས་ཤོག་ངོས་ཀྱི་རྒྱབ་ལྗང་དྭངས་བར་བྱས་ནས་དཀར་པོ་མིན་པར་བྱེད། དེ་ནི་མཚོ་ཡིས་བསྐོར་བའི་ས་ཁུལ་ཚོར་ཕན་ཐོགས།
+  turc: Denizi çevreleyen bölgeler veya ülkeler için faydalı olan beyaz yerine açık
+    mavi bir arka plan sağlar
+  turkmène: Deňiz bilen gurşalan sebitler ýa-da ýurtlar üçin peýdalydyr, ak däl-de,
+    açyk gök reňkde kartasyň fonuny döretmäge mümkinçilik berýär
+  ukrainien: Дозволяє мати світло-блакитний фон карти замість білого. Це корисно для
+    регіонів або країн, оточених морем
+  vietnamien: Cho phép có nền bản đồ màu xanh nhạt thay vì màu trắng. Điều này hữu
+    ích cho các khu vực hoặc quốc gia được bao quanh bởi biển
+  zoulou: Ivumela ukuba kube khona umbala oluhlaza okwesibhakabhaka okukhanyayo ongatshayi
+    omhlophe. Lokhu kusiza ezindaweni noma emazweni azungezwe ulwandle
 ? Permet de choisir si l'on souhaite publier l'entièreté des cartes ou seulement celles
   qui possède la granularité souhaitée. Veut-on par exemple publier une carte qui
   n'existe qu'au niveau régional si l'on souhaite des cartes au niveau départemental

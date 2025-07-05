@@ -46,6 +46,12 @@ from application import fonctions_utiles_2_0
 warnings.filterwarnings("ignore")
 
 # Paramères
+# Paramètres d'application
+application_position_largeur = 250
+application_position_hauteur = 40
+application_largeur = 750
+application_hauteur = 250
+
 ## Paramètres d'interface
 interface_foncee = False
 inclure_emojis_onglets = True
@@ -158,7 +164,12 @@ class SettingsApp(QWidget):
         self.traductions_interface = constantes.outil_differentes_langues
 
         self.setWindowTitle("Cartes de voyage")
-        self.setGeometry(300, 40, 900, 300)
+        self.setGeometry(
+            application_position_largeur,
+            application_position_hauteur,
+            application_largeur,
+            application_hauteur,
+        )
         self.setWindowIcon(
             QIcon(
                 os.path.join(
@@ -527,7 +538,7 @@ class SettingsApp(QWidget):
         self.liste_endroits = QListWidget()
         self.liste_endroits.setWrapping(True)
         self.liste_endroits.setResizeMode(QListWidget.ResizeMode.Adjust)
-        self.liste_endroits.setGridSize(QSize(280, 25))
+        self.liste_endroits.setGridSize(QSize(250, 25))
         self.telecharger_lieux_visites = QPushButton()
         self.telecharger_lieux_visites.clicked.connect(self.exporter_yamls_visites)
 

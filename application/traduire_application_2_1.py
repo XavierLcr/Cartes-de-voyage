@@ -106,7 +106,7 @@ def creer_liste_parametres_multilangue(
         "anglais",
         "allemand",
     ],
-    blabla=2,  # 0 = Non, 1 = Pays, 2 = Pays x langues
+    blabla=1,  # 0 = Non, 1 = Pays, 2 = Pays x langues
 ):
 
     modele = genai.GenerativeModel(modele_dict.get("modèle", "gemini-2.0-flash-lite"))

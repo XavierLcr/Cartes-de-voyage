@@ -23,7 +23,7 @@ def calculer_superficie(gdf, espg):
 
 # Téléchargement de la table
 with open(
-    os.path.join(constantes.direction_donnees, "carte_monde_niveau_2.pkl"),
+    os.path.join(constantes.direction_donnees_application, "carte_monde_niveau_2.pkl"),
     "rb",
 ) as f:
     gdf = pickle.load(f)

@@ -96,13 +96,6 @@ bouton_de_suppression = f"""
             """
 
 
-# class TrackerPays(QObject):
-#     tracker_pays_en_cours = pyqtSignal(str)
-
-#     def notify(self, libelle_pays: str):
-#         self.tracker_pays_en_cours.emit(libelle_pays)
-
-
 class CreerCartes(QObject):
     finished = pyqtSignal()
     tracker_signal = pyqtSignal(str)
@@ -594,6 +587,11 @@ class SettingsApp(QWidget):
         # Quatrième onglet
         self.top_pays_visites = QWidget()
         self.tabs.addTab(self.top_pays_visites, "Pays les plus visités")
+        self.statistiques = QVBoxLayout()
+
+        # Cercle de progreesion
+
+        # Layout des classement de pays
         self.layout_top_pays = QHBoxLayout()
 
         # Top pays par région
@@ -641,7 +639,8 @@ class SettingsApp(QWidget):
         # Ajout des classements à l'application
         self.layout_top_pays.addWidget(self.scroll_top_pays_regions)
         self.layout_top_pays.addWidget(self.scroll_top_pays_deps)
-        self.top_pays_visites.setLayout(self.layout_top_pays)
+        self.statistiques.addLayout(self.layout_top_pays)
+        self.top_pays_visites.setLayout(self.statistiques)
 
         # Onglet 5
         self.description_application = QWidget()

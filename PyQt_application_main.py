@@ -43,6 +43,7 @@ import constantes
 from production_cartes import creer_carte_1_1, creer_graphique_1_2, carte_main_1_3
 from application import fonctions_utiles_2_0
 
+
 warnings.filterwarnings("ignore")
 
 # Paramères
@@ -95,11 +96,11 @@ bouton_de_suppression = f"""
             """
 
 
-class TrackerPays(QObject):
-    tracker_pays_en_cours = pyqtSignal(str)
+# class TrackerPays(QObject):
+#     tracker_pays_en_cours = pyqtSignal(str)
 
-    def notify(self, libelle_pays: str):
-        self.tracker_pays_en_cours.emit(libelle_pays)
+#     def notify(self, libelle_pays: str):
+#         self.tracker_pays_en_cours.emit(libelle_pays)
 
 
 class CreerCartes(QObject):
@@ -112,7 +113,7 @@ class CreerCartes(QObject):
         self.parametres = params
 
     def run(self):
-        tracker = TrackerPays()
+        tracker = fonctions_utiles_2_0.TrackerPays()
         tracker.tracker_pays_en_cours.connect(self.tracker_signal.emit)
 
         carte_main_1_3.cree_graphe_depuis_debut(
@@ -120,41 +121,6 @@ class CreerCartes(QObject):
         )
 
         self.finished.emit()
-
-
-class CreerClassementPays(QObject):
-
-    resultat = pyqtSignal(object)
-    erreur = pyqtSignal(str)
-    finished = pyqtSignal()
-
-    def __init__(self, granularite, top_n, liste_dicts):
-        super().__init__()
-        self.granularite = granularite
-        self.top_n = top_n
-        self.liste_dicts = liste_dicts
-
-    def run(self):
-        try:
-            gdf = creer_carte_1_1.cree_base_toutes_granularites(
-                liste_dfs=liste_gdfs,
-                liste_dicts=self.liste_dicts,
-                granularite_objectif=self.granularite,
-            )
-
-            classement = fonctions_utiles_2_0.creer_classement_pays(
-                gdf,
-                constantes.table_superficie,
-                granularite=self.granularite,
-                top_n=self.top_n,
-            )
-            self.resultat.emit(classement)
-
-        except Exception as e:
-            self.erreur.emit(str(e))
-
-        finally:
-            self.finished.emit()
 
 
 class SettingsApp(QWidget):

@@ -777,10 +777,10 @@ class SettingsApp(QWidget):
             self.traduire_depuis_id("titre_params_esthetiques")
         )
         self.color_label.setText(
-            self.traduire_depuis_id(clef="cartes_couleurs", suffixe=" :")
+            self.traduire_depuis_id(clef="cartes_couleurs", suffixe=" :")
         )
         self.theme_label.setText(
-            self.traduire_depuis_id(clef="cartes_theme", suffixe=" :")
+            self.traduire_depuis_id(clef="cartes_theme", suffixe=" :")
         )
         self.utiliser_theme.setText(self.traduire_depuis_id("tick_style_dans_app"))
         self.utiliser_theme.setToolTip(
@@ -799,10 +799,10 @@ class SettingsApp(QWidget):
             self.traduire_depuis_id("titre_params_techniques")
         )
         self.label_format.setText(
-            self.traduire_depuis_id("cartes_format", suffixe=" :")
+            self.traduire_depuis_id("cartes_format", suffixe=" :")
         )
         self.label_qualite.setText(
-            self.traduire_depuis_id("cartes_qualite", suffixe=" :")
+            self.traduire_depuis_id("cartes_qualite", suffixe=" :")
         )
         self.label_qualite_max.setText(self.traduire_depuis_id("qualite_elevee"))
         self.label_qualite_min.setText(self.traduire_depuis_id("qualite_faible"))
@@ -1756,7 +1756,7 @@ class SettingsApp(QWidget):
                     if debut
                     else "publication_cartes_reussie"
                 ),
-                suffixe="." if debut else " ​​✅​",
+                suffixe="." if debut else " ✅​",
             ),
             temps_max=5000 if debut else None,
             titre=self.traduire_depuis_id(clef="titre_pop_up_publication_cartes"),

@@ -4,6 +4,13 @@ afrique_sud:
   - Lesotho
   - South Africa
   - Swaziland
+amerique_centrale_nord:
+  categorie: Northern Central America
+  liste:
+  - Belize
+  - Guatemala
+  - Honduras
+  - El Salvador
 archipel_comores:
   categorie: Comoro Islands
   liste:
@@ -26,6 +33,11 @@ chypre:
   - Akrotiri and Dhekelia
   - Cyprus
   - Northern Cyprus
+coree:
+  categorie: Korean Peninsula
+  liste:
+  - North Korea
+  - South Korea
 finlande:
   categorie: Finland and Åland
   liste:
@@ -38,6 +50,17 @@ france:
   - Jersey
   - Guernsey
   - Monaco
+guam:
+  categorie: Guam and Northern Mariana Islands
+  liste:
+  - Guam
+  - Northern Mariana Islands
+iles_britanniques:
+  categorie: British Isles
+  liste:
+  - Ireland
+  - Isle of Man
+  - United Kingdom
 ile_hispaniola:
   categorie: Hispaniola Island
   liste:
@@ -49,12 +72,17 @@ ile_saint_martin:
   - Anguilla
   - Saint-Martin
   - Sint Maarten
-iles_britanniques:
-  categorie: British Isles
+samoa:
+  categorie: Samoan Islands
   liste:
-  - Ireland
-  - Isle of Man
-  - United Kingdom
+  - Samoa
+  - American Samoa
+iles_vierges:
+  categorie: Virgin Islands
+  liste:
+  - British Virgin Islands
+  - Puerto Rico
+  - Virgin Islands, U.S.
 indonesie:
   categorie: Indonesia, Papua New Guinea and Timor-Leste
   liste:

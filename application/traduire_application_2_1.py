@@ -207,11 +207,17 @@ def creer_dictionnaire_langues(
         ):
 
             temps_debut = time.time()
+            appels_api_deja_faits = appels_api_deja_faits + 1
 
-            reponse_i = modele.generate_content(
-                f"""Le nom d'une langue va t'être donné en français. Donne le nom de cette langue dans sa version propre. Par exemple anglais donne English et allemand donne Deutsch. Mets une majuscule quand cela est possible. Ne renvoie rien d'autre et surtout pas de ponctuation ou de prononciation pour les langues exotiques.
+            # Traduction
+            try:
+                reponse_i = modele.generate_content(
+                    f"""Le nom d'une langue va t'être donné en français. Donne le nom de cette langue dans sa version propre. Par exemple anglais donne English et allemand donne Deutsch. Mets une majuscule quand cela est possible. Ne renvoie rien d'autre et surtout pas de ponctuation ou de prononciation pour les langues exotiques.
                 \nLa langue est : '{i}'."""
-            ).text
+                ).text
+            except:
+                continue
+
             reponse_i = reponse_i.strip(" .'")
             resultat[i] = reponse_i
             if blabla:
@@ -220,7 +226,6 @@ def creer_dictionnaire_langues(
             time.sleep(
                 max(0, 60 / nb_max_requetes_par_minute + time.time() - temps_debut)
             )
-            appels_api_deja_faits = appels_api_deja_faits + 1
 
     return resultat
 

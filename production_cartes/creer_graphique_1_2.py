@@ -1,6 +1,6 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
-# 1.2 - Fichier de création des cartes                                         #
+# 1.2 – Fichier de création des cartes                                         #
 ################################################################################
 
 import random
@@ -19,11 +19,11 @@ def generer_couleur_aleatoire_hex(
     Génère une couleur aléatoire au format hexadécimal avec des restrictions basées sur un preset.
 
     Args:
-    - preset (dict) : Un dictionnaire contenant les luminosités et saturations minimales et maximales autorisées (entre 0 et 1).
-    - teintes_autorisees (list): Liste de teintes spécifiques (de 0.0 à 1.0) pour restreindre la génération de couleurs. Défaut : None (toutes les teintes sont autorisées).
+    – preset (dict) : Un dictionnaire contenant les luminosités et saturations minimales et maximales autorisées (entre 0 et 1).
+    – teintes_autorisees (list): Liste de teintes spécifiques (de 0.0 à 1.0) pour restreindre la génération de couleurs. Défaut : None (toutes les teintes sont autorisées).
 
     Returns:
-    - couleur_hex (str): Couleur au format hexadécimal.
+    – couleur_hex (str): Couleur au format hexadécimal.
     """
     # Récupération du préset
     config = {
@@ -36,7 +36,7 @@ def generer_couleur_aleatoire_hex(
         ]
     }
 
-    # Conversion HSV -> RGB
+    # Conversion HSV –> RGB
     r, g, b = colorsys.hsv_to_rgb(
         (
             random.choice(teintes_autorisees) if teintes_autorisees else random.random()
@@ -49,7 +49,7 @@ def generer_couleur_aleatoire_hex(
         ),  # Luminosité
     )
 
-    # Conversion RGB -> Hex
+    # Conversion RGB –> Hex
     return "#{:02x}{:02x}{:02x}".format(int(r * 255), int(g * 255), int(b * 255))
 
 
@@ -82,23 +82,23 @@ def creer_image_carte(
     (en fonction de la colonne "Visite"), puis exporte l'image dans un fichier au format spécifié par le nom de fichier.
 
     Paramètres :
-    - gdf (GeoDataFrame) : Le GeoDataFrame contenant la carte à créer.
-    - gdf_monde (GeoDataFrame, optionnel) : Le GeoDataFrame contenant les frontières nationales. Par défaut, `None`.
-    - gdf_regions (GeoDataFrame, optionnel) : Le GeoDataFrame contenant les frontières régionales. Par défaut, `None`.
-    - gdf_eau (GeoDataFrame, optionnel) : Le GeoDataFrame contenant les surfaces d'eau. Par défaut, `None`.
-    - theme (dict, optionnel) : Un dictionnaire définissant les paramètres de luminosité et de saturation pour le thème de la carte. Par défaut, il contient des valeurs prédéfinies pour la luminosité et la saturation.
-    - teintes_autorisees (list, optionnel) : Une liste de teintes spécifiques (valeurs comprises entre 0.0 et 1.0) qui limitent les couleurs générées à certains types (par exemple, pour cibler certaines nuances). Par défaut, `None`, ce qui signifie que toutes les teintes peuvent être utilisées.
-    - couleur_non_visites (str) : La couleur à utiliser pour les éléments où la variable "Visite" est False (par exemple, couleur grise pour les éléments non visités). Par défaut, `"#ecebed"`.
-    - couleur_de_fond (str) : La couleur de fond de la carte. Par défaut, `"#FFFFFF"`.
-    - couleur_lacs (str) : La couleur utilisée pour les lacs et autres plans d'eau. Par défaut, `"#cee3f5"`.
-    - chemin_impression (str) : Le chemin où le fichier d'image sera sauvegardé. Par défaut, le répertoire du fichier courant.
-    - nom (str) : Le nom du fichier image exporté. Par défaut, "Carte.jpg".
-    - qualite (int) : La qualité de l'image exportée, exprimée en DPI (points par pouce). Par défaut, 400 DPI.
-    - blabla (bool, optionnel) : Un paramètre booléen permettant l'affichage du suivi d'éxecution de la fonction. Par défaut, `True`.
-    - max_cartes_additionnelles (int, optionnel) : Le nombre maximum de cartes additionnelles à générer. Par défaut, `10`.
+    – gdf (GeoDataFrame) : Le GeoDataFrame contenant la carte à créer.
+    – gdf_monde (GeoDataFrame, optionnel) : Le GeoDataFrame contenant les frontières nationales. Par défaut, `None`.
+    – gdf_regions (GeoDataFrame, optionnel) : Le GeoDataFrame contenant les frontières régionales. Par défaut, `None`.
+    – gdf_eau (GeoDataFrame, optionnel) : Le GeoDataFrame contenant les surfaces d'eau. Par défaut, `None`.
+    – theme (dict, optionnel) : Un dictionnaire définissant les paramètres de luminosité et de saturation pour le thème de la carte. Par défaut, il contient des valeurs prédéfinies pour la luminosité et la saturation.
+    – teintes_autorisees (list, optionnel) : Une liste de teintes spécifiques (valeurs comprises entre 0.0 et 1.0) qui limitent les couleurs générées à certains types (par exemple, pour cibler certaines nuances). Par défaut, `None`, ce qui signifie que toutes les teintes peuvent être utilisées.
+    – couleur_non_visites (str) : La couleur à utiliser pour les éléments où la variable "Visite" est False (par exemple, couleur grise pour les éléments non visités). Par défaut, `"#ecebed"`.
+    – couleur_de_fond (str) : La couleur de fond de la carte. Par défaut, `"#FFFFFF"`.
+    – couleur_lacs (str) : La couleur utilisée pour les lacs et autres plans d'eau. Par défaut, `"#cee3f5"`.
+    – chemin_impression (str) : Le chemin où le fichier d'image sera sauvegardé. Par défaut, le répertoire du fichier courant.
+    – nom (str) : Le nom du fichier image exporté. Par défaut, "Carte.jpg".
+    – qualite (int) : La qualité de l'image exportée, exprimée en DPI (points par pouce). Par défaut, 400 DPI.
+    – blabla (bool, optionnel) : Un paramètre booléen permettant l'affichage du suivi d'éxecution de la fonction. Par défaut, `True`.
+    – max_cartes_additionnelles (int, optionnel) : Le nombre maximum de cartes additionnelles à générer. Par défaut, `10`.
 
     Retourne :
-    - Aucune valeur retournée, mais l'image est enregistrée à l'emplacement spécifié dans chemin_impression.
+    – Aucune valeur retournée, mais l'image est enregistrée à l'emplacement spécifié dans chemin_impression.
     """
 
     # On ajoute la couleur de chaque ligne
@@ -223,7 +223,7 @@ def creer_image_carte(
     # On cree un nom qui n'existe pas encore si nécessaire
     nom = os.path.join(chemin_impression, nom)
     nom_simple, type_fichier = os.path.splitext(nom)
-    compteur = 1
+    compteur = 2
     while os.path.exists(nom):
         nom = f"{nom_simple} ({compteur}){type_fichier}"
         compteur = compteur + 1
@@ -237,7 +237,7 @@ def creer_image_carte(
             "Date": datetime.now().isoformat(),
             "HSV": json.dumps(
                 {
-                    "Bornes de uminosité et de saturation": theme,
+                    "Bornes de luminosité et de saturation": theme,
                     "Teintes possibles": teintes_autorisees,
                 }
             ),
@@ -263,10 +263,10 @@ def transformer_couleur_texte(bg_color):
     sinon il sera noir.
 
     Paramètres :
-    - bg_color (str) : La couleur de fond en format hexadécimal (par exemple, "#RRGGBB").
+    – bg_color (str) : La couleur de fond en format hexadécimal (par exemple, "#RRGGBB").
 
     Retourne :
-    - str : La couleur de texte recommandée en format hexadécimal, soit "#FFFFFF" pour blanc, soit "#000000" pour noir.
+    – str : La couleur de texte recommandée en format hexadécimal, soit "#FFFFFF" pour blanc, soit "#000000" pour noir.
     """
 
     # Convertir une couleur hexadécimale en RGB

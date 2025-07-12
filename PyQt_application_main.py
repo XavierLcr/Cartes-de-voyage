@@ -2229,8 +2229,8 @@ class SettingsApp(QWidget):
             if nom is None:
                 nom = ""
 
-            nom_yaml_regions = f"{nom}{' - ' if nom != '' else nom}{self.traduire_depuis_id(clef='granularite_pays_visites')} - {gran['Régions']}.yaml"
-            nom_yaml_departements = f"{nom}{' - ' if nom != '' else nom}{self.traduire_depuis_id(clef='granularite_pays_visites')} - {gran['Départements']}.yaml"
+            nom_yaml_regions = f"{nom}{' – ' if nom != '' else nom}{self.traduire_depuis_id(clef='granularite_pays_visites')} – {gran['Régions']}.yaml"
+            nom_yaml_departements = f"{nom}{' – ' if nom != '' else nom}{self.traduire_depuis_id(clef='granularite_pays_visites')} – {gran['Départements']}.yaml"
 
             try:
 

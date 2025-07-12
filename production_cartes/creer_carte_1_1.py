@@ -1,6 +1,6 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
-# 1.1 - Fichier de création de la base de données                              #
+# 1.1 – Fichier de création de la base de données                              #
 ################################################################################
 
 import pandas as pd
@@ -178,13 +178,13 @@ def cree_base_toutes_granularites(
     La fonction fusionne les résultats de ces niveaux pour produire un résultat global.
 
     Paramètres :
-    - df_monde (DataFrame) : DataFrame contenant les données mondiales de base. Cela peut être une table de pays, régions, etc.
-    - liste_dicts (list) : La liste des dictionnaires de pays visités selon la granularité. La position 0 correspond à la granularité 1.
+    – df_monde (DataFrame) : DataFrame contenant les données mondiales de base. Cela peut être une table de pays, régions, etc.
+    – liste_dicts (list) : La liste des dictionnaires de pays visités selon la granularité. La position 0 correspond à la granularité 1.
 
     Chaque dictionnaire représente un niveau de granularité. Si un dictionnaire est `None`, il est ignoré dans le calcul.
 
     Retourne :
-    - (DataFrame) : Un DataFrame combiné contenant les résultats de toutes les granularités spécifiées.
+    – (DataFrame) : Un DataFrame combiné contenant les résultats de toutes les granularités spécifiées.
     """
 
     granu = [i + 1 for i, val in enumerate(liste_dicts) if isinstance(val, dict)]
@@ -255,16 +255,16 @@ def ajoute_indicatrice_visite(gdf_monde, gdf_visite, granularite=1):
     Les pays et régions visités sont également concaténés avec ceux non visités pour produire un GeoDataFrame complet.
 
     Paramètres :
-    - gdf_monde (GeoDataFrame) : Un GeoDataFrame contenant les informations mondiales, incluant des colonnes comme `NAME_0` pour les pays
+    – gdf_monde (GeoDataFrame) : Un GeoDataFrame contenant les informations mondiales, incluant des colonnes comme `NAME_0` pour les pays
       et `NAME_{granularite}` pour les régions (selon le niveau de granularité).
-    - gdf_visite (GeoDataFrame) : Un GeoDataFrame contenant les informations des pays ou régions visités, avec une colonne "Pays" ou
+    – gdf_visite (GeoDataFrame) : Un GeoDataFrame contenant les informations des pays ou régions visités, avec une colonne "Pays" ou
       "Region" correspondante.
-    - granularite (int, optionnel) : Le niveau de granularité pour la région (par défaut, 1 représente la région, mais cela peut être
+    – granularite (int, optionnel) : Le niveau de granularité pour la région (par défaut, 1 représente la région, mais cela peut être
       modifié pour les granularités supérieures). Par exemple, 0 représente les pays, et des valeurs plus grandes pour des
       niveaux plus fins (comme des départements ou des villes).
 
     Retourne :
-    - (GeoDataFrame) : Un GeoDataFrame combiné avec une nouvelle colonne "Visite", indiquant si chaque pays ou région a été visité.
+    – (GeoDataFrame) : Un GeoDataFrame combiné avec une nouvelle colonne "Visite", indiquant si chaque pays ou région a été visité.
     """
 
     # On renome la variable NAME_0

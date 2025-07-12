@@ -1,6 +1,6 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
-# 1.3 Création de la base de données et de la production des graphiques        #
+# 1.3 – Création de la base de données et de la production des graphiques      #
 ################################################################################
 
 import os
@@ -22,16 +22,16 @@ def cree_gdf_depuis_dicts(
     Ces informations sont ensuite utilisées pour créer une carte avec les lieux marqués comme visités ou non.
 
     Paramètres :
-    - df_monde (DataFrame) : DataFrame contenant les informations géographiques mondiales, incluant des colonnes comme `NAME_0` pour les pays
+    – df_monde (DataFrame) : DataFrame contenant les informations géographiques mondiales, incluant des colonnes comme `NAME_0` pour les pays
       et `NAME_{granularite}` pour les régions.
-    - df_monde_granu (GeoDataFrame) : Un GeoDataFrame avec les informations géographiques globales (pays, régions, etc.)
+    – df_monde_granu (GeoDataFrame) : Un GeoDataFrame avec les informations géographiques globales (pays, régions, etc.)
       et la géométrie associée.
-    - dict1 (dict, optionnel) : Dictionnaire représentant les informations pour le deuxième niveau de granularité (par exemple, régions).
-    - dict2 (dict, optionnel) : Dictionnaire représentant les informations pour le troisième niveau de granularité.
-    - dict3 (dict, optionnel) : Dictionnaire représentant les informations pour le quatrième niveau de granularité.
-    - dict4 (dict, optionnel) : Dictionnaire représentant les informations pour le cinquième niveau de granularité.
-    - dict5 (dict, optionnel) : Dictionnaire représentant les informations pour le sixième niveau de granularité.
-    - granularite (int, optionnel) : Le niveau de granularité pour lequel vous souhaitez créer le graphique. Par défaut, la granularité est de 1 (région).
+    – dict1 (dict, optionnel) : Dictionnaire représentant les informations pour le deuxième niveau de granularité (par exemple, régions).
+    – dict2 (dict, optionnel) : Dictionnaire représentant les informations pour le troisième niveau de granularité.
+    – dict3 (dict, optionnel) : Dictionnaire représentant les informations pour le quatrième niveau de granularité.
+    – dict4 (dict, optionnel) : Dictionnaire représentant les informations pour le cinquième niveau de granularité.
+    – dict5 (dict, optionnel) : Dictionnaire représentant les informations pour le sixième niveau de granularité.
+    – granularite (int, optionnel) : Le niveau de granularité pour lequel vous souhaitez créer le graphique. Par défaut, la granularité est de 1 (région).
     """
 
     return creer_carte_1_1.ajoute_indicatrice_visite(
@@ -204,7 +204,7 @@ def creer_graphiques_pays(
             gdf_monde_i = None
 
         if nom_indiv != "":
-            nom_pays_i = f"{nom_indiv} - {langue_i}.{format}"
+            nom_pays_i = f"{nom_indiv} – {langue_i}.{format}"
         else:
             nom_pays_i = f"{langue_i}.{format}"
         if (
@@ -324,7 +324,7 @@ def creer_graphique_region(
                 couleur_non_visites=couleur_non_visites,
                 couleur_de_fond=couleur_fond,
                 chemin_impression=direction_region,
-                nom=f"{nom_indiv + ' - ' if nom_indiv else ''}{nom_langue_region}.{format}",
+                nom=f"{nom_indiv + ' – ' if nom_indiv else ''}{nom_langue_region}.{format}",
                 qualite=qualite,
                 blabla=False,
                 max_cartes_additionnelles=max_cartes_additionnelles,
@@ -374,18 +374,18 @@ def cree_graphe_depuis_debut(
     à l'aide des paramètres passés à la fonction.
 
     Paramètres :
-    - df_monde (DataFrame) : DataFrame contenant les informations géographiques mondiales (par exemple, pays, continents).
-    - df_monde_granu (GeoDataFrame) : Un GeoDataFrame contenant les informations géographiques détaillées (pays, régions, etc.)
+    – df_monde (DataFrame) : DataFrame contenant les informations géographiques mondiales (par exemple, pays, continents).
+    – df_monde_granu (GeoDataFrame) : Un GeoDataFrame contenant les informations géographiques détaillées (pays, régions, etc.)
       et leurs géométries associées.
-    - direction_resultat (str) : Chemin où le fichier d'image résultant sera sauvegardé.
-    - nom_export (str, optionnel) : Le nom du fichier d'image exporté. Par défaut, il est "Carte_du_monde.jpg".
-    - df_monde_0 (DataFrame, optionnel) : Un DataFrame supplémentaire avec des informations supplémentaires à intégrer dans la carte.
-    - liste_dicts (list) : Dictionnaires représentant différents niveaux de granularité pour
+    – direction_resultat (str) : Chemin où le fichier d'image résultant sera sauvegardé.
+    – nom_export (str, optionnel) : Le nom du fichier d'image exporté. Par défaut, il est "Carte_du_monde.jpg".
+    – df_monde_0 (DataFrame, optionnel) : Un DataFrame supplémentaire avec des informations supplémentaires à intégrer dans la carte.
+    – liste_dicts (list) : Dictionnaires représentant différents niveaux de granularité pour
       l'affichage (pays, régions, départements, etc.).
-    - granularite (int, optionnel) : Le niveau de granularité à utiliser pour la carte. Par défaut, la granularité est de 1 (régions).
+    – granularite (int, optionnel) : Le niveau de granularité à utiliser pour la carte. Par défaut, la granularité est de 1 (régions).
 
     Retourne :
-    - (GeoDataFrame) : Un GeoDataFrame prêt à être visualisé, contenant les informations géographiques et les données associées
+    – (GeoDataFrame) : Un GeoDataFrame prêt à être visualisé, contenant les informations géographiques et les données associées
       aux lieux visités ou non visités.
     """
 

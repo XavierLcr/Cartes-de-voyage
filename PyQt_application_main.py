@@ -744,10 +744,10 @@ class SettingsApp(QWidget):
         # Granularité des cartes
         self.groupe_granularite.setTitle(self.traduire_depuis_id("titre_granularite"))
         self.label_granularite_visite.setText(
-            self.traduire_depuis_id("granularite_pays_visites", suffixe="\u00a0:")
+            self.traduire_depuis_id("granularite_pays_visites", suffixe=" :")
         )
         self.label_granularite_fond.setText(
-            self.traduire_depuis_id("granularite_pays_non_visites", suffixe="\u00a0:")
+            self.traduire_depuis_id("granularite_pays_non_visites", suffixe=" :")
         )
 
         # Choix des cartes à publier
@@ -807,7 +807,7 @@ class SettingsApp(QWidget):
         self.label_qualite_max.setText(self.traduire_depuis_id("qualite_elevee"))
         self.label_qualite_min.setText(self.traduire_depuis_id("qualite_faible"))
         self.label_nb_copies_cartes.setText(
-            self.traduire_depuis_id("nombre_exemplaires_cartes", suffixe="\u00a0: ")
+            self.traduire_depuis_id("nombre_exemplaires_cartes", suffixe=" : ")
         )
         self.label_nb_copies_cartes.setToolTip(
             self.traduire_depuis_id(
@@ -850,9 +850,7 @@ class SettingsApp(QWidget):
             self.traduire_depuis_id("titre_choix_destinations_visitees")
         )
         self.avertissement_prio.setText(
-            self.traduire_depuis_id(
-                "avertissement_onglet_2", prefixe="⚠️\u00a0", suffixe="."
-            )
+            self.traduire_depuis_id("avertissement_onglet_2", prefixe="⚠️ ", suffixe=".")
         )
         self.telecharger_lieux_visites.setText("📥")
         self.telecharger_lieux_visites.setToolTip(
@@ -861,7 +859,7 @@ class SettingsApp(QWidget):
 
         # Chargement des YAMLs
         self.groupe_chargement_yaml.setTitle(
-            self.traduire_depuis_id("titre_chargement_yamls", prefixe="...\u00a0")
+            self.traduire_depuis_id("titre_chargement_yamls", prefixe="... ")
         )
         self.groupe_chargement_yaml.setToolTip(
             self.traduire_depuis_id("description_titre_chargement_yamls", suffixe=".")
@@ -1814,7 +1812,7 @@ class SettingsApp(QWidget):
             if affichage_groupe:
 
                 texte_items = ", ".join(items) if items else "Aucun élément"
-                texte = f"<b>{pays}</b> {emoji_i}: {texte_items}"
+                texte = f"<b>{pays}</b> {emoji_i}: {texte_items}"
                 label = QLabel(texte)
                 label.setWordWrap(True)
                 vbox.addWidget(label)
@@ -1829,7 +1827,7 @@ class SettingsApp(QWidget):
                         label.setWordWrap(True)
                         vbox.addWidget(label)
 
-            label = QLabel("– " * 3)
+            label = QLabel("– " * 3)
             label.setAlignment(
                 Qt.AlignmentFlag.AlignCenter
                 if affichage_groupe

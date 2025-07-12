@@ -34,7 +34,7 @@ def cree_gdf_depuis_dicts(
     – granularite (int, optionnel) : Le niveau de granularité pour lequel vous souhaitez créer le graphique. Par défaut, la granularité est de 1 (région).
     """
 
-    return creer_carte_1_1.ajoute_indicatrice_visite(
+    return creer_carte_1_1.ajouter_indicatrice_visite(
         gdf_monde=liste_dfs[granularite_reste],
         gdf_visite=creer_carte_1_1.cree_base_toutes_granularites(
             liste_dfs=liste_dfs,

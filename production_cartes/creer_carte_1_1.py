@@ -6,7 +6,7 @@
 import pandas as pd
 
 
-def cree_base_une_granularite(
+def creer_base_une_granularite(
     df,
     liste_destinations: dict,
     granularite: int = 1,
@@ -32,15 +32,16 @@ def cree_base_une_granularite(
         ),
         axis=1,
     )
+
     df_resultat["Region"] = df_resultat[f"NAME_{granularite}"]
-    df_resultat["Pays"] = df_resultat["NAME_0"]
+    df_resultat.rename(columns={"NAME_0": "Pays"}, inplace=True)
     df_resultat["Granu"] = granularite
 
     # Renvoi
     return df_resultat[["Pays", "Region", "Visite", "geometry", "Granu"]]
 
 
-def cree_base_double_granularite(
+def creer_base_double_granularite(
     df_donnee,
     df_obj,
     liste_destinations: dict,
@@ -52,7 +53,7 @@ def cree_base_double_granularite(
     liste_destinations = {k: v for k, v in liste_destinations.items() if v is not None}
 
     if granularite_obj > granularite_donnee:
-        return cree_base_une_granularite(
+        return creer_base_une_granularite(
             df=df_donnee,
             granularite=granularite_donnee,
             liste_destinations=liste_destinations,
@@ -74,14 +75,14 @@ def cree_base_double_granularite(
     unique_combinaison = pd.DataFrame(list(unique_gdf), columns=["nom1", "nom2"])
     df_dict = unique_combinaison.groupby("nom1")["nom2"].apply(list).to_dict()
 
-    return cree_base_une_granularite(
+    return creer_base_une_granularite(
         df=df_obj,
         granularite=granularite_obj,
         liste_destinations=df_dict,
     )
 
 
-def remplace_lieux_non_visites(
+def remplacer_lieux_non_visites(
     liste_dfs: list, df_visite: pd.DataFrame, granularite: int = 1
 ):
 
@@ -151,7 +152,7 @@ def remplace_lieux_non_visites(
         df_pas_visite["Visite"] = False
 
         df_resultat = pd.concat([df_resultat, df_pas_visite], ignore_index=True)
-        return remplace_lieux_non_visites(
+        return remplacer_lieux_non_visites(
             liste_dfs=liste_dfs, df_visite=df_resultat, granularite=granularite - 1
         )
 
@@ -199,7 +200,7 @@ def cree_base_toutes_granularites(
             # On calcule la dataframe de chaque granularité
             clefs_none_i = [k for k, v in dicos[i].items() if v is None]
 
-            res_i = cree_base_double_granularite(
+            res_i = creer_base_double_granularite(
                 df_donnee=liste_dfs[granu[i]],
                 granularite_donnee=granu[i],
                 liste_destinations=dicos[i],
@@ -233,13 +234,13 @@ def cree_base_toutes_granularites(
         )
 
         # On regroupe les régions non visitées
-        df_max = remplace_lieux_non_visites(
+        df_max = remplacer_lieux_non_visites(
             liste_dfs=liste_dfs, granularite=int(max(df_max["Granu"])), df_visite=df_max
         )
 
         # # On regroupe les régions totalement visitées
         # df_max["Visite"] = ~df_max["Visite"]
-        # df_max = remplace_lieux_non_visites(
+        # df_max = remplacer_lieux_non_visites(
         #     liste_dfs=liste_dfs, granularite=int(max(df_max["Granu"])), df_visite=df_max
         # )
         # df_max["Visite"] = ~df_max["Visite"]
@@ -247,7 +248,7 @@ def cree_base_toutes_granularites(
         return df_max
 
 
-def ajoute_indicatrice_visite(gdf_monde, gdf_visite, granularite=1):
+def ajouter_indicatrice_visite(gdf_monde, gdf_visite, granularite=1):
     r"""
     Cette fonction ajoute une indicatrice de visite à un GeoDataFrame mondial (`gdf_monde`) en fonction des informations
     sur les pays ou régions visitées dans un autre GeoDataFrame (`gdf_visite`). Les pays non visités sont marqués avec une

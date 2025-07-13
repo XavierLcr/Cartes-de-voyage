@@ -209,6 +209,13 @@ granularite:
     Pays: Ел
     Région: Облыс
     Régions: Oблыстар
+  kirghize:
+    Amusant: Күлкүлүү
+    Département: Бөлүм
+    Départements: Бөлүмдөр
+    Pays: Өлкө
+    Région: Облус
+    Régions: Облустар
   kurde:
     Amusant: Geş
     Département: Beşdarî
@@ -237,6 +244,20 @@ granularite:
     Pays: Šalis
     Région: Regionas
     Régions: Regionai
+  luxembourgeois:
+    Amusant: Lëschteg
+    Département: Departement
+    Départements: Departementer
+    Pays: Land
+    Région: Regioun
+    Régions: Regiounen
+  macédonien:
+    Amusant: Забавно
+    Département: Одделение
+    Départements: Одделенија
+    Pays: Држава
+    Région: Регион
+    Régions: Региони
   malais:
     Amusant: Seronok
     Département: Jabatan
@@ -384,6 +405,13 @@ granularite:
     Pays: Nchi
     Région: Mkoa
     Régions: Mikoa
+  tadjik:
+    Amusant: Мазҳабӣ
+    Département: Бахш
+    Départements: Шӯъбаҳо
+    Pays: Кишвар
+    Région: Вилоят
+    Régions: Минтақаҳо
   tamoul:
     Amusant: வேடிக்கையானது
     Département: துறை
@@ -1108,6 +1136,28 @@ teintes_couleurs:
     Teintes hivernales: Қысқы реңктер
     Terre: Жер
     Écailles de sirène: Су перісінің қабыршақтары
+  kirghize:
+    Arc en ciel: Салкын
+    Arcadie: Аркадия
+    Aurore boréale: Түндүк жарык
+    Baroque: Барокко
+    Champ de lavande: Лаванда талаасы
+    Crépuscule: Күүгүм
+    Fantaisie: Элестөө
+    Jungle: Токой
+    Mer: Деңиз
+    Montagne: Тоо
+    Multicolore: Көп түстүү
+    Nuit d’encre: Көгүлтүр түн
+    Plage: Жээк
+    Printemps: Жаз
+    Teintes automnales: Күзгү түстөр
+    Teintes bohèmes: Богемалык тондор
+    Teintes estivales: Жайкы түстөр
+    Teintes florales: Гүл түстөрү
+    Teintes hivernales: Кышкы түстөр
+    Terre: Жер
+    Écailles de sirène: Деңиз перисинин кабырчыктары
   kurde:
     Arc en ciel: Kewanî
     Arcadie: Arkadya
@@ -1196,6 +1246,50 @@ teintes_couleurs:
     Teintes hivernales: Žiemos spalvos
     Terre: Žemė
     Écailles de sirène: Undinėlės žvynai
+  luxembourgeois:
+    Arc en ciel: Reebou
+    Arcadie: Arkadien
+    Aurore boréale: Polarluucht
+    Baroque: Barock
+    Champ de lavande: Lavendelsfeld
+    Crépuscule: Dämmerung
+    Fantaisie: Fantasi
+    Jungle: Dschungel
+    Mer: Mier
+    Montagne: Bierg
+    Multicolore: Villfaarweg
+    Nuit d’encre: Inkesch Nuet
+    Plage: Plage
+    Printemps: Fréijoer
+    Teintes automnales: Hierschtfaarwen
+    Teintes bohèmes: Bohème Faarwen
+    Teintes estivales: Summerfaarwen
+    Teintes florales: Blummenuancen
+    Teintes hivernales: Wanterfaarwen
+    Terre: Äerd
+    Écailles de sirène: Mëschschuppen
+  macédonien:
+    Arc en ciel: Дуга
+    Arcadie: Аркадија
+    Aurore boréale: Aurora borealis
+    Baroque: Барок
+    Champ de lavande: Поле на лаванда
+    Crépuscule: Зора
+    Fantaisie: Фантазија
+    Jungle: Џунгла
+    Mer: Мир
+    Montagne: Планина
+    Multicolore: Мултиколор
+    Nuit d’encre: Мрачна ноќ
+    Plage: Плажа
+    Printemps: Пролет
+    Teintes automnales: Есенски нијанси
+    Teintes bohèmes: Боемски нијанси
+    Teintes estivales: Летни нијанси
+    Teintes florales: Цветни нијанси
+    Teintes hivernales: Зимски нијанси
+    Terre: Земја
+    Écailles de sirène: Сиренски лушпи
   malais:
     Arc en ciel: Pelangi
     Arcadie: Arkadia
@@ -1658,6 +1752,28 @@ teintes_couleurs:
     Teintes hivernales: Rangi za majira ya baridi
     Terre: Ardhi
     Écailles de sirène: Mizani ya sireni
+  tadjik:
+    Arc en ciel: Камони рангин
+    Arcadie: Аркадия
+    Aurore boréale: Гӯшпоракҳои Шимолӣ
+    Baroque: Барок
+    Champ de lavande: Лавандаи замин
+    Crépuscule: Нимишаб
+    Fantaisie: Хайёл
+    Jungle: Ҷангал
+    Mer: Дарё
+    Montagne: Кӯҳ
+    Multicolore: Рангоранг
+    Nuit d’encre: Сиехшаб
+    Plage: Соҳил
+    Printemps: Баҳор
+    Teintes automnales: Рангҳои тирамоҳӣ
+    Teintes bohèmes: Рангҳои богема
+    Teintes estivales: Рангҳои тобистона
+    Teintes florales: Рангҳои гул
+    Teintes hivernales: Рангҳои зимистонӣ
+    Terre: Замин
+    Écailles de sirène: Барги мӯиёи баҳрӣ
   tamoul:
     Arc en ciel: வானவில்
     Arcadie: ஆர்கேடியா
@@ -2007,6 +2123,11 @@ themes_cartes:
     Fluorescent: Флуоресцентті
     Pastel: Пастель
     Sans restrictions: Шектеусіз
+  kirghize:
+    Douceur: Жумшакдык
+    Fluorescent: Флуоресценттүү
+    Pastel: Пастел
+    Sans restrictions: Чектелбестен
   kurde:
     Douceur: Nermî
     Fluorescent: Fêrbikar
@@ -2027,6 +2148,16 @@ themes_cartes:
     Fluorescent: Fluorescencinis
     Pastel: Pastelinis
     Sans restrictions: Neribojant
+  luxembourgeois:
+    Douceur: Séiss
+    Fluorescent: Fluoreszent
+    Pastel: Pastell
+    Sans restrictions: Ouni Aschränkungen
+  macédonien:
+    Douceur: Нежност
+    Fluorescent: Флуоресцентен
+    Pastel: Пастел
+    Sans restrictions: Без ограничувања
   malais:
     Douceur: Kelembutan
     Fluorescent: Pendarfluor
@@ -2132,6 +2263,11 @@ themes_cartes:
     Fluorescent: Mwangaza wa fluaresheni
     Pastel: Pasteli
     Sans restrictions: Bila Vizuizi
+  tadjik:
+    Douceur: Нармӣ
+    Fluorescent: Флуоресцент
+    Pastel: Ранги нарм
+    Sans restrictions: Бемаҳдуд
   tamoul:
     Douceur: இனிமை
     Fluorescent: ஒளிர்விளக்கு

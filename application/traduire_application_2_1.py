@@ -277,10 +277,13 @@ liste_langues = [
     "italien",
     "japonais",
     "kazakh",
+    "kirghize",
     "kurde",
     "latin",
     "letton",
     "lituanien",
+    "luxembourgeois",
+    "macédonien",
     "malais",
     "malgache",
     "maltais",
@@ -302,6 +305,7 @@ liste_langues = [
     "slovène",
     "suédois",
     "swahili",
+    "tadjik",
     "tamoul",
     "thaï",
     "tibétain",
@@ -334,6 +338,11 @@ if __name__ == "__main__":
             "modèle": "gemini-2.0-flash",
             "limite_appels_minute": 14,
             "limite_appels_jour": 199,
+        },
+        {
+            "modèle": "gemini-2.5-flash",
+            "limite_appels_minute": 9,
+            "limite_appels_jour": 249,
         },
     ]
     numero_modele = 0
@@ -439,7 +448,7 @@ if __name__ == "__main__":
     except:
         langues_deja_traduites = None
 
-    # Pour que la limite API arrête de crasher
+    # Gestion de la limite d'appels API quotidienne
     try:
         with open(
             os.path.join(
@@ -528,7 +537,7 @@ if __name__ == "__main__":
         nom_bouton="granularite",
         modele_dict=liste_modeles[numero_modele],
         liste_langues=liste_langues,
-        blabla=2,
+        blabla=1,
     )
 
     print("\nThèmes :")
@@ -539,7 +548,7 @@ if __name__ == "__main__":
         nom_bouton="themes_cartes",
         modele_dict=liste_modeles[numero_modele],
         liste_langues=liste_langues,
-        blabla=2,
+        blabla=1,
     )
 
     print("\n Teintes de couleurs :")
@@ -550,7 +559,7 @@ if __name__ == "__main__":
         nom_bouton="teintes_couleurs",
         modele_dict=liste_modeles[numero_modele],
         liste_langues=liste_langues,
-        blabla=2,
+        blabla=1,
     )
 
     with open(
@@ -595,7 +604,7 @@ if __name__ == "__main__":
         liste_deja_existante=outil_deja_trad,
         liste_langues=liste_langues,
         version=1,
-        blabla=2,
+        blabla=1,
     )
 
     with open(

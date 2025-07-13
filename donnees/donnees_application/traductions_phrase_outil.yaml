@@ -1366,6 +1366,51 @@
     <hr />
 
     <p><strong>MesVoyages таңдағаныңызға рахмет!</strong></p>'
+  kirghize: '<h2>📌 Description :</h2>
+
+    <p>MesVoyages - бул саякат кылган өлкөлөрдүн аймактарын же бөлүмдөрүн тандап,
+    жекелештирилген саякат карталарын түзүүгө мүмкүндүк берген тиркеме.</p>
+
+    <h2>💻 Кантип колдонуу керек :</h2>
+
+    <ol>
+
+    <li>Параметрлериңизди жана атыңызды киргизиңиз.</li>
+
+    <li>Сиз барган жерлерди киргизиңиз.</li>
+
+    <li>Карталарыңызды түзүңүз! Сиздин сапарларыңыздын жана параметрлериңиздин сакталышы
+    карталарды түзүү баскычын басканда ишке ашат.</li>
+
+    </ol>
+
+    <h2>📋 Жеткиликтүү YAML файлдары :</h2>
+
+    <p>Берилген <code>.yaml</code> файлдары - бул бардык өлкөлөрдү, аймактарды жана
+    бөлүмдөрдү камтыган <strong>толук шаблондор</strong>.</p>
+
+    <p>▶️ Эгерде сиз бул ыкманы барган жерлерди белгилөө ыкмасына артык көрсөңүз,
+    тиркеме папкасындагы шаблондорду көчүрүп алгандан кийин, бардык барылбаган жерлерди
+    өчүрүп, аларды тиркемеге жүктөп алыңыз.</p>
+
+    <h2>❓ Байланыш :</h2>
+
+    <p>Тиркеме интуитивдүү болууга багытталган, бирок кандайдыр бир суроолор боюнча:
+    xavier.cal181@gmail.com.</p>
+
+    <p>Котормолор автоматтык түрдө жасалган жана кол менен текшерилген эмес. Котормодо
+    каталар болсо, мага кайрылуудан тартынбаңыз.
+
+    Ошо сыяктуу эле, мүчүлүштүктөр пайда болсо же сиз кайтарым/сунуштарды бергиңиз
+    келсе, мага кайрылуудан тартынбаңыз.</p>
+
+    <h2>🗑️ Орнотууну алып салуу :</h2>
+
+    <p>Жөн гана папканы жок кылыңыз. Системалык файлдар өзгөртүлбөйт.</p>
+
+    <hr />
+
+    <p><strong>MesVoyages тиркемесин тандаганыңыз үчүн рахмат!</strong></p>'
   kurde: '<h2>📌 Danasîna Berhemê:</h2>
 
     <p>MesVoyages serlêdanek e ku dihêle hûn nexşeyên rêwîtiyê yên kesane bi hilbijartina
@@ -1504,6 +1549,95 @@
     <hr />
 
     <p><strong>Ačiū, kad pasirinkote „MesVoyages“!</strong></p>'
+  luxembourgeois: '## 📌 Beschreiwung :
+
+    <p>MesVoyages ass eng Applikatioun, mat där een personaliséiert Reeskaarten erstellen
+    kann, andeems een d''Regiounen oder d''Departementer vun de Länner auswielt, déi
+    ee besicht huet.</p>
+
+    <h2>💻 Wéi benotzen :</h2>
+
+    <ol>
+
+    <li>Gitt Är Astellungen an och Ären Numm un.</li>
+
+    <li>Gitt d''Plazen un, déi Dir besicht hutt.</li>
+
+    <li>Erstellt Är Kaarten! D''Späichere vun Äre Visiten an vun Ären Astellunge geschitt,
+    wann Dir op de Knäppche fir d''Erstelle vun de Kaarten klickt.</li>
+
+    </ol>
+
+    <h2>📋 Verfügbare YAML-Dateien :</h2>
+
+    <p>Déi geliwwert <code>.yaml</code>-Dateien sinn <strong>komplett Modeller</strong>,
+    déi all d''Länner, d''Regiounen an d''Departementer enthalen, déi verfügbar sinn.</p>
+
+    <p>▶️ Wann Dir dës Method der virzitt, d''Plazen unzekräizen, nodeems Dir d''Modeller
+    am Dossier vun der Applikatioun kopéiert hutt, läscht all déi net besichte Plazen
+    a luet se an der Applikatioun erop.</p>
+
+    <h2>❓ Kontakt :</h2>
+
+    <p>D''Applikatioun soll intuitiv sinn, awer fir all Fro: xavier.cal181@gmail.com.</p>
+
+    <p>D''Iwwersetzunge goufen automatesch gemaach an net manuell iwwerpréift. Wann
+    et Iwwersetzungsfehler gëtt, zéckt net mech ze kontaktéieren.
+
+    Och, wann Bugs optrieden oder wann Dir Feedback / Empfehlungen maache wëllt, zéckt
+    net mech ze kontaktéieren.</p>
+
+    <h2>🗑️ Deinstallatioun :</h2>
+
+    <p>Ewechzeien einfach den Dossier. Keng Systemdateie ginn geännert.</p>
+
+    <hr />
+
+    <p><strong>Merci datt Dir MesVoyages gewielt hutt!</strong></p>'
+  macédonien: '<h2>📌 Опис:</h2>
+
+    <p>MesVoyages е апликација за креирање персонализирани мапи на патувања со избирање
+    региони или оддели од земјите што сте ги посетиле.</p>
+
+    <h2>💻 Како да користите:</h2>
+
+    <ol>
+
+    <li>Внесете ги вашите поставки заедно со вашето име.</li>
+
+    <li>Внесете ги местата што сте ги посетиле.</li>
+
+    <li>Креирајте ги вашите карти! Вашите посети и поставки се зачувуваат кога ќе
+    кликнете на копчето за креирање мапи.</li>
+
+    </ol>
+
+    <h2>📋 Достапни YAML датотеки:</h2>
+
+    <p>Обезбедените <code>.yaml</code> датотеки се <strong>целосни шаблони</strong>
+    што ги содржат сите достапни земји, региони и оддели.</p>
+
+    <p>▶️ Ако повеќе ја претпочитате овој метод отколку оној со штиклирање на посетените
+    места, откако ќе ги копирате шаблоните од папката на апликацијата, избришете ги
+    сите непосетени места и вчитајте ги во апликацијата.</p>
+
+    <h2>❓ Контакт:</h2>
+
+    <p>Апликацијата е наменета да биде интуитивна, но за какви било прашања: xavier.cal181@gmail.com.</p>
+
+    <p>Преводите се направени автоматски и не се проверени рачно. Во случај на грешки
+    во преводот, не се двоумете да ме контактирате.
+
+    Исто така, ако се појават грешки или сакате да дадете повратни информации/препораки,
+    не се двоумете да ме контактирате.</p>
+
+    <h2>🗑️ Деинсталирање:</h2>
+
+    <p>Едноставно избришете ја папката. Ниту еден системски файл не е модифициран.</p>
+
+    <hr />
+
+    <p><strong>Ви благодариме што го избравте MesVoyages!</strong></p>'
   malais: '<h2>📌 Penerangan :</h2>
 
     <p>MesVoyages ialah aplikasi yang membolehkan anda membuat peta perjalanan yang
@@ -2432,6 +2566,51 @@
     <hr />
 
     <p><strong>Asante kwa kuchagua MesVoyages!</strong></p>'
+  tadjik: '<h2>📌 Тавсифи:</h2>
+
+    <p>MesVoyages як барномаест, ки ба шумо имкон медиҳад харитаҳои сафарии шахсиро
+    тавассути интихоби минтақаҳо ё идораи кишварҳое, ки шумо боздид кардаед, эҷод
+    кунед.</p>
+
+    <h2>💻 Чӣ тавр истифода бурдан мумкин аст:</h2>
+
+    <ol>
+
+    <li>Параметрҳои худро ва номи худро ворид кунед.</li>
+
+    <li>Ҷойҳоеро, ки боздид кардаед, ворид кунед.</li>
+
+    <li>Харитаҳои худро эҷод кунед! Сабти боздидҳо ва параметрҳои шумо ҳангоми пахш
+    кардани тугмаи эҷоди харита анҷом дода мешавад.</li>
+
+    </ol>
+
+    <h2>📋 Файлҳои YAML дастрас:</h2>
+
+    <p>Файлҳои <code>.yaml</code> пешниҳодшуда <strong>шаблонҳои пурра</strong> мебошанд,
+    ки ҳамаи кишварҳо, минтақаҳо ва идораҳои мавҷударо дар бар мегиранд.</p>
+
+    <p>▶️ Агар шумо ин усулро ба усули қайд кардани ҷойҳои боздидшуда афзал донед,
+    пас аз нусхабардории шаблонҳо дар феҳристи барнома, ҳама ҷойҳои боздид нашударо
+    нест кунед ва онҳоро ба барнома бор кунед.</p>
+
+    <h2>❓ Тамос:</h2>
+
+    <p>Барнома интуитивӣ пешбинӣ шудааст, аммо барои ҳама гуна саволҳо: xavier.cal181@gmail.com.</p>
+
+    <p>Тарҷумаҳо ба таври худкор анҷом дода шудаанд ва дастӣ тасдиқ нашудаанд. Дар
+    сурати хатогиҳои тарҷума, шарм надошта бо мо тамос гиред.
+
+    Ҳамчунин, агар ягон хатогӣ рӯй диҳад ё шумо хоҳед, ки фикру мулоҳизаҳо/тавсияҳо
+    диҳед, бо мо тамос гиред.</p>
+
+    <h2>🗑️ Uninstall:</h2>
+
+    <p>Танҳо феҳристи барномаро нест кунед. Ҳеҷ гуна файлҳои система тағир дода намешаванд.</p>
+
+    <hr />
+
+    <p><strong>Барои интихоби MesVoyages ташаккур!</strong></p>'
   tamoul: '<h2>📌 விளக்கம்:</h2>
 
     <p>MesVoyages என்பது ஒருவர் சென்ற நாடுகளின் பகுதிகள் அல்லது துறைகளைத் தேர்ந்தெடுப்பதன்
@@ -2852,10 +3031,13 @@ Affichage regroupé:
   italien: Visualizzazione raggruppata
   japonais: 一括表示
   kazakh: Шоғырландырылған дисплей
+  kirghize: Топтолгон дисплей
   kurde: Nîşanîna komkirî
   latin: Propono congregatum
   letton: Apvienota displeja
   lituanien: Grupuotas rodinys
+  luxembourgeois: Zesummefaassend Affichage
+  macédonien: Групiran приказ
   malais: Paparan berpusat
   malgache: Fampirantiana mirindra
   maltais: Wiri magħquda
@@ -2877,6 +3059,7 @@ Affichage regroupé:
   slovène: Združen prikaz
   suédois: Grupperad visning
   swahili: Onyesho la kuunganishwa
+  tadjik: Намоиши гурӯҳшуда
   tamoul: குழுவாக்கப்பட்ட காட்சி
   tchèque: Seskupené zobrazení
   thaï: แสดงผลแบบกลุ่ม
@@ -2917,10 +3100,13 @@ Afrique:
   italien: Africa
   japonais: アフリカ
   kazakh: Африка
+  kirghize: Африка
   kurde: Afrîqa
   latin: Africa
   letton: Āfrika
   lituanien: Afrika
+  luxembourgeois: Afrika
+  macédonien: Африка
   malais: Afrika
   malgache: Afrika
   maltais: Afrika
@@ -2942,6 +3128,7 @@ Afrique:
   slovène: Afrika
   suédois: Afrika
   swahili: Afrika
+  tadjik: Африқо
   tamoul: ஆப்பிரிக்கா
   tchèque: Afrika
   thaï: แอฟริกา
@@ -2982,10 +3169,13 @@ Amérique:
   italien: America
   japonais: アメリカ
   kazakh: Америка
+  kirghize: Америка
   kurde: Amerîka
   latin: America
   letton: Amerika
   lituanien: Amerika
+  luxembourgeois: Amerika
+  macédonien: Америка
   malais: Amerika
   malgache: Amerika
   maltais: Amerika
@@ -3007,6 +3197,7 @@ Amérique:
   slovène: Amerika
   suédois: Amerika
   swahili: Marekani
+  tadjik: Америка
   tamoul: அமெரிக்கா
   tchèque: Amerika
   thaï: อเมริกา
@@ -3074,6 +3265,8 @@ Applique les paramètres esthétiques sélectionnés à l'application. Cela perm
   japonais: 選択された美的設定をアプリケーションに適用します。これにより、それらのレンダリングのプレビューが表示されます。
   kazakh: Таңдалған эстетикалық параметрлерді қолданбаға қолданыңыз. Бұл олардың қалай
     көрінетінін алдын ала көруге мүмкіндік береді
+  kirghize: Тандалган кооздук параметрлерин тиркемеге колдонуңуз. Бул алардын көрүнүшүн
+    алдын ала кароого мүмкүндүк берет
   kurde: Di sepanê de parametrên estetîk ên bijartî bicîh bike. Ev dihêle ku meriv
     xuyanga wan bibîne
   latin: Formae selectas applicationi adhibe. Hoc aspectum earum praemonstrare sinit
@@ -3081,6 +3274,10 @@ Applique les paramètres esthétiques sélectionnés à l'application. Cela perm
     to izskatu
   lituanien: Pritaikykite pasirinktus estetinius nustatymus programai. Tai leidžia
     peržiūrėti, kaip jie atrodo
+  luxembourgeois: Setz déi ausgewielte gestalteresch Astellungen an der Applikatioun
+    un. Dat erlaabt Iech, e Virschau vun hirer Wiedergab ze gesinn
+  macédonien: Примени ги избраните естетски параметри на апликацијата. Ова овозможува
+    преглед на нивното прикажување
   malais: Terapkan parameter estetik yang dipilih pada aplikasi. Ini membolehkan pratonton
     bagaimana rupanya
   malgache: Ampiharo amin'ny rindranasa ireo lamina estetika voafantina. Izany dia
@@ -3122,6 +3319,8 @@ Applique les paramètres esthétiques sélectionnés à l'application. Cela perm
     en förhandsvisning av hur de ser ut
   swahili: Tekeleza vigezo vya urembo vilivyochaguliwa kwenye programu. Hii inaruhusu
     kupata muhtasari wa jinsi vinavyoonekana
+  tadjik: Танзимоти интихобшудаи эстетикиро ба барнома татбиқ кунед. Ин ба шумо имкон
+    медиҳад, ки пешнамоиши онҳоро бубинед
   tamoul: தேர்ந்தெடுக்கப்பட்ட அழகியல் அளவுருக்களை பயன்பாட்டிற்குப் பயன்படுத்துங்கள்.
     இது அவற்றின் வெளியீட்டை முன்னோட்டமிட அனுமதிக்கிறது
   tchèque: Použijte vybrané estetické parametry na aplikaci. To umožní zobrazit náhled
@@ -3169,10 +3368,13 @@ Asie:
   italien: Asia
   japonais: アジア
   kazakh: Азия
+  kirghize: Азия
   kurde: Asya
   latin: Asia
   letton: Āzija
   lituanien: Azija
+  luxembourgeois: Asien
+  macédonien: Азија
   malais: Asia
   malgache: Azìa
   maltais: Asja
@@ -3194,6 +3396,7 @@ Asie:
   slovène: Azija
   suédois: Asien
   swahili: Asia
+  tadjik: Осиё
   tamoul: ஆசியா
   tchèque: Asie
   thaï: เอเชีย
@@ -3234,10 +3437,13 @@ Aucun lieu n'a été coché:
   italien: Nessun luogo è stato spuntato
   japonais: 場所はどこもチェックされていません。
   kazakh: Ешбір орын белгіленген жоқ
+  kirghize: Эч бир жер белгиленген эмес
   kurde: هیچ شوێنێک نیشانە نەکراوە
   latin: Nullus locus notatus est
   letton: Neviena vieta nav atzīmēta
   lituanien: Jokia vieta nebuvo pažymėta
+  luxembourgeois: Keng Plaz gouf ugekraust
+  macédonien: Ниту едно место не беше одбележано
   malais: Tiada tempat yang telah ditandakan
   malgache: Tsy misy toerana voamarika
   maltais: L-ebda post ma ġie mmarkat
@@ -3259,6 +3465,7 @@ Aucun lieu n'a été coché:
   slovène: Nobeno mesto ni bilo označeno
   suédois: Ingen plats har markerats
   swahili: Hakuna mahali palipochaguliwa
+  tadjik: Ҳеҷ ҷой қайд карда нашудааст
   tamoul: எந்த இடமும் குறிக்கப்படவில்லை
   tchèque: Žádné místo nebylo zaškrtnuto
   thaï: ไม่ได้เลือกสถานที่ใดเลย
@@ -3299,10 +3506,13 @@ Autres régions du monde:
   italien: Altre regioni del mondo
   japonais: 世界の他の地域
   kazakh: Әлемнің басқа аймақтары
+  kirghize: Дүйнөнүн башка аймактары
   kurde: Herêmên din ên cîhanê
   latin: Aliae orbis terrae regiones
   letton: Citas pasaules daļas
   lituanien: Kiti pasaulio regionai
+  luxembourgeois: Aner Regiounen an der Welt
+  macédonien: Други делови на светот
   malais: Rantau lain di dunia
   malgache: Faritra hafa eto amin'izao tontolo izao
   maltais: Reġjuni oħra tad-dinja
@@ -3324,6 +3534,7 @@ Autres régions du monde:
   slovène: Drugi deli sveta
   suédois: Andra regioner i världen
   swahili: Mikoa mingine ya dunia
+  tadjik: Минтақаҳои дигари ҷаҳон
   tamoul: உலகின் பிற பகுதிகள்
   tchèque: Jiné regiony světa
   thaï: ภูมิภาคอื่น ๆ ของโลก
@@ -3364,10 +3575,13 @@ Carte du monde:
   italien: Carta geografica
   japonais: 世界地図
   kazakh: Дүниежүзілік карта
+  kirghize: Дүйнө картасы
   kurde: Nexşe ya cîhanê
   latin: Tabula mundi
   letton: Pasaules karte
   lituanien: Pasaulio žemėlapis
+  luxembourgeois: Weltkaart
+  macédonien: Мапа на светот
   malais: Peta dunia
   malgache: Sarintany eran-tany
   maltais: Mappa tad-dinja
@@ -3389,6 +3603,7 @@ Carte du monde:
   slovène: Zemljevid sveta
   suédois: Världskarta
   swahili: Ramani ya dunia
+  tadjik: Харитаи ҷаҳон
   tamoul: உலக வரைபடம்
   tchèque: Mapa světa
   thaï: แผนที่โลก
@@ -3429,10 +3644,13 @@ Cartes de voyage:
   italien: Carte viaggio
   japonais: 旅行券
   kazakh: Саяхат карталары
+  kirghize: Саякат карталары
   kurde: Kartên rêwîtiyê
   latin: Chartæ itineris
   letton: Ceļojumu kartes
   lituanien: Kelionės kortelės
+  luxembourgeois: Reeskaarten
+  macédonien: Патувачки карти
   malais: Kad perjalanan
   malgache: Sarintanin'ny dia
   maltais: Karti tal-vjaġġ
@@ -3454,6 +3672,7 @@ Cartes de voyage:
   slovène: Potovalne karte
   suédois: Resekort
   swahili: Kadi za kusafiria
+  tadjik: Саёҳатӣ кортҳо
   tamoul: பயண அட்டைகள்
   tchèque: Cestovní lístky
   thaï: บัตรเดินทาง
@@ -3494,10 +3713,13 @@ Cartes des pays visités:
   italien: Mappe dei paesi visitati
   japonais: 行った国の地図
   kazakh: Барылған елдердің карталары
+  kirghize: Кыдырылган өлкөлөрдүн карталары
   kurde: Karti welatên hatine ziyaretkirin
   latin: Tabulae terrarum visarum
   letton: Apmeklēto valstu kartes
   lituanien: Apsilankytų šalių žemėlapiai
+  luxembourgeois: Kaarte vu besichte Länner
+  macédonien: Карти на посетени земји
   malais: Peta negara yang dilawati
   malgache: Sarintanin'ny firenena notetezana
   maltais: Mape tal-pajjiżi miżjura
@@ -3519,6 +3741,7 @@ Cartes des pays visités:
   slovène: Zemljevidi obiskanih držav
   suédois: Besökta länders kartor
   swahili: Ramani za nchi zilizotembelewa
+  tadjik: Харитаҳои кишварҳои ташрифоваранда
   tamoul: பார்வையிட்ட நாடுகளின் வரைபடங்கள்
   tchèque: Mapy navštívených zemí
   thaï: แผนที่ประเทศที่เคยไป
@@ -3559,10 +3782,13 @@ Cartes à publier:
   italien: Carte da pubblicare
   japonais: 投稿用カード
   kazakh: Жарнамаға арналған карталар
+  kirghize: Жарыялоочу карталар
   kurde: Kartên weşandinê
   latin: Cartae edendae
   letton: Kartes publicēšanai
   lituanien: Paskelbti kortelės
+  luxembourgeois: Kaarten ze publizéieren
+  macédonien: Картички за објавување
   malais: Kad reka untuk diterbitkan
   malgache: Sarintany ho avoaka
   maltais: Kartolini biex jiġu ppubblikati
@@ -3584,6 +3810,7 @@ Cartes à publier:
   slovène: Karte za objavo
   suédois: Korten att publicera
   swahili: Kadi za kuchapisha
+  tadjik: Картаҳои нашршаванда
   tamoul: வெளியிடப்பட வேண்டிய அட்டைகள்
   tchèque: Karty k publikování
   thaï: การ์ดที่จะเผยแพร่
@@ -3624,10 +3851,13 @@ Charger la liste des départements visités:
   italien: Carica l'elenco dei dipartimenti visitati
   japonais: 訪問済みの部署リストを読み込む
   kazakh: Барлығы зиярат етілген департаменттер тізімін жүктеу
+  kirghize: Көрсөтүлгөн бөлүмдөрдүн тизмесин жүктөө
   kurde: Lîsta departermantên hatine ziyaret kirin barkirin
   latin: Visitae pagorum catalogum impone
   letton: Ielādēt apmeklēto departamentu sarakstu
   lituanien: Įkelti aplankytų departamentų sąrašą
+  luxembourgeois: Lëscht vun de besichte Gemengen lueden
+  macédonien: Вчитај ја листата на посетени одделенија
   malais: Muat turun senarai jabatan yang dilawati
   malgache: Ampidiro ny lisitry ny departemanta efa notsidihina
   maltais: Iċċarġja l-lista tad-dipartimenti żurati
@@ -3649,6 +3879,7 @@ Charger la liste des départements visités:
   slovène: Naloži seznam obiskanih oddelkov
   suédois: Ladda listan över besökta avdelningar
   swahili: Pakua orodha ya idara zilizotembelewa
+  tadjik: Сабти шудани шуъбаҳои боздидшуда
   tamoul: பார்வையிடப்பட்ட துறைகளின் பட்டியலை ஏற்று
   tchèque: Načíst seznam navštívených oddělení
   thaï: โหลดรายการหน่วยงานที่เยี่ยมชม
@@ -3689,10 +3920,13 @@ Charger la liste des régions visitées:
   italien: Caricare l'elenco delle regioni visitate
   japonais: 訪問済み地域リストを読み込む
   kazakh: Зерттелген аймақтар тізімін жүктеу
+  kirghize: Барылган аймактардын тизмесин жүктөө
   kurde: Lîsteya herêmên ziyaretkirî barkirin
   latin: Regionum visas recense
   letton: Ielādēt apmeklēto reģionu sarakstu
   lituanien: Kraunų sąrašą
+  luxembourgeois: D'Lëscht vun de besichte Regiounen lueden
+  macédonien: Вчитај ја листата на посетени региони
   malais: Muat turun senarai wilayah yang dilawati
   malgache: Ampidiro ny lisitry ny faritra efa notsidihina
   maltais: Iċċarġja l-lista tar-reġjuni żurati
@@ -3714,6 +3948,7 @@ Charger la liste des régions visitées:
   slovène: Naloži seznam obiskanih regij
   suédois: Ladda listan över besökta regioner
   swahili: Pakua orodha ya mikoa iliyotembelewa
+  tadjik: Сабти вилоятҳои ташрифовардаро бор кардан
   tamoul: பார்வையிடப்பட்ட பகுதிகளின் பட்டியலை ஏற்று
   tchèque: Načíst seznam navštívených regionů
   thaï: โหลดรายการภูมิภาคที่เยี่ยมชม
@@ -3754,10 +3989,13 @@ Charger un fichier YAML:
   italien: Caricare un file YAML
   japonais: YAMLファイルをロードする
   kazakh: YAML файлын жүктеу
+  kirghize: YAML файлын жүктөө
   kurde: Pelgehek YAML barkirin
   latin: File YAML impone
   letton: Ielādēt YAML failu
   lituanien: Įkelti YAML failą
+  luxembourgeois: Eng YAML-Datei lueden
+  macédonien: Вчитај YAML датотека
   malais: Muat naik fail YAML
   malgache: Ampidiro antontan-taratasy YAML iray
   maltais: Ikkarga fajl YAML
@@ -3779,6 +4017,7 @@ Charger un fichier YAML:
   slovène: Naloži YAML datoteko
   suédois: Ladda en YAML-fil
   swahili: Pakua faili ya YAML
+  tadjik: Файли YAML-ро боргузорӣ кунед
   tamoul: YAML கோப்பைப் பதிவேற்று
   tchèque: Načíst YAML soubor
   thaï: โหลดไฟล์ YAML
@@ -3819,10 +4058,13 @@ Choisir le dossier de stockage des cartes:
   italien: Scegliere la cartella di memorizzazione delle carte
   japonais: カードの保存フォルダを選択する
   kazakh: Карталарды сақтау қалтасын таңдау
+  kirghize: Карталарды сактоочу жерди тандоо
   kurde: Dosyeya hilanîna kartan hilbijêre
   latin: Directorium chartarum eligendum est
   letton: Izvēlēties karšu krātuves mapi
   lituanien: Pasirinkti kortelių saugojimo aplanką
+  luxembourgeois: Wielt den Dossier fir d'Späichere vun de Kaarten
+  macédonien: Изберете папката за складирање на картичките
   malais: Pilih folder storan kad
   malgache: Safidio ny fampidirana rakitra amin'ny karatra
   maltais: Agħżel il-fowlder tal-ħażna tal-mapep
@@ -3844,6 +4086,7 @@ Choisir le dossier de stockage des cartes:
   slovène: Izberite mapo za shranjevanje zemljevidov
   suédois: Välj mapp för kortlagring
   swahili: Chagua folda ya kuhifadhi ramani
+  tadjik: Файли нигоҳдории кортҳоро интихоб кунед
   tamoul: கார்டுகளின் சேமிப்பக கோப்புறையைத் தேர்ந்தெடுக்கவும்
   tchèque: Zvolit složku pro uložení map
   thaï: เลือกโฟลเดอร์จัดเก็บการ์ด
@@ -3884,10 +4127,13 @@ Cinq cartes:
   italien: Cinque carte
   japonais: 五枚のカード
   kazakh: Бес карта
+  kirghize: Беш карта
   kurde: Pênc kart
   latin: Quinque chartae
   letton: Piecas kārtis
   lituanien: Penkios kortos
+  luxembourgeois: Fënnef Kaarten
+  macédonien: Пет карти
   malais: Limau kad
   malgache: Karatra dimy
   maltais: Ħames karti
@@ -3909,6 +4155,7 @@ Cinq cartes:
   slovène: Pet kart
   suédois: Fem kort
   swahili: Kadi tano
+  tadjik: Панҷ корт
   tamoul: ஐந்து அட்டைகள்
   tchèque: Pět karet
   thaï: ห้าใบ
@@ -3949,10 +4196,13 @@ Création de cartes de voyages:
   italien: Creazione di carte di viaggio
   japonais: 旅行マップ作成
   kazakh: Саяхат карталарын жасау
+  kirghize: Саякат карталарын түзүү
   kurde: Wêneyên rêwîtiyê çêkirin
   latin: Creátio chartárum viaticarum
   letton: Ceļojumu karšu izveide
   lituanien: Kelionių žemėlapių kūrimas
+  luxembourgeois: Reeskaarte kreéieren
+  macédonien: Креирање патни карти
   malais: Penciptaan kad perjalanan
   malgache: Fanamboarana sarintseranan-dalana
   maltais: Ħolqien ta' karti tat-tbaħħir
@@ -3974,6 +4224,7 @@ Création de cartes de voyages:
   slovène: Ustvarjanje potovalnih zemljevidov
   suédois: Skapande av reseskartor
   swahili: Uundaji wa ramani za kusafiri
+  tadjik: Эҷоди харитаҳои сафар
   tamoul: பயண வரைபடங்களை உருவாக்குதல்
   tchèque: Tvorba cestovních map
   thaï: การสร้างแผนที่เดินทาง
@@ -4014,10 +4265,13 @@ Création de la liste des pays visités:
   italien: Creazione dell'elenco dei paesi visitati
   japonais: 訪問済み国のリスト作成
   kazakh: Барылған елдер тізімін жасау
+  kirghize: Келген өлкөлөрдүн тизмесин түзүү
   kurde: Amadeya lîsteya welatên ku hatine ziyaret kirin
   latin: Creatio index nationum visitatarum
   letton: Apmeklēto valstu saraksta izveide
   lituanien: Aplankytų šalių sąrašo sudarymas
+  luxembourgeois: Lëscht vun de besichte Länner erstellen
+  macédonien: Создавање на листата на посетени земји
   malais: Penciptaan senarai negara yang dilawati
   malgache: Famokafana ny lisitry ny firenena efa notsidihina
   maltais: Ħolqien tal-lista tal-pajjiżi żurati
@@ -4039,6 +4293,7 @@ Création de la liste des pays visités:
   slovène: Ustvarjanje seznama obiskanih držav
   suédois: Skapande av listan över besökta länder
   swahili: Uundaji wa orodha ya nchi zilizotembelewa
+  tadjik: Эҷоди рӯйхати кишварҳои ташрифшуда
   tamoul: பார்வையிட்ட நாடுகளின் பட்டியல் உருவாக்கம்
   tchèque: Vytvoření seznamu navštívených zemí
   thaï: การสร้างรายการประเทศที่เคยไป
@@ -4079,10 +4334,13 @@ Création des cartes:
   italien: Creazione delle mappe
   japonais: カード作成
   kazakh: Карта жасау
+  kirghize: Карталарды түзүү
   kurde: Kart çêkirin
   latin: Chartarum creatio
   letton: Karšu izveide
   lituanien: Kortų kūrimas
+  luxembourgeois: Kaarte maachen
+  macédonien: Создавање карти
   malais: Penciptaan kad
   malgache: Fanoratana karatra
   maltais: Ħolqien tal-mapep
@@ -4104,6 +4362,7 @@ Création des cartes:
   slovène: Ustvarjanje kart
   suédois: Kortskapande
   swahili: Uundaji wa ramani
+  tadjik: Эҷоди харитаҳо
   tamoul: அட்டைகளை உருவாக்குதல்
   tchèque: Tvorba karet
   thaï: การสร้างแผนที่
@@ -4144,10 +4403,13 @@ Dix cartes:
   italien: Dieci carte
   japonais: カード10枚
   kazakh: Он карта
+  kirghize: Он карточка
   kurde: Dêh kart
   latin: Decem chartae
   letton: Desmit kārtis
   lituanien: Dešimt kortų
+  luxembourgeois: Zéng Kaarten
+  macédonien: Десет карти
   malais: Sepuluh kad
   malgache: Folo karatra
   maltais: Għaxar karti
@@ -4169,6 +4431,7 @@ Dix cartes:
   slovène: Deset kart
   suédois: Tio kort
   swahili: Kadi kumi
+  tadjik: даҳ корт
   tamoul: பத்து அட்டைகள்
   tchèque: Deset karet
   thaï: สิบใบ
@@ -4209,10 +4472,13 @@ Début de l'opération:
   italien: Inizio dell'operazione
   japonais: 作戦開始
   kazakh: Операцияның басталуы
+  kirghize: Операция башталды
   kurde: Destpêka operasyonê
   latin: Initium operationis
   letton: Operācijas sākums
   lituanien: Operacijos pradžia
+  luxembourgeois: Ufank vun der Operatioun
+  macédonien: Почеток на операцијата
   malais: Permulaan operasi
   malgache: Fiantom-pandraharahana
   maltais: Bidu tal-operazzjoni
@@ -4234,6 +4500,7 @@ Début de l'opération:
   slovène: Začetek operacije
   suédois: Operationen inleds
   swahili: Mwanzo wa operesheni
+  tadjik: Оғози амалиёт
   tamoul: ஆபரேஷன் ஆரம்பம்
   tchèque: Začátek operace
   thaï: เริ่มปฏิบัติการ
@@ -4274,10 +4541,13 @@ Départements visités:
   italien: Dipartimenti visitati
   japonais: 訪問した県
   kazakh: Барылған бөлімдер
+  kirghize: Кыдырылган бөлүмдөр
   kurde: Parêzgehên hatin ziyaretkirin
   latin: '*   Departimenta visa*'
   letton: Apmeklētie departamenti
   lituanien: Aplankyti departamentai
+  luxembourgeois: Departementer besicht
+  macédonien: Посетени одделенија
   malais: Jabatan yang dilawati
   malgache: Faritra notsidihina
   maltais: Dipartimenti żjarat
@@ -4299,6 +4569,7 @@ Départements visités:
   slovène: Obiskani oddelki
   suédois: Besökta departement
   swahili: Idara zilizotembelewa
+  tadjik: Шӯъбаҳои ташрифоваранда
   tamoul: பார்வையிட்ட துறைகள்
   tchèque: Navštívené departementy
   thaï: หน่วยงานที่เข้าเยี่ยมชม
@@ -4339,10 +4610,13 @@ En termes de pourcentage de la superficie visitée pour chaque pays:
   italien: In termini di percentuale della superficie visitata per ogni paese
   japonais: 各国ごとの訪問面積の割合で。
   kazakh: Әр елге барылған аумақтың пайыздық көрсеткіші бойынша
+  kirghize: Көрсөтүлгөн ар бир өлкө үчүн аймактын пайызы боюнча
   kurde: Ji sedî qada serdana her welatekî
   latin: Pro portione superficiei pro singulis nationibus visita
   letton: Katras valsts apmeklētās teritorijas procentuālā daļa
   lituanien: Kiekvienos šalies apžiūrėto ploto procentais
+  luxembourgeois: Prozentual gesinn vun der besichte Fläch pro Land
+  macédonien: Во однос на процентот на посетена површина за секоја земја
   malais: Dari segi peratusan kawasan yang dilawati bagi setiap negara
   malgache: Araka ny tahan'ny velaran-tany nitsidihana isaky ny firenena
   maltais: F'termini ta' perċentwali tal-wiċċ ta' kull pajjiż miżjur
@@ -4364,6 +4638,7 @@ En termes de pourcentage de la superficie visitée pour chaque pays:
   slovène: Po odstotku obiskanega ozemlja za vsako državo
   suédois: Procentuellt sett av besökt yta per land
   swahili: Kwa asilimia ya eneo lililotembelewa kwa kila nchi
+  tadjik: Дар робита ба фоизи майдони боздидшуда барои ҳар кишвар
   tamoul: ஒவ்வொரு நாட்டின் பார்வையிடப்பட்ட பரப்பளவின் சதவீத அடிப்படையில்
   tchèque: Co do procentu navštívené plochy pro každou zemi
   thaï: ในแง่ของเปอร์เซ็นต์ของพื้นที่ที่เยี่ยมชมสำหรับแต่ละประเทศ
@@ -4404,10 +4679,13 @@ Europe:
   italien: Europa
   japonais: ヨーロッパ
   kazakh: Еуропа
+  kirghize: Европа
   kurde: Ewropa
   latin: Europa
   letton: Eiropa
   lituanien: Europa
+  luxembourgeois: Europa
+  macédonien: Европа
   malais: Eropah
   malgache: Eoropa
   maltais: Ewropa
@@ -4429,6 +4707,7 @@ Europe:
   slovène: Evropa
   suédois: Europa
   swahili: Ulaya
+  tadjik: Аврупо
   tamoul: ஐரோப்பா
   tchèque: Evropa
   thaï: ยุโรป
@@ -4469,10 +4748,13 @@ Faible:
   italien: Debole
   japonais: 弱い
   kazakh: Әлсіз
+  kirghize: Алсыз
   kurde: Lawaz
   latin: Imbecillis
   letton: Vājš
   lituanien: Silpnas
+  luxembourgeois: Schwaach
+  macédonien: Слаб
   malais: Lemah
   malgache: Malemy
   maltais: Dgħajjef
@@ -4494,6 +4776,7 @@ Faible:
   slovène: Slab
   suédois: Svag
   swahili: Dhaifu
+  tadjik: Ночи
   tamoul: பலவீனம்
   tchèque: Slabý
   thaï: อ่อนแอ
@@ -4534,10 +4817,13 @@ Fond de carte marin:
   italien: Sfondo nautico
   japonais: 海底地形図
   kazakh: Теңіз картасының фон
+  kirghize: Деңиз картасынын негизи
   kurde: Nexşeya binavî ya deryayî
   latin: Fundus marinus cartae
   letton: Jūras kartes fons
   lituanien: Jūrinis žemėlapio pagrindas
+  luxembourgeois: Marinekaart
+  macédonien: Морска позадина
   malais: Latar belakang peta laut
   malgache: Fanaovan-tsary an-tsaha an-dranomasina
   maltais: Bażi tal-mappa tal-baħar
@@ -4559,6 +4845,7 @@ Fond de carte marin:
   slovène: Morska podlaga
   suédois: Sjökarta
   swahili: Mandhari ya bahari
+  tadjik: Харитаи баҳрӣ
   tamoul: கடல் அடிப்படை வரைபடம்
   tchèque: Námořní mapový podklad
   thaï: แผนที่ฐานทางทะเล
@@ -4599,10 +4886,13 @@ Format:
   italien: Formato
   japonais: Compris. Je suis prêt
   kazakh: Формат
+  kirghize: Format
   kurde: Format
   latin: Forma
   letton: Formāts
   lituanien: Formatas
+  luxembourgeois: Format
+  macédonien: Формат
   malais: Format
   malgache: Endrika
   maltais: Format
@@ -4624,6 +4914,7 @@ Format:
   slovène: Format
   suédois: Format
   swahili: Format
+  tadjik: Шаблон
   tamoul: வடிவம்
   tchèque: Formát
   thaï: ฉันรักคุณ
@@ -4664,10 +4955,13 @@ Granularité des cartes:
   italien: Granularità delle mappe
   japonais: 地図の粒度
   kazakh: Карталардың бөлшектелуі
+  kirghize: Карталардын майда бөлүкчөлөрү
   kurde: نەرمەکۆڵی نەخشە
   latin: Tabularum granulositas
   letton: Kartes detalizācija
   lituanien: Žemėlapių detalumas
+  luxembourgeois: Kaartendéift
+  macédonien: Грануларност на карти
   malais: Keterperincian peta
   malgache: Harena ny sarintany
   maltais: Ir-riżoluzzjoni tal-mapep
@@ -4689,6 +4983,7 @@ Granularité des cartes:
   slovène: Zrnca kart
   suédois: Kartornas granularitet
   swahili: Usahihi wa ramani
+  tadjik: Ҳолати харитаҳо
   tamoul: வரைபட விவரம்
   tchèque: Zrnitost map
   thaï: ความละเอียดของแผนที่
@@ -4729,10 +5024,13 @@ Il est nécessaire de choisir un dossier de stockage des cartes:
   italien: È necessario scegliere una cartella di archiviazione per le mappe
   japonais: カードの保存フォルダを選ぶ必要があります。
   kazakh: Карталарды сақтау үшін қалтаны таңдау қажет
+  kirghize: Карталарды сактоо үчүн каталогду тандоо керек
   kurde: پێویستە فۆڵدەرێک بۆ هەڵگرتنی نەخشەکان هەڵبژێردرێت
   latin: Eligendum est repositorium chartarum
   letton: Nepieciešams izvēlēties karšu glabāšanas mapi
   lituanien: Būtina pasirinkti kortelių saugojimo aplanką
+  luxembourgeois: Et ass néideg e Späicher Dossier fir d'Kaarten ze wielen
+  macédonien: Неопходно е да изберете папката за складирање на картичките
   malais: Perlu memilih folder penyimpanan peta
   malgache: Ilaina ny misafidy lahatahiry itahirizana karatra
   maltais: Huwa meħtieġ li tagħżel folder għall-ħażna tal-karti
@@ -4754,6 +5052,7 @@ Il est nécessaire de choisir un dossier de stockage des cartes:
   slovène: Potrebno je izbrati mapo za shranjevanje zemljevidov
   suédois: Det är nödvändigt att välja en mapp för att lagra kartorna
   swahili: Inahitajika kuchagua folda ya kuhifadhi ramani
+  tadjik: Захираи кортҳоро интихоб кардан зарур аст
   tamoul: வரைபடங்களை சேமிக்க ஒரு கோப்புறையைத் தேர்ந்தெடுப்பது அவசியம்
   tchèque: Je třeba vybrat složku pro ukládání karet
   thaï: จำเป็นต้องเลือกโฟลเดอร์สำหรับจัดเก็บแผนที่
@@ -4795,10 +5094,14 @@ L'export n'a pas fonctionné. Veuillez réessayer de nouveau plus tard:
   italien: L'esportazione non ha funzionato. Si prega di riprovare più tardi
   japonais: エクスポートがうまくいきませんでした。後でもう一度お試しください。
   kazakh: Экспорт істемеді. Кейінірек қайталап көріңіз
+  kirghize: Экспорт иштеген жок. Кийинчерээк кайра аракет кылыңыз
   kurde: Hûnarde nexebitî. Ji kerema xwe, paşê dîsa biceribînin
   latin: Exportatio non successit. Quaeso, iterum postea conare
   letton: Eksports nedarbojās. Lūdzu, mēģiniet vēlreiz vēlāk
   lituanien: Eksportas nepavyko. Bandykite dar kartą vėliau
+  luxembourgeois: Den Export huet net funktionéiert. Probéiert w.e.g. spéider nach
+    eng Kéier
+  macédonien: Извозот не успеа. Ве молиме обидете се повторно подоцна
   malais: Eksport tidak berfungsi. Sila cuba lagi kemudian
   malgache: Tsy nety ny fanondranana. Mba avereno indray azafady, aorian'izay
   maltais: L-esportazzjoni ma ħadmitx. Jekk jogħġbok erġa' pprova aktar tard
@@ -4820,6 +5123,7 @@ L'export n'a pas fonctionné. Veuillez réessayer de nouveau plus tard:
   slovène: Izvoz ni uspel. Prosimo, poskusite znova kasneje
   suédois: Exporten fungerade inte. Försök igen senare
   swahili: Usafirishaji haukufanya kazi. Tafadhali jaribu tena baadaye
+  tadjik: Содирот кор накард. Лутфан баъдтар дубора кӯшиш кунед
   tamoul: ஏற்றுமதி செயல்படவில்லை. தயவுசெய்து மீண்டும் முயற்சிக்கவும்
   tchèque: Export se nezdařil. Zkuste to prosím znovu později
   thaï: การส่งออกไม่ทำงาน กรุณาลองใหม่อีกครั้งในภายหลัง
@@ -4860,10 +5164,13 @@ Langue:
   italien: Lingua
   japonais: 言語
   kazakh: Тіл
+  kirghize: Тіл
   kurde: Ziman
   latin: Lingua
   letton: Valoda
   lituanien: Kalba
+  luxembourgeois: Sprooch
+  macédonien: Јазик
   malais: Bahasa
   malgache: Fiteny
   maltais: Lingwa
@@ -4885,6 +5192,7 @@ Langue:
   slovène: Jezik
   suédois: Språk
   swahili: Lugha
+  tadjik: Забон
   tamoul: மொழி
   tchèque: Jazyk
   thaï: ภาษา
@@ -4925,10 +5233,13 @@ Les cartes ont été créées avec succès !:
   italien: Le carte sono state create con successo!
   japonais: カードは正常に作成されました！
   kazakh: Карталар сәтті жасалды!
+  kirghize: Карточкалор ийгиликтүү түзүлдү!
   kurde: Kart bi serkeftî hatin afirandin!
   latin: Tabulae feliciter creatae sunt!
   letton: Kartes ir veiksmīgi izveidotas!
   lituanien: Žemėlapiai sukurti sėkmingai!
+  luxembourgeois: D'Kaarte goufen erfollegräich erstallt!
+  macédonien: Картичките се креирани успешно!
   malais: Kad telah berjaya dicipta!
   malgache: Natao soa aman-tsara ny sarintany!
   maltais: Il-karti nħolqu b'suċċess!
@@ -4950,6 +5261,7 @@ Les cartes ont été créées avec succès !:
   slovène: Karte so bile uspešno ustvarjene!
   suédois: Korten skapades framgångsrikt!
   swahili: Ramani zimeundwa kwa ufanisi!
+  tadjik: Кортҳо бомуваффақият сохта шуданд!
   tamoul: அட்டைகள் வெற்றிகரமாக உருவாக்கப்பட்டன!
   tchèque: Karty byly úspěšně vytvořeny!
   thaï: สร้างการ์ดสำเร็จแล้ว!
@@ -5057,6 +5369,9 @@ Les cartes ont été créées avec succès !:
   kazakh: Екі толық YAML файлы, барлық облыстар мен аудандармен бірге, қосымшамен
     бірге ұсынылады. Пайдаланған жағдайда, түпнұсқаларды тікелей өзгертпеңіз, көшірмелерін
     қолданыңыз (бармаған жерлердің тізімін жоғалтпау үшін)
+  kirghize: Тиркеме менен толук YAML файлдары, бардык региондор жана бөлүмдөр менен
+    кошо берилген. Колдонууда, оригиналдарын түздөн-түз өзгөртпөй, көчүрмөлөрүн колдонуңуз
+    (бара элек жерлердин тизмесин жоготуп албаш үчүн)
   kurde: Du dosya YAML'ê yên temam, bi tevahiya herêm û departmanan re, bi serîlêdanê
     re têne peyda kirin. Di rewşa bikaranînê de, rasterast orîjînalan neguherînin
     lê kopiyan (ji bo ku navnîşa cîhên nehatine ziyaret kirin winda nekin)
@@ -5069,6 +5384,13 @@ Les cartes ont été créées avec succès !:
   lituanien: Pilni du YAML failai su visais regionais ir departamentais yra pateikiami
     kartu su aplikacija. Naudojant, nemodifikuokite originalų, o kopijas (kad neprarastumėte
     neaplankytų vietovių sąrašo)
+  luxembourgeois: Déi zwee komplett YAML-Dateien, mat all Regiounen an Departementer,
+    gi mat der Applikatioun geliwwert. Am Fall vun der Benotzung, ännert d'Originaler
+    net direkt, mee éischter Kopien (fir d'Lëscht vun den net besichte Plazen net
+    ze verléieren)
+  macédonien: Двете комплетни YAML датотеки, со целата територија и оддели, се приложени
+    со апликацијата. Во случај на користење, не ги менувајте директно оригиналите
+    туку копии (за да не се изгуби списокот на несобрани локации)
   malais: Dua fail YAML lengkap, dengan semua kawasan dan jabatan, dibekalkan dengan
     aplikasi. Jika digunakan, jangan ubah suai fail asal secara langsung tetapi salinan
     sahaja (untuk mengelakkan kehilangan senarai tempat yang belum dilawati)
@@ -5131,6 +5453,9 @@ Les cartes ont été créées avec succès !:
   swahili: Faili zote mbili za YAML zilizokamilika, zikiwa na mikoa yote na idara,
     zinatolewa na programu. Ikitumika, usibadilishe moja kwa moja zile asili bali
     nakala (ili usipoteze orodha ya maeneo ambayo hayajatembelewa)
+  tadjik: Ҳар ду файли YAML пурра, бо тамоми вилоятҳо ва ноҳияҳо, бо барнома пешниҳод
+    карда мешаванд. Ҳангоми истифода, файлҳои аслӣ, балки нусхаҳоро тағир диҳед (то
+    ки рӯйхати ҷойҳои боздидшударо гум накунед)
   tamoul: முழுமையான YAML கோப்புகள் இரண்டும், அனைத்துப் பகுதிகளையும் மற்றும் மாவட்டங்களையும்
     உள்ளடக்கியவை, பயன்பாட்டுடன் வழங்கப்படுகின்றன. பயன்படுத்தும் போது, ​​அசல் கோப்புகளை
     நேரடியாகத் திருத்தாமல், நகல்களைப் பயன்படுத்தவும் (பார்க்கப்படாத இடங்களின் பட்டியலை
@@ -5189,10 +5514,13 @@ Liste des lieux visités:
   italien: Lista dei luoghi visitati
   japonais: 訪問場所リスト
   kazakh: Көрілген орындардың тізімі
+  kirghize: Зыярат кылынган жерлердин тизмеси
   kurde: لیستی شوێنە سەردانیکراوەکان
   latin: Index locorum visorum
   letton: Apmeklēto vietu saraksts
   lituanien: Apsilankytų vietų sąrašas
+  luxembourgeois: Lëscht vun de besichte Plazen
+  macédonien: Список на посетени места
   malais: Senarai tempat yang dilawati
   malgache: Lisitry ny toerana notsidihina
   maltais: Lista tal-postijiet miżjura
@@ -5214,6 +5542,7 @@ Liste des lieux visités:
   slovène: Seznam obiskanih krajev
   suédois: Lista över besökta platser
   swahili: Orodha ya maeneo yaliyotembelewa
+  tadjik: Рӯйхати ҷойҳои боздидшуда
   tamoul: பார்வையிடப்பட்ட இடங்களின் பட்டியல்
   tchèque: Seznam navštívených míst
   thaï: รายการสถานที่ที่เยี่ยมชม
@@ -5254,10 +5583,13 @@ Moyen-Orient:
   italien: Medio Oriente
   japonais: 中東
   kazakh: Таяу Шығыс
+  kirghize: Жакынкы Чыгыш
   kurde: Rojhilata Navîn
   latin: Oriens Medius
   letton: Tuvie Austrumi
   lituanien: Artimieji Rytai
+  luxembourgeois: Mëttleren Osten
+  macédonien: Блискиот Исток
   malais: Timur Tengah
   malgache: Afovoany Atsinanana
   maltais: Lvant Nofsani
@@ -5279,6 +5611,7 @@ Moyen-Orient:
   slovène: Bližnji vzhod
   suédois: Mellanöstern
   swahili: Mashariki ya Kati
+  tadjik: Шарқи Миёна
   tamoul: மத்திய கிழக்கு
   tchèque: Blízký východ
   thaï: ตะวันออกกลาง
@@ -5319,10 +5652,13 @@ Nombre de versions conservées pour chaque carte:
   italien: Numero di versioni conservate per ogni carta
   japonais: 各カードの保存バージョン数。
   kazakh: Әр карта үшін сақталған нұсқалар саны
+  kirghize: Ар бир карта үчүн сакталган версиялардын саны
   kurde: Ji bo her kartê hejmara guhertoyên parastî
   latin: Numerus versionum conservatarum pro qualibet charta
   letton: Katras kartes saglabāto versiju skaits
   lituanien: Kiekvienos kortelės išsaugotų versijų skaičius
+  luxembourgeois: Zuel vu verséchten Versiounen pro Kaart
+  macédonien: Број на зачувани верзии за секоја картичка
   malais: Bilangan versi yang disimpan untuk setiap kad
   malgache: Isan'ny dika mitovy voatahiry isaky ny karatra
   maltais: Numru ta' verżjonijiet miżżewqa għal kull karta
@@ -5344,6 +5680,7 @@ Nombre de versions conservées pour chaque carte:
   slovène: Število ohranjenih različic za vsako karto
   suédois: Antal bevarade versioner för varje kort
   swahili: Idadi ya matoleo yaliyohifadhiwa kwa kila kadi
+  tadjik: Шумораи версияҳои ҳифзшуда барои ҳар як корт
   tamoul: ஒவ்வொரு அட்டைக்கும் வைத்திருக்கும் பதிப்புகளின் எண்ணிக்கை
   tchèque: Počet uchovaných verzí pro každou kartu
   thaï: จำนวนฉบับที่เก็บรักษาไว้สำหรับแต่ละการ์ด
@@ -5384,10 +5721,13 @@ Non:
   italien: 'No'
   japonais: いいえ
   kazakh: Жоқ
+  kirghize: Жок
   kurde: Na
   latin: Non
   letton: Nē
   lituanien: Ne
+  luxembourgeois: Nee
+  macédonien: Не
   malais: Tidak
   malgache: Tsia
   maltais: Le
@@ -5409,6 +5749,7 @@ Non:
   slovène: Ne
   suédois: Nej
   swahili: Hapana
+  tadjik: Не
   tamoul: இல்லை
   tchèque: Ne
   thaï: ไม่
@@ -5449,10 +5790,13 @@ Oui:
   italien: Sì
   japonais: はい。
   kazakh: Иә
+  kirghize: Ооба
   kurde: Erê
   latin: Sic
   letton: Jā
   lituanien: Taip
+  luxembourgeois: Jo
+  macédonien: Да
   malais: Ya
   malgache: Eny
   maltais: Iva
@@ -5474,6 +5818,7 @@ Oui:
   slovène: Da
   suédois: Ja
   swahili: Ndiyo
+  tadjik: Бале
   tamoul: ஆம்
   tchèque: Ano
   thaï: ใช่
@@ -5514,10 +5859,13 @@ Outil de création de cartes:
   italien: Strumento per la creazione di mappe
   japonais: カード作成ツール
   kazakh: Карта жасау құралы
+  kirghize: Карта түзүү куралы
   kurde: Aleyê çêkirina nexşeyan
   latin: Instrumentum tabularum faciendarum
   letton: Kartes veidošanas rīks
   lituanien: Žemėlapių kūrimo įrankis
+  luxembourgeois: Kaart-Erstellungstool
+  macédonien: Алатка за креирање мапи
   malais: Alat pencipta peta
   malgache: Fitaovana famoronana sarintany
   maltais: Għodda biex toħloq mapep
@@ -5539,6 +5887,7 @@ Outil de création de cartes:
   slovène: Orodje za ustvarjanje zemljevidov
   suédois: Kartskaparverktyg
   swahili: Chombo cha kutengeneza ramani
+  tadjik: Воситаи сохти харита
   tamoul: வரைபட உருவாக்கும் கருவி
   tchèque: Nástroj pro tvorbu map
   thaï: เครื่องมือสร้างแผนที่
@@ -5579,10 +5928,13 @@ Paramètres:
   italien: Parametri
   japonais: パラメータ
   kazakh: Параметрлер
+  kirghize: Жөндөөлөр
   kurde: Parametreyan
   latin: Indices
   letton: Parametri
   lituanien: Parametrai
+  luxembourgeois: Astellungen
+  macédonien: Параметри
   malais: Parameter
   malgache: Paramètre
   maltais: Settings
@@ -5604,6 +5956,7 @@ Paramètres:
   slovène: Parametri
   suédois: Inställningar
   swahili: Vigezo
+  tadjik: Танзимот
   tamoul: அமைப்புகள்
   tchèque: Parametry
   thaï: การตั้งค่า
@@ -5709,10 +6062,13 @@ Paramètres de publication des cartes:
   italien: Impostazioni di pubblicazione delle mappe
   japonais: 地図の公開設定
   kazakh: Карта жариялау параметрлері
+  kirghize: Карталарды жарыялоо параметрлери
   kurde: بڵاوکردنەوەی ڕێکخستنی نەخشەکان
   latin: De chartarum edendarum parametris
   letton: Kartes publicēšanas iestatījumi
   lituanien: Žemėlapių publikavimo nustatymai
+  luxembourgeois: Kaarten-Publikatiounsparameteren
+  macédonien: Параметри за објавување картички
   malais: Tetapan penerbitan peta
   malgache: Famaritana ny famoahana sarintany
   maltais: Settings tal-pubblikazzjoni tal-mapep
@@ -5734,6 +6090,7 @@ Paramètres de publication des cartes:
   slovène: Nastavitve objave zemljevidov
   suédois: Kartpubliceringsinställningar
   swahili: Mipangilio ya kuchapisha ramani
+  tadjik: Танзимоти нашри харитаҳо
   tamoul: அட்டை வெளியீட்டு அமைப்புகள்
   tchèque: Parametry publikování map
   thaï: การตั้งค่าการเผยแพร่แผนที่
@@ -5774,10 +6131,13 @@ Paramètres esthétiques:
   italien: Parametri estetici
   japonais: 美的パラメータ
   kazakh: Сәндік параметрлері
+  kirghize: Эстетикалык параметрлер
   kurde: پارامێترەکانی جوانکاری
   latin: '*Formae aestheticae.*'
   letton: Estētiskie parametri
   lituanien: Estetiniai parametrai
+  luxembourgeois: Ästhetesch Astellungen
+  macédonien: Естетски параметри
   malais: Parameter estetik
   malgache: Toetoetra araka ny hatsaran-tarehy
   maltais: Parametri estetiċi
@@ -5799,6 +6159,7 @@ Paramètres esthétiques:
   slovène: Estetski parametri
   suédois: Estetiska parametrar
   swahili: Vigezo vya urembo
+  tadjik: Танзимоти эстетикӣ
   tamoul: அழகு சார்ந்த அளவுருக்கள்
   tchèque: Estetické parametry
   thaï: พารามิเตอร์ความงาม
@@ -5839,10 +6200,13 @@ Pas de limite:
   italien: Nessun limite
   japonais: 限界なし
   kazakh: Шек жоқ
+  kirghize: Чек жок
   kurde: Sınır tune
   latin: Non finis
   letton: Nav robežu
   lituanien: Jokių ribų
+  luxembourgeois: Keng Limitt
+  macédonien: Без граница
   malais: Tiada had
   malgache: Tsy misy fetra
   maltais: M'hemmx limitu
@@ -5864,6 +6228,7 @@ Pas de limite:
   slovène: Brez omejitev
   suédois: Ingen gräns
   swahili: Hakuna kikomo
+  tadjik: Маҳдудият нест
   tamoul: எல்லை இல்லை
   tchèque: Žádný limit
   thaï: ไร้ขีดจำกัด
@@ -5904,10 +6269,13 @@ Pays les plus visités:
   italien: Paesi più visitati
   japonais: 最も訪問された国
   kazakh: Ең көп баратын елдер
+  kirghize: Эң көп зыярат кылынган өлкөлөр
   kurde: وەڵاتە زۆر سەردانیکراوەکان
   latin: Terrae frequentatissimae
   letton: Visbiežāk apmeklētās valstis
   lituanien: Daugiausiai lankomos šalys
+  luxembourgeois: Am meescht besichte Länner
+  macédonien: Најпосетувани земји
   malais: Negara yang paling banyak dilawati
   malgache: Firenena be mpitsidika indrindra
   maltais: Pajjiżi l-aktar miżjura
@@ -5929,6 +6297,7 @@ Pays les plus visités:
   slovène: Najbolj obiskane države
   suédois: Mest besökta länder
   swahili: Nchi zinazotembelewa zaidi
+  tadjik: Кишварҳои бештар боздидшуда
   tamoul: அதிகம் பார்வையிடப்பட்ட நாடுகள்
   tchèque: Nejnavštěvovanější země
   thaï: ประเทศที่ได้รับความนิยมมากที่สุด
@@ -5969,10 +6338,13 @@ Pays non visités:
   italien: Paesi non visitati
   japonais: 未訪問国
   kazakh: Барылмаған елдер
+  kirghize: Зиярат кылынбаган өлкөлөр
   kurde: Welatên nehatine serdan
   latin: Terrae non visitatae
   letton: Neapmeklētas valstis
   lituanien: Nelankytos šalys
+  luxembourgeois: Onbesichte Länner
+  macédonien: Не посетени земји
   malais: Negara yang belum dilawati
   malgache: Firenena tsy notsidihina
   maltais: Pajjiżi li ma żortx
@@ -5994,6 +6366,7 @@ Pays non visités:
   slovène: Neobiskani kraji
   suédois: Obesökta länder
   swahili: Nchi ambazo hazijatembelewa
+  tadjik: Кишварҳои боздидшуда
   tamoul: விஜயம் செய்யப்படாத நாடுகள்
   tchèque: Nenavštívené země
   thaï: ประเทศที่ยังไม่ได้ไป
@@ -6034,10 +6407,13 @@ Pays visités:
   italien: Paesi visitati
   japonais: 訪問国
   kazakh: Барылған елдер
+  kirghize: Зыярат кылган өлкөлөр
   kurde: Welatên serdan kirî
   latin: Terrae visitatae
   letton: Apmeklētās valstis
   lituanien: Aplankytos šalys
+  luxembourgeois: Besichte Länner
+  macédonien: Посетени земји
   malais: Negara yang dilawati
   malgache: Firenena notsidihina
   maltais: Pajjiżi miżjura
@@ -6059,6 +6435,7 @@ Pays visités:
   slovène: Obiskane države
   suédois: Besökta länder
   swahili: Nchi zilizotembelewa
+  tadjik: Кишварҳои боздидшуда
   tamoul: பயணம் செய்த நாடுகள்
   tchèque: Navštívené země
   thaï: ประเทศที่เคยไป
@@ -6127,6 +6504,8 @@ Permet d'avoir un fond de carte bleu clair et non blanc. Cela est utile pour les
   japonais: これにより、白ではなく薄い青色の地図背景を使用できます。これは海に囲まれた地域や国に役立ちます。
   kazakh: Ақ емес, ашық көк фонның болуына мүмкіндік береді. Бұл теңізбен қоршалған
     аймақтар мен елдер үшін пайдалы
+  kirghize: Ачык көк фонду, ак эмес, пайда кылат. Деңиз менен курчалган аймактар же
+    өлкөлөр үчүн пайдалуу
   kurde: Ji bo ku paşnavîn nîvî bişke ve, ne spî. Ev ji bo deverên ku li kêleka deryayê
     ne, bikêr e
   latin: Clare caeruleum vel album non tabulam fundum permittit. Hoc utile est regionibus
@@ -6135,6 +6514,10 @@ Permet d'avoir un fond de carte bleu clair et non blanc. Cela est utile pour les
     reģioniem vai valstīm, ko ieskauj jūra
   lituanien: Suteikia galimybę turėti šviesiai mėlyną, o ne baltą foninę žemėlapį.
     Tai naudinga regionams ar šalims, apsuptoms jūros
+  luxembourgeois: Erlaabt e hellbloe Kaartenhannergrond anstatt wäiss. Dat ass nëtzlech
+    fir Regiounen oder Länner, déi vum Mier ëmginn sinn
+  macédonien: Овозможува да има светло сина позадина на картата наместо бела. Ова
+    е корисно за региони или земји опкружени со море
   malais: Membolehkan latar belakang peta berwarna biru muda dan bukannya putih. Ini
     berguna untuk kawasan atau negara yang dikelilingi laut
   malgache: Mamela hanana sarintany manga mazava fa tsy fotsy. Mahasoa izany ho an'ireo
@@ -6176,6 +6559,8 @@ Permet d'avoir un fond de carte bleu clair et non blanc. Cela est utile pour les
     för regioner eller länder som omges av hav
   swahili: Inawezesha kuwa na mandhari ya rangi ya buluu iliyofifia badala ya nyeupe.
     Hii ni muhimu kwa maeneo au nchi zilizo na bahari inayozizunguka
+  tadjik: Барои харита заминаи кабуди равшан ва на сафед медиҳад. Ин барои минтақаҳо
+    ё кишварҳое, ки бо баҳр иҳота шудаанд, муфид аст
   tamoul: கடல் சூழ்ந்த பகுதிகள் அல்லது நாடுகளுக்கு இது பயனுள்ளதாக இருக்கும், வெள்ளை
     நிறத்திற்கு பதிலாக வெளிர் நீல நிற பின்னணி படத்தை இது அனுமதிக்கிறது
   tchèque: Umožňuje mít světle modré pozadí mapy místo bílého. To je užitečné pro
@@ -6292,6 +6677,9 @@ Permet d'avoir un fond de carte bleu clair et non blanc. Cela est utile pour les
   kazakh: Карталардың барлығын немесе тек қажетті дәлдікке ие карталарды жариялағымыз
     келетінін таңдауға мүмкіндік береді. Мысалы, егер бізге аудандық деңгейдегі карталар
     қажет болса, аймақтық деңгейде ғана бар картаны жариялағымыз келе ме?
+  kirghize: Кайрадан карталарды жарыялоону каалайсызбы же каалаган майда-чүйдөсүнө
+    чейин гана жарыялоону каалайсызбы тандоого уруксат берет. Мисалы, облустук деңгээлдеги
+    картаны жарыялагыңыз келеби, эгер сиз райондук деңгээлдеги карталарды кааласаңыз?
   kurde: Destûrê dide hilbijartina ka meriv dixwaze hemû nexşeyan biweşîne an tenê
     yên ku xwediyê granularîteya xwestî ne. Bo nimûne, gelo em dixwazin nexşeyek ku
     tenê di asta herêmî de heye biweşînin, eger em nexşeyên di asta parêzgehê de bixwazin?
@@ -6304,6 +6692,13 @@ Permet d'avoir un fond de carte bleu clair et non blanc. Cela est utile pour les
   lituanien: Leidžia pasirinkti, ar norima publikuoti visus žemėlapius, ar tik tuos,
     kurie turi norimą detalumo lygį. Ar, pavyzdžiui, norima publikuoti žemėlapį, kuris
     egzistuoja tik regioniniu lygiu, jei pageidaujami žemėlapiai apskrities lygiu?
+  luxembourgeois: Erlaabt ze wielen ob een all Kaarten publizéiere wëll oder nëmmen
+    déi mat der gewënschter Granularitéit. Wëll een zum Beispill eng Kaart publizéieren,
+    déi nëmmen um regionale Niveau existéiert, wann een Kaarte um departementale Niveau
+    wënscht?
+  macédonien: Овозможува избор дали сакате да ги објавите сите карти или само оние
+    што ја имаат саканата грануларност. Дали сакаме, на пример, да објавиме карта
+    што постои само на регионално ниво ако сакаме карти на ниво на одделение?
   malais: Membolehkan pemilihan sama ada untuk menerbitkan keseluruhan peta atau hanya
     yang mempunyai granulariti yang dikehendaki. Contohnya, adakah kita mahu menerbitkan
     peta yang hanya wujud pada peringkat wilayah jika kita mahukan peta pada peringkat
@@ -6370,6 +6765,10 @@ Permet d'avoir un fond de carte bleu clair et non blanc. Cela est utile pour les
   swahili: Inawezesha kuchagua kama mtu anataka kuchapisha ramani zote au zile tu
     ambazo zina ubainifu unaotakiwa. Kwa mfano, je, tunataka kuchapisha ramani ambayo
     ipo tu katika ngazi ya mkoa ikiwa tunataka ramani katika ngazi ya wilaya?
+  tadjik: Ба шумо имкон медиҳад, ки интихоб кунед, ки оё шумо мехоҳед тамоми харитаҳоро
+    нашр кунед ё танҳо онҳоеро, ки дорои дақиқии дилхоҳ мебошанд. Масалан, оё мо мехоҳем
+    харитаеро, ки танҳо дар сатҳи минтақавӣ мавҷуд аст, нашр кунем, агар мо харитаҳоро
+    дар сатҳи вилоятӣ хоҳем?
   tamoul: விருப்பமான துகள்களைக் கொண்ட வரைபடங்களை மட்டும் வெளியிட வேண்டுமா அல்லது அனைத்து
     வரைபடங்களையும் வெளியிட வேண்டுமா என்பதைத் தேர்வு செய்ய அனுமதிக்கிறது. உதாரணமாக,
     மாவட்ட அளவிலான வரைபடங்கள் தேவைப்படும்போது, பிராந்திய அளவில் மட்டுமே இருக்கும்
@@ -6535,6 +6934,10 @@ Permet d'avoir un fond de carte bleu clair et non blanc. Cela est utile pour les
     басым болады. Бұл жағдайда, барған аймақтардың тізімі департаменттердің тізімінен
     автоматты түрде қайта құрастырылады. Сондықтан барған аймақтарды белгілеудің қажеті
     жоқ (аймақтар белгіленген күйінде қалуы мүмкін, бірақ есепке алынбайды)
+  kirghize: Берилген өлкө үчүн, эгерде бөлүмдөр белгиленген болсо, алар белгиленген
+    аймактарга артыкчылык берилет. Бул учурда, барган аймактардын тизмеси бөлүмдөрдүн
+    тизмесинен автоматтык түрдө түзүлөт. Ошентип, барган аймактарды белгилөө талап
+    кылынбайт (аймактар белгиленип калышы мүмкүн, бирок алар эсепке алынбайт)
   kurde: Bo welatekî diyarkirî, eger departman hatibin nîşankirin, ew ji herêman pêştir
     tên hesibandin. Di vê rewşê de, lîsteya herêmên serdanê bixweber ji lîsteya departmanan
     tê avakirin. Ji ber vê yekê êdî hewce nake ku herêmên serdanê bên nîşankirin (herêm
@@ -6551,6 +6954,16 @@ Permet d'avoir un fond de carte bleu clair et non blanc. Cela est utile pour les
     palyginti su pažymėtais regionais. Tokiu atveju lankomų regionų sąrašas automatiškai
     sudaromas iš departamentų sąrašo. Todėl nebereikia žymėti lankomų regionų (regionai
     gali likti pažymėti, bet į juos nebus atsižvelgiama)
+  luxembourgeois: Fir e bestëmmt Land, wa Departementer ugekräizt sinn, hunn si Prioritéit
+    virun den ugekräizte Regiounen. An deem Fall gëtt d'Lëscht vun de besichte Regiounen
+    automatesch aus der Lëscht vun den Departementer rekonstruéiert. Et ass also net
+    méi néideg d'besichte Regiounen unzekräizen (d'Regioune kënnen ugekräizt bleiwen,
+    ginn awer net berécksichtegt)
+  macédonien: За дадена земја, ако се избрани одделенија, тие имаат приоритет пред
+    избраните региони. Во овој случај, списокот на посетени региони автоматски се
+    реконструира од списокот на одделенија. Затоа, повеќе не е потребно да се избираат
+    посетените региони (регионите можат да останат избрани, но нема да бидат земени
+    предвид)
   malais: Untuk sesebuah negara, jika jabatan dipilih, jabatan akan diutamakan berbanding
     kawasan yang dipilih. Dalam kes ini, senarai kawasan yang dilawati akan dibina
     semula secara automatik daripada senarai jabatan. Oleh itu, kawasan yang dilawati
@@ -6640,6 +7053,11 @@ Permet d'avoir un fond de carte bleu clair et non blanc. Cela est utile pour les
     iliyochaguliwa. Katika hali hiyo, orodha ya mikoa iliyotembelewa itaundwa upya
     moja kwa moja kutoka kwenye orodha ya idara. Kwa hivyo, hakuna haja ya kuchagua
     mikoa iliyotembelewa tena (mikoa inaweza kubaki imechaguliwa lakini haitazingatiwa)
+  tadjik: Барои кишвари додашуда, агар шӯъбаҳо қайд карда шаванд, онҳо аз минтақаҳои
+    қайдшуда афзалият доранд. Дар ин ҳолат, рӯйхати минтақаҳои боздидшуда аз рӯйхати
+    шӯъбаҳо ба таври автоматикӣ аз нав сохта мешавад. Аз ин рӯ, дигар лозим нест,
+    ки минтақаҳои боздидшударо қайд кунед (минтақаҳо метавонанд қайдшуда боқӣ монанд,
+    аммо ба назар гирифта намешаванд)
   tamoul: ஒரு குறிப்பிட்ட நாட்டிற்கு, சில துறைகள் குறிக்கப்பட்டிருந்தால், குறிக்கப்பட்ட
     பிரதேசங்களை விட அவை முக்கியமானவை. அந்த சூழ்நிலையில், பார்வையிடப்பட்ட பிரதேசங்களின்
     பட்டியல், துறைகளின் பட்டியலிலிருந்து தானாகவே உருவாக்கப்படும். ஆகவே பார்வையிடப்பட்ட
@@ -6709,10 +7127,13 @@ Problème:
   italien: Problema
   japonais: 問題。
   kazakh: Мәселе
+  kirghize: Көйгөй
   kurde: Pirsgirêk
   latin: Problema
   letton: Problēma
   lituanien: Problema
+  luxembourgeois: Problem
+  macédonien: Проблем
   malais: Masalah
   malgache: Olana
   maltais: Problema
@@ -6734,6 +7155,7 @@ Problème:
   slovène: Problem
   suédois: Problem
   swahili: Tatizo
+  tadjik: Мушкилот
   tamoul: பிரச்சினை
   tchèque: Problém
   thaï: ปัญหา
@@ -6774,10 +7196,13 @@ Publier les cartes !:
   italien: Pubblicare le mappe!
   japonais: カードを公開せよ！
   kazakh: Карталарды жариялаңыз!
+  kirghize: Карталарды жарыяла!
   kurde: Nexşeyan biweşînin!
   latin: Edite chartas!
   letton: Publicēt kartes!
   lituanien: Paskelbkite žemėlapius!
+  luxembourgeois: Publizéiert d'Kaarten!
+  macédonien: Објавете ги картичките!
   malais: Terbitkan peta-peta itu!
   malgache: Avoahy ny sarintany!
   maltais: Ippubblika l-mapep!
@@ -6799,6 +7224,7 @@ Publier les cartes !:
   slovène: Objavite karte!
   suédois: Publicera kartorna!
   swahili: Chapisha ramani!
+  tadjik: Картаҳоро нашр кунед!
   tamoul: வரைபடங்களை வெளியிடுங்கள்!
   tchèque: Zveřejněte mapy!
   thaï: เผยแพร่แผนที่!
@@ -6839,10 +7265,13 @@ Publier les cartes sauvegarde également les paramètres:
   italien: Pubblicare le mappe salva anche le impostazioni
   japonais: マップを公開すると、設定も保存されます。
   kazakh: Карталарды жариялау параметрлерді де сақтайды
+  kirghize: Карттарды жарыялоо орнотууларды да сактайт
   kurde: Weşandina nexşeyan, mîhengan jî tomar dike
   latin: Tabulas edere etiam servat configurationes
   letton: Kartes publicēšana saglabā arī iestatījumus
   lituanien: Žemėlapių publikavimas taip pat išsaugo nustatymus
+  luxembourgeois: D'Kaarten publizéieren späichert och d'Astellungen
+  macédonien: Објавете ги мапите, сочувајте ги и поставките
   malais: Menerbitkan peta juga menyimpan tetapan
   malgache: Ny famoahana sarintany dia mitahiry ny firafitra ihany koa
   maltais: Il-pubblikazzjoni tal-mapep issalva wkoll is-settings
@@ -6864,6 +7293,7 @@ Publier les cartes sauvegarde également les paramètres:
   slovène: Objava zemljevidov shrani tudi nastavitve
   suédois: Att publicera kartorna sparar också inställningarna
   swahili: Kuchapisha ramani pia kunahifadhi mipangilio
+  tadjik: Нашр кардани харитаҳо танзимотҳоро низ сабт мекунад
   tamoul: வரைபடங்களைப் பதிவேற்றுவது அமைப்புகளையும் சேமிக்கிறது
   tchèque: Publikování map uloží i nastavení
   thaï: การเผยแพร่แผนที่ยังบันทึกการตั้งค่าด้วย
@@ -6904,10 +7334,13 @@ Qualité de l'image:
   italien: Qualità dell'immagine
   japonais: 画質
   kazakh: Сурет сапасы
+  kirghize: Сүрөттүн сапаты
   kurde: چۆنیەتی وێنە
   latin: Qualitas imaginis
   letton: Attēla kvalitāte
   lituanien: Vaizdo kokybė
+  luxembourgeois: Billerqualitéit
+  macédonien: Квалитет на слика
   malais: Kualiti imej
   malgache: Hatsaran'ny sary
   maltais: Kwalità tal-immaġni
@@ -6929,6 +7362,7 @@ Qualité de l'image:
   slovène: Kakovost slike
   suédois: Bildkvalitet
   swahili: Ubora wa picha
+  tadjik: Сифати тасвир
   tamoul: படத்தின் தரம்
   tchèque: Kvalita obrazu
   thaï: คุณภาพของภาพ
@@ -6969,10 +7403,13 @@ Quinze cartes:
   italien: Quindici carte
   japonais: 15枚のカード
   kazakh: Он бес карта
+  kirghize: Он беш карта
   kurde: پانزە کارت
   latin: Quindecim chartae
   letton: Piecpadsmit kartes
   lituanien: Penkiolika kortų
+  luxembourgeois: Fofzéng Kaarten
+  macédonien: Петнаесет картички
   malais: Lima belas kad
   malgache: Karatra dimy ambin'ny folo
   maltais: Ħmistax-il karta
@@ -6994,6 +7431,7 @@ Quinze cartes:
   slovène: Petnajst kart
   suédois: Femton kort
   swahili: Kadi kumi na tano
+  tadjik: Панҷдаҳ корт
   tamoul: பதினைந்து அட்டைகள்
   tchèque: Patnáct karet
   thaï: สิบห้าใบ
@@ -7034,10 +7472,13 @@ Régions visitées:
   italien: Regioni visitate
   japonais: 訪問地域
   kazakh: Барылған аймақтар
+  kirghize: Зонд кылган
   kurde: ناوچەکانی سەردانکراو
   latin: Regiones visitatae
   letton: Apmeklētie reģioni
   lituanien: Aplankyti regionai
+  luxembourgeois: Besichte Regiounen
+  macédonien: Посетени региони
   malais: Wilayah yang dilawati
   malgache: Faritra notsidihina
   maltais: Reġjuni miżjura
@@ -7059,6 +7500,7 @@ Régions visitées:
   slovène: Obiskane regije
   suédois: Besökta regioner
   swahili: Mikoa iliyotembelewa
+  tadjik: Минтақаҳои диданӣ
   tamoul: பார்வையிடப்பட்ட பகுதிகள்
   tchèque: Navštívené regiony
   thaï: สถานที่ท่องเที่ยวที่เคยไป
@@ -7137,6 +7579,8 @@ Régions visitées:
   japonais: インターフェースと訪問国リストをリセットします。このボタンをクリックする前に、現在の設定を保存したことを確認してください。
   kazakh: Интерфейсті және барылған елдер тізімін қалпына келтіріңіз. Осы түймені
     басудан бұрын ағымдағы параметрлерді сақтағаныңызды тексеріңіз
+  kirghize: Интерфейсти жана зыярат кылынган өлкөлөрдүн тизмесин баштапкы абалга келтирүү.
+    Ушул баскычты басуудан мурун учурдагы жөндөөлөрдү сактап калганыңызды текшериңиз
   kurde: Navbeynûbera û lîsteya welatên serdan kirî ji nû ve saz bike. Ji kerema xwe
     berî ku li ser vê bişkojkê bikirtînin, piştrast bin ku we mîhengên heyî tomar
     kirine
@@ -7146,6 +7590,11 @@ Régions visitées:
     vai esat saglabājis pašreizējos iestatījumus pirms šīs pogas nospiešanas
   lituanien: Atkurkite sąsają ir aplankytų šalių sąrašą. Prieš spustelėdami šį mygtuką,
     įsitikinkite, kad išsaugojote dabartinius nustatymus
+  luxembourgeois: Setz d'Interface an d'Lëscht vun de besichte Länner zeréck. Préift
+    w.e.g., ob Dir déi aktuell Astellunge gespäichert hutt ier Dir op dëse Knäppchen
+    klickt
+  macédonien: Ресетирајте ја интерфејсот, како и списокот со посетени земји. Ве молиме,
+    проверете дека сте ги зачувале тековните поставки пред да го притиснете ова копче
   malais: Tetapkan semula antara muka dan juga senarai negara yang telah dilawati.
     Sila pastikan anda telah menyimpan parameter semasa sebelum mengklik butang ini
   malgache: Avereno amin'ny toerana voalohany ny interface sy ny lisitry ny firenena
@@ -7192,6 +7641,9 @@ Régions visitées:
     att du har sparat de aktuella inställningarna innan du klickar på den här knappen
   swahili: Weka upya kiolesura na orodha ya nchi zilizotembelewa. Tafadhali hakikisha
     ume保存 mipangilio ya sasa kabla ya kubofya kitufe hiki
+  tadjik: Интерфейсро ва рӯйхати кишварҳои боздидшударо аз нав барқарор кунед. Лутфан,
+    пеш аз пахш кардани ин тугма, боварӣ ҳосил кунед, ки танзимоти ҷорӣро дуруст сабт
+    кардаед
   tamoul: இடைமுகத்தையும், பார்வையிட்ட நாடுகளின் பட்டியலையும் மீட்டமைக்கவும். இந்த
     பொத்தானை கிளிக் செய்வதற்கு முன், தற்போதைய அமைப்புகளைச் சேமித்துவிட்டீர்களா என்பதை
     உறுதிப்படுத்திக் கொள்ளவும்
@@ -7242,10 +7694,13 @@ Réinitialiser l'interface:
   italien: Ripristina l'interfaccia
   japonais: インターフェースをリセットする
   kazakh: Интерфейсті қалпына келтіру
+  kirghize: Интерфейсти баштапкы абалга келтирүү
   kurde: ڕووکار نوێ بکەوە
   latin: Faciem renovare
   letton: Atiestatīt saskarni
   lituanien: Atkurti sąsają
+  luxembourgeois: Interface zrécksetzen
+  macédonien: Ресетирајте ја командата
   malais: Tetapkan semula antara muka
   malgache: Avereno amin'ny toerana voalohany ny seha-pifandraisana
   maltais: Irrisettja l-interface
@@ -7267,6 +7722,7 @@ Réinitialiser l'interface:
   slovène: Ponastavi vmesnik
   suédois: Återställ gränssnittet
   swahili: Weka upya kiolesura
+  tadjik: Интерфейсро аз нав танзим кунед
   tamoul: இடைமுகத்தை மீட்டமைக்கவும்
   tchèque: Obnovit rozhraní
   thaï: ตั้งค่าส่วนต่อประสานใหม่
@@ -7333,6 +7789,7 @@ S'il existe plus de versions d'une carte que la limite sélectionnée, alors la 
     carta più vecchia verrà eliminata
   japonais: カードのバージョン数が選択された制限を超えた場合、最も古いカードが削除されます。
   kazakh: Егер картаның нұсқалары таңдалған шектен асып кетсе, ең ескі карта жойылады
+  kirghize: Эгер картанын тандалган чектен ашык версиясы болсо, эски карта өчүрүлөт
   kurde: Ger hejmara guhertoyên nexşeyekê ji sînorê bijartî zêdetir be, wê demê nexşeya
     herî kevn dê were jêbirin
   latin: Si plures chartae versiones quam terminus electus exsistunt, tum charta vetustissima
@@ -7341,6 +7798,10 @@ S'il existe plus de versions d'une carte que la limite sélectionnée, alors la 
     dzēsta
   lituanien: Jei kortelės versijų yra daugiau nei pasirinktas limitas, tuomet seniausia
     kortelė bus ištrinta
+  luxembourgeois: Wann et méi Versioune vun enger Kaart gëtt wéi d'Limite ausgewielt,
+    dann gëtt déi eelst Kaart geläscht
+  macédonien: Ако постојат повеќе верзии на картичка отколку што е избрано ограничување,
+    најстарата картичка ќе биде избришана
   malais: Jika terdapat lebih banyak versi kad daripada had yang dipilih, maka kad
     yang paling lama akan dipadamkan
   malgache: Raha misy dika mitovy amin'ny sarintany mihoatra ny fetra voafantina,
@@ -7382,6 +7843,8 @@ S'il existe plus de versions d'une carte que la limite sélectionnée, alors la 
     äldsta kortet att tas bort
   swahili: Ikiwa kuna matoleo mengi ya ramani kuliko kikomo kilichochaguliwa, basi
     ramani ya zamani zaidi itafutwa
+  tadjik: Агар аз харита зиёда аз якчанд нусха мавҷуд бошад, ки аз меъёри муқарраршуда
+    зиёд аст, он гоҳ харитаи кӯҳнатар нест карда мешавад
   tamoul: தேர்ந்தெடுக்கப்பட்ட வரம்பை விட ஒரு அட்டையின் பதிப்புகள் அதிகமாக இருந்தால்,
     பழைய அட்டை நீக்கப்படும்
   tchèque: Pokud existuje více verzí karty, než je vybraný limit, nejstarší karta
@@ -7428,10 +7891,13 @@ Sauvegarder mes paramètres:
   italien: Salva le mie impostazioni
   japonais: 設定を保存する。
   kazakh: Параметрлерімді сақтау
+  kirghize: Менин жөндөөлөрүмдү сактоо
   kurde: Parastina mîhengên min
   latin: Serva configurationem meam
   letton: Saglabāt manus iestatījumus
   lituanien: Išsaugoti mano nustatymus
+  luxembourgeois: Meng Astellunge späicheren
+  macédonien: Зачувај ги моите поставки
   malais: Simpan tetapan saya
   malgache: Tehirizo ny fanovako
   maltais: Issejvja l-issettjar tiegħi
@@ -7453,6 +7919,7 @@ Sauvegarder mes paramètres:
   slovène: Shrani moje nastavitve
   suédois: Spara mina inställningar
   swahili: Hifadhi mipangilio yangu
+  tadjik: Танзимотҳои маро нигоҳ доред
   tamoul: என் அமைப்புகளை சேமி
   tchèque: Uložit moje nastavení
   thaï: บันทึกการตั้งค่าของฉัน
@@ -7493,10 +7960,13 @@ Selon les départements visités:
   italien: A seconda dei dipartimenti visitati
   japonais: 訪問した部署による
   kazakh: Бөлімдерге барған сайын
+  kirghize: Барылган бөлүмдөргө жараша
   kurde: Li gorî beşa serdan kirî
   latin: Secundum departmentes visitatos
   letton: Atkarībā no apmeklētajām nodaļām
   lituanien: Pagal aplankytus skyrius
+  luxembourgeois: Je no de besichte Departementer
+  macédonien: Според посетените одделенија
   malais: Mengikut jabatan yang dilawati
   malgache: Araka ny departemanta notsidihina
   maltais: Skont id-dipartimenti żaru
@@ -7518,6 +7988,7 @@ Selon les départements visités:
   slovène: Glede na obiskane oddelke
   suédois: Enligt besökta avdelningar
   swahili: Kulingana na idara zilizotembelewa
+  tadjik: Тибқи шӯъбаҳои боздидшуда
   tamoul: பார்த்த துறைகளின்படி
   tchèque: Podle navštívených oddělení
   thaï: ตามหน่วยงานที่เข้าเยี่ยมชม
@@ -7558,10 +8029,13 @@ Selon les régions visitées:
   italien: A seconda delle regioni visitate
   japonais: 訪れた地域による
   kazakh: Аралаған аймақтарға байланысты
+  kirghize: Аймактар ​​аралаган сайын
   kurde: Li gor herêmên ku hatine serdan kirin
   latin: Secundum regiones visitatas
   letton: Atkarībā no apmeklētajiem reģioniem
   lituanien: Pagal aplankytus regionus
+  luxembourgeois: Je no deene besichte Regiounen
+  macédonien: Според посетените региони
   malais: Mengikut kawasan yang dilawati
   malgache: Araka ny faritra notsidihina
   maltais: Skond ir-reġjuni żaru
@@ -7583,6 +8057,7 @@ Selon les régions visitées:
   slovène: Glede na obiskane regije
   suédois: Beroende på de besökta regionerna
   swahili: Kulingana na mikoa iliyotembelewa
+  tadjik: Вобаста ба минтақаҳои диданшуда
   tamoul: பார்வையிட்ட பகுதிகளைப் பொறுத்து
   tchèque: Podle navštívených regionů
   thaï: ตามภูมิภาคที่ได้ไปเยือน
@@ -7626,10 +8101,14 @@ Soutaitez-vous vraiment supprimer ce profil ? Cette opération est définitive:
   italien: Vuole davvero cancellare questo profilo? Questa operazione è definitiva
   japonais: 本当にこのプロフィールを削除しますか？この操作は取り消せません。
   kazakh: Сіз бұл профильді шынымен жойғыңыз келе ме? Бұл әрекет қайтарылмайды
+  kirghize: Бул профилди чын эле өчүрүүнү каалайсызбы? Бул операция кайтарылгыс
   kurde: Ma hûn bi rastî dixwazin vê profîlê jê bibin? Ev operasyon qet nayê guhertin
   latin: Visne vere hoc profilum delere? Haec operatio definitiva est
   letton: Vai tiešām vēlaties izdzēst šo profilu? Šī darbība ir neatgriezeniska
   lituanien: Ar tikrai norite ištrinti šį profilį? Ši operacija yra neatšaukiama
+  luxembourgeois: Wëllt Dir dëse Profil wierklech läschen? Dës Operatioun ass definitiv
+  macédonien: Дали навистина сакате да го избришете овој профил? Оваа операција е
+    конечна
   malais: Adakah anda pasti mahu memadam profil ini? Operasi ini adalah kekal
   malgache: Tena te-hamafa ity mombamomba ity ve ianao? Maharitra ity asa ity
   maltais: Tixtieq tħassar dan il-profil tassew? Din l-operazzjoni hija permanenti
@@ -7651,6 +8130,7 @@ Soutaitez-vous vraiment supprimer ce profil ? Cette opération est définitive:
   slovène: Ali res želite izbrisati ta profil? Ta operacija je dokončna
   suédois: Vill du verkligen ta bort den här profilen? Den här åtgärden är permanent
   swahili: Je, una uhakika unataka kufuta wasifu huu? Uendeshaji huu ni wa kudumu
+  tadjik: Шумо воқеан ин профилро нест кардан мехоҳед? Ин амал қатъӣ аст
   tamoul: இந்த சுயவிவரத்தை நீக்க விரும்புகிறீர்களா? இந்த செயல் நிரந்தரமானது
   tchèque: Opravdu chcete smazat tento profil? Tato operace je nevratná
   thaï: คุณต้องการลบโปรไฟล์นี้จริง ๆ หรือไม่ การดำเนินการนี้จะไม่สามารถย้อนกลับได้
@@ -7691,10 +8171,13 @@ Suppression du profil:
   italien: Eliminazione del profilo
   japonais: プロフィール削除
   kazakh: Профильді жою
+  kirghize: Профилди жок кылуу
   kurde: Jêbirina profîlê
   latin: Profilis Deletio
   letton: Profila dzēšana
   lituanien: Profilio ištrynimas
+  luxembourgeois: Profil läschen
+  macédonien: Бришење на профилот
   malais: Padamkan profil
   malgache: Fafana ny mombamomba
   maltais: Tneħħija tal-profil
@@ -7716,6 +8199,7 @@ Suppression du profil:
   slovène: Izbris profila
   suédois: Ta bort profil
   swahili: Kufuta wasifu
+  tadjik: Нест кардани профил
   tamoul: சுயவிவரத்தை நீக்கு
   tchèque: Smazat profil
   thaï: ลบโปรไฟล์
@@ -7756,10 +8240,13 @@ Supprimer ce profil:
   italien: Elimina questo profilo
   japonais: このプロフィールを削除してください。
   kazakh: Бұл профильді жою
+  kirghize: Бул профилди жок кылыңыз
   kurde: Veqedîninê vê profîlê
   latin: Tolle hoc exemplar
   letton: Dzēst šo profilu
   lituanien: Pašalinti šį profilį
+  luxembourgeois: Dëse Profil läschen
+  macédonien: Избриши го овој профил
   malais: Padam profil ini
   malgache: Fafao ity mombamomba ity
   maltais: Ħassar dan il-profil
@@ -7781,6 +8268,7 @@ Supprimer ce profil:
   slovène: Izbriši ta profil
   suédois: Ta bort den här profilen
   swahili: Futa wasifu huu
+  tadjik: Ин профилро нест кунед
   tamoul: இந்த சுயவிவரத்தை நீக்கு
   tchèque: Smazat tento profil
   thaï: ลบโปรไฟล์นี้
@@ -7821,10 +8309,13 @@ Sélection des lieux visités:
   italien: Selezione dei luoghi visitati
   japonais: 訪問場所の選択
   kazakh: Көрілген жерлерді таңдау
+  kirghize: Кыдырылган жерлердин тандоосу
   kurde: Hilbijartina cihên serdan
   latin: De locis visitatis delectus
   letton: Apmeklēto vietu atlase
   lituanien: Aplankytų vietų pasirinkimas
+  luxembourgeois: Auswiel vun de besichte Plazen
+  macédonien: Избор на посетени места
   malais: Pemilihan tempat yang dilawati
   malgache: Fisafidianana toerana notsidihina
   maltais: Għażla ta' postijiet miżjura
@@ -7846,6 +8337,7 @@ Sélection des lieux visités:
   slovène: Izbor obiskanih krajev
   suédois: Val av besökta platser
   swahili: Uchaguzi wa maeneo yaliyotembelewa
+  tadjik: Интихоби маконҳои диданӣ
   tamoul: பார்வையிட்ட இடங்களின் தேர்வு
   tchèque: Výběr navštívených míst
   thaï: การเลือกสถานที่ที่เข้าชม
@@ -7886,10 +8378,13 @@ Sélectionner un dossier:
   italien: Seleziona una cartella
   japonais: フォルダを選択
   kazakh: Қалтаны таңдау
+  kirghize: Папканы тандаңыз
   kurde: Daxwaznameyekê hilbijêre
   latin: Selectum folder
   letton: Izvēlieties mapi
   lituanien: Pasirinkite aplanką
+  luxembourgeois: E Fichier eraussichen
+  macédonien: Изберете папка
   malais: Pilih folder
   malgache: Mifidiana rakitra
   maltais: Agħżel folder
@@ -7911,6 +8406,7 @@ Sélectionner un dossier:
   slovène: Izberite mapo
   suédois: Välj en mapp
   swahili: Chagua folda
+  tadjik: Интихоби ҷузвдон
   tamoul: கோப்புறையைத் தேர்ந்தெடுக்கவும்
   tchèque: Vybrat složku
   thaï: เลือกโฟลเดอร์
@@ -7951,10 +8447,13 @@ Teintes:
   italien: Tonalità
   japonais: 色合い
   kazakh: Реңдер
+  kirghize: Төстөр
   kurde: Reng
   latin: Colores
   letton: Toņi
   lituanien: Atspalviai
+  luxembourgeois: Faarwen
+  macédonien: Нијанси
   malais: Warna-warna
   malgache: Loko
   maltais: Sfumar
@@ -7976,6 +8475,7 @@ Teintes:
   slovène: Odtenki
   suédois: Nyanser
   swahili: Rangi
+  tadjik: Рангҳо
   tamoul: வண்ணங்கள்
   tchèque: Odstíny
   thaï: เฉดสี
@@ -8016,10 +8516,13 @@ Thème:
   italien: Tema
   japonais: テーマ
   kazakh: Тақырып
+  kirghize: Тема
   kurde: Mijar
   latin: Thema
   letton: Tēma
   lituanien: Tema
+  luxembourgeois: Thema
+  macédonien: Тема
   malais: Tema
   malgache: Lohahevitra
   maltais: Tema
@@ -8041,6 +8544,7 @@ Thème:
   slovène: Tema
   suédois: Tema
   swahili: Mandhari
+  tadjik: Мавзӯъ
   tamoul: தலைப்பு
   tchèque: Téma
   thaï: ธีม
@@ -8081,10 +8585,13 @@ Télécharger les fichiers YAML des lieux visités:
   italien: Scarica i file YAML dei luoghi visitati
   japonais: 訪問した場所の YAML ファイルをダウンロードしてください。
   kazakh: Келген жерлердің YAML файлдарын жүктеп алу
+  kirghize: Барылган жерлердин YAML файлдарын жүктөп алыңыз
   kurde: Pelên YAML ên cihên serdanî dakêşin
   latin: YAML fasciculos locorum visitatorum deponere
   letton: Lejupielādēt apmeklēto vietu YAML failus
   lituanien: Atsisiųsti aplankytų vietų YAML failus
+  luxembourgeois: Luet d'YAML-Dateie vun de besichte Plazen erof
+  macédonien: Преземи ги YAML датотеките од посетените локации
   malais: Muat turun fail YAML tempat yang dilawati
   malgache: Sintomy ny rakitra YAML momba ny toerana notsidihina
   maltais: Niżżel il-fajls YAML tal-postijiet żviluppati
@@ -8106,6 +8613,7 @@ Télécharger les fichiers YAML des lieux visités:
   slovène: Prenesi datoteke YAML obiskanih lokacij
   suédois: Ladda ner YAML-filer för besökta platser
   swahili: Pakua faili za YAML za maeneo yaliyotembelewa
+  tadjik: Файлҳои YAML-и ҷойҳои боздидшударо зеркашӣ кунед
   tamoul: பார்வையிட்ட இடங்களின் YAML கோப்புகளைப் பதிவிறக்கவும்
   tchèque: Stáhnout soubory YAML navštívených míst
   thaï: ดาวน์โหลดไฟล์ YAML ของสถานที่ที่ไป
@@ -8146,10 +8654,13 @@ Utiliser le style dans l'application:
   italien: Usare lo stile nell'applicazione
   japonais: アプリケーションでスタイルを使用する
   kazakh: Қолданбада стильді қолданыңыз
+  kirghize: Колдонмодо стилди колдонуу
   kurde: Bi kar anîna şêwazê di serlêdanê de
   latin: Stylum adhibere in applicatione
   letton: Lietot stilu lietotnē
   lituanien: Naudoti stilių programoje
+  luxembourgeois: Benotz de Stil an der App
+  macédonien: Применете го стилот во апликацијата
   malais: Gunakan gaya dalam aplikasi
   malgache: Ampiasao ny fomba ao amin'ny fampiharana
   maltais: Uża l-istil fl-applikazzjoni
@@ -8171,6 +8682,7 @@ Utiliser le style dans l'application:
   slovène: Uporabite slog v aplikaciji
   suédois: Använd stilen i appen
   swahili: Tumia mtindo katika programu
+  tadjik: Истифодаи услуб дар барнома
   tamoul: பயன்பாட்டில் பாணியைப் பயன்படுத்தவும்
   tchèque: Použijte styl v aplikaci
   thaï: ใช้สไตล์ในการประยุกต์ใช้
@@ -8211,10 +8723,13 @@ Version:
   italien: Versione
   japonais: バージョン
   kazakh: Нұсқа
+  kirghize: Жаңылануу
   kurde: Nîşan
   latin: Versio
   letton: Versija
   lituanien: Versija
+  luxembourgeois: Versioun
+  macédonien: Верзија
   malais: Versi
   malgache: Famakiana
   maltais: Verżjoni
@@ -8236,6 +8751,7 @@ Version:
   slovène: Različica
   suédois: Version
   swahili: Toleo
+  tadjik: Версия
   tamoul: பதிப்பு
   tchèque: Verze
   thaï: ฉบับ
@@ -8276,10 +8792,13 @@ Vos paramètres:
   italien: Le tue impostazioni
   japonais: あなたの設定
   kazakh: Сіздің параметрлеріңіз
+  kirghize: Жөндөөлөрүңүз
   kurde: Parametreyên we
   latin: Vestri occasus
   letton: Jūsu iestatījumi
   lituanien: Jūsų nustatymai
+  luxembourgeois: Är Astellungen
+  macédonien: Вашите поставки
   malais: Tetapan anda
   malgache: Ny fikirana napetrakao
   maltais: Il-parametri tiegħek
@@ -8301,6 +8820,7 @@ Vos paramètres:
   slovène: Svoji nastavitvi
   suédois: Dina inställningar
   swahili: Mazingira yako
+  tadjik: Танзимоти шумо
   tamoul: உங்கள் அமைப்புகள்
   tchèque: Vaše nastavení
   thaï: การตั้งค่าของคุณ
@@ -8341,10 +8861,13 @@ Vos paramètres ont bien été sauvegardés:
   italien: I tuoi parametri sono stati salvati correttamente
   japonais: 設定は保存されました。
   kazakh: Параметрлеріңіз сақталды
+  kirghize: Сиздин орнотууларыңыз ийгиликтүү сакталды
   kurde: Paramêtren we baş hatin tomarkirin
   latin: Data vestra bene servata sunt
   letton: Jūsu iestatījumi ir saglabāti
   lituanien: Jūsų nustatymai sėkmingai išsaugoti
+  luxembourgeois: Är Astellunge goufe gespäichert
+  macédonien: Вашите поставки се успешно зачувани
   malais: Tetapan anda telah disimpan
   malgache: Voa tahiry tsara ny fanovàna nataonao
   maltais: Is-settings tiegħek ġew salvati
@@ -8366,6 +8889,7 @@ Vos paramètres ont bien été sauvegardés:
   slovène: Vaši parametri so bili uspešno shranjeni
   suédois: Dina inställningar har sparats
   swahili: Mipangilio yako imehifadhiwa
+  tadjik: Танзимоти шумо бомуваффақият ҳифз карда шуданд
   tamoul: உங்கள் அமைப்புகள் சேமிக்கப்பட்டுள்ளன
   tchèque: Vaše nastavení bylo uloženo
   thaï: การตั้งค่าของคุณถูกบันทึกแล้ว
@@ -8417,11 +8941,16 @@ ou charger manuellement un fichier YAML contenant la liste des lieux visités:
   italien: o caricare manualmente un file YAML contenente l'elenco dei luoghi visitati
   japonais: 訪問した場所のリストを含むYAMLファイルを手動でロードする
   kazakh: Көрілген орындар тізімін қамтитын YAML файлын қолмен жүктеу немесе
+  kirghize: Жерлердин тизмеси камтылган YAML файлын кол менен жүктөө
   kurde: an jî bi destan dosyayeke YAML hilbigirin ku lîsteya cihên serlêdanî tê de
     heye
   latin: aut manualiter imponere fasciculum YAML qui indicem locorum visitatorum continet
   letton: vai manuāli ielādēt YAML failu, kas satur apmeklēto vietu sarakstu
   lituanien: arba rankiniu būdu įkelti YAML failą, kuriame yra lankytinų vietų sąrašas
+  luxembourgeois: Oder manuell eng YAML-Datei lueden, déi d'Lëscht vun de besichte
+    Plazen enthält
+  macédonien: или рачно да вчитате YAML датотека што ја содржи листата на посетени
+    локации
   malais: atau memuat fail YAML secara manual yang mengandungi senarai lokasi yang
     dilawati
   malgache: nao ampiditra rakitra YAML misy lisitry ny toerana notsidihina amin'ny
@@ -8449,6 +8978,8 @@ ou charger manuellement un fichier YAML contenant la liste des lieux visités:
     platser
   swahili: au kusoma faili la YAML lililo na orodha ya maeneo yaliyotembelewa kwa
     mikono
+  tadjik: ё борборӣ кардан ё боргузорӣ кардани файли YAML-ро, ки дорои рӯйхати ҷойҳои
+    боздидшуда мебошад
   tamoul: பார்வையிட்ட இடங்களின் பட்டியலைக் கொண்ட YAML கோப்பை கைமுறையாக ஏற்றவும்
   tchèque: nebo ručně nahrát soubor YAML se seznamem navštívených míst
   thaï: หรือจะโหลดไฟล์ YAML ด้วยตนเองที่รวบรวมรายชื่อสถานที่ที่ไปเยือน
@@ -8504,11 +9035,16 @@ ou charger manuellement un fichier YAML contenant la liste des lieux visités:
     disponibile
   japonais: 希望する粒度が利用できない地図も公開してください。
   kazakh: Сондай-ақ, қажетті майдандастыру мүмкін емес карталарды да жариялаңыз
+  kirghize: Ошондой эле, каалаган майдалык жеткиликтүү болбогон карталарды жарыялаңыз
   kurde: Herweha jî, nexşeyên ku ji bo wan daneyên ku hûn dixwazin peyda nabin jî
     çap bikin
   latin: Etiam ea chartas evulgate pro quibus desiderata subtilitas deest
   letton: Tāpat publicējiet kartes, kurām nav pieejams vēlamais detalizācijas līmenis
   lituanien: Taip pat skelbti žemėlapius, kuriems neprieinama norima detalumo
+  luxembourgeois: Och d'Kaarten publizéieren, fir déi déi gewënschte Granularitéit
+    net verfügbar ass
+  macédonien: Исто така, објавете ги мапите за кои посакуваната грануларност не е
+    достапна
   malais: Juga terbitkan peta yang ketepatan yang diinginkan tidak tersedia
   malgache: Mpandray anjara ihany koa ny sarintany izay tsy misy ny antsipiriany tiana
   maltais: Ippubblika wkoll il-mapep li għalihom il-livell mixtieq ta' granularità
@@ -8537,6 +9073,8 @@ ou charger manuellement un fichier YAML contenant la liste des lieux visités:
     na voljo
   suédois: Publicera även kartor för vilka önskad granularitet inte är tillgänglig
   swahili: Pia kuchapisha ramani ambazo kiwango cha kina kinachohitajika hakipatikani
+  tadjik: Ҳамчунин харитаҳоеро, ки барои онҳо норасоии дилхоҳи дараҷаи норасоӣ мавҷуд
+    аст, нашр кунед
   tamoul: விரும்பிய துல்லியம் கிடைக்காத வரைபடங்களையும் வெளியிடவும்
   tchèque: Také zveřejněte mapy, pro které není dostupná požadovaná granularita
   thaï: นอกจากนี้ ให้เผยแพร่แผนที่ที่ไม่มีระดับความละเอียดที่ต้องการด้วย
@@ -8578,10 +9116,13 @@ ou charger manuellement un fichier YAML contenant la liste des lieux visités:
   italien: Elevata
   japonais: 高い
   kazakh: Көтерілген
+  kirghize: Бийик
   kurde: Bilind kirin
   latin: Elevata
   letton: Paaugstināta
   lituanien: Ugdytas
+  luxembourgeois: Erzunn
+  macédonien: Израсната
   malais: Tinggi
   malgache: Natsangana
   maltais: Imqajjem
@@ -8603,6 +9144,7 @@ ou charger manuellement un fichier YAML contenant la liste des lieux visités:
   slovène: Visoka
   suédois: Höjd
   swahili: Inyanyaswa
+  tadjik: Баланд
   tamoul: உயர்த்தப்பட்டது
   tchèque: Vznesená
   thaï: สูง

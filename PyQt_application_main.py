@@ -517,6 +517,10 @@ class SettingsApp(QWidget):
         self.liste_endroits.setGridSize(QSize(250, 25))
         self.telecharger_lieux_visites = QPushButton()
         self.telecharger_lieux_visites.clicked.connect(self.exporter_yamls_visites)
+        self.bouton_sauvegarde2 = QPushButton()
+        self.bouton_sauvegarde2.clicked.connect(
+            lambda: self.fonction_principale(True, True)
+        )
 
         self.dicts_granu = {"region": {}, "dep": {}}
 
@@ -531,6 +535,7 @@ class SettingsApp(QWidget):
         layout_selection_params.addWidget(self.liste_des_pays)
         layout_selection_params.addWidget(self.liste_niveaux)
         layout_selection_params.addWidget(self.telecharger_lieux_visites)
+        layout_selection_params.addWidget(self.bouton_sauvegarde2)
         layout_selection_params.setStretch(
             0, 3
         )  # Le premier widget prend plus de place
@@ -539,6 +544,9 @@ class SettingsApp(QWidget):
         )  # Le deuxième widget prend plus de place
         layout_selection_params.setStretch(
             2, 1
+        )  # Le troisième widget prend moins de place
+        layout_selection_params.setStretch(
+            3, 1
         )  # Le troisième widget prend moins de place
 
         layout_selection_lieux.addLayout(layout_selection_params)
@@ -856,6 +864,7 @@ class SettingsApp(QWidget):
         self.telecharger_lieux_visites.setToolTip(
             self.traduire_depuis_id("telecharger_lieux_visites", suffixe=".")
         )
+        self.bouton_sauvegarde2.setText("💾")
 
         # Chargement des YAMLs
         self.groupe_chargement_yaml.setTitle(

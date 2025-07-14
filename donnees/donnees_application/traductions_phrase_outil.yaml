@@ -579,6 +579,50 @@
     <hr />
 
     <p><strong>Gràcies per triar MesVoyages!</strong></p>'
+  corse: '<h2>📌 Descrizzione :</h2>
+
+    <p>MesVoyages hè una applicazione chì permette di creà carte di viaghju persunalizate
+    selezziunendu e regione o dipartimenti di i paesi chì si sò visitati.</p>
+
+    <h2>💻 Cumu aduprà :</h2>
+
+    <ol>
+
+    <li>Intrite i vostri parametri è u vostru nome.</li>
+
+    <li>Intrite i lochi chì avete visitatu.</li>
+
+    <li>Crea e vostre carte ! U salvamentu di e vostre visite è di i vostri parametri
+    si face quandu cliccate nant''à u buttone di creazione di e carte.</li>
+
+    </ol>
+
+    <h2>📋 Ficheiros YAML dispunibuli :</h2>
+
+    <p>I ficheiros <code>.yaml</code> forniti sò mudelli cumplette chì cuntenenu tutti
+    i paesi, e regione è i dipartimenti dispunibuli.</p>
+
+    <p>▶️ Sè vo preferite stu metudu à quellu di sceglie i lochi visitati, dopu avè
+    copiatu i mudelli presenti in u cartulare di l''applicazione, sguassate tutti
+    i lochi micca visitati è caricate li in l''applicazione.</p>
+
+    <h2>❓ Cuntattu :</h2>
+
+    <p>L''applicazione si vole intuitiva, ma per ogni quistione: xavier.cal181@gmail.com.</p>
+
+    <p>E traduzzione sò state fatte automaticamente è ùn sò micca state verificate
+    manualmente. In casu d''errore di traduzzione, ùn esitate à cuntattami.
+
+    Listessu, s''è qualchì bug si produce o chì vulete fà ritorni/raccomandazioni,
+    ùn esitate à cuntattami.</p>
+
+    <h2>🗑️ Disinstallazione :</h2>
+
+    <p>Sguassate simpliciamente u cartulare. Nisun ficchieru di sistema hè mudificatu.</p>
+
+    <hr />
+
+    <p><strong>Grazie d''avè sceltu MesVoyages !</strong></p>'
   coréen: '<h2>📌 설명:</h2>
 
     <p>MesVoyages는 방문한 국가의 지역 또는 부서를 선택하여 맞춤 여행 지도를 만들 수 있는 애플리케이션입니다.</p>
@@ -973,6 +1017,7 @@
     <hr />
 
     <p><strong>Σας ευχαριστούμε που επιλέξατε το MesVoyages!</strong></p>'
+  grec ancien: Εὐχαριστῶ ὅτι ἐπελέξατε τὰ Ἐμά μου Ταξίδια!
   géorgien: '<h2>📌 აღწერა:</h2>
 
     <p>MesVoyages არის აპლიკაცია, რომელიც საშუალებას გაძლევთ შექმნათ პერსონალიზებული
@@ -3013,6 +3058,7 @@ Affichage regroupé:
   breton: Disposadur dastumad
   bulgare: Групиран изглед
   catalan: Visualització agrupada
+  corse: Affissaghju raggruppatu
   coréen: 집계 보기
   danois: Grupperet visning
   espagnol: Visualización agrupada
@@ -3022,6 +3068,7 @@ Affichage regroupé:
   français: Affichage regroupé
   gallois: Arddangosfa grŵp
   grec: Συγκεντρωμένη προβολή
+  grec ancien: σύνοψις
   géorgien: ჯგუფური ჩვენება
   hindi: समूहीकृत प्रदर्शन
   hongrois: Összesített megjelenítés
@@ -3082,6 +3129,7 @@ Afrique:
   breton: Afrika
   bulgare: Африка
   catalan: Àfrica
+  corse: Africa
   coréen: 아프리카
   danois: Afrika
   espagnol: África
@@ -3091,6 +3139,7 @@ Afrique:
   français: Afrique
   gallois: Affrica
   grec: Αφρική
+  grec ancien: Ἀφρική
   géorgien: აფრიკა
   hindi: अफ़्रीका
   hongrois: Afrika
@@ -3151,6 +3200,7 @@ Amérique:
   breton: Amerika
   bulgare: Америка
   catalan: Amèrica
+  corse: Amérika
   coréen: 미국
   danois: Amerika
   espagnol: América
@@ -3160,6 +3210,7 @@ Amérique:
   français: Amérique
   gallois: America
   grec: Αμερική
+  grec ancien: Ἀμερική
   géorgien: ამერიკა
   hindi: अमेरिका
   hongrois: Amerika
@@ -3231,6 +3282,8 @@ Applique les paramètres esthétiques sélectionnés à l'application. Cela perm
     да се види как ще изглеждат
   catalan: Aplica els paràmetres estètics seleccionats a l'aplicació. Això permet
     tenir una previsualització del seu resultat
+  corse: Applica i parametri estetichi scelti à l'applicazione. Què permette d'avè
+    un'idea di u so rendimentu
   coréen: 선택한 미적 매개변수를 앱에 적용하세요. 이를 통해 렌더링 방식을 미리 볼 수 있습니다
   danois: Anvend de valgte æstetiske parametre på applikationen. Dette giver mulighed
     for at se, hvordan de ser ud
@@ -3248,6 +3301,8 @@ Applique les paramètres esthétiques sélectionnés à l'application. Cela perm
     rhagolwg o'u golwg
   grec: Εφάρμοσε τις επιλεγμένες αισθητικές παραμέτρους στην εφαρμογή. Αυτό επιτρέπει
     μια προεπισκόπηση της εμφάνισής τους
+  grec ancien: Εφάρμοσε τα επιλεγμένα αισθητικά χαρακτηριστικά στην εφαρμογή. Αυτό
+    επιτρέπει την επισκόπηση της απόδοσής τους
   géorgien: გამოიყენეთ არჩეული ესთეტიკური პარამეტრები აპლიკაციაზე. ეს საშუალებას მოგცემთ
     იხილოთ მათი ვიზუალიზაცია
   hindi: चुने हुए सौंदर्य संबंधी मापदंडों को एप्लिकेशन पर लागू करें। इससे उनके प्रदर्शन
@@ -3350,6 +3405,7 @@ Asie:
   breton: Azia
   bulgare: Азия
   catalan: Àsia
+  corse: Asia
   coréen: 아시아
   danois: Asien
   espagnol: Asia
@@ -3359,6 +3415,7 @@ Asie:
   français: Asie
   gallois: Asia
   grec: Ασία
+  grec ancien: Ἀσία
   géorgien: აზია
   hindi: एशिया
   hongrois: Ázsia
@@ -3419,6 +3476,7 @@ Aucun lieu n'a été coché:
   breton: N'eus lec'h ebet bet lakaet ur merk warnañ
   bulgare: Не е отметнато нито едно място
   catalan: No s'ha marcat cap lloc
+  corse: Nissunu locu hè statu marcatu
   coréen: 선택된 장소가 없습니다
   danois: Intet sted er blevet markeret
   espagnol: No se ha marcado ningún lugar
@@ -3428,6 +3486,7 @@ Aucun lieu n'a été coché:
   français: Aucun lieu n'a été coché
   gallois: Ni chafodd unrhyw le ei farcio
   grec: Κανένας τόπος δεν έχει επιλεγεί
+  grec ancien: Οὐδαμοῦ ἐσημειώθη
   géorgien: არც ერთი ადგილი არ არის მონიშნული
   hindi: कोई भी स्थान चेक नहीं किया गया।
   hongrois: Egyetlen helyszín sem lett bejelölve
@@ -3488,6 +3547,7 @@ Autres régions du monde:
   breton: Rannvroioù all eus ar bed
   bulgare: Други региони на света
   catalan: Altres regions del món
+  corse: Altre rigione di u mondu
   coréen: 세계 다른 지역
   danois: Andre regioner af verden
   espagnol: Otras regiones del mundo
@@ -3497,6 +3557,7 @@ Autres régions du monde:
   français: Autres régions du monde
   gallois: Rhanbarthau eraill o'r byd
   grec: Άλλες περιοχές του κόσμου
+  grec ancien: ἄλλαι χώραι τοῦ κόσμου
   géorgien: მსოფლიოს სხვა რეგიონები
   hindi: दुनिया के अन्य क्षेत्र
   hongrois: A világ más régiói
@@ -3557,6 +3618,7 @@ Carte du monde:
   breton: Kartenn ar bed
   bulgare: Световна карта
   catalan: Mapa del món
+  corse: Carta mundi
   coréen: 세계 지도
   danois: Verdenskort
   espagnol: Mapa del mundo
@@ -3566,6 +3628,7 @@ Carte du monde:
   français: Carte du monde
   gallois: Map o'r byd
   grec: Χάρτης του κόσμου
+  grec ancien: Χάρτης κόσμου
   géorgien: მსოფლიო რუკა
   hindi: विश्व मानचित्र
   hongrois: Világtérkép
@@ -3626,6 +3689,7 @@ Cartes de voyage:
   breton: Karten-trevel
   bulgare: Пътнически карти
   catalan: Targetes de viatge
+  corse: Carti di viaghju
   coréen: 여행 카드
   danois: Rejsekort
   espagnol: Tarjetas de viaje
@@ -3635,6 +3699,7 @@ Cartes de voyage:
   français: Cartes de voyage
   gallois: Cerdyn teithio
   grec: Κάρτες ταξιδιού
+  grec ancien: χάρται ταξιδίου
   géorgien: მოგზაურობის ბარათები
   hindi: यात्रा कार्ड
   hongrois: Utazó kártyák
@@ -3695,6 +3760,7 @@ Cartes des pays visités:
   breton: Kartennou ar broioù gweladennet
   bulgare: Карти на посетените страни
   catalan: Mapes dels països visitats
+  corse: Carte di i paesi visitati
   coréen: 방문한 국가 지도
   danois: Kort over besøgte lande
   espagnol: Mapas de los países visitados
@@ -3704,6 +3770,7 @@ Cartes des pays visités:
   français: Cartes des pays visités
   gallois: Mapiau o'r gwledydd a ymwelwyd
   grec: Χάρτες των επισκεφθέντων χωρών
+  grec ancien: Χάρται χωρῶν ἐπισκεφθεισῶν
   géorgien: ნანახი ქვეყნების რუკები
   hindi: घूमने गए देशों के नक्शे
   hongrois: Látogatott országok térképei
@@ -3764,6 +3831,7 @@ Cartes à publier:
   breton: Karten da embann
   bulgare: Карти за публикуване
   catalan: Targetes per publicar
+  corse: Carte da publicà
   coréen: 발행할 카드들
   danois: Kort til udgivelse
   espagnol: Tarjetas para publicar
@@ -3773,6 +3841,7 @@ Cartes à publier:
   français: Cartes à publier
   gallois: Cerdynnau i'w cyhoeddi
   grec: Χάρτες προς δημοσίευση
+  grec ancien: Χάρται πρὸς δημοσίευσιν
   géorgien: გამოსაქვეყნებელი ბარათები
   hindi: प्रकाशित करने के लिए कार्ड
   hongrois: Közzétételi kártyák
@@ -3833,6 +3902,7 @@ Charger la liste des départements visités:
   breton: Kargad roll an departamantou a zo bet gwelet
   bulgare: Зареди списъка с посетените отдели
   catalan: Carrega la llista dels departaments visitats
+  corse: Caricà a lista di i dipartimenti visitati
   coréen: 방문 부서 목록을 불러옵니다
   danois: Indlæs listen over besøgte afdelinger
   espagnol: Cargar la lista de departamentos visitados
@@ -3842,6 +3912,7 @@ Charger la liste des départements visités:
   français: Charger la liste des départements visités
   gallois: Llwytho rhestr yr adrannau a ymwelwyd â nhw
   grec: Φόρτωση της λίστας των επισκεφθέντων νομών
+  grec ancien: Φόρτωσον τὸν κατάλογον τῶν ἐπισκεφθέντων ἐπαρχιῶν
   géorgien: მონაცემთა ბაზაში ვიზიტების სიის ჩატვირთვა
   hindi: भेंट किए गए विभागों की सूची लोड करें
   hongrois: A megtekintett osztályok listájának betöltése
@@ -3902,6 +3973,7 @@ Charger la liste des régions visitées:
   breton: Kargad roll ar rannvroioù a zo bet gweladennet
   bulgare: Зареди списъка с посетените региони
   catalan: Carregar la llista de regions visitades
+  corse: Caricà a lista di e regione visitate
   coréen: 방문 지역 목록을 불러옵니다
   danois: Indlæs listen over besøgte regioner
   espagnol: Cargar la lista de regiones visitadas
@@ -3911,6 +3983,7 @@ Charger la liste des régions visitées:
   français: Charger la liste des régions visitées
   gallois: Llwytho rhestr o ranbarthau a ymwelwyd â nhw
   grec: Φόρτωση της λίστας των επισκεφθέντων περιοχών
+  grec ancien: Φόρτωσε τὸν κατάλογον τῶν ἐπισκεφθέντων χωρῶν
   géorgien: მონაცემთა ბაზაში ნანახი რეგიონების სიის ჩატვირთვა
   hindi: भेंट की गई जगहों की सूची लोड करें
   hongrois: A megtekintett régiók listájának betöltése
@@ -3971,6 +4044,7 @@ Charger un fichier YAML:
   breton: Kargad ur restr YAML
   bulgare: Зареди YAML файл
   catalan: Carregar un fitxer YAML
+  corse: Caricà un schedariu YAML
   coréen: YAML 파일을 로드하다
   danois: Indlæs en YAML-fil
   espagnol: Cargar un archivo YAML
@@ -3980,6 +4054,7 @@ Charger un fichier YAML:
   français: Charger un fichier YAML
   gallois: Llwytho ffeil YAML
   grec: Φόρτωση αρχείου YAML
+  grec ancien: Φόρτωσον τὸ YAML ἀρχεῖον
   géorgien: YAML ფაილის ჩატვირთვა
   hindi: YAML फ़ाइल अपलोड करें
   hongrois: YAML fájlt betölteni
@@ -4040,6 +4115,7 @@ Choisir le dossier de stockage des cartes:
   breton: Dilennañ dosye ar c'hartennoù
   bulgare: Изберете папка за съхранение на картите
   catalan: Seleccionar la carpeta d'emmagatzematge de les targetes
+  corse: Sceglie u cartulare di almacenamentu di e carte
   coréen: 카드 저장 폴더를 선택하십시오
   danois: Vælg mappe til kortlagring
   espagnol: Elegir la carpeta de almacenamiento de las tarjetas
@@ -4049,6 +4125,7 @@ Choisir le dossier de stockage des cartes:
   français: Choisir le dossier de stockage des cartes
   gallois: Dewis ffeil storio cardiau
   grec: Επιλογή φακέλου αποθήκευσης καρτών
+  grec ancien: Επιλέξτε τὸν φάκελον τῆς ἀποθήκης τῶν χαρτῶν
   géorgien: საცავი ფაილის არჩევა
   hindi: कार्ड संग्रहण फ़ाइल चुनें
   hongrois: Kártyatároló mappa kiválasztása
@@ -4109,6 +4186,7 @@ Cinq cartes:
   breton: Pemp gartenn
   bulgare: Пет карти
   catalan: Cinc cartes
+  corse: Cinque carte
   coréen: 다섯 장의 카드
   danois: Fem kort
   espagnol: Cinco cartas
@@ -4118,6 +4196,7 @@ Cinq cartes:
   français: Cinq cartes
   gallois: Pump o gârdd
   grec: Πέντε χαρτιά
+  grec ancien: Πέντε φύλλα
   géorgien: ხუთი კარტი
   hindi: पाँच कार्ड
   hongrois: Öt kártya
@@ -4178,6 +4257,7 @@ Création de cartes de voyages:
   breton: Krouiñ kartennou-hent
   bulgare: Създаване на пътни карти
   catalan: Creació de mapes de viatges
+  corse: Creazione di carte di viaghju
   coréen: 여행 지도 제작
   danois: Oprettelse af rejsekort
   espagnol: Creación de mapas de viajes
@@ -4187,6 +4267,7 @@ Création de cartes de voyages:
   français: Création de cartes de voyages
   gallois: Creu mapiau teithio
   grec: Δημιουργία ταξιδιωτικών χαρτών
+  grec ancien: Δημιουργία χαρτῶν ταξιδίων
   géorgien: მოგზაურობის რუქების შექმნა
   hindi: यात्रा मानचित्रों का निर्माण
   hongrois: Úti térképek készítése
@@ -4247,6 +4328,7 @@ Création de la liste des pays visités:
   breton: Krouidigezh roll ar broioù a zo bet gwelet
   bulgare: Създаване на списък на посетените страни
   catalan: Creació de la llista de països visitats
+  corse: Creazione di a lista di i paesi visitati
   coréen: 방문 국가 목록 작성
   danois: Oprettelse af listen over besøgte lande
   espagnol: Creación de la lista de países visitados
@@ -4256,6 +4338,7 @@ Création de la liste des pays visités:
   français: Création de la liste des pays visités
   gallois: Creu lista o'r gwledydd a ymwelwyd â nhw
   grec: Δημιουργία της λίστας των επισκεφθέντων χωρών
+  grec ancien: Σύστασις καταλόγου ἐπισκεφθέντων χωρῶν
   géorgien: მოინახულებული ქვეყნების სიის შექმნა
   hindi: देखे गए देशों की सूची बनाना
   hongrois: Látogatott országok listájának létrehozása
@@ -4316,6 +4399,7 @@ Création des cartes:
   breton: Krouidigezh ar c'hartennoù
   bulgare: Създаване на карти
   catalan: Creació de mapes
+  corse: Creazione di e carte
   coréen: 카드 제작
   danois: Kortoprettelse
   espagnol: Creación de mapas
@@ -4325,6 +4409,7 @@ Création des cartes:
   français: Création des cartes
   gallois: Creu mapiau
   grec: Δημιουργία καρτών
+  grec ancien: Δημιουργία χάρτων
   géorgien: რუქების შექმნა
   hindi: मानचित्रण
   hongrois: Térképkészítés
@@ -4385,6 +4470,7 @@ Dix cartes:
   breton: Dek kartenn
   bulgare: Десет карти
   catalan: Deu cartes
+  corse: Dieci carte
   coréen: 카드 열 장
   danois: Ti kort
   espagnol: Diez cartas
@@ -4394,6 +4480,7 @@ Dix cartes:
   français: Dix cartes
   gallois: Deg cerdyn
   grec: Δέκα κάρτες
+  grec ancien: δέκα χάρται
   géorgien: ათი ბარათი
   hindi: दस कार्ड
   hongrois: Tíz kártya
@@ -4454,6 +4541,7 @@ Début de l'opération:
   breton: Kregiñ gant an oberiadenn
   bulgare: Начало на операцията
   catalan: Inici de l'operació
+  corse: Inuizione di l'operazione
   coréen: 작전 개시
   danois: Operationens start
   espagnol: Comienzo de la operación
@@ -4463,6 +4551,7 @@ Début de l'opération:
   français: Début de l'opération
   gallois: Dechrau'r llawdriniaeth
   grec: Έναρξη της επιχείρησης
+  grec ancien: Ἕρξις ἀρχή
   géorgien: ოპერაციის დაწყება
   hindi: ऑपरेशन शुरू
   hongrois: Művelet kezdete
@@ -4523,6 +4612,7 @@ Départements visités:
   breton: Departamantoù gweladennet
   bulgare: Посетени отдели
   catalan: Departaments visitats
+  corse: Departimenti visitati
   coréen: 방문 부서
   danois: Besøgte departementer
   espagnol: Departamentos visitados
@@ -4532,6 +4622,7 @@ Départements visités:
   français: Départements visités
   gallois: Adrannau a ymwelwyd â hwy
   grec: Επισκέφθηκαν νομοί
+  grec ancien: τμήματα ἐπισκεφθέντα
   géorgien: ვიზიტად მყოფი დეპარტამენტები
   hindi: देखे गए विभाग
   hongrois: Meglátogatott megyék
@@ -4592,6 +4683,7 @@ En termes de pourcentage de la superficie visitée pour chaque pays:
   breton: E-keñver porcentañ ar gorread gweladennet evit pep bro
   bulgare: По отношение на процента от посетената площ за всяка страна
   catalan: En termes de percentatge de la superfície visitada per a cada país
+  corse: In quantu à u percentuale di a superficia visitata per ogni paese
   coréen: 각 국가별 방문 면적 비율로
   danois: I procent af det besøgte areal for hvert land
   espagnol: En términos de porcentaje de la superficie visitada por cada país
@@ -4601,6 +4693,7 @@ En termes de pourcentage de la superficie visitée pour chaque pays:
   français: En termes de pourcentage de la superficie visitée pour chaque pays
   gallois: O ran canran o'r arwynebedd a ymwelwyd ar gyfer pob gwlad
   grec: Σε ό,τι αφορά το ποσοστό της επισκεφθείσας έκτασης για κάθε χώρα
+  grec ancien: ὡς ποσοστὸν τῆς ἐπισκεφθείσης χώρας καθ᾽ ἑκάστην
   géorgien: თითოეული ქვეყნის მონახულებული ფართობის პროცენტული თვალსაზრისით
   hindi: प्रत्येक देश के लिए यात्रा किए गए क्षेत्र के प्रतिशत के संदर्भ में।
   hongrois: Az egyes országok látogatott területének százalékában
@@ -4661,6 +4754,7 @@ Europe:
   breton: Europa
   bulgare: Европа
   catalan: Europa
+  corse: Europa
   coréen: 유럽
   danois: Europa
   espagnol: Europa
@@ -4670,6 +4764,7 @@ Europe:
   français: Europe
   gallois: Ewrop
   grec: Ευρώπη
+  grec ancien: Εὐρώπη
   géorgien: ევროპა
   hindi: यूरोप
   hongrois: Európa
@@ -4730,6 +4825,7 @@ Faible:
   breton: Gwan
   bulgare: Слаб
   catalan: Feble
+  corse: Sottu
   coréen: 약한
   danois: Svag
   espagnol: Débil
@@ -4739,6 +4835,7 @@ Faible:
   français: Faible
   gallois: Gwan
   grec: Αδύναμος
+  grec ancien: ἀσθενής
   géorgien: სუსტი
   hindi: कमज़ोर
   hongrois: Gyenge
@@ -4799,6 +4896,7 @@ Fond de carte marin:
   breton: Skoazell-kartennoù war vor
   bulgare: Морска карта фон
   catalan: Fons marí
+  corse: Funda di carta marina
   coréen: 해양 지도 배경
   danois: Marinbaggrund
   espagnol: Fondo marino
@@ -4808,6 +4906,7 @@ Fond de carte marin:
   français: Fond de carte marin
   gallois: Cartograffiaeth forol
   grec: Υπόβαθρο θαλάσσιου χάρτη
+  grec ancien: Ναυτικὸν ὑπόβαθρον
   géorgien: საზღვაო ფონის რუკა
   hindi: समुद्री पृष्ठभूमि
   hongrois: Tengeri alaptérkép
@@ -4868,6 +4967,7 @@ Format:
   breton: Furmad
   bulgare: Формат
   catalan: Format
+  corse: Format
   coréen: Compris
   danois: Format
   espagnol: Formato
@@ -4877,6 +4977,7 @@ Format:
   français: Format
   gallois: Fformat
   grec: Μορφή
+  grec ancien: ἀνέγνων
   géorgien: ფორმატი
   hindi: प्रारूप
   hongrois: Formátum
@@ -4937,6 +5038,7 @@ Granularité des cartes:
   breton: Mentrez ar c'hartennoù
   bulgare: Гранулиране на картите
   catalan: Granularitat dels mapes
+  corse: Granularità di e carte
   coréen: 지도 세분성
   danois: Kortdetaljer
   espagnol: Granularidad de los mapas
@@ -4946,6 +5048,7 @@ Granularité des cartes:
   français: Granularité des cartes
   gallois: Manylder mapiau
   grec: Κοκκοποίηση χαρτών
+  grec ancien: κοκκώδης χαρτογραφία
   géorgien: რუკების დეტალიზაცია
   hindi: मानचित्रण का दानेदारपन
   hongrois: Térképek részletessége
@@ -5006,6 +5109,7 @@ Il est nécessaire de choisir un dossier de stockage des cartes:
   breton: Ret eo dibab ur restr da enrollañ ar c'hartennoù ennañ
   bulgare: Необходимо е да се избере папка за съхранение на картите
   catalan: És necessari triar una carpeta per desar els mapes
+  corse: Hè necessariu di sceltu un cartulare di stoccagiu di e carte
   coréen: 카드를 저장할 폴더를 선택해야 합니다
   danois: Det er nødvendigt at vælge en mappe til lagring af kort
   espagnol: Es necesario elegir una carpeta para guardar las tarjetas
@@ -5015,6 +5119,7 @@ Il est nécessaire de choisir un dossier de stockage des cartes:
   français: Il est nécessaire de choisir un dossier de stockage des cartes
   gallois: Mae angen dewis ffolder i storio'r mapiau
   grec: Είναι απαραίτητο να επιλέξετε έναν φάκελο αποθήκευσης καρτών
+  grec ancien: Ἀναγκαῖον ἐστι θηκὴν τῶν καρτῶν αἱρεῖσθαι
   géorgien: აუცილებელია ბარათების შესანახი საქაღალდის არჩევა
   hindi: कार्डों के भंडारण के लिए एक फ़ोल्डर चुनना आवश्यक है।
   hongrois: Ki kell választani egy mappát a kártyák tárolásához
@@ -5075,6 +5180,7 @@ L'export n'a pas fonctionné. Veuillez réessayer de nouveau plus tard:
   breton: N'eo ket aet en-dro an ezporzhiañ. Klaskit en-dro diwezhatoc'h, mar plij
   bulgare: Експортът не успя. Моля, опитайте отново по-късно
   catalan: L'exportació no ha funcionat. Si us plau, torneu-ho a provar més tard
+  corse: L'espunta ùn hà micca funziunatu. Per piacè, pruvate di novu dopu
   coréen: 수출이 작동하지 않았습니다. 나중에 다시 시도하십시오
   danois: Eksporten virkede ikke. Prøv igen senere
   espagnol: La exportación no funcionó. Por favor, inténtelo de nuevo más tarde
@@ -5084,12 +5190,12 @@ L'export n'a pas fonctionné. Veuillez réessayer de nouveau plus tard:
   français: L'export n'a pas fonctionné. Veuillez réessayer de nouveau plus tard
   gallois: Nid yw'r allforio wedi gweithio. Rhowch gynnig arall arni yn nes ymlaen
   grec: Η εξαγωγή δεν λειτούργησε. Παρακαλώ, δοκιμάστε ξανά αργότερα
+  grec ancien: Οὐκ ἐξῆλθε. Δοκιμάσατε πάλιν ἀργότερον
   géorgien: ექსპორტი არ იმუშავა. გთხოვთ, სცადოთ მოგვიანებით
   hindi: निर्यात काम नहीं किया। कृपया बाद में फिर से प्रयास करें।
   hongrois: Az export nem sikerült. Kérjük, próbálja meg újra később
   indonésien: Ekspor tidak berhasil. Silakan coba lagi nanti
-  irlandais: Níor oibrigh an t-onnmhairiú. Bain triail as arís níos déanaí, le do
-    thoil
+  irlandais: Níor oibrigh an t-onnmhairiú. Bain triail as arís níos déanaí, le do thoil
   islandais: Útflutningurinn virkaði ekki. Reyndu aftur síðar
   italien: L'esportazione non ha funzionato. Si prega di riprovare più tardi
   japonais: エクスポートがうまくいきませんでした。後でもう一度お試しください。
@@ -5146,6 +5252,7 @@ Langue:
   breton: Yezh
   bulgare: Език
   catalan: Llengua
+  corse: Lingua
   coréen: 언어
   danois: Sprog
   espagnol: Lengua
@@ -5155,6 +5262,7 @@ Langue:
   français: Langue
   gallois: Iaith
   grec: Γλώσσα
+  grec ancien: γλῶσσα
   géorgien: ენა
   hindi: भाषा
   hongrois: Nyelv
@@ -5215,6 +5323,7 @@ Les cartes ont été créées avec succès !:
   breton: Savet eo bet ar c'hartennoù gant berzh !
   bulgare: Картите бяха създадени успешно!
   catalan: Les cartes s'han creat amb èxit!
+  corse: E carte sò state create cù successu !
   coréen: 카드가 성공적으로 만들어졌어요!
   danois: Kortene er oprettet med succes!
   espagnol: ¡Las cartas se crearon con éxito!
@@ -5224,6 +5333,7 @@ Les cartes ont été créées avec succès !:
   français: Les cartes ont été créées avec succès !
   gallois: Crëwyd y cardiau'n llwyddiannus!
   grec: Οι κάρτες δημιουργήθηκαν επιτυχώς!
+  grec ancien: αἱ χάρται καλῶς ἐδημιουργήθησαν
   géorgien: რუკები წარმატებით შეიქმნა!
   hindi: कार्ड सफलतापूर्वक बनाए गए हैं!
   hongrois: A kártyák sikeresen létre lettek hozva!
@@ -5314,6 +5424,9 @@ Les cartes ont été créées avec succès !:
   catalan: Els dos fitxers YAML complets, amb la totalitat de les regions i dels departaments,
     es proporcionen amb l'aplicació. En cas d'ús, no modifiqueu directament els originals,
     sinó més aviat còpies (per no perdre la llista de llocs no visitats)
+  corse: E dui schedarii YAML cumpleti, incù l'intrezzu di e regione è di i dipartimenti,
+    sò furniti incù l'applicazione. In casu d'usu, ùn mudificà micca direttamente
+    l'uriginali ma piuttostu copie (afin di ùn perde a lista di i lochi micca visitati)
   coréen: 전체 지역과 부서가 포함된 두 개의 완전한 YAML 파일이 앱과 함께 제공됩니다. 사용 시에는 원본을 직접 수정하지 말고 복사본을
     사용하세요(방문하지 않은 장소 목록을 잃지 않도록)
   danois: De to komplette YAML-filer, med alle regioner og departementer, leveres
@@ -5342,6 +5455,10 @@ Les cartes ont été créées avec succès !:
   grec: Τα δύο πλήρη αρχεία YAML, με όλες τις περιφέρειες και τους νομούς, παρέχονται
     με την εφαρμογή. Σε περίπτωση χρήσης, μην τροποποιήσετε απευθείας τα πρωτότυπα,
     αλλά αντίγραφα (ώστε να μην χαθεί η λίστα των μη επισκέψιμων τοποθεσιών)
+  grec ancien: Δύο ολόκληρα YAML αρχεία, με την πληρότητα των περιφερειών και των
+    νομών, παρέχονται μαζί με την εφαρμογή. Εν περιπτώσει χρήσεως, μη τα πρωτότυπα
+    άμεσα τροποποιείτε, αλλ' αντίγραφά (ώστε να μη χαθεί ο κατάλογος των μη επισκεφθέντων
+    τόπων)
   géorgien: აპლიკაციასთან ერთად მოწოდებულია ორი სრული YAML ფაილი, ყველა რეგიონითა
     და დეპარტამენტით. გამოყენების შემთხვევაში, არ შეცვალოთ პირდაპირ ორიგინალები, არამედ
     ასლები (გამოუყენებელი ადგილების სიის დაკარგვის თავიდან ასაცილებლად)
@@ -5496,6 +5613,7 @@ Liste des lieux visités:
   breton: Roll al lec'hioù gweladennet
   bulgare: Списък на посетените места
   catalan: Llista de llocs visitats
+  corse: Lista di i lochi visitati
   coréen: 방문한 장소 목록
   danois: Liste over besøgte steder
   espagnol: Lista de lugares visitados
@@ -5505,6 +5623,7 @@ Liste des lieux visités:
   français: Liste des lieux visités
   gallois: Rhestr o leoedd a ymwelwyd â hwy
   grec: Λίστα επισκέψεων
+  grec ancien: κατάλογος τόπων ἐπισκεφθέντων
   géorgien: ნანახი ადგილების სია
   hindi: घूमने की जगहों की सूची
   hongrois: Látogatott helyek listája
@@ -5565,6 +5684,7 @@ Moyen-Orient:
   breton: Reter-Kreiz
   bulgare: Близък Изток
   catalan: Orient Mitjà
+  corse: Mediu Oriente
   coréen: 중동
   danois: Mellemøsten
   espagnol: Oriente Medio
@@ -5574,6 +5694,7 @@ Moyen-Orient:
   français: Moyen-Orient
   gallois: Y Dwyrain Canol
   grec: Μέση Ανατολή
+  grec ancien: Μέση Ἀνατολή
   géorgien: ახლო აღმოსავლეთი
   hindi: मध्य पूर्व
   hongrois: Közel-Kelet
@@ -5634,6 +5755,7 @@ Nombre de versions conservées pour chaque carte:
   breton: Niver a adweladennoù miret evit pep kartenn
   bulgare: Брой запазени версии за всяка карта
   catalan: Nombre de versions conservades per cada carta
+  corse: Numaru di versioni cunservate per ogni carta
   coréen: 각 카드별 보존된 버전 수
   danois: Antal bevarede versioner for hvert kort
   espagnol: Número de versiones conservadas para cada carta
@@ -5643,6 +5765,7 @@ Nombre de versions conservées pour chaque carte:
   français: Nombre de versions conservées pour chaque carte
   gallois: Nifer y fersiynau a gadwyd ar gyfer pob map
   grec: Αριθμός διατηρημένων εκδόσεων για κάθε κάρτα
+  grec ancien: Αριθμός σωζομένων εκδόσεων δι' ἑκάστην κάρτα
   géorgien: რუკის თითოეული ვერსიის შენახული რაოდენობა
   hindi: प्रत्येक कार्ड के लिए रखे गए संस्करणों की संख्या।
   hongrois: Kártyánként megőrzött verziók száma
@@ -5703,6 +5826,7 @@ Non:
   breton: Nann
   bulgare: Не
   catalan: 'No'
+  corse: Innò
   coréen: 아니요
   danois: Nej
   espagnol: 'No'
@@ -5712,6 +5836,7 @@ Non:
   français: Non
   gallois: Nac
   grec: Όχι
+  grec ancien: Οὐ
   géorgien: არა
   hindi: नहीं
   hongrois: Nem
@@ -5772,6 +5897,7 @@ Oui:
   breton: Ya
   bulgare: Да
   catalan: Sí
+  corse: Iè
   coréen: 네
   danois: Ja
   espagnol: Sí
@@ -5781,6 +5907,7 @@ Oui:
   français: Oui
   gallois: Ydy
   grec: Ναι
+  grec ancien: Ναί
   géorgien: დიახ
   hindi: हाँ।
   hongrois: Igen
@@ -5841,6 +5968,7 @@ Outil de création de cartes:
   breton: Krezenn aozañ kartennnoù
   bulgare: Инструмент за създаване на карти
   catalan: Eina de creació de mapes
+  corse: Strumentu di crea di carte
   coréen: 지도 제작 도구
   danois: Kortværktøj
   espagnol: Herramienta de creación de mapas
@@ -5850,6 +5978,7 @@ Outil de création de cartes:
   français: Outil de création de cartes
   gallois: Offeryn creu mapiau
   grec: Εργαλείο δημιουργίας χαρτών
+  grec ancien: Εργαλεῖον δημιουργίας χαρτῶν
   géorgien: რუკების შექმნის ინსტრუმენტი
   hindi: मानचित्र बनाने का उपकरण
   hongrois: Térképkészítő eszköz
@@ -5910,6 +6039,7 @@ Paramètres:
   breton: Arventennoù
   bulgare: Параметри
   catalan: Paràmetres
+  corse: Paràmetri
   coréen: 설정
   danois: Indstillinger
   espagnol: Parámetros
@@ -5919,6 +6049,7 @@ Paramètres:
   français: Paramètres
   gallois: Paramedrau
   grec: Παράμετροι
+  grec ancien: Παράμετροι
   géorgien: პარამეტრები
   hindi: पैरामीटर्स
   hongrois: Paraméterek
@@ -6044,6 +6175,7 @@ Paramètres de publication des cartes:
   breton: Parametroù embann ar c'hartennoù
   bulgare: Параметри за публикуване на карти
   catalan: Paràmetres de publicació de mapes
+  corse: Paràmetri di pubblicazione di carte
   coréen: 지도 게시 설정
   danois: Kortudgivelsesindstillinger
   espagnol: Parámetros de publicación de mapas
@@ -6053,6 +6185,7 @@ Paramètres de publication des cartes:
   français: Paramètres de publication des cartes
   gallois: Gosodiadau cyhoeddi mapiau
   grec: Παράμετροι δημοσίευσης χαρτών
+  grec ancien: Παράμετροι δημοσιεύσεως χαρτῶν
   géorgien: რუკის გამოქვეყნების პარამეტრები
   hindi: मानचित्र प्रकाशन सेटिंग्स
   hongrois: Térkép közzétételi beállításai
@@ -6113,6 +6246,7 @@ Paramètres esthétiques:
   breton: Perzhioù estetek
   bulgare: Естетически параметри
   catalan: Paràmetres estètics
+  corse: Paràmetri spurtivi
   coréen: 미적 매개변수
   danois: Æstetiske parametre
   espagnol: Parámetros estéticos
@@ -6122,6 +6256,7 @@ Paramètres esthétiques:
   français: Paramètres esthétiques
   gallois: Paramedrau esthetig
   grec: Αισθητικές παράμετροι
+  grec ancien: Αισθητικές παράμετροι
   géorgien: ესთეტიკური პარამეტრები
   hindi: सौंदर्य पैरामीटर
   hongrois: Esztétikai paraméterek
@@ -6182,6 +6317,7 @@ Pas de limite:
   breton: N'eus harz ebet
   bulgare: Няма граници
   catalan: Sense límit
+  corse: Nisuna limite
   coréen: 제한 없음
   danois: Ingen grænse
   espagnol: Sin límite
@@ -6191,6 +6327,7 @@ Pas de limite:
   français: Pas de limite
   gallois: Dim ond terfyn
   grec: Δεν υπάρχει όριο
+  grec ancien: Ἄπειρον
   géorgien: საზღვარი არ არის
   hindi: कोई सीमा नहीं।
   hongrois: Nincs határ
@@ -6251,6 +6388,7 @@ Pays les plus visités:
   breton: Broioù muiañ gweladennet
   bulgare: Най-посещавани страни
   catalan: Països més visitats
+  corse: I paesi più visitati
   coréen: 가장 많이 방문하는 국가
   danois: Mest besøgte lande
   espagnol: Países más visitados
@@ -6260,6 +6398,7 @@ Pays les plus visités:
   français: Pays les plus visités
   gallois: Gwledydd mwyaf poblogaidd
   grec: Οι πιο επισκέψιμες χώρες
+  grec ancien: Χώραι αἱ πλεῖσται ἐπισκέψεις
   géorgien: ყველაზე მონახულებადი ქვეყნები
   hindi: सबसे अधिक देखे जाने वाले देश
   hongrois: Leglátogatottabb országok
@@ -6320,6 +6459,7 @@ Pays non visités:
   breton: Broioù n'int ket bet gweladennet
   bulgare: Непосетени държави
   catalan: Països no visitats
+  corse: Paisi micca visitati
   coréen: 방문하지 않은 나라
   danois: Ubesøgte lande
   espagnol: Países no visitados
@@ -6329,6 +6469,7 @@ Pays non visités:
   français: Pays non visités
   gallois: Gwledydd heb eu hymweld
   grec: Μη επισκεφθείσες χώρες
+  grec ancien: Χώραι ἀθέατοι
   géorgien: მოუნახულებელი ქვეყნები
   hindi: अनाभ्यागत देश
   hongrois: Nem látogatott országok
@@ -6389,6 +6530,7 @@ Pays visités:
   breton: Broioù bet gweladennet
   bulgare: Посетени страни
   catalan: Països visitats
+  corse: Paesi visitati
   coréen: 방문한 나라
   danois: Besøgte lande
   espagnol: Países visitados
@@ -6398,6 +6540,7 @@ Pays visités:
   français: Pays visités
   gallois: Gwledydd wedi'u hymweld
   grec: Επισκεφθείσες χώρες
+  grec ancien: χῶραι ἐπισκεφθεῖσαι
   géorgien: მონახულებული ქვეყნები
   hindi: घूमे हुए देश
   hongrois: Látogatott országok
@@ -6470,6 +6613,8 @@ Permet d'avoir un fond de carte bleu clair et non blanc. Cela est utile pour les
     региони или страни, заобиколени от море
   catalan: Permet d'avoir un fons de mapa blau clar i no blanc. Això és útil per a
     regions o països envoltats de mar
+  corse: Permette d'avè un fondu di cartulari blu chjaru è micca biancu. Quessa hè
+    utile per e rigioni o paesi circundati da mare
   coréen: 배경을 흰색이 아닌 밝은 파란색으로 설정할 수 있습니다. 이는 바다로 둘러싸인 지역이나 국가에 유용합니다
   danois: Giver en lyseblå baggrund i stedet for hvid. Dette er nyttigt for regioner
     eller lande omgivet af hav
@@ -6487,6 +6632,8 @@ Permet d'avoir un fond de carte bleu clair et non blanc. Cela est utile pour les
     ar gyfer rhanbarthau neu wledydd wedi'u hamgylchynu gan y môr
   grec: Επιτρέπει την ύπαρξη γαλάζιου φόντου χάρτη αντί για λευκό. Αυτό είναι χρήσιμο
     για περιοχές ή χώρες που περιβάλλονται από θάλασσα
+  grec ancien: Επιτρέπει τὴν λαμπρὰν κυανῆν, οὐ λευκὴν, χάρτην ἔχειν. τοῦτο δὲ χρήσιμον
+    τοῖς περὶ θάλασσαν τόποις ἢ χώραις
   géorgien: ნათელ ლურჯ ფონს იძლევა თეთრის ნაცვლად. ეს სასარგებლოა ზღვით გარშემორტყმული
     რეგიონებისთვის ან ქვეყნებისთვის
   hindi: हल्का नीला बैकग्राउंड देता है, सफेद नहीं। यह उन क्षेत्रों या देशों के लिए
@@ -6620,6 +6767,9 @@ Permet d'avoir un fond de carte bleu clair et non blanc. Cela est utile pour les
   catalan: Permet triar si es vol publicar la totalitat dels mapes o només aquells
     que tenen la granularitat desitjada. Per exemple, volem publicar un mapa que només
     existeix a nivell regional si volem mapes a nivell departamental?
+  corse: Permette di sceglie s'è da pubblicà tutte e carte o solu quessi chì anu a
+    granularità desiderata. Vulemu, per esempiu, publicà una carta chì esiste solu
+    à u livellu regiunale se si volenu carte à u livellu dipartimentale?
   coréen: 전체 지도를 게시할지, 아니면 원하는 세분성을 가진 지도만 게시할지 선택할 수 있습니다. 예를 들어, 도 단위 지도를 원할 때 광역
     단위로만 존재하는 지도를 게시하고 싶습니까?
   danois: Giver mulighed for at vælge, om man vil publicere alle kort eller kun dem,
@@ -6647,6 +6797,9 @@ Permet d'avoir un fond de carte bleu clair et non blanc. Cela est utile pour les
   grec: Επιτρέπει την επιλογή δημοσίευσης είτε όλων των χαρτών είτε μόνο αυτών που
     έχουν την επιθυμητή λεπτομέρεια. Θέλουμε, για παράδειγμα, να δημοσιεύσουμε έναν
     χάρτη που υπάρχει μόνο σε περιφερειακό επίπεδο αν θέλουμε χάρτες σε επίπεδο νομού;
+  grec ancien: Ἐπιτρέπει διαλέξασθαι, εἴτε πᾶσαν τὴν χώραν δημοσιεύειν τις ἐθέλει,
+    εἴτε μόνον ὅσας τὴν ἐπιθυμητὴν ἀκριβολογίαν ἔχουσιν. Βούλεται τις δημόσιον εἶναι
+    χάρτην, ὃς μόνον κατὰ τὴν χώραν ὑπάρχει, ἐὰν κατὰ τὴν ἐπαρχίαν χάρτας ἐπιθυμῇ;
   géorgien: საშუალებას იძლევა, აირჩიოთ, გსურთ გამოაქვეყნოთ ყველა რუკა თუ მხოლოდ ის
     რუკები, რომლებსაც აქვთ სასურველი დეტალიზაცია. მაგალითად, გვინდა თუ არა გამოვაქვეყნოთ
     რუკა, რომელიც მხოლოდ რეგიონალურ დონეზე არსებობს, თუ დეპარტამენტის დონეზე გვჭირდება
@@ -6856,6 +7009,11 @@ Permet d'avoir un fond de carte bleu clair et non blanc. Cela est utile pour les
     automàticament a partir de la llista de departaments. Per tant, ja no cal marcar
     les regions visitades (les regions poden quedar marcades però no es tindran en
     compte)
+  corse: Per un paese datu, s’è i dipartimenti sò marcati, sò prioritarii nantu à
+    e rigione marcate. In stu casu, a lista di e rigione visitate hè ricustituita
+    automaticamente da a lista di i dipartimenti. Ùn hè dunque più necessariu di marcà
+    e rigione visitate (e rigione ponu restà marcate ma ùn seranu micca pigliate in
+    contu)
   coréen: 특정 국가에서, 도가 선택되면, 선택된 지역보다 우선순위가 높습니다. 이 경우, 방문한 지역 목록은 도 목록을 기반으로 자동으로
     재구성됩니다. 따라서 방문한 지역을 선택할 필요가 없습니다 (지역은 선택된 상태로 남아 있을 수 있지만 고려되지 않습니다)
   danois: For et givet land gælder det, at hvis departementer er afkrydsede, har de
@@ -6895,6 +7053,11 @@ Permet d'avoir un fond de carte bleu clair et non blanc. Cela est utile pour les
     ανασυντίθεται αυτόματα από τη λίστα των νομών. Επομένως, δεν είναι πλέον απαραίτητο
     να επιλέξετε τις επισκέψιμες περιφέρειες (οι περιφέρειες μπορούν να παραμείνουν
     επιλεγμένες αλλά δεν θα ληφθούν υπόψη)
+  grec ancien: Εἰς τὴν δοθεῖσαν χώραν, ἐὰν ἐπιλεγῶσιν ἐπαρχίαι, αὗται προτέμνονται
+    τῶν ἐπιλεγείσων περιφερειῶν. Ἐν τούτῳ τῷ περιπτώματι, ὁ κατάλογος τῶν ἐπισκεφθεισῶν
+    περιφερειῶν ἀνασυντίθεται αὐτομάτως ἐκ τοῦ καταλόγου τῶν ἐπαρχιῶν. Οὐκέτι οὖν
+    ἀνάγκη ἐστὶν ἐπιλέγειν τὰς ἐπισκεφθείσας περιφερείας (αἱ δὲ περιφέρειαι ἐπιλελεγμέναι
+    μένουσαι οὐ λαμβάνονται ὑπʼ ὄψιν)
   géorgien: მოცემული ქვეყნისთვის, თუ მონიშნულია დეპარტამენტები, მათ აქვთ პრიორიტეტი
     მონიშნულ რეგიონებზე. ამ შემთხვევაში, მონახულებული რეგიონების სია ავტომატურად ხელახლა
     იქმნება დეპარტამენტების სიის მიხედვით. შესაბამისად, აღარ არის საჭირო მონახულებული
@@ -7109,6 +7272,7 @@ Problème:
   breton: Kudenn
   bulgare: Проблем
   catalan: Problema
+  corse: Prublema
   coréen: 문제
   danois: Problem
   espagnol: Problema
@@ -7118,6 +7282,7 @@ Problème:
   français: Problème
   gallois: Problem
   grec: Πρόβλημα
+  grec ancien: πρόβλημα
   géorgien: პრობლემა
   hindi: समस्या।
   hongrois: Probléma
@@ -7178,6 +7343,7 @@ Publier les cartes !:
   breton: Embannit ar c'hartennoù !
   bulgare: Публикувайте картите!
   catalan: Publicar les cartes!
+  corse: Pupulate e carte!
   coréen: 지도를 공개하세요!
   danois: Offentliggør kortene!
   espagnol: ¡Publicad los mapas!
@@ -7187,6 +7353,7 @@ Publier les cartes !:
   français: Publier les cartes !
   gallois: Cyhoeddwch y mapiau!
   grec: Δημοσιεύστε τους χάρτες!
+  grec ancien: Γράφετε τὰς χάρτας!
   géorgien: გამოაქვეყნეთ რუკები!
   hindi: नक्शे प्रकाशित करें!
   hongrois: Közzé kell tenni a térképeket!
@@ -7247,6 +7414,7 @@ Publier les cartes sauvegarde également les paramètres:
   breton: Embann ar c'hartennoù a sav ivez an arventennoù
   bulgare: Публикуването на картите запазва и настройките
   catalan: Publicar els mapes també desa els paràmetres
+  corse: Pubblicà e carte salva dinò i parametri
   coréen: 지도를 게시하면 설정도 저장됩니다
   danois: Udgivelse af kort gemmer også indstillingerne
   espagnol: Publicar los mapas también guarda la configuración
@@ -7256,6 +7424,7 @@ Publier les cartes sauvegarde également les paramètres:
   français: Publier les cartes sauvegarde également les paramètres
   gallois: Mae cyhoeddi'r mapiau hefyd yn arbed y gosodiadau
   grec: Η δημοσίευση των χαρτών αποθηκεύει επίσης τις ρυθμίσεις
+  grec ancien: Δημοσιεύειν τὰς κάρτας καὶ τὰς διατάξεις σῴζει
   géorgien: რუკების გამოქვეყნება პარამეტრების შენახვასაც უზრუნველყოფს
   hindi: मानचित्र प्रकाशित करने से सेटिंग्स भी सहेजी जाती हैं।
   hongrois: A térképek közzététele a beállításokat is menti
@@ -7316,6 +7485,7 @@ Qualité de l'image:
   breton: Perzh ar skeudenn
   bulgare: Качество на изображението
   catalan: Qualitat de la imatge
+  corse: Qualità di l'imagine
   coréen: 화질
   danois: Billedkvalitet
   espagnol: Calidad de la imagen
@@ -7325,6 +7495,7 @@ Qualité de l'image:
   français: Qualité de l'image
   gallois: Ansawdd delwedd
   grec: Ποιότητα εικόνας
+  grec ancien: ποιότης εἰκόνος
   géorgien: გამოსახულების ხარისხი
   hindi: छवि गुणवत्ता
   hongrois: Képminőség
@@ -7385,6 +7556,7 @@ Quinze cartes:
   breton: Pemzek kartenn
   bulgare: Петнадесет карти
   catalan: Quinze cartes
+  corse: Quindici carte
   coréen: 열다섯 장
   danois: Femten kort
   espagnol: Quince cartas
@@ -7394,6 +7566,7 @@ Quinze cartes:
   français: Quinze cartes
   gallois: Pymtheg cerdyn
   grec: Δεκαπέντε κάρτες
+  grec ancien: δεκαπέντε κάρται
   géorgien: თხუთმეტი კარტი
   hindi: पंद्रह कार्ड।
   hongrois: Tizenöt kártya
@@ -7454,6 +7627,7 @@ Régions visitées:
   breton: Rannvroioù bet gweladennet
   bulgare: Посетени региони
   catalan: Regions visitades
+  corse: Regione visitate
   coréen: 방문 지역
   danois: Besøgte regioner
   espagnol: Regiones visitadas
@@ -7463,6 +7637,7 @@ Régions visitées:
   français: Régions visitées
   gallois: Rhanbarthau ymweldwyd â hwy
   grec: Επισκεφθείσες περιοχές
+  grec ancien: Χωρίων ἐπισκέψεις
   géorgien: მონახულებული რეგიონები
   hindi: घूमे हुए क्षेत्र
   hongrois: Látogatott régiók
@@ -7539,6 +7714,8 @@ Régions visitées:
   catalan: Restableix la interfície i la llista de països visitats. Si us plau, verifiqueu
     que heu desat correctament els paràmetres actuals abans de fer clic en aquest
     botó
+  corse: Ripristina l'interfaccia è a lista di i paesi visitati. Per piacè verificate
+    d'avè bè salvatu i paràmetri attuali nanzu di cliccà nant'à stu buttone
   coréen: 인터페이스와 방문 국가 목록을 초기화합니다. 이 버튼을 클릭하기 전에 현재 설정을 저장했는지 확인하십시오
   danois: Nulstil grænsefladen samt listen over besøgte lande. Kontroller venligst,
     at du har gemt de nuværende indstillinger, før du klikker på denne knap
@@ -7559,6 +7736,8 @@ Régions visitées:
   grec: Επαναφέρετε τη διεπαφή καθώς και τη λίστα των χωρών που έχετε επισκεφτεί.
     Βεβαιωθείτε ότι έχετε αποθηκεύσει τις τρέχουσες ρυθμίσεις πριν κάνετε κλικ σε
     αυτό το κουμπί
+  grec ancien: Ἀνακομιδὴ τοῦ προσώπου καὶ τῆς τῶν ἐπισκεφθέντων χωρῶν λίστας. Ἐπιμελῶς
+    σκεψάσθω τις, εἰ τὰ παρόντα ρύθμισματά τε σώσασθαι πρὸ τοῦ πατῆσαι τοῦτο τὸ πάτημα
   géorgien: გთხოვთ გადატვირთოთ ინტერფეისი და მონახულებული ქვეყნების სია. ღილაკზე დაჭერამდე
     დარწმუნდით, რომ შეინახეთ მიმდინარე პარამეტრები
   hindi: इंटरफ़ेस और यात्रा किए गए देशों की सूची रीसेट करें। इस बटन पर क्लिक करने
@@ -7676,6 +7855,7 @@ Réinitialiser l'interface:
   breton: Adreizhañ an etrefas
   bulgare: Нулиране на интерфейса
   catalan: Reinicialitzar la interfície
+  corse: Restaura l'interfaccia
   coréen: 인터페이스 초기화
   danois: Nulstil grænsefladen
   espagnol: Restablecer la interfaz
@@ -7685,6 +7865,7 @@ Réinitialiser l'interface:
   français: Réinitialiser l'interface
   gallois: Ailosod y rhyngwyneb
   grec: Επαναφορά διεπαφής
+  grec ancien: Ἀναστῆσαι τὴν ἐπιφάνειαν
   géorgien: ინტერფეისის გადატვირთვა
   hindi: इंटरफ़ेस रीसेट करें।
   hongrois: Felület visszaállítása
@@ -7756,6 +7937,8 @@ S'il existe plus de versions d'une carte que la limite sélectionnée, alors la 
     ще бъде изтрита
   catalan: Si hi ha més versions d'una targeta que el límit seleccionat, llavors s'eliminarà
     la targeta més antiga
+  corse: S'ellu ci sò più versioni di una carta chè a limite sceltu, tandu a carta
+    a più vechja serà cancellata
   coréen: 선택된 제한보다 카드 버전 수가 많으면 가장 오래된 카드가 삭제됩니다
   danois: Hvis der findes flere versioner af et kort, end den valgte grænse tillader,
     vil det ældste kort blive slettet
@@ -7773,6 +7956,8 @@ S'il existe plus de versions d'une carte que la limite sélectionnée, alors la 
     hynaf yn cael ei ddileu
   grec: Εάν υπάρχουν περισσότερες εκδόσεις μιας κάρτας από το επιλεγμένο όριο, τότε
     η παλαιότερη κάρτα θα διαγραφεί
+  grec ancien: Ἐάν ὑπὲρ τὰ ὡρισμένα τῆς ἐκλογῆς ὑπομνήματα χάρτου ᾖ, τότε ὁ πρεσβύτερος
+    ἀφαιρεθήσεται
   géorgien: თუ რუკის ვერსიების რაოდენობა აღემატება არჩეულ ლიმიტს, მაშინ უძველესი რუკა
     წაიშლება
   hindi: यदि किसी कार्ड के चयनित सीमा से अधिक संस्करण मौजूद हैं, तो सबसे पुराना कार्ड
@@ -7873,6 +8058,7 @@ Sauvegarder mes paramètres:
   breton: Enrollañ ma arventennoù
   bulgare: Запазване на моите настройки
   catalan: Desa els meus paràmetres
+  corse: Salvaguardi i mo parametri
   coréen: 내 설정을 저장합니다
   danois: Gem mine indstillinger
   espagnol: Guardar mi configuración
@@ -7882,6 +8068,7 @@ Sauvegarder mes paramètres:
   français: Sauvegarder mes paramètres
   gallois: Cadw fy ngosodiadau
   grec: Αποθήκευση των ρυθμίσεών μου
+  grec ancien: Σῶσον τὰς ἐμὰς διατάξεις
   géorgien: ჩემი პარამეტრების შენახვა
   hindi: मेरी सेटिंग्स सहेजें।
   hongrois: Beállításaim mentése
@@ -7942,6 +8129,7 @@ Selon les départements visités:
   breton: Hervez an departamantoù bet gweladennet
   bulgare: Според посетените отдели
   catalan: Segons els departaments visitats
+  corse: Sicondu i dipartimenti visitati
   coréen: 방문한 부서에 따라
   danois: Afhængigt af de besøgte afdelinger
   espagnol: Según los departamentos visitados
@@ -7951,6 +8139,7 @@ Selon les départements visités:
   français: Selon les départements visités
   gallois: Yn ôl yr adrannau a ymwelwyd â hwy
   grec: Κατά τους επισκεπτόμενους νομούς
+  grec ancien: κατὰ τὰς ἐπισκεφθεῖσας διοικήσεις
   géorgien: მონახულებული დეპარტამენტების მიხედვით
   hindi: विभिन्न विभागों के अनुसार
   hongrois: A meglátogatott osztályok szerint
@@ -8011,6 +8200,7 @@ Selon les régions visitées:
   breton: Hegis an tiriou bet gwelet
   bulgare: Според посетените региони
   catalan: Segons les regions visitades
+  corse: Sicondu e regione visitate
   coréen: 방문한 지역에 따라
   danois: Alt efter de besøgte regioner
   espagnol: Según las regiones visitadas
@@ -8020,6 +8210,7 @@ Selon les régions visitées:
   français: Selon les régions visitées
   gallois: Yn ôl y rhanbarthau y mae rhai yn ymweld â nhw
   grec: Ανάλογα με τις περιοχές που επισκέφτηκαν
+  grec ancien: κατὰ τὰς ἐπισκεφθεῖσας χώρας
   géorgien: რეგიონების მიხედვით, რომლებიც მოინახულეს
   hindi: क्षेत्रों के अनुसार
   hongrois: A meglátogatott régiók szerint
@@ -8081,6 +8272,7 @@ Soutaitez-vous vraiment supprimer ce profil ? Cette opération est définitive:
     a zo evit atav
   bulgare: Наистина ли искате да изтриете този профил? Тази операция е окончателна
   catalan: Realment vols suprimir aquest perfil? Aquesta operació és definitiva
+  corse: Vulite veramente supprimisce stu prufilu? Sta operazione hè definitiva
   coréen: 정말로 이 프로필을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다
   danois: Vil du virkelig slette denne profil? Denne handling er permanent
   espagnol: ¿Realmente deseas eliminar este perfil? Esta acción es definitiva
@@ -8090,6 +8282,8 @@ Soutaitez-vous vraiment supprimer ce profil ? Cette opération est définitive:
   français: Soutaitez-vous vraiment supprimer ce profil ? Cette opération est définitive
   gallois: Ydych chi wir eisiau dileu'r proffil hwn? Mae'r weithred hon yn derfynol
   grec: Θέλετε πραγματικά να διαγράψετε αυτό το προφίλ; Αυτή η ενέργεια είναι μη αναστρέψιμη
+  grec ancien: Εἰ βούλει μᾶλλον ἀπολέσαι τὸν λογαριασμόν τοῦτον; Τὸ ἔργον τοῦτο ἀμετάκλητον
+    ἐστί
   géorgien: ნამდვილად გსურთ ამ პროფილის წაშლა? ეს ოპერაცია შეუქცევადია
   hindi: क्या आप वास्तव में इस प्रोफ़ाइल को हटाना चाहते हैं? यह कार्रवाई स्थायी है।
   hongrois: Valóban törölni akarja ezt a profilt? Ez a művelet végleges
@@ -8153,6 +8347,7 @@ Suppression du profil:
   breton: Diverradenn ar profil
   bulgare: Изтриване на профила
   catalan: Suprimir perfil
+  corse: Suprissione di u prufilu
   coréen: 프로필 삭제
   danois: Slet profil
   espagnol: Eliminación del perfil
@@ -8162,6 +8357,7 @@ Suppression du profil:
   français: Suppression du profil
   gallois: Dileu'r proffil
   grec: Διαγραφή προφίλ
+  grec ancien: Διαγραφή προφίλ
   géorgien: პროფილის წაშლა
   hindi: प्रोफ़ाइल हटाएँ
   hongrois: Profil törlése
@@ -8222,6 +8418,7 @@ Supprimer ce profil:
   breton: Dileket eo ar savadenn-mañ
   bulgare: Изтрий този профил
   catalan: Suprimeix aquest perfil
+  corse: Sguassà stu prufilu
   coréen: 이 프로필을 삭제하세요
   danois: Fjern denne profil
   espagnol: Eliminar este perfil
@@ -8231,6 +8428,7 @@ Supprimer ce profil:
   français: Supprimer ce profil
   gallois: Dileuwch y proffil hwn
   grec: Διαγράψτε αυτό το προφίλ
+  grec ancien: Διάγραψον τοῦτο τὸ προφίλ
   géorgien: ამ პროფილის წაშლა
   hindi: इस प्रोफ़ाइल को हटाएँ।
   hongrois: Ez a profil törlése
@@ -8291,6 +8489,7 @@ Sélection des lieux visités:
   breton: Diuizadur al lec'hioù bet gwelet
   bulgare: Избор на посетени места
   catalan: Selecció de llocs visitats
+  corse: Selezione di i lochi visitati
   coréen: 방문 장소 선택
   danois: Valg af besøgte steder
   espagnol: Selección de lugares visitados
@@ -8300,6 +8499,7 @@ Sélection des lieux visités:
   français: Sélection des lieux visités
   gallois: Dewis llefydd ymweld
   grec: Επιλογή των επισκεφθέντων τόπων
+  grec ancien: Επιλογὴ τῶν τόπων οὓς ἐπεσκέψατο
   géorgien: მონახულებული ადგილების შერჩევა
   hindi: घूमने की जगहों का चयन
   hongrois: Látogatott helyek kiválasztása
@@ -8360,6 +8560,7 @@ Sélectionner un dossier:
   breton: Dibab un diazskrid
   bulgare: Избери папка
   catalan: Seleccionar una carpeta
+  corse: Sceglie un cartulare
   coréen: 폴더를 선택하십시오
   danois: Vælg en mappe
   espagnol: Seleccionar un directorio
@@ -8369,6 +8570,7 @@ Sélectionner un dossier:
   français: Sélectionner un dossier
   gallois: Dewis ffolder
   grec: Επιλογή φακέλου
+  grec ancien: Φάκελον ἐπιλέγειν
   géorgien: აირჩიეთ საქაღალდე
   hindi: एक फ़ोल्डर चुनें
   hongrois: Válasszon ki egy mappát
@@ -8429,6 +8631,7 @@ Teintes:
   breton: Livioù
   bulgare: Нюанси
   catalan: Tints
+  corse: Tinte
   coréen: 색조
   danois: Farver
   espagnol: Tintes
@@ -8438,6 +8641,7 @@ Teintes:
   français: Teintes
   gallois: Lliwiau
   grec: Χρόες
+  grec ancien: Χρώματα
   géorgien: ფერთა გამა
   hindi: रंग
   hongrois: Színek
@@ -8498,6 +8702,7 @@ Thème:
   breton: Tem
   bulgare: Тема
   catalan: Tema
+  corse: Tema
   coréen: 주제
   danois: Tema
   espagnol: Tema
@@ -8507,6 +8712,7 @@ Thème:
   français: Thème
   gallois: Thema
   grec: Θέμα
+  grec ancien: Θέμα
   géorgien: თემა
   hindi: विषय
   hongrois: Téma
@@ -8567,6 +8773,7 @@ Télécharger les fichiers YAML des lieux visités:
   breton: Pellgargañ ar restroù YAML eus al lec'hioù gweladennet
   bulgare: Изтеглете YAML файловете на посетените места
   catalan: Descarregar els fitxers YAML dels llocs visitats
+  corse: Scaricate i schedari YAML di i lochi visitati
   coréen: 방문한 장소의 YAML 파일 다운로드
   danois: Download YAML-filer for besøgte steder
   espagnol: Descargar los archivos YAML de los lugares visitados
@@ -8576,6 +8783,7 @@ Télécharger les fichiers YAML des lieux visités:
   français: Télécharger les fichiers YAML des lieux visités
   gallois: Lawrlwytho'r ffeiliau YAML o'r lleoedd a ymwelwyd â hwy
   grec: Κατεβάστε τα αρχεία YAML των επισκέψιμων τοποθεσιών
+  grec ancien: Φόρτωσον τὰ YAML τῶν τόπων ὧν ἐπεσκέψω
   géorgien: ჩამოტვირთეთ სტუმრად მყოფი ადგილების YAML ფაილები
   hindi: घूमने गए स्थानों की YAML फ़ाइलें डाउनलोड करें।
   hongrois: Töltsd le a meglátogatott helyek YAML fájljait
@@ -8636,6 +8844,7 @@ Utiliser le style dans l'application:
   breton: Ober gant an doare en un ober
   bulgare: Използвайте стила в приложението
   catalan: Utilitzar l'estil a l'aplicació
+  corse: Usà u stile in l'applicazione
   coréen: 애플리케이션에서 스타일 사용
   danois: Brug stilen i applikationen
   espagnol: Usar el estilo en la aplicación
@@ -8645,6 +8854,7 @@ Utiliser le style dans l'application:
   français: Utiliser le style dans l'application
   gallois: Defnyddio'r arddull yn y cais
   grec: Χρήση του στυλ στην εφαρμογή
+  grec ancien: Χρῆσθαι τῷ στυλῳ ἐν τῇ ἐφαρμογῇ
   géorgien: გამოიყენეთ სტილი აპლიკაციაში
   hindi: एप्लिकेशन में स्टाइल का प्रयोग करें।
   hongrois: Használja a stílust az alkalmazásban
@@ -8705,6 +8915,7 @@ Version:
   breton: Skrid
   bulgare: Версия
   catalan: Versió
+  corse: Versione
   coréen: 버전
   danois: Version
   espagnol: Versión
@@ -8714,6 +8925,7 @@ Version:
   français: Version
   gallois: Fersiwn
   grec: Έκδοση
+  grec ancien: Λόγος
   géorgien: ვერსია
   hindi: संस्करण
   hongrois: Verzió
@@ -8774,6 +8986,7 @@ Vos paramètres:
   breton: Ho parametrou
   bulgare: Вашите настройки
   catalan: Els vostres paràmetres
+  corse: E vostri parametri
   coréen: 귀하의 설정
   danois: Dine indstillinger
   espagnol: Tus ajustes
@@ -8783,6 +8996,7 @@ Vos paramètres:
   français: Vos paramètres
   gallois: Eich gosodiadau
   grec: Οι ρυθμίσεις σας
+  grec ancien: αἱ παραθέσεις ὑμῶν
   géorgien: თქვენი პარამეტრები
   hindi: आपके सेटिंग्स
   hongrois: A beállításaid
@@ -8843,6 +9057,7 @@ Vos paramètres ont bien été sauvegardés:
   breton: Ho stadennoù zo bet enrollet mat
   bulgare: Вашите настройки са запазени успешно
   catalan: Els vostres paràmetres s'han desat correctament
+  corse: E vostre paràmetri so' statti bè salvati
   coréen: 설정이 저장되었습니다
   danois: Dine indstillinger er blevet gemt
   espagnol: Sus parámetros se han guardado correctamente
@@ -8852,6 +9067,7 @@ Vos paramètres ont bien été sauvegardés:
   français: Vos paramètres ont bien été sauvegardés
   gallois: Mae eich gosodiadau wedi'u cadw'n llwyddiannus
   grec: Οι ρυθμίσεις σας αποθηκεύτηκαν επιτυχώς
+  grec ancien: αἱ διατάξεις ὑμῶν καλῶς ἐσώθησαν
   géorgien: თქვენი პარამეტრები შენახულია
   hindi: आपकी सेटिंग्स सहेज ली गई हैं।
   hongrois: A beállítások mentése megtörtént
@@ -8915,6 +9131,7 @@ ou charger manuellement un fichier YAML contenant la liste des lieux visités:
   bulgare: или ръчно зареждане на YAML файл, съдържащ списъка с посетени места
   catalan: o bé carregar manualment un fitxer YAML que contingui la llista dels llocs
     visitats
+  corse: o caricà manulamente un fogliu YAML cun a lista di i lochi visitati
   coréen: 또는 방문한 장소 목록이 포함된 YAML 파일을 수동으로 업로드합니다
   danois: eller manuelt indlæse en YAML-fil indeholdende listen over besøgte steder
   espagnol: o cargar manualmente un archivo YAML que contenga la lista de lugares
@@ -8927,6 +9144,8 @@ ou charger manuellement un fichier YAML contenant la liste des lieux visités:
   gallois: neu llawlwytho ffeil YAML sy'n cynnwys y rhestr o leoedd a ymwelswyd â
     hwy
   grec: ή να φορτώσετε μη αυτόματα ένα αρχείο YAML που περιέχει τη λίστα των επισκεφθέντων
+    τόπων
+  grec ancien: ἢ χειροκινήτως φόρτωσαι ἀρχεῖον YAML περιέχον τὸν κατάλογον τῶν ἐπισκεφθέντων
     τόπων
   géorgien: ანუ ხელით დატვირთოთ YAML ფაილი, რომელიც შეიცავს მონახულებული ადგილების
     სიას
@@ -9010,6 +9229,7 @@ ou charger manuellement un fichier YAML contenant la liste des lieux visités:
   bulgare: Също така публикувайте карти, за които желаната гранулярност не е налична
   catalan: Publicar també els mapes per als quals no es disposa de la granularitat
     desitjada
+  corse: Pubblicà dinò e carte pè e quali a granularità vuluta ùn hè dispunibile
   coréen: 원하는 세분화 수준을 사용할 수 없는 지도도 게시하세요
   danois: Publicer også kortene, hvor den ønskede granularitet ikke er tilgængelig
   espagnol: También publicar las tarjetas para las que la granularidad deseada no
@@ -9022,6 +9242,8 @@ ou charger manuellement un fichier YAML contenant la liste des lieux visités:
   gallois: Cyhoeddwyd hefyd y mapiau nad ydynt ar gael gyda'r gronynnedd a ddymunir
   grec: Επίσης δημοσιεύστε τους χάρτες για τους οποίους η επιθυμητή κοκκομετρία δεν
     είναι διαθέσιμη
+  grec ancien: Ὁμοίως δημοσιεύετε τὰς χάρτας, πρὸς αὓς ἡ ἐπιθυμητὴ ἀναλυτικῶς οὐκ
+    ἔστιν
   géorgien: ასევე გამოაქვეყნეთ რუკები, რომლებისთვისაც სასურველი გრანულარულობა მიუწვდომელია
   hindi: यह भी उन मानचित्रों को प्रकाशित करें जिनके लिए वांछित दानेदारी उपलब्ध नहीं
     है।
@@ -9098,6 +9320,7 @@ ou charger manuellement un fichier YAML contenant la liste des lieux visités:
   breton: Savet
   bulgare: Отгледана
   catalan: Criada
+  corse: Chavata
   coréen: 높은
   danois: Opvokset
   espagnol: Alta
@@ -9107,6 +9330,7 @@ ou charger manuellement un fichier YAML contenant la liste des lieux visités:
   français: Élevée
   gallois: Codwyd
   grec: Ὑψηλή
+  grec ancien: ὑψηλή
   géorgien: ამაღლებული
   hindi: उठा हुआ
   hongrois: Magas

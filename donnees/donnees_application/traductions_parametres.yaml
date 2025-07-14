@@ -83,6 +83,13 @@ granularite:
     Pays: País
     Région: Regió
     Régions: Regions
+  corse:
+    Amusant: Divertente
+    Département: Dipartimentu
+    Départements: Dipartimenti
+    Pays: Paese
+    Région: Regione
+    Régions: Regioni
   coréen:
     Amusant: 재미있는
     Département: 학과
@@ -146,6 +153,13 @@ granularite:
     Pays: Χώρα
     Région: Περιοχή
     Régions: Περιοχές
+  grec ancien:
+    Amusant: Γελωτοποιός
+    Département: Τμῆμα
+    Départements: Μερίδες
+    Pays: Ἔθνος
+    Région: Χώρα
+    Régions: Χώραι
   géorgien:
     Amusant: სახალისო
     Département: დეპარტამენტი
@@ -740,6 +754,28 @@ teintes_couleurs:
     Teintes hivernales: Tintes hivernals
     Terre: Terra
     Écailles de sirène: Escates de sirena
+  corse:
+    Arc en ciel: Arcu in celu
+    Arcadie: Arcadia
+    Aurore boréale: Alba boreale
+    Baroque: Baroccu
+    Champ de lavande: Cunfinu di lavanda
+    Crépuscule: Crepusculu
+    Fantaisie: Fantasia
+    Jungle: Macchia
+    Mer: Mer
+    Montagne: Muntagna
+    Multicolore: Multicòre
+    Nuit d’encre: Nottu d'inchiostru
+    Plage: Spiaghja
+    Printemps: Primavera
+    Teintes automnales: Tinte d'autunnu
+    Teintes bohèmes: Tinte boemie
+    Teintes estivales: Tonalità estivale
+    Teintes florales: Tinte fiurali
+    Teintes hivernales: Culori invernali
+    Terre: Terra
+    Écailles de sirène: Scurglie di sirena
   coréen:
     Arc en ciel: 무지개
     Arcadie: 아르카디아
@@ -938,6 +974,28 @@ teintes_couleurs:
     Teintes hivernales: Χειμωνιάτικες αποχρώσεις
     Terre: Γη
     Écailles de sirène: Λεπίδες γοργόνας
+  grec ancien:
+    Arc en ciel: Ουράνιο Τόξο
+    Arcadie: Ἀρκαδία
+    Aurore boréale: Βόρειον Σέλας
+    Baroque: Βαρόκ
+    Champ de lavande: Λεβάντου χωρίον
+    Crépuscule: Ἑσπέρα
+    Fantaisie: Φαντασία
+    Jungle: ὕλη
+    Mer: Θάλασσα
+    Montagne: Όρος
+    Multicolore: Πολύχρως
+    Nuit d’encre: μελαίνης νυκτός
+    Plage: Παραλία
+    Printemps: ἔαρ
+    Teintes automnales: Φθινοπωριναί χρῶς
+    Teintes bohèmes: Βοημικαί χροιαι
+    Teintes estivales: Θέρους Χρώματα
+    Teintes florales: Ἄνθεων χρῶμα
+    Teintes hivernales: Χειμεριναὶ Χροιὰ
+    Terre: Γῆ
+    Écailles de sirène: Λεπίδες Σειρήνων
   géorgien:
     Arc en ciel: ცისარტყელა
     Arcadie: არკადია
@@ -2033,6 +2091,11 @@ themes_cartes:
     Fluorescent: Fluoroscent
     Pastel: Pastís
     Sans restrictions: Sense restriccions
+  corse:
+    Douceur: Dolcezza
+    Fluorescent: Fluorescent
+    Pastel: Pastellu
+    Sans restrictions: Senza restrictzione
   coréen:
     Douceur: 달콤함
     Fluorescent: 형광
@@ -2078,6 +2141,11 @@ themes_cartes:
     Fluorescent: Φθορίζων
     Pastel: Παστέλ
     Sans restrictions: Χωρίς περιορισμούς
+  grec ancien:
+    Douceur: Γλυκύτης
+    Fluorescent: Φωσφορίζων
+    Pastel: Χρωστῆρες
+    Sans restrictions: ἀνεπιτηδεύτως
   géorgien:
     Douceur: სინაზე
     Fluorescent: ფლუორესცენტული

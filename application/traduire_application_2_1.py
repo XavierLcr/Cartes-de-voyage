@@ -1,6 +1,6 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
-# 2.1 - Fichier de traduction des différents paramètres et non de pays         #
+# 2.1 – Fichier de traduction des différents paramètres et non de pays         #
 ################################################################################
 
 import google.generativeai as genai
@@ -50,7 +50,7 @@ def creer_liste_pays_multilangue(
         if blabla > 0:
             print(
                 textwrap.shorten(i.strip(" \n-="), width=50, placeholder="..."),
-                end=" : " if blabla == 2 else " - ",
+                end=" : " if blabla == 2 else " – ",
             )
             sys.stdout.flush()
 
@@ -125,7 +125,7 @@ def creer_liste_parametres_multilangue(
         if blabla == 2:
             print(i, end=" : ")
         if blabla == 1:
-            print(i, end=" - ")
+            print(i, end=" – ")
         sys.stdout.flush()
 
         if i not in list(resultat.keys()):
@@ -218,7 +218,7 @@ def creer_dictionnaire_langues(
             except:
                 continue
 
-            reponse_i = reponse_i.strip(" .'")
+            reponse_i = reponse_i.strip(" .'\n")
             resultat[i] = reponse_i
             if blabla:
                 print(f"{i} : {reponse_i}")
@@ -260,6 +260,7 @@ liste_langues = [
     "bulgare",
     "catalan",
     "coréen",
+    "corse",
     "danois",
     "espagnol",
     "esperanto",
@@ -269,6 +270,7 @@ liste_langues = [
     "gallois",
     "géorgien",
     "grec",
+    "grec ancien",
     "hindi",
     "hongrois",
     "indonésien",

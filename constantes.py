@@ -55,7 +55,8 @@ try:
         encoding="utf-8",
     ) as file:
         pays_differentes_langues = yaml.safe_load(file)
-except:
+except Exception as e:
+    print("Une erreur est survenue :", e)
     pays_differentes_langues = {}
 
 # Import des pays regroupés

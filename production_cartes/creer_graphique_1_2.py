@@ -242,6 +242,7 @@ def creer_image_carte(
                 }
             ),
             "Qualité de l'image": str(qualite),
+            "Granularité maximale": f"{max(gdf['Granu'])}",
         }
 
     plt.savefig(

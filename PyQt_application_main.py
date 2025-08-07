@@ -1914,11 +1914,18 @@ class SettingsApp(QWidget):
 
                 indice = ["🥇", "🥈", "🥉"][i] if i < 3 else f"<b>{i + 1}.</b>"
                 separateur = "<br>"
-                pay_lib = f"<b>{pays}</b>" if i < 3 else pays
+                pays_lib = constantes.pays_differentes_langues.get(pays, {}).get(
+                    fonctions_utiles_2_0.obtenir_clef_par_valeur(
+                        dictionnaire=constantes.dict_langues_dispo,
+                        valeur=self.langue_utilisee.currentText(),
+                    ),
+                    pays,
+                )
+                pays_lib = f"<b>{pays_lib}</b>" if i < 3 else pays_lib
                 label_pays = (
                     indice
                     + separateur
-                    + f"{pay_lib}<br>{round(100 * row['pct_superficie_dans_pays'])} %"
+                    + f"{pays_lib}<br>{round(100 * row['pct_superficie_dans_pays'])} %"
                 )
 
                 label_pays = QLabel(label_pays)

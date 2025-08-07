@@ -1914,18 +1914,18 @@ class SettingsApp(QWidget):
 
                 indice = ["🥇", "🥈", "🥉"][i] if i < 3 else f"<b>{i + 1}.</b>"
                 separateur = "<br>"
-                pays_lib = constantes.pays_differentes_langues.get(pays, {}).get(
+                label_pays = constantes.pays_differentes_langues.get(pays, {}).get(
                     fonctions_utiles_2_0.obtenir_clef_par_valeur(
                         dictionnaire=constantes.dict_langues_dispo,
                         valeur=self.langue_utilisee.currentText(),
                     ),
                     pays,
                 )
-                pays_lib = f"<b>{pays_lib}</b>" if i < 3 else pays_lib
+                label_pays = f"<b>{label_pays}</b>" if i < 3 else label_pays
                 label_pays = (
                     indice
                     + separateur
-                    + f"{pays_lib}<br>{round(100 * row['pct_superficie_dans_pays'])} %"
+                    + f"{label_pays}<br>{round(100 * row['pct_superficie_dans_pays'])} %"
                 )
 
                 label_pays = QLabel(label_pays)
@@ -1940,7 +1940,6 @@ class SettingsApp(QWidget):
                         Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter
                     )
                     vbox.addWidget(label_couronne, i, 0)
-
                     vbox.addWidget(label_pays, i, 1)
 
                     label_couronne = QLabel("👑")

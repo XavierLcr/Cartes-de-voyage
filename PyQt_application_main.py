@@ -64,7 +64,7 @@ qualite_min = 200
 qualite_max = 4000
 
 
-# Import dela sauvegarde
+# Import de la sauvegarde
 try:
     with open(
         os.path.join(constantes.direction_donnees_application, "sauvegarde_param.yaml"),
@@ -100,26 +100,6 @@ class CreerCartes(QObject):
         )
 
         self.finished.emit()
-
-
-class OngletInformations(QWidget):
-    def __init__(self, parent=None):
-        super().__init__(parent)
-
-        layout = QHBoxLayout(self)
-
-        self.scroll_area = QScrollArea()
-        self.scroll_area.setWidgetResizable(True)
-
-        self.label = QLabel()
-        self.label.setWordWrap(True)
-        self.scroll_area.setWidget(self.label)
-
-        layout.addWidget(self.scroll_area)
-
-    def set_description(self, texte_html: str):
-        """Permet de mettre à jour le texte affiché."""
-        self.label.setText(texte_html)
 
 
 class SettingsApp(QWidget):
@@ -661,7 +641,7 @@ class SettingsApp(QWidget):
         self.top_pays_visites.setLayout(self.statistiques)
 
         # Onglet 5
-        self.description_application = OngletInformations()
+        self.description_application = classes_utiles_2_2.OngletInformations()
         self.tabs.addTab(self.description_application, "ℹ️")
 
         # Définir le QTabWidget comme layout principal pour le widget principal

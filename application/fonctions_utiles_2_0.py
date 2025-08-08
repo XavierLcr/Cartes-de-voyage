@@ -61,6 +61,7 @@ def creer_classement_pays(
 
 
 def creer_ligne_separation(lStretch=1, ligne_largeur=4, rStretch=1):
+    """Afficher une simple ligne."""
     layout_temp = QHBoxLayout()
     ligne = QFrame()
     ligne.setFixedHeight(2)

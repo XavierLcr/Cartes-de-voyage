@@ -173,13 +173,8 @@ class SettingsApp(QWidget):
             lambda: self.maj_langue_interface(True)
         )
 
-        # Ajouter une barre verticale
-        ligne_verticale = QFrame()
-        ligne_verticale.setFrameShape(QFrame.Shape.VLine)
-        ligne_verticale.setFrameShadow(QFrame.Shadow.Raised)
-        layout_params_individu.addWidget(ligne_verticale)
-
         # Ajout de la possibilité de supprimer un profil
+        layout_params_individu.addWidget(fonctions_utiles_2_0.creer_ligne_verticale())
         self.suppression_profil = QPushButton()
         self.suppression_profil.clicked.connect(
             lambda: self.supprimer_clef(self.nom_individu.currentText())
@@ -228,11 +223,9 @@ class SettingsApp(QWidget):
         layout_granularite_visite = QHBoxLayout()
         layout_granularite_visite.addWidget(self.label_granularite_visite)
         layout_granularite_visite.addWidget(self.granularite_visite)
-
-        ligne_verticale_granu = QFrame()
-        ligne_verticale_granu.setFrameShape(QFrame.Shape.VLine)
-        ligne_verticale_granu.setFrameShadow(QFrame.Shadow.Raised)
-        layout_granularite_visite.addWidget(ligne_verticale_granu)
+        layout_granularite_visite.addWidget(
+            fonctions_utiles_2_0.creer_ligne_verticale()
+        )
 
         # Granularité de fond
         self.granularite_fond = QComboBox()

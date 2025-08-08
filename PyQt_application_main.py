@@ -27,7 +27,6 @@ from PyQt6.QtWidgets import (
     QGroupBox,
     QMessageBox,
     QGridLayout,
-    QFrame,
     QButtonGroup,
     QRadioButton,
     QTabWidget,
@@ -37,10 +36,10 @@ from PyQt6.QtWidgets import (
     QProgressBar,
 )
 from PyQt6.QtGui import QIcon
-from PyQt6.QtCore import Qt, QTimer, QSize, QObject, pyqtSignal, QThread
+from PyQt6.QtCore import Qt, QTimer, QSize, QThread
 
 import constantes
-from production_cartes import creer_carte_1_1, creer_graphique_1_2, carte_main_1_3
+from production_cartes import creer_graphique_1_2
 from application import fonctions_utiles_2_0, classes_utiles_2_2
 
 
@@ -80,26 +79,6 @@ liste_langues_dispo_joli = ["Français", "English"] + sorted(
     for langue in constantes.dict_langues_dispo.values()
     if langue not in {"Français", "English"}
 )
-
-
-class CreerCartes(QObject):
-    finished = pyqtSignal()
-    tracker_signal = pyqtSignal(str)
-    avancer = pyqtSignal(int)
-
-    def __init__(self, params):
-        super().__init__()
-        self.parametres = params
-
-    def run(self):
-        tracker = classes_utiles_2_2.TrackerPays()
-        tracker.tracker_pays_en_cours.connect(self.tracker_signal.emit)
-
-        carte_main_1_3.cree_graphe_depuis_debut(
-            **self.parametres, tracker=tracker, blabla=False, afficher_nom_lieu=False
-        )
-
-        self.finished.emit()
 
 
 class SettingsApp(QWidget):
@@ -1251,7 +1230,7 @@ class SettingsApp(QWidget):
         }
 
         self.thread = QThread()
-        self.worker = CreerCartes(parametres)
+        self.worker = classes_utiles_2_2.CreerCartes(parametres)
         self.worker.moveToThread(self.thread)
 
         self.worker.tracker_signal.connect(self.afficher_avancement)

@@ -4,9 +4,6 @@
 ################################################################################
 
 
-from PyQt6.QtCore import pyqtSignal, QObject
-
-
 def obtenir_clef_par_valeur(dictionnaire, valeur):
     """Retourne la clé associée à une valeur donnée dans un dictionnaire."""
     for clef, val in dictionnaire.items():
@@ -59,10 +56,3 @@ def creer_classement_pays(
     )
 
     return gdf_visite if top_n is None else gdf_visite.head(top_n)
-
-
-class TrackerPays(QObject):
-    tracker_pays_en_cours = pyqtSignal(str)
-
-    def notify(self, libelle_pays: str):
-        self.tracker_pays_en_cours.emit(libelle_pays)

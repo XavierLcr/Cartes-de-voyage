@@ -41,7 +41,7 @@ from PyQt6.QtCore import Qt, QTimer, QSize, QObject, pyqtSignal, QThread
 
 import constantes
 from production_cartes import creer_carte_1_1, creer_graphique_1_2, carte_main_1_3
-from application import fonctions_utiles_2_0
+from application import fonctions_utiles_2_0, classes_utiles_2_2
 
 
 warnings.filterwarnings("ignore")
@@ -92,7 +92,7 @@ class CreerCartes(QObject):
         self.parametres = params
 
     def run(self):
-        tracker = fonctions_utiles_2_0.TrackerPays()
+        tracker = classes_utiles_2_2.TrackerPays()
         tracker.tracker_pays_en_cours.connect(self.tracker_signal.emit)
 
         carte_main_1_3.cree_graphe_depuis_debut(

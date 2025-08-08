@@ -277,6 +277,42 @@ def transformer_couleur_texte(bg_color):
     return "#FFFFFF" if 0.299 * r + 0.587 * g + 0.114 * b < 128 else "#000000"
 
 
+def renvoyer_couleur_widget(style, teinte, nuances, clair, sombre):
+    if style == 0:
+        return generer_couleur_aleatoire_hex(preset=nuances, teintes_autorisees=teinte)
+    elif style == 1:
+        return clair
+    else:
+        return sombre
+
+
+def renvoyer_couleur_widget_differente(
+    style, teinte, nuances, clair, sombre, reference, essais=20
+):
+    for _ in range(essais):
+        resultat = renvoyer_couleur_widget(
+            style=style,
+            teinte=teinte,
+            nuances=nuances,
+            clair=clair,
+            sombre=sombre,
+        )
+        if resultat not in reference:
+            break
+
+    # Renvoi
+    return resultat
+
+
+def renvoyer_couleur_texte(style, couleur):
+    if style == 0:
+        return transformer_couleur_texte(couleur)
+    elif style == 1:
+        return ("#2C2C2C",)
+    else:
+        return "#FFFFFF"
+
+
 def utiliser_style_dynamique(
     style,
     teinte=[i / 360 for i in range(0, 360, 45)],
@@ -286,238 +322,188 @@ def utiliser_style_dynamique(
         "min_saturation": 0.2,
         "max_saturation": 0.4,
     },
+    limite_essais=20,
 ):
 
-    if style == 0:
+    # Cas général
+    couleur_widget = renvoyer_couleur_widget(
+        style=style, teinte=teinte, nuances=nuances, clair="#F3F4F8", sombre="#07215E"
+    )
+    couleur_widget_texte = renvoyer_couleur_texte(
+        style=style,
+        couleur=couleur_widget,
+    )
 
-        couleur_widget = generer_couleur_aleatoire_hex(
-            preset=nuances, teintes_autorisees=teinte
-        )
-        couleur_widget_texte = transformer_couleur_texte(couleur_widget)
+    # Groupboxes
+    couleur_groupbox = renvoyer_couleur_widget(
+        style=style, teinte=teinte, nuances=nuances, clair="#E6E4F2", sombre="#2C3A82"
+    )
 
-        couleur_push = generer_couleur_aleatoire_hex(
-            preset=nuances, teintes_autorisees=teinte
-        )
-        couleur_push_texte = transformer_couleur_texte(couleur_push)
+    # Boutons
+    couleur_push = renvoyer_couleur_widget(
+        style=style, teinte=teinte, nuances=nuances, clair="#D6E4F0", sombre="#3F51B5"
+    )
+    couleur_push_texte = renvoyer_couleur_texte(
+        style=style,
+        couleur=couleur_push,
+    )
+    couleur_push_hover = renvoyer_couleur_widget_differente(
+        style=style,
+        teinte=teinte,
+        nuances=nuances,
+        clair="#DAD3EB",
+        sombre="#6A4FB3",
+        reference=couleur_push,
+        essais=limite_essais,
+    )
+    couleur_push_hover_texte = renvoyer_couleur_texte(
+        style=style,
+        couleur=couleur_push_hover,
+    )
 
-        couleur_push2 = generer_couleur_aleatoire_hex(
-            preset=nuances, teintes_autorisees=teinte
-        )
-        couleur_push2_texte = transformer_couleur_texte(couleur_push2)
+    # Boites
+    couleur_box = renvoyer_couleur_widget(
+        style=style, teinte=teinte, nuances=nuances, clair="#EBF0F2", sombre="#07736F"
+    )
+    couleur_box_texte = renvoyer_couleur_texte(
+        style=style,
+        couleur=couleur_box,
+    )
+    couleur_box_bord = renvoyer_couleur_widget(
+        style=style, teinte=teinte, nuances=nuances, clair="#C9D6E0", sombre="#5C79A4"
+    )
 
-        couleur_slider = generer_couleur_aleatoire_hex(
-            preset=nuances, teintes_autorisees=teinte
-        )
-        couleur_slider2 = couleur_slider * 1
+    # Lignes
+    couleur_line = renvoyer_couleur_widget(
+        style=style, teinte=teinte, nuances=nuances, clair="#F1F2F4", sombre="#1E2734"
+    )
+    couleur_line_texte = renvoyer_couleur_texte(
+        style=style,
+        couleur=couleur_line,
+    )
+    couleur_line_bord = renvoyer_couleur_widget(
+        style=style, teinte=teinte, nuances=nuances, clair="#D4D4D8", sombre="#32475B"
+    )
 
-        compteur_barre = 0
-        while compteur_barre < 20 and couleur_slider2 == couleur_slider:
-            couleur_slider2 = generer_couleur_aleatoire_hex(
-                preset=nuances, teintes_autorisees=teinte
-            )
-            compteur_barre = compteur_barre + 1
+    # Sliders
+    couleur_slider = renvoyer_couleur_widget(
+        style=style, teinte=teinte, nuances=nuances, clair="#C7DEE7", sombre="#26C6DA"
+    )
+    couleur_slider_hover = renvoyer_couleur_widget_differente(
+        style=style,
+        teinte=teinte,
+        nuances=nuances,
+        clair="#ADCEDB",
+        sombre="#4DD0E1",
+        reference=couleur_slider,
+        essais=limite_essais,
+    )
 
-        couleur_box = generer_couleur_aleatoire_hex(
-            preset=nuances, teintes_autorisees=teinte
-        )
-        couleur_box_texte = transformer_couleur_texte(couleur_box)
-        couleur_box_bord = generer_couleur_aleatoire_hex(
-            preset=nuances, teintes_autorisees=teinte
-        )
+    # Onglet actuel
+    onglet_actuel = renvoyer_couleur_widget(
+        style=style, teinte=teinte, nuances=nuances, clair="#C2D4E8", sombre="#2D3D80"
+    )
+    onglet_actuel_texte = couleur_line_texte = renvoyer_couleur_texte(
+        style=style,
+        couleur=onglet_actuel,
+    )
 
-        couleur_line = generer_couleur_aleatoire_hex(
-            preset=nuances, teintes_autorisees=teinte
-        )
-        couleur_line_texte = transformer_couleur_texte(couleur_line)
-        couleur_line_bord = generer_couleur_aleatoire_hex(
-            preset=nuances, teintes_autorisees=teinte
-        )
+    # Onglets
+    onglet_fond = renvoyer_couleur_widget(
+        style=style, teinte=teinte, nuances=nuances, clair="#E8EAF1", sombre="#1A1F2B"
+    )
+    onglet_texte = couleur_line_texte = renvoyer_couleur_texte(
+        style=style,
+        couleur=onglet_fond,
+    )
+    onglet_hover = renvoyer_couleur_widget_differente(
+        style=style,
+        teinte=teinte,
+        nuances=nuances,
+        clair="#CFC4E2",
+        sombre="#6A4FB3",
+        reference=[onglet_actuel, onglet_fond],
+        essais=limite_essais,
+    )
 
-        couleur_groupbox = generer_couleur_aleatoire_hex(
-            preset=nuances, teintes_autorisees=teinte
-        )
+    # Barre de progression
+    couleur_barre_progression = renvoyer_couleur_widget(
+        style=style, teinte=teinte, nuances=nuances, clair="#ADCEDB", sombre="#26C6DA"
+    )
 
-        onglet_selection = generer_couleur_aleatoire_hex(
-            preset=nuances, teintes_autorisees=teinte
-        )
-        onglet_selection_texte = transformer_couleur_texte(onglet_selection)
+    # Checkboxes
+    couleur_checkbox_bord = renvoyer_couleur_widget_differente(
+        style=style,
+        teinte=teinte,
+        nuances=nuances,
+        clair="#6C7780",
+        sombre="#2C3A82",
+        reference=couleur_widget,
+        essais=limite_essais,
+    )
+    couleur_checkbox_cochee_fond = renvoyer_couleur_widget_differente(
+        style=style,
+        teinte=teinte,
+        nuances=nuances,
+        clair="#ADCEDB",
+        sombre="#26C6DA",
+        reference=[couleur_widget, couleur_checkbox_bord],
+        essais=limite_essais,
+    )
 
-        onglet_fond = generer_couleur_aleatoire_hex(
-            preset=nuances, teintes_autorisees=teinte
-        )
-        onglet_texte = transformer_couleur_texte(onglet_fond)
-        onglet_survol = generer_couleur_aleatoire_hex(
-            preset=nuances, teintes_autorisees=teinte
-        )
+    # Scroll area
+    couleur_scroll_area_fond = renvoyer_couleur_widget(
+        style=style, teinte=teinte, nuances=nuances, clair="#F3F4F8", sombre="#1A1F2B"
+    )
+    couleur_scroll_area_texte = renvoyer_couleur_texte(
+        style=style,
+        couleur=couleur_scroll_area_fond,
+    )
+    couleur_scroll_area_bord = renvoyer_couleur_widget(
+        style=style, teinte=teinte, nuances=nuances, clair="#C9D6E0", sombre="#2C3A4F"
+    )
+    couleur_scroll_area_barre = renvoyer_couleur_widget(
+        style=style, teinte=teinte, nuances=nuances, clair="#ADCEDB", sombre="#3F7DDC"
+    )
+    couleur_scroll_area_barre_partie = renvoyer_couleur_widget_differente(
+        style=style,
+        teinte=teinte,
+        nuances=nuances,
+        clair="#EBF0F2",
+        sombre="#27364D",
+        reference=couleur_scroll_area_barre,
+        essais=limite_essais,
+    )
+    couleur_scroll_area_barre_survol = renvoyer_couleur_widget_differente(
+        style=style,
+        teinte=teinte,
+        nuances=nuances,
+        clair="#C7DEE7",
+        sombre="#5C9EFF",
+        reference=[couleur_scroll_area_barre, couleur_scroll_area_barre_partie],
+        essais=limite_essais,
+    )
 
-        couleur_scroll_area_barre = generer_couleur_aleatoire_hex(
-            preset=nuances, teintes_autorisees=teinte
-        )
-        couleur_scroll_area_barre_survol = generer_couleur_aleatoire_hex(
-            preset=nuances, teintes_autorisees=teinte
-        )
-        couleur_scroll_area_fond = generer_couleur_aleatoire_hex(
-            preset=nuances, teintes_autorisees=teinte
-        )
-        couleur_scroll_area_texte = transformer_couleur_texte(couleur_scroll_area_fond)
-        couleur_scroll_area_barre_partie = generer_couleur_aleatoire_hex(
-            preset=nuances, teintes_autorisees=teinte
-        )
-        couleur_scroll_area_bord = generer_couleur_aleatoire_hex(
-            preset=nuances, teintes_autorisees=teinte
-        )
-
-        couleur_widget_list_fond = generer_couleur_aleatoire_hex(
-            preset=nuances, teintes_autorisees=teinte
-        )
-        couleur_widget_list_texte = transformer_couleur_texte(couleur_widget_list_fond)
-        couleur_widget_list_select = generer_couleur_aleatoire_hex(
-            preset=nuances, teintes_autorisees=teinte
-        )
-        couleur_widget_list_select_texte = transformer_couleur_texte(
-            couleur_widget_list_select
-        )
-        couleur_widget_list_survol_fond = generer_couleur_aleatoire_hex(
-            preset=nuances, teintes_autorisees=teinte
-        )
-        couleur_widget_list_survol_texte = transformer_couleur_texte(
-            couleur_widget_list_survol_fond
-        )
-
-        # Checkbox
-        couleur_checkbox_bord = generer_couleur_aleatoire_hex(
-            preset=nuances, teintes_autorisees=teinte
-        )
-        couleur_checkbox_cochee_fond = couleur_widget * 1
-        while couleur_checkbox_cochee_fond == couleur_widget:
-            couleur_checkbox_cochee_fond = generer_couleur_aleatoire_hex(
-                preset=nuances, teintes_autorisees=teinte
-            )
-
-        # Barre de progression
-        couleur_barre = generer_couleur_aleatoire_hex(
-            preset=nuances, teintes_autorisees=teinte
-        )
-
-    elif style == 1:
-
-        couleur_widget = "#F3F4F8"  # Fond principal bleu-lavande très pâle
-        couleur_widget_texte = "#2C2C2C"  # Texte gris anthracite doux
-
-        # Boutons avec variations douces
-        couleur_push = "#D6E4F0"  # Bleu clair (bouton standard)
-        couleur_push_texte = "#2C2C2C"
-
-        couleur_push2 = "#DAD3EB"  # Lavande clair (hover ou bouton secondaire)
-        couleur_push2_texte = "#2C2C2C"
-
-        # Boîtes légèrement teintées différemment
-        couleur_box = "#EBF0F2"  # Bleu-gris clair
-        couleur_box_texte = "#2C2C2C"
-        couleur_box_bord = "#C9D6E0"  # Bordure bleu poussière
-
-        # Lignes : variation vers le gris chaud
-        couleur_line = "#F1F2F4"  # Fond de ligne bleu-gris clair
-        couleur_line_texte = "#2C2C2C"
-        couleur_line_bord = "#D4D4D8"  # Gris chaud discret
-
-        # Sliders : une touche légèrement aqua
-        couleur_slider = "#C7DEE7"  # Bleu-vert doux
-        couleur_slider2 = "#ADCEDB"  # Bleu-vert plus soutenu
-
-        # GroupBox : ton lavande très pâle pour contraste léger
-        couleur_groupbox = "#E6E4F2"
-
-        # Onglets
-        onglet_selection = "#C2D4E8"
-        onglet_selection_texte = "#2C2C2C"
-
-        onglet_fond = "#E8EAF1"
-        onglet_texte = "#2C2C2C"
-        onglet_survol = "#CFC4E2"
-
-        # Scroll area
-        couleur_scroll_area_fond = "#F3F4F8"
-        couleur_scroll_area_texte = "#2C2C2C"
-        couleur_scroll_area_barre_partie = "#EBF0F2"
-        couleur_scroll_area_barre_survol = "#C7DEE7"
-        couleur_scroll_area_barre = "#ADCEDB"
-        couleur_scroll_area_bord = "#C9D6E0"
-
-        # Widget list
-        couleur_widget_list_fond = "#F4F6FA"
-        couleur_widget_list_texte = "#2C2C2C"
-        couleur_widget_list_select = "#D6E4F0"
-        couleur_widget_list_select_texte = "#2C2C2C"
-        couleur_widget_list_survol_fond = "#E0EBF5"
-        couleur_widget_list_survol_texte = "#2C2C2C"
-
-        # Checkbox
-        couleur_checkbox_bord = "#6c7780"
-        couleur_checkbox_cochee_fond = "#ADCEDB"
-
-        # Barre de progression
-        couleur_barre = "#ADCEDB"
-
-    else:
-
-        # Fond principal
-        couleur_widget = "#07215E"  # Bleu-gris très sombre, mais pas noir
-        couleur_widget_texte = "#E8EBEF"  # Gris clair chaud
-
-        # Boutons
-        couleur_push = "#3F51B5"  # Bleu moins saturé
-        couleur_push_texte = "#FFFFFF"
-        couleur_push2 = "#6A4FB3"  # Violet doux
-        couleur_push2_texte = "#FFFFFF"
-
-        # Boîtes
-        couleur_box = "#07736F"  # Bleu-gris foncé
-        couleur_box_texte = "#DADDE0"
-        couleur_box_bord = "#5C79A4"
-
-        # Lignes
-        couleur_line = "#1E2734"
-        couleur_line_texte = "#DADDE0"
-        couleur_line_bord = "#32475B"
-
-        # Sliders
-        couleur_slider = "#26C6DA"  # Bleu turquoise adouci
-        couleur_slider2 = "#4DD0E1"  # Variante plus claire
-
-        # GroupBox
-        couleur_groupbox = "#2C3A82"  # Indigo adouci
-
-        # Onglets
-        onglet_selection = "#2D3D80"  # Bleu foncé doux
-        onglet_selection_texte = "#FFFFFF"
-
-        onglet_fond = "#1A1F2B"
-        onglet_texte = "#CCCCCC"
-        onglet_survol = "#6A4FB3"
-
-        # Scroll area
-        couleur_scroll_area_fond = "#1A1F2B"
-        couleur_scroll_area_texte = "#E8EBEF"
-        couleur_scroll_area_barre_partie = "#27364D"
-        couleur_scroll_area_barre = "#3F7DDC"
-        couleur_scroll_area_barre_survol = "#5C9EFF"
-        couleur_scroll_area_bord = "#2C3A4F"
-
-        # Widget list
-        couleur_widget_list_fond = "#222B3C"
-        couleur_widget_list_texte = "#E8EBEF"
-        couleur_widget_list_select = "#3F7DDC"
-        couleur_widget_list_select_texte = "#FFFFFF"
-        couleur_widget_list_survol_fond = "#2F456A"
-        couleur_widget_list_survol_texte = "#FFFFFF"
-
-        # Checkbox
-        couleur_checkbox_bord = "#2C3A82"
-        couleur_checkbox_cochee_fond = "#26C6DA"
-
-        # Barre de progression
-        couleur_barre = "#26C6DA"
+    # Liste de widgets
+    couleur_widget_list_fond = renvoyer_couleur_widget(
+        style=style, teinte=teinte, nuances=nuances, clair="#F4F6FA", sombre="#222B3C"
+    )
+    couleur_widget_list_texte = renvoyer_couleur_texte(
+        style=style,
+        couleur=couleur_widget_list_fond,
+    )
+    couleur_widget_list_select = renvoyer_couleur_widget(
+        style=style, teinte=teinte, nuances=nuances, clair="#D6E4F0", sombre="#3F7DDC"
+    )
+    couleur_widget_list_survol_fond = renvoyer_couleur_widget_differente(
+        style=style,
+        teinte=teinte,
+        nuances=nuances,
+        clair="#E0EBF5",
+        sombre="#2F456A",
+        reference=[couleur_widget_list_select, couleur_widget_list_fond],
+        essais=limite_essais,
+    )
 
     return f"""
             QWidget {{
@@ -532,8 +518,8 @@ def utiliser_style_dynamique(
                 padding: 8px;
             }}
             QPushButton:hover {{
-                background-color: {couleur_push2};
-                color: {couleur_push2_texte};
+                background-color: { couleur_push_hover};
+                color: { couleur_push_hover_texte};
             }}
             QComboBox {{
                 background-color: {couleur_box};
@@ -555,7 +541,7 @@ def utiliser_style_dynamique(
                 border-radius: 4px;
             }}
             QSlider::handle:horizontal {{
-                background: {couleur_slider2};
+                background: {couleur_slider_hover};
                 width: 20px;
                 border-radius: 12px;
                 margin: -5px 0;
@@ -576,13 +562,13 @@ def utiliser_style_dynamique(
             }}
 
             QTabBar::tab:selected {{
-                background: {onglet_selection};
-                color: {onglet_selection_texte};
+                background: {onglet_actuel};
+                color: {onglet_actuel_texte};
                 font-weight: bold;
             }}
 
             QTabBar::tab:hover {{
-                background: {onglet_survol};
+                background: {onglet_hover};
             }}
             QComboBox QAbstractItemView {{
                 border: none;
@@ -600,12 +586,12 @@ def utiliser_style_dynamique(
         }}
         QListWidget::item:selected {{
             background-color: {couleur_widget_list_select}; /* Bleu clair (déjà utilisé dans QPushButton) */
-            color: {couleur_widget_list_select_texte};
+            color: {couleur_widget_list_texte};
             border-radius: 4px;
         }}
         QListWidget::item:hover {{
             background-color: {couleur_widget_list_survol_fond};
-            color: {couleur_widget_list_survol_texte};
+            color: {couleur_widget_list_texte};
         }}
         QScrollArea {{
             background-color: {couleur_scroll_area_fond}; 
@@ -651,7 +637,7 @@ def utiliser_style_dynamique(
                 border-radius: 5px;
             }}
             QProgressBar::chunk {{
-                background-color: {couleur_barre};
+                background-color: {couleur_barre_progression};
                 width: 8px;
                 margin: 0.5px;
             }}

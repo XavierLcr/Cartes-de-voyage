@@ -78,3 +78,4 @@ def creer_ligne_verticale():
     ligne = QFrame()
     ligne.setFrameShape(QFrame.Shape.VLine)
     ligne.setFrameShadow(QFrame.Shadow.Raised)
+    return ligne

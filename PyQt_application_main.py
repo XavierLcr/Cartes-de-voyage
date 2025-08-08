@@ -81,20 +81,6 @@ liste_langues_dispo_joli = ["Français", "English"] + sorted(
     if langue not in {"Français", "English"}
 )
 
-bouton_de_suppression = f"""
-                QPushButton {{
-                    background-color:{"#000000" if interface_foncee else "#f8d7da"};
-                    color: {"#E6E6E6" if interface_foncee else "#2C2C2C"};
-                    font-size: 12px;
-                    border: none;
-                    border-radius: 5px;
-                    padding: 8px;
-                }}
-                QPushButton:hover {{
-                    background-color: {"#85040d" if interface_foncee else "#f5c6cb"};
-                }}
-            """
-
 
 class CreerCartes(QObject):
     finished = pyqtSignal()
@@ -218,7 +204,9 @@ class SettingsApp(QWidget):
         self.suppression_profil.clicked.connect(
             lambda: self.supprimer_clef(self.nom_individu.currentText())
         )
-        self.suppression_profil.setStyleSheet(bouton_de_suppression)
+        self.suppression_profil.setStyleSheet(
+            fonctions_utiles_2_0.style_bouton_de_suppression(sombre=interface_foncee)
+        )
         layout_params_individu.addWidget(self.suppression_profil)
 
         # Ajouter le layout à la group box et la group box au layout général
@@ -499,7 +487,9 @@ class SettingsApp(QWidget):
             lambda: self.reinitialisation_parametres(True)
         )
         self.reinit_parametres.clicked.connect(lambda: self.maj_langue_interface(True))
-        self.reinit_parametres.setStyleSheet(bouton_de_suppression)
+        self.reinit_parametres.setStyleSheet(
+            fonctions_utiles_2_0.style_bouton_de_suppression(sombre=interface_foncee)
+        )
 
         # Ajouter les widgets dans la grille
         layout_valid_reinit.addWidget(self.reinit_parametres, 0, 0)

@@ -15,6 +15,21 @@ def obtenir_clef_par_valeur(dictionnaire, valeur):
     return None
 
 
+def style_bouton_de_suppression(sombre):
+    return f"""QPushButton {{
+                            background-color:{"#000000" if sombre else "#f8d7da"};
+                            color: {"#E6E6E6" if sombre else "#2C2C2C"};
+                            font-size: 12px;
+                            border: none;
+                            border-radius: 5px;
+                            padding: 8px;
+                            }}
+                QPushButton:hover {{
+                                    background-color: {"#85040d" if sombre else "#f5c6cb"};
+                                  }}
+            """
+
+
 def creer_classement_pays(
     gdf_visite,
     table_superficie,

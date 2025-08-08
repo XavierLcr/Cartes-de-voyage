@@ -116,6 +116,26 @@ class CreerCartes(QObject):
         self.finished.emit()
 
 
+class OngletInformations(QWidget):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        layout = QHBoxLayout(self)
+
+        self.scroll_area = QScrollArea()
+        self.scroll_area.setWidgetResizable(True)
+
+        self.label = QLabel()
+        self.label.setWordWrap(True)
+        self.scroll_area.setWidget(self.label)
+
+        layout.addWidget(self.scroll_area)
+
+    def set_description(self, texte_html: str):
+        """Permet de mettre à jour le texte affiché."""
+        self.label.setText(texte_html)
+
+
 class SettingsApp(QWidget):
     def __init__(self):
         super().__init__()
@@ -651,17 +671,8 @@ class SettingsApp(QWidget):
         self.top_pays_visites.setLayout(self.statistiques)
 
         # Onglet 5
-        self.description_application = QWidget()
+        self.description_application = OngletInformations()
         self.tabs.addTab(self.description_application, "ℹ️")
-        self.layout_informations_generales = QHBoxLayout()
-
-        self.scroll_informations_generales = QScrollArea()
-        self.scroll_informations_generales.setWidgetResizable(True)
-        self.widget_informations_generales = QLabel()
-        self.widget_informations_generales.setWordWrap(True)
-        self.scroll_informations_generales.setWidget(self.widget_informations_generales)
-        self.layout_informations_generales.addWidget(self.scroll_informations_generales)
-        self.description_application.setLayout(self.layout_informations_generales)
 
         # Définir le QTabWidget comme layout principal pour le widget principal
         main_layout = QVBoxLayout()
@@ -903,8 +914,23 @@ class SettingsApp(QWidget):
             )
         )
 
-        # Onglet 5
-        self.widget_informations_generales.setText(
+        # # Onglet 5
+        # self.widget_informations_generales.setText(
+        #     self.traduire_depuis_id(
+        #         "description_application",
+        #         prefixe=self.traduire_depuis_id(
+        #             "version",
+        #             prefixe=self.traduire_depuis_id(
+        #                 "sous_titre_description_application",
+        #                 prefixe="<h2>MesVoyages – ",
+        #                 suffixe="<br>(",
+        #             ),
+        #             suffixe=f" {constantes.version_logiciel})</h2><hr>",
+        #         ),
+        #         suffixe="<br>",
+        #     )
+        # )
+        self.description_application.set_description(
             self.traduire_depuis_id(
                 "description_application",
                 prefixe=self.traduire_depuis_id(

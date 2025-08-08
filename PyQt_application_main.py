@@ -373,7 +373,6 @@ class SettingsApp(QWidget):
         self.groupe_couleurs.setLayout(layout_theme_color)
 
         # # Ajout des groupbox des cartes et des couleurs
-        # layout_cartes_et_couleurs.addWidget(self.groupe_cartes_a_creer)
         layout_cartes_et_couleurs.addLayout(layout_granu_cartes_a_creer)
         layout_cartes_et_couleurs.addWidget(self.groupe_couleurs)
 
@@ -1229,20 +1228,20 @@ class SettingsApp(QWidget):
             "sortir_cartes_granu_inf": settings["publier_granu_faible"],
         }
 
-        self.thread = QThread()
+        self.thread_temp = QThread()
         self.worker = classes_utiles_2_2.CreerCartes(parametres)
-        self.worker.moveToThread(self.thread)
+        self.worker.moveToThread(self.thread_temp)
 
         self.worker.tracker_signal.connect(self.afficher_avancement)
-        self.worker.finished.connect(self.thread.quit)
+        self.worker.finished.connect(self.thread_temp.quit)
         self.worker.finished.connect(self.worker.deleteLater)
-        self.thread.finished.connect(self.thread.deleteLater)
-        self.thread.finished.connect(
+        self.thread_temp.finished.connect(self.thread_temp.deleteLater)
+        self.thread_temp.finished.connect(
             lambda: self.debut_fin_creation_cartes(debut=False)
         )
 
-        self.thread.started.connect(self.worker.run)
-        self.thread.start()
+        self.thread_temp.started.connect(self.worker.run)
+        self.thread_temp.start()
 
     def afficher_avancement(self, libelle_pays):
         self.graphique_i = self.graphique_i + 1

@@ -3,6 +3,8 @@
 # 2.0 - Fonctions utiles à l'application                                       #
 ################################################################################
 
+from PyQt6.QtWidgets import QHBoxLayout, QFrame
+
 
 def obtenir_clef_par_valeur(dictionnaire, valeur):
     """Retourne la clé associée à une valeur donnée dans un dictionnaire."""
@@ -56,3 +58,15 @@ def creer_classement_pays(
     )
 
     return gdf_visite if top_n is None else gdf_visite.head(top_n)
+
+
+def creer_ligne_separation(lStretch=1, ligne_largeur=4, rStretch=1):
+    layout_temp = QHBoxLayout()
+    ligne = QFrame()
+    ligne.setFixedHeight(2)
+    ligne.setFrameShape(QFrame.Shape.HLine)  # Ligne horizontale
+    ligne.setFrameShadow(QFrame.Shadow.Sunken)  # Style de relief
+    layout_temp.addStretch(lStretch)
+    layout_temp.addWidget(ligne, ligne_largeur)
+    layout_temp.addStretch(rStretch)
+    return layout_temp

@@ -583,62 +583,17 @@ class SettingsApp(QWidget):
         self.tab_resume_pays.setLayout(self.layout_onglet_3)
 
         # Quatrième onglet
-        self.top_pays_visites = QWidget()
-        self.tabs.addTab(self.top_pays_visites, "Pays les plus visités")
-        self.statistiques = QVBoxLayout()
-
-        # Cercle de progreesion
-
-        # Layout des classement de pays
-        self.layout_top_pays = QHBoxLayout()
-
-        # Top pays par région
-        self.layout_entete_top_pays_regions = QVBoxLayout()
-        self.entete_top_pays_regions = QLabel()
-        self.entete_top_pays_regions.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.layout_entete_top_pays_regions.addWidget(self.entete_top_pays_regions)
-        ligne = QFrame()
-        ligne.setFrameShape(QFrame.Shape.HLine)
-        ligne.setFrameShadow(QFrame.Shadow.Sunken)
-        self.layout_entete_top_pays_regions.addWidget(ligne)
-        self.layout_entete_top_pays_regions.addWidget(QLabel(""))
-        self.layout_top_pays_regions = QGridLayout()
-        self.widget_top_pays_regions = QWidget()
-        self.layout_entete_top_pays_regions.addLayout(self.layout_top_pays_regions)
-        self.layout_entete_top_pays_regions.addStretch()
-        self.widget_top_pays_regions.setLayout(self.layout_entete_top_pays_regions)
-
-        self.scroll_top_pays_regions = QScrollArea()
-        self.scroll_top_pays_regions.setWidgetResizable(True)
-        self.scroll_top_pays_regions.setWidget(self.widget_top_pays_regions)
-
-        # Top pays par département
-        self.layout_entete_top_pays_departements = QVBoxLayout()
-        self.entete_top_pays_departements = QLabel()
-        self.entete_top_pays_departements.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.layout_entete_top_pays_departements.addWidget(
-            self.entete_top_pays_departements
+        self.top_pays_visites = classes_utiles_2_2.OngletTopPays(
+            dicts_granu=self.dicts_granu,
+            constantes=constantes,
+            langue_utilisee=fonctions_utiles_2_0.obtenir_clef_par_valeur(
+                dictionnaire=constantes.dict_langues_dispo,
+                valeur=self.langue_utilisee.currentText(),
+            ),
+            liste_gdfs=liste_gdfs,
+            top_n=top_n_pays,
         )
-        ligne = QFrame()
-        ligne.setFrameShape(QFrame.Shape.HLine)
-        ligne.setFrameShadow(QFrame.Shadow.Sunken)
-        self.layout_entete_top_pays_departements.addWidget(ligne)
-        self.layout_entete_top_pays_departements.addWidget(QLabel(""))
-        self.layout_top_pays_deps = QGridLayout()
-        self.widget_top_pays_deps = QWidget()
-        self.layout_entete_top_pays_departements.addLayout(self.layout_top_pays_deps)
-        self.layout_entete_top_pays_departements.addStretch()
-        self.widget_top_pays_deps.setLayout(self.layout_entete_top_pays_departements)
-
-        self.scroll_top_pays_deps = QScrollArea()
-        self.scroll_top_pays_deps.setWidgetResizable(True)
-        self.scroll_top_pays_deps.setWidget(self.widget_top_pays_deps)
-
-        # Ajout des classements à l'application
-        self.layout_top_pays.addWidget(self.scroll_top_pays_regions)
-        self.layout_top_pays.addWidget(self.scroll_top_pays_deps)
-        self.statistiques.addLayout(self.layout_top_pays)
-        self.top_pays_visites.setLayout(self.statistiques)
+        self.tabs.addTab(self.top_pays_visites, "Pays les plus visités")
 
         # Onglet 5
         self.description_application = classes_utiles_2_2.OngletInformations()
@@ -872,34 +827,19 @@ class SettingsApp(QWidget):
         )
 
         # Onglet 4
-
-        self.entete_top_pays_regions.setText(
+        self.top_pays_visites.set_entete_regions(
             self.traduire_depuis_id(
                 "classement_selon_regions", prefixe="<b>", suffixe="</b>"
             )
         )
-        self.entete_top_pays_departements.setText(
+        self.top_pays_visites.set_entete_departements(
             self.traduire_depuis_id(
                 "classement_selon_departements", prefixe="<b>", suffixe="</b>"
             )
         )
+        self.top_pays_visites.set_langue(nouvelle_langue=langue_actuelle)
 
         # # Onglet 5
-        # self.widget_informations_generales.setText(
-        #     self.traduire_depuis_id(
-        #         "description_application",
-        #         prefixe=self.traduire_depuis_id(
-        #             "version",
-        #             prefixe=self.traduire_depuis_id(
-        #                 "sous_titre_description_application",
-        #                 prefixe="<h2>MesVoyages – ",
-        #                 suffixe="<br>(",
-        #             ),
-        #             suffixe=f" {constantes.version_logiciel})</h2><hr>",
-        #         ),
-        #         suffixe="<br>",
-        #     )
-        # )
         self.description_application.set_description(
             self.traduire_depuis_id(
                 "description_application",
@@ -1795,15 +1735,7 @@ class SettingsApp(QWidget):
         label_titre_onglet_3.setAlignment(Qt.AlignmentFlag.AlignCenter)
         vbox.addWidget(label_titre_onglet_3)
 
-        layout_temp = QHBoxLayout()
-        ligne = QFrame()
-        ligne.setFixedHeight(2)
-        ligne.setFrameShape(QFrame.Shape.HLine)  # Ligne horizontale
-        ligne.setFrameShadow(QFrame.Shadow.Sunken)  # Style de relief
-        layout_temp.addStretch(1)
-        layout_temp.addWidget(ligne, 4)
-        layout_temp.addStretch(1)
-        vbox.addLayout(layout_temp)
+        vbox.addLayout(fonctions_utiles_2_0.creer_ligne_separation())
         vbox.addWidget(QLabel(""))
 
         for pays, items in pays_donnees.items():
@@ -1868,107 +1800,14 @@ class SettingsApp(QWidget):
             affichage_groupe=self.mise_en_forme_onglet_3.isChecked(),
         )
 
-        self.lancer_classement_par_region_departement(top_n=top_n_pays)
-
-    def lancer_classement_pays(
-        self, granularite: int, top_n: int | None, vbox: QGridLayout
-    ):
-        dict_regions = (
-            self.dicts_granu["region"] if self.dicts_granu["region"] != {} else None
-        )
-        dict_departements = (
-            self.dicts_granu["dep"] if self.dicts_granu["dep"] != {} else None
-        )
-
-        if dict_departements is not None:
-            if dict_departements != {} and dict_regions is not None:
-                dict_regions = {
-                    k: v for k, v in dict_regions.items() if k not in dict_departements
-                }
-
-        # Met à jour la vbox avec le résultat
-        self.vider_layout(vbox)
-
-        try:
-            # Appelle directement la fonction de création des données (similaire au run())
-            gdf = creer_carte_1_1.cree_base_toutes_granularites(
-                liste_dfs=liste_gdfs,
-                liste_dicts=[dict_regions, dict_departements],
-                granularite_objectif=granularite,
-            )
-
-            classement = fonctions_utiles_2_0.creer_classement_pays(
-                gdf,
-                constantes.table_superficie,
-                granularite=granularite,
-                top_n=top_n,
-            )
-
-            i = 0
-            for _, row in classement.iterrows():
-                pays = row["Pays"]
-
-                indice = ["🥇", "🥈", "🥉"][i] if i < 3 else f"<b>{i + 1}.</b>"
-                separateur = "<br>"
-                label_pays = constantes.pays_differentes_langues.get(pays, {}).get(
-                    fonctions_utiles_2_0.obtenir_clef_par_valeur(
-                        dictionnaire=constantes.dict_langues_dispo,
-                        valeur=self.langue_utilisee.currentText(),
-                    ),
-                    pays,
-                )
-                label_pays = f"<b>{label_pays}</b>" if i < 3 else label_pays
-                label_pays = (
-                    indice
-                    + separateur
-                    + f"{label_pays}<br>{round(100 * row['pct_superficie_dans_pays'])} %"
-                )
-
-                label_pays = QLabel(label_pays)
-                label_pays.setAlignment(
-                    Qt.AlignmentFlag.AlignCenter | Qt.AlignmentFlag.AlignVCenter
-                )
-
-                if i == 0:
-
-                    label_couronne = QLabel("👑")
-                    label_couronne.setAlignment(
-                        Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter
-                    )
-                    vbox.addWidget(label_couronne, i, 0)
-                    vbox.addWidget(label_pays, i, 1)
-
-                    label_couronne = QLabel("👑")
-                    label_couronne.setAlignment(
-                        Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter
-                    )
-                    vbox.addWidget(label_couronne, i, 2)
-
-                elif i in [1, 2]:
-                    vbox.addWidget(label_pays, 1, 2 * i - 2)
-                else:
-                    vbox.addWidget(label_pays, (i + 3) // 3, i % 3)
-
-                i = i + 1
-
-        except Exception as e:
-            pass
-
-        # vbox.addStretch()
-
-    def lancer_classement_par_region_departement(self, top_n: int | None = 10):
-
-        self.lancer_classement_pays(
-            granularite=1,
-            top_n=top_n,
-            vbox=self.layout_top_pays_regions,
-        )
-
-        self.lancer_classement_pays(
-            granularite=2,
-            top_n=top_n,
-            vbox=self.layout_top_pays_deps,
-        )
+        self.top_pays_visites.set_dicts_granu(dict_nv=self.dicts_granu)
+        # self.top_pays_visites.lancer_classement_par_region_departement(
+        #     top_n=top_n_pays,
+        #     langue=fonctions_utiles_2_0.obtenir_clef_par_valeur(
+        #         dictionnaire=constantes.dict_langues_dispo,
+        #         valeur=self.langue_utilisee.currentText(),
+        #     ),
+        # )
 
     def initialiser_sauvegarde(self, sauvegarde_complete):
 
@@ -1988,6 +1827,7 @@ class SettingsApp(QWidget):
                 self.langue_utilisee.setCurrentText(
                     constantes.dict_langues_dispo[sauv.get("language")]
                 )
+                self.top_pays_visites.set_langue(nouvelle_langue=sauv.get("language"))
 
             # Cartes à publier
             checkboxes = {
@@ -2039,7 +1879,7 @@ class SettingsApp(QWidget):
                 self.couleur_fond_checkbox.setChecked(sauv.get("couleur_fond_carte"))
 
             self.maj_liste_reg_dep_pays()
-            self.lancer_classement_par_region_departement(top_n=top_n_pays)
+            self.top_pays_visites.set_dicts_granu(dict_nv=self.dicts_granu)
 
     def reinitialisation_parametres(self, nom_aussi=True):
 
@@ -2289,8 +2129,6 @@ if __name__ == "__main__":
 
     # Lancement de l'application
     app = QApplication(sys.argv)
-    window = SettingsApp()
-    window.show()
 
     # Import des bases de données contenant les cartes
     liste_gdfs = []
@@ -2303,5 +2141,8 @@ if __name__ == "__main__":
         ) as f:
             gdf_niveau_i = pickle.load(f)
         liste_gdfs.append(gdf_niveau_i)
+
+    window = SettingsApp()
+    window.show()
 
     sys.exit(app.exec())

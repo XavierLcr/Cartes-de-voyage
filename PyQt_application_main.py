@@ -764,7 +764,7 @@ class SettingsApp(QWidget):
             )
         )
 
-        # Onlet 2
+        # Onglet 2
 
         # Titre
         self.groupe_selection_lieux.setTitle(

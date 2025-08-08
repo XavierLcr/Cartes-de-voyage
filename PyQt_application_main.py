@@ -278,11 +278,15 @@ class SettingsApp(QWidget):
             self.carte_pays, 0, 3, 1, 3, alignment=Qt.AlignmentFlag.AlignCenter
         )
 
-        ligne = QFrame()
-        ligne.setFrameShape(QFrame.Shape.HLine)
-        ligne.setFrameShadow(QFrame.Shadow.Sunken)
-        ligne.setLineWidth(1)
-        layout_cartes_a_creer.addWidget(ligne, 1, 0, 1, 6)
+        layout_cartes_a_creer.addLayout(
+            fonctions_utiles_2_0.creer_ligne_separation(
+                lStretch=0, ligne_largeur=1, rStretch=0
+            ),
+            1,
+            0,
+            1,
+            6,
+        )
 
         ligne_regions_1 = 2
         layout_cartes_a_creer.addWidget(self.afrique, ligne_regions_1, 0, 1, 2)
@@ -294,11 +298,15 @@ class SettingsApp(QWidget):
         layout_cartes_a_creer.addWidget(self.moyen_orient, ligne_regions_1, 2, 1, 2)
         layout_cartes_a_creer.addWidget(self.autres_regions, ligne_regions_1, 4, 1, 2)
 
-        ligne2 = QFrame()
-        ligne2.setFrameShape(QFrame.Shape.HLine)
-        ligne2.setFrameShadow(QFrame.Shadow.Sunken)
-        ligne2.setLineWidth(1)
-        layout_cartes_a_creer.addWidget(ligne2, 4, 0, 1, 6)
+        layout_cartes_a_creer.addLayout(
+            fonctions_utiles_2_0.creer_ligne_separation(
+                lStretch=0, ligne_largeur=1, rStretch=0
+            ),
+            4,
+            0,
+            1,
+            6,
+        )
 
         layout_cartes_a_creer.addWidget(
             self.publier_granu_faible,
@@ -373,12 +381,6 @@ class SettingsApp(QWidget):
         self.utiliser_theme = QCheckBox()
         self.utiliser_theme.stateChanged.connect(self.maj_style)
 
-        # Ligne
-        ligne3 = QFrame()
-        ligne3.setFrameShape(QFrame.Shape.HLine)
-        ligne3.setFrameShadow(QFrame.Shadow.Sunken)
-        ligne3.setLineWidth(1)
-
         # Choix de la couleur de fond
         self.couleur_fond_checkbox = QCheckBox()
 
@@ -386,7 +388,11 @@ class SettingsApp(QWidget):
         layout_theme_color.addLayout(layout_theme)
         layout_theme_color.addLayout(layout_couleurs)
         layout_theme_color.addWidget(self.utiliser_theme)
-        layout_theme_color.addWidget(ligne3)
+        layout_theme_color.addLayout(
+            fonctions_utiles_2_0.creer_ligne_separation(
+                lStretch=0, ligne_largeur=1, rStretch=0
+            )
+        )
         layout_theme_color.addWidget(
             self.couleur_fond_checkbox, alignment=Qt.AlignmentFlag.AlignHCenter
         )

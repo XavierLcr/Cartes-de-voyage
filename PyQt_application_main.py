@@ -32,7 +32,6 @@ from PyQt6.QtWidgets import (
     QTabWidget,
     QListWidget,
     QListWidgetItem,
-    QScrollArea,
     QProgressBar,
 )
 from PyQt6.QtGui import QIcon
@@ -961,7 +960,7 @@ class SettingsApp(QWidget):
             "dictionnaire_departements": (
                 self.dicts_granu["dep"] if self.dicts_granu["dep"] != {} else None
             ),
-            # "format_onglet_3": self.mise_en_forme_onglet_3.isChecked(),
+            "format_onglet_3": self.onglet_resume_pays.mise_en_forme.isChecked(),
         }
 
         settings["granularity"] = fonctions_utiles_2_0.obtenir_clef_par_valeur(
@@ -1323,8 +1322,10 @@ class SettingsApp(QWidget):
                 else:
                     self.radio_carte_sans_limite.setChecked(True)
 
-            # if sauv.get("format_onglet_3") is not None:
-            #     self.mise_en_forme_onglet_3.setChecked(sauv.get("format_onglet_3"))
+            if sauv.get("format_onglet_3") is not None:
+                self.onglet_resume_pays.mise_en_forme.setChecked(
+                    sauv.get("format_onglet_3")
+                )
 
             if sauv.get("couleur_fond_carte") is not None:
                 self.couleur_fond_checkbox.setChecked(sauv.get("couleur_fond_carte"))
@@ -1376,6 +1377,7 @@ class SettingsApp(QWidget):
         self.publier_granu_faible.setChecked(False)
 
         self.utiliser_theme.setChecked(False)
+        self.onglet_resume_pays.mise_en_forme.setChecked(False)
         self.onglet_resume_pays.set_dicts_granu(dict_nv=self.dicts_granu)
         self.top_pays_visites.set_dicts_granu(dict_nv=self.dicts_granu)
 

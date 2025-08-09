@@ -189,11 +189,22 @@ class HemicycleWidget(QWidget):
         self,
         constantes,
         continents,
+        langue,
         min_width=500,
         min_height=300,
         n_rangees=9,
         points_base=15,
         points_increment=4,
+        lighter_value=150,
+        continent_colors: dict = {
+            "Africa": "#3454D1",  # Bleu roi
+            "Antarctica": "#2E8B57",  # Vert océan
+            "Asia": "#C3423F",  # Rouge cerise
+            "Europe": "#7B4B94",  # Violet prune
+            "North America": "#2A7F9E",  # Bleu sarcelle
+            "Oceania": "#E27D60",  # Orange chaud
+            "South America": "#4A7856",  # Vert forêt clair
+        },
     ):
 
         super().__init__()
@@ -201,6 +212,7 @@ class HemicycleWidget(QWidget):
         self.pays_visites = {"region": {}, "dep": {}}
         self.continents = continents
         self.constantes = constantes
+        self.langue = langue
         self.num_levels = n_rangees  # Nombre de niveaux dans l'hémicycle
         self.base_radius = 90  # Rayon de base pour le premier niveau
         self.level_distance = 30  # Distance entre les niveaux
@@ -210,16 +222,17 @@ class HemicycleWidget(QWidget):
         self.points_increment = (
             points_increment  # Incrément du nombre de points par niveau
         )
+        self.lighter_value = lighter_value
 
         # Couleurs pour chaque continent
         self.continent_colors = {
-            "Africa": QColor("#3454D1"),  # Bleu roi
-            "Antarctica": QColor("#2E8B57"),  # Vert océan
-            "Asia": QColor("#C3423F"),  # Rouge cerise
-            "Europe": QColor("#7B4B94"),  # Violet prune
-            "North America": QColor("#2A7F9E"),  # Bleu sarcelle
-            "Oceania": QColor("#E27D60"),  # Orange chaud
-            "South America": QColor("#4A7856"),  # Vert forêt clair
+            "Africa": QColor(continent_colors.get("Africa", "#3454D1")),
+            "Antarctica": QColor(continent_colors.get("Antarctica", "#2E8B57")),
+            "Asia": QColor(continent_colors.get("Asia", "#C3423F")),
+            "Europe": QColor(continent_colors.get("Europe", "#7B4B94")),
+            "North America": QColor(continent_colors.get("North America", "#2A7F9E")),
+            "Oceania": QColor(continent_colors.get("Oceania", "#E27D60")),
+            "South America": QColor(continent_colors.get("South America", "#4A7856")),
         }
 
         self.creer_hemicycle()
@@ -243,7 +256,7 @@ class HemicycleWidget(QWidget):
 
                 coords_angles.append((x, y, angle, level))
 
-        coords_angles = sorted(coords_angles, key=lambda t: (-t[2], t[3]))
+        coords_angles = sorted(coords_angles, key=lambda t: (-t[2], -t[3]))
         return coords_angles
 
     def renvoyer_couleur(self, i: int, lighter_value: int):
@@ -252,14 +265,11 @@ class HemicycleWidget(QWidget):
         for cont in list(self.resume.keys()):
 
             # Choix du continent
-            if i >= 0 and i < total + self.resume[cont]["total"]:
+            if i >= total and i < total + self.resume[cont]["total"]:
                 couleur = self.continent_colors[cont]
 
                 # Visité ?
-                if (
-                    total + self.resume[cont]["total"] - i
-                    > self.resume[cont]["visites"]
-                ):
+                if i - total > self.resume[cont]["visites"] - 1:
                     couleur = couleur.lighter(lighter_value)
 
                 return couleur
@@ -269,7 +279,10 @@ class HemicycleWidget(QWidget):
 
         return QColor(0, 0, 0)
 
-    def paintEvent(self, event):
+    def paintEvent(
+        self,
+        event,
+    ):
         painter = QPainter(self)
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
 
@@ -279,7 +292,9 @@ class HemicycleWidget(QWidget):
         i = 0
         for coord in liste_coordonnees:
 
-            painter.setBrush(QBrush(self.renvoyer_couleur(i=i, lighter_value=150)))
+            painter.setBrush(
+                QBrush(self.renvoyer_couleur(i=i, lighter_value=self.lighter_value))
+            )
             painter.drawEllipse(QPointF(coord[0], coord[1]), 5, 5)
 
             i = i + 1
@@ -298,10 +313,20 @@ class HemicycleWidget(QWidget):
 
             # Dessin du texte
             painter.setPen(Qt.GlobalColor.black)
-            painter.drawText(x_legend + rect_size + 5, y_legend, continent)
+            painter.drawText(
+                x_legend + rect_size + 5,
+                y_legend,
+                self.constantes.pays_differentes_langues.get(continent, {}).get(
+                    self.langue
+                ),
+            )
 
     def set_pays_visites(self, pays_visites):
         self.pays_visites = pays_visites
+        self.creer_hemicycle()
+
+    def set_langue(self, langue):
+        self.langue = langue
         self.creer_hemicycle()
 
     def creer_hemicycle(self):
@@ -321,7 +346,22 @@ class OngletTopPays(QWidget):
         liste_gdfs: list,
         langue_utilisee: str,
         top_n: int | None,
+        min_width=500,
+        min_height: int = 300,
+        n_rangees: int = 9,
+        points_base: int = 15,
+        points_increment: int = 4,
+        lighter_value: int = 150,
         parent=None,
+        continent_colors: dict = {
+            "Africa": "#3454D1",  # Bleu roi
+            "Antarctica": "#2E8B57",  # Vert océan
+            "Asia": "#C3423F",  # Rouge cerise
+            "Europe": "#7B4B94",  # Violet prune
+            "North America": "#2A7F9E",  # Bleu sarcelle
+            "Oceania": "#E27D60",  # Orange chaud
+            "South America": "#4A7856",  # Vert forêt clair
+        },
     ):
         super().__init__(parent)
 
@@ -334,7 +374,16 @@ class OngletTopPays(QWidget):
 
         # Création de l'hémicycle
         self.hemicycle = HemicycleWidget(
-            continents=self.constantes.liste_regions_monde, constantes=self.constantes
+            continents=self.constantes.liste_regions_monde,
+            constantes=self.constantes,
+            langue=self.langue_utilisee,
+            min_width=min_width,
+            min_height=min_height,
+            n_rangees=n_rangees,
+            points_base=points_base,
+            points_increment=points_increment,
+            lighter_value=lighter_value,
+            continent_colors=continent_colors,
         )
 
         # Classement
@@ -520,6 +569,7 @@ class OngletTopPays(QWidget):
         """Permet de mettre à jour la langue."""
         self.langue_utilisee = nouvelle_langue
         self.lancer_classement_par_region_departement(top_n=self.top_n)
+        self.hemicycle.set_langue(langue=nouvelle_langue)
 
 
 # Cinquième onglet

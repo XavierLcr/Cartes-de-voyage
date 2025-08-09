@@ -6,7 +6,8 @@ titre_application : Outil de création de cartes
 titre_onglet_1 : Paramètres
 titre_onglet_2 : Création de la liste des pays visités
 titre_onglet_3 : Liste des lieux visités
-titre_onglet_4 : Pays les plus visités
+titre_onglet_4 : Statistiques
+titre_sous_onglet_4_2 : Pays les plus visités
 description_onglet_4 : En termes de pourcentage de la superficie visitée pour chaque pays
 
 # Paramètres individuels

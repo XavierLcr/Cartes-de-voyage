@@ -1337,12 +1337,6 @@ class SettingsApp(QWidget):
             self.maj_liste_reg_dep_pays()
             self.top_pays_visites.set_dicts_granu(dict_nv=self.dicts_granu)
             self.onglet_resume_pays.set_dicts_granu(dict_nv=self.dicts_granu)
-            print(
-                fonctions_utiles_2_0.nb_pays_visites(
-                    dict_granu=self.dicts_granu,
-                    continents=constantes.liste_regions_monde,
-                )
-            )
 
     def reinitialisation_parametres(self, nom_aussi=True):
 

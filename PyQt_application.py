@@ -45,29 +45,26 @@ from application import fonctions_utiles_2_0, classes_utiles_2_2
 warnings.filterwarnings("ignore")
 
 # Paramères
-# Paramètres d'application
-application_position_largeur = 250
-application_position_hauteur = 40
-application_largeur = 750
-application_hauteur = 250
-
-## Paramètres d'interface
-interface_foncee = False
-inclure_emojis_onglets = True
-inclure_emojis = True
-
-# Paramètres des statistiques
-top_n_pays = None
-min_width = 500
-min_height: int = 300
-n_rangees: int = 9
-points_base: int = 15
-points_increment: int = 4
-lighter_value: int = 150
-
-## Paramètres des cartes
-qualite_min = 200
-qualite_max = 4000
+parametres_application = {
+    # Paramètres d'application
+    "application_position_largeur": 250,
+    "application_position_hauteur": 40,
+    "application_largeur": 750,
+    "application_hauteur": 250,
+    # Paramètres d'interface
+    "interface_foncee": False,
+    # Paramètres des statistiques
+    "top_n_pays": None,
+    "min_width": 500,
+    "min_height": 300,
+    "n_rangees": 9,
+    "points_base": 15,
+    "points_increment": 4,
+    "lighter_value": 170,
+    # Paramètres des cartes
+    "qualite_min": 200,
+    "qualite_max": 4000,
+}
 
 
 # Import de la sauvegarde
@@ -96,10 +93,10 @@ class SettingsApp(QWidget):
 
         self.setWindowTitle("Cartes de voyage")
         self.setGeometry(
-            application_position_largeur,
-            application_position_hauteur,
-            application_largeur,
-            application_hauteur,
+            parametres_application["application_position_largeur"],
+            parametres_application["application_position_hauteur"],
+            parametres_application["application_largeur"],
+            parametres_application["application_hauteur"],
         )
         self.setWindowIcon(
             QIcon(
@@ -166,7 +163,9 @@ class SettingsApp(QWidget):
             lambda: self.supprimer_clef(self.nom_individu.currentText())
         )
         self.suppression_profil.setStyleSheet(
-            fonctions_utiles_2_0.style_bouton_de_suppression(sombre=interface_foncee)
+            fonctions_utiles_2_0.style_bouton_de_suppression(
+                sombre=parametres_application["interface_foncee"]
+            )
         )
         layout_params_individu.addWidget(self.suppression_profil)
 
@@ -398,9 +397,17 @@ class SettingsApp(QWidget):
         self.label_qualite_min = QLabel()
         self.label_qualite_max = QLabel()
         self.curseur_qualite = QSlider(Qt.Orientation.Horizontal)
-        self.curseur_qualite.setMinimum(qualite_min)
-        self.curseur_qualite.setMaximum(qualite_max)
-        self.curseur_qualite.setValue(int((qualite_min + qualite_max) / 2))
+        self.curseur_qualite.setMinimum(parametres_application["qualite_min"])
+        self.curseur_qualite.setMaximum(parametres_application["qualite_max"])
+        self.curseur_qualite.setValue(
+            int(
+                (
+                    parametres_application["qualite_min"]
+                    + parametres_application["qualite_max"]
+                )
+                / 2
+            )
+        )
 
         # Choix du format d'image
         self.label_format = QLabel()
@@ -452,7 +459,9 @@ class SettingsApp(QWidget):
         )
         self.reinit_parametres.clicked.connect(lambda: self.maj_langue_interface(True))
         self.reinit_parametres.setStyleSheet(
-            fonctions_utiles_2_0.style_bouton_de_suppression(sombre=interface_foncee)
+            fonctions_utiles_2_0.style_bouton_de_suppression(
+                sombre=parametres_application["interface_foncee"]
+            )
         )
 
         # Ajouter les widgets dans la grille
@@ -552,7 +561,13 @@ class SettingsApp(QWidget):
                 valeur=self.langue_utilisee.currentText(),
             ),
             liste_gdfs=liste_gdfs,
-            top_n=top_n_pays,
+            top_n=parametres_application["top_n_pays"],
+            lighter_value=parametres_application["lighter_value"],
+            min_height=parametres_application["min_height"],
+            min_width=parametres_application["min_width"],
+            n_rangees=parametres_application["n_rangees"],
+            points_base=parametres_application["points_base"],
+            points_increment=parametres_application["points_increment"],
         )
         self.tabs.addTab(self.top_pays_visites, "Pays les plus visités")
 
@@ -598,7 +613,8 @@ class SettingsApp(QWidget):
         self.tabs.setTabText(
             self.tabs.indexOf(self.main_tab),
             self.traduire_depuis_id(
-                "titre_onglet_1", suffixe=" 🎨" if inclure_emojis_onglets else ""
+                "titre_onglet_1",
+                suffixe=(" 🎨"),
             ),
         )
 
@@ -606,7 +622,7 @@ class SettingsApp(QWidget):
             self.tabs.indexOf(self.tab_yaml),
             self.traduire_depuis_id(
                 "titre_onglet_2",
-                suffixe=" 📌" if inclure_emojis_onglets else "",
+                suffixe=(" 📌"),
             ),
         )
 
@@ -614,7 +630,7 @@ class SettingsApp(QWidget):
             self.tabs.indexOf(self.onglet_resume_pays),
             self.traduire_depuis_id(
                 "titre_onglet_3",
-                suffixe=" 🧭" if inclure_emojis_onglets else "",
+                suffixe=(" 🧭"),
             ),
         )
 
@@ -622,7 +638,7 @@ class SettingsApp(QWidget):
             self.tabs.indexOf(self.top_pays_visites),
             self.traduire_depuis_id(
                 "titre_onglet_4",
-                suffixe=" 📊" if inclure_emojis_onglets else "",
+                suffixe=(" 📊"),
             ),
         )
         self.tabs.setTabToolTip(
@@ -744,7 +760,7 @@ class SettingsApp(QWidget):
         self.bouton_sauvegarde.setText(
             self.traduire_depuis_id(
                 "sauvegarder_profil",
-                suffixe=" 💾" if inclure_emojis else "",
+                suffixe=" 💾",
             )
         )
 
@@ -795,7 +811,7 @@ class SettingsApp(QWidget):
             texte_onglet_1="🗺️",
             texte_onglet_2=self.traduire_depuis_id(
                 "titre_sous_onglet_4_2",
-                suffixe=" 🏆" if inclure_emojis_onglets else "",
+                suffixe=(" 🏆"),
             ),
         )
 
@@ -925,7 +941,9 @@ class SettingsApp(QWidget):
         self.setStyleSheet(
             creer_graphique_1_2.utiliser_style_dynamique(
                 style=(
-                    0 if self.utiliser_theme.isChecked() else int(interface_foncee + 1)
+                    0
+                    if self.utiliser_theme.isChecked()
+                    else int(parametres_application["interface_foncee"] + 1)
                 ),
                 nuances=liste_theme_temp,
                 teinte=liste_teintes_temp,
@@ -1373,7 +1391,15 @@ class SettingsApp(QWidget):
         self.fichier_yaml_2 = None
 
         # Paramètres de publication
-        self.curseur_qualite.setValue(int((qualite_min + qualite_max) / 2))
+        self.curseur_qualite.setValue(
+            int(
+                (
+                    parametres_application["qualite_min"]
+                    + parametres_application["qualite_max"]
+                )
+                / 2
+            )
+        )
         self.format_cartes.setCurrentText("png")
         self.couleur_fond_checkbox.setChecked(False)
 

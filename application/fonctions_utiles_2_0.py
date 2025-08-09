@@ -60,6 +60,27 @@ def creer_classement_pays(
     return gdf_visite if top_n is None else gdf_visite.head(top_n)
 
 
+def nb_pays_visites(dict_granu: dict, continents: dict):
+
+    # Conservation des lieux visités
+    pays_visites = list(dict_granu["region"].keys()) + list(dict_granu["dep"].keys())
+    pays_visites = list(set(pays_visites))
+
+    resultat = {}
+    for continent in list(continents.keys()):
+
+        resultat[continent] = {}
+        resultat[continent]["total"] = len(continents[continent])
+        resultat[continent]["visites"] = len(
+            [i for i in continents[continent] if i in pays_visites]
+        )
+
+    if "Middle East" in list(continents.keys()):
+        del resultat["Middle East"]
+
+    return resultat
+
+
 def creer_ligne_separation(lStretch=1, ligne_largeur=4, rStretch=1):
     """Afficher une simple ligne horizontale."""
     layout_temp = QHBoxLayout()

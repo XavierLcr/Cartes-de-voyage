@@ -5,7 +5,7 @@
 
 import os
 import sys
-from PyQt6.QtCore import Qt, pyqtSignal, QObject
+from PyQt6.QtCore import Qt, pyqtSignal, QObject, QPointF
 from PyQt6.QtWidgets import (
     QWidget,
     QLabel,
@@ -14,7 +14,10 @@ from PyQt6.QtWidgets import (
     QScrollArea,
     QGridLayout,
     QCheckBox,
+    QTabWidget,
 )
+from PyQt6.QtGui import QPainter, QPen, QColor, QBrush
+import math
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from application import fonctions_utiles_2_0
@@ -180,6 +183,135 @@ class OngletResumeDestinations(QWidget):
         )
 
 
+# Classe de type hémicycle
+class HemicycleWidget(QWidget):
+    def __init__(
+        self,
+        constantes,
+        continents,
+        min_width=500,
+        min_height=300,
+        n_rangees=9,
+        points_base=15,
+        points_increment=4,
+    ):
+
+        super().__init__()
+        self.setMinimumSize(min_width, min_height)
+        self.pays_visites = {"region": {}, "dep": {}}
+        self.continents = continents
+        self.constantes = constantes
+        self.num_levels = n_rangees  # Nombre de niveaux dans l'hémicycle
+        self.base_radius = 90  # Rayon de base pour le premier niveau
+        self.level_distance = 30  # Distance entre les niveaux
+        self.base_points = (
+            points_base  # Nombre de points de base pour le premier niveau
+        )
+        self.points_increment = (
+            points_increment  # Incrément du nombre de points par niveau
+        )
+
+        # Couleurs pour chaque continent
+        self.continent_colors = {
+            "Africa": QColor("#3454D1"),  # Bleu roi
+            "Antarctica": QColor("#2E8B57"),  # Vert océan
+            "Asia": QColor("#C3423F"),  # Rouge cerise
+            "Europe": QColor("#7B4B94"),  # Violet prune
+            "North America": QColor("#2A7F9E"),  # Bleu sarcelle
+            "Oceania": QColor("#E27D60"),  # Orange chaud
+            "South America": QColor("#4A7856"),  # Vert forêt clair
+        }
+
+        self.creer_hemicycle()
+
+    def creer_coordonnées(self):
+        coords_angles = []
+
+        center_x = self.width() / 2
+        center_y = self.height() * 0.9  # comme dans ton paintEvent
+
+        for level in range(self.num_levels):
+            radius = self.base_radius + level * self.level_distance
+            num_points = self.base_points + level * self.points_increment
+
+            for i in range(num_points):
+                angle = (180.0 / (num_points - 1)) * i if num_points > 1 else 90
+                angle_rad = math.radians(angle)
+
+                x = center_x + radius * math.cos(angle_rad)
+                y = center_y - radius * math.sin(angle_rad)
+
+                coords_angles.append((x, y, angle, level))
+
+        coords_angles = sorted(coords_angles, key=lambda t: (-t[2], t[3]))
+        return coords_angles
+
+    def renvoyer_couleur(self, i: int, lighter_value: int):
+
+        total = 0
+        for cont in list(self.resume.keys()):
+
+            # Choix du continent
+            if i >= 0 and i < total + self.resume[cont]["total"]:
+                couleur = self.continent_colors[cont]
+
+                # Visité ?
+                if (
+                    total + self.resume[cont]["total"] - i
+                    > self.resume[cont]["visites"]
+                ):
+                    couleur = couleur.lighter(lighter_value)
+
+                return couleur
+
+            else:
+                total = total + self.resume[cont]["total"]
+
+        return QColor(0, 0, 0)
+
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+
+        # Récupération des coordonnées
+        liste_coordonnees = self.creer_coordonnées()
+
+        i = 0
+        for coord in liste_coordonnees:
+
+            painter.setBrush(QBrush(self.renvoyer_couleur(i=i, lighter_value=150)))
+            painter.drawEllipse(QPointF(coord[0], coord[1]), 5, 5)
+
+            i = i + 1
+
+        margin = 20
+        spacing = 100
+        rect_size = 12
+        y_legend = self.height() - margin
+
+        for idx, (continent, color) in enumerate(self.continent_colors.items()):
+            x_legend = margin + idx * spacing
+
+            # Dessin du carré de couleur
+            painter.setBrush(QBrush(color))
+            painter.drawRect(x_legend, y_legend - rect_size, rect_size, rect_size)
+
+            # Dessin du texte
+            painter.setPen(Qt.GlobalColor.black)
+            painter.drawText(x_legend + rect_size + 5, y_legend, continent)
+
+    def set_pays_visites(self, pays_visites):
+        self.pays_visites = pays_visites
+        self.creer_hemicycle()
+
+    def creer_hemicycle(self):
+        self.resume = fonctions_utiles_2_0.nb_pays_visites(
+            dict_granu=self.pays_visites,
+            continents=self.constantes.liste_regions_monde,
+        )
+        self.update()
+
+
 # Quatrième onglet
 class OngletTopPays(QWidget):
     def __init__(
@@ -200,9 +332,12 @@ class OngletTopPays(QWidget):
         self.dicts_granu = dicts_granu
         self.top_n = top_n
 
-        # Layout principal vertical
-        statistiques = QVBoxLayout(self)
+        # Création de l'hémicycle
+        self.hemicycle = HemicycleWidget(
+            continents=self.constantes.liste_regions_monde, constantes=self.constantes
+        )
 
+        # Classement
         layout_top_pays = QHBoxLayout()
 
         # --- Bloc "Top pays par région" ---
@@ -253,13 +388,42 @@ class OngletTopPays(QWidget):
         layout_top_pays.addWidget(scroll_top_pays_regions)
         layout_top_pays.addWidget(scroll_top_pays_deps)
 
-        statistiques.addLayout(layout_top_pays)
+        # Layout principal vertical
+        statistiques = QVBoxLayout(self)
 
-    def set_entete_regions(self, texte: str):
-        self.entete_top_pays_regions.setText(texte)
+        # Création d'un QTabWidget pour les sous-onglets
+        self.sous_onglets = QTabWidget()
 
-    def set_entete_departements(self, texte: str):
-        self.entete_top_pays_departements.setText(texte)
+        # ---------- Onglet 1 : Hémicycle ----------
+        self.page_hemicycle = QWidget()
+        layout_hemicycle = QVBoxLayout(self.page_hemicycle)
+        layout_hemicycle.addWidget(self.hemicycle)
+        self.sous_onglets.addTab(self.page_hemicycle, "Hémicycle")
+
+        # ---------- Onglet 2 : Top pays ----------
+        self.page_top_pays = QWidget()
+        layout_top_pays_page = QVBoxLayout(self.page_top_pays)
+        layout_top_pays_page.addLayout(layout_top_pays)  # ton layout existant
+        self.sous_onglets.addTab(self.page_top_pays, "Top Pays")
+
+        # Ajouter le QTabWidget au layout principal
+        statistiques.addWidget(self.sous_onglets)
+
+    def set_entetes(
+        self,
+        texte_region: str,
+        texte_departement: str,
+        texte_onglet_1: str,
+        texte_onglet_2: str,
+    ):
+        self.entete_top_pays_regions.setText(texte_region)
+        self.entete_top_pays_departements.setText(texte_departement)
+        self.sous_onglets.setTabText(
+            self.sous_onglets.indexOf(self.page_hemicycle), texte_onglet_1
+        )
+        self.sous_onglets.setTabText(
+            self.sous_onglets.indexOf(self.page_top_pays), texte_onglet_2
+        )
 
     def vider_layout(self, layout):
         while layout.count():
@@ -268,7 +432,7 @@ class OngletTopPays(QWidget):
                 child.widget().deleteLater()
 
     def lancer_classement_pays(
-        self, granularite: int, top_n: int | None, vbox: QGridLayout
+        self, granularite: int, top_n: int | None, vbox: QGridLayout, ndigits=0
     ):
         dict_regions = self.dicts_granu["region"] or None
         dict_departements = self.dicts_granu["dep"] or None
@@ -298,20 +462,22 @@ class OngletTopPays(QWidget):
                 pays = row["Pays"]
 
                 indice = ["🥇", "🥈", "🥉"][i] if i < 3 else f"<b>{i + 1}.</b>"
-                label_pays = self.constantes.pays_differentes_langues.get(pays, {}).get(
+                label_widget = self.constantes.pays_differentes_langues.get(
+                    pays, {}
+                ).get(
                     self.langue_utilisee,
                     pays,
                 )
                 if i < 3:
-                    label_pays = f"<b>{label_pays}</b>"
+                    label_widget = f"<b>{label_widget}</b>"
 
-                label_pays = (
+                label_widget = (
                     indice
                     + "<br>"
-                    + f"{label_pays}<br>{round(100 * row['pct_superficie_dans_pays'])} %"
-                )
+                    + f"{label_widget}<br>{round(100 * row['pct_superficie_dans_pays'], ndigits=ndigits)} %"
+                ).replace(".", ",")
 
-                label_widget = QLabel(label_pays)
+                label_widget = QLabel(label_widget)
                 label_widget.setAlignment(
                     Qt.AlignmentFlag.AlignCenter | Qt.AlignmentFlag.AlignVCenter
                 )
@@ -348,6 +514,7 @@ class OngletTopPays(QWidget):
         """Permet de mettre à jour les sélections de destinations."""
         self.dicts_granu = dict_nv
         self.lancer_classement_par_region_departement(top_n=self.top_n)
+        self.hemicycle.set_pays_visites(pays_visites=dict_nv)
 
     def set_langue(self, nouvelle_langue):
         """Permet de mettre à jour la langue."""

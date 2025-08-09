@@ -614,7 +614,7 @@ class SettingsApp(QWidget):
             self.tabs.indexOf(self.top_pays_visites),
             self.traduire_depuis_id(
                 "titre_onglet_4",
-                suffixe=" 🏆" if inclure_emojis_onglets else "",
+                suffixe=" 📊" if inclure_emojis_onglets else "",
             ),
         )
         self.tabs.setTabToolTip(
@@ -777,16 +777,20 @@ class SettingsApp(QWidget):
         self.onglet_resume_pays.set_langue(nouvelle_langue=langue_actuelle)
 
         # Onglet 4
-        self.top_pays_visites.set_entete_regions(
-            self.traduire_depuis_id(
+        self.top_pays_visites.set_entetes(
+            texte_region=self.traduire_depuis_id(
                 "classement_selon_regions", prefixe="<b>", suffixe="</b>"
-            )
-        )
-        self.top_pays_visites.set_entete_departements(
-            self.traduire_depuis_id(
+            ),
+            texte_departement=self.traduire_depuis_id(
                 "classement_selon_departements", prefixe="<b>", suffixe="</b>"
-            )
+            ),
+            texte_onglet_1="🗺️",
+            texte_onglet_2=self.traduire_depuis_id(
+                "titre_sous_onglet_4_2",
+                suffixe=" 🏆" if inclure_emojis_onglets else "",
+            ),
         )
+
         self.top_pays_visites.set_langue(nouvelle_langue=langue_actuelle)
 
         # # Onglet 5
@@ -1333,6 +1337,12 @@ class SettingsApp(QWidget):
             self.maj_liste_reg_dep_pays()
             self.top_pays_visites.set_dicts_granu(dict_nv=self.dicts_granu)
             self.onglet_resume_pays.set_dicts_granu(dict_nv=self.dicts_granu)
+            print(
+                fonctions_utiles_2_0.nb_pays_visites(
+                    dict_granu=self.dicts_granu,
+                    continents=constantes.liste_regions_monde,
+                )
+            )
 
     def reinitialisation_parametres(self, nom_aussi=True):
 

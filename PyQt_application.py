@@ -40,7 +40,7 @@ from PyQt6.QtCore import Qt, QTimer, QSize, QThread
 import constantes
 from production_cartes import creer_graphique_1_2
 from application import fonctions_utiles_2_0, classes_utiles_2_2
-from application.classes import onglet_3
+from application.classes import onglet_3, onglet_5
 
 
 warnings.filterwarnings("ignore")
@@ -588,7 +588,7 @@ class SettingsApp(QWidget):
         self.tabs.addTab(self.top_pays_visites, "Pays les plus visités")
 
         # Onglet 5
-        self.description_application = classes_utiles_2_2.OngletInformations()
+        self.description_application = onglet_5.OngletInformations()
         self.tabs.addTab(self.description_application, "ℹ️")
 
         # Définir le QTabWidget comme layout principal pour le widget principal

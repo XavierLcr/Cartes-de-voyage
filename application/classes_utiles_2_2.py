@@ -13,7 +13,6 @@ from PyQt6.QtWidgets import (
     QVBoxLayout,
     QScrollArea,
     QGridLayout,
-    QCheckBox,
     QTabWidget,
 )
 from PyQt6.QtGui import QPainter, QPen, QColor, QBrush
@@ -476,24 +475,3 @@ class OngletTopPays(QWidget):
         self.langue_utilisee = nouvelle_langue
         self.lancer_classement_par_region_departement(top_n=self.top_n)
         self.hemicycle.set_langue(langue=nouvelle_langue)
-
-
-# Cinquième onglet
-class OngletInformations(QWidget):
-    def __init__(self, parent=None):
-        super().__init__(parent)
-
-        layout = QHBoxLayout(self)
-
-        self.scroll_area = QScrollArea()
-        self.scroll_area.setWidgetResizable(True)
-
-        self.label = QLabel()
-        self.label.setWordWrap(True)
-        self.scroll_area.setWidget(self.label)
-
-        layout.addWidget(self.scroll_area)
-
-    def set_description(self, texte_html: str):
-        """Permet de mettre à jour le texte affiché."""
-        self.label.setText(texte_html)

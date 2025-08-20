@@ -102,21 +102,21 @@ table_superficie = ouvrir_fichier(
 # Import de la traduction des nom des pays
 pays_differentes_langues = ouvrir_fichier(
     direction_fichier=direction_donnees_application,
-    nom_fichier="traductions_nom_pays.yaml",
+    nom_fichier="noms_pays_traduction.yaml",
     defaut={},
 )
 
-# Import des pays regroupés
+# Import des regroupements de pays
 liste_pays_groupes = ouvrir_fichier(
     direction_fichier=direction_donnees_application,
-    nom_fichier="liste_pays_groupes.yaml",
+    nom_fichier="cartes_pays_regroupements.yaml",
     defaut={},
 )
 
 # Import des régions mondiales considérées
 liste_regions_monde = ouvrir_fichier(
     direction_fichier=direction_donnees_application,
-    nom_fichier="liste_regions_monde.yaml",
+    nom_fichier="continents.yaml",
     defaut={},
 )
 
@@ -141,28 +141,28 @@ phrases_interface = ouvrir_fichier(
 # Import de la traduction de l'interface
 outil_differentes_langues = ouvrir_fichier(
     direction_fichier=direction_donnees_application,
-    nom_fichier="traductions_phrase_outil.yaml",
+    nom_fichier="phrases_interface_traduction.yaml",
     defaut={},
 )
 
 # Import des régions
 regions_par_pays = ouvrir_fichier(
     direction_fichier=direction_donnees_application,
-    nom_fichier="liste_pays_regions.yaml",
+    nom_fichier="regions_par_pays.yaml",
     defaut={},
 )
 
 # Import des départements
 departements_par_pays = ouvrir_fichier(
     direction_fichier=direction_donnees_application,
-    nom_fichier="liste_pays_departements.yaml",
+    nom_fichier="departements_par_pays.yaml",
     defaut={},
 )
 
 # Import de la liste de thèmes
 liste_ambiances = ouvrir_fichier(
     direction_fichier=direction_donnees_application,
-    nom_fichier="themes_cartes.yaml",
+    nom_fichier="cartes_ambiances.yaml",
     defaut={
         "Pastel": {
             "min_luminosite": 0.8,
@@ -176,20 +176,20 @@ liste_ambiances = ouvrir_fichier(
 # Import de la liste des teintes
 liste_couleurs = ouvrir_fichier(
     direction_fichier=direction_donnees_application,
-    nom_fichier="teintes_couleurs.yaml",
+    nom_fichier="cartes_teintes.yaml",
     defaut={"Multicolore": [i / 360 for i in range(0, 360)]},
 )
 
 # Import des langues disponibles
 dict_langues_dispo = ouvrir_fichier(
     direction_fichier=direction_donnees_application,
-    nom_fichier="traductions_noms_langues.yaml",
+    nom_fichier="noms_langues_traduction.yaml",
     defaut={},
 )
 
 # Import des paramètres traduits
 parametres_traduits = ouvrir_fichier(
     direction_fichier=direction_donnees_application,
-    nom_fichier="traductions_parametres.yaml",
+    nom_fichier="parametres_cartes_traduction.yaml",
     defaut={},
 )

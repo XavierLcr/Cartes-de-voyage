@@ -53,7 +53,9 @@ warnings.filterwarnings("ignore")
 # Import de la sauvegarde
 try:
     with open(
-        os.path.join(constantes.direction_donnees_application, "sauvegarde_param.yaml"),
+        os.path.join(
+            constantes.direction_donnees_application, "sauvegarde_utilisateurs.yaml"
+        ),
         "r",
         encoding="utf-8",
     ) as file:
@@ -1030,7 +1032,8 @@ class SettingsApp(QWidget):
                 self.nom_individu.addItem(settings["name"])
             with open(
                 os.path.join(
-                    constantes.direction_donnees_application, "sauvegarde_param.yaml"
+                    constantes.direction_donnees_application,
+                    "sauvegarde_utilisateurs.yaml",
                 ),
                 "w",
                 encoding="utf-8",
@@ -1526,7 +1529,8 @@ class SettingsApp(QWidget):
             # sauvegarde
             with open(
                 os.path.join(
-                    constantes.direction_donnees_application, "sauvegarde_param.yaml"
+                    constantes.direction_donnees_application,
+                    "sauvegarde_utilisateurs.yaml",
                 ),
                 "w",
                 encoding="utf-8",

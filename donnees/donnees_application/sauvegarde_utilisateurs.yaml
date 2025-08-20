@@ -1,0 +1,626 @@
+Bahia:
+  afrique: false
+  amerique: true
+  asie: false
+  autres_regions: false
+  carte_du_monde: false
+  cartes_des_pays: true
+  color: Arc en ciel
+  dictionnaire_departements:
+    Belgium:
+    - Antwerpen
+    - Brabant Wallon
+    - Bruxelles
+    - Oost-Vlaanderen
+    - Vlaams Brabant
+    - West-Vlaanderen
+  dictionnaire_regions:
+    Algeria:
+    - Alger
+    Andorra:
+    - Andorra la Vella
+    Bahamas:
+    - East Grand Bahama
+    - New Providence
+    - West Grand Bahama
+    Canada:
+    - Ontario
+    - Québec
+    Denmark:
+    - Hovedstaden
+    - Sjælland
+    France:
+    - Auvergne-Rhône-Alpes
+    - Bourgogne-Franche-Comté
+    - Bretagne
+    - Centre-Val de Loire
+    - Corse
+    - Grand Est
+    - Hauts-de-France
+    - Normandie
+    - Nouvelle-Aquitaine
+    - Occitanie
+    - Pays de la Loire
+    - Provence-Alpes-Côte d'Azur
+    - Île-de-France
+    French Polynesia:
+    - Îles Sous-le-Vent
+    - Îles du Vent
+    Germany:
+    - Baden-Württemberg
+    - Bremen
+    Guadeloupe:
+    - Basse-Terre
+    - Pointe-à-Pitre
+    Iceland:
+    - Austurland
+    - Höfuðborgarsvæði
+    - Norðurland eystra
+    - Norðurland vestra
+    - Suðurland
+    - Suðurnes
+    - Vesturland
+    Monaco:
+    - Monaco
+    Morocco:
+    - Fès - Boulemane
+    Netherlands:
+    - Noord-Holland
+    - Zeeland
+    - Zuid-Holland
+    Norway:
+    - Akershus
+    - Aust-Agder
+    - Buskerud
+    - Hordaland
+    - Møre og Romsdal
+    - Nordland
+    - Oppland
+    - Oslo
+    - Sogn og Fjordane
+    - Sør-Trøndelag
+    - Troms
+    - Vest-Agder
+    Oman:
+    - Ad Dakhliyah
+    - Al Batinah North
+    - Al Batinah South
+    - Ash Sharqiyah North
+    - Muscat
+    Poland:
+    - Mazowieckie
+    Portugal:
+    - Aveiro
+    - Braga
+    - Coimbra
+    - Leiria
+    - Lisboa
+    - Porto
+    - Santarém
+    - Vila Real
+    - Évora
+    Réunion:
+    - Saint-Benoît
+    - Saint-Denis
+    - Saint-Paul
+    - Saint-Pierre
+    Saint-Martin:
+    - ''
+    Seychelles:
+    - Grand'Anse Praslin
+    South Korea:
+    - Busan
+    - Daegu
+    - Daejeon
+    - Gwangju
+    - Gyeonggi-do
+    - Incheon
+    - Jeollabuk-do
+    - Jeollanam-do
+    - Seoul
+    Spain:
+    - Andalucía
+    - Cantabria
+    - Castilla-La Mancha
+    - Cataluña
+    - Comunidad de Madrid
+    - Extremadura
+    - Galicia
+    - País Vasco
+    - Principado de Asturias
+    Sweden:
+    - Norrbotten
+    - Stockholm
+    - Södermanland
+    - Värmland
+    - Västra Götaland
+    - Östergötland
+    Switzerland:
+    - Appenzell Ausserrhoden
+    - Appenzell Innerrhoden
+    - Basel-Stadt
+    - Bern
+    - Fribourg
+    - Genève
+    - Lucerne
+    - Sankt Gallen
+    - Schaffhausen
+    - Thurgau
+    - Valais
+    - Vaud
+    - Zug
+    - Zürich
+    Trinidad and Tobago:
+    - Tobago
+    United Arab Emirates:
+    - Abu Dhabi
+    - Ajman
+    - Dubai
+    - Ras Al-Khaimah
+    - Sharjah
+    - Umm al-Qaywayn
+    United Kingdom:
+    - England
+    - Scotland
+    - Wales
+    United States:
+    - Arizona
+    - California
+    - Colorado
+    - Maine
+    - Massachusetts
+    - Montana
+    - Nevada
+    - New York
+    - Utah
+    - Vermont
+    - Wyoming
+  europe: true
+  format: jpg
+  granularity: Pays
+  granularity_back: Pays
+  language: français
+  limite_nb_cartes: 10
+  moyen_orient: false
+  name: Bahia
+  publier_granu_faible: false
+  quality: 1722
+  results: C:/Users/xaruo/Documents/Voyages/Bahia - Cartes de voyage
+  theme: Douceur
+Papa:
+  afrique: false
+  amerique: false
+  asie: true
+  autres_regions: false
+  carte_du_monde: false
+  cartes_des_pays: false
+  color: Arc en ciel
+  dictionnaire_departements: {}
+  dictionnaire_regions:
+    Bahamas:
+    - East Grand Bahama
+    - New Providence
+    - West Grand Bahama
+    Belgium:
+    - Bruxelles
+    - Vlaanderen
+    - Wallonie
+    Canada:
+    - Ontario
+    - Québec
+    Chile:
+    - Valparaíso
+    Denmark: null
+    Finland:
+    - Eastern Finland
+    France:
+    - Auvergne-Rhône-Alpes
+    - Bourgogne-Franche-Comté
+    - Bretagne
+    - Centre-Val de Loire
+    - Corse
+    - Grand Est
+    - Hauts-de-France
+    - Normandie
+    - Nouvelle-Aquitaine
+    - Occitanie
+    - Pays de la Loire
+    - Provence-Alpes-Côte d'Azur
+    - Île-de-France
+    French Polynesia:
+    - Îles Sous-le-Vent
+    - Îles du Vent
+    Germany:
+    - Baden-Württemberg
+    - Bremen
+    Greece:
+    - Aegean
+    - Crete
+    - Peloponnese, Western Greece and
+    Guadeloupe:
+    - Basse-Terre
+    - Pointe-à-Pitre
+    Iceland:
+    - Austurland
+    - Höfuðborgarsvæði
+    - Norðurland eystra
+    - Norðurland vestra
+    - Suðurland
+    - Suðurnes
+    - Vesturland
+    India: null
+    Italy:
+    - Lazio
+    - Liguria
+    - Toscana
+    - Veneto
+    Monaco:
+    - Monaco
+    Morocco:
+    - Fès - Boulemane
+    Netherlands:
+    - Noord-Holland
+    Norway:
+    - Akershus
+    - Aust-Agder
+    - Buskerud
+    - Hordaland
+    - Møre og Romsdal
+    - Nordland
+    - Oppland
+    - Oslo
+    - Sogn og Fjordane
+    - Sør-Trøndelag
+    - Troms
+    - Vest-Agder
+    Oman:
+    - Ad Dakhliyah
+    - Al Batinah North
+    - Al Batinah South
+    - Ash Sharqiyah North
+    - Muscat
+    Portugal:
+    - Aveiro
+    - Braga
+    - Coimbra
+    - Leiria
+    - Lisboa
+    - Porto
+    - Santarém
+    - Vila Real
+    - Évora
+    Réunion:
+    - Saint-Benoît
+    - Saint-Denis
+    - Saint-Paul
+    - Saint-Pierre
+    Saint-Martin:
+    - ''
+    Seychelles:
+    - Grand'Anse Praslin
+    South Korea:
+    - Busan
+    - Daegu
+    - Daejeon
+    - Gwangju
+    - Gyeonggi-do
+    - Incheon
+    - Jeollabuk-do
+    - Jeollanam-do
+    - Seoul
+    Spain:
+    - Andalucía
+    - Cantabria
+    - Castilla-La Mancha
+    - Cataluña
+    - Comunidad de Madrid
+    - Extremadura
+    - Galicia
+    - País Vasco
+    - Principado de Asturias
+    Sweden:
+    - Norrbotten
+    - Stockholm
+    - Södermanland
+    - Värmland
+    - Västra Götaland
+    - Östergötland
+    Switzerland:
+    - Genève
+    Trinidad and Tobago:
+    - Tobago
+    United Kingdom:
+    - England
+    - Scotland
+    - Wales
+    United States: null
+    Vatican City:
+    - ''
+  europe: false
+  format: png
+  granularity: Pays
+  granularity_back: Pays
+  language: français
+  limite_nb_cartes: 10
+  moyen_orient: false
+  name: Papa
+  publier_granu_faible: false
+  quality: 1168
+  results: C:/Users/xaruo/Documents/Voyages/Papa - Cartes de voyage
+  theme: Douceur
+Xavier:
+  afrique: false
+  amerique: false
+  asie: false
+  autres_regions: false
+  carte_du_monde: false
+  cartes_des_pays: false
+  color: Teintes hivernales
+  couleur_fond_carte: false
+  dictionnaire_departements:
+    Austria:
+    - Salzburg Stadt
+    - Wien Stadt
+    Belgium:
+    - Bruxelles
+    - Liège
+    - West-Vlaanderen
+    Bulgaria:
+    - Asenovgrad
+    - Burgas
+    - Ihtiman
+    - Kazanlak
+    - Nesebar
+    - Pavel Banya
+    - Plovdiv
+    - Pomorie
+    - Sozopol
+    - Stolichna
+    Chile:
+    - Isla de Pascua
+    Croatia:
+    - Lovran
+    - Plitvička Jezera
+    - Zadar
+    - Šibenik
+    Czechia:
+    - Praha 1
+    - Praha 2
+    - Praha 6
+    - Praha 7
+    Denmark:
+    - Frederiksberg
+    - Guldborgsund
+    - København
+    - Lolland
+    France:
+    - Alpes-Maritimes
+    - Alpes-de-Haute-Provence
+    - Aude
+    - Aveyron
+    - Bas-Rhin
+    - Calvados
+    - Charente-Maritime
+    - Corrèze
+    - Corse-du-Sud
+    - Drôme
+    - Essonne
+    - Eure
+    - Gard
+    - Gironde
+    - Haut-Rhin
+    - Haute-Corse
+    - Haute-Garonne
+    - Haute-Savoie
+    - Haute-Vienne
+    - Hautes-Alpes
+    - Hauts-de-Seine
+    - Hérault
+    - Loire-Atlantique
+    - Loiret
+    - Lozère
+    - Manche
+    - Meurthe-et-Moselle
+    - Morbihan
+    - Moselle
+    - Oise
+    - Paris
+    - Puy-de-Dôme
+    - Pyrénées-Atlantiques
+    - Pyrénées-Orientales
+    - Seine-Saint-Denis
+    - Seine-et-Marne
+    - Somme
+    - Tarn-et-Garonne
+    - Val-d'Oise
+    - Val-de-Marne
+    - Var
+    - Vendée
+    - Yvelines
+    Germany:
+    - Berlin
+    - Bremerhaven
+    - Dachau
+    - Frankfurt am Main
+    - Göttingen
+    - Heidelberg
+    - Kaiserslautern (Kreisfreie Stadt
+    - Karlsruhe (Stadtkreis)
+    - Köln
+    - Ludwigshafen am Rhein
+    - Lörrach
+    - Lübeck
+    - Mainz
+    - Mannheim
+    - München
+    - München (Kreisfreie Stadt)
+    - Ostholstein
+    - Region Hannover
+    - Rhein-Neckar-Kreis
+    - Worms
+    Italy:
+    - Rimini
+    - Roma
+    - Venezia
+    - Verona
+    Luxembourg:
+    - Luxembourg
+    Morocco:
+    - Fès
+    - Meknès
+    Netherlands:
+    - Amsterdam
+    Portugal:
+    - Almada
+    - Lisboa
+    - Sintra
+    Slovakia:
+    - Bratislava I
+    - Bratislava II
+    Slovenia:
+    - Postojna
+    South Korea:
+    - Dobong
+    - Gangnam
+    - Jongno
+    - South Korea-Seoul-Jung
+    - Mapo
+    - Paju
+    - Songpa
+    - Yangju
+    - Yongsan
+    Spain:
+    - Barcelona
+    - Guipúzcoa
+    Sweden:
+    - Kiruna
+    Switzerland:
+    - Basel
+    - Rheinfelden
+    United Kingdom:
+    - Argyll and Bute
+    - Bath and North East Somerset
+    - Bridgend
+    - Cardiff
+    - Carmarthenshire
+    - Ceredigion
+    - Cheshire West and Chester
+    - City of Edinburgh
+    - Conwy
+    - Cornwall
+    - Cumbria
+    - East Sussex
+    - Essex
+    - Falkirk
+    - Greater London
+    - Gwynedd
+    - Hertfordshire
+    - Highland
+    - Isle of Anglesey
+    - Kent
+    - Newport
+    - Northumberland
+    - Orkney Islands
+    - Oxfordshire
+    - Pembrokeshire
+    - Plymouth
+    - Scottish Borders
+    - Shropshire
+    - Stirling
+    - Swansea
+    - Vale of Glamorgan
+    - West Lothian
+    - Wiltshire
+    - Windsor and Maidenhead
+  dictionnaire_regions:
+    Bahamas:
+    - East Grand Bahama
+    - New Providence
+    - West Grand Bahama
+    Cyprus:
+    - Famagusta
+    - Larnaca
+    - Limassol
+    - Nicosia
+    - Paphos
+    French Polynesia:
+    - Îles Sous-le-Vent
+    - Îles du Vent
+    Guadeloupe:
+    - Basse-Terre
+    - Pointe-à-Pitre
+    Iceland:
+    - Austurland
+    - Höfuðborgarsvæði
+    - Norðurland eystra
+    - Norðurland vestra
+    - Suðurland
+    - Suðurnes
+    - Vesturland
+    Japan:
+    - Fukuoka
+    - Hiroshima
+    - Hyōgo
+    - Kagawa
+    - Kyoto
+    - Nara
+    - Osaka
+    - Tochigi
+    - Tokyo
+    Monaco:
+    - Monaco
+    Northern Cyprus:
+    - Girne
+    - Nicosia
+    Norway:
+    - Aust-Agder
+    - Hordaland
+    - Møre og Romsdal
+    - Nordland
+    - Oslo
+    - Sogn og Fjordane
+    - Troms
+    - Vest-Agder
+    Oman:
+    - Ad Dakhliyah
+    - Al Batinah North
+    - Al Batinah South
+    - Ash Sharqiyah North
+    - Muscat
+    Réunion:
+    - Saint-Benoît
+    - Saint-Denis
+    - Saint-Paul
+    - Saint-Pierre
+    Seychelles:
+    - Grand'Anse Praslin
+    Singapore:
+    - Central
+    Trinidad and Tobago:
+    - Tobago
+    United Arab Emirates:
+    - Abu Dhabi
+    - Ajman
+    - Dubai
+    - Ras Al-Khaimah
+    - Sharjah
+    - Umm al-Qaywayn
+    United Kingdom:
+    - England
+    - Scotland
+    - Wales
+    Vatican City:
+    - ''
+  europe: true
+  format: png
+  format_onglet_3: true
+  granularity: Pays
+  granularity_back: Pays
+  language: français
+  limite_nb_cartes: 5
+  moyen_orient: false
+  name: Xavier
+  publier_granu_faible: false
+  quality: 2054
+  results: C:/Users/xaruo/Documents/Voyages/Xavier – Cartes de voyage
+  theme: Sans restrictions

@@ -44,7 +44,7 @@ import constantes
 from production_cartes import creer_graphique_1_2
 from application import fonctions_utiles_2_0
 from application.onglets import onglet_1, onglet_3, onglet_5
-from application.onglets.onglet_4 import onglet_4_2_classement
+from application.onglets.onglet_4 import onglet_4
 
 
 warnings.filterwarnings("ignore")
@@ -545,7 +545,7 @@ class SettingsApp(QWidget):
         self.tabs.addTab(self.onglet_resume_pays, "📊")
 
         # Quatrième onglet
-        self.top_pays_visites = onglet_4_2_classement.OngletTopPays(
+        self.top_pays_visites = onglet_4.OngletTopPays(
             dicts_granu=self.dicts_granu,
             constantes=constantes,
             langue_utilisee=fonctions_utiles_2_0.obtenir_clef_par_valeur(

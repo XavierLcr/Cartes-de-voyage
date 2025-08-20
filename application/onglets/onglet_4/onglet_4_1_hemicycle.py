@@ -30,15 +30,7 @@ class HemicycleWidget(QWidget):
         points_base=15,
         points_increment=4,
         lighter_value=150,
-        continent_colors: dict = {
-            "Africa": "#3454D1",  # Bleu roi
-            "Antarctica": "#2E8B57",  # Vert océan
-            "Asia": "#C3423F",  # Rouge cerise
-            "Europe": "#7B4B94",  # Violet prune
-            "North America": "#2A7F9E",  # Bleu sarcelle
-            "Oceania": "#E27D60",  # Orange chaud
-            "South America": "#4A7856",  # Vert forêt clair
-        },
+        continent_colors: dict = {},
     ):
 
         super().__init__()

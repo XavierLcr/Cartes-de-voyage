@@ -59,8 +59,17 @@ parametres_application = {
     "n_rangees": 9,
     "points_base": 15,
     "points_increment": 4,
-    "lighter_value": 170,
+    "lighter_value": 180,
     "top_n_pays": None,
+    "couleurs_continents": {
+        "Africa": "#E6F515",  # Désert
+        "Antarctica": "#A7C9E6",  # Glace
+        "Asia": "#EE211E",  # Rouge
+        "Europe": "#9A0EE6",  # Violet
+        "North America": "#1310CE",  # Bleu océan
+        "Oceania": "#1EC3CF",  # Bleu lagon
+        "South America": "#23E958",  # Vert forêt
+    },
     # Paramètres des cartes
     "qualite_min": 200,
     "qualite_max": 4000,
@@ -573,6 +582,7 @@ class SettingsApp(QWidget):
             n_rangees=parametres_application["n_rangees"],
             points_base=parametres_application["points_base"],
             points_increment=parametres_application["points_increment"],
+            continent_colors=parametres_application["couleurs_continents"],
         )
         self.tabs.addTab(self.top_pays_visites, "Pays les plus visités")
 

@@ -43,8 +43,8 @@ from PyQt6.QtCore import Qt, QTimer, QSize, QThread
 import constantes
 from production_cartes import creer_graphique_1_2
 from application import fonctions_utiles_2_0
-from application.classes import onglet_1, onglet_3, onglet_5
-from application.classes.onglet_4 import onglet_4_2_classement
+from application.onglets import onglet_1, onglet_3, onglet_5
+from application.onglets.onglet_4 import onglet_4_2_classement
 
 
 warnings.filterwarnings("ignore")

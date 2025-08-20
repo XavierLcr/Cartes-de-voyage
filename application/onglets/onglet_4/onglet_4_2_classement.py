@@ -21,7 +21,7 @@ from application.fonctions_utiles_2_0 import (
     creer_ligne_separation,
 )
 from production_cartes.creer_carte_1_1 import cree_base_toutes_granularites
-from application.classes.onglet_4 import onglet_4_1_hemicycle
+from application.onglets.onglet_4 import onglet_4_1_hemicycle
 
 
 # Quatrième onglet

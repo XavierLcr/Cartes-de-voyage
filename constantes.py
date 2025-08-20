@@ -3,10 +3,9 @@
 # Fichier contenant les constantes et les données secondaires                  #
 ################################################################################
 
-import os
-import sys
-import yaml
-import pickle
+import os, sys, yaml, pickle
+from application.fonctions_utiles_2_0 import ouvrir_fichier
+
 
 if getattr(sys, "frozen", False):
     # cx_Freeze place tout à côté de l'exécutable
@@ -25,9 +24,13 @@ else:
     direction_donnees_autres = os.path.join(direction_donnees, "donnees_autres")
     compilation = False
 
+# Version de l'application
 version_logiciel = "2.2"
 
-# Import des paramètres
+
+# ––––––– Import des paramètres –––––––
+
+# Paramètres par défaut
 parametres_application_defaut = {
     # Paramètres d'application
     "application_position_largeur": 250,
@@ -58,16 +61,14 @@ parametres_application_defaut = {
     "qualite_max": 4000,
 }
 
-try:
-    with open(
-        os.path.join(direction_base, "parametres_application.yaml"),
-        "r",
-        encoding="utf-8",
-    ) as f:
-        parametres_application = yaml.safe_load(f)
-except:
-    parametres_application = {}
+# Import
+parametres_application = ouvrir_fichier(
+    direction_fichier=direction_base,
+    nom_fichier="parametres_application.yaml",
+    defaut=parametres_application_defaut,
+)
 
+# Complétion si nécessaire des paramètres
 parametres_application.update(
     {
         k: v
@@ -77,141 +78,118 @@ parametres_application.update(
 )
 
 
+# ––––––– Import des données géographiques –––––––
+
+
 # Import des lieux avec de l'eau
-try:
-    with open(
-        os.path.join(direction_donnees_pickle, "carte_monde_lacs.pkl"),
-        "rb",
-    ) as f:
-        gdf_lacs = pickle.load(f)
-except:
-    gdf_lacs = None
+gdf_lacs = ouvrir_fichier(
+    direction_fichier=direction_donnees_pickle,
+    nom_fichier="carte_monde_lacs.pkl",
+    defaut=None,
+)
 
 # Import dela table des superficies
-try:
-    with open(
-        os.path.join(direction_donnees_pickle, "table_superficie.pkl"),
-        "rb",
-    ) as f:
-        table_superficie = pickle.load(f)
-except:
-    table_superficie = None
+table_superficie = ouvrir_fichier(
+    direction_fichier=direction_donnees_pickle,
+    nom_fichier="table_superficie.pkl",
+    defaut=None,
+)
 
-# Import de la traduction des pays
-try:
-    with open(
-        os.path.join(direction_donnees_application, "traductions_nom_pays.yaml"),
-        "r",
-        encoding="utf-8",
-    ) as file:
-        pays_differentes_langues = yaml.safe_load(file)
-except Exception as e:
-    print("Une erreur est survenue :", e)
-    pays_differentes_langues = {}
+
+# ––––––– Import des données YAML internes –––––––
+
+
+# Import de la traduction des nom des pays
+pays_differentes_langues = ouvrir_fichier(
+    direction_fichier=direction_donnees_application,
+    nom_fichier="traductions_nom_pays.yaml",
+    defaut={},
+)
 
 # Import des pays regroupés
-try:
-    with open(
-        os.path.join(direction_donnees_application, "liste_pays_groupes.yaml"),
-        "r",
-        encoding="utf-8",
-    ) as file:
-        liste_pays_groupes = yaml.safe_load(file)
-except:
-    liste_pays_groupes = {}
-
-# Import des phrases de l'interfaces
-try:
-    with open(
-        os.path.join(direction_donnees_application, "phrases_interface.yaml"),
-        "r",
-        encoding="utf-8",
-    ) as file:
-        phrases_interface = yaml.safe_load(file)
-except:
-    phrases_interface = {}
-
-# Import de la traduction de l'interface
-try:
-    with open(
-        os.path.join(direction_donnees_application, "traductions_phrase_outil.yaml"),
-        "r",
-        encoding="utf-8",
-    ) as file:
-        outil_differentes_langues = yaml.safe_load(file)
-except:
-    outil_differentes_langues = {}
+liste_pays_groupes = ouvrir_fichier(
+    direction_fichier=direction_donnees_application,
+    nom_fichier="liste_pays_groupes.yaml",
+    defaut={},
+)
 
 # Import des régions mondiales considérées
-with open(
-    os.path.join(direction_donnees_application, "liste_regions_monde.yaml"),
-    "r",
-    encoding="utf-8",
-) as file:
-    liste_regions_monde = yaml.safe_load(file)
-
-# Import des régions
-with open(
-    os.path.join(direction_donnees_application, "liste_pays_regions.yaml"),
-    "r",
-    encoding="utf-8",
-) as file:
-    regions_par_pays = yaml.safe_load(file)
-
-# Import des départements
-with open(
-    os.path.join(direction_donnees_application, "liste_pays_departements.yaml"),
-    "r",
-    encoding="utf-8",
-) as file:
-    departements_par_pays = yaml.safe_load(file)
-
-# Import de la liste des teintes
-with open(
-    os.path.join(direction_donnees_application, "teintes_couleurs.yaml"),
-    "r",
-    encoding="utf-8",
-) as file:
-    liste_couleurs = yaml.safe_load(file)
-
-# Import de la liste de thèmes
-with open(
-    os.path.join(direction_donnees_application, "themes_cartes.yaml"),
-    "r",
-    encoding="utf-8",
-) as file:
-    liste_ambiances = yaml.safe_load(file)
-
-# Import des langues disponibles
-try:
-    with open(
-        os.path.join(direction_donnees_application, "traductions_noms_langues.yaml"),
-        "r",
-        encoding="utf-8",
-    ) as file:
-        dict_langues_dispo = yaml.safe_load(file)
-except:
-    dict_langues_dispo = {}
-
-# Import des paramètres traduits
-try:
-    with open(
-        os.path.join(direction_donnees_application, "traductions_parametres.yaml"),
-        "r",
-        encoding="utf-8",
-    ) as file:
-        parametres_traduits = yaml.safe_load(file)
-except:
-    parametres_traduits = {}
-
+liste_regions_monde = ouvrir_fichier(
+    direction_fichier=direction_donnees_application,
+    nom_fichier="liste_regions_monde.yaml",
+    defaut={},
+)
 
 # Import des emojis associés aux pays
-try:
-    with open(
-        os.path.join(direction_donnees_application, "emojis_pays.yaml"),
-        "r",
-        encoding="utf-8",
-    ) as file:
-        emojis_pays = yaml.safe_load(file)
-except:
-    emojis_pays = {}
+emojis_pays = ouvrir_fichier(
+    direction_fichier=direction_donnees_application,
+    nom_fichier="emojis_pays.yaml",
+    defaut={},
+)
+
+
+# ––––––– Import des données YAML liées aux paramètres –––––––
+
+
+# Import des phrases de l'interface
+phrases_interface = ouvrir_fichier(
+    direction_fichier=direction_donnees_application,
+    nom_fichier="phrases_interface.yaml",
+    defaut={},
+)
+
+# Import de la traduction de l'interface
+outil_differentes_langues = ouvrir_fichier(
+    direction_fichier=direction_donnees_application,
+    nom_fichier="traductions_phrase_outil.yaml",
+    defaut={},
+)
+
+# Import des régions
+regions_par_pays = ouvrir_fichier(
+    direction_fichier=direction_donnees_application,
+    nom_fichier="liste_pays_regions.yaml",
+    defaut={},
+)
+
+# Import des départements
+departements_par_pays = ouvrir_fichier(
+    direction_fichier=direction_donnees_application,
+    nom_fichier="liste_pays_departements.yaml",
+    defaut={},
+)
+
+# Import de la liste de thèmes
+liste_ambiances = ouvrir_fichier(
+    direction_fichier=direction_donnees_application,
+    nom_fichier="themes_cartes.yaml",
+    defaut={
+        "Pastel": {
+            "min_luminosite": 0.8,
+            "max_luminosite": 0.95,
+            "min_saturation": 0.2,
+            "max_saturation": 0.4,
+        }
+    },
+)
+
+# Import de la liste des teintes
+liste_couleurs = ouvrir_fichier(
+    direction_fichier=direction_donnees_application,
+    nom_fichier="teintes_couleurs.yaml",
+    defaut={"Multicolore": [i / 360 for i in range(0, 360)]},
+)
+
+# Import des langues disponibles
+dict_langues_dispo = ouvrir_fichier(
+    direction_fichier=direction_donnees_application,
+    nom_fichier="traductions_noms_langues.yaml",
+    defaut={},
+)
+
+# Import des paramètres traduits
+parametres_traduits = ouvrir_fichier(
+    direction_fichier=direction_donnees_application,
+    nom_fichier="traductions_parametres.yaml",
+    defaut={},
+)

@@ -3,6 +3,8 @@
 # 2.0 - Fonctions utiles à l'application                                       #
 ################################################################################
 
+
+import os, pickle, yaml
 from PyQt6.QtWidgets import QHBoxLayout, QFrame
 
 
@@ -100,3 +102,33 @@ def creer_ligne_verticale():
     ligne.setFrameShape(QFrame.Shape.VLine)
     ligne.setFrameShadow(QFrame.Shadow.Raised)
     return ligne
+
+
+# Fonction d'ouverture dedonnées
+def ouvrir_fichier(direction_fichier, nom_fichier, defaut):
+
+    nom_fichier = os.path.join(direction_fichier, nom_fichier)
+    nom, extention = os.path.splitext(nom_fichier)
+
+    try:
+
+        if extention == ".pkl":
+
+            with open(
+                nom_fichier,
+                "rb",
+            ) as file:
+                fichier = pickle.load(file)
+
+        elif extention == ".yaml":
+
+            with open(
+                nom_fichier,
+                "r",
+                encoding="utf-8",
+            ) as file:
+                fichier = yaml.safe_load(file)
+    except:
+        fichier = defaut
+
+    return fichier

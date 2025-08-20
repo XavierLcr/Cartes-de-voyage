@@ -204,28 +204,14 @@ try:
 except:
     parametres_traduits = {}
 
-emojis_pays = {
-    "Antarctica": "🐧​",
-    "Australia": "🦘​",
-    "Belgium": "🧇",
-    "Canada": "​🍁​",
-    "Chile": "🗿​",
-    "China": "​🥮​",
-    "Ecuador": "🐢",
-    "Finland": "​​🎅​",
-    "France": "🥐",
-    "Germany": "🥨​​",
-    "Greece": "🏛️​",
-    "India": "🛕",
-    "Ireland": "☘️​​",
-    "Israel": "🕍​",
-    "Italy": "🍝​",
-    "Japan": "​⛩️​",
-    "Monaco": "​​🎲​",
-    "México": "🌵",
-    "Peru": "🦙",
-    "Romania": "​🧛​",
-    "Saudi Arabia": "🕋​",
-    "United Kingdom": "​​💂🏻‍♂️​",
-    "United States": "🗽",
-}
+
+# Import des emojis associés aux pays
+try:
+    with open(
+        os.path.join(direction_donnees_application, "emojis_pays.yaml"),
+        "r",
+        encoding="utf-8",
+    ) as file:
+        emojis_pays = yaml.safe_load(file)
+except:
+    emojis_pays = {}

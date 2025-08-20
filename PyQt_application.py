@@ -54,13 +54,13 @@ parametres_application = {
     # Paramètres d'interface
     "interface_foncee": False,
     # Paramètres des statistiques
-    "top_n_pays": None,
     "min_width": 500,
     "min_height": 300,
     "n_rangees": 9,
     "points_base": 15,
     "points_increment": 4,
     "lighter_value": 170,
+    "top_n_pays": None,
     # Paramètres des cartes
     "qualite_min": 200,
     "qualite_max": 4000,
@@ -148,6 +148,7 @@ class SettingsApp(QWidget):
 
         # Choix de la langue
         self.label_langue = QLabel()
+        self.label_langue.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.langue_utilisee = QComboBox()
         self.langue_utilisee.addItems(liste_langues_dispo_joli)
         layout_params_individu.addWidget(self.label_langue)
@@ -203,8 +204,9 @@ class SettingsApp(QWidget):
         self.groupe_granularite = QGroupBox()
 
         # Choix de la granularité
-        self.granularite_visite = QComboBox()
         self.label_granularite_visite = QLabel()
+        self.label_granularite_visite.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.granularite_visite = QComboBox()
         layout_granularite_visite = QHBoxLayout()
         layout_granularite_visite.addWidget(self.label_granularite_visite)
         layout_granularite_visite.addWidget(self.granularite_visite)
@@ -213,8 +215,9 @@ class SettingsApp(QWidget):
         )
 
         # Granularité de fond
-        self.granularite_fond = QComboBox()
         self.label_granularite_fond = QLabel()
+        self.label_granularite_fond.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.granularite_fond = QComboBox()
         layout_granularite_fond = QHBoxLayout()
         layout_granularite_fond.addWidget(self.label_granularite_fond)
         layout_granularite_fond.addWidget(self.granularite_fond)
@@ -340,20 +343,22 @@ class SettingsApp(QWidget):
         layout_theme_color = QVBoxLayout()
 
         # Choix du thème
-        layout_theme = QHBoxLayout()
         self.theme_label = QLabel()
+        self.theme_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.theme_combo = QComboBox()
+        self.theme_combo.currentTextChanged.connect(self.maj_style)
+        layout_theme = QHBoxLayout()
         layout_theme.addWidget(self.theme_label)
         layout_theme.addWidget(self.theme_combo)
-        self.theme_combo.currentTextChanged.connect(self.maj_style)
 
         # Choix des couleurs
-        layout_couleurs = QHBoxLayout()
         self.color_label = QLabel()
+        self.color_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.color_combo = QComboBox()
+        self.color_combo.currentTextChanged.connect(self.maj_style)
+        layout_couleurs = QHBoxLayout()
         layout_couleurs.addWidget(self.color_label)
         layout_couleurs.addWidget(self.color_combo)
-        self.color_combo.currentTextChanged.connect(self.maj_style)
 
         # Utilisation ou non du thème dans l'interface
         self.utiliser_theme = QCheckBox()

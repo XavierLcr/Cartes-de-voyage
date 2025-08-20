@@ -5,12 +5,8 @@
 ################################################################################
 
 
-import os
-import sys
 from PyQt6.QtCore import pyqtSignal, QObject
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-from production_cartes import carte_main_1_3
+from production_cartes.carte_main_1_3 import cree_graphe_depuis_debut
 
 
 # Classe de suivi du pays en cours de cartographie
@@ -35,7 +31,7 @@ class CreerCartes(QObject):
         tracker = TrackerPays()
         tracker.tracker_pays_en_cours.connect(self.tracker_signal.emit)
 
-        carte_main_1_3.cree_graphe_depuis_debut(
+        cree_graphe_depuis_debut(
             **self.parametres, tracker=tracker, blabla=False, afficher_nom_lieu=False
         )
 

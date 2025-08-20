@@ -5,8 +5,6 @@
 ################################################################################
 
 
-import os
-import sys
 from PyQt6.QtCore import Qt, QPointF
 from PyQt6.QtWidgets import (
     QWidget,

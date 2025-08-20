@@ -5,22 +5,12 @@
 ################################################################################
 
 
-from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import (
     QWidget,
-    QLabel,
-    QHBoxLayout,
     QVBoxLayout,
-    QScrollArea,
-    QGridLayout,
     QTabWidget,
 )
 
-from application.fonctions_utiles_2_0 import (
-    creer_classement_pays,
-    creer_ligne_separation,
-)
-from production_cartes.creer_carte_1_1 import cree_base_toutes_granularites
 from application.onglets.onglet_4 import onglet_4_1_hemicycle, onglet_4_2_classement
 
 

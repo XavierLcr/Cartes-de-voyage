@@ -272,12 +272,12 @@ class HemicycleWidget(QWidget):
                 if i - total > self.resume[cont]["visites"] - 1:
                     couleur = couleur.lighter(lighter_value)
 
-                return couleur, cont
+                return couleur, self.continent_colors[cont], cont
 
             else:
                 total = total + self.resume[cont]["total"]
 
-        return QColor(0, 0, 0), "Problème"
+        return QColor(0, 0, 0), QColor(255, 255, 255), "Problème"
 
     def paintEvent(self, event):
         painter = QPainter(self)
@@ -295,7 +295,7 @@ class HemicycleWidget(QWidget):
         for coord in coords_angles:
             x, y, angle, level = coord
             rayon_texte = max(rayon_texte, abs(y - center_y))
-            couleur, continent = self.renvoyer_couleur(
+            couleur, couleur_originale, continent = self.renvoyer_couleur(
                 i=i, lighter_value=self.lighter_value
             )
 
@@ -303,9 +303,11 @@ class HemicycleWidget(QWidget):
             continent_points.setdefault(continent, []).append((x, y))
 
             # Dessiner le point
-            painter.setBrush(QBrush(couleur))
+            painter.setBrush(QBrush(couleur))  # Remplissage
+            painter.setPen(QPen(couleur_originale, 2))  # Couleur du contour
             painter.drawEllipse(QPointF(x, y), 5, 5)
 
+            # Incrément
             i += 1
 
         # === Légendes : centrées sur le centroïde ===

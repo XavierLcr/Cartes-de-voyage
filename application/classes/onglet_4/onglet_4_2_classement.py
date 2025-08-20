@@ -1,6 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
-# 2.2 - Classes utiles à l'application                                         #
+# application/classes/onglet_4                                                 #
+# Onglet 4 – Partie classement des pays visités                                #
 ################################################################################
 
 

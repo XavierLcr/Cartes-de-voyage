@@ -49,37 +49,6 @@ from application.classes.onglet_4 import onglet_4_2_classement
 
 warnings.filterwarnings("ignore")
 
-# Paramères
-parametres_application = {
-    # Paramètres d'application
-    "application_position_largeur": 250,
-    "application_position_hauteur": 40,
-    "application_largeur": 750,
-    "application_hauteur": 250,
-    # Paramètres d'interface
-    "interface_foncee": False,
-    # Paramètres des statistiques
-    "min_width": 500,
-    "min_height": 300,
-    "n_rangees": 9,
-    "points_base": 15,
-    "points_increment": 4,
-    "lighter_value": 190,
-    "top_n_pays": None,
-    "couleurs_continents": {
-        "Africa": "#F0E68C",  # Désert
-        "Antarctica": "#A7C9E6",  # Glace
-        "Asia": "#EE211E",  # Rouge
-        "Europe": "#9A0EE6",  # Violet
-        "North America": "#1310CE",  # Bleu océan
-        "Oceania": "#1EC3CF",  # Bleu lagon
-        "South America": "#23E958",  # Vert forêt
-    },
-    # Paramètres des cartes
-    "qualite_min": 200,
-    "qualite_max": 4000,
-}
-
 
 # Import de la sauvegarde
 try:
@@ -107,10 +76,10 @@ class SettingsApp(QWidget):
 
         self.setWindowTitle("Cartes de voyage")
         self.setGeometry(
-            parametres_application["application_position_largeur"],
-            parametres_application["application_position_hauteur"],
-            parametres_application["application_largeur"],
-            parametres_application["application_hauteur"],
+            constantes.parametres_application["application_position_largeur"],
+            constantes.parametres_application["application_position_hauteur"],
+            constantes.parametres_application["application_largeur"],
+            constantes.parametres_application["application_hauteur"],
         )
         self.setWindowIcon(
             QIcon(
@@ -179,7 +148,7 @@ class SettingsApp(QWidget):
         )
         self.suppression_profil.setStyleSheet(
             fonctions_utiles_2_0.style_bouton_de_suppression(
-                sombre=parametres_application["interface_foncee"]
+                sombre=constantes.parametres_application["interface_foncee"]
             )
         )
         layout_params_individu.addWidget(self.suppression_profil)
@@ -416,13 +385,17 @@ class SettingsApp(QWidget):
         self.label_qualite_min = QLabel()
         self.label_qualite_max = QLabel()
         self.curseur_qualite = QSlider(Qt.Orientation.Horizontal)
-        self.curseur_qualite.setMinimum(parametres_application["qualite_min"])
-        self.curseur_qualite.setMaximum(parametres_application["qualite_max"])
+        self.curseur_qualite.setMinimum(
+            constantes.parametres_application["qualite_min"]
+        )
+        self.curseur_qualite.setMaximum(
+            constantes.parametres_application["qualite_max"]
+        )
         self.curseur_qualite.setValue(
             int(
                 (
-                    parametres_application["qualite_min"]
-                    + parametres_application["qualite_max"]
+                    constantes.parametres_application["qualite_min"]
+                    + constantes.parametres_application["qualite_max"]
                 )
                 / 2
             )
@@ -479,7 +452,7 @@ class SettingsApp(QWidget):
         self.reinit_parametres.clicked.connect(lambda: self.maj_langue_interface(True))
         self.reinit_parametres.setStyleSheet(
             fonctions_utiles_2_0.style_bouton_de_suppression(
-                sombre=parametres_application["interface_foncee"]
+                sombre=constantes.parametres_application["interface_foncee"]
             )
         )
 
@@ -580,14 +553,14 @@ class SettingsApp(QWidget):
                 valeur=self.langue_utilisee.currentText(),
             ),
             liste_gdfs=liste_gdfs,
-            top_n=parametres_application["top_n_pays"],
-            lighter_value=parametres_application["lighter_value"],
-            min_height=parametres_application["min_height"],
-            min_width=parametres_application["min_width"],
-            n_rangees=parametres_application["n_rangees"],
-            points_base=parametres_application["points_base"],
-            points_increment=parametres_application["points_increment"],
-            continent_colors=parametres_application["couleurs_continents"],
+            top_n=constantes.parametres_application["top_n_pays"],
+            lighter_value=constantes.parametres_application["lighter_value"],
+            min_height=constantes.parametres_application["min_height"],
+            min_width=constantes.parametres_application["min_width"],
+            n_rangees=constantes.parametres_application["n_rangees"],
+            points_base=constantes.parametres_application["points_base"],
+            points_increment=constantes.parametres_application["points_increment"],
+            continent_colors=constantes.parametres_application["couleurs_continents"],
         )
         self.tabs.addTab(self.top_pays_visites, "Pays les plus visités")
 
@@ -963,7 +936,7 @@ class SettingsApp(QWidget):
                 style=(
                     0
                     if self.utiliser_theme.isChecked()
-                    else int(parametres_application["interface_foncee"] + 1)
+                    else int(constantes.parametres_application["interface_foncee"] + 1)
                 ),
                 nuances=liste_theme_temp,
                 teinte=liste_teintes_temp,
@@ -1414,8 +1387,8 @@ class SettingsApp(QWidget):
         self.curseur_qualite.setValue(
             int(
                 (
-                    parametres_application["qualite_min"]
-                    + parametres_application["qualite_max"]
+                    constantes.parametres_application["qualite_min"]
+                    + constantes.parametres_application["qualite_max"]
                 )
                 / 2
             )

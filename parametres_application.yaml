@@ -1,0 +1,32 @@
+# Paramètres généraux d'application
+application_position_largeur: 250
+application_position_hauteur: 40
+application_largeur: 750
+application_hauteur: 250
+interface_foncee: false
+
+# Paramètres de l'onglet de paramètres
+## Limite du slider
+qualite_min: 200
+qualite_max: 4000
+
+# Paramètres de l'hémicycle
+## Taille du graphique
+min_width: 500
+min_height: 300
+## Organisation des points
+n_rangees: 9
+points_base: 15
+points_increment: 4
+## Couleurs des continents
+couleurs_continents:
+  Africa: '#F0E68C'
+  Antarctica: '#A7C9E6'
+  Asia: '#EE211E'
+  Europe: '#9A0EE6'
+  North America: '#1310CE'
+  Oceania: '#1EC3CF'
+  South America: '#23E958'
+lighter_value: 190
+# Nombre de top pays – null pour tous les avoir
+top_n_pays: null

@@ -25,7 +25,57 @@ else:
     direction_donnees_autres = os.path.join(direction_donnees, "donnees_autres")
     compilation = False
 
-version_logiciel = "2.1"
+version_logiciel = "2.2"
+
+# Import des paramètres
+parametres_application_defaut = {
+    # Paramètres d'application
+    "application_position_largeur": 250,
+    "application_position_hauteur": 40,
+    "application_largeur": 750,
+    "application_hauteur": 250,
+    # Paramètres d'interface
+    "interface_foncee": False,
+    # Paramètres des statistiques
+    "min_width": 500,
+    "min_height": 300,
+    "n_rangees": 9,
+    "points_base": 15,
+    "points_increment": 4,
+    "lighter_value": 190,
+    "top_n_pays": None,
+    "couleurs_continents": {
+        "Africa": "#F0E68C",  # Désert
+        "Antarctica": "#A7C9E6",  # Glace
+        "Asia": "#EE211E",  # Rouge
+        "Europe": "#9A0EE6",  # Violet
+        "North America": "#1310CE",  # Bleu océan
+        "Oceania": "#1EC3CF",  # Bleu lagon
+        "South America": "#23E958",  # Vert forêt
+    },
+    # Paramètres des cartes
+    "qualite_min": 200,
+    "qualite_max": 4000,
+}
+
+try:
+    with open(
+        os.path.join(direction_base, "parametres_application.yaml"),
+        "r",
+        encoding="utf-8",
+    ) as f:
+        parametres_application = yaml.safe_load(f)
+except:
+    parametres_application = {}
+
+parametres_application.update(
+    {
+        k: v
+        for k, v in parametres_application_defaut.items()
+        if k not in parametres_application
+    }
+)
+
 
 # Import des lieux avec de l'eau
 try:

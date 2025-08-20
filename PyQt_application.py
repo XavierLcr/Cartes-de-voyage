@@ -40,7 +40,7 @@ from PyQt6.QtCore import Qt, QTimer, QSize, QThread
 import constantes
 from production_cartes import creer_graphique_1_2
 from application import fonctions_utiles_2_0, classes_utiles_2_2
-from application.classes import onglet_3, onglet_5
+from application.classes import onglet_1, onglet_3, onglet_5
 
 
 warnings.filterwarnings("ignore")
@@ -1247,7 +1247,7 @@ class SettingsApp(QWidget):
         }
 
         self.thread_temp = QThread()
-        self.worker = classes_utiles_2_2.CreerCartes(parametres)
+        self.worker = onglet_1.CreerCartes(parametres)
         self.worker.moveToThread(self.thread_temp)
 
         self.worker.tracker_signal.connect(self.afficher_avancement)

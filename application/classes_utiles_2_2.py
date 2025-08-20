@@ -241,7 +241,7 @@ class HemicycleWidget(QWidget):
         coords_angles = []
 
         center_x = self.width() / 2
-        center_y = self.height() * 0.9  # comme dans ton paintEvent
+        center_y = self.height() * 0.9
 
         for level in range(self.num_levels):
             radius = self.base_radius + level * self.level_distance
@@ -272,54 +272,88 @@ class HemicycleWidget(QWidget):
                 if i - total > self.resume[cont]["visites"] - 1:
                     couleur = couleur.lighter(lighter_value)
 
-                return couleur
+                return couleur, cont
 
             else:
                 total = total + self.resume[cont]["total"]
 
-        return QColor(0, 0, 0)
+        return QColor(0, 0, 0), "Problème"
 
-    def paintEvent(
-        self,
-        event,
-    ):
+    def paintEvent(self, event):
         painter = QPainter(self)
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
 
-        # Récupération des coordonnées
-        liste_coordonnees = self.creer_coordonnées()
+        center_x = self.width() / 2
+        center_y = self.height() * 0.9
 
+        coords_angles = self.creer_coordonnées()
+
+        continent_points = {}  # continent: list of (x, y)
         i = 0
-        for coord in liste_coordonnees:
 
-            painter.setBrush(
-                QBrush(self.renvoyer_couleur(i=i, lighter_value=self.lighter_value))
+        rayon_texte = 0
+        for coord in coords_angles:
+            x, y, angle, level = coord
+            rayon_texte = max(rayon_texte, abs(y - center_y))
+            couleur, continent = self.renvoyer_couleur(
+                i=i, lighter_value=self.lighter_value
             )
-            painter.drawEllipse(QPointF(coord[0], coord[1]), 5, 5)
 
-            i = i + 1
+            # Ajoute le point au bon groupe
+            continent_points.setdefault(continent, []).append((x, y))
 
-        margin = 20
-        spacing = 100
-        rect_size = 12
-        y_legend = self.height() - margin
+            # Dessiner le point
+            painter.setBrush(QBrush(couleur))
+            painter.drawEllipse(QPointF(x, y), 5, 5)
 
-        for idx, (continent, color) in enumerate(self.continent_colors.items()):
-            x_legend = margin + idx * spacing
+            i += 1
 
-            # Dessin du carré de couleur
-            painter.setBrush(QBrush(color))
-            painter.drawRect(x_legend, y_legend - rect_size, rect_size, rect_size)
+        # === Légendes : centrées sur le centroïde ===
+        painter.setPen(Qt.GlobalColor.black)
+        font_metrics = painter.fontMetrics()
 
-            # Dessin du texte
-            painter.setPen(Qt.GlobalColor.black)
-            painter.drawText(
-                x_legend + rect_size + 5,
-                y_legend,
-                self.constantes.pays_differentes_langues.get(continent, {}).get(
-                    self.langue
-                ),
-            )
+        for continent, points in continent_points.items():
+            if not points:
+                continue
+
+            # Centroïde
+            avg_x = sum(p[0] for p in points) / len(points)
+            avg_y = sum(p[1] for p in points) / len(points)
+
+            # Nom dans la bonne langue
+            nom_affiche = self.constantes.pays_differentes_langues.get(
+                continent, {}
+            ).get(self.langue, continent)
+
+            # Vecteur direction
+            dx = avg_x - center_x
+            dy = avg_y - center_y
+
+            theta = math.atan2(dy, dx)
+
+            # Coefficient d’éloignement
+            rayon_texte = 350
+            text_x = center_x + rayon_texte * math.cos(theta)
+            text_y = center_y + rayon_texte * math.sin(theta)
+
+            # Centrage horizontal
+            text_width = font_metrics.horizontalAdvance(nom_affiche)
+            text_height = font_metrics.height()
+
+            # 🔄 Rotation autour du centre du texte
+            painter.save()
+            painter.translate(text_x, text_y)
+            # Angle en degrés
+            painter.rotate(math.degrees(theta) + 90)
+
+            # Optionnel : décaler légèrement le texte pour qu’il ne touche pas le point
+            offset_x = -text_width / 2
+            offset_y = -text_height / 2  # ou autre selon placement désiré
+            # offset_x = 0
+            # offset_y = 0
+
+            painter.drawText(QPointF(offset_x, offset_y), nom_affiche)
+            painter.restore()
 
     def set_pays_visites(self, pays_visites):
         self.pays_visites = pays_visites

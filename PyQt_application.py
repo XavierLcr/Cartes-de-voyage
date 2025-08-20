@@ -40,6 +40,7 @@ from PyQt6.QtCore import Qt, QTimer, QSize, QThread
 import constantes
 from production_cartes import creer_graphique_1_2
 from application import fonctions_utiles_2_0, classes_utiles_2_2
+from application.classes import onglet_3
 
 
 warnings.filterwarnings("ignore")
@@ -59,10 +60,10 @@ parametres_application = {
     "n_rangees": 9,
     "points_base": 15,
     "points_increment": 4,
-    "lighter_value": 180,
+    "lighter_value": 190,
     "top_n_pays": None,
     "couleurs_continents": {
-        "Africa": "#E6F515",  # Désert
+        "Africa": "#F0E68C",  # Désert
         "Antarctica": "#A7C9E6",  # Glace
         "Asia": "#EE211E",  # Rouge
         "Europe": "#9A0EE6",  # Violet
@@ -555,7 +556,7 @@ class SettingsApp(QWidget):
         self.tab_yaml.setLayout(layout_yaml)
 
         # Troisième onglet
-        self.onglet_resume_pays = classes_utiles_2_2.OngletResumeDestinations(
+        self.onglet_resume_pays = onglet_3.OngletResumeDestinations(
             traduire_depuis_id=self.traduire_depuis_id,
             constantes=constantes,
             dicts_granu=self.dicts_granu,

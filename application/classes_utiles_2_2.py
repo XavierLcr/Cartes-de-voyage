@@ -277,7 +277,7 @@ class HemicycleWidget(QWidget):
             else:
                 total = total + self.resume[cont]["total"]
 
-        return QColor(0, 0, 0), QColor(255, 255, 255), "Problème"
+        return QColor(255, 255, 255), QColor(0, 0, 0), "Problème"
 
     def paintEvent(self, event):
         painter = QPainter(self)

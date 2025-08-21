@@ -14,7 +14,7 @@ __pycache__/
 *.gpkg
 
 # Fichiers de sauvegarde individuel
-sauvegarde_param.yaml
+sauvegarde_utilisateurs.yaml
 clefs_et_mots_de_passe.py
 
 # Fichiers d’IDE

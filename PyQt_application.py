@@ -471,7 +471,7 @@ class SettingsApp(QWidget):
         layout.addLayout(layout_valid_reinit)
         self.main_tab.setLayout(layout)
 
-        # Créer de nouveaux onglets
+        # Deuxième onglet
         self.tab_yaml = QWidget()
         self.tabs.addTab(self.tab_yaml, "Création de la liste des pays visités")
 
@@ -569,7 +569,7 @@ class SettingsApp(QWidget):
         )
         self.tabs.addTab(self.top_pays_visites, "Pays les plus visités")
 
-        # Onglet 5
+        # Cinquième onglet
         self.description_application = onglet_5.OngletInformations()
         self.tabs.addTab(self.description_application, "ℹ️")
 

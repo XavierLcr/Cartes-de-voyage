@@ -61,9 +61,7 @@ class OngletSelectionnerDestinations(QWidget):
         self.telecharger_lieux_visites = QPushButton()
         self.telecharger_lieux_visites.clicked.connect(self.exporter_yamls_visites)
         self.bouton_sauvegarde2 = QPushButton()
-        self.bouton_sauvegarde2.clicked.connect(
-            lambda: self.fonction_principale(True, True)
-        )
+        self.bouton_sauvegarde2.clicked.connect(lambda: self.fonction_principale(True))
 
         # Remplir les déroulés
         self.liste_des_pays.addItems(self.constantes.regions_par_pays.keys())
@@ -219,6 +217,10 @@ class OngletSelectionnerDestinations(QWidget):
     def set_dict_granu(self, dictionnaire: dict):
         self.dicts_granu = dictionnaire
 
+    def set_emoji_sauvegarde(self):
+        self.bouton_sauvegarde2.setText("💾✅")
+        QTimer.singleShot(3000, lambda: self.bouton_sauvegarde2.setText("💾"))
+
     def set_langue(self, langue):
 
         # Mise à jour de la langue
@@ -244,6 +246,9 @@ class OngletSelectionnerDestinations(QWidget):
             self.fonction_traduire("telecharger_lieux_visites", suffixe=".")
         )
         self.bouton_sauvegarde2.setText("💾")
+        self.bouton_sauvegarde2.setToolTip(
+            self.fonction_traduire("sauvegarder_profil", suffixe=".")
+        )
 
         # Chargement des YAMLs
         self.groupe_chargement_yaml.setTitle(

@@ -28,14 +28,12 @@ from PyQt6.QtWidgets import (
     QButtonGroup,
     QRadioButton,
     QTabWidget,
-    QListWidget,
-    QListWidgetItem,
     QProgressBar,
     QSpacerItem,
     QSizePolicy,
 )
 from PyQt6.QtGui import QIcon
-from PyQt6.QtCore import Qt, QTimer, QSize, QThread
+from PyQt6.QtCore import Qt, QTimer, QThread
 
 # Scripts et fonctions du projet
 import constantes
@@ -405,7 +403,7 @@ class SettingsApp(QWidget):
         # Création du bouton "Créer cartes"
         self.creation_cartes_bouton = QPushButton()
         self.creation_cartes_bouton.clicked.connect(
-            lambda: self.fonction_principale(False, False)
+            lambda: self.fonction_principale(False)
         )
         self.barre_progression = QProgressBar()
         self.barre_progression.setMinimum(0)
@@ -414,9 +412,7 @@ class SettingsApp(QWidget):
 
         # Bouton de sauvegarde
         self.bouton_sauvegarde = QPushButton()
-        self.bouton_sauvegarde.clicked.connect(
-            lambda: self.fonction_principale(True, True)
-        )
+        self.bouton_sauvegarde.clicked.connect(lambda: self.fonction_principale(True))
 
         # Bouton de réinitialisation
         self.reinit_parametres = QPushButton()
@@ -678,11 +674,9 @@ class SettingsApp(QWidget):
         self.creation_cartes_bouton.setToolTip(
             self.traduire_depuis_id("description_bouton_publier_cartes", suffixe=".")
         )
-        self.bouton_sauvegarde.setText(
-            self.traduire_depuis_id(
-                "sauvegarder_profil",
-                suffixe=" 💾",
-            )
+        self.bouton_sauvegarde.setText("💾")
+        self.bouton_sauvegarde.setToolTip(
+            self.traduire_depuis_id("sauvegarder_profil", suffixe=".")
         )
 
         # Onglet 2
@@ -843,7 +837,7 @@ class SettingsApp(QWidget):
             self.dossier_stockage = dossier  # Stocke le chemin sélectionné
             self.tab_yaml.set_dossier(dossier=dossier)
 
-    def fonction_principale(self, sauvegarder_seulement=True, pop_up=False):
+    def fonction_principale(self, sauvegarder_seulement=True):
 
         settings = {
             "name": self.nom_individu.currentText(),
@@ -930,14 +924,11 @@ class SettingsApp(QWidget):
             ) as f:
                 yaml.dump(sauvegarde, f, allow_unicode=True, default_flow_style=False)
 
-            if pop_up:
-                self.montrer_popup(
-                    contenu=self.traduire_depuis_id(
-                        "sauvegarde_effectuee", suffixe=" !"
-                    ),
-                    titre=self.traduire_depuis_id("sauvegarder_profil", suffixe=""),
-                    temps_max=10000,
-                )
+            # Coche signalant la sauvegarde
+            if sauvegarder_seulement:
+                self.bouton_sauvegarde.setText("💾✅")
+                self.tab_yaml.set_emoji_sauvegarde()
+                QTimer.singleShot(3000, lambda: self.bouton_sauvegarde.setText("💾"))
 
         elif self.dicts_granu["dep"] == {} and self.dicts_granu["region"] == {}:
 
@@ -963,7 +954,7 @@ class SettingsApp(QWidget):
 
         else:
             # Export des paramètres
-            self.fonction_principale(sauvegarder_seulement=True, pop_up=False)
+            self.fonction_principale(sauvegarder_seulement=True)
 
             # Publication des cartes
             self.publier_cartes(settings)

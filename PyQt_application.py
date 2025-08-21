@@ -739,26 +739,50 @@ class SettingsApp(QWidget):
             fonctions_utiles_2_0.reset_combo(self.color_combo, sorted(teintes.values()))
             fonctions_utiles_2_0.reset_combo(self.theme_combo, sorted(themes.values()))
 
-    def traduire(self, cle, langue=None, prefixe="", suffixe=""):
+    def traduire_depuis_id(
+        self,
+        clef: str,
+        langue: str | None = None,
+        prefixe: str = "",
+        suffixe: str = "",
+        depuis_id: bool = True,
+        largeur_max: int | None = None,
+    ) -> str:
+        """
+        Traduit une clé ou un ID de phrase selon la langue spécifiée.
+
+        Args:
+            clef: La clé ou l'ID de la phrase à traduire.
+            langue: La langue cible. Si None, utilise la langue courante.
+            prefixe: Préfixe à ajouter avant la traduction.
+            suffixe: Suffixe à ajouter après la traduction.
+            depuis_id: Si True, traite `cle` comme un ID à chercher dans `constantes.phrases_interface`.
+            largeur_max: Si spécifié, tronque le texte à cette largeur maximale.
+
+        Returns:
+            str: La traduction formatée.
+        """
         if langue is None:
             langue = fonctions_utiles_2_0.obtenir_clef_par_valeur(
                 dictionnaire=constantes.dict_langues_dispo,
                 valeur=self.langue_utilisee.currentText(),
             )
-        return (
-            prefixe + self.traductions_interface.get(cle, {}).get(langue, cle) + suffixe
+
+        # Résolution de la clé si on part d'un ID
+        if depuis_id:
+            clef = constantes.phrases_interface.get(clef, clef)
+
+        # Récupération de la traduction
+        traduction = (
+            prefixe
+            + self.traductions_interface.get(clef, {}).get(langue, clef)
+            + suffixe
         )
 
-    def traduire_depuis_id(
-        self, clef, langue=None, prefixe="", suffixe="", largeur_max: int | None = None
-    ):
-        traduction = self.traduire(
-            cle=constantes.phrases_interface.get(clef, clef),
-            langue=langue,
-            prefixe=prefixe,
-            suffixe=suffixe,
-        )
+        # Troncature si nécessaire
         if largeur_max is not None:
+            import textwrap
+
             traduction = textwrap.wrap(
                 traduction,
                 width=largeur_max,

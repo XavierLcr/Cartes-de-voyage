@@ -40,13 +40,14 @@ parametres_application_defaut = {
     # Paramètres d'interface
     "interface_foncee": False,
     # Paramètres des statistiques
+    "top_n_pays": None,
+    "pct_ndigits": None,
     "min_width": 500,
     "min_height": 300,
     "n_rangees": 9,
     "points_base": 15,
     "points_increment": 4,
     "lighter_value": 190,
-    "top_n_pays": None,
     "couleurs_continents": {
         "Africa": "#F0E68C",  # Désert
         "Antarctica": "#A7C9E6",  # Glace

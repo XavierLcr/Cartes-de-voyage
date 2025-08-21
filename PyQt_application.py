@@ -556,6 +556,7 @@ class SettingsApp(QWidget):
             ),
             liste_gdfs=liste_gdfs,
             top_n=constantes.parametres_application["top_n_pays"],
+            ndigits=constantes.parametres_application["pct_ndigits"],
             lighter_value=constantes.parametres_application["lighter_value"],
             min_height=constantes.parametres_application["min_height"],
             min_width=constantes.parametres_application["min_width"],

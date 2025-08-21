@@ -28,5 +28,7 @@ couleurs_continents:
   Oceania: '#1EC3CF'
   South America: '#23E958'
 lighter_value: 190
-# Nombre de top pays – null pour tous les avoir
-top_n_pays: null
+
+# Paramètres du top pays visités
+top_n_pays: null # null pour tous les avoir
+pct_ndigits: 0

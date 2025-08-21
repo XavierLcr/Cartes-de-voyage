@@ -31,9 +31,14 @@ class ClassementPays(QWidget):
         liste_gdfs: list,
         langue_utilisee: str,
         top_n: int | None,
+        ndigits: int | None = None,
         parent=None,
     ):
         super().__init__(parent)
+
+        # Correction
+        if ndigits == 0:
+            ndigits = None
 
         # Variables passées en paramètre
         self.dicts_granu = dicts_granu
@@ -41,6 +46,7 @@ class ClassementPays(QWidget):
         self.liste_gdfs = liste_gdfs
         self.langue_utilisee = langue_utilisee
         self.top_n = top_n
+        self.ndigits = ndigits
 
         # --- Bloc "Top pays par région" ---
         self.entete_top_pays_regions = QLabel(alignment=Qt.AlignmentFlag.AlignCenter)
@@ -94,7 +100,11 @@ class ClassementPays(QWidget):
                 child.widget().deleteLater()
 
     def lancer_classement_pays(
-        self, granularite: int, top_n: int | None, vbox: QGridLayout, ndigits=0
+        self,
+        granularite: int,
+        top_n: int | None,
+        vbox: QGridLayout,
+        ndigits: int | None = None,
     ):
         dict_regions = self.dicts_granu["region"] or None
         dict_departements = self.dicts_granu["dep"] or None
@@ -123,62 +133,76 @@ class ClassementPays(QWidget):
             for i, (_, row) in enumerate(classement.iterrows()):
                 pays = row["Pays"]
 
-                indice = ["🥇", "🥈", "🥉"][i] if i < 3 else f"<b>{i + 1}.</b>"
-                label_widget = self.constantes.pays_differentes_langues.get(
-                    pays, {}
-                ).get(
-                    self.langue_utilisee,
-                    pays,
-                )
-                if i < 3:
-                    label_widget = f"<b>{label_widget}</b>"
+                if (
+                    i < 3
+                    or round(100 * row["pct_superficie_dans_pays"], ndigits=ndigits) > 0
+                ):
 
-                label_widget = (
-                    indice
-                    + "<br>"
-                    + f"{label_widget}<br>{round(100 * row['pct_superficie_dans_pays'], ndigits=ndigits)} %"
-                ).replace(".", ",")
-
-                label_widget = QLabel(label_widget)
-                label_widget.setAlignment(
-                    Qt.AlignmentFlag.AlignCenter | Qt.AlignmentFlag.AlignVCenter
-                )
-
-                if i == 0:
-                    couronne_g = QLabel("👑")
-                    couronne_g.setAlignment(
-                        Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter
+                    indice = ["🥇", "🥈", "🥉"][i] if i < 3 else f"<b>{i + 1}.</b>"
+                    label_widget = self.constantes.pays_differentes_langues.get(
+                        pays, {}
+                    ).get(
+                        self.langue_utilisee,
+                        pays,
                     )
-                    vbox.addWidget(couronne_g, i, 0)
-                    vbox.addWidget(label_widget, i, 1)
-                    couronne_d = QLabel("👑")
-                    couronne_d.setAlignment(
-                        Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter
+                    if i < 3:
+                        label_widget = f"<b>{label_widget}</b>"
+
+                    label_widget = (
+                        indice
+                        + "<br>"
+                        + f"{label_widget}<br>{round(100 * row['pct_superficie_dans_pays'], ndigits=ndigits)} %"
+                    ).replace(".", ",")
+
+                    label_widget = QLabel(label_widget)
+                    label_widget.setAlignment(
+                        Qt.AlignmentFlag.AlignCenter | Qt.AlignmentFlag.AlignVCenter
                     )
-                    vbox.addWidget(couronne_d, i, 2)
-                elif i in [1, 2]:
-                    vbox.addWidget(label_widget, 1, 2 * i - 2)
-                else:
-                    vbox.addWidget(label_widget, (i + 3) // 3, i % 3)
+
+                    if i == 0:
+                        couronne_g = QLabel("👑")
+                        couronne_g.setAlignment(
+                            Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter
+                        )
+                        vbox.addWidget(couronne_g, i, 0)
+                        vbox.addWidget(label_widget, i, 1)
+                        couronne_d = QLabel("👑")
+                        couronne_d.setAlignment(
+                            Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter
+                        )
+                        vbox.addWidget(couronne_d, i, 2)
+                    elif i in [1, 2]:
+                        vbox.addWidget(label_widget, 1, 2 * i - 2)
+                    else:
+                        vbox.addWidget(label_widget, (i + 3) // 3, i % 3)
 
         except:
             pass
 
-    def lancer_classement_par_region_departement(self, top_n: int | None = 10):
+    def lancer_classement_par_region_departement(
+        self, top_n: int | None = 10, ndigits: int | None = None
+    ):
         self.lancer_classement_pays(
-            granularite=1, top_n=top_n, vbox=self.layout_top_pays_regions
+            vbox=self.layout_top_pays_regions,
+            granularite=1,
+            top_n=top_n,
+            ndigits=ndigits,
         )
         self.lancer_classement_pays(
-            granularite=2, top_n=top_n, vbox=self.layout_top_pays_deps
+            vbox=self.layout_top_pays_deps, granularite=2, top_n=top_n, ndigits=ndigits
         )
 
     def set_dicts_granu(self, dict_nv):
         self.dicts_granu = dict_nv
-        self.lancer_classement_par_region_departement(top_n=self.top_n)
+        self.lancer_classement_par_region_departement(
+            top_n=self.top_n, ndigits=self.ndigits
+        )
 
     def set_langue(self, nouvelle_langue):
         self.langue_utilisee = nouvelle_langue
-        self.lancer_classement_par_region_departement(top_n=self.top_n)
+        self.lancer_classement_par_region_departement(
+            top_n=self.top_n, ndigits=self.ndigits
+        )
 
     def set_entetes(self, texte_region, texte_departement):
         self.entete_top_pays_regions.setText(texte_region)

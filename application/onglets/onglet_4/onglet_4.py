@@ -22,6 +22,7 @@ class OngletTopPays(QWidget):
         liste_gdfs,
         langue_utilisee,
         top_n,
+        ndigits: int | None = None,
         min_width=500,
         min_height=300,
         n_rangees=9,
@@ -56,7 +57,12 @@ class OngletTopPays(QWidget):
 
         # Onglet Classement
         self.classement_widget = onglet_4_2_classement.ClassementPays(
-            dicts_granu, constantes, liste_gdfs, langue_utilisee, top_n
+            dicts_granu=dicts_granu,
+            constantes=constantes,
+            liste_gdfs=liste_gdfs,
+            langue_utilisee=langue_utilisee,
+            top_n=top_n,
+            ndigits=ndigits,
         )
         self.sous_onglets.addTab(self.classement_widget, "Top Pays")
 

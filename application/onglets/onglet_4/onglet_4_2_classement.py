@@ -117,15 +117,14 @@ class ClassementPays(QWidget):
         self.vider_layout(vbox)
 
         try:
-            gdf = cree_base_toutes_granularites(
-                liste_dfs=self.liste_gdfs,
-                liste_dicts=[dict_regions, dict_departements],
-                granularite_objectif=granularite,
-            )
 
             classement = creer_classement_pays(
-                gdf,
-                self.constantes.table_superficie,
+                gdf_visite=cree_base_toutes_granularites(
+                    liste_dfs=self.liste_gdfs,
+                    liste_dicts=[dict_regions, dict_departements],
+                    granularite_objectif=granularite,
+                ),
+                table_superficie=self.constantes.table_superficie,
                 granularite=granularite,
                 top_n=top_n,
             )

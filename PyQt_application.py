@@ -1291,8 +1291,7 @@ class SettingsApp(QWidget):
 
     def initialiser_sauvegarde(self, sauvegarde_complete):
 
-        nom_individu_actuel = self.nom_individu.currentText()
-        sauv = sauvegarde_complete.get(nom_individu_actuel, {})
+        sauv = sauvegarde_complete.get(self.nom_individu.currentText(), {})
 
         # Nom
         if sauv.get("name") is not None:

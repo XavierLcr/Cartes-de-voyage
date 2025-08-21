@@ -61,11 +61,14 @@ class HemicycleWidget(QWidget):
 
         self.creer_hemicycle()
 
+    def center_x(self):
+        return self.width() / 2
+
+    def center_y(self):
+        return self.height() * 0.9
+
     def creer_coordonnées(self):
         coords_angles = []
-
-        center_x = self.width() / 2
-        center_y = self.height() * 0.9
 
         for level in range(self.num_levels):
             radius = self.base_radius + level * self.level_distance
@@ -75,8 +78,8 @@ class HemicycleWidget(QWidget):
                 angle = (180.0 / (num_points - 1)) * i if num_points > 1 else 90
                 angle_rad = math.radians(angle)
 
-                x = center_x + radius * math.cos(angle_rad)
-                y = center_y - radius * math.sin(angle_rad)
+                x = self.center_x() + radius * math.cos(angle_rad)
+                y = self.center_y() - radius * math.sin(angle_rad)
 
                 coords_angles.append((x, y, angle, level))
 
@@ -104,18 +107,17 @@ class HemicycleWidget(QWidget):
         return QColor(255, 255, 255), QColor(0, 0, 0), "Problème"
 
     def paintEvent(self, event):
+
         painter = QPainter(self)
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
 
-        center_x = self.width() / 2
-        center_y = self.height() * 0.9
+        center_x, center_y = self.center_x(), self.center_y()  # Centre du cercle
+        rayon_texte = 350  # Coefficient d'éloignement
 
         coords_angles = self.creer_coordonnées()
-
         continent_points = {}  # continent: list of (x, y)
-        i = 0
 
-        rayon_texte = 0
+        i = 0
         for coord in coords_angles:
             x, y, angle, level = coord
             rayon_texte = max(rayon_texte, abs(y - center_y))
@@ -132,7 +134,7 @@ class HemicycleWidget(QWidget):
             painter.drawEllipse(QPointF(x, y), 5, 5)
 
             # Incrément
-            i += 1
+            i = i + 1
 
         # === Légendes : centrées sur le centroïde ===
         painter.setPen(Qt.GlobalColor.black)
@@ -142,43 +144,33 @@ class HemicycleWidget(QWidget):
             if not points:
                 continue
 
-            # Centroïde
-            avg_x = sum(p[0] for p in points) / len(points)
-            avg_y = sum(p[1] for p in points) / len(points)
-
             # Nom dans la bonne langue
             nom_affiche = self.constantes.pays_differentes_langues.get(
                 continent, {}
             ).get(self.langue, continent)
 
-            # Vecteur direction
-            dx = avg_x - center_x
-            dy = avg_y - center_y
+            # Calcul de l'angle du point par rapport au centre
+            theta = math.atan2(
+                sum(p[1] for p in points) / len(points) - center_y,
+                sum(p[0] for p in points) / len(points) - center_x,
+            )
 
-            theta = math.atan2(dy, dx)
-
-            # Coefficient d’éloignement
-            rayon_texte = 350
-            text_x = center_x + rayon_texte * math.cos(theta)
-            text_y = center_y + rayon_texte * math.sin(theta)
-
-            # Centrage horizontal
-            text_width = font_metrics.horizontalAdvance(nom_affiche)
-            text_height = font_metrics.height()
-
-            # 🔄 Rotation autour du centre du texte
             painter.save()
-            painter.translate(text_x, text_y)
+            painter.translate(
+                center_x + rayon_texte * math.cos(theta),
+                center_y + rayon_texte * math.sin(theta),
+            )
             # Angle en degrés
             painter.rotate(math.degrees(theta) + 90)
 
-            # Optionnel : décaler légèrement le texte pour qu’il ne touche pas le point
-            offset_x = -text_width / 2
-            offset_y = -text_height / 2  # ou autre selon placement désiré
-            # offset_x = 0
-            # offset_y = 0
-
-            painter.drawText(QPointF(offset_x, offset_y), nom_affiche)
+            # Décaler légèrement le texte pour qu’il ne touche pas le point
+            painter.drawText(
+                QPointF(
+                    -font_metrics.horizontalAdvance(nom_affiche) / 2,
+                    -font_metrics.height() / 2,
+                ),
+                nom_affiche,
+            )
             painter.restore()
 
     def set_pays_visites(self, pays_visites):

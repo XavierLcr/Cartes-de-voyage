@@ -3,7 +3,7 @@
 # Fichier contenant les constantes et les données secondaires                  #
 ################################################################################
 
-import os, sys, yaml, pickle
+import os, sys
 from application.fonctions_utiles_2_0 import ouvrir_fichier
 
 
@@ -63,7 +63,7 @@ parametres_application_defaut = {
 
 # Import
 parametres_application = ouvrir_fichier(
-    direction_fichier=direction_base,
+    direction_fichier=direction_donnees_application,
     nom_fichier="parametres_application.yaml",
     defaut=parametres_application_defaut,
 )

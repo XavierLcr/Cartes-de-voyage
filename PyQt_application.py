@@ -3,16 +3,12 @@
 # Application principale                                                       #
 ################################################################################
 
-import os
-import sys
+import os, sys, warnings
 
 # sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-import yaml
-import copy
-import pickle
+import yaml, pickle, copy
 import textwrap
-import warnings
 
 # PyQt6
 from PyQt6.QtWidgets import (
@@ -35,6 +31,8 @@ from PyQt6.QtWidgets import (
     QListWidget,
     QListWidgetItem,
     QProgressBar,
+    QSpacerItem,
+    QSizePolicy,
 )
 from PyQt6.QtGui import QIcon
 from PyQt6.QtCore import Qt, QTimer, QSize, QThread
@@ -132,8 +130,7 @@ class SettingsApp(QWidget):
         layout_params_individu.addWidget(self.dossier_stockage_bouton)
 
         # Choix de la langue
-        self.label_langue = QLabel()
-        self.label_langue.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.label_langue = fonctions_utiles_2_0.creer_QLabel_centre()
         self.langue_utilisee = QComboBox()
         self.langue_utilisee.addItems(liste_langues_dispo_joli)
         layout_params_individu.addWidget(self.label_langue)
@@ -189,8 +186,8 @@ class SettingsApp(QWidget):
         self.groupe_granularite = QGroupBox()
 
         # Choix de la granularité
-        self.label_granularite_visite = QLabel()
-        self.label_granularite_visite.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.label_granularite_visite = fonctions_utiles_2_0.creer_QLabel_centre()
+
         self.granularite_visite = QComboBox()
         layout_granularite_visite = QHBoxLayout()
         layout_granularite_visite.addWidget(self.label_granularite_visite)
@@ -200,8 +197,7 @@ class SettingsApp(QWidget):
         )
 
         # Granularité de fond
-        self.label_granularite_fond = QLabel()
-        self.label_granularite_fond.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.label_granularite_fond = fonctions_utiles_2_0.creer_QLabel_centre()
         self.granularite_fond = QComboBox()
         layout_granularite_fond = QHBoxLayout()
         layout_granularite_fond.addWidget(self.label_granularite_fond)
@@ -290,8 +286,7 @@ class SettingsApp(QWidget):
         widget_nb_copies_cartes.setLayout(radio_layout)
 
         # Titre (centré verticalement)
-        self.label_nb_copies_cartes = QLabel()
-        self.label_nb_copies_cartes.setAlignment(Qt.AlignmentFlag.AlignVCenter)
+        self.label_nb_copies_cartes = fonctions_utiles_2_0.creer_QLabel_centre()
 
         # Création des boutons radio avec noms clairs
         self.radio_carte_1 = QRadioButton()
@@ -328,8 +323,7 @@ class SettingsApp(QWidget):
         layout_theme_color = QVBoxLayout()
 
         # Choix du thème
-        self.theme_label = QLabel()
-        self.theme_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.theme_label = fonctions_utiles_2_0.creer_QLabel_centre()
         self.theme_combo = QComboBox()
         self.theme_combo.currentTextChanged.connect(self.maj_style)
         layout_theme = QHBoxLayout()
@@ -337,8 +331,7 @@ class SettingsApp(QWidget):
         layout_theme.addWidget(self.theme_combo)
 
         # Choix des couleurs
-        self.color_label = QLabel()
-        self.color_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.color_label = fonctions_utiles_2_0.creer_QLabel_centre()
         self.color_combo = QComboBox()
         self.color_combo.currentTextChanged.connect(self.maj_style)
         layout_couleurs = QHBoxLayout()
@@ -383,9 +376,9 @@ class SettingsApp(QWidget):
         layout_format_qualite = QHBoxLayout()
 
         # Curseur pour la qualité de l’image
-        self.label_qualite = QLabel()
-        self.label_qualite_min = QLabel()
-        self.label_qualite_max = QLabel()
+        self.label_qualite = fonctions_utiles_2_0.creer_QLabel_centre()
+        self.label_qualite_min = fonctions_utiles_2_0.creer_QLabel_centre()
+        self.label_qualite_max = fonctions_utiles_2_0.creer_QLabel_centre()
         self.curseur_qualite = QSlider(Qt.Orientation.Horizontal)
         self.curseur_qualite.setMinimum(
             constantes.parametres_application["qualite_min"]
@@ -404,7 +397,7 @@ class SettingsApp(QWidget):
         )
 
         # Choix du format d'image
-        self.label_format = QLabel()
+        self.label_format = fonctions_utiles_2_0.creer_QLabel_centre()
         self.format_cartes = QComboBox()
         self.format_cartes.addItems(
             ["png", "jpg", "svg", "pdf", "tif", "webp", "raw", "ps"]
@@ -413,6 +406,11 @@ class SettingsApp(QWidget):
         # Ajout des widgets au layout horizontal
         layout_format_qualite.addWidget(self.label_format)
         layout_format_qualite.addWidget(self.format_cartes)
+        layout_format_qualite.addItem(
+            QSpacerItem(
+                20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding
+            )
+        )
         layout_format_qualite.addWidget(self.label_qualite)
         layout_format_qualite.addWidget(self.label_qualite_min)
         layout_format_qualite.addWidget(self.curseur_qualite)

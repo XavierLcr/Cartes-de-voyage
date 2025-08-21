@@ -5,7 +5,24 @@
 
 
 import os, pickle, yaml
-from PyQt6.QtWidgets import QHBoxLayout, QFrame
+from PyQt6.QtWidgets import QHBoxLayout, QFrame, QLabel
+from PyQt6.QtCore import Qt
+
+
+def creer_QLabel_centre(text: str | None = None, parent=None):
+    """
+    Crée un QLabel avec un alignement vertical centré.
+
+    Args:
+        text (str|None): Texte à afficher dans le label (optionnel).
+        parent (QWidget): Widget parent (optionnel).
+
+    Returns:
+        QLabel: Le label configuré.
+    """
+    label = QLabel(text, parent)
+    label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+    return label
 
 
 def obtenir_clef_par_valeur(dictionnaire, valeur):

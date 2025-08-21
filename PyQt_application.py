@@ -781,7 +781,6 @@ class SettingsApp(QWidget):
 
         # Troncature si nécessaire
         if largeur_max is not None:
-            import textwrap
 
             traduction = textwrap.wrap(
                 traduction,

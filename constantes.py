@@ -39,9 +39,15 @@ parametres_application_defaut = {
     "application_hauteur": 250,
     # Paramètres d'interface
     "interface_foncee": False,
-    # Paramètres des statistiques
+    # Paramètres des cartes
+    "qualite_min": 200,
+    "qualite_max": 4000,
+    # Onglet 4
+    "onglet_4_mise_en_page": 0,
+    ## Classement
     "top_n_pays": None,
     "pct_ndigits": None,
+    ## Hémicycle
     "min_width": 500,
     "min_height": 300,
     "n_rangees": 9,
@@ -57,9 +63,6 @@ parametres_application_defaut = {
         "Oceania": "#1EC3CF",  # Bleu lagon
         "South America": "#23E958",  # Vert forêt
     },
-    # Paramètres des cartes
-    "qualite_min": 200,
-    "qualite_max": 4000,
 }
 
 # Import

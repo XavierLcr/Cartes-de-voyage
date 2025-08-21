@@ -555,8 +555,12 @@ class SettingsApp(QWidget):
                 valeur=self.langue_utilisee.currentText(),
             ),
             liste_gdfs=liste_gdfs,
+            parent=None,
+            mise_en_page=constantes.parametres_application["onglet_4_mise_en_page"],
+            # Classement
             top_n=constantes.parametres_application["top_n_pays"],
             ndigits=constantes.parametres_application["pct_ndigits"],
+            # Hémicycle
             lighter_value=constantes.parametres_application["lighter_value"],
             min_height=constantes.parametres_application["min_height"],
             min_width=constantes.parametres_application["min_width"],

@@ -10,15 +10,17 @@ interface_foncee: false
 qualite_min: 200
 qualite_max: 4000
 
-# Paramètres de l'hémicycle
-## Taille du graphique
+# Onglet 4
+onglet_4_mise_en_page: 0 # 0 ou 1
+## Paramètres de l'hémicycle
+### Taille du graphique
 min_width: 500
 min_height: 300
-## Organisation des points
+### Organisation des points
 n_rangees: 9
 points_base: 15
 points_increment: 4
-## Couleurs des continents
+### Couleurs des continents
 couleurs_continents:
   Africa: '#F0E68C'
   Antarctica: '#A7C9E6'
@@ -28,7 +30,6 @@ couleurs_continents:
   Oceania: '#1EC3CF'
   South America: '#23E958'
 lighter_value: 190
-
-# Paramètres du top pays visités
+## Paramètres du top pays visités
 top_n_pays: null # null pour tous les avoir
 pct_ndigits: 0

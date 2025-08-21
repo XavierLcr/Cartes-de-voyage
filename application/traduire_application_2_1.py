@@ -12,6 +12,7 @@ import textwrap
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import constantes
+from application.fonctions_utiles_2_0 import ouvrir_fichier
 
 from clefs_et_mots_de_passe import clef_api_gemini
 
@@ -358,9 +359,7 @@ if __name__ == "__main__":
     # YAML des régions
     try:
         with open(
-            os.path.join(
-                constantes.direction_donnees_application, "liste_pays_regions.yaml"
-            ),
+            os.path.join(constantes.direction_donnees_application, "continents.yaml"),
             "r",
             encoding="utf-8",
         ) as file:
@@ -374,7 +373,8 @@ if __name__ == "__main__":
     try:
         with open(
             os.path.join(
-                constantes.direction_donnees_application, "liste_pays_groupes.yaml"
+                constantes.direction_donnees_application,
+                "cartes_pays_regroupements.yaml",
             ),
             "r",
             encoding="utf-8",
@@ -388,7 +388,7 @@ if __name__ == "__main__":
     try:
         with open(
             os.path.join(
-                constantes.direction_donnees_application, "traductions_nom_pays.yaml"
+                constantes.direction_donnees_application, "noms_pays_traduction.yaml"
             ),
             "r",
             encoding="utf-8",
@@ -412,7 +412,7 @@ if __name__ == "__main__":
         with open(
             os.path.join(
                 constantes.direction_donnees_application,
-                "traductions_phrase_outil.yaml",
+                "phrases_interface_traduction.yaml",
             ),
             "r",
             encoding="utf-8",
@@ -422,33 +422,18 @@ if __name__ == "__main__":
         outil_deja_trad = None
 
     # Traduction des paramètres
-    try:
-        with open(
-            os.path.join(
-                constantes.direction_donnees_application, "traductions_parametres.yaml"
-            ),
-            "r",
-            encoding="utf-8",
-        ) as file:
-            parametres_deja_trad = yaml.safe_load(file)
-
-    except:
-        parametres_deja_trad = None
+    parametres_deja_trad = ouvrir_fichier(
+        direction_fichier=constantes.direction_donnees_application,
+        nom_fichier="parametres_cartes_traduction.yaml",
+        defaut=None,
+    )
 
     # Traduction des langues
-    try:
-        with open(
-            os.path.join(
-                constantes.direction_donnees_application,
-                "traductions_noms_langues.yaml",
-            ),
-            "r",
-            encoding="utf-8",
-        ) as file:
-            langues_deja_traduites = yaml.safe_load(file)
-
-    except:
-        langues_deja_traduites = None
+    langues_deja_traduites = ouvrir_fichier(
+        direction_fichier=constantes.direction_donnees_application,
+        nom_fichier="noms_langues_traduction.yaml",
+        defaut=None,
+    )
 
     # Gestion de la limite d'appels API quotidienne
     try:
@@ -470,36 +455,22 @@ if __name__ == "__main__":
         liste_appels_api_deja_faits = {}
 
     # YAML des teintes
-    try:
-        with open(
-            os.path.join(
-                constantes.direction_donnees_application, "teintes_couleurs.yaml"
-            ),
-            "r",
-            encoding="utf-8",
-        ) as file:
-            teintes_couleurs = yaml.safe_load(file)
-    except:
-        teintes_couleurs = {}
+    teintes_couleurs = ouvrir_fichier(
+        direction_fichier=constantes.direction_donnees_application,
+        nom_fichier="cartes_teintes.yaml",
+        defaut={},
+    )
 
     # YAML des thèmes
-    try:
-        with open(
-            os.path.join(
-                constantes.direction_donnees_application, "themes_cartes.yaml"
-            ),
-            "r",
-            encoding="utf-8",
-        ) as file:
-            themes_cartes = yaml.safe_load(file)
-    except:
-        themes_cartes = {}
+    themes_cartes = ouvrir_fichier(
+        direction_fichier=constantes.direction_donnees_application,
+        nom_fichier="cartes_ambiances.yaml",
+        defaut={},
+    )
 
     ## Pays
     # Liste des pays
-    liste_pays = list(liste_regions.keys())
-    liste_pays.append("World Map")
-    liste_pays.append("World")
+    liste_pays = list(liste_regions.keys()) + ["World Map", "World"]
 
     # Ajout des continents et leurs cartes
     continents = [
@@ -566,7 +537,8 @@ if __name__ == "__main__":
 
     with open(
         os.path.join(
-            constantes.direction_donnees_application, "traductions_parametres.yaml"
+            constantes.direction_donnees_application,
+            "parametres_cartes_traduction.yaml",
         ),
         "w",
         encoding="utf-8",
@@ -584,7 +556,7 @@ if __name__ == "__main__":
 
     with open(
         os.path.join(
-            constantes.direction_donnees_application, "traductions_noms_langues.yaml"
+            constantes.direction_donnees_application, "noms_langues_traduction.yaml"
         ),
         "w",
         encoding="utf-8",
@@ -611,7 +583,8 @@ if __name__ == "__main__":
 
     with open(
         os.path.join(
-            constantes.direction_donnees_application, "traductions_phrase_outil.yaml"
+            constantes.direction_donnees_application,
+            "phrases_interface_traduction.yaml",
         ),
         "w",
         encoding="utf-8",
@@ -631,7 +604,7 @@ if __name__ == "__main__":
 
     with open(
         os.path.join(
-            constantes.direction_donnees_application, "traductions_nom_pays.yaml"
+            constantes.direction_donnees_application, "noms_pays_traduction.yaml"
         ),
         "w",
         encoding="utf-8",

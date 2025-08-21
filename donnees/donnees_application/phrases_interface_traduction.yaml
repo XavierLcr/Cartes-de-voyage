@@ -5195,7 +5195,8 @@ L'export n'a pas fonctionné. Veuillez réessayer de nouveau plus tard:
   hindi: निर्यात काम नहीं किया। कृपया बाद में फिर से प्रयास करें।
   hongrois: Az export nem sikerült. Kérjük, próbálja meg újra később
   indonésien: Ekspor tidak berhasil. Silakan coba lagi nanti
-  irlandais: Níor oibrigh an t-onnmhairiú. Bain triail as arís níos déanaí, le do thoil
+  irlandais: Níor oibrigh an t-onnmhairiú. Bain triail as arís níos déanaí, le do
+    thoil
   islandais: Útflutningurinn virkaði ekki. Reyndu aftur síðar
   italien: L'esportazione non ha funzionato. Si prega di riprovare più tardi
   japonais: エクスポートがうまくいきませんでした。後でもう一度お試しください。
@@ -8334,6 +8335,77 @@ Soutaitez-vous vraiment supprimer ce profil ? Cette opération est définitive:
   ukrainien: Ви дійсно хочете видалити цей профіль? Ця операція є остаточною
   vietnamien: Bạn có chắc chắn muốn xóa hồ sơ này không? Thao tác này là vĩnh viễn
   zoulou: Uyafuna ngempela ukususa le phrofayela? Lesi senzo singunomphela
+Statistiques:
+  afrikaans: Statistieke
+  albanais: Statistika
+  allemand: Statistiken
+  anglais: Statistics
+  arabe: إحصائيات
+  arménien: Վիճակագրություն
+  basque: Estadistikak
+  bengali: পরিসংখ্যান
+  birman: စာရင်းအင်း
+  breton: Stadegoù
+  bulgare: Статистика
+  catalan: Estadístiques
+  corse: Statistiche
+  coréen: 통계
+  danois: Statistik
+  espagnol: Estadísticas
+  esperanto: Statistikoj
+  estonien: Statistika
+  finnois: Tilastot
+  français: Statistiques
+  gallois: Ystadegau
+  grec: Στατιστική
+  grec ancien: Στατιστική
+  géorgien: სტატისტიკა
+  hindi: सांख्यिकी
+  hongrois: Statisztika
+  indonésien: Statistik
+  irlandais: Staitisticí
+  islandais: Tölfræði
+  italien: Statistiche
+  japonais: 統計
+  kazakh: Статистика
+  kirghize: Статистика
+  kurde: Îstatîstîk
+  latin: Statistica
+  letton: Statistika
+  lituanien: Statistika
+  luxembourgeois: Statistiken
+  macédonien: Статистика
+  malais: Statistik
+  malgache: Statistika
+  maltais: Statistika
+  mandarin standard: 统计
+  mongol: Статистик
+  norvégien: Statistikk
+  néerlandais: Statistieken
+  népalais: तथ्याङ्क
+  ourdou: اعداد و شمار
+  ouzbek: Statistika
+  pachto: شمېر
+  persan: آمار
+  polonais: Statystyka
+  portugais: Estatísticas
+  roumain: Statistici
+  russe: Статистика
+  serbo-croate: Statistika
+  slovaque: Štatistiky
+  slovène: Statistika
+  suédois: Statistik
+  swahili: Takwimu
+  tadjik: Омор
+  tamoul: புள்ளியியல்
+  tchèque: Statistiky
+  thaï: สถิติ
+  tibétain: གྲངས་ཀྱི་རྣམ་གྲངས་
+  turc: İstatistikler
+  turkmène: Statistika
+  ukrainien: Статистика
+  vietnamien: Thống kê
+  zoulou: Izibalo
 Suppression du profil:
   afrikaans: Profielveeë
   albanais: Fshirja e profilit

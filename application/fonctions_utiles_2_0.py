@@ -33,6 +33,13 @@ def obtenir_clef_par_valeur(dictionnaire, valeur):
     return None
 
 
+def reset_combo(combo, items, set_index=True):
+    combo.clear()
+    combo.addItems(items)
+    if set_index:
+        combo.setCurrentIndex(0)
+
+
 def style_bouton_de_suppression(sombre):
     return f"""QPushButton {{
                             background-color:{"#000000" if sombre else "#f8d7da"};

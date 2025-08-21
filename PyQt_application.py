@@ -41,7 +41,7 @@ from PyQt6.QtCore import Qt, QTimer, QSize, QThread
 import constantes
 from production_cartes import creer_graphique_1_2
 from application import fonctions_utiles_2_0
-from application.onglets import onglet_1, onglet_3, onglet_5
+from application.onglets import onglet_1, onglet_2, onglet_3, onglet_5
 from application.onglets.onglet_4 import onglet_4
 
 
@@ -155,32 +155,6 @@ class SettingsApp(QWidget):
         # Ajouter le layout à la group box et la group box au layout général
         self.groupe_params_individu.setLayout(layout_params_individu)
         layout.addWidget(self.groupe_params_individu)
-
-        self.groupe_chargement_yaml = QGroupBox()
-
-        # Stockage des données YAML
-        self.fichier_yaml_1 = None
-        self.fichier_yaml_2 = None
-
-        # Création des boutons pour charger les YAML
-        self.chemin_fichier_yaml_1 = None
-        self.chemin_fichier_yaml_2 = None
-        self.fichier_yaml_1_bouton = QPushButton()
-        self.fichier_yaml_1_bouton.clicked.connect(lambda: self.charger_yaml(1))
-        self.fichier_yaml_1_bouton.clicked.connect(
-            lambda: self.maj_langue_interface(False)
-        )
-        self.fichier_yaml_2_bouton = QPushButton()
-        self.fichier_yaml_2_bouton.clicked.connect(lambda: self.charger_yaml(2))
-        self.fichier_yaml_2_bouton.clicked.connect(
-            lambda: self.maj_langue_interface(False)
-        )
-
-        # Layout horizontal pour les boutons
-        layout_fichiers_yaml = QHBoxLayout()
-        layout_fichiers_yaml.addWidget(self.fichier_yaml_1_bouton)
-        layout_fichiers_yaml.addWidget(self.fichier_yaml_2_bouton)
-        self.groupe_chargement_yaml.setLayout(layout_fichiers_yaml)
 
         # Créer un QGroupBox pour les choix de granularité
         self.groupe_granularite = QGroupBox()
@@ -472,65 +446,14 @@ class SettingsApp(QWidget):
         self.main_tab.setLayout(layout)
 
         # Deuxième onglet
-        self.tab_yaml = QWidget()
-        self.tabs.addTab(self.tab_yaml, "Création de la liste des pays visités")
-
-        # Ajouter un layout et un label au deuxième onglet
-        layout_yaml = QVBoxLayout()
-        self.groupe_selection_lieux = QGroupBox()
-        layout_selection_lieux = QVBoxLayout()
-
-        self.liste_des_pays = QComboBox()
-        self.liste_niveaux = QComboBox()
-        self.avertissement_prio = QLabel()
-        self.avertissement_prio.setWordWrap(True)
-        self.liste_endroits = QListWidget()
-        self.liste_endroits.setWrapping(True)
-        self.liste_endroits.setResizeMode(QListWidget.ResizeMode.Adjust)
-        self.liste_endroits.setGridSize(QSize(250, 25))
-        self.telecharger_lieux_visites = QPushButton()
-        self.telecharger_lieux_visites.clicked.connect(self.exporter_yamls_visites)
-        self.bouton_sauvegarde2 = QPushButton()
-        self.bouton_sauvegarde2.clicked.connect(
-            lambda: self.fonction_principale(True, True)
-        )
-
         self.dicts_granu = {"region": {}, "dep": {}}
-
-        # Remplir les déroulés
-        self.liste_des_pays.addItems(constantes.regions_par_pays.keys())
-
-        self.liste_des_pays.currentTextChanged.connect(self.maj_liste_reg_dep_pays)
-        self.liste_niveaux.currentTextChanged.connect(self.maj_liste_reg_dep_pays)
-        self.liste_endroits.itemChanged.connect(self.changer_item_liste_pays)
-
-        layout_selection_params = QHBoxLayout()
-        layout_selection_params.addWidget(self.liste_des_pays)
-        layout_selection_params.addWidget(self.liste_niveaux)
-        layout_selection_params.addWidget(self.telecharger_lieux_visites)
-        layout_selection_params.addWidget(self.bouton_sauvegarde2)
-        layout_selection_params.setStretch(
-            0, 3
-        )  # Le premier widget prend plus de place
-        layout_selection_params.setStretch(
-            1, 3
-        )  # Le deuxième widget prend plus de place
-        layout_selection_params.setStretch(
-            2, 1
-        )  # Le troisième widget prend moins de place
-        layout_selection_params.setStretch(
-            3, 1
-        )  # Le troisième widget prend moins de place
-
-        layout_selection_lieux.addLayout(layout_selection_params)
-        layout_selection_lieux.addWidget(self.avertissement_prio)
-        layout_selection_lieux.addWidget(self.liste_endroits)
-        self.groupe_selection_lieux.setLayout(layout_selection_lieux)
-
-        layout_yaml.addWidget(self.groupe_selection_lieux)
-        layout_yaml.addWidget(self.groupe_chargement_yaml)
-
-        self.tab_yaml.setLayout(layout_yaml)
+        self.tab_yaml = onglet_2.OngletSelectionnerDestinations(
+            constantes=constantes,
+            fct_traduire=self.traduire_depuis_id,
+            fct_principale=self.fonction_principale,
+            fct_pop_up=self.montrer_popup,
+        )
+        self.tabs.addTab(self.tab_yaml, "Création de la liste des pays visités")
 
         # Troisième onglet
         self.onglet_resume_pays = onglet_3.OngletResumeDestinations(
@@ -578,9 +501,9 @@ class SettingsApp(QWidget):
         main_layout.addWidget(self.tabs)
 
         self.maj_style()
-        self.maj_liste_reg_dep_pays()
         self.maj_langue_interface(True)
         self.setLayout(main_layout)
+        self.tab_yaml.dict_modif.connect(self.maj_dict_granu)
 
         # Connections aux fonctions
         self.nom_individu.currentIndexChanged.connect(
@@ -763,37 +686,7 @@ class SettingsApp(QWidget):
         )
 
         # Onglet 2
-
-        # Titre
-        self.groupe_selection_lieux.setTitle(
-            self.traduire_depuis_id("titre_choix_destinations_visitees")
-        )
-        self.avertissement_prio.setText(
-            self.traduire_depuis_id("avertissement_onglet_2", prefixe="⚠️ ", suffixe=".")
-        )
-        self.telecharger_lieux_visites.setText("📥")
-        self.telecharger_lieux_visites.setToolTip(
-            self.traduire_depuis_id("telecharger_lieux_visites", suffixe=".")
-        )
-        self.bouton_sauvegarde2.setText("💾")
-
-        # Chargement des YAMLs
-        self.groupe_chargement_yaml.setTitle(
-            self.traduire_depuis_id("titre_chargement_yamls", prefixe="... ")
-        )
-        self.groupe_chargement_yaml.setToolTip(
-            self.traduire_depuis_id("description_titre_chargement_yamls", suffixe=".")
-        )
-        self.fichier_yaml_1_bouton.setText(
-            self.traduire_depuis_id("yaml_regions")
-            if self.fichier_yaml_1 is None
-            else os.path.basename(self.chemin_fichier_yaml_1)
-        )
-        self.fichier_yaml_2_bouton.setText(
-            self.traduire_depuis_id("yaml_departements")
-            if self.fichier_yaml_2 is None
-            else os.path.basename(self.chemin_fichier_yaml_2)
-        )
+        self.tab_yaml.set_langue(langue=langue_actuelle)
 
         # Onglet 3
         self.onglet_resume_pays.set_langue(nouvelle_langue=langue_actuelle)
@@ -841,23 +734,16 @@ class SettingsApp(QWidget):
                 langue_actuelle, {}
             )
 
-            def reset_combo(combo, items, set_index=True):
-                combo.clear()
-                combo.addItems(items)
-                if set_index:
-                    combo.setCurrentIndex(0)
-
             liste_granularite = [
                 gran[k] for k in ["Pays", "Région", "Département", "Amusant"]
             ]
-            reset_combo(self.granularite_visite, liste_granularite)
-            reset_combo(self.granularite_fond, liste_granularite[:-1], set_index=False)
+            fonctions_utiles_2_0.reset_combo(self.granularite_visite, liste_granularite)
+            fonctions_utiles_2_0.reset_combo(
+                self.granularite_fond, liste_granularite[:-1], set_index=False
+            )
 
-            liste_granularite_simple = [gran[k] for k in ["Régions", "Départements"]]
-            reset_combo(self.liste_niveaux, liste_granularite_simple)
-
-            reset_combo(self.color_combo, sorted(teintes.values()))
-            reset_combo(self.theme_combo, sorted(themes.values()))
+            fonctions_utiles_2_0.reset_combo(self.color_combo, sorted(teintes.values()))
+            fonctions_utiles_2_0.reset_combo(self.theme_combo, sorted(themes.values()))
 
     def traduire(self, cle, langue=None, prefixe="", suffixe=""):
         if langue is None:
@@ -955,6 +841,7 @@ class SettingsApp(QWidget):
         )
         if dossier:
             self.dossier_stockage = dossier  # Stocke le chemin sélectionné
+            self.tab_yaml.set_dossier(dossier=dossier)
 
     def fonction_principale(self, sauvegarder_seulement=True, pop_up=False):
 
@@ -1122,6 +1009,11 @@ class SettingsApp(QWidget):
         else:
             return msg
 
+    def maj_dict_granu(self, dictionnaire: dict):
+        self.dicts_granu = dictionnaire
+        self.onglet_resume_pays.set_dicts_granu(dict_nv=self.dicts_granu)
+        self.top_pays_visites.set_dicts_granu(dict_nv=self.dicts_granu)
+
     def publier_cartes(self, settings):
         # Logique de traitement avec les paramètres validés
 
@@ -1269,26 +1161,6 @@ class SettingsApp(QWidget):
             titre=self.traduire_depuis_id(clef="titre_pop_up_publication_cartes"),
         )
 
-    def charger_yaml(self, num):
-        chemin_yaml, _ = QFileDialog.getOpenFileName(
-            self,
-            self.traduire_depuis_id("pop_up_yaml"),
-            "",
-            "YAML Files (*.yaml *.yml)",
-        )
-        if chemin_yaml:
-            with open(chemin_yaml, "r", encoding="utf-8") as file:
-                data = yaml.safe_load(file)
-                if num == 1:
-                    self.chemin_fichier_yaml_1 = chemin_yaml
-                    self.fichier_yaml_1 = data  # Stocke les données du YAML 1
-                    self.dicts_granu["region"] = data
-
-                else:
-                    self.chemin_fichier_yaml_2 = chemin_yaml
-                    self.fichier_yaml_2 = data  # Stocke les données du YAML 2
-                    self.dicts_granu["dep"] = data
-
     def initialiser_sauvegarde(self, sauvegarde_complete):
 
         sauv = sauvegarde_complete.get(self.nom_individu.currentText(), {})
@@ -1299,6 +1171,7 @@ class SettingsApp(QWidget):
             # Dossier de publication
             if sauv.get("results") is not None:
                 self.dossier_stockage = sauv.get("results")
+                self.tab_yaml.set_dossier(dossier=self.dossier_stockage)
 
             # Langue
             if sauv.get("language") is not None:
@@ -1331,15 +1204,22 @@ class SettingsApp(QWidget):
             if sauv.get("format") is not None:
                 self.format_cartes.setCurrentText(sauv.get("format"))
 
+            # Récupération des régions
             if sauv.get("dictionnaire_regions") is not None:
                 self.dicts_granu["region"] = sauv.get("dictionnaire_regions")
             else:
                 self.dicts_granu["region"] = {}
+
+            # Récupération des départements
             if sauv.get("dictionnaire_departements") is not None:
                 self.dicts_granu["dep"] = sauv.get("dictionnaire_departements")
             else:
                 self.dicts_granu["dep"] = {}
 
+            # Affectation du dictionnaire au deuxième onglet également
+            self.tab_yaml.set_dict_granu(dictionnaire=self.dicts_granu)
+
+            # Limite de cartes
             if sauv.get("limite_nb_cartes") is not None:
                 if sauv.get("limite_nb_cartes") == 5:
                     self.radio_carte_1.setChecked(True)
@@ -1358,7 +1238,6 @@ class SettingsApp(QWidget):
             if sauv.get("couleur_fond_carte") is not None:
                 self.couleur_fond_checkbox.setChecked(sauv.get("couleur_fond_carte"))
 
-            self.maj_liste_reg_dep_pays()
             self.top_pays_visites.set_dicts_granu(dict_nv=self.dicts_granu)
             self.onglet_resume_pays.set_dicts_granu(dict_nv=self.dicts_granu)
 
@@ -1372,13 +1251,11 @@ class SettingsApp(QWidget):
             self.nom_individu.setCurrentIndex(-1)
             self.nom_individu.blockSignals(False)
 
-        self.liste_niveaux.blockSignals(True)
         self.dicts_granu = {"region": {}, "dep": {}}
-        self.maj_liste_reg_dep_pays()
-
-        self.liste_niveaux.blockSignals(False)
+        self.tab_yaml.set_dict_granu(dictionnaire=self.dicts_granu)
 
         self.dossier_stockage = None
+        self.tab_yaml.set_dossier(dossier=self.dossier_stockage)
         self.radio_carte_2.setChecked(True)
         self.langue_utilisee.setCurrentIndex(0)
 
@@ -1414,90 +1291,6 @@ class SettingsApp(QWidget):
 
         self.utiliser_theme.setChecked(False)
         self.onglet_resume_pays.mise_en_forme.setChecked(False)
-        self.onglet_resume_pays.set_dicts_granu(dict_nv=self.dicts_granu)
-        self.top_pays_visites.set_dicts_granu(dict_nv=self.dicts_granu)
-
-    def maj_liste_reg_dep_pays(self):
-
-        langue_l = fonctions_utiles_2_0.obtenir_clef_par_valeur(
-            dictionnaire=constantes.dict_langues_dispo,
-            valeur=self.langue_utilisee.currentText(),
-        )
-
-        pays_i = self.liste_des_pays.currentText()
-        niveau_i = fonctions_utiles_2_0.obtenir_clef_par_valeur(
-            valeur=self.liste_niveaux.currentText(),
-            dictionnaire=constantes.parametres_traduits["granularite"][langue_l],
-        )
-
-        self.liste_endroits.blockSignals(
-            True
-        )  # ⚠️ Empêche les signaux pendant le remplissage
-        self.liste_endroits.clear()
-
-        if niveau_i == "Régions":
-            liste_end = constantes.regions_par_pays.get(pays_i, [])
-        elif niveau_i == "Départements":
-            liste_end = constantes.departements_par_pays.get(pays_i, [])
-        else:
-            liste_end = []
-
-        for item in liste_end:
-            liste_item = QListWidgetItem(item)
-            liste_item.setFlags(liste_item.flags() | Qt.ItemFlag.ItemIsUserCheckable)
-
-            # Si déjà sélectionné dans le dict, on coche
-            clef = "region" if niveau_i == "Régions" else "dep"
-            est_coche = item in self.dicts_granu.get(clef, {}).get(pays_i, [])
-            liste_item.setCheckState(
-                Qt.CheckState.Checked if est_coche else Qt.CheckState.Unchecked
-            )
-            self.liste_endroits.addItem(liste_item)
-
-        self.liste_endroits.blockSignals(False)
-
-        # Connecte le signal (une seule fois idéalement)
-        try:
-            self.liste_endroits.itemChanged.disconnect()
-        except TypeError:
-            pass
-        self.liste_endroits.itemChanged.connect(self.changer_item_liste_pays)
-
-    def changer_item_liste_pays(self, item):
-        langue_l = fonctions_utiles_2_0.obtenir_clef_par_valeur(
-            dictionnaire=constantes.dict_langues_dispo,
-            valeur=self.langue_utilisee.currentText(),
-        )
-
-        pays_i = self.liste_des_pays.currentText()
-        niveau_i = fonctions_utiles_2_0.obtenir_clef_par_valeur(
-            valeur=self.liste_niveaux.currentText(),
-            dictionnaire=constantes.parametres_traduits["granularite"][langue_l],
-        )
-        texte = item.text()
-
-        # Détermine la clé du dictionnaire selon le niveau
-        clef = "region" if niveau_i == "Régions" else "dep"
-
-        # Initialise le dictionnaire pour le pays s’il n’existe pas
-        if pays_i not in self.dicts_granu[clef]:
-            self.dicts_granu[clef][pays_i] = []
-
-        # Ajoute ou retire l’élément selon son état
-        if item.checkState() == Qt.CheckState.Checked:
-            if texte not in self.dicts_granu[clef][pays_i]:
-                self.dicts_granu[clef][pays_i].append(texte)
-                self.dicts_granu[clef][pays_i].sort()
-                self.dicts_granu[clef] = {
-                    pays: self.dicts_granu[clef][pays]
-                    for pays in sorted(self.dicts_granu[clef])
-                }
-        else:
-            if texte in self.dicts_granu[clef][pays_i]:
-                self.dicts_granu[clef][pays_i].remove(texte)
-                if self.dicts_granu[clef][pays_i] == []:
-                    del self.dicts_granu[clef][pays_i]
-
         self.onglet_resume_pays.set_dicts_granu(dict_nv=self.dicts_granu)
         self.top_pays_visites.set_dicts_granu(dict_nv=self.dicts_granu)
 
@@ -1543,77 +1336,6 @@ class SettingsApp(QWidget):
             self.reinitialisation_parametres(True)
             self.dicts_granu = {"region": {}, "dep": {}}
             self.maj_langue_interface(True)
-
-    def exporter_yamls_visites(self):
-
-        if self.dossier_stockage is None:
-
-            self.montrer_popup(
-                contenu=self.traduire_depuis_id(
-                    "pop_up_pas_de_dossier_de_stockage",
-                    suffixe=".",
-                ),
-                titre=self.traduire_depuis_id("pop_up_probleme_titre", suffixe="."),
-                temps_max=10000,
-            )
-
-        else:
-
-            langue_actuelle = fonctions_utiles_2_0.obtenir_clef_par_valeur(
-                dictionnaire=constantes.dict_langues_dispo,
-                valeur=self.langue_utilisee.currentText(),
-            )
-            gran = constantes.parametres_traduits["granularite"][langue_actuelle]
-
-            nom = self.nom_individu.currentText()
-            if nom is None:
-                nom = ""
-
-            nom_yaml_regions = f"{nom}{' – ' if nom != '' else nom}{self.traduire_depuis_id(clef='granularite_pays_visites')} – {gran['Régions']}.yaml"
-            nom_yaml_departements = f"{nom}{' – ' if nom != '' else nom}{self.traduire_depuis_id(clef='granularite_pays_visites')} – {gran['Départements']}.yaml"
-
-            try:
-
-                # Export des régions
-                with open(
-                    os.path.join(self.dossier_stockage, nom_yaml_regions),
-                    "w",
-                    encoding="utf-8",
-                ) as f:
-                    yaml.dump(
-                        self.dicts_granu["region"],
-                        f,
-                        allow_unicode=True,
-                        default_flow_style=False,
-                    )
-                # Export des départements
-                with open(
-                    os.path.join(self.dossier_stockage, nom_yaml_departements),
-                    "w",
-                    encoding="utf-8",
-                ) as f:
-                    yaml.dump(
-                        self.dicts_granu["dep"],
-                        f,
-                        allow_unicode=True,
-                        default_flow_style=False,
-                    )
-
-                self.telecharger_lieux_visites.setText("📥✅")
-                QTimer.singleShot(
-                    3000, lambda: self.telecharger_lieux_visites.setText("📥")
-                )
-
-            except:
-
-                self.montrer_popup(
-                    titre=self.traduire_depuis_id("pop_up_probleme_titre", suffixe="."),
-                    contenu=self.traduire_depuis_id(
-                        "export_pas_fonctionnel",
-                        suffixe=".",
-                    ),
-                    temps_max=10000,
-                )
 
 
 if __name__ == "__main__":

@@ -49,12 +49,6 @@ sauvegarde = fonctions_utiles_2_0.ouvrir_fichier(
     defaut={},
 )
 
-liste_langues_dispo_joli = ["Français", "English"] + sorted(
-    langue
-    for langue in constantes.dict_langues_dispo.values()
-    if langue not in {"Français", "English"}
-)
-
 
 class SettingsApp(QWidget):
     def __init__(self):
@@ -114,7 +108,14 @@ class SettingsApp(QWidget):
         # Choix de la langue
         self.label_langue = fonctions_utiles_2_0.creer_QLabel_centre()
         self.langue_utilisee = QComboBox()
-        self.langue_utilisee.addItems(liste_langues_dispo_joli)
+        self.langue_utilisee.addItems(
+            ["Français", "English"]
+            + sorted(
+                langue
+                for langue in constantes.dict_langues_dispo.values()
+                if langue not in {"Français", "English"}
+            )
+        )
         layout_params_individu.addWidget(self.label_langue)
         layout_params_individu.addWidget(self.langue_utilisee)
         self.langue_utilisee.currentIndexChanged.connect(lambda: self.maj_langue_interface(True))

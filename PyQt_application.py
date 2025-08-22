@@ -3,24 +3,23 @@
 # Application principale                                                       #
 ################################################################################
 
-import os, sys, warnings
-import yaml, pickle, copy, textwrap
+import os, sys, warnings, copy, textwrap
 
 # PyQt6
 from PyQt6.QtWidgets import (
     QApplication,
     QWidget,
+    QHBoxLayout,
     QVBoxLayout,
+    QGridLayout,
+    QLabel,
     QPushButton,
     QComboBox,
-    QLabel,
+    QCheckBox,
     QFileDialog,
     QSlider,
-    QHBoxLayout,
-    QCheckBox,
     QGroupBox,
     QMessageBox,
-    QGridLayout,
     QButtonGroup,
     QRadioButton,
     QTabWidget,
@@ -782,19 +781,16 @@ class SettingsApp(QWidget):
     def fonction_principale(self, sauvegarder_seulement=True):
 
         settings = {
-            "name": self.nom_individu.currentText(),
-            "granularity": self.granularite_visite.currentText(),
-            "granularity_back": self.granularite_fond.currentText(),
-            "language": fonctions_utiles_2_0.obtenir_clef_par_valeur(
+            "nom": self.nom_individu.currentText(),
+            "langue": fonctions_utiles_2_0.obtenir_clef_par_valeur(
                 valeur=self.langue_utilisee.currentText(),
                 dictionnaire=constantes.dict_langues_dispo,
             ),
             "theme": self.theme_combo.currentText(),
-            "color": self.color_combo.currentText(),
             "couleur_fond_carte": self.couleur_fond_checkbox.isChecked(),
-            "quality": self.curseur_qualite.value(),
+            "qualite": self.curseur_qualite.value(),
             "format": self.format_cartes.currentText(),
-            "results": self.dossier_stockage,
+            "dossier_stockage": self.dossier_stockage,
             "carte_du_monde": self.carte_monde.isChecked(),
             "europe": self.europe.isChecked(),
             "asie": self.asie.isChecked(),
@@ -814,21 +810,21 @@ class SettingsApp(QWidget):
             "format_onglet_3": self.onglet_resume_pays.mise_en_forme.isChecked(),
         }
 
-        settings["granularity"] = fonctions_utiles_2_0.obtenir_clef_par_valeur(
-            valeur=settings["granularity"],
-            dictionnaire=constantes.parametres_traduits["granularite"][settings["language"]],
+        settings["granularite"] = fonctions_utiles_2_0.obtenir_clef_par_valeur(
+            valeur=self.granularite_visite.currentText(),
+            dictionnaire=constantes.parametres_traduits["granularite"][settings["langue"]],
         )
-        settings["granularity_back"] = fonctions_utiles_2_0.obtenir_clef_par_valeur(
-            valeur=settings["granularity_back"],
-            dictionnaire=constantes.parametres_traduits["granularite"][settings["language"]],
-        )
-
-        settings["color"] = fonctions_utiles_2_0.obtenir_clef_par_valeur(
-            valeur=settings["color"],
-            dictionnaire=constantes.parametres_traduits["teintes_couleurs"][settings["language"]],
+        settings["granularite_fond"] = fonctions_utiles_2_0.obtenir_clef_par_valeur(
+            valeur=self.granularite_fond.currentText(),
+            dictionnaire=constantes.parametres_traduits["granularite"][settings["langue"]],
         )
 
-        self.tab_yaml.set_nom_individu(nom=settings["name"])
+        settings["couleur"] = fonctions_utiles_2_0.obtenir_clef_par_valeur(
+            valeur=self.color_combo.currentText(),
+            dictionnaire=constantes.parametres_traduits["teintes_couleurs"][settings["langue"]],
+        )
+
+        self.tab_yaml.set_nom_individu(nom=settings["nom"])
 
         settings["limite_nb_cartes"] = {
             self.radio_carte_1: 5,
@@ -838,18 +834,18 @@ class SettingsApp(QWidget):
 
         settings["theme"] = fonctions_utiles_2_0.obtenir_clef_par_valeur(
             valeur=settings["theme"],
-            dictionnaire=constantes.parametres_traduits["themes_cartes"][settings["language"]],
+            dictionnaire=constantes.parametres_traduits["themes_cartes"][settings["langue"]],
         )
 
         if sauvegarder_seulement:
 
             # Export
-            settings["name"] = settings.get("name", "")
-            sauvegarde[settings["name"]] = copy.deepcopy(settings)
-            if settings["name"] not in [
+            settings["nom"] = settings.get("nom", "")
+            sauvegarde[settings["nom"]] = copy.deepcopy(settings)
+            if settings["nom"] not in [
                 self.nom_individu.itemText(i) for i in range(self.nom_individu.count())
             ]:
-                self.nom_individu.addItem(settings["name"])
+                self.nom_individu.addItem(settings["nom"])
 
             fonctions_utiles_2_0.exporter_fichier(
                 objet=sauvegarde,
@@ -873,7 +869,7 @@ class SettingsApp(QWidget):
                 temps_max=10000,
             )
 
-        elif settings["results"] is None:
+        elif settings["dossier_stockage"] is None:
 
             self.montrer_popup(
                 contenu=self.traduire_depuis_id(
@@ -938,10 +934,10 @@ class SettingsApp(QWidget):
 
         # Ganularite
         granularite = {"Pays": 0, "Région": 1, "Département": 2}.get(
-            settings.get("granularity"), -1
+            settings.get("granularite"), -1
         )
 
-        granularite_fond = {"Pays": 0, "Région": 1}.get(settings.get("granularity_back"), 2)
+        granularite_fond = {"Pays": 0, "Région": 1}.get(settings.get("granularite_fond"), 2)
 
         # Gestion des régions du monde
         liste_regions_temp = {}
@@ -1019,18 +1015,18 @@ class SettingsApp(QWidget):
             "gdf_eau": constantes.gdf_lacs,
             "noms_pays": constantes.pays_differentes_langues,
             "dictionnaire_pays_unis": constantes.liste_pays_groupes,
-            "nom_indiv": settings["name"],
-            "direction_resultat": settings["results"],
-            "langue": settings["language"],
+            "nom_indiv": settings["nom"],
+            "direction_resultat": settings["dossier_stockage"],
+            "langue": settings["langue"],
             "granularite_visite": granularite,
             "granularite_reste": granularite_fond,
             "theme": constantes.liste_ambiances[settings["theme"]],
-            "teinte": constantes.liste_couleurs[settings["color"]],
+            "teinte": constantes.liste_couleurs[settings["couleur"]],
             "couleur_fond": "#CDEAF7" if settings["couleur_fond_carte"] else "#FFFFFF",
             "couleur_non_visites": "#ECEBED",
             "couleur_lacs": "#CEE3F5",
             "format": settings["format"],
-            "qualite": settings["quality"],
+            "qualite": settings["qualite"],
             "carte_du_monde": settings["carte_du_monde"],
             "liste_regions": liste_regions_temp,
             "pays_individuel": settings["cartes_des_pays"],
@@ -1077,19 +1073,19 @@ class SettingsApp(QWidget):
         sauv = sauvegarde_complete.get(self.nom_individu.currentText(), {})
 
         # Nom
-        if sauv.get("name") is not None:
+        if sauv.get("nom") is not None:
 
             # Dossier de publication
-            if sauv.get("results") is not None:
-                self.dossier_stockage = sauv.get("results")
+            if sauv.get("dossier_stockage") is not None:
+                self.dossier_stockage = sauv.get("dossier_stockage")
                 self.tab_yaml.set_dossier(dossier=self.dossier_stockage)
 
             # Langue
-            if sauv.get("language") is not None:
+            if sauv.get("langue") is not None:
                 self.langue_utilisee.setCurrentText(
-                    constantes.dict_langues_dispo[sauv.get("language")]
+                    constantes.dict_langues_dispo[sauv.get("langue")]
                 )
-                self.top_pays_visites.set_langue(nouvelle_langue=sauv.get("language"))
+                self.top_pays_visites.set_langue(nouvelle_langue=sauv.get("langue"))
 
             # Cartes à publier
             checkboxes = {
@@ -1108,8 +1104,8 @@ class SettingsApp(QWidget):
                     checkbox.setChecked(sauv.get(nom_cle))
 
             # Qualité
-            if sauv.get("quality") is not None:
-                self.curseur_qualite.setValue(sauv.get("quality"))
+            if sauv.get("qualite") is not None:
+                self.curseur_qualite.setValue(sauv.get("qualite"))
 
             # Format
             if sauv.get("format") is not None:
@@ -1249,12 +1245,15 @@ if __name__ == "__main__":
     # Import des bases de données contenant les cartes
     liste_gdfs = []
     for i in range(3):
-        with open(
-            os.path.join(constantes.direction_donnees_pickle, f"carte_monde_niveau_{i}.pkl"),
-            "rb",
-        ) as f:
-            gdf_niveau_i = pickle.load(f)
-        liste_gdfs.append(gdf_niveau_i)
+
+        liste_gdfs.append(
+            fonctions_utiles_2_0.ouvrir_fichier(
+                direction_fichier=constantes.direction_donnees_pickle,
+                nom_fichier=f"carte_monde_niveau_{i}.pkl",
+                defaut=None,
+                afficher_erreur=f"Base de granularité {i} introuvable.",
+            )
+        )
 
     window = SettingsApp()
     window.show()

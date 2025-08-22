@@ -12,8 +12,9 @@ import os
 nom = "Xavier"
 
 # Directions et adresses
-direction_dossier = "C:\\Users\\xaruo\\Documents\\Voyages effectués\\" + f"{nom} - Cartes de voyage"
-yaml_fichier = "C:\\Users\\xaruo\\Documents\\Voyages effectués\\Liste_destinations_" + f"{nom}.yaml"
+base_dir = r"C:\Users\xaruo\Documents\Voyages effectués"
+direction_dossier = os.path.join(base_dir, f"{nom} - Cartes de voyage")
+yaml_fichier = os.path.join(base_dir, f"Liste_destinations_{nom}.yaml")
 
 # Ouverture et lecture le fichier YAML
 with open(yaml_fichier, "r", encoding="utf-8") as file:
@@ -45,6 +46,7 @@ def cree_carte_pays(
 
     # Edition de la carte si cela est possible
     if nom_pays in list(liste_destinations.keys()) and nom_pays != "United States":
+
         if liste_destinations[nom_pays] != None:
             return wm.plot(
                 liste_destinations[nom_pays],
@@ -56,7 +58,9 @@ def cree_carte_pays(
             )
         else:
             print(nom_pays, "ne contient pas le détail des destinations effectuées.")
+
     elif nom_pays == "United States":
+
         if liste_destinations[nom_pays] != None:
             return wm.plot(
                 liste_destinations[nom_pays],
@@ -68,6 +72,7 @@ def cree_carte_pays(
             )
         else:
             print(nom_pays, "ne contient pas le détail des destinations effectuées.")
+
     else:
         print(nom_pays, "ne fait pas partie de la liste des pays visités.")
 

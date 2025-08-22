@@ -4,7 +4,6 @@
 ################################################################################
 
 import google.generativeai as genai
-import yaml
 import time
 import os
 import sys
@@ -12,7 +11,7 @@ import textwrap
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import constantes
-from application.fonctions_utiles_2_0 import ouvrir_fichier
+from application.fonctions_utiles_2_0 import ouvrir_fichier, exporter_fichier
 
 from clefs_et_mots_de_passe import clef_api_gemini
 
@@ -344,71 +343,51 @@ if __name__ == "__main__":
     date_du_jour = f"{date_du_jour.tm_year}-{date_du_jour.tm_mon}-{date_du_jour.tm_mday}"
 
     # YAML des régions
-    try:
-        with open(
-            os.path.join(constantes.direction_donnees_application, "continents.yaml"),
-            "r",
-            encoding="utf-8",
-        ) as file:
-            liste_regions = yaml.safe_load(file)
-
-    except:
-        liste_regions = {}
-        print("Fichiers YAML des régions par pays non trouvé.")
+    liste_regions = ouvrir_fichier(
+        direction_fichier=constantes.direction_donnees_application,
+        nom_fichier="continents.yaml",
+        defaut={},
+        afficher_erreur="Fichiers YAML des régions par pays non trouvé.",
+    )
 
     # YAML des pays regroupés
-    try:
-        with open(
-            os.path.join(
-                constantes.direction_donnees_application,
-                "cartes_pays_regroupements.yaml",
-            ),
-            "r",
-            encoding="utf-8",
-        ) as file:
-            liste_pays_groupes = yaml.safe_load(file)
-    except:
-        print("Fichiers YAML des regroupements de pays non trouvé.")
-        liste_pays_groupes = {}
+    liste_pays_groupes = ouvrir_fichier(
+        direction_fichier=constantes.direction_donnees_application,
+        nom_fichier="cartes_pays_regroupements.yaml",
+        defaut={},
+        afficher_erreur="Fichiers YAML des regroupements de pays non trouvé.",
+    )
 
     # Traduction des noms de pays
-    try:
-        with open(
-            os.path.join(constantes.direction_donnees_application, "noms_pays_traduction.yaml"),
-            "r",
-            encoding="utf-8",
-        ) as file:
-            pays_deja_traduits = yaml.safe_load(file)
+    pays_deja_traduits = ouvrir_fichier(
+        direction_fichier=constantes.direction_donnees_application,
+        nom_fichier="noms_pays_traduction.yaml",
+        defaut=None,
+        afficher_erreur="Fichiers YAML des traductions des noms de pays non trouvé.",
+    )
 
-    except:
-        pays_deja_traduits = None
-
-    with open(
-        os.path.join(constantes.direction_donnees_application, "phrases_interface.yaml"),
-        "r",
-        encoding="utf-8",
-    ) as file:
-        phrases_a_traduire = yaml.safe_load(file)
+    # Phrases de l'interface
+    phrases_a_traduire = ouvrir_fichier(
+        direction_fichier=constantes.direction_donnees_application,
+        nom_fichier="phrases_interface.yaml",
+        defaut={},
+        afficher_erreur="Fichiers YAML des phrases de l'interface non trouvé.",
+    )
 
     # Traduction de l'interface PyQt
-    try:
-        with open(
-            os.path.join(
-                constantes.direction_donnees_application,
-                "phrases_interface_traduction.yaml",
-            ),
-            "r",
-            encoding="utf-8",
-        ) as file:
-            outil_deja_trad = yaml.safe_load(file)
-    except:
-        outil_deja_trad = None
+    outil_deja_trad = ouvrir_fichier(
+        direction_fichier=constantes.direction_donnees_application,
+        nom_fichier="phrases_interface_traduction.yaml",
+        defaut=None,
+        afficher_erreur="Fichiers YAML des traductions des phrases de l'interface non trouvé.",
+    )
 
     # Traduction des paramètres
     parametres_deja_trad = ouvrir_fichier(
         direction_fichier=constantes.direction_donnees_application,
         nom_fichier="parametres_cartes_traduction.yaml",
         defaut=None,
+        afficher_erreur="Fichier YAML des traductions des paramètres non trouvé.",
     )
 
     # Traduction des langues
@@ -416,24 +395,21 @@ if __name__ == "__main__":
         direction_fichier=constantes.direction_donnees_application,
         nom_fichier="noms_langues_traduction.yaml",
         defaut=None,
+        afficher_erreur="Fichier YAML des traductions des langues non trouvé.",
     )
 
     # Gestion de la limite d'appels API quotidienne
-    try:
-        with open(
-            os.path.join(constantes.direction_donnees_autres, "appels_api_par_jour.yaml"),
-            "r",
-            encoding="utf-8",
-        ) as file:
-            liste_appels_api_deja_faits = yaml.safe_load(file)
-            appels_api_deja_faits = liste_appels_api_deja_faits.get(date_du_jour, {}).get(
-                liste_modeles[numero_modele]["modèle"], 0
-            )
-            appels_api_deja_faits = int(appels_api_deja_faits)
-
-    except:
-        appels_api_deja_faits = 0
-        liste_appels_api_deja_faits = {}
+    liste_appels_api_deja_faits = ouvrir_fichier(
+        direction_fichier=constantes.direction_donnees_autres,
+        nom_fichier="appels_api_par_jour.yaml",
+        defaut={},
+        afficher_erreur="Fichier YAML des appels API non trouvé.",
+    )
+    appels_api_deja_faits = int(
+        liste_appels_api_deja_faits.get(date_du_jour, {}).get(
+            liste_modeles[numero_modele]["modèle"], 0
+        )
+    )
 
     # YAML des teintes
     teintes_couleurs = ouvrir_fichier(
@@ -477,7 +453,6 @@ if __name__ == "__main__":
 
     print("\n\n Traduction des paramètres : \n")
     print("Granularité :")
-
     parametres_traduits = creer_liste_parametres_multilangue(
         liste_parametres=[
             "Pays",
@@ -495,7 +470,6 @@ if __name__ == "__main__":
     )
 
     print("\nThèmes :")
-
     parametres_traduits = creer_liste_parametres_multilangue(
         liste_parametres=list(themes_cartes.keys()),
         liste_deja_existante=parametres_traduits,
@@ -506,7 +480,6 @@ if __name__ == "__main__":
     )
 
     print("\n Teintes de couleurs :")
-
     parametres_traduits = creer_liste_parametres_multilangue(
         liste_parametres=list(teintes_couleurs.keys()),
         liste_deja_existante=parametres_traduits,
@@ -516,18 +489,15 @@ if __name__ == "__main__":
         blabla=1,
     )
 
-    with open(
-        os.path.join(
-            constantes.direction_donnees_application,
-            "parametres_cartes_traduction.yaml",
-        ),
-        "w",
-        encoding="utf-8",
-    ) as f:
-        yaml.dump(parametres_traduits, f, allow_unicode=True, default_flow_style=False)
+    # Export
+    exporter_fichier(
+        objet=parametres_traduits,
+        direction_fichier=constantes.direction_donnees_application,
+        nom_fichier="parametres_cartes_traduction.yaml",
+        sort_keys=True,
+    )
 
     print("\n\n Traduction des noms de langues : \n")
-
     langues_deja_traduites = creer_dictionnaire_langues(
         modele_dict=liste_modeles[numero_modele],
         liste_deja_existante=langues_deja_traduites,
@@ -535,22 +505,19 @@ if __name__ == "__main__":
         liste_langues=liste_langues,
     )
 
-    with open(
-        os.path.join(constantes.direction_donnees_application, "noms_langues_traduction.yaml"),
-        "w",
-        encoding="utf-8",
-    ) as f:
-        yaml.dump(langues_deja_traduites, f, allow_unicode=True, default_flow_style=False)
-
+    # Export et vérification des doublons
+    exporter_fichier(
+        objet=langues_deja_traduites,
+        direction_fichier=constantes.direction_donnees_application,
+        nom_fichier="noms_langues_traduction.yaml",
+        sort_keys=True,
+    )
     verifier_doublons(parametres_traduits)
 
-    print("\n\n Traduction de l'interface graphique : \n")
-
     ## PyQt - Interfaces
-    phrases_a_traduire = list(phrases_a_traduire.values())
-
+    print("\n\n Traduction de l'interface graphique : \n")
     phrases_pays_langues = creer_liste_pays_multilangue(
-        liste_pays=phrases_a_traduire,
+        liste_pays=list(phrases_a_traduire.values()),
         modele_dict=liste_modeles[numero_modele],
         liste_deja_existante=outil_deja_trad,
         liste_langues=liste_langues,
@@ -558,19 +525,16 @@ if __name__ == "__main__":
         blabla=1,
     )
 
-    with open(
-        os.path.join(
-            constantes.direction_donnees_application,
-            "phrases_interface_traduction.yaml",
-        ),
-        "w",
-        encoding="utf-8",
-    ) as f:
-        yaml.dump(phrases_pays_langues, f, allow_unicode=True, default_flow_style=False)
-
-    print("\n\n Traduction des noms de pays et régions : \n")
+    # Export
+    exporter_fichier(
+        objet=phrases_pays_langues,
+        direction_fichier=constantes.direction_donnees_application,
+        nom_fichier="phrases_interface_traduction.yaml",
+        sort_keys=True,
+    )
 
     # Nom des pays dans les cartes sauvegardées
+    print("\n\n Traduction des noms de pays et régions : \n")
     dict_pays_langues = creer_liste_pays_multilangue(
         liste_pays=liste_pays,
         modele_dict=liste_modeles[numero_modele],
@@ -579,12 +543,13 @@ if __name__ == "__main__":
         blabla=1,
     )
 
-    with open(
-        os.path.join(constantes.direction_donnees_application, "noms_pays_traduction.yaml"),
-        "w",
-        encoding="utf-8",
-    ) as f:
-        yaml.dump(dict_pays_langues, f, allow_unicode=True, default_flow_style=False)
+    # Export
+    exporter_fichier(
+        objet=dict_pays_langues,
+        direction_fichier=constantes.direction_donnees_application,
+        nom_fichier="noms_pays_traduction.yaml",
+        sort_keys=True,
+    )
 
     # Mise à jour des appels API faits
     if not date_du_jour in list(liste_appels_api_deja_faits.keys()):
@@ -593,11 +558,11 @@ if __name__ == "__main__":
         liste_modeles[numero_modele]["modèle"]
     ] = appels_api_deja_faits
 
-    with open(
-        os.path.join(constantes.direction_donnees_autres, "appels_api_par_jour.yaml"),
-        "w",
-        encoding="utf-8",
-    ) as f:
-        yaml.dump(liste_appels_api_deja_faits, f, allow_unicode=True, default_flow_style=False)
+    exporter_fichier(
+        objet=liste_appels_api_deja_faits,
+        direction_fichier=constantes.direction_donnees_autres,
+        nom_fichier="appels_api_par_jour.yaml",
+        sort_keys=True,
+    )
 
     print("\nTerminé ✅.")

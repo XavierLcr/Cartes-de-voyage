@@ -22,7 +22,7 @@ from PyQt6.QtWidgets import (
     QListWidgetItem,
 )
 
-from application.fonctions_utiles_2_0 import obtenir_clef_par_valeur, reset_combo
+from application.fonctions_utiles_2_0 import obtenir_clef_par_valeur, reset_combo, exporter_fichier
 
 
 class OngletSelectionnerDestinations(QWidget):
@@ -133,6 +133,8 @@ class OngletSelectionnerDestinations(QWidget):
 
     def exporter_yamls_visites(self):
 
+        self.fonction_principale(True)
+
         if self.dossier_stockage is None:
 
             self.fonction_pop_up(
@@ -159,30 +161,20 @@ class OngletSelectionnerDestinations(QWidget):
             try:
 
                 # Export des régions
-                with open(
-                    os.path.join(self.dossier_stockage, nom_yaml_regions),
-                    "w",
-                    encoding="utf-8",
-                ) as f:
-                    yaml.dump(
-                        self.dicts_granu["region"],
-                        f,
-                        allow_unicode=True,
-                        default_flow_style=False,
-                    )
+                exporter_fichier(
+                    objet=self.dicts_granu["region"],
+                    direction_fichier=self.dossier_stockage,
+                    nom_fichier=nom_yaml_regions,
+                    sort_keys=True,
+                )
 
                 # Export des départements
-                with open(
-                    os.path.join(self.dossier_stockage, nom_yaml_departements),
-                    "w",
-                    encoding="utf-8",
-                ) as f:
-                    yaml.dump(
-                        self.dicts_granu["dep"],
-                        f,
-                        allow_unicode=True,
-                        default_flow_style=False,
-                    )
+                exporter_fichier(
+                    objet=self.dicts_granu["dep"],
+                    direction_fichier=self.dossier_stockage,
+                    nom_fichier=nom_yaml_departements,
+                    sort_keys=True,
+                )
 
                 self.telecharger_lieux_visites.setText("📥✅")
                 QTimer.singleShot(3000, lambda: self.telecharger_lieux_visites.setText("📥"))

@@ -828,6 +828,8 @@ class SettingsApp(QWidget):
             dictionnaire=constantes.parametres_traduits["teintes_couleurs"][settings["language"]],
         )
 
+        self.tab_yaml.set_nom_individu(nom=settings["name"])
+
         settings["limite_nb_cartes"] = {
             self.radio_carte_1: 5,
             self.radio_carte_2: 10,
@@ -848,15 +850,13 @@ class SettingsApp(QWidget):
                 self.nom_individu.itemText(i) for i in range(self.nom_individu.count())
             ]:
                 self.nom_individu.addItem(settings["name"])
-            with open(
-                os.path.join(
-                    constantes.direction_donnees_application,
-                    "sauvegarde_utilisateurs.yaml",
-                ),
-                "w",
-                encoding="utf-8",
-            ) as f:
-                yaml.dump(sauvegarde, f, allow_unicode=True, default_flow_style=False)
+
+            fonctions_utiles_2_0.exporter_fichier(
+                objet=sauvegarde,
+                direction_fichier=constantes.direction_donnees_application,
+                nom_fichier="sauvegarde_utilisateurs.yaml",
+                sort_keys=True,
+            )
 
             # Coche signalant la sauvegarde
             if sauvegarder_seulement:
@@ -1155,7 +1155,6 @@ class SettingsApp(QWidget):
         # Paramètres individuels
         if nom_aussi == True:
             self.nom_individu.setCurrentText("")
-
             self.nom_individu.blockSignals(True)
             self.nom_individu.setCurrentIndex(-1)
             self.nom_individu.blockSignals(False)
@@ -1229,15 +1228,12 @@ class SettingsApp(QWidget):
             self.nom_individu.addItems(list(sauvegarde.keys()))
 
             # sauvegarde
-            with open(
-                os.path.join(
-                    constantes.direction_donnees_application,
-                    "sauvegarde_utilisateurs.yaml",
-                ),
-                "w",
-                encoding="utf-8",
-            ) as f:
-                yaml.dump(sauvegarde, f, allow_unicode=True, default_flow_style=False)
+            fonctions_utiles_2_0.exporter_fichier(
+                objet=sauvegarde,
+                direction_fichier=constantes.direction_donnees_application,
+                nom_fichier="sauvegarde_utilisateurs.yaml",
+                sort_keys=True,
+            )
 
             # Réinitialisation des paramètres
             self.reinitialisation_parametres(True)

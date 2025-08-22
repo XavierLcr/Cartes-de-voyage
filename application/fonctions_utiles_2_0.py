@@ -127,7 +127,7 @@ def creer_ligne_verticale():
 
 
 # Fonction d'ouverture dedonnées
-def ouvrir_fichier(direction_fichier, nom_fichier, defaut):
+def ouvrir_fichier(direction_fichier, nom_fichier, defaut, afficher_erreur: str | None = None):
 
     nom_fichier = os.path.join(direction_fichier, nom_fichier)
     nom, extention = os.path.splitext(nom_fichier)
@@ -153,4 +153,28 @@ def ouvrir_fichier(direction_fichier, nom_fichier, defaut):
     except:
         fichier = defaut
 
+        if afficher_erreur is not None:
+            print(afficher_erreur)
+
     return fichier
+
+
+def exporter_fichier(objet, direction_fichier, nom_fichier, sort_keys: bool = True):
+
+    nom_fichier = os.path.join(direction_fichier, nom_fichier)
+    nom, extention = os.path.splitext(nom_fichier)
+
+    # Création de la direction de sauvegarde du résultat si nécessaire
+    if not os.path.exists(direction_fichier):
+        os.makedirs(direction_fichier)
+
+    if extention == ".yaml":
+
+        with open(
+            nom_fichier,
+            "w",
+            encoding="utf-8",
+        ) as file:
+            yaml.dump(
+                objet, file, allow_unicode=True, default_flow_style=False, sort_keys=sort_keys
+            )

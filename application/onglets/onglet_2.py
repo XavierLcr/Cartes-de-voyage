@@ -74,18 +74,10 @@ class OngletSelectionnerDestinations(QWidget):
         layout_selection_params.addWidget(self.liste_niveaux)
         layout_selection_params.addWidget(self.telecharger_lieux_visites)
         layout_selection_params.addWidget(self.bouton_sauvegarde2)
-        layout_selection_params.setStretch(
-            0, 3
-        )  # Le premier widget prend plus de place
-        layout_selection_params.setStretch(
-            1, 3
-        )  # Le deuxième widget prend plus de place
-        layout_selection_params.setStretch(
-            2, 1
-        )  # Le troisième widget prend moins de place
-        layout_selection_params.setStretch(
-            3, 1
-        )  # Le troisième widget prend moins de place
+        layout_selection_params.setStretch(0, 3)  # Le premier widget prend plus de place
+        layout_selection_params.setStretch(1, 3)  # Le deuxième widget prend plus de place
+        layout_selection_params.setStretch(2, 1)  # Le troisième widget prend moins de place
+        layout_selection_params.setStretch(3, 1)  # Le troisième widget prend moins de place
 
         layout_selection_lieux.addLayout(layout_selection_params)
         layout_selection_lieux.addWidget(self.avertissement_prio)
@@ -154,12 +146,11 @@ class OngletSelectionnerDestinations(QWidget):
 
         else:
 
-            gran = self.constantes.parametres_traduits["granularite"][self.langue]
-
             nom = self.nom_individu
             if nom is None:
                 nom = ""
 
+            gran = self.constantes.parametres_traduits["granularite"][self.langue]
             nom = f"{nom}{' – ' if nom != '' else nom}{self.fonction_traduire(clef='granularite_pays_visites')}"
 
             nom_yaml_regions = f"{nom} – {gran['Régions']}.yaml"
@@ -179,6 +170,7 @@ class OngletSelectionnerDestinations(QWidget):
                         allow_unicode=True,
                         default_flow_style=False,
                     )
+
                 # Export des départements
                 with open(
                     os.path.join(self.dossier_stockage, nom_yaml_departements),
@@ -193,9 +185,7 @@ class OngletSelectionnerDestinations(QWidget):
                     )
 
                 self.telecharger_lieux_visites.setText("📥✅")
-                QTimer.singleShot(
-                    3000, lambda: self.telecharger_lieux_visites.setText("📥")
-                )
+                QTimer.singleShot(3000, lambda: self.telecharger_lieux_visites.setText("📥"))
 
             except:
 
@@ -273,14 +263,10 @@ class OngletSelectionnerDestinations(QWidget):
         pays_i = self.liste_des_pays.currentText()
         niveau_i = obtenir_clef_par_valeur(
             valeur=self.liste_niveaux.currentText(),
-            dictionnaire=self.constantes.parametres_traduits["granularite"][
-                self.langue
-            ],
+            dictionnaire=self.constantes.parametres_traduits["granularite"][self.langue],
         )
 
-        self.liste_endroits.blockSignals(
-            True
-        )  # ⚠️ Empêche les signaux pendant le remplissage
+        self.liste_endroits.blockSignals(True)  # ⚠️ Empêche les signaux pendant le remplissage
         self.liste_endroits.clear()
 
         if niveau_i == "Régions":
@@ -316,9 +302,7 @@ class OngletSelectionnerDestinations(QWidget):
         pays_i = self.liste_des_pays.currentText()
         niveau_i = obtenir_clef_par_valeur(
             valeur=self.liste_niveaux.currentText(),
-            dictionnaire=self.constantes.parametres_traduits["granularite"][
-                self.langue
-            ],
+            dictionnaire=self.constantes.parametres_traduits["granularite"][self.langue],
         )
         texte = item.text()
 
@@ -335,8 +319,7 @@ class OngletSelectionnerDestinations(QWidget):
                 self.dicts_granu[clef][pays_i].append(texte)
                 self.dicts_granu[clef][pays_i].sort()
                 self.dicts_granu[clef] = {
-                    pays: self.dicts_granu[clef][pays]
-                    for pays in sorted(self.dicts_granu[clef])
+                    pays: self.dicts_granu[clef][pays] for pays in sorted(self.dicts_granu[clef])
                 }
         else:
             if texte in self.dicts_granu[clef][pays_i]:

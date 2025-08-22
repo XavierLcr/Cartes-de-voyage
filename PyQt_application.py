@@ -4,11 +4,7 @@
 ################################################################################
 
 import os, sys, warnings
-
-# sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
-import yaml, pickle, copy
-import textwrap
+import yaml, pickle, copy, textwrap
 
 # PyQt6
 from PyQt6.QtWidgets import (
@@ -49,9 +45,7 @@ warnings.filterwarnings("ignore")
 # Import de la sauvegarde
 try:
     with open(
-        os.path.join(
-            constantes.direction_donnees_application, "sauvegarde_utilisateurs.yaml"
-        ),
+        os.path.join(constantes.direction_donnees_application, "sauvegarde_utilisateurs.yaml"),
         "r",
         encoding="utf-8",
     ) as file:
@@ -80,11 +74,7 @@ class SettingsApp(QWidget):
             constantes.parametres_application["application_hauteur"],
         )
         self.setWindowIcon(
-            QIcon(
-                os.path.join(
-                    constantes.direction_donnees_application, "icone_france.ico"
-                )
-            )
+            QIcon(os.path.join(constantes.direction_donnees_application, "icone_france.ico"))
         )
 
         self.tabs = QTabWidget()
@@ -122,9 +112,7 @@ class SettingsApp(QWidget):
         self.dossier_stockage = None
         self.dossier_stockage_bouton = QPushButton()
         self.dossier_stockage_bouton.clicked.connect(self.choisir_dossier)
-        self.dossier_stockage_bouton.clicked.connect(
-            lambda: self.maj_langue_interface(False)
-        )
+        self.dossier_stockage_bouton.clicked.connect(lambda: self.maj_langue_interface(False))
         layout_params_individu.addWidget(self.dossier_stockage_bouton)
 
         # Choix de la langue
@@ -133,9 +121,7 @@ class SettingsApp(QWidget):
         self.langue_utilisee.addItems(liste_langues_dispo_joli)
         layout_params_individu.addWidget(self.label_langue)
         layout_params_individu.addWidget(self.langue_utilisee)
-        self.langue_utilisee.currentIndexChanged.connect(
-            lambda: self.maj_langue_interface(True)
-        )
+        self.langue_utilisee.currentIndexChanged.connect(lambda: self.maj_langue_interface(True))
 
         # Ajout de la possibilité de supprimer un profil
         layout_params_individu.addWidget(fonctions_utiles_2_0.creer_ligne_verticale())
@@ -164,9 +150,7 @@ class SettingsApp(QWidget):
         layout_granularite_visite = QHBoxLayout()
         layout_granularite_visite.addWidget(self.label_granularite_visite)
         layout_granularite_visite.addWidget(self.granularite_visite)
-        layout_granularite_visite.addWidget(
-            fonctions_utiles_2_0.creer_ligne_verticale()
-        )
+        layout_granularite_visite.addWidget(fonctions_utiles_2_0.creer_ligne_verticale())
 
         # Granularité de fond
         self.label_granularite_fond = fonctions_utiles_2_0.creer_QLabel_centre()
@@ -213,9 +197,7 @@ class SettingsApp(QWidget):
         )
 
         layout_cartes_a_creer.addLayout(
-            fonctions_utiles_2_0.creer_ligne_separation(
-                lStretch=0, ligne_largeur=1, rStretch=0
-            ),
+            fonctions_utiles_2_0.creer_ligne_separation(lStretch=0, ligne_largeur=1, rStretch=0),
             1,
             0,
             1,
@@ -233,9 +215,7 @@ class SettingsApp(QWidget):
         layout_cartes_a_creer.addWidget(self.autres_regions, ligne_regions_1, 4, 1, 2)
 
         layout_cartes_a_creer.addLayout(
-            fonctions_utiles_2_0.creer_ligne_separation(
-                lStretch=0, ligne_largeur=1, rStretch=0
-            ),
+            fonctions_utiles_2_0.creer_ligne_separation(lStretch=0, ligne_largeur=1, rStretch=0),
             4,
             0,
             1,
@@ -322,9 +302,7 @@ class SettingsApp(QWidget):
         layout_theme_color.addLayout(layout_couleurs)
         layout_theme_color.addWidget(self.utiliser_theme)
         layout_theme_color.addLayout(
-            fonctions_utiles_2_0.creer_ligne_separation(
-                lStretch=0, ligne_largeur=1, rStretch=0
-            )
+            fonctions_utiles_2_0.creer_ligne_separation(lStretch=0, ligne_largeur=1, rStretch=0)
         )
         layout_theme_color.addWidget(
             self.couleur_fond_checkbox, alignment=Qt.AlignmentFlag.AlignHCenter
@@ -352,12 +330,8 @@ class SettingsApp(QWidget):
         self.label_qualite_min = fonctions_utiles_2_0.creer_QLabel_centre()
         self.label_qualite_max = fonctions_utiles_2_0.creer_QLabel_centre()
         self.curseur_qualite = QSlider(Qt.Orientation.Horizontal)
-        self.curseur_qualite.setMinimum(
-            constantes.parametres_application["qualite_min"]
-        )
-        self.curseur_qualite.setMaximum(
-            constantes.parametres_application["qualite_max"]
-        )
+        self.curseur_qualite.setMinimum(constantes.parametres_application["qualite_min"])
+        self.curseur_qualite.setMaximum(constantes.parametres_application["qualite_max"])
         self.curseur_qualite.setValue(
             int(
                 (
@@ -371,17 +345,13 @@ class SettingsApp(QWidget):
         # Choix du format d'image
         self.label_format = fonctions_utiles_2_0.creer_QLabel_centre()
         self.format_cartes = QComboBox()
-        self.format_cartes.addItems(
-            ["png", "jpg", "svg", "pdf", "tif", "webp", "raw", "ps"]
-        )
+        self.format_cartes.addItems(["png", "jpg", "svg", "pdf", "tif", "webp", "raw", "ps"])
 
         # Ajout des widgets au layout horizontal
         layout_format_qualite.addWidget(self.label_format)
         layout_format_qualite.addWidget(self.format_cartes)
         layout_format_qualite.addItem(
-            QSpacerItem(
-                20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding
-            )
+            QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
         )
         layout_format_qualite.addWidget(self.label_qualite)
         layout_format_qualite.addWidget(self.label_qualite_min)
@@ -402,9 +372,7 @@ class SettingsApp(QWidget):
 
         # Création du bouton "Créer cartes"
         self.creation_cartes_bouton = QPushButton()
-        self.creation_cartes_bouton.clicked.connect(
-            lambda: self.fonction_principale(False)
-        )
+        self.creation_cartes_bouton.clicked.connect(lambda: self.fonction_principale(False))
         self.barre_progression = QProgressBar()
         self.barre_progression.setMinimum(0)
         self.barre_progression.setValue(0)
@@ -416,9 +384,7 @@ class SettingsApp(QWidget):
 
         # Bouton de réinitialisation
         self.reinit_parametres = QPushButton()
-        self.reinit_parametres.clicked.connect(
-            lambda: self.reinitialisation_parametres(True)
-        )
+        self.reinit_parametres.clicked.connect(lambda: self.reinitialisation_parametres(True))
         self.reinit_parametres.clicked.connect(lambda: self.maj_langue_interface(True))
         self.reinit_parametres.setStyleSheet(
             fonctions_utiles_2_0.style_bouton_de_suppression(
@@ -509,9 +475,7 @@ class SettingsApp(QWidget):
         #     lambda: self.initialiser_sauvegarde(sauvegarde)
         # )
 
-        self.nom_individu.currentIndexChanged.connect(
-            lambda: self.maj_langue_interface(True)
-        )
+        self.nom_individu.currentIndexChanged.connect(lambda: self.maj_langue_interface(True))
         # self.nom_individu.editTextChanged.connect(
         #     lambda: self.maj_langue_interface(True)
         # )
@@ -566,17 +530,13 @@ class SettingsApp(QWidget):
         self.traduire_depuis_id("description_bouton_publier_cartes", suffixe=".")
 
         # Paramètres de l'individu
-        self.groupe_params_individu.setTitle(
-            self.traduire_depuis_id("titre_params_individu")
-        )
+        self.groupe_params_individu.setTitle(self.traduire_depuis_id("titre_params_individu"))
         self.dossier_stockage_bouton.setText(
             self.traduire_depuis_id("dossier_stockage_individu")
             if self.dossier_stockage is None
             else os.sep.join(os.path.normpath(self.dossier_stockage).split(os.sep)[-3:])
         )
-        self.label_langue.setText(
-            self.traduire_depuis_id(clef="langue_individu", suffixe=" :")
-        )
+        self.label_langue.setText(self.traduire_depuis_id(clef="langue_individu", suffixe=" :"))
         self.suppression_profil.setText(self.traduire_depuis_id("supprimer_profil"))
 
         # Granularité des cartes
@@ -589,9 +549,7 @@ class SettingsApp(QWidget):
         )
 
         # Choix des cartes à publier
-        self.groupe_cartes_a_creer.setTitle(
-            self.traduire_depuis_id("titre_cartes_a_publier")
-        )
+        self.groupe_cartes_a_creer.setTitle(self.traduire_depuis_id("titre_cartes_a_publier"))
         self.carte_pays.setText(self.traduire_depuis_id("cartes_pays_visites"))
         self.carte_monde.setText(self.traduire_depuis_id("carte_du_monde"))
         self.afrique.setText(self.traduire_depuis_id("afrique"))
@@ -611,15 +569,9 @@ class SettingsApp(QWidget):
         )
 
         # Paramètres visuels
-        self.groupe_couleurs.setTitle(
-            self.traduire_depuis_id("titre_params_esthetiques")
-        )
-        self.color_label.setText(
-            self.traduire_depuis_id(clef="cartes_couleurs", suffixe=" :")
-        )
-        self.theme_label.setText(
-            self.traduire_depuis_id(clef="cartes_theme", suffixe=" :")
-        )
+        self.groupe_couleurs.setTitle(self.traduire_depuis_id("titre_params_esthetiques"))
+        self.color_label.setText(self.traduire_depuis_id(clef="cartes_couleurs", suffixe=" :"))
+        self.theme_label.setText(self.traduire_depuis_id(clef="cartes_theme", suffixe=" :"))
         self.utiliser_theme.setText(self.traduire_depuis_id("tick_style_dans_app"))
         self.utiliser_theme.setToolTip(
             self.traduire_depuis_id("description_tick_style_dans_app", suffixe=".")
@@ -633,44 +585,28 @@ class SettingsApp(QWidget):
         )
 
         # Paramètres de format et de qualité
-        self.groupe_params_publication.setTitle(
-            self.traduire_depuis_id("titre_params_techniques")
-        )
-        self.label_format.setText(
-            self.traduire_depuis_id("cartes_format", suffixe=" :")
-        )
-        self.label_qualite.setText(
-            self.traduire_depuis_id("cartes_qualite", suffixe=" :")
-        )
+        self.groupe_params_publication.setTitle(self.traduire_depuis_id("titre_params_techniques"))
+        self.label_format.setText(self.traduire_depuis_id("cartes_format", suffixe=" :"))
+        self.label_qualite.setText(self.traduire_depuis_id("cartes_qualite", suffixe=" :"))
         self.label_qualite_max.setText(self.traduire_depuis_id("qualite_elevee"))
         self.label_qualite_min.setText(self.traduire_depuis_id("qualite_faible"))
         self.label_nb_copies_cartes.setText(
             self.traduire_depuis_id("nombre_exemplaires_cartes", suffixe=" : ")
         )
         self.label_nb_copies_cartes.setToolTip(
-            self.traduire_depuis_id(
-                "description_nombre_exemplaires_cartes", suffixe="."
-            )
+            self.traduire_depuis_id("description_nombre_exemplaires_cartes", suffixe=".")
         )
         self.radio_carte_1.setText(self.traduire_depuis_id("cinq_cartes"))
         self.radio_carte_2.setText(self.traduire_depuis_id("dix_cartes"))
         self.radio_carte_3.setText(self.traduire_depuis_id("quinze_cartes"))
-        self.radio_carte_sans_limite.setText(
-            self.traduire_depuis_id("pas_de_limite_de_cartes")
-        )
+        self.radio_carte_sans_limite.setText(self.traduire_depuis_id("pas_de_limite_de_cartes"))
 
         # Boutons en bas de l'onglet 1
-        self.reinit_parametres.setText(
-            self.traduire_depuis_id("reinitialisation_interface")
-        )
+        self.reinit_parametres.setText(self.traduire_depuis_id("reinitialisation_interface"))
         self.reinit_parametres.setToolTip(
-            self.traduire_depuis_id(
-                "description_bouton_reinitialisation_interface", suffixe="."
-            )
+            self.traduire_depuis_id("description_bouton_reinitialisation_interface", suffixe=".")
         )
-        self.creation_cartes_bouton.setText(
-            self.traduire_depuis_id("bouton_publier_cartes")
-        )
+        self.creation_cartes_bouton.setText(self.traduire_depuis_id("bouton_publier_cartes"))
         self.creation_cartes_bouton.setToolTip(
             self.traduire_depuis_id("description_bouton_publier_cartes", suffixe=".")
         )
@@ -721,16 +657,10 @@ class SettingsApp(QWidget):
 
         if parametres_aussi:
             gran = constantes.parametres_traduits["granularite"][langue_actuelle]
-            teintes = constantes.parametres_traduits["teintes_couleurs"].get(
-                langue_actuelle, {}
-            )
-            themes = constantes.parametres_traduits["themes_cartes"].get(
-                langue_actuelle, {}
-            )
+            teintes = constantes.parametres_traduits["teintes_couleurs"].get(langue_actuelle, {})
+            themes = constantes.parametres_traduits["themes_cartes"].get(langue_actuelle, {})
 
-            liste_granularite = [
-                gran[k] for k in ["Pays", "Région", "Département", "Amusant"]
-            ]
+            liste_granularite = [gran[k] for k in ["Pays", "Région", "Département", "Amusant"]]
             fonctions_utiles_2_0.reset_combo(self.granularite_visite, liste_granularite)
             fonctions_utiles_2_0.reset_combo(
                 self.granularite_fond, liste_granularite[:-1], set_index=False
@@ -773,11 +703,7 @@ class SettingsApp(QWidget):
             clef = constantes.phrases_interface.get(clef, clef)
 
         # Récupération de la traduction
-        traduction = (
-            prefixe
-            + self.traductions_interface.get(clef, {}).get(langue, clef)
-            + suffixe
-        )
+        traduction = prefixe + self.traductions_interface.get(clef, {}).get(langue, clef) + suffixe
 
         # Troncature si nécessaire
         if largeur_max is not None:
@@ -803,9 +729,7 @@ class SettingsApp(QWidget):
 
         # Récupérer la clé pour la teinte
         teinte_l = fonctions_utiles_2_0.obtenir_clef_par_valeur(
-            dictionnaire=constantes.parametres_traduits["teintes_couleurs"].get(
-                langue_l, {}
-            ),
+            dictionnaire=constantes.parametres_traduits["teintes_couleurs"].get(langue_l, {}),
             valeur=couleur_affichee,
         )
 
@@ -823,9 +747,7 @@ class SettingsApp(QWidget):
 
         # Récupérer la clé pour le thème
         theme_l = fonctions_utiles_2_0.obtenir_clef_par_valeur(
-            dictionnaire=constantes.parametres_traduits["themes_cartes"].get(
-                langue_l, {}
-            ),
+            dictionnaire=constantes.parametres_traduits["themes_cartes"].get(langue_l, {}),
             valeur=theme_selectionne,
         )
 
@@ -897,22 +819,16 @@ class SettingsApp(QWidget):
 
         settings["granularity"] = fonctions_utiles_2_0.obtenir_clef_par_valeur(
             valeur=settings["granularity"],
-            dictionnaire=constantes.parametres_traduits["granularite"][
-                settings["language"]
-            ],
+            dictionnaire=constantes.parametres_traduits["granularite"][settings["language"]],
         )
         settings["granularity_back"] = fonctions_utiles_2_0.obtenir_clef_par_valeur(
             valeur=settings["granularity_back"],
-            dictionnaire=constantes.parametres_traduits["granularite"][
-                settings["language"]
-            ],
+            dictionnaire=constantes.parametres_traduits["granularite"][settings["language"]],
         )
 
         settings["color"] = fonctions_utiles_2_0.obtenir_clef_par_valeur(
             valeur=settings["color"],
-            dictionnaire=constantes.parametres_traduits["teintes_couleurs"][
-                settings["language"]
-            ],
+            dictionnaire=constantes.parametres_traduits["teintes_couleurs"][settings["language"]],
         )
 
         settings["limite_nb_cartes"] = {
@@ -923,9 +839,7 @@ class SettingsApp(QWidget):
 
         settings["theme"] = fonctions_utiles_2_0.obtenir_clef_par_valeur(
             valeur=settings["theme"],
-            dictionnaire=constantes.parametres_traduits["themes_cartes"][
-                settings["language"]
-            ],
+            dictionnaire=constantes.parametres_traduits["themes_cartes"][settings["language"]],
         )
 
         if sauvegarder_seulement:
@@ -955,9 +869,7 @@ class SettingsApp(QWidget):
 
         elif self.dicts_granu["dep"] == {} and self.dicts_granu["region"] == {}:
 
-            phrase_yaml = self.traduire_depuis_id(
-                "pop_up_aucun_lieu_coche", suffixe="."
-            )
+            phrase_yaml = self.traduire_depuis_id("pop_up_aucun_lieu_coche", suffixe=".")
             self.montrer_popup(
                 contenu=phrase_yaml,
                 titre=self.traduire_depuis_id("pop_up_probleme_titre", suffixe="."),
@@ -1006,12 +918,8 @@ class SettingsApp(QWidget):
             # msg.setStandardButtons(
             #     QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
             # )
-            msg.addButton(
-                self.traduire_depuis_id(clef="oui"), QMessageBox.ButtonRole.YesRole
-            )
-            msg.addButton(
-                self.traduire_depuis_id(clef="non"), QMessageBox.ButtonRole.NoRole
-            )
+            msg.addButton(self.traduire_depuis_id(clef="oui"), QMessageBox.ButtonRole.YesRole)
+            msg.addButton(self.traduire_depuis_id(clef="non"), QMessageBox.ButtonRole.NoRole)
             msg.setIcon(QMessageBox.Icon.Question)
 
         # Timer pour fermer le message box après 3 secondes (3000 ms)
@@ -1036,9 +944,7 @@ class SettingsApp(QWidget):
             settings.get("granularity"), -1
         )
 
-        granularite_fond = {"Pays": 0, "Région": 1}.get(
-            settings.get("granularity_back"), 2
-        )
+        granularite_fond = {"Pays": 0, "Région": 1}.get(settings.get("granularity_back"), 2)
 
         # Gestion des régions du monde
         liste_regions_temp = {}
@@ -1143,9 +1049,7 @@ class SettingsApp(QWidget):
         self.worker.finished.connect(self.thread_temp.quit)
         self.worker.finished.connect(self.worker.deleteLater)
         self.thread_temp.finished.connect(self.thread_temp.deleteLater)
-        self.thread_temp.finished.connect(
-            lambda: self.debut_fin_creation_cartes(debut=False)
-        )
+        self.thread_temp.finished.connect(lambda: self.debut_fin_creation_cartes(debut=False))
 
         self.thread_temp.started.connect(self.worker.run)
         self.thread_temp.start()
@@ -1164,11 +1068,7 @@ class SettingsApp(QWidget):
 
         self.montrer_popup(
             contenu=self.traduire_depuis_id(
-                clef=(
-                    "debut_publication_cartes"
-                    if debut
-                    else "publication_cartes_reussie"
-                ),
+                clef=("debut_publication_cartes" if debut else "publication_cartes_reussie"),
                 suffixe="." if debut else " ✅​",
             ),
             temps_max=5000 if debut else None,
@@ -1245,9 +1145,7 @@ class SettingsApp(QWidget):
                     self.radio_carte_sans_limite.setChecked(True)
 
             if sauv.get("format_onglet_3") is not None:
-                self.onglet_resume_pays.mise_en_forme.setChecked(
-                    sauv.get("format_onglet_3")
-                )
+                self.onglet_resume_pays.mise_en_forme.setChecked(sauv.get("format_onglet_3"))
 
             if sauv.get("couleur_fond_carte") is not None:
                 self.couleur_fond_checkbox.setChecked(sauv.get("couleur_fond_carte"))
@@ -1314,9 +1212,7 @@ class SettingsApp(QWidget):
         # Pop-up afin de s'assurer de la décision
         message = self.montrer_popup(
             titre=self.traduire_depuis_id(clef="titre_pop_up_suppression"),
-            contenu=self.traduire_depuis_id(
-                clef="contenu_pop_up_suppression", suffixe="."
-            ),
+            contenu=self.traduire_depuis_id(clef="contenu_pop_up_suppression", suffixe="."),
             temps_max=None,
             bouton_ok=False,
             boutons_oui_non=True,
@@ -1361,9 +1257,7 @@ if __name__ == "__main__":
     liste_gdfs = []
     for i in range(3):
         with open(
-            os.path.join(
-                constantes.direction_donnees_pickle, f"carte_monde_niveau_{i}.pkl"
-            ),
+            os.path.join(constantes.direction_donnees_pickle, f"carte_monde_niveau_{i}.pkl"),
             "rb",
         ) as f:
             gdf_niveau_i = pickle.load(f)

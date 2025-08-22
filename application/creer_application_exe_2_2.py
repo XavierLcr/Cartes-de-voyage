@@ -3,8 +3,7 @@
 # 2.3 - Création du .exe                                                       #
 ################################################################################
 from cx_Freeze import setup, Executable
-import sys
-import os
+import os, sys
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import constantes
@@ -54,9 +53,7 @@ setup(
     executables=[
         Executable(
             "PyQt_application_main.py",
-            icon=os.path.join(
-                constantes.direction_donnees_application, "icone_france.ico"
-            ),
+            icon=os.path.join(constantes.direction_donnees_application, "icone_france.ico"),
             target_name="MesVoyages.exe",
             base="Win32GUI",
         )

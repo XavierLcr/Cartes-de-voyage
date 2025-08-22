@@ -40,12 +40,8 @@ class HemicycleWidget(QWidget):
         self.num_levels = n_rangees  # Nombre de niveaux dans l'hémicycle
         self.base_radius = 90  # Rayon de base pour le premier niveau
         self.level_distance = 30  # Distance entre les niveaux
-        self.base_points = (
-            points_base  # Nombre de points de base pour le premier niveau
-        )
-        self.points_increment = (
-            points_increment  # Incrément du nombre de points par niveau
-        )
+        self.base_points = points_base  # Nombre de points de base pour le premier niveau
+        self.points_increment = points_increment  # Incrément du nombre de points par niveau
         self.lighter_value = lighter_value
 
         # Couleurs pour chaque continent
@@ -145,9 +141,9 @@ class HemicycleWidget(QWidget):
                 continue
 
             # Nom dans la bonne langue
-            nom_affiche = self.constantes.pays_differentes_langues.get(
-                continent, {}
-            ).get(self.langue, continent)
+            nom_affiche = self.constantes.pays_differentes_langues.get(continent, {}).get(
+                self.langue, continent
+            )
 
             # Calcul de l'angle du point par rapport au centre
             theta = math.atan2(

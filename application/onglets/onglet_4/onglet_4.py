@@ -106,9 +106,7 @@ class OngletTopPays(QWidget):
             ## === Layout principal ===
             layout.addWidget(self.sous_onglets)
 
-    def set_entetes(
-        self, texte_region, texte_departement, texte_onglet_1, texte_onglet_2
-    ):
+    def set_entetes(self, texte_region, texte_departement, texte_onglet_1, texte_onglet_2):
         self.classement_widget.set_entetes(texte_region, texte_departement)
 
         if self.mise_en_page == 0:

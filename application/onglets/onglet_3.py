@@ -66,9 +66,7 @@ class OngletResumeDestinations(QWidget):
     def set_langue(self, nouvelle_langue):
         """Permet de mettre à jour la langue."""
         self.langue_utilisee = nouvelle_langue
-        self.mise_en_forme.setText(
-            self.traduire_depuis_id(clef="mise_en_forme_onglet_3")
-        )
+        self.mise_en_forme.setText(self.traduire_depuis_id(clef="mise_en_forme_onglet_3"))
         self.maj_layout_resume()
 
     def _creer_scroll(self, vbox):
@@ -82,9 +80,7 @@ class OngletResumeDestinations(QWidget):
     def ajouter_partie_a_layout(
         self, granu, pays_donnees, vbox, affichage_groupe=True, inclure_emojis=True
     ):
-        label_titre = QLabel(
-            self.traduire_depuis_id(clef=granu, prefixe="<b>", suffixe="</b>")
-        )
+        label_titre = QLabel(self.traduire_depuis_id(clef=granu, prefixe="<b>", suffixe="</b>"))
         label_titre.setAlignment(Qt.AlignmentFlag.AlignCenter)
         vbox.addWidget(label_titre)
 
@@ -92,11 +88,7 @@ class OngletResumeDestinations(QWidget):
         vbox.addWidget(QLabel(""))
 
         for pays, items in pays_donnees.items():
-            emoji_i = (
-                f"{self.constantes.emojis_pays.get(pays, '')} "
-                if inclure_emojis
-                else ""
-            )
+            emoji_i = f"{self.constantes.emojis_pays.get(pays, '')} " if inclure_emojis else ""
 
             if affichage_groupe:
                 texte_items = ", ".join(items) if items else "Aucun élément"
@@ -114,9 +106,7 @@ class OngletResumeDestinations(QWidget):
 
             label_sep = QLabel("– " * 3)
             label_sep.setAlignment(
-                Qt.AlignmentFlag.AlignCenter
-                if affichage_groupe
-                else Qt.AlignmentFlag.AlignLeft
+                Qt.AlignmentFlag.AlignCenter if affichage_groupe else Qt.AlignmentFlag.AlignLeft
             )
             vbox.addWidget(label_sep)
 

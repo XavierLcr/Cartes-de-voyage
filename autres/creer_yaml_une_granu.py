@@ -1,8 +1,6 @@
-import yaml
+import os, yaml, pickle
 import pandas as pd
 from constantes import direction_donnees
-import pickle
-import os
 
 
 def cree_yaml_un_pays(
@@ -36,9 +34,7 @@ def cree_yaml_un_pays(
     df_dict = liste_combinaisons.groupby("nom1")["nom2"].apply(list).to_dict()
 
     if granularite > 1 and len(liste_combinaisons) == 1:
-        cree_yaml_un_pays(
-            gdf=gdf, nom_pays=nom_pays, granularite=granularite - 1, nom=nom
-        )
+        cree_yaml_un_pays(gdf=gdf, nom_pays=nom_pays, granularite=granularite - 1, nom=nom)
     else:
 
         # Exporter vers YAML

@@ -68,9 +68,7 @@ class ClassementPays(QWidget):
         scroll_top_pays_regions.setWidget(widget_top_pays_regions)
 
         # --- Bloc "Top pays par département" ---
-        self.entete_top_pays_departements = QLabel(
-            alignment=Qt.AlignmentFlag.AlignCenter
-        )
+        self.entete_top_pays_departements = QLabel(alignment=Qt.AlignmentFlag.AlignCenter)
         layout_entete_top_pays_departements = QVBoxLayout()
         layout_entete_top_pays_departements.addWidget(self.entete_top_pays_departements)
 
@@ -110,9 +108,7 @@ class ClassementPays(QWidget):
         dict_departements = self.dicts_granu["dep"] or None
 
         if dict_departements and dict_regions:
-            dict_regions = {
-                k: v for k, v in dict_regions.items() if k not in dict_departements
-            }
+            dict_regions = {k: v for k, v in dict_regions.items() if k not in dict_departements}
 
         self.vider_layout(vbox)
 
@@ -132,15 +128,10 @@ class ClassementPays(QWidget):
             for i, (_, row) in enumerate(classement.iterrows()):
                 pays = row["Pays"]
 
-                if (
-                    i < 3
-                    or round(100 * row["pct_superficie_dans_pays"], ndigits=ndigits) > 0
-                ):
+                if i < 3 or round(100 * row["pct_superficie_dans_pays"], ndigits=ndigits) > 0:
 
                     indice = ["🥇", "🥈", "🥉"][i] if i < 3 else f"<b>{i + 1}.</b>"
-                    label_widget = self.constantes.pays_differentes_langues.get(
-                        pays, {}
-                    ).get(
+                    label_widget = self.constantes.pays_differentes_langues.get(pays, {}).get(
                         self.langue_utilisee,
                         pays,
                     )
@@ -193,15 +184,11 @@ class ClassementPays(QWidget):
 
     def set_dicts_granu(self, dict_nv):
         self.dicts_granu = dict_nv
-        self.lancer_classement_par_region_departement(
-            top_n=self.top_n, ndigits=self.ndigits
-        )
+        self.lancer_classement_par_region_departement(top_n=self.top_n, ndigits=self.ndigits)
 
     def set_langue(self, nouvelle_langue):
         self.langue_utilisee = nouvelle_langue
-        self.lancer_classement_par_region_departement(
-            top_n=self.top_n, ndigits=self.ndigits
-        )
+        self.lancer_classement_par_region_departement(top_n=self.top_n, ndigits=self.ndigits)
 
     def set_entetes(self, texte_region, texte_departement):
         self.entete_top_pays_regions.setText(texte_region)

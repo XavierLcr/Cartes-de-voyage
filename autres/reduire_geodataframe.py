@@ -1,96 +1,93 @@
+import os, pickle
+import pandas as pd
 import geopandas as gpd
 from constantes import direction_donnees, direction_base
-import pickle
-import pandas as pd
-import os
 
-gdf = gpd.read_file(
-    os.path.join(direction_base, "Donnees_granu_et_plus", "gadm_410.gpkg")
+gdf = gpd.read_file(os.path.join(direction_base, "Donnees_granu_et_plus", "gadm_410.gpkg"))
+
+# On ne garde que les colonnes utiles
+gdf = gdf[["NAME_0", "NAME_1", "NAME_2", "NAME_3", "NAME_4", "NAME_5", "geometry"]]
+
+with open(direction_donnees + "\\geodataframe_reduit.pkl", "wb") as f:
+    pickle.dump(gdf, f)
+
+## On crée les cartes du monde avec une plus faible granularité
+
+# Niveau 4
+gdf_niveau_4 = gdf.dissolve(
+    by=["NAME_0", "NAME_1", "NAME_2", "NAME_3", "NAME_4"],
+    aggfunc={
+        "NAME_0": "first",
+        "NAME_1": "first",
+        "NAME_2": "first",
+        "NAME_3": "first",
+        "NAME_4": "first",
+    },
 )
 
-# # On ne garde que les colonnes utiles
-# gdf = gdf[["NAME_0", "NAME_1", "NAME_2", "NAME_3", "NAME_4", "NAME_5", "geometry"]]
+with open(direction_donnees + "\\carte_monde_niveau_4.pkl", "wb") as f:
+    pickle.dump(gdf_niveau_4, f)
 
-# with open(direction_donnees + "\\geodataframe_reduit.pkl", "wb") as f:
-#     pickle.dump(gdf, f)
+gdf_niveau_4 = gdf.dissolve(
+    by=["NAME_0", "NAME_1", "NAME_2", "NAME_3", "NAME_4"],
+    aggfunc={
+        "NAME_0": "first",
+        "NAME_1": "first",
+        "NAME_2": "first",
+        "NAME_3": "first",
+        "NAME_4": "first",
+    },
+)
 
-# ## On crée les cartes du monde avec une plus faible granularité
-
-# # Niveau 4
-# gdf_niveau_4 = gdf.dissolve(
-#     by=["NAME_0", "NAME_1", "NAME_2", "NAME_3", "NAME_4"],
-#     aggfunc={
-#         "NAME_0": "first",
-#         "NAME_1": "first",
-#         "NAME_2": "first",
-#         "NAME_3": "first",
-#         "NAME_4": "first",
-#     },
-# )
-
-# with open(direction_donnees + "\\carte_monde_niveau_4.pkl", "wb") as f:
-#     pickle.dump(gdf_niveau_4, f)
-
-# gdf_niveau_4 = gdf.dissolve(
-#     by=["NAME_0", "NAME_1", "NAME_2", "NAME_3", "NAME_4"],
-#     aggfunc={
-#         "NAME_0": "first",
-#         "NAME_1": "first",
-#         "NAME_2": "first",
-#         "NAME_3": "first",
-#         "NAME_4": "first",
-#     },
-# )
-
-# with open(direction_donnees + "\\carte_monde_niveau_4.pkl", "wb") as f:
-#     pickle.dump(gdf_niveau_4, f)
+with open(direction_donnees + "\\carte_monde_niveau_4.pkl", "wb") as f:
+    pickle.dump(gdf_niveau_4, f)
 
 
-# gdf_niveau_3 = gdf.dissolve(
-#     by=["NAME_0", "NAME_1", "NAME_2", "NAME_3"],
-#     aggfunc={
-#         "NAME_0": "first",
-#         "NAME_1": "first",
-#         "NAME_2": "first",
-#         "NAME_3": "first",
-#     },
-# )
+gdf_niveau_3 = gdf.dissolve(
+    by=["NAME_0", "NAME_1", "NAME_2", "NAME_3"],
+    aggfunc={
+        "NAME_0": "first",
+        "NAME_1": "first",
+        "NAME_2": "first",
+        "NAME_3": "first",
+    },
+)
 
-# with open(direction_donnees + "\\carte_monde_niveau_3.pkl", "wb") as f:
-#     pickle.dump(gdf_niveau_3, f)
+with open(direction_donnees + "\\carte_monde_niveau_3.pkl", "wb") as f:
+    pickle.dump(gdf_niveau_3, f)
 
-# gdf_niveau_2 = gdf.dissolve(
-#     by=["NAME_0", "NAME_1", "NAME_2"],
-#     aggfunc={
-#         "NAME_0": "first",
-#         "NAME_1": "first",
-#         "NAME_2": "first",
-#     },
-# )
+gdf_niveau_2 = gdf.dissolve(
+    by=["NAME_0", "NAME_1", "NAME_2"],
+    aggfunc={
+        "NAME_0": "first",
+        "NAME_1": "first",
+        "NAME_2": "first",
+    },
+)
 
-# with open(direction_donnees + "\\carte_monde_niveau_2.pkl", "wb") as f:
-#     pickle.dump(gdf_niveau_2, f)
+with open(direction_donnees + "\\carte_monde_niveau_2.pkl", "wb") as f:
+    pickle.dump(gdf_niveau_2, f)
 
-# gdf_niveau_1 = gdf.dissolve(
-#     by=["NAME_0", "NAME_1"],
-#     aggfunc={
-#         "NAME_0": "first",
-#         "NAME_1": "first",
-#     },
-# )
+gdf_niveau_1 = gdf.dissolve(
+    by=["NAME_0", "NAME_1"],
+    aggfunc={
+        "NAME_0": "first",
+        "NAME_1": "first",
+    },
+)
 
-# with open(direction_donnees + "\\carte_monde_niveau_1.pkl", "wb") as f:
-#     pickle.dump(gdf_niveau_1, f)
+with open(direction_donnees + "\\carte_monde_niveau_1.pkl", "wb") as f:
+    pickle.dump(gdf_niveau_1, f)
 
-# gdf_niveau_0 = gdf.dissolve(
-#     by=["NAME_0"],
-#     aggfunc={
-#         "NAME_0": "first",
-#     },
-# )
+gdf_niveau_0 = gdf.dissolve(
+    by=["NAME_0"],
+    aggfunc={
+        "NAME_0": "first",
+    },
+)
 
-# with open(direction_donnees + "\\carte_monde_niveau_0.pkl", "wb") as f:
-#     pickle.dump(gdf_niveau_0, f)
+with open(direction_donnees + "\\carte_monde_niveau_0.pkl", "wb") as f:
+    pickle.dump(gdf_niveau_0, f)
 
 
 def concatener_noms_si_dupliques(df: pd.DataFrame) -> pd.DataFrame:
@@ -137,9 +134,7 @@ def concatener_noms_si_dupliques(df: pd.DataFrame) -> pd.DataFrame:
 for i in range(3, 6):
     print(f"Granularité : {i}")
     with open(
-        os.path.join(
-            direction_base, "Donnees_granu_et_plus", f"carte_monde_niveau_{i}.pkl"
-        ),
+        os.path.join(direction_base, "Donnees_granu_et_plus", f"carte_monde_niveau_{i}.pkl"),
         "rb",
     ) as f:
         gdf_niveau_i = pickle.load(f)
@@ -147,9 +142,7 @@ for i in range(3, 6):
     gdf_nv_i = concatener_noms_si_dupliques(gdf_niveau_i)
 
     with open(
-        os.path.join(
-            direction_base, "Donnees_granu_et_plus", f"carte_monde_niveau_{i}.pkl"
-        ),
+        os.path.join(direction_base, "Donnees_granu_et_plus", f"carte_monde_niveau_{i}.pkl"),
         "wb",
     ) as f:
         pickle.dump(gdf_nv_i, f)

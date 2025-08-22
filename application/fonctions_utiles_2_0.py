@@ -78,9 +78,7 @@ def creer_classement_pays(
         .groupby("Pays")[["pct_superficie_dans_pays", "superficie"]]
         .sum()
         .reset_index()
-        .sort_values(
-            by=["pct_superficie_dans_pays", "superficie"], ascending=[False, False]
-        )
+        .sort_values(by=["pct_superficie_dans_pays", "superficie"], ascending=[False, False])
     )
 
     return gdf_visite if top_n is None else gdf_visite.head(top_n)

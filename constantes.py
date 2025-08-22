@@ -18,9 +18,7 @@ else:
     direction_generale = os.path.dirname(direction_base)
     direction_donnees = os.path.join(direction_base, "donnees")
     direction_donnees_pickle = os.path.join(direction_donnees, "donnees_pickle")
-    direction_donnees_application = os.path.join(
-        direction_donnees, "donnees_application"
-    )
+    direction_donnees_application = os.path.join(direction_donnees, "donnees_application")
     direction_donnees_autres = os.path.join(direction_donnees, "donnees_autres")
     compilation = False
 
@@ -74,11 +72,7 @@ parametres_application = ouvrir_fichier(
 
 # Complétion si nécessaire des paramètres
 parametres_application.update(
-    {
-        k: v
-        for k, v in parametres_application_defaut.items()
-        if k not in parametres_application
-    }
+    {k: v for k, v in parametres_application_defaut.items() if k not in parametres_application}
 )
 
 

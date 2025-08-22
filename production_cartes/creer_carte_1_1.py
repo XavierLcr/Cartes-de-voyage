@@ -26,9 +26,7 @@ def creer_base_une_granularite(
     df_resultat = df[df["NAME_0"].isin(list(liste_destinations.keys()))]
     df_resultat["Visite"] = df_resultat.apply(
         lambda row: (
-            1
-            if row[f"NAME_{granularite}"] in liste_destinations.get(row["NAME_0"], [])
-            else 0
+            1 if row[f"NAME_{granularite}"] in liste_destinations.get(row["NAME_0"], []) else 0
         ),
         axis=1,
     )
@@ -64,8 +62,7 @@ def creer_base_double_granularite(
     df_resultat["Visite"] = df_resultat.apply(
         lambda row: (
             1
-            if row[f"NAME_{granularite_donnee}"]
-            in liste_destinations.get(row["NAME_0"], [])
+            if row[f"NAME_{granularite_donnee}"] in liste_destinations.get(row["NAME_0"], [])
             else 0
         ),
         axis=1,
@@ -82,9 +79,7 @@ def creer_base_double_granularite(
     )
 
 
-def remplacer_lieux_non_visites(
-    liste_dfs: list, df_visite: pd.DataFrame, granularite: int = 1
-):
+def remplacer_lieux_non_visites(liste_dfs: list, df_visite: pd.DataFrame, granularite: int = 1):
 
     if granularite == 0 or granularite == 1:
         return df_visite
@@ -139,9 +134,7 @@ def remplacer_lieux_non_visites(
         df_granu_monde_moins = liste_dfs[granularite - 1].copy()
         df_granu_monde_moins = df_granu_monde_moins.reset_index(drop=True)
         df_pas_visite = df_pas_visite.merge(
-            df_granu_monde_moins[
-                list(set(["NAME_0", f"NAME_{granularite-1}", "geometry"]))
-            ],
+            df_granu_monde_moins[list(set(["NAME_0", f"NAME_{granularite-1}", "geometry"]))],
             how="left",
             on=list(set(["NAME_0", f"NAME_{granularite-1}"])),
         )
@@ -217,9 +210,7 @@ def cree_base_toutes_granularites(
 
         if len(pays_reste) > 0:
 
-            res_sans_region = gere_pays_sans_regions(
-                df_0=liste_dfs[0], liste_pays=pays_reste
-            )
+            res_sans_region = gere_pays_sans_regions(df_0=liste_dfs[0], liste_pays=pays_reste)
             resultat = pd.concat([resultat, res_sans_region], ignore_index=True)
 
         # Renvoi

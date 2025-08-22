@@ -12,13 +12,8 @@ import os
 nom = "Xavier"
 
 # Directions et adresses
-direction_dossier = (
-    "C:\\Users\\xaruo\\Documents\\Voyages effectués\\" + f"{nom} - Cartes de voyage"
-)
-yaml_fichier = (
-    "C:\\Users\\xaruo\\Documents\\Voyages effectués\\Liste_destinations_"
-    + f"{nom}.yaml"
-)
+direction_dossier = "C:\\Users\\xaruo\\Documents\\Voyages effectués\\" + f"{nom} - Cartes de voyage"
+yaml_fichier = "C:\\Users\\xaruo\\Documents\\Voyages effectués\\Liste_destinations_" + f"{nom}.yaml"
 
 # Ouverture et lecture le fichier YAML
 with open(yaml_fichier, "r", encoding="utf-8") as file:

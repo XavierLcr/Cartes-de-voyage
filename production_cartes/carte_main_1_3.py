@@ -45,9 +45,7 @@ def cree_gdf_depuis_dicts(
     )
 
 
-def cas_pays_multiples(
-    df, langue: str, liste_pays: list, nom_carte: str, pays_trad: dict
-):
+def cas_pays_multiples(df, langue: str, liste_pays: list, nom_carte: str, pays_trad: dict):
     return {
         "nom_langue": pays_trad.get(nom_carte, {}).get(langue, nom_carte),
         "gdf": df[df["Pays"].isin(liste_pays)],
@@ -137,15 +135,11 @@ def creer_graphiques_pays(
     )
 
     # On gère la carte de fond des régions
-    gdf_fond_regions = gdf_fond_regions[
-        gdf_fond_regions["NAME_0"].isin(liste_pays_visites)
-    ]
+    gdf_fond_regions = gdf_fond_regions[gdf_fond_regions["NAME_0"].isin(liste_pays_visites)]
 
     for i in range(len(liste_pays_visites)):
 
-        langue_i = pays_trad.get(liste_pays_visites[i], {}).get(
-            langue, liste_pays_visites[i]
-        )
+        langue_i = pays_trad.get(liste_pays_visites[i], {}).get(langue, liste_pays_visites[i])
 
         if tracker:
             tracker.notify(langue_i)
@@ -167,17 +161,10 @@ def creer_graphiques_pays(
 
         gdf_fond_regions_i = gdf_fond_regions.copy()
 
-        if (
-            groupe_pays_res_i["deja_fait"] == True
-            and groupe_pays_res_i["dans_la_liste"] == True
-        ):
-
+        if groupe_pays_res_i["deja_fait"] == True and groupe_pays_res_i["dans_la_liste"] == True:
             continue
 
-        if (
-            groupe_pays_res_i["deja_fait"] == False
-            and groupe_pays_res_i["dans_la_liste"] == True
-        ):
+        if groupe_pays_res_i["deja_fait"] == False and groupe_pays_res_i["dans_la_liste"] == True:
 
             langue_i = groupe_pays_res_i["nom_langue"]
             gdf_i = groupe_pays_res_i["gdf_reduit"]
@@ -284,11 +271,7 @@ def creer_graphique_region(
 
         # Nom de la carte simple
         nom_langue_region = pays_trad.get(
-            (
-                f"Map of the {nom_region}"
-                if nom_region == "Middle East"
-                else f"Map of {nom_region}"
-            ),
+            (f"Map of the {nom_region}" if nom_region == "Middle East" else f"Map of {nom_region}"),
             {},
         ).get(langue, f"Map of the {nom_region}")
 
@@ -306,10 +289,7 @@ def creer_graphique_region(
 
     if len(gdf_if) > 0:
 
-        if (
-            max(gdf_if["Granu"]) >= granularite_objectif
-            or sortir_cartes_granu_inf == True
-        ):
+        if max(gdf_if["Granu"]) >= granularite_objectif or sortir_cartes_granu_inf == True:
 
             if blabla:
                 print(nom_langue_region, end=". ")

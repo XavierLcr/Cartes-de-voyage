@@ -38,15 +38,9 @@ def generer_couleur_aleatoire_hex(
 
     # Conversion HSV –> RGB
     r, g, b = colorsys.hsv_to_rgb(
-        (
-            random.choice(teintes_autorisees) if teintes_autorisees else random.random()
-        ),  # Teinte
-        random.uniform(
-            config["min_saturation"], config["max_saturation"]
-        ),  # Saturation
-        random.uniform(
-            config["min_luminosite"], config["max_luminosite"]
-        ),  # Luminosité
+        (random.choice(teintes_autorisees) if teintes_autorisees else random.random()),  # Teinte
+        random.uniform(config["min_saturation"], config["max_saturation"]),  # Saturation
+        random.uniform(config["min_luminosite"], config["max_luminosite"]),  # Luminosité
     )
 
     # Conversion RGB –> Hex
@@ -140,9 +134,7 @@ def creer_image_carte(
         gdf_monde = gdf_monde[gdf_monde["NAME_0"].isin(liste_pays)]
 
         if len(gdf_monde) > 0:
-            gdf_monde.plot(
-                ax=ax, color="none", edgecolor="black", linewidth=0.04, zorder=3
-            )
+            gdf_monde.plot(ax=ax, color="none", edgecolor="black", linewidth=0.04, zorder=3)
 
     if gdf_regions is not None:
 
@@ -154,9 +146,7 @@ def creer_image_carte(
             if blabla:
                 print(", des régions", end="")
 
-            gdf_regions.plot(
-                ax=ax, color="none", edgecolor="black", linewidth=0.017, zorder=2
-            )
+            gdf_regions.plot(ax=ax, color="none", edgecolor="black", linewidth=0.017, zorder=2)
 
     if gdf_eau is not None:
 
@@ -245,9 +235,7 @@ def creer_image_carte(
             "Granularité maximale": f"{max(gdf['Granu'])}",
         }
 
-    plt.savefig(
-        nom, dpi=max(min(qualite, 4500), 100), bbox_inches="tight", metadata=metadata
-    )
+    plt.savefig(nom, dpi=max(min(qualite, 4500), 100), bbox_inches="tight", metadata=metadata)
     plt.close()
 
     if blabla == True:
@@ -286,9 +274,7 @@ def renvoyer_couleur_widget(style, teinte, nuances, clair, sombre):
         return sombre
 
 
-def renvoyer_couleur_widget_differente(
-    style, teinte, nuances, clair, sombre, reference, essais=20
-):
+def renvoyer_couleur_widget_differente(style, teinte, nuances, clair, sombre, reference, essais=20):
     for _ in range(essais):
         resultat = renvoyer_couleur_widget(
             style=style,

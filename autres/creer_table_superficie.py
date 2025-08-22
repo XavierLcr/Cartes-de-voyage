@@ -1,7 +1,6 @@
 import pickle
 import constantes
 import os
-import pandas as pd
 
 
 # Fonction de calcul de la superficie
@@ -31,7 +30,5 @@ with open(
 gdf = gdf.reset_index(drop=True)
 gdf_sup = calculer_superficie(gdf, espg=8857)
 
-with open(
-    os.path.join(constantes.direction_donnees, "table_superficie.pkl"), "wb"
-) as f:
+with open(os.path.join(constantes.direction_donnees, "table_superficie.pkl"), "wb") as f:
     pickle.dump(gdf_sup, f)

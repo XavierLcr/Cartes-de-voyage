@@ -86,9 +86,7 @@ def creer_liste_pays_multilangue(
 
             resultat[i][j] = reponse.strip("\n .'")
 
-            time.sleep(
-                max(0, 60 / nb_max_requetes_par_minute - time.time() + temps_debut)
-            )
+            time.sleep(max(0, 60 / nb_max_requetes_par_minute - time.time() + temps_debut))
             appels_api_deja_faits = appels_api_deja_faits + 1
 
         if blabla == 2:
@@ -153,9 +151,7 @@ def creer_liste_parametres_multilangue(
                     f"Traduis le mot ou l'expression suivante en {i} : '{j}'. Ne donne que la traduction, strictement rien d'autre - et aucune ponctuation. Le mot à traduire est à l'origine en français. N'oublie pas la majuscule en début d'expression quand c'est possible."
                 ).text
 
-                time.sleep(
-                    max(0, 60 / nb_max_requetes_par_minute - time.time() + temps_debut)
-                )
+                time.sleep(max(0, 60 / nb_max_requetes_par_minute - time.time() + temps_debut))
 
                 appels_api_deja_faits = appels_api_deja_faits + 1
 
@@ -202,10 +198,7 @@ def creer_dictionnaire_langues(
 
     for i in liste_langues:
 
-        if (
-            i not in list(resultat.keys())
-            and appels_api_deja_faits < nb_max_requetes_par_jour
-        ):
+        if i not in list(resultat.keys()) and appels_api_deja_faits < nb_max_requetes_par_jour:
 
             temps_debut = time.time()
             appels_api_deja_faits = appels_api_deja_faits + 1
@@ -224,9 +217,7 @@ def creer_dictionnaire_langues(
             if blabla:
                 print(f"{i} : {reponse_i}")
 
-            time.sleep(
-                max(0, 60 / nb_max_requetes_par_minute + time.time() - temps_debut)
-            )
+            time.sleep(max(0, 60 / nb_max_requetes_par_minute + time.time() - temps_debut))
 
     return resultat
 
@@ -242,9 +233,7 @@ def verifier_doublons(data):
                 else:
                     seen.add(val)
             if doublons:
-                print(
-                    f"❌ Doublons détectés dans '{parametre}' > '{pays}' : {doublons}"
-                )
+                print(f"❌ Doublons détectés dans '{parametre}' > '{pays}' : {doublons}")
 
 
 liste_langues = [
@@ -352,9 +341,7 @@ if __name__ == "__main__":
 
     # Récupération du jour
     date_du_jour = time.localtime()
-    date_du_jour = (
-        f"{date_du_jour.tm_year}-{date_du_jour.tm_mon}-{date_du_jour.tm_mday}"
-    )
+    date_du_jour = f"{date_du_jour.tm_year}-{date_du_jour.tm_mon}-{date_du_jour.tm_mday}"
 
     # YAML des régions
     try:
@@ -387,9 +374,7 @@ if __name__ == "__main__":
     # Traduction des noms de pays
     try:
         with open(
-            os.path.join(
-                constantes.direction_donnees_application, "noms_pays_traduction.yaml"
-            ),
+            os.path.join(constantes.direction_donnees_application, "noms_pays_traduction.yaml"),
             "r",
             encoding="utf-8",
         ) as file:
@@ -399,9 +384,7 @@ if __name__ == "__main__":
         pays_deja_traduits = None
 
     with open(
-        os.path.join(
-            constantes.direction_donnees_application, "phrases_interface.yaml"
-        ),
+        os.path.join(constantes.direction_donnees_application, "phrases_interface.yaml"),
         "r",
         encoding="utf-8",
     ) as file:
@@ -438,16 +421,14 @@ if __name__ == "__main__":
     # Gestion de la limite d'appels API quotidienne
     try:
         with open(
-            os.path.join(
-                constantes.direction_donnees_autres, "appels_api_par_jour.yaml"
-            ),
+            os.path.join(constantes.direction_donnees_autres, "appels_api_par_jour.yaml"),
             "r",
             encoding="utf-8",
         ) as file:
             liste_appels_api_deja_faits = yaml.safe_load(file)
-            appels_api_deja_faits = liste_appels_api_deja_faits.get(
-                date_du_jour, {}
-            ).get(liste_modeles[numero_modele]["modèle"], 0)
+            appels_api_deja_faits = liste_appels_api_deja_faits.get(date_du_jour, {}).get(
+                liste_modeles[numero_modele]["modèle"], 0
+            )
             appels_api_deja_faits = int(appels_api_deja_faits)
 
     except:
@@ -555,15 +536,11 @@ if __name__ == "__main__":
     )
 
     with open(
-        os.path.join(
-            constantes.direction_donnees_application, "noms_langues_traduction.yaml"
-        ),
+        os.path.join(constantes.direction_donnees_application, "noms_langues_traduction.yaml"),
         "w",
         encoding="utf-8",
     ) as f:
-        yaml.dump(
-            langues_deja_traduites, f, allow_unicode=True, default_flow_style=False
-        )
+        yaml.dump(langues_deja_traduites, f, allow_unicode=True, default_flow_style=False)
 
     verifier_doublons(parametres_traduits)
 
@@ -603,9 +580,7 @@ if __name__ == "__main__":
     )
 
     with open(
-        os.path.join(
-            constantes.direction_donnees_application, "noms_pays_traduction.yaml"
-        ),
+        os.path.join(constantes.direction_donnees_application, "noms_pays_traduction.yaml"),
         "w",
         encoding="utf-8",
     ) as f:
@@ -623,8 +598,6 @@ if __name__ == "__main__":
         "w",
         encoding="utf-8",
     ) as f:
-        yaml.dump(
-            liste_appels_api_deja_faits, f, allow_unicode=True, default_flow_style=False
-        )
+        yaml.dump(liste_appels_api_deja_faits, f, allow_unicode=True, default_flow_style=False)
 
     print("\nTerminé ✅.")

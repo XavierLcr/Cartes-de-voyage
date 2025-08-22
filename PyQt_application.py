@@ -268,7 +268,7 @@ class SettingsApp(QWidget):
 
         # Boîte des couleurs
         self.groupe_couleurs = QGroupBox()
-        layout_theme_color = QVBoxLayout()
+        layout_theme_couleurs = QVBoxLayout()
 
         # Choix du thème
         self.theme_label = fonctions_utiles_2_0.creer_QLabel_centre()
@@ -294,18 +294,18 @@ class SettingsApp(QWidget):
         self.couleur_fond_checkbox = QCheckBox()
 
         # Ajout des widgets au layout vertical
-        layout_theme_color.addLayout(layout_theme)
-        layout_theme_color.addLayout(layout_couleurs)
-        layout_theme_color.addWidget(self.utiliser_theme)
-        layout_theme_color.addLayout(
+        layout_theme_couleurs.addLayout(layout_theme)
+        layout_theme_couleurs.addLayout(layout_couleurs)
+        layout_theme_couleurs.addWidget(self.utiliser_theme)
+        layout_theme_couleurs.addLayout(
             fonctions_utiles_2_0.creer_ligne_separation(lStretch=0, ligne_largeur=1, rStretch=0)
         )
-        layout_theme_color.addWidget(
+        layout_theme_couleurs.addWidget(
             self.couleur_fond_checkbox, alignment=Qt.AlignmentFlag.AlignHCenter
         )
 
         # Ajout du layout de couleurs au groupbox et ajout du groupbox au layout principal
-        self.groupe_couleurs.setLayout(layout_theme_color)
+        self.groupe_couleurs.setLayout(layout_theme_couleurs)
 
         # # Ajout des groupbox des cartes et des couleurs
         layout_cartes_et_couleurs.addLayout(layout_granu_cartes_a_creer)

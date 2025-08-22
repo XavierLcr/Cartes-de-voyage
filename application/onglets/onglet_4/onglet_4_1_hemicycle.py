@@ -5,13 +5,13 @@
 ################################################################################
 
 
+import math
 from PyQt6.QtCore import Qt, QPointF
 from PyQt6.QtWidgets import (
     QWidget,
     QLabel,
 )
 from PyQt6.QtGui import QPainter, QPen, QColor, QBrush
-import math
 from application.fonctions_utiles_2_0 import nb_pays_visites
 
 

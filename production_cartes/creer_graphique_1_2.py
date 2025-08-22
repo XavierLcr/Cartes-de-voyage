@@ -3,12 +3,9 @@
 # 1.2 – Fichier de création des cartes                                         #
 ################################################################################
 
-import random
-import os
-import colorsys
+import os, random, json, colorsys
 import matplotlib.pyplot as plt
 from datetime import datetime
-import json
 
 
 def generer_couleur_aleatoire_hex(

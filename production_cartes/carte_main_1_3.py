@@ -3,10 +3,7 @@
 # 1.3 – Création de la base de données et de la production des graphiques      #
 ################################################################################
 
-import os
-import gc
-import sys
-
+import os, sys, gc
 from production_cartes import creer_carte_1_1, creer_graphique_1_2
 
 
@@ -217,7 +214,9 @@ def creer_graphiques_pays(
                 afficher_nom_lieu=afficher_nom_lieu,
             )
         del gdf_i
-        gc.collect()
+
+        if i % 10 == 0:
+            gc.collect()
 
 
 def creer_graphique_region(
@@ -313,7 +312,6 @@ def creer_graphique_region(
             )
 
     del gdf_region, gdf_fond
-    gc.collect()
 
 
 def cree_graphe_depuis_debut(
@@ -418,6 +416,8 @@ def cree_graphe_depuis_debut(
             sortir_cartes_granu_inf=sortir_cartes_granu_inf,
             afficher_nom_lieu=afficher_nom_lieu,
         )
+
+    gc.collect()
 
     # Carte des pays
     if granularite_visite != 0 and pays_individuel == True:

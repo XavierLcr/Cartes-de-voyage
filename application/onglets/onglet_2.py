@@ -131,6 +131,9 @@ class OngletSelectionnerDestinations(QWidget):
                     self.fichier_yaml_2 = data  # Stocke les données du YAML 2
                     self.dicts_granu["dep"] = data
 
+            self.dict_modif.emit(self.dicts_granu)
+            self.maj_liste_reg_dep_pays()
+
     def exporter_yamls_visites(self):
 
         self.fonction_principale(True)

@@ -236,7 +236,7 @@ def creer_image_carte(
         }
 
     plt.savefig(nom, dpi=max(min(qualite, 4500), 100), bbox_inches="tight", metadata=metadata)
-    plt.close()
+    plt.close(fig)
 
     if blabla == True:
         print("Terminé.")

@@ -303,6 +303,7 @@ def creer_graphique_region(
                 teintes_autorisees=teinte,
                 couleur_non_visites=couleur_non_visites,
                 couleur_de_fond=couleur_fond,
+                couleur_lacs=couleur_lacs,
                 chemin_impression=direction_region,
                 nom=f"{nom_indiv + ' – ' if nom_indiv else ''}{nom_langue_region}.{format}",
                 qualite=qualite,

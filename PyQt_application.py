@@ -43,15 +43,11 @@ warnings.filterwarnings("ignore")
 
 
 # Import de la sauvegarde
-try:
-    with open(
-        os.path.join(constantes.direction_donnees_application, "sauvegarde_utilisateurs.yaml"),
-        "r",
-        encoding="utf-8",
-    ) as file:
-        sauvegarde = yaml.safe_load(file)
-except FileNotFoundError:
-    sauvegarde = {}
+sauvegarde = fonctions_utiles_2_0.ouvrir_fichier(
+    direction_fichier=constantes.direction_donnees_application,
+    nom_fichier="sauvegarde_utilisateurs.yaml",
+    defaut={},
+)
 
 liste_langues_dispo_joli = ["Français", "English"] + sorted(
     langue

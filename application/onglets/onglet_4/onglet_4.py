@@ -25,8 +25,6 @@ class OngletTopPays(QWidget):
         parent,
         mise_en_page: int,  # 0 ou 1
         # Hémicycle
-        min_width,
-        min_height,
         n_rangees,
         points_base,
         points_increment,
@@ -49,8 +47,6 @@ class OngletTopPays(QWidget):
             continents=constantes.liste_regions_monde,
             constantes=constantes,
             langue=langue_utilisee,
-            min_width=min_width,
-            min_height=min_height,
             n_rangees=n_rangees,
             points_base=points_base,
             points_increment=points_increment,

@@ -441,8 +441,6 @@ class SettingsApp(QWidget):
             ndigits=constantes.parametres_application["pct_ndigits"],
             # Hémicycle
             lighter_value=constantes.parametres_application["lighter_value"],
-            min_height=constantes.parametres_application["min_height"],
-            min_width=constantes.parametres_application["min_width"],
             n_rangees=constantes.parametres_application["n_rangees"],
             points_base=constantes.parametres_application["points_base"],
             points_increment=constantes.parametres_application["points_increment"],

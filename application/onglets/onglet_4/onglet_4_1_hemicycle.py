@@ -22,8 +22,6 @@ class HemicycleWidget(QWidget):
         constantes,
         continents,
         langue,
-        min_width=500,
-        min_height=300,
         n_rangees=9,
         points_base=15,
         points_increment=4,
@@ -32,14 +30,12 @@ class HemicycleWidget(QWidget):
     ):
 
         super().__init__()
-        self.setMinimumSize(min_width, min_height)
+        # self.setMinimumSize(min_width, min_height)
         self.pays_visites = {"region": {}, "dep": {}}
         self.continents = continents
         self.constantes = constantes
         self.langue = langue
         self.num_levels = n_rangees  # Nombre de niveaux dans l'hémicycle
-        self.base_radius = 90  # Rayon de base pour le premier niveau
-        self.level_distance = 30  # Distance entre les niveaux
         self.base_points = points_base  # Nombre de points de base pour le premier niveau
         self.points_increment = points_increment  # Incrément du nombre de points par niveau
         self.lighter_value = lighter_value
@@ -62,6 +58,10 @@ class HemicycleWidget(QWidget):
 
     def center_y(self):
         return self.height() * 0.9
+
+    # def resizeEvent(self, event):
+    #     self.update()
+    #     super().resizeEvent(event)
 
     def creer_coordonnées(self):
         coords_angles = []
@@ -108,7 +108,13 @@ class HemicycleWidget(QWidget):
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
 
         center_x, center_y = self.center_x(), self.center_y()  # Centre du cercle
-        rayon_texte = 350  # Coefficient d'éloignement
+        rayon_texte = 0  # Coefficient d'éloignement
+
+        self.base_radius = int(
+            45 + min(self.width(), self.height()) * 0.15
+        )  # Rayon de base pour le premier niveau
+        self.level_distance = max(1, int(min(self.width(), self.height()) * 0.09) - 10)
+        self.diametre_point = int(min(self.width(), self.height()) * 0.021 - 2)
 
         coords_angles = self.creer_coordonnées()
         continent_points = {}  # continent: list of (x, y)
@@ -126,8 +132,14 @@ class HemicycleWidget(QWidget):
 
             # Dessiner le point
             painter.setBrush(QBrush(couleur))  # Remplissage
-            painter.setPen(QPen(couleur_originale, 2))  # Couleur du contour
-            painter.drawEllipse(QPointF(x, y), 5, 5)
+            painter.setPen(
+                QPen(couleur_originale, int(self.diametre_point * 0.15))
+            )  # Couleur du contour
+            painter.drawEllipse(
+                QPointF(x, y),
+                self.diametre_point,
+                self.diametre_point,
+            )
 
             # Incrément
             i = i + 1
@@ -136,6 +148,7 @@ class HemicycleWidget(QWidget):
         painter.setPen(Qt.GlobalColor.black)
         font_metrics = painter.fontMetrics()
 
+        rayon_texte = rayon_texte + 10 + self.diametre_point / 2
         for continent, points in continent_points.items():
             if not points:
                 continue

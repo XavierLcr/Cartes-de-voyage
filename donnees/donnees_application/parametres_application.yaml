@@ -13,9 +13,6 @@ qualite_max: 4000
 # Onglet 4
 onglet_4_mise_en_page: 0 # 0 ou 1
 ## Paramètres de l'hémicycle
-### Taille du graphique
-min_width: 500
-min_height: 300
 ### Organisation des points
 n_rangees: 9
 points_base: 15

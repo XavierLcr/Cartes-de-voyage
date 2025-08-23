@@ -12,8 +12,8 @@ import os
 nom = "Xavier"
 
 # Directions et adresses
-base_dir = os.path.join(os.path.expanduser("~"), "Documents", "Voyages effectués")
-direction_dossier = os.path.join(base_dir, f"{nom} - Cartes de voyage")
+base_dir = os.path.join(os.path.expanduser("~"), "Documents", "Voyages")
+direction_dossier = os.path.join(base_dir, f"{nom} – Cartes de voyage")
 yaml_fichier = os.path.join(base_dir, f"Liste_destinations_{nom}.yaml")
 
 # Ouverture et lecture le fichier YAML
@@ -39,7 +39,7 @@ def cree_carte_pays(
     if nom_pays == "Oman":
         nom_fichier = "Oman"
     if personne != "":
-        nom_fichier = f"{personne} - {nom_fichier}"
+        nom_fichier = f"{personne} – {nom_fichier}"
     nom_fichier = f"{nom_fichier}.svg"
     if direction != None:
         nom_fichier = os.path.join(direction, nom_fichier)

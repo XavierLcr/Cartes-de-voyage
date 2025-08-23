@@ -12,7 +12,7 @@ from PyQt6.QtWidgets import (
     QLabel,
 )
 from PyQt6.QtGui import QPainter, QPen, QColor, QBrush
-from application.fonctions_utiles_2_0 import nb_pays_visites
+from application.fonctions_utiles_2_0 import nb_pays_visites, reordonner_dict
 
 
 # Classe de type hémicycle
@@ -30,7 +30,6 @@ class HemicycleWidget(QWidget):
     ):
 
         super().__init__()
-        # self.setMinimumSize(min_width, min_height)
         self.pays_visites = {"region": {}, "dep": {}}
         self.continents = continents
         self.constantes = constantes
@@ -39,6 +38,15 @@ class HemicycleWidget(QWidget):
         self.base_points = points_base  # Nombre de points de base pour le premier niveau
         self.points_increment = points_increment  # Incrément du nombre de points par niveau
         self.lighter_value = lighter_value
+        self.ordre_clefs = [
+            "Antarctica",
+            "Africa",
+            "Europe",
+            "Asia",
+            "Oceania",
+            "North America",
+            "South America",
+        ]
 
         # Couleurs pour chaque continent
         self.continent_colors = {
@@ -191,8 +199,12 @@ class HemicycleWidget(QWidget):
         self.creer_hemicycle()
 
     def creer_hemicycle(self):
-        self.resume = nb_pays_visites(
-            dict_granu=self.pays_visites,
-            continents=self.constantes.liste_regions_monde,
+        self.resume = reordonner_dict(
+            nb_pays_visites(
+                dict_granu=self.pays_visites,
+                continents=self.constantes.liste_regions_monde,
+            ),
+            clefs=self.ordre_clefs,
         )
+
         self.update()

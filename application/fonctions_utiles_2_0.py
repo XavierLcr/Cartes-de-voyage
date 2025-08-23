@@ -178,3 +178,7 @@ def exporter_fichier(objet, direction_fichier, nom_fichier, sort_keys: bool = Tr
             yaml.dump(
                 objet, file, allow_unicode=True, default_flow_style=False, sort_keys=sort_keys
             )
+
+
+def reordonner_dict(dictionnaire: dict, clefs: list):
+    return {k: dictionnaire[k] for k in clefs if k in dictionnaire}

@@ -1,13 +1,15 @@
 import os, yaml, pickle
 import pandas as pd
 from constantes import direction_donnees
+from application.fonctions_utiles_2_0 import ouvrir_fichier, exporter_fichier
 
 
 def cree_yaml_un_pays(
     gdf,
+    direction_fichier,
+    nom_fichier,
     nom_pays: None | list = ["France"],
     granularite: int = 1,
-    nom="subdivisions_pays.yaml",
 ):
     """Crée le yaml pour un pays à un niveau de granularité donné
 
@@ -34,27 +36,36 @@ def cree_yaml_un_pays(
     df_dict = liste_combinaisons.groupby("nom1")["nom2"].apply(list).to_dict()
 
     if granularite > 1 and len(liste_combinaisons) == 1:
-        cree_yaml_un_pays(gdf=gdf, nom_pays=nom_pays, granularite=granularite - 1, nom=nom)
+        cree_yaml_un_pays(
+            gdf=gdf,
+            nom_pays=nom_pays,
+            granularite=granularite - 1,
+            direction_fichier=direction_fichier,
+            nom_fichier=nom_fichier,
+        )
     else:
 
         # Exporter vers YAML
-        with open(nom, "w", encoding="utf-8") as file:
-            yaml.dump(df_dict, file, default_flow_style=False, allow_unicode=True)
+        exporter_fichier(
+            objet=df_dict,
+            direction_fichier=direction_fichier,
+            nom_fichier=nom_fichier,
+            sort_keys=True,
+        )
 
-
-# with open(direction_donnees + "\\carte_monde_niveau_5.pkl", "rb") as f:
-#     gdf = pickle.load(f)
 
 granularite = 2
-with open(
-    os.path.join(direction_donnees, f"carte_monde_niveau_{granularite}_bis.pkl"),
-    "rb",
-) as f:
-    gdf = pickle.load(f)
+gdf = ouvrir_fichier(
+    direction_fichier=direction_donnees,
+    nom_fichier=f"carte_monde_niveau_{granularite}_bis.pkl",
+    defaut=None,
+    afficher_erreur="Base non trouvée.",
+)
 
 cree_yaml_un_pays(
     gdf=gdf,
     nom_pays=None,
-    granularite=2,
-    nom=r"C:\Users\xaruo\Documents\Voyages\liste_pays_departements.yaml",
+    granularite=granularite,
+    direction_fichier=os.path.join(os.path.expanduser("~"), "Documents", "Voyages"),
+    nom_fichier="liste_pays_departements.yaml",
 )

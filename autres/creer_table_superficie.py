@@ -1,6 +1,7 @@
 import pickle
 import constantes
 import os
+from application.fonctions_utiles_2_0 import ouvrir_fichier
 
 
 # Fonction de calcul de la superficie
@@ -20,15 +21,13 @@ def calculer_superficie(gdf, espg):
     return gdf[liste_cols]
 
 
-# Téléchargement de la table
-with open(
-    os.path.join(constantes.direction_donnees_application, "carte_monde_niveau_2.pkl"),
-    "rb",
-) as f:
-    gdf = pickle.load(f)
+# Téléchargement des données
+gdf = ouvrir_fichier(
+    direction_fichier=constantes.direction_donnees_application,
+    nom_fichier="carte_monde_niveau_2.pkl",
+    defaut=None,
+).reset_index(drop=True)
 
-gdf = gdf.reset_index(drop=True)
-gdf_sup = calculer_superficie(gdf, espg=8857)
-
+# Export de la table
 with open(os.path.join(constantes.direction_donnees, "table_superficie.pkl"), "wb") as f:
-    pickle.dump(gdf_sup, f)
+    pickle.dump(calculer_superficie(gdf, espg=8857), f)

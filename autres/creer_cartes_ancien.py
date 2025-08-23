@@ -12,7 +12,7 @@ import os
 nom = "Xavier"
 
 # Directions et adresses
-base_dir = r"C:\Users\xaruo\Documents\Voyages effectués"
+base_dir = os.path.join(os.path.expanduser("~"), "Documents", "Voyages effectués")
 direction_dossier = os.path.join(base_dir, f"{nom} - Cartes de voyage")
 yaml_fichier = os.path.join(base_dir, f"Liste_destinations_{nom}.yaml")
 

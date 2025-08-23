@@ -1,7 +1,8 @@
 import os, pickle
 import pandas as pd
 import geopandas as gpd
-from constantes import direction_donnees, direction_base
+from constantes import direction_donnees, direction_base, direction_donnees_application
+from application.fonctions_utiles_2_0 import ouvrir_fichier
 
 gdf = gpd.read_file(os.path.join(direction_base, "Donnees_granu_et_plus", "gadm_410.gpkg"))
 
@@ -131,18 +132,22 @@ def concatener_noms_si_dupliques(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-for i in range(3, 6):
-    print(f"Granularité : {i}")
-    with open(
-        os.path.join(direction_base, "Donnees_granu_et_plus", f"carte_monde_niveau_{i}.pkl"),
-        "rb",
-    ) as f:
-        gdf_niveau_i = pickle.load(f)
-
-    gdf_nv_i = concatener_noms_si_dupliques(gdf_niveau_i)
+for i in range(2, 6):
+    print(f"Granularité : {i}", end=". ")
 
     with open(
         os.path.join(direction_base, "Donnees_granu_et_plus", f"carte_monde_niveau_{i}.pkl"),
         "wb",
     ) as f:
-        pickle.dump(gdf_nv_i, f)
+        pickle.dump(
+            concatener_noms_si_dupliques(
+                ouvrir_fichier(
+                    direction_fichier=direction_donnees_application,
+                    nom_fichier=f"carte_monde_niveau_{i}.pkl",
+                    defaut=None,
+                )
+            ),
+            f,
+        )
+
+    print("Terminé.")

@@ -99,7 +99,7 @@ def cree_toutes_les_cartes(
     # Création du nom du fichier
     nom_fichier = "Carte du monde.svg"
     if personne != "":
-        nom_fichier = f"{personne} - {nom_fichier}"
+        nom_fichier = f"{personne} – {nom_fichier}"
     if direction != None:
         nom_fichier = os.path.join(direction, nom_fichier)
 

@@ -175,7 +175,7 @@ class SettingsApp(QWidget):
         self.moyen_orient = QCheckBox()
         self.autres_regions = QCheckBox()
 
-        self.publier_granu_faible = QCheckBox()
+        self.sortir_cartes_granu_inf = QCheckBox()
 
         self.carte_pays.setChecked(True)
         self.europe.setChecked(True)
@@ -219,7 +219,7 @@ class SettingsApp(QWidget):
         )
 
         layout_cartes_a_creer.addWidget(
-            self.publier_granu_faible,
+            self.sortir_cartes_granu_inf,
             5,
             0,
             1,
@@ -552,10 +552,10 @@ class SettingsApp(QWidget):
         self.europe.setText(self.traduire_depuis_id("europe"))
         self.moyen_orient.setText(self.traduire_depuis_id("moyen_orient"))
         self.autres_regions.setText(self.traduire_depuis_id("autres_regions_monde"))
-        self.publier_granu_faible.setText(
+        self.sortir_cartes_granu_inf.setText(
             self.traduire_depuis_id("publier_cartes_faible_granularite_uniquement")
         )
-        self.publier_granu_faible.setToolTip(
+        self.sortir_cartes_granu_inf.setToolTip(
             self.traduire_depuis_id(
                 clef="description_publier_cartes_faible_granularite_uniquement",
                 largeur_max=None,
@@ -805,9 +805,9 @@ class SettingsApp(QWidget):
             "afrique": self.afrique.isChecked(),
             "moyen_orient": self.moyen_orient.isChecked(),
             "autres_regions": self.autres_regions.isChecked(),
-            "publier_granu_faible": self.publier_granu_faible.isChecked(),
+            "sortir_cartes_granu_inf": self.sortir_cartes_granu_inf.isChecked(),
             "cartes_des_pays": self.carte_pays.isChecked(),
-            "limite_nb_cartes": self.groupe_radio_max_cartes.checkedButton(),
+            "max_cartes_additionnelles": self.groupe_radio_max_cartes.checkedButton(),
             "dictionnaire_regions": (
                 self.dicts_granu["region"] if self.dicts_granu["region"] != {} else None
             ),
@@ -833,11 +833,11 @@ class SettingsApp(QWidget):
 
         self.tab_yaml.set_nom_individu(nom=settings["nom"])
 
-        settings["limite_nb_cartes"] = {
+        settings["max_cartes_additionnelles"] = {
             self.radio_carte_1: 5,
             self.radio_carte_2: 10,
             self.radio_carte_3: 15,
-        }.get(settings["limite_nb_cartes"], None)
+        }.get(settings["max_cartes_additionnelles"], None)
 
         settings["theme"] = fonctions_utiles_2_0.obtenir_clef_par_valeur(
             valeur=self.theme_combo.currentText(),
@@ -934,59 +934,47 @@ class SettingsApp(QWidget):
         self.onglet_resume_pays.set_dicts_granu(dict_nv=self.dicts_granu)
         self.top_pays_visites.set_dicts_granu(dict_nv=self.dicts_granu)
 
-    def publier_cartes(self, settings):
+    def publier_cartes(self, parametres):
         # Logique de traitement avec les paramètres validés
 
         # Ganularite
         granularite = {"Pays": 0, "Région": 1, "Département": 2}.get(
-            settings.get("granularite"), -1
+            parametres.get("granularite"), -1
         )
 
-        # Gestion des régions du monde
-        liste_regions_temp = {}
+        liste_regions_temp = {
+            region: constantes.liste_regions_monde[region]
+            for cle_param, regions in {
+                "moyen_orient": ["Middle East"],
+                "europe": ["Europe"],
+                "amerique": ["South America", "North America"],
+                "afrique": ["Africa"],
+                "asie": ["Asia"],
+            }.items()
+            if parametres.get(cle_param, False)
+            for region in regions
+        }
 
-        mo = "Middle East"
-        if settings["moyen_orient"] == True:
-            liste_regions_temp[mo] = constantes.liste_regions_monde[mo]
-
-        euro = "Europe"
-        if settings["europe"] == True:
-            liste_regions_temp[euro] = constantes.liste_regions_monde[euro]
-
-        amsud = "South America"
-        amnord = "North America"
-        if settings["amerique"] == True:
-            liste_regions_temp[amsud] = constantes.liste_regions_monde[amsud]
-            liste_regions_temp[amnord] = constantes.liste_regions_monde[amnord]
-
-        afr = "Africa"
-        if settings["afrique"] == True:
-            liste_regions_temp[afr] = constantes.liste_regions_monde[afr]
-
-        asie = "Asia"
-        if settings["asie"] == True:
-            liste_regions_temp[asie] = constantes.liste_regions_monde[asie]
-
-        if settings["autres_regions"] == True:
+        if parametres.get("autres_regions", False):
             liste_regions_temp.update(
                 {
                     k: v
                     for k, v in constantes.liste_regions_monde.items()
-                    if k not in [euro, asie, afr, amsud, amnord, mo]
+                    if k not in set(liste_regions_temp.keys())
                 }
             )
 
-        dict_regions = settings["dictionnaire_regions"]
-        if settings["dictionnaire_departements"] is not None:
-            if settings["dictionnaire_departements"] != {} and dict_regions is not None:
+        dict_regions = parametres["dictionnaire_regions"]
+        if parametres["dictionnaire_departements"] is not None:
+            if parametres["dictionnaire_departements"] != {} and dict_regions is not None:
                 dict_regions = {
                     k: v
-                    for k, v in settings["dictionnaire_regions"].items()
-                    if k not in settings["dictionnaire_departements"]
+                    for k, v in parametres["dictionnaire_regions"].items()
+                    if k not in parametres["dictionnaire_departements"]
                 }
 
-        if settings["dictionnaire_departements"] == {}:
-            settings["dictionnaire_departements"] = None
+        if parametres["dictionnaire_departements"] == {}:
+            parametres["dictionnaire_departements"] = None
         if dict_regions == {}:
             dict_regions = None
 
@@ -994,15 +982,15 @@ class SettingsApp(QWidget):
             (
                 (len(list(dict_regions.keys())) if dict_regions is not None else 0)
                 + (
-                    len(list(settings["dictionnaire_departements"].keys()))
-                    if settings["dictionnaire_departements"] is not None
+                    len(list(parametres["dictionnaire_departements"].keys()))
+                    if parametres["dictionnaire_departements"] is not None
                     else 0
                 )
             )
-            * settings["cartes_des_pays"]
+            * parametres["cartes_des_pays"]
             * (granularite != 0)
             + len(liste_regions_temp)
-            + int(settings["carte_du_monde"])
+            + int(parametres["carte_du_monde"])
         )
 
         self.barre_progression.setMaximum(nb_total_graphes)
@@ -1012,33 +1000,35 @@ class SettingsApp(QWidget):
 
         self.debut_fin_creation_cartes(debut=True)
 
-        parametres = {
-            "liste_dfs": liste_gdfs,
-            "liste_dicts": [dict_regions, settings["dictionnaire_departements"]],
-            "gdf_eau": constantes.gdf_lacs,
-            "noms_pays": constantes.pays_differentes_langues,
-            "dictionnaire_pays_unis": constantes.liste_pays_groupes,
-            "nom_indiv": settings["nom"],
-            "direction_resultat": settings["dossier_stockage"],
-            "langue": settings["langue"],
-            "granularite_visite": granularite,
-            "granularite_reste": {"Pays": 0, "Région": 1}.get(settings.get("granularite_fond"), 2),
-            "theme": constantes.liste_ambiances[settings["theme"]],
-            "teinte": constantes.liste_couleurs[settings["couleur"]],
-            "couleur_fond": "#CDEAF7" if settings["couleur_fond_carte"] else "#FFFFFF",
-            "couleur_non_visites": "#ECEBED",
-            "couleur_lacs": "#CEE3F5",
-            "format": settings["format"],
-            "qualite": settings["qualite"],
-            "carte_du_monde": settings["carte_du_monde"],
-            "liste_regions": liste_regions_temp,
-            "pays_individuel": settings["cartes_des_pays"],
-            "max_cartes_additionnelles": settings["limite_nb_cartes"],
-            "sortir_cartes_granu_inf": settings["publier_granu_faible"],
-        }
-
         self.thread_temp = QThread()
-        self.worker = onglet_1.CreerCartes(parametres)
+        self.worker = onglet_1.CreerCartes(
+            {
+                "liste_dfs": liste_gdfs,
+                "liste_dicts": [dict_regions, parametres["dictionnaire_departements"]],
+                "gdf_eau": constantes.gdf_lacs,
+                "noms_pays": constantes.pays_differentes_langues,
+                "dictionnaire_pays_unis": constantes.liste_pays_groupes,
+                "nom_indiv": parametres["nom"],
+                "direction_resultat": parametres["dossier_stockage"],
+                "langue": parametres["langue"],
+                "granularite_visite": granularite,
+                "granularite_reste": {"Pays": 0, "Région": 1}.get(
+                    parametres.get("granularite_fond"), 2
+                ),
+                "theme": constantes.liste_ambiances[parametres["theme"]],
+                "teinte": constantes.liste_couleurs[parametres["couleur"]],
+                "couleur_fond": "#CDEAF7" if parametres["couleur_fond_carte"] else "#FFFFFF",
+                "couleur_non_visites": "#ECEBED",
+                "couleur_lacs": "#CEE3F5",
+                "format": parametres["format"],
+                "qualite": parametres["qualite"],
+                "carte_du_monde": parametres["carte_du_monde"],
+                "liste_regions": liste_regions_temp,
+                "pays_individuel": parametres["cartes_des_pays"],
+                "max_cartes_additionnelles": parametres["max_cartes_additionnelles"],
+                "sortir_cartes_granu_inf": parametres["sortir_cartes_granu_inf"],
+            }
+        )
         self.worker.moveToThread(self.thread_temp)
 
         self.worker.tracker_signal.connect(self.afficher_avancement)
@@ -1100,7 +1090,7 @@ class SettingsApp(QWidget):
                 "europe": self.europe,
                 "moyen_orient": self.moyen_orient,
                 "autres_regions": self.autres_regions,
-                "publier_granu_faible": self.publier_granu_faible,
+                "sortir_cartes_granu_inf": self.sortir_cartes_granu_inf,
             }
             for nom_cle, checkbox in checkboxes.items():
                 if sauv.get(nom_cle) is not None:
@@ -1130,12 +1120,12 @@ class SettingsApp(QWidget):
             self.tab_yaml.set_dict_granu(dictionnaire=self.dicts_granu)
 
             # Limite de cartes
-            if sauv.get("limite_nb_cartes") is not None:
-                if sauv.get("limite_nb_cartes") == 5:
+            if sauv.get("max_cartes_additionnelles") is not None:
+                if sauv.get("max_cartes_additionnelles") == 5:
                     self.radio_carte_1.setChecked(True)
-                elif sauv.get("limite_nb_cartes") == 10:
+                elif sauv.get("max_cartes_additionnelles") == 10:
                     self.radio_carte_2.setChecked(True)
-                elif sauv.get("limite_nb_cartes") == 15:
+                elif sauv.get("max_cartes_additionnelles") == 15:
                     self.radio_carte_3.setChecked(True)
                 else:
                     self.radio_carte_sans_limite.setChecked(True)
@@ -1194,7 +1184,7 @@ class SettingsApp(QWidget):
         self.europe.setChecked(True)
         self.moyen_orient.setChecked(False)
         self.autres_regions.setChecked(False)
-        self.publier_granu_faible.setChecked(False)
+        self.sortir_cartes_granu_inf.setChecked(False)
 
         self.utiliser_theme.setChecked(False)
         self.onglet_resume_pays.mise_en_forme.setChecked(False)

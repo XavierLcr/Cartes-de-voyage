@@ -133,6 +133,7 @@ class OngletSelectionnerDestinations(QWidget):
 
             self.dict_modif.emit(self.dicts_granu)
             self.maj_liste_reg_dep_pays()
+            self.set_langue(langue=None)
 
     def exporter_yamls_visites(self):
 
@@ -209,7 +210,8 @@ class OngletSelectionnerDestinations(QWidget):
     def set_langue(self, langue):
 
         # Mise à jour de la langue
-        self.langue = langue
+        if langue is not None:
+            self.langue = langue
 
         # Mise à jour de l'interface
         self.groupe_selection_lieux.setTitle(
@@ -323,3 +325,8 @@ class OngletSelectionnerDestinations(QWidget):
                     del self.dicts_granu[clef][pays_i]
 
         self.dict_modif.emit(self.dicts_granu)
+
+    def reset_yaml(self):
+        self.fichier_yaml_1 = None
+        self.fichier_yaml_2 = None
+        self.set_langue(langue=None)

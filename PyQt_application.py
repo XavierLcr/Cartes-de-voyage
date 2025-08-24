@@ -1134,6 +1134,7 @@ class SettingsApp(QWidget):
             if sauv.get("couleur_fond_carte") is not None:
                 self.couleur_fond_checkbox.setChecked(sauv.get("couleur_fond_carte"))
 
+            self.tab_yaml.reset_yaml()
             self.top_pays_visites.set_dicts_granu(dict_nv=self.dicts_granu)
             self.onglet_resume_pays.set_dicts_granu(dict_nv=self.dicts_granu)
 
@@ -1153,12 +1154,6 @@ class SettingsApp(QWidget):
         self.tab_yaml.set_dossier(dossier=self.dossier_stockage)
         self.radio_carte_2.setChecked(True)
         self.langue_utilisee.setCurrentIndex(0)
-
-        # Fichiers YAML
-        self.chemin_fichier_yaml_1 = None
-        self.fichier_yaml_1 = None
-        self.chemin_fichier_yaml_2 = None
-        self.fichier_yaml_2 = None
 
         # Paramètres de publication
         self.curseur_qualite.setValue(
@@ -1182,9 +1177,12 @@ class SettingsApp(QWidget):
         self.europe.setChecked(True)
         self.moyen_orient.setChecked(False)
         self.autres_regions.setChecked(False)
-        self.sortir_cartes_granu_inf.setChecked(False)
 
+        # Autres paramètres
+        self.sortir_cartes_granu_inf.setChecked(False)
         self.utiliser_theme.setChecked(False)
+
+        self.tab_yaml.reset_yaml()
         self.onglet_resume_pays.mise_en_forme.setChecked(False)
         self.onglet_resume_pays.set_dicts_granu(dict_nv=self.dicts_granu)
         self.top_pays_visites.set_dicts_granu(dict_nv=self.dicts_granu)

@@ -21,8 +21,6 @@ from application.fonctions_utiles_2_0 import (
     creer_ligne_separation,
 )
 
-# from production_cartes.creer_carte_1_1 import cree_base_toutes_granularites
-
 
 # Quatrième onglet
 class ClassementPays(QWidget):

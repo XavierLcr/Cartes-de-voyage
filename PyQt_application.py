@@ -3,7 +3,7 @@
 # Application principale                                                       #
 ################################################################################
 
-import os, sys, warnings, copy, textwrap, time
+import os, sys, warnings, copy, textwrap, threading
 
 # PyQt6
 from PyQt6.QtWidgets import (
@@ -1158,22 +1158,41 @@ class MesVoyagesApplication(QWidget):
             self.maj_langue_interface(True)
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
 
-    # Lancement de l'application
+#     # Lancement de l'application
+#     app = QApplication(sys.argv)
+
+#     # Import des bases de données contenant les cartes
+#     liste_gdfs = [
+#         fonctions_utiles_2_0.ouvrir_fichier(
+#             direction_fichier=constantes.direction_donnees_pickle,
+#             nom_fichier=f"carte_monde_niveau_{i}.pkl",
+#             defaut=None,
+#             afficher_erreur=f"Base de granularité {i} introuvable.",
+#         )
+#         for i in range(3)
+#     ]
+
+#     window = MesVoyagesApplication()
+#     window.show()
+
+#     sys.exit(app.exec())
+
+if __name__ == "__main__":
     app = QApplication(sys.argv)
 
-    # Import des bases de données contenant les cartes
-    liste_gdfs = [
-        fonctions_utiles_2_0.ouvrir_fichier(
-            direction_fichier=constantes.direction_donnees_pickle,
-            nom_fichier=f"carte_monde_niveau_{i}.pkl",
-            defaut=None,
-            afficher_erreur=f"Base de granularité {i} introuvable.",
-        )
-        for i in range(3)
-    ]
+    # Création d'une liste vide pour stocker les GDF
+    liste_gdfs = [None] * 3
 
+    # Lancement du thread de chargement
+    threading.Thread(
+        target=fonctions_utiles_2_0.charger_gdfs,
+        args=(liste_gdfs, constantes.direction_donnees_pickle, 3),
+        daemon=True,
+    ).start()
+
+    # Lancement de l'application
     window = MesVoyagesApplication()
     window.show()
 

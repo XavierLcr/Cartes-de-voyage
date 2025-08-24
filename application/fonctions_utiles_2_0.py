@@ -215,6 +215,19 @@ def ouvrir_fichier(direction_fichier, nom_fichier, defaut, afficher_erreur: str 
         return defaut
 
 
+def charger_gdfs(liste_gdfs, direction_base, max_niveau=3):
+    """
+    Charge les fichiers pickle et remplit la liste_gdfs.
+    """
+    for i in range(max_niveau):
+        liste_gdfs[i] = ouvrir_fichier(
+            direction_fichier=direction_base,
+            nom_fichier=f"carte_monde_niveau_{i}.pkl",
+            defaut=None,
+            afficher_erreur=f"Base de granularité {i} introuvable.",
+        )  # mise à jour de la liste partagée
+
+
 def exporter_fichier(objet, direction_fichier, nom_fichier, sort_keys: bool = True):
 
     nom_fichier = os.path.join(direction_fichier, nom_fichier)

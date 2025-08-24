@@ -942,103 +942,17 @@ class MesVoyagesApplication(QWidget):
         self.onglet_top_pays_visites.set_dicts_granu(dict_nv=self.dicts_granu)
 
     def publier_cartes(self, parametres):
-        # Logique de traitement avec les paramètres validés
 
-        # Ganularite
-        granularite = {"Pays": 0, "Région": 1, "Département": 2}.get(
-            parametres.get("granularite"), -1
-        )
+        parametres |= {"liste_dfs": liste_gdfs}
 
-        liste_regions_temp = {
-            region: constantes.liste_regions_monde[region]
-            for cle_param, regions in {
-                "moyen_orient": ["Middle East"],
-                "europe": ["Europe"],
-                "amerique": ["South America", "North America"],
-                "afrique": ["Africa"],
-                "asie": ["Asia"],
-            }.items()
-            if parametres.get(cle_param, False)
-            for region in regions
-        }
-
-        if parametres.get("autres_regions", False):
-            liste_regions_temp.update(
-                {
-                    k: v
-                    for k, v in constantes.liste_regions_monde.items()
-                    if k not in set(liste_regions_temp.keys())
-                }
-            )
-
-        dict_regions = parametres["dictionnaire_regions"]
-        if parametres["dictionnaire_departements"] is not None:
-            if parametres["dictionnaire_departements"] != {} and dict_regions is not None:
-                dict_regions = {
-                    k: v
-                    for k, v in parametres["dictionnaire_regions"].items()
-                    if k not in parametres["dictionnaire_departements"]
-                }
-
-        if parametres["dictionnaire_departements"] == {}:
-            parametres["dictionnaire_departements"] = None
-        if dict_regions == {}:
-            dict_regions = None
-
-        nb_total_graphes = (
-            (
-                (len(list(dict_regions.keys())) if dict_regions is not None else 0)
-                + (
-                    len(list(parametres["dictionnaire_departements"].keys()))
-                    if parametres["dictionnaire_departements"] is not None
-                    else 0
-                )
-            )
-            * parametres["cartes_des_pays"]
-            * (granularite != 0)
-            + len(liste_regions_temp)
-            + int(parametres["carte_du_monde"])
-        )
-
-        self.barre_progression.setMaximum(nb_total_graphes)
-        self.barre_progression.setValue(0)
-        self.nb_total_graphes = nb_total_graphes
-        self.graphique_i = 0
-
-        self.debut_fin_creation_cartes(debut=True)
+        # Initialisation de l'objet et de la barre de progression
+        self.creation_cartes = onglet_1.CreerCartes(params=parametres, constantes=constantes)
+        self.creation_cartes.nb_graphes.connect(self.initialiser_progression)
+        self.creation_cartes.tracker_signal.connect(self.afficher_avancement)
 
         self.thread_temp = QThread()
-        self.creation_cartes = onglet_1.CreerCartes(
-            {
-                "liste_dfs": liste_gdfs,
-                "liste_dicts": [dict_regions, parametres["dictionnaire_departements"]],
-                "gdf_eau": constantes.gdf_lacs,
-                "noms_pays": constantes.pays_differentes_langues,
-                "dictionnaire_pays_unis": constantes.liste_pays_groupes,
-                "nom_indiv": parametres["nom"],
-                "direction_resultat": parametres["dossier_stockage"],
-                "langue": parametres["langue"],
-                "granularite_visite": granularite,
-                "granularite_reste": {"Pays": 0, "Région": 1}.get(
-                    parametres.get("granularite_fond"), 2
-                ),
-                "theme": constantes.liste_ambiances[parametres["theme"]],
-                "teinte": constantes.liste_couleurs[parametres["couleur"]],
-                "couleur_fond": "#CDEAF7" if parametres["couleur_fond_carte"] else "#FFFFFF",
-                "couleur_non_visites": "#ECEBED",
-                "couleur_lacs": "#CEE3F5",
-                "format": parametres["format"],
-                "qualite": parametres["qualite"],
-                "carte_du_monde": parametres["carte_du_monde"],
-                "liste_regions": liste_regions_temp,
-                "pays_individuel": parametres["cartes_des_pays"],
-                "max_cartes_additionnelles": parametres["max_cartes_additionnelles"],
-                "sortir_cartes_granu_inf": parametres["sortir_cartes_granu_inf"],
-            }
-        )
         self.creation_cartes.moveToThread(self.thread_temp)
 
-        self.creation_cartes.tracker_signal.connect(self.afficher_avancement)
         self.creation_cartes.finished.connect(self.thread_temp.quit)
         self.creation_cartes.finished.connect(self.creation_cartes.deleteLater)
         self.thread_temp.finished.connect(self.thread_temp.deleteLater)
@@ -1046,6 +960,17 @@ class MesVoyagesApplication(QWidget):
 
         self.thread_temp.started.connect(self.creation_cartes.run)
         self.thread_temp.start()
+
+    def initialiser_progression(self, nb_cartes: int):
+
+        # Initialisation de la barre de progression
+        self.barre_progression.setMaximum(nb_cartes)
+        self.barre_progression.setValue(0)
+        self.nb_total_graphes = nb_cartes
+        self.graphique_i = 0
+
+        # Affichage de la barre de progression
+        self.debut_fin_creation_cartes(debut=True)
 
     def afficher_avancement(self, libelle_pays):
         self.graphique_i = self.graphique_i + 1
@@ -1056,8 +981,8 @@ class MesVoyagesApplication(QWidget):
 
     def debut_fin_creation_cartes(self, debut):
 
-        self.barre_progression.setVisible(debut)
         self.creation_cartes_bouton.setVisible(not debut)
+        self.barre_progression.setVisible(debut)
 
         self.montrer_popup(
             contenu=self.traduire_depuis_id(

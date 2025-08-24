@@ -37,7 +37,7 @@ europe : Europe
 moyen_orient : Moyen-Orient
 autres_regions_monde : Autres régions du monde
 publier_cartes_faible_granularite_uniquement : Également publier les cartes pour lesquelles la granularité souhaitée n'est pas disponible
-description_publier_cartes_faible_granularite_uniquement : Permet de choisir si l'on souhaite publier l'entièreté des cartes ou seulement celles qui possède la granularité souhaitée. Veut-on par exemple publier une carte qui n'existe qu'au niveau régional si l'on souhaite des cartes au niveau départemental ?
+description_publier_cartes_faible_granularite_uniquement : Permet de choisir si l'on souhaite publier l'entièreté des cartes ou seulement celles qui possèdent la granularité souhaitée. Veut-on par exemple publier une carte qui n'existe qu'au niveau régional si l'on souhaite des cartes au niveau départemental ?
 
 # Paramètres esthétiques
 titre_params_esthetiques : Paramètres esthétiques
@@ -72,7 +72,7 @@ description_bouton_publier_cartes : "Publier les cartes sauvegarde également le
 # Onglet 2
 titre_choix_destinations_visitees : Sélection des lieux visités
 telecharger_lieux_visites : Télécharger les fichiers YAML des lieux visités
-export_pas_fonctionnel : L'export n'a pas fonctionné. Veuillez réessayer de nouveau plus tard
+export_pas_fonctionnel : L'export n'a pas fonctionné. Veuillez réessayer plus tard
 avertissement_onglet_2 : Pour un pays donné, si des départements sont cochés, ils sont prioritaires sur les régions cochées. Dans ce cas, la liste des régions visitées est automatiquement reconstituée à partir de la liste des départements. Il n'est donc plus nécessaire de cocher les régions visitées (les régions peuvent rester cochées mais ne seront pas prises en compte)
 
 # Chargement des YAMLs
@@ -94,7 +94,7 @@ classement_selon_departements : Selon les départements visités
 # Onglet 4
 sous_titre_description_application : Création de cartes de voyages
 version : Version
-description_application : "<h2>📌 Description :</h2>\n<p>MesVoyages est une application permettant de créer des cartes de voyages personnalisées en sélectionnant les régions ou départements des pays que l'on a visités.</p>\n<h2>💻 Comment utiliser :</h2>\n<ol>\n<li>Entrez vos paramètres ainsi que votre nom.</li>\n<li>Entrez les lieux que vous avez visités.</li>\n<li>Créez vos cartes ! La sauvegrade de vos visites et de vos paramètres se fait lorsque vous cliquez sur le bouton de création des cartes.</li>\n</ol>\n<h2>📋 Fichiers YAML disponibles :</h2>\n<p>Les fichiers <code>.yaml</code> fournis sont des <strong>modèles complets</strong> contenant tous les pays, régions et départements disponibles.</p>\n<p>▶️ Si vous préférez cette méthode à celle de cocher les lieux visités, après avoir copié les modèles présents dans le dossier de l'application, supprimez tous les lieux non visités et chargez-les dans l'application.</p>\n<h2>❓ Contact :</h2>\n<p>L'application se veut intuitive, mais pour toute question : xavier.cal181@gmail.com.</p>\n<p>Les traductions ont été faites automatiquement et n'ont pas été vérifiées manuellement. En cas d'erreurs de traduction, n'hésitez pas à me contacter.\nDe même, si des bugs se produisent ou que vous souhaitez effectuer des retours/recommandations, n'hésitez pas à me contacter.</p>\n<h2>🗑️ Désinstallation :</h2>\n<p>Supprimez simplement le dossier. Aucun fichier système n’est modifié.</p>\n<hr />\n<p><strong>Merci d’avoir choisi MesVoyages !</strong></p>"
+description_application : "<h2>📌 Description :</h2>\n<p>MesVoyages est une application permettant de créer des cartes de voyages personnalisées en sélectionnant les régions ou départements des pays que l'on a visités.</p>\n<h2>💻 Comment utiliser :</h2>\n<ol>\n<li>Entrez vos paramètres ainsi que votre nom.</li>\n<li>Entrez les lieux que vous avez visités.</li>\n<li>Créez vos cartes ! La sauvegarde de vos visites et de vos paramètres se fait lorsque vous cliquez sur le bouton de création des cartes.</li>\n</ol>\n<h2>📋 Fichiers YAML disponibles :</h2>\n<p>Les fichiers <code>.yaml</code> fournis sont des <strong>modèles complets</strong> contenant tous les pays, régions et départements disponibles.</p>\n<p>▶️ Si vous préférez cette méthode à celle de cocher les lieux visités, copiez d'abord les modèles présents dans le dossier de l'application. Supprimez ensuite tous les lieux non visités et chargez-les dans l'application.</p>\n<h2>❓ Contact :</h2>\n<p>L'application se veut intuitive, mais pour toute question : xavier.cal181@gmail.com.</p>\n<p>Les traductions ont été générées automatiquement et n'ont pas été relues manuellement. Pour toute erreur, contactez-moi.\nDe même, si des bugs se produisent ou que vous souhaitez effectuer des retours/recommandations, n'hésitez pas à me contacter.</p>\n<h2>🗑️ Désinstallation :</h2>\n<p>Supprimez simplement le dossier. Aucun fichier système n’est modifié.</p>\n<hr />\n<p><strong>Merci d’avoir choisi MesVoyages !</strong></p>"
 
 # Pop_ups de publication des cartes
 titre_pop_up_publication_cartes : Création des cartes
@@ -103,6 +103,6 @@ publication_cartes_reussie : Les cartes ont été créées avec succès !
 
 # Pop-ups des problèmes
 pop_up_probleme_titre : Problème
-pop_up_aucun_lieu_coche : Aucun lieu n'a été coché
+pop_up_aucun_lieu_coche : Aucun lieu n'a été coché. Essayez de cocher le lieu associé à votre emplacement actuel !
 pop_up_pas_de_dossier_de_stockage : Il est nécessaire de choisir un dossier de stockage des cartes
 

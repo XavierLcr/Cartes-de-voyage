@@ -11,6 +11,2895 @@
 
   <li>Entrez les lieux que vous avez visités.</li>
 
+  <li>Créez vos cartes ! La sauvegarde de vos visites et de vos paramètres se fait
+  lorsque vous cliquez sur le bouton de création des cartes.</li>
+
+  </ol>
+
+  <h2>📋 Fichiers YAML disponibles :</h2>
+
+  <p>Les fichiers <code>.yaml</code> fournis sont des <strong>modèles complets</strong>
+  contenant tous les pays, régions et départements disponibles.</p>
+
+  <p>▶️ Si vous préférez cette méthode à celle de cocher les lieux visités, copiez
+  d''abord les modèles présents dans le dossier de l''application. Supprimez ensuite
+  tous les lieux non visités et chargez-les dans l''application.</p>
+
+  <h2>❓ Contact :</h2>
+
+  <p>L''application se veut intuitive, mais pour toute question : xavier.cal181@gmail.com.</p>
+
+  <p>Les traductions ont été générées automatiquement et n''ont pas été relues manuellement.
+  Pour toute erreur, contactez-moi.
+
+  De même, si des bugs se produisent ou que vous souhaitez effectuer des retours/recommandations,
+  n''hésitez pas à me contacter.</p>
+
+  <h2>🗑️ Désinstallation :</h2>
+
+  <p>Supprimez simplement le dossier. Aucun fichier système n’est modifié.</p>
+
+  <hr />
+
+  <p><strong>Merci d’avoir choisi MesVoyages !</strong></p>'
+: afrikaans: '## 📌 Beskrywing:
+
+    <p>MesVoyages is ''n toepassing wat jou in staat stel om persoonlike reis kaarte
+    te skep deur die streke of departemente van die lande wat jy besoek het, te kies.</p>
+
+    ## 💻 Hoe om te gebruik:
+
+    <ol>
+
+    <li>Voer jou instellings en jou naam in.</li>
+
+    <li>Voer die plekke in wat jy besoek het.</li>
+
+    <li>Skep jou kaarte! Die stoor van jou besoeke en jou instellings vind plaas wanneer
+    jy op die knoppie om kaarte te skep, klik.</li>
+
+    </ol>
+
+    ## 📋 Beskikbare YAML lêers:
+
+    <p>Die verskafde <code>.yaml</code> lêers is <strong>volledige modelle</strong>
+    wat alle beskikbare lande, streke en departemente bevat.</p>
+
+    <p>▶️ As jy hierdie metode bo dié verkies om die plekke wat jy besoek het, af
+    te merk, kopieer eers die modelle in die toepassing se gids. Verwyder dan alle
+    plekke wat nie besoek is nie en laai dit in die toepassing.</p>
+
+    ## ❓ Kontak:
+
+    <p>Die toepassing is bedoel om intuïtief te wees, maar vir enige vrae: xavier.cal181@gmail.com.</p>
+
+    <p>Die vertalings is outomaties gegenereer en is nie met die hand hersien nie.
+    Vir enige foute, kontak my.
+
+    Net so, as daar foute voorkom of jy terugvoer/aanbevelings wil gee, moet asseblief
+    nie huiwer om my te kontak nie.</p>
+
+    ## 🗑️ Verwydering:
+
+    <p>Verwyder eenvoudig die gids. Geen stelsel lêers word gewysig nie.</p>
+
+    <hr />
+
+    <p><strong>Dankie dat jy MesVoyages gekies het!</strong></p>'
+  albanais: '## 📌 Përshkrimi:
+
+    <p>MesVoyages është një aplikacion që ju lejon të krijoni harta udhëtimesh të
+    personalizuara duke zgjedhur rajonet ose departamentet e vendeve që keni vizituar.</p>
+
+    <h2>💻 Si të përdorni:</h2>
+
+    <ol>
+
+    <li>Shkruani parametrat tuaj dhe emrin tuaj.</li>
+
+    <li>Shkruani vendet që keni vizituar.</li>
+
+    <li>Krijoni hartat tuaja! Ruajtja e vizitave dhe parametrave tuaj bëhet kur klikoni
+    në butonin për krijimin e hartave.</li>
+
+    </ol>
+
+    <h2>📋 Skedarët YAML të disponueshëm:</h2>
+
+    <p>Skedarët <code>.yaml</code> të ofruara janë <strong>modele të plota</strong>
+    që përmbajnë të gjitha vendet, rajonet dhe departamentet e disponueshme.</p>
+
+    <p>▶️ Nëse preferoni këtë metodë në vend të shënjimit të vendeve të vizituara,
+    së pari kopjoni modelet e pranishme në dosjen e aplikacionit. Më pas fshini të
+    gjitha vendet e pavizituara dhe ngarkojini ato në aplikacion.</p>
+
+    <h2>❓ Kontakt:</h2>
+
+    <p>Aplikacioni synon të jetë intuitiv, por për çdo pyetje: xavier.cal181@gmail.com.</p>
+
+    <p>Përkthimet janë gjeneruar automatikisht dhe nuk janë rishikuar manualisht.
+    Për çdo gabim, më kontaktoni.
+
+    Gjithashtu, nëse ndodhin bug-e ose dëshironi të bëni komente/rekomandime, mos
+    hezitoni të më kontaktoni.</p>
+
+    <h2>🗑️ Çinstalimi:</h2>
+
+    <p>Thjesht fshini dosjen. Asnjë skedar sistemi nuk modifikohet.</p>
+
+    <hr />
+
+    <p><strong>Faleminderit që zgjodhët MesVoyages!</strong></p>'
+  allemand: '## 📌 Beschreibung:
+
+    <p>MesVoyages ist eine Anwendung, mit der man personalisierte Reisekarten erstellen
+    kann, indem man die Regionen oder Departements der besuchten Länder auswählt.</p>
+
+    ## 💻 Verwendung:
+
+    <ol>
+
+    <li>Geben Sie Ihre Parameter sowie Ihren Namen ein.</li>
+
+    <li>Geben Sie die Orte ein, die Sie besucht haben.</li>
+
+    <li>Erstellen Sie Ihre Karten! Das Speichern Ihrer Besuche und Ihrer Parameter
+    erfolgt, wenn Sie auf die Schaltfläche zum Erstellen der Karten klicken.</li>
+
+    </ol>
+
+    ## 📋 Verfügbare YAML-Dateien:
+
+    <p>Die bereitgestellten <code>.yaml</code>-Dateien sind <strong>komplette Vorlagen</strong>,
+    die alle verfügbaren Länder, Regionen und Departements enthalten.</p>
+
+    <p>▶️ Wenn Sie diese Methode dem Ankreuzen der besuchten Orte vorziehen, kopieren
+    Sie zuerst die Vorlagen im Anwendungsordner. Löschen Sie dann alle nicht besuchten
+    Orte und laden Sie sie in die Anwendung.</p>
+
+    ## ❓ Kontakt:
+
+    <p>Die Anwendung soll intuitiv sein, aber bei Fragen: xavier.cal181@gmail.com.</p>
+
+    <p>Die Übersetzungen wurden automatisch generiert und nicht manuell überprüft.
+    Bei Fehlern kontaktieren Sie mich bitte.
+
+    Kontaktieren Sie mich auch, wenn Fehler auftreten oder Sie Feedback/Empfehlungen
+    geben möchten.</p>
+
+    ## 🗑️ Deinstallation:
+
+    <p>Löschen Sie einfach den Ordner. Es werden keine Systemdateien geändert.</p>
+
+    <hr />
+
+    <p><strong>Vielen Dank, dass Sie sich für MesVoyages entschieden haben!</strong></p>'
+  anglais: '## 📌 Description:
+
+    <p>MesVoyages is an application that allows you to create personalized travel
+    maps by selecting the regions or departments of the countries you have visited.</p>
+
+    <h2>💻 How to use:</h2>
+
+    <ol>
+
+    <li>Enter your parameters and your name.</li>
+
+    <li>Enter the places you have visited.</li>
+
+    <li>Create your maps! Saving your visits and parameters is done when you click
+    the map creation button.</li>
+
+    </ol>
+
+    <h2>📋 Available YAML files:</h2>
+
+    <p>The provided <code>.yaml</code> files are <strong>complete templates</strong>
+    containing all available countries, regions and departments.</p>
+
+    <p>▶️ If you prefer this method to ticking the visited places, first copy the
+    templates in the application folder. Then, delete all unvisited places and load
+    them into the application.</p>
+
+    <h2>❓ Contact:</h2>
+
+    <p>The application aims to be intuitive, but for any questions: xavier.cal181@gmail.com.</p>
+
+    <p>The translations were generated automatically and have not been manually reviewed.
+    For any errors, contact me.
+
+    Similarly, if bugs occur or you wish to provide feedback/recommendations, do not
+    hesitate to contact me.</p>
+
+    <h2>🗑️ Uninstallation:</h2>
+
+    <p>Simply delete the folder. No system files are modified.</p>
+
+    <hr />
+
+    <p><strong>Thank you for choosing MesVoyages!</strong></p>'
+  arabe: '## 📌 الوصف:
+
+    <p>MesVoyages هو تطبيق يسمح لك بإنشاء خرائط سفر مخصصة عن طريق تحديد المناطق أو
+    المقاطعات في البلدان التي زرتها.</p>
+
+    ## 💻 كيفية الاستخدام:
+
+    <ol>
+
+    <li>أدخل معلماتك بالإضافة إلى اسمك.</li>
+
+    <li>أدخل الأماكن التي زرتها.</li>
+
+    <li>قم بإنشاء خرائطك! يتم حفظ زياراتك وإعداداتك عند النقر فوق زر إنشاء الخرائط.</li>
+
+    </ol>
+
+    ## 📋 ملفات YAML المتاحة:
+
+    <p>ملفات <code>.yaml</code> المقدمة هي <strong>نماذج كاملة</strong> تحتوي على
+    جميع البلدان والمناطق والمقاطعات المتاحة.</p>
+
+    <p>▶️ إذا كنت تفضل هذه الطريقة على طريقة تحديد الأماكن التي تمت زيارتها، فانسخ
+    أولاً النماذج الموجودة في مجلد التطبيق. ثم احذف جميع الأماكن التي لم تتم زيارتها
+    وقم بتحميلها في التطبيق.</p>
+
+    ## ❓ الاتصال:
+
+    <p>يهدف التطبيق إلى أن يكون بديهيًا، ولكن لأية أسئلة: xavier.cal181@gmail.com.</p>
+
+    <p>تم إنشاء الترجمات تلقائيًا ولم تتم مراجعتها يدويًا. لأي خطأ، يرجى الاتصال بي.
+
+    وبالمثل، إذا حدثت أخطاء أو كنت ترغب في تقديم ملاحظات / توصيات، فلا تتردد في الاتصال
+    بي.</p>
+
+    ## 🗑️ إلغاء التثبيت:
+
+    <p>ما عليك سوى حذف المجلد. لا يتم تعديل أي ملفات نظام.</p>
+
+    <hr />
+
+    <p><strong>شكراً لاختيارك MesVoyages!</strong></p>'
+  arménien: '<h2>📌 Նկարագրություն։</h2>
+
+    <p>MesVoyages-ը հավելված է, որը թույլ է տալիս ստեղծել անհատական ճանապարհորդական
+    քարտեզներ՝ ընտրելով այն երկրների շրջանները կամ դեպարտամենտները, որոնք դուք այցելել
+    եք:</p>
+
+    <h2>💻 Ինչպես օգտագործել։</h2>
+
+    <ol>
+
+    <li>Մուտքագրեք ձեր պարամետրերը և ձեր անունը:</li>
+
+    <li>Մուտքագրեք այն վայրերը, որտեղ դուք այցելել եք:</li>
+
+    <li>Ստեղծեք ձեր քարտեզները: Ձեր այցելությունների և պարամետրերի պահպանումը կատարվում
+    է, երբ սեղմում եք քարտեզներ ստեղծելու կոճակը:</li>
+
+    </ol>
+
+    <h2>📋 Առկա YAML ֆայլեր։</h2>
+
+    <p>Տրամադրված <code>.yaml</code> ֆայլերը <strong>լրիվ մոդելներ են</strong>, որոնք
+    պարունակում են բոլոր երկրները, շրջանները և առկա դեպարտամենտները:</p>
+
+    <p>▶️ Եթե ​​դուք նախընտրում եք այս մեթոդը, այցելված վայրերը նշելու փոխարեն, նախ
+    կրկնօրինակեք հավելվածի թղթապանակում առկա մոդելները: Այնուհետև ջնջեք բոլոր չայցելված
+    վայրերը և բեռնեք դրանք հավելվածում:</p>
+
+    <h2>❓ Կապ։</h2>
+
+    <p>Հավելվածը նախատեսված է լինել ինտուիտիվ, բայց ցանկացած հարցի դեպքում՝ xavier.cal181@gmail.com։</p>
+
+    <p>Թարգմանությունները ավտոմատ կերպով են գեներացվել և ձեռքով չեն վերանայվել։ Ցանկացած
+    սխալի դեպքում կապվեք ինձ հետ։
+
+    Նույն կերպ, եթե խնդիրներ են առաջանում կամ ցանկանում եք կարծիք կամ առաջարկություն
+    տալ, մի հապաղեք կապվել ինձ հետ:</p>
+
+    <h2>🗑️ Ապատեղադրում։</h2>
+
+    <p>Պարզապես ջնջեք թղթապանակը։ Ոչ մի համակարգային ֆայլ չի փոփոխվում:</p>
+
+    <hr />
+
+    <p><strong>Շնորհակալություն MesVoyages-ը ընտրելու համար։</strong></p>'
+  basque: '<h2>📌 Deskribapena:</h2>
+
+    <p>MesVoyages aplikazioa da, bisitatutako herrialdeetako eskualdeak edo departamentuak
+    hautatuz, bidaia-mapa pertsonalizatuak sortzeko aukera ematen duena.</p>
+
+    <h2>💻 Nola erabili:</h2>
+
+    <ol>
+
+    <li>Sartu zure parametroak eta zure izena.</li>
+
+    <li>Sartu bisitatu dituzun lekuak.</li>
+
+    <li>Sortu zure mapak! Bisiten eta parametroen gordetze mapa sortzeko botoian klik
+    egitean egiten da.</li>
+
+    </ol>
+
+    <h2>📋 YAML fitxategi eskuragarriak:</h2>
+
+    <p>Emandako <code>.yaml</code> fitxategiak <strong>eredu osoak</strong> dira,
+    herrialde, eskualde eta departamentu guztiak dituztenak.</p>
+
+    <p>▶️ Bisitatutako lekuak markatzeko metodo hau nahiago baduzu, kopiatu lehenik
+    aplikazioaren karpetan dauden ereduak. Ondoren, ez bisitatutako leku guztiak ezabatu
+    eta aplikazioan kargatu.</p>
+
+    <h2>❓ Kontaktua:</h2>
+
+    <p>Aplikazioa intuitiboa izan nahi du, baina edozein galdera izanez gero: xavier.cal181@gmail.com.</p>
+
+    <p>Itzulpenak automatikoki sortu dira eta ez dira eskuz berrikusi. Edozein akats
+    izanez gero, jarri nirekin harremanetan.
+
+    Era berean, akatsak gertatzen badira edo iritzia/gomendioak egin nahi badituzu,
+    ez izan zalantzarik eta jarri nirekin harremanetan.</p>
+
+    <h2>🗑️ Desinstalazioa:</h2>
+
+    <p>Besterik gabe, ezabatu karpeta. Ez da sistemaren fitxategirik aldatzen.</p>
+
+    <hr />
+
+    <p><strong>Eskerrik asko MesVoyages aukeratzeagatik!</strong></p>'
+  bengali: '## 📌 বর্ণনা:
+
+    <p>মেসভয়াজ একটি অ্যাপ্লিকেশন যা ভ্রমণ করা দেশগুলির অঞ্চল বা বিভাগ নির্বাচন করে
+    ব্যক্তিগতকৃত ভ্রমণের মানচিত্র তৈরি করতে দেয়।</p>
+
+    ## 💻 কিভাবে ব্যবহার করবেন:
+
+    <ol>
+
+    <li>আপনার পরামিতি এবং আপনার নাম লিখুন।</li>
+
+    <li>আপনার পরিদর্শন করা স্থানগুলি লিখুন।</li>
+
+    <li>আপনার মানচিত্র তৈরি করুন! আপনি যখন মানচিত্র তৈরির বোতামে ক্লিক করেন, তখন আপনার
+    দর্শন এবং প্যারামিটারগুলি সংরক্ষিত হয়।</li>
+
+    </ol>
+
+    ## 📋 উপলব্ধ YAML ফাইল:
+
+    <p>প্রদত্ত <code>.yaml</code> ফাইলগুলি হল <strong>সম্পূর্ণ টেমপ্লেট</strong> যাতে
+    উপলব্ধ সমস্ত দেশ, অঞ্চল এবং বিভাগ রয়েছে।</p>
+
+    <p>▶️ আপনি যদি পরিদর্শন করা স্থানগুলি টিক দেওয়ার চেয়ে এই পদ্ধতিটি পছন্দ করেন
+    তবে প্রথমে অ্যাপ্লিকেশন ফোল্ডারে থাকা টেমপ্লেটগুলি অনুলিপি করুন। তারপরে, সমস্ত
+    অ-পরিদর্শন স্থানগুলি সরান এবং সেগুলিকে অ্যাপ্লিকেশনটিতে লোড করুন।</p>
+
+    ## ❓ যোগাযোগ:
+
+    <p>অ্যাপ্লিকেশনটি স্বজ্ঞাত হতে বোঝানো হয়েছে, তবে যেকোনো প্রশ্নের জন্য: xavier.cal181@gmail.com।</p>
+
+    <p>অনুবাদগুলি স্বয়ংক্রিয়ভাবে তৈরি করা হয়েছে এবং ম্যানুয়ালি পর্যালোচনা করা
+    হয়নি। কোনো ত্রুটির জন্য, আমার সাথে যোগাযোগ করুন।
+
+    একইভাবে, যদি কোনো বাগ দেখা দেয় বা আপনি প্রতিক্রিয়া/সুপারিশ করতে চান, তাহলে দ্বিধা
+    করবেন না আমার সাথে যোগাযোগ করতে।</p>
+
+    ## 🗑️ আনইনস্টল করুন:
+
+    <p>কেবল ফোল্ডারটি সরান। কোনো সিস্টেম ফাইল পরিবর্তন করা হয় না।</p>
+
+    <hr />
+
+    <p><strong>মেসভয়াজ নির্বাচন করার জন্য আপনাকে ধন্যবাদ!</strong></p>'
+  birman: '<h2>📌 ဖော်ပြချက် :</h2>
+
+    <p>MesVoyages သည် သွားရောက်လည်ပတ်ခဲ့သော နိုင်ငံများ၏ ဒေသများ သို့မဟုတ် ဌာနများကို
+    ရွေးချယ်ခြင်းဖြင့် စိတ်ကြိုက်ခရီးသွားမြေပုံများကို ဖန်တီးနိုင်သည့် အပလီကေးရှင်းတစ်ခုဖြစ်သည်။</p>
+
+    <h2>💻 အသုံးပြုနည်း :</h2>
+
+    <ol>
+
+    <li>သင်၏ ဆက်တင်များနှင့် သင်၏အမည်ကို ထည့်ပါ။</li>
+
+    <li>သင်သွားရောက်လည်ပတ်ခဲ့သော နေရာများကို ထည့်ပါ။</li>
+
+    <li>သင်၏ မြေပုံများကို ဖန်တီးပါ။ သင်၏ အလည်အပတ်များနှင့် သင်၏ ဆက်တင်များကို သိမ်းဆည်းခြင်းသည်
+    သင်သည် မြေပုံဖန်တီးခလုတ်ကို နှိပ်သောအခါတွင် ဖြစ်ပေါ်ပါသည်။</li>
+
+    </ol>
+
+    <h2>📋 ရရှိနိုင်သော YAML ဖိုင်များ :</h2>
+
+    <p>ပေးထားသော <code>.yaml</code> ဖိုင်များသည် ရရှိနိုင်သော နိုင်ငံများ၊ ဒေသများနှင့်
+    ဌာနအားလုံးပါဝင်သော <strong>ပြီးပြည့်စုံသော မော်ဒယ်များ</strong> ဖြစ်သည်။</p>
+
+    <p>▶️ သင်သည် လည်ပတ်ခဲ့သော နေရာများကို အမှတ်အသားပြုခြင်းထက် ဤနည်းလမ်းကို ပိုနှစ်သက်ပါက၊
+    အပလီကေးရှင်းဖိုင်တွဲရှိ မော်ဒယ်များကို ဦးစွာ ကူးယူပါ။ ထို့နောက် လည်ပတ်ခြင်းမရှိသော
+    နေရာအားလုံးကို ဖျက်ပြီး အပလီကေးရှင်းတွင် တင်ပါ။</p>
+
+    <h2>❓ ဆက်သွယ်ရန် :</h2>
+
+    <p>အပလီကေးရှင်းသည် အလိုလိုသိမြင်နိုင်သော်လည်း မည်သည့်မေးခွန်းအတွက်မဆို xavier.cal181@gmail.com
+    သို့ ဆက်သွယ်ပါ။</p>
+
+    <p>ဘာသာပြန်ဆိုမှုများကို အလိုအလျောက်ထုတ်ပေးပြီး ကိုယ်တိုင်ပြန်လည်သုံးသပ်ခြင်းမရှိပါ။
+    အမှားအယွင်းများရှိပါက ကျွန်ုပ်အား ဆက်သွယ်ပါ။
+
+    ထို့အတူ၊ ချို့ယွင်းချက်များဖြစ်ပေါ်ပါက သို့မဟုတ် တုံ့ပြန်ချက်/အကြံပြုချက်များပြုလုပ်လိုပါက
+    ကျွန်ုပ်အား ဆက်သွယ်ရန် မတွန့်ဆုတ်ပါနှင့်။</p>
+
+    <h2>🗑️ ဖယ်ရှားခြင်း :</h2>
+
+    <p>ဖိုင်တွဲကို ရိုးရှင်းစွာ ဖျက်ပါ။ စနစ်ဖိုင်များကို မည်သည့်အခါမျှ ပြောင်းလဲခြင်းမရှိပါ။</p>
+
+    <hr />
+
+    <p><strong>MesVoyages ကို ရွေးချယ်ပေးတဲ့အတွက် ကျေးဇူးတင်ပါတယ် !</strong></p>'
+  breton: '📌 Deskrivadur :
+
+    <p>MesVoyages zo un arload a ro tro da grouiñ kartennoù beaj personel en ur ziuzañ
+    ar rannvroioù pe an departamantoù eus ar broioù bet gweladennet.</p>
+
+    <h2>💻 Penaos ober :</h2>
+
+    <ol>
+
+    <li>Lakait ho palvezioù hag hoc''h anv.</li>
+
+    <li>Lakait al lec''hioù bet gweladennet ganeoc''h.</li>
+
+    <li>Krouit ho kartennnoù ! Enrollañ ho vizit hag ho palvezioù a ra pa klikit war
+    ar bouton evit krouiñ ar c''hartennoù.</li>
+
+    </ol>
+
+    <h2>📋 Fichennaouegoù YAML hegerz :</h2>
+
+    <p>Ar fichennaouegoù <code>.yaml</code> pourchaset zo <strong>modeloù klok</strong>
+    o terc''hel an holl vroioù, rannvroioù hag departamantoù hegerz.</p>
+
+    <p>▶️ Mar fell deoc''h ar mod-se kentoc''h eget ober gant ar chaokaat al lec''hioù
+    gweladennet, eilskrivit da gentañ ar modelloù zo er c''havlec''h eus an arload.
+    Diverkit goude-se an holl lec''hioù nann-gweladennet ha kargit anezho en arload.</p>
+
+    <h2>❓ Darempred :</h2>
+
+    <p>An arload a fell dezhañ bezañ skañv da implijout, met evit forzh peseurt goulen
+    : xavier.cal181@gmail.com.</p>
+
+    <p>An troidigezhioù zo bet krouet ent emgefre ha n''int ket bet lennet en-dro
+    dornel. Evit forzh peseurt fazi, darempredit ac''hanon.
+
+    Evel-se ivez, ma c''hoarvez buged pe ma fell deoc''h ober disoc''hoù/rekomandoù,
+    na zaleit ket da zarempregiñ ac''hanon.</p>
+
+    <h2>🗑️ Dizarbenn :</h2>
+
+    <p>Diverkit ar c''havlec''h dreist-holl. Fichennaoueg sistem ebet n''eo cheñchet.</p>
+
+    <hr />
+
+    <p><strong>Trugarez da vezañ dibabet MesVoyages !</strong></p>'
+  bulgare: '<h2>📌 Описание:</h2>
+
+    <p>MesVoyages е приложение, което позволява да създавате персонализирани карти
+    на пътешествия, като избирате региони или департаменти на страните, които сте
+    посетили.</p>
+
+    <h2>💻 Как да използвате:</h2>
+
+    <ol>
+
+    <li>Въведете параметрите си и вашето име.</li>
+
+    <li>Въведете местата, които сте посетили.</li>
+
+    <li>Създайте вашите карти! Запазването на посещенията и параметрите ви става,
+    когато кликнете върху бутона за създаване на карти.</li>
+
+    </ol>
+
+    <h2>📋 Налични YAML файлове:</h2>
+
+    <p>Предоставените <code>.yaml</code> файлове са <strong>пълни модели</strong>,
+    съдържащи всички налични страни, региони и департаменти.</p>
+
+    <p>▶️ Ако предпочитате този метод пред отбелязването на посетените места, първо
+    копирайте моделите в папката на приложението. След това изтрийте всички непосетени
+    места и ги заредете в приложението.</p>
+
+    <h2>❓ Контакт:</h2>
+
+    <p>Приложението е създадено да бъде интуитивно, но за всякакви въпроси: xavier.cal181@gmail.com.</p>
+
+    <p>Преводите са генерирани автоматично и не са прегледани ръчно. За всякакви грешки,
+    моля свържете се с мен.
+
+    Също така, ако възникнат грешки или искате да направите обратна връзка/препоръки,
+    не се колебайте да се свържете с мен.</p>
+
+    <h2>🗑️ Деинсталиране:</h2>
+
+    <p>Просто изтрийте папката. Няма променени системни файлове.</p>
+
+    <hr />
+
+    <p><strong>Благодарим ви, че избрахте MesVoyages!</strong></p>'
+  catalan: '<h2>📌 Descripció:</h2>
+
+    <p>MesViatges és una aplicació que permet crear mapes de viatges personalitzats
+    seleccionant les regions o departaments dels països que hem visitat.</p>
+
+    <h2>💻 Com utilitzar:</h2>
+
+    <ol>
+
+    <li>Introduïu els vostres paràmetres i el vostre nom.</li>
+
+    <li>Introduïu els llocs que heu visitat.</li>
+
+    <li>Creeu els vostres mapes! La salvaguarda de les vostres visites i dels vostres
+    paràmetres es fa quan feu clic al botó de creació dels mapes.</li>
+
+    </ol>
+
+    <h2>📋 Arxius YAML disponibles:</h2>
+
+    <p>Els arxius <code>.yaml</code> proporcionats són <strong>models complets</strong>
+    que contenen tots els països, regions i departaments disponibles.</p>
+
+    <p>▶️ Si preferiu aquest mètode al de marcar els llocs visitats, copieu primer
+    els models presents a la carpeta de l''aplicació. Després, suprimiu tots els llocs
+    no visitats i carregueu-los a l''aplicació.</p>
+
+    <h2>❓ Contacte:</h2>
+
+    <p>L''aplicació vol ser intuïtiva, però per a qualsevol pregunta: xavier.cal181@gmail.com.</p>
+
+    <p>Les traduccions s''han generat automàticament i no s''han revisat manualment.
+    Per a qualsevol error, contacteu-me.
+
+    De la mateixa manera, si es produeixen errors o voleu fer comentaris / recomanacions,
+    no dubteu a contactar-me.</p>
+
+    <h2>🗑️ Desinstal·lació:</h2>
+
+    <p>Simplement suprimiu la carpeta. No es modifica cap arxiu del sistema.</p>
+
+    <hr />
+
+    <p><strong>Gràcies per triar MesViatges!</strong></p>'
+  corse: MesVoyages hè un'appiecazione chì permette di creà carte di viaghji persunalizate,
+    scilighendu e rigione o i dipartimenti di i paesi chì unu hà visitatu
+  coréen: '## 📌 설명:
+
+    <p>MesVoyages는 방문한 국가의 지역 또는 부서를 선택하여 맞춤형 여행 지도를 만들 수 있는 애플리케이션입니다.</p>
+
+    ## 💻 사용 방법:
+
+    <ol>
+
+    <li>매개변수와 이름을 입력합니다.</li>
+
+    <li>방문한 장소를 입력합니다.</li>
+
+    <li>지도를 만드세요! 지도 생성 버튼을 클릭하면 방문 및 매개변수가 저장됩니다.</li>
+
+    </ol>
+
+    ## 📋 사용 가능한 YAML 파일:
+
+    <p>제공된 <code>.yaml</code> 파일은 사용 가능한 모든 국가, 지역 및 부서를 포함하는 <strong>완전한 템플릿</strong>입니다.</p>
+
+    <p>▶️ 방문한 장소를 선택하는 대신 이 방법을 선호하는 경우 먼저 애플리케이션 폴더에 있는 템플릿을 복사합니다. 그런 다음 방문하지 않은
+    모든 장소를 삭제하고 애플리케이션에 로드합니다.</p>
+
+    ## ❓ 문의:
+
+    <p>이 애플리케이션은 직관적으로 설계되었지만 궁금한 점이 있으면 xavier.cal181@gmail.com으로 문의하세요.</p>
+
+    <p>번역은 자동으로 생성되었으며 수동으로 검토되지 않았습니다. 오류가 있는 경우 저에게 문의하십시오.
+
+    마찬가지로 버그가 발생하거나 피드백/권장 사항을 제공하려는 경우 주저하지 말고 문의하십시오.</p>
+
+    ## 🗑️ 제거:
+
+    <p>폴더를 삭제하기만 하면 됩니다. 시스템 파일은 수정되지 않습니다.</p>
+
+    <hr />
+
+    <p><strong>MesVoyages를 선택해 주셔서 감사합니다!</strong></p>'
+  danois: '## 📌 Beskrivelse:
+
+    <p>MesVoyages er en app, der giver dig mulighed for at oprette personlige rejsekort
+    ved at vælge regioner eller departementer i de lande, du har besøgt.</p>
+
+    <h2>💻 Sådan bruges:</h2>
+
+    <ol>
+
+    <li>Indtast dine indstillinger og dit navn.</li>
+
+    <li>Indtast de steder, du har besøgt.</li>
+
+    <li>Opret dine kort! Dine besøg og indstillinger gemmes, når du klikker på knappen
+    til at oprette kort.</li>
+
+    </ol>
+
+    <h2>📋 Tilgængelige YAML-filer:</h2>
+
+    <p>De medfølgende <code>.yaml</code> filer er <strong>komplette modeller</strong>,
+    der indeholder alle tilgængelige lande, regioner og departementer.</p>
+
+    <p>▶️ Hvis du foretrækker denne metode frem for at afkrydse de besøgte steder,
+    skal du først kopiere modellerne i applikationsmappen. Slet derefter alle de ikke-besøgte
+    steder og indlæs dem i applikationen.</p>
+
+    <h2>❓ Kontakt:</h2>
+
+    <p>Applikationen er beregnet til at være intuitiv, men for spørgsmål: xavier.cal181@gmail.com.</p>
+
+    <p>Oversættelserne er genereret automatisk og er ikke blevet gennemgået manuelt.
+    Kontakt mig for eventuelle fejl.
+
+    Kontakt mig også gerne, hvis der opstår fejl, eller hvis du ønsker at give feedback/anbefalinger.</p>
+
+    <h2>🗑️ Afinstallation:</h2>
+
+    <p>Du skal blot slette mappen. Ingen systemfiler ændres.</p>
+
+    <hr />
+
+    <p><strong>Tak fordi du valgte MesVoyages!</strong></p>'
+  espagnol: '<h2>📌 Descripción:</h2>
+
+    <p>MesVoyages es una aplicación que permite crear mapas de viajes personalizados
+    seleccionando las regiones o departamentos de los países que has visitado.</p>
+
+    <h2>💻 Cómo usar:</h2>
+
+    <ol>
+
+    <li>Introduce tus parámetros y tu nombre.</li>
+
+    <li>Introduce los lugares que has visitado.</li>
+
+    <li>¡Crea tus mapas! La salvaguarda de tus visitas y de tus parámetros se realiza
+    al hacer clic en el botón de creación de mapas.</li>
+
+    </ol>
+
+    <h2>📋 Archivos YAML disponibles:</h2>
+
+    <p>Los archivos <code>.yaml</code> proporcionados son <strong>modelos completos</strong>
+    que contienen todos los países, regiones y departamentos disponibles.</p>
+
+    <p>▶️ Si prefieres este método al de marcar los lugares visitados, copia primero
+    los modelos presentes en la carpeta de la aplicación. Luego, elimina todos los
+    lugares no visitados y cárgalos en la aplicación.</p>
+
+    <h2>❓ Contacto:</h2>
+
+    <p>La aplicación se pretende intuitiva, pero para cualquier pregunta: xavier.cal181@gmail.com.</p>
+
+    <p>Las traducciones han sido generadas automáticamente y no han sido revisadas
+    manualmente. Para cualquier error, contáctame.
+
+    De la misma manera, si se producen errores o si deseas realizar comentarios/recomendaciones,
+    no dudes en contactarme.</p>
+
+    <h2>🗑️ Desinstalación:</h2>
+
+    <p>Simplemente elimina la carpeta. Ningún archivo del sistema se modifica.</p>
+
+    <hr />
+
+    <p><strong>¡Gracias por elegir MesVoyages!</strong></p>'
+  esperanto: '## 📌 Priskribo:
+
+    <p>MesVoyages estas apliko ebliganta krei personigitajn vojaĝmapojn elektante
+    la regionojn aŭ departementojn de la landoj kiujn oni vizitis.</p>
+
+    ## 💻 Kiel uzi:
+
+    <ol>
+
+    <li>Enigu viajn parametrojn kaj vian nomon.</li>
+
+    <li>Enigu la lokojn kiujn vi vizitis.</li>
+
+    <li>Kreu viajn mapojn! La konservado de viaj vizitoj kaj de viaj parametroj okazas
+    kiam vi klakas sur la butono por krei la mapojn.</li>
+
+    </ol>
+
+    ## 📋 Disponeblaj YAML-dosieroj:
+
+    <p>La dosieroj <code>.yaml</code> provizitaj estas <strong>plenaj modeloj</strong>
+    enhavantaj ĉiujn landojn, regionojn kaj departementojn disponeblajn.</p>
+
+    <p>▶️ Se vi preferas ĉi tiun metodon ol tiun de marki la vizititajn lokojn, unue
+    kopiu la modelojn ĉeestantajn en la dosierujo de la apliko. Poste forigu ĉiujn
+    nevizititajn lokojn kaj ŝarĝu ilin en la apliko.</p>
+
+    ## ❓ Kontakto:
+
+    <p>La apliko intencas esti intuicia, sed por ĉiu demando: xavier.cal181@gmail.com.</p>
+
+    <p>La tradukoj estis aŭtomate generitaj kaj ne estis mane relerigitaj. Por ĉiu
+    eraro, kontaktu min.
+
+    Same, se okazas cimoj aŭ se vi volas fari reagojn/rekomendojn, ne hezitu kontakti
+    min.</p>
+
+    ## 🗑️ Malinstalo:
+
+    <p>Simple forigu la dosierujon. Neniu sistema dosiero estas modifita.</p>
+
+    <hr />
+
+    <p><strong>Dankon pro elekto de MesVoyages!</strong></p>'
+  estonien: '<h2>📌 Kirjeldus:</h2>
+
+    <p>MesVoyages on rakendus, mis võimaldab luua kohandatud reisikaarte, valides
+    külastatud riikide piirkonnad või departemangud.</p>
+
+    <h2>💻 Kuidas kasutada:</h2>
+
+    <ol>
+
+    <li>Sisestage oma parameetrid ja oma nimi.</li>
+
+    <li>Sisestage külastatud kohad.</li>
+
+    <li>Looge oma kaardid! Külastuste ja parameetrite salvestamine toimub siis, kui
+    klõpsate kaartide loomise nupul.</li>
+
+    </ol>
+
+    <h2>📋 Saadaval YAML-failid:</h2>
+
+    <p>Esitatud <code>.yaml</code> failid on <strong>täielikud mallid</strong>, mis
+    sisaldavad kõiki riike, piirkondi ja departemangusid.</p>
+
+    <p>▶️ Kui eelistate seda meetodit külastatud kohtade märkimisele, kopeerige esmalt
+    rakenduse kaustas olevad mallid. Seejärel kustutage kõik külastamata kohad ja
+    laadige need rakendusse.</p>
+
+    <h2>❓ Kontakt:</h2>
+
+    <p>Rakendus on mõeldud intuitiivseks, kuid küsimuste korral: xavier.cal181@gmail.com.</p>
+
+    <p>Tõlked on genereeritud automaatselt ja neid ei ole käsitsi üle vaadatud. Vigade
+    korral võtke minuga ühendust.
+
+    Samuti võtke minuga ühendust, kui ilmnevad vead või soovite anda tagasisidet/soovitusi.</p>
+
+    <h2>🗑️ Desinstallimine:</h2>
+
+    <p>Kustutage lihtsalt kaust. Ühtegi süsteemifaili ei muudeta.</p>
+
+    <hr />
+
+    <p><strong>Täname, et valisite MesVoyages!</strong></p>'
+  finnois: Kiitos, että valitsit MesVoyages!
+  français: '<h2>📌 Description :</h2>
+
+    <p>MesVoyages est une application permettant de créer des cartes de voyages personnalisées
+    en sélectionnant les régions ou départements des pays que l''on a visités.</p>
+
+    <h2>💻 Comment utiliser :</h2>
+
+    <ol>
+
+    <li>Entrez vos paramètres ainsi que votre nom.</li>
+
+    <li>Entrez les lieux que vous avez visités.</li>
+
+    <li>Créez vos cartes ! La sauvegarde de vos visites et de vos paramètres se fait
+    lorsque vous cliquez sur le bouton de création des cartes.</li>
+
+    </ol>
+
+    <h2>📋 Fichiers YAML disponibles :</h2>
+
+    <p>Les fichiers <code>.yaml</code> fournis sont des <strong>modèles complets</strong>
+    contenant tous les pays, régions et départements disponibles.</p>
+
+    <p>▶️ Si vous préférez cette méthode à celle de cocher les lieux visités, copiez
+    d''abord les modèles présents dans le dossier de l''application. Supprimez ensuite
+    tous les lieux non visités et chargez-les dans l''application.</p>
+
+    <h2>❓ Contact :</h2>
+
+    <p>L''application se veut intuitive, mais pour toute question : xavier.cal181@gmail.com.</p>
+
+    <p>Les traductions ont été générées automatiquement et n''ont pas été relues manuellement.
+    Pour toute erreur, contactez-moi.
+
+    De même, si des bugs se produisent ou que vous souhaitez effectuer des retours/recommandations,
+    n''hésitez pas à me contacter.</p>
+
+    <h2>🗑️ Désinstallation :</h2>
+
+    <p>Supprimez simplement le dossier. Aucun fichier système n’est modifié.</p>
+
+    <hr />
+
+    <p><strong>Merci d’avoir choisi MesVoyages !</strong></p>'
+  gallois: Diolch ichi am ddewis MesVoyages!
+  grec: '<h2>📌 Περιγραφή:</h2>
+
+    <p>Το MesVoyages είναι μια εφαρμογή που σας επιτρέπει να δημιουργείτε εξατομικευμένους
+    ταξιδιωτικούς χάρτες επιλέγοντας τις περιφέρειες ή τα διαμερίσματα των χωρών που
+    έχετε επισκεφτεί.</p>
+
+    <h2>💻 Πώς να χρησιμοποιήσετε:</h2>
+
+    <ol>
+
+    <li>Εισαγάγετε τις παραμέτρους σας και το όνομά σας.</li>
+
+    <li>Εισαγάγετε τα μέρη που έχετε επισκεφτεί.</li>
+
+    <li>Δημιουργήστε τους χάρτες σας! Η αποθήκευση των επισκέψεών σας και των παραμέτρων
+    σας γίνεται όταν κάνετε κλικ στο κουμπί δημιουργίας χαρτών.</li>
+
+    </ol>
+
+    <h2>📋 Διαθέσιμα αρχεία YAML:</h2>
+
+    <p>Τα παρεχόμενα αρχεία <code>.yaml</code> είναι <strong>πλήρη πρότυπα</strong>
+    που περιέχουν όλες τις διαθέσιμες χώρες, περιφέρειες και διαμερίσματα.</p>
+
+    <p>▶️ Εάν προτιμάτε αυτήν τη μέθοδο αντί της επιλογής των επισκέφθηκών τοποθεσιών,
+    αντιγράψτε πρώτα τα πρότυπα που υπάρχουν στον φάκελο της εφαρμογής. Στη συνέχεια,
+    διαγράψτε όλα τα μη επισκέφθηκα μέρη και φορτώστε τα στην εφαρμογή.</p>
+
+    <h2>❓ Επικοινωνία:</h2>
+
+    <p>Η εφαρμογή προορίζεται να είναι διαισθητική, αλλά για οποιαδήποτε ερώτηση:
+    xavier.cal181@gmail.com.</p>
+
+    <p>Οι μεταφράσεις δημιουργήθηκαν αυτόματα και δεν έχουν ελεγχθεί χειροκίνητα.
+    Για οποιοδήποτε σφάλμα, επικοινωνήστε μαζί μου.
+
+    Ομοίως, εάν προκύψουν σφάλματα ή εάν θέλετε να κάνετε σχόλια/συστάσεις, μη διστάσετε
+    να επικοινωνήσετε μαζί μου.</p>
+
+    <h2>🗑️ Απεγκατάσταση:</h2>
+
+    <p>Απλώς διαγράψτε τον φάκελο. Δεν τροποποιείται κανένα αρχείο συστήματος.</p>
+
+    <hr />
+
+    <p><strong>Σας ευχαριστούμε που επιλέξατε το MesVoyages!</strong></p>'
+  grec ancien: '📌 Περιγραφή:
+
+
+    MesVoyages ἐστὶν ἐφαρμογὴ ᾗ δημιουργεῖν δυνατὸν χάρτας ὁδοιπορικῶν ἰδικῶν ἐκλεγομένοις
+    τὰς περιφερείας ἢ τοὺς νομοὺς τῶν χωρῶν ἃς ἐπεσκέψατο.
+
+
+    💻 Πῶς χρῆσθαι:
+
+
+    1.  Εἰσάγετε τὰ ἑαυτῶν παραμέτρους ἅμα καὶ τὸ ὄνομα ὑμῶν.
+
+    2.  Εἰσάγετε τοὺς τόπους οὓς ἐπεσκέψασθε.
+
+    3.  Δημιουργεῖτε τοὺς χάρτας ὑμῶν! Ἡ σωτηρία τῶν ἐπισκέψεων ὑμῶν καὶ τῶν παραμέτρων
+    ὑμῶν γίνεται ὅταν πατῆτε τὸ κουμπί τῆς δημιουργίας τῶν χαρτῶν.
+
+
+    📋 Ἀρχεῖα YAML διαθέσιμα:
+
+
+    Τὰ ἀρχεῖα .yaml παρεχόμενα εἰσὶν <strong>ὁλοκληρωμένα ὑποδείγματα</strong> περιέχοντα
+    πάσας τὰς χώρας, τὰς περιφερείας καὶ τοὺς νομοὺς διαθέσιμους.
+
+
+    ▶️ Εἰ προτιμᾶτε ταύτην τὴν μέθοδον ἢ τὸ σημεῖον τῶν τόπων ἐπεσκέφθη, ἀντιγράψατε
+    πρῶτον τὰ ὑποδείγματα ἐν τῷ φακέλῳ τῆς ἐφαρμογῆς. Ἔπειτα, ἐξαλείψατε πάντας τοὺς
+    μὴ ἐπεσκεμμένους τόπους καὶ φόρτωσον αὐτοὺς ἐν τῇ ἐφαρμογῇ.
+
+
+    ❓ Ἐπαφή:
+
+
+    Ἡ ἐφαρμογὴ βούλεται εὐσύνοπτος, ἀλλὰ διὰ πᾶσαν ἐρώτησιν: xavier.cal181@gmail.com.
+
+
+    Αἱ μεταφράσεις ἐγένοντο αὐτομάτως καὶ οὐκ ἀνεγνώσθησαν χειρωνακτικῶς. Διὰ πᾶσαν
+    πλάνην, ἀποτείνασθέ μοι.
+
+    Ὁμοίως, εἰ σφάλματα συμβαίνουσιν ἢ εἰ ἐπιθυμεῖτε ἐπιδόσεις/συμβουλὰς ποιῆσαι,
+    μὴ διστάσητε τοῦ ἀποτείνασθαί μοι.
+
+
+    🗑️ Ἀπομάκρυνσις:
+
+
+    Ἀπλῶς ἀφαιρεῖτε τὸν φάκελον. Οὐδὲν σύστημα ἀρχεῖον μεταβάλλεται.
+
+
+    <hr />
+
+
+    <strong>Εὐχαριστῶ ὅτι ἐξελέξασθε MesVoyages!</strong>'
+  géorgien: '## 📌 აღწერა:
+
+    <p>MesVoyages არის აპლიკაცია, რომელიც საშუალებას გაძლევთ შექმნათ პერსონალური მოგზაურობის
+    რუკები ქვეყნების რეგიონების ან დეპარტამენტების არჩევით, რომლებიც თქვენ მოინახულეთ.</p>
+
+    <h2>💻 როგორ გამოვიყენოთ:</h2>
+
+    <ol>
+
+    <li>შეიყვანეთ თქვენი პარამეტრები და თქვენი სახელი.</li>
+
+    <li>შეიყვანეთ ადგილები, სადაც იყავით.</li>
+
+    <li>შექმენით თქვენი რუკები! თქვენი ვიზიტებისა და პარამეტრების შენახვა ხდება რუქების
+    შექმნის ღილაკზე დაწკაპუნებისას.</li>
+
+    </ol>
+
+    <h2>📋 ხელმისაწვდომი YAML ფაილები:</h2>
+
+    <p>მოწოდებული <code>.yaml</code> ფაილები არის <strong>სრული მოდელები</strong>,
+    რომლებიც შეიცავს ყველა ხელმისაწვდომ ქვეყანას, რეგიონს და დეპარტამენტს.</p>
+
+    <p>▶️ თუ გირჩევნიათ ეს მეთოდი ვიზიტის ადგილების მონიშვნის ნაცვლად, ჯერ დააკოპირეთ
+    აპლიკაციის საქაღალდეში არსებული მოდელები. შემდეგ წაშალეთ ყველა მოუნახულებელი ადგილი
+    და ატვირთეთ ისინი აპლიკაციაში.</p>
+
+    <h2>❓ კონტაქტი:</h2>
+
+    <p>აპლიკაცია შექმნილია ინტუიციურად, მაგრამ ნებისმიერი კითხვისთვის: xavier.cal181@gmail.com.</p>
+
+    <p>თარგმანები გენერირებულია ავტომატურად და არ არის ხელით განხილული. ნებისმიერი
+    შეცდომისთვის დამიკავშირდით.
+
+    ანალოგიურად, თუ ხარვეზები წარმოიქმნება ან გსურთ გამოხმაურების/რეკომენდაციების
+    გაკეთება, ნუ მოგერიდებათ დამიკავშირდეთ.</p>
+
+    <h2>🗑️ დეინსტალაცია:</h2>
+
+    <p>უბრალოდ წაშალეთ საქაღალდე. არცერთი სისტემური ფაილი არ არის შეცვლილი.</p>
+
+    <hr />
+
+    <p><strong>მადლობა MesVoyages-ის არჩევისთვის!</strong></p>'
+  hindi: '## 📌 विवरण:
+
+
+    <p>मेसवॉयजेस एक ऐसा एप्लिकेशन है जो आपके द्वारा देखे गए देशों के क्षेत्रों या
+    विभागों का चयन करके व्यक्तिगत यात्रा मानचित्र बनाने की अनुमति देता है।</p>
+
+
+    ## 💻 उपयोग कैसे करें:
+
+
+    <ol>
+
+    <li>अपनी सेटिंग्स और अपना नाम दर्ज करें।</li>
+
+    <li>आपके द्वारा देखे गए स्थानों को दर्ज करें।</li>
+
+    <li>अपने मानचित्र बनाएं! आपके दौरे और सेटिंग्स सहेजें जब आप मानचित्र बनाने के
+    बटन पर क्लिक करते हैं।</li>
+
+    </ol>
+
+
+    ## 📋 उपलब्ध YAML फ़ाइलें:
+
+
+    <p>प्रदान की गई <code>.yaml</code> फ़ाइलें <strong>पूर्ण मॉडल</strong> हैं जिनमें
+    सभी उपलब्ध देश, क्षेत्र और विभाग शामिल हैं।</p>
+
+    <p>▶️ यदि आप देखे गए स्थानों की जाँच करने के बजाय इस विधि को पसंद करते हैं, तो
+    पहले एप्लिकेशन फ़ोल्डर में मौजूद मॉडल कॉपी करें। फिर, सभी अनदेखे स्थानों को हटा
+    दें और उन्हें एप्लिकेशन में लोड करें।</p>
+
+
+    ## ❓ संपर्क करें:
+
+
+    <p>एप्लिकेशन को सहज होने का इरादा है, लेकिन किसी भी प्रश्न के लिए: xavier.cal181@gmail.com।</p>
+
+    <p>अनुवाद स्वचालित रूप से उत्पन्न हुए थे और मैन्युअल रूप से समीक्षा नहीं की गई
+    थी। किसी भी त्रुटि के लिए, मुझसे संपर्क करें।
+
+    साथ ही, यदि बग होते हैं या आप प्रतिक्रिया/सिफारिशें करना चाहते हैं, तो मुझसे संपर्क
+    करने में संकोच न करें।</p>
+
+
+    ## 🗑️ स्थापना रद्द करें:
+
+
+    <p>बस फ़ोल्डर को हटा दें। कोई सिस्टम फ़ाइल संशोधित नहीं है।</p>
+
+    <hr />
+
+    <p><strong>मेसवॉयजेस चुनने के लिए धन्यवाद!</strong></p>'
+  hongrois: '<h2>📌 Leírás:</h2>
+
+    <p>A MesVoyages egy olyan alkalmazás, amellyel személyre szabott utazási térképeket
+    hozhatsz létre, a látogatott országok régióinak vagy megyéinek kiválasztásával.</p>
+
+    <h2>💻 Használat:</h2>
+
+    <ol>
+
+    <li>Add meg a paramétereidet és a neved.</li>
+
+    <li>Add meg a meglátogatott helyeket.</li>
+
+    <li>Készítsd el a térképeidet! A látogatásaid és a beállításaid mentése a térkép
+    létrehozása gombra kattintáskor történik.</li>
+
+    </ol>
+
+    <h2>📋 Elérhető YAML fájlok:</h2>
+
+    <p>A megadott <code>.yaml</code> fájlok <strong>teljes sablonok</strong>, amelyek
+    az összes elérhető országot, régiót és megyét tartalmazzák.</p>
+
+    <p>▶️ Ha ezt a módszert a látogatott helyek bejelölése helyett részesíted előnyben,
+    először másold a sablonokat az alkalmazás mappájába. Ezután töröld az összes nem
+    látogatott helyet, és töltsd be őket az alkalmazásba.</p>
+
+    <h2>❓ Kapcsolat:</h2>
+
+    <p>Az alkalmazást intuitívnak tervezték, de bármilyen kérdés esetén: xavier.cal181@gmail.com.</p>
+
+    <p>A fordítások automatikusan készültek, és nem lettek manuálisan átnézve. Bármilyen
+    hiba esetén, kérlek, vedd fel velem a kapcsolatot. Ugyanígy, ha hibák fordulnak
+    elő, vagy visszajelzést/ajánlást szeretnél tenni, kérlek, ne habozz kapcsolatba
+    lépni velem.</p>
+
+    <h2>🗑️ Eltávolítás:</h2>
+
+    <p>Egyszerűen töröld a mappát. Nem módosulnak a rendszerfájlok.</p>
+
+    <hr />
+
+    <p><strong>Köszönjük, hogy a MesVoyages-t választottad!</strong></p>'
+  indonésien: '## 📌 Deskripsi:
+
+    <p>MesVoyages adalah aplikasi yang memungkinkan Anda membuat peta perjalanan yang
+    dipersonalisasi dengan memilih wilayah atau departemen negara yang telah Anda
+    kunjungi.</p>
+
+    ## 💻 Cara Penggunaan:
+
+    <ol>
+
+    <li>Masukkan parameter dan nama Anda.</li>
+
+    <li>Masukkan tempat yang telah Anda kunjungi.</li>
+
+    <li>Buat peta Anda! Penyimpanan kunjungan dan parameter Anda dilakukan saat Anda
+    mengklik tombol pembuatan peta.</li>
+
+    </ol>
+
+    ## 📋 File YAML yang tersedia:
+
+    <p>File <code>.yaml</code> yang disediakan adalah <strong>model lengkap</strong>
+    yang berisi semua negara, wilayah, dan departemen yang tersedia.</p>
+
+    <p>▶️ Jika Anda lebih menyukai metode ini daripada mencentang tempat yang dikunjungi,
+    pertama-tama salin model yang ada di folder aplikasi. Kemudian hapus semua tempat
+    yang belum dikunjungi dan muatnya ke dalam aplikasi.</p>
+
+    ## ❓ Kontak:
+
+    <p>Aplikasi ini dimaksudkan untuk menjadi intuitif, tetapi untuk pertanyaan apa
+    pun: xavier.cal181@gmail.com.</p>
+
+    <p>Terjemahan telah dibuat secara otomatis dan belum ditinjau secara manual. Untuk
+    kesalahan apa pun, hubungi saya. Demikian pula, jika bug terjadi atau Anda ingin
+    memberikan umpan balik/rekomendasi, jangan ragu untuk menghubungi saya.</p>
+
+    ## 🗑️ Uninstall:
+
+    <p>Cukup hapus foldernya. Tidak ada file sistem yang dimodifikasi.</p>
+
+    <hr />
+
+    <p><strong>Terima kasih telah memilih MesVoyages!</strong></p>'
+  irlandais: '<h2>📌 Cur síos:</h2>
+
+    <p>Is feidhmchlár é MesVoyages a ligeann duit léarscáileanna taistil pearsantaithe
+    a chruthú trí réigiúin nó ranna na dtíortha a bhfuil tú tar éis cuairt a thabhairt
+    orthu a roghnú.</p>
+
+    <h2>💻 Conas a úsáid:</h2>
+
+    <ol>
+
+    <li>Iontráil do shocruithe agus d''ainm.</li>
+
+    <li>Iontráil na háiteanna a thug tú cuairt orthu.</li>
+
+    <li>Cruthaigh do léarscáileanna! Déantar do chuairteanna agus do shocruithe a
+    shábháil nuair a chliceálann tú ar an gcnaipe chun na léarscáileanna a chruthú.</li>
+
+    </ol>
+
+    <h2>📋 Comhaid YAML ar fáil:</h2>
+
+    <p>Is samhlacha iomlána iad na comhaid <code>.yaml</code> a chuirtear ar fáil
+    ina bhfuil na tíortha, réigiúin agus ranna go léir atá ar fáil.</p>
+
+    <p>▶️ Más fearr leat an modh seo seachas na háiteanna a thug tú cuairt orthu a
+    sheiceáil, déan na samhlacha sa chomhad feidhmchláir a chóipeáil ar dtús. Ansin
+    scrios gach áit nár thug tú cuairt uirthi agus luchtú isteach san fheidhmchlár
+    iad.</p>
+
+    <h2>❓ Teagmháil:</h2>
+
+    <p>Tá sé i gceist go mbeadh an feidhmchlár iomasach, ach le haghaidh aon cheist:
+    xavier.cal181@gmail.com.</p>
+
+    <p>Gineadh na haistriúcháin go huathoibríoch agus níor athbhreithníodh de láimh
+    iad. Le haghaidh aon earráide, déan teagmháil liom.
+
+    Chomh maith leis sin, má tharlaíonn fabhtanna nó más mian leat aiseolas/moltaí
+    a dhéanamh, ná bíodh leisce ort teagmháil a dhéanamh liom.</p>
+
+    <h2>🗑️ Díchóimeáil:</h2>
+
+    <p>Níl ort ach an fillteán a scriosadh. Ní athraítear aon chomhad córais.</p>
+
+    <hr />
+
+    <p><strong>Go raibh maith agat as MesVoyages a roghnú!</strong></p>'
+  islandais: '<h2>📌 Lýsing:</h2>
+
+    <p>MesVoyages er forrit sem gerir þér kleift að búa til sérsniðin ferðakort með
+    því að velja svæði eða héruð landa sem þú hefur heimsótt.</p>
+
+    <h2>💻 Hvernig á að nota:</h2>
+
+    <ol>
+
+    <li>Sláðu inn stillingarnar þínar og nafnið þitt.</li>
+
+    <li>Sláðu inn staðina sem þú hefur heimsótt.</li>
+
+    <li>Búðu til kortin þín! Vistað er heimsóknum þínum og stillingum þínum þegar
+    þú smellir á hnappinn til að búa til kort.</li>
+
+    </ol>
+
+    <h2>📋 YAML skrár í boði:</h2>
+
+    <p><code>.yaml</code> skjölin sem fylgja eru <strong>fullkomnar fyrirmyndir</strong>
+    sem innihalda öll lönd, svæði og héruð sem eru í boði.</p>
+
+    <p>▶️ Ef þú vilt frekar þessa aðferð en að haka við heimsótta staði skaltu fyrst
+    afrita fyrirmyndirnar í möppunni í forritinu. Eyða síðan öllum óheimsóttum stöðum
+    og hlaða þeim inn í forritið.</p>
+
+    <h2>❓ Tengiliður:</h2>
+
+    <p>Forritið er ætlað að vera leiðandi, en fyrir allar spurningar: xavier.cal181@gmail.com.</p>
+
+    <p>Þýðingarnar voru búnar til sjálfkrafa og voru ekki yfirfarnar handvirkt. Vinsamlegast
+    hafðu samband ef þú finnur villur.
+
+    Einnig, ef villur eiga sér stað eða þú vilt gefa álit/ráðleggingar skaltu ekki
+    hika við að hafa samband.</p>
+
+    <h2>🗑️ Afvinnslu:</h2>
+
+    <p>Einfaldlega eyða möppunni. Engum kerfisskrám er breytt.</p>
+
+    <hr />
+
+    <p><strong>Takk fyrir að velja MesVoyages!</strong></p>'
+  italien: '<h2>📌 Descrizione:</h2>
+
+    <p>MesVoyages è un''applicazione che permette di creare mappe di viaggio personalizzate
+    selezionando le regioni o i dipartimenti dei paesi visitati.</p>
+
+    <h2>💻 Come usare:</h2>
+
+    <ol>
+
+    <li>Inserisci i tuoi parametri e il tuo nome.</li>
+
+    <li>Inserisci i luoghi che hai visitato.</li>
+
+    <li>Crea le tue mappe! Il salvataggio delle tue visite e dei tuoi parametri avviene
+    quando fai clic sul pulsante di creazione delle mappe.</li>
+
+    </ol>
+
+    <h2>📋 File YAML disponibili:</h2>
+
+    <p>I file <code>.yaml</code> forniti sono <strong>modelli completi</strong> contenenti
+    tutti i paesi, le regioni e i dipartimenti disponibili.</p>
+
+    <p>▶️ Se preferisci questo metodo a quello di spuntare i luoghi visitati, copia
+    prima i modelli presenti nella cartella dell''applicazione. Elimina quindi tutti
+    i luoghi non visitati e caricali nell''applicazione.</p>
+
+    <h2>❓ Contatti:</h2>
+
+    <p>L''applicazione vuole essere intuitiva, ma per qualsiasi domanda: xavier.cal181@gmail.com.</p>
+
+    <p>Le traduzioni sono state generate automaticamente e non sono state rilette
+    manualmente. Per qualsiasi errore, contattami.
+
+    Allo stesso modo, se si verificano bug o se desideri fornire feedback/raccomandazioni,
+    non esitare a contattarmi.</p>
+
+    <h2>🗑️ Disinstallazione:</h2>
+
+    <p>Elimina semplicemente la cartella. Nessun file di sistema viene modificato.</p>
+
+    <hr />
+
+    <p><strong>Grazie per aver scelto MesVoyages!</strong></p>'
+  japonais: '## 📌 説明：
+
+    <p>MesVoyagesは、訪問した国の地域や県を選択して、パーソナライズされた旅行地図を作成できるアプリケーションです。</p>
+
+    ## 💻 使用方法：
+
+    <ol>
+
+    <li>パラメーターと名前を入力します。</li>
+
+    <li>訪問した場所を入力します。</li>
+
+    <li>地図を作成します！地図作成ボタンをクリックすると、訪問とパラメーターが保存されます。</li>
+
+    </ol>
+
+    ## 📋 利用可能なYAMLファイル：
+
+    <p>提供されている<code>.yaml</code>ファイルは、利用可能なすべての国、地域、および県を含む<strong>完全なテンプレート</strong>です。</p>
+
+    <p>▶️ 訪問した場所をチェックする代わりに、この方法を好む場合は、まずアプリケーションフォルダーにあるテンプレートをコピーしてください。次に、訪問していないすべての場所を削除し、アプリケーションにロードします。</p>
+
+    ## ❓ 連絡先：
+
+    <p>アプリケーションは直感的に使用できますが、ご質問がある場合は、xavier.cal181@gmail.comまでご連絡ください。</p>
+
+    <p>翻訳は自動的に生成されており、手動で校正されていません。エラーがある場合は、私にご連絡ください。
+
+    同様に、バグが発生した場合や、フィードバック/推奨事項を行いたい場合は、お気軽にご連絡ください。</p>
+
+    ## 🗑️ アンインストール：
+
+    <p>フォルダーを削除するだけです。システムファイルは変更されません。</p>
+
+    <hr />
+
+    <p><strong>MesVoyagesをお選びいただきありがとうございます！</strong></p>'
+  kazakh: '<h2>📌 Сипаттама:</h2>
+
+    <p>MesVoyages – саяхат карталарын жасауға арналған қолданба, ол сіз барған елдердің
+    аймақтарын немесе департаменттерін таңдау арқылы жекелендіріледі.</p>
+
+    <h2>💻 Қалай пайдалану керек:</h2>
+
+    <ol>
+
+    <li>Параметрлеріңізді және атыңызды енгізіңіз.</li>
+
+    <li>Барған жерлеріңізді енгізіңіз.</li>
+
+    <li>Карталарыңызды жасаңыз! Сапарларыңыз бен параметрлеріңізді сақтау карталарды
+    жасау түймесін басқан кезде орындалады.</li>
+
+    </ol>
+
+    <h2>📋 YAML файлдары қолжетімді:</h2>
+
+    <p>Берілген <code>.yaml</code> файлдары барлық елдерді, аймақтарды және қолжетімді
+    департаменттерді қамтитын <strong>толық үлгілер</strong> болып табылады.</p>
+
+    <p>▶️ Егер сіз барған жерлерді белгілеу әдісіне қарағанда осы әдісті қалайтын
+    болсаңыз, алдымен қолданба бумасындағы үлгілерді көшіріңіз. Содан кейін бармаған
+    барлық жерлерді жойып, оларды қолданбаға жүктеңіз.</p>
+
+    <h2>❓ Байланыс:</h2>
+
+    <p>Қолданба интуитивті болуға арналған, бірақ кез келген сұрақтар бойынша: xavier.cal181@gmail.com.</p>
+
+    <p>Аудармалар автоматты түрде жасалды және қолмен қайта қаралмады. Кез келген
+    қателіктер үшін маған хабарласыңыз.
+
+    Сондай-ақ, егер қателер пайда болса немесе сіз кері байланыс/ұсыныстар жасағыңыз
+    келсе, хабарласудан тартынбаңыз.</p>
+
+    <h2>🗑️ Жою:</h2>
+
+    <p>Жай ғана буманы жойыңыз. Ешқандай жүйелік файл өзгертілмейді.</p>
+
+    <hr />
+
+    <p><strong>MesVoyages таңдағаныңызға рахмет!</strong></p>'
+  kirghize: '<h2>📌 Баяндама:</h2>
+
+    <p>MesVoyages колдонмосу - бул барган өлкөлөрдүн аймактарын же департаменттерин
+    тандоо менен жекелештирилген саякат карталарын түзүүгө мүмкүндүк берген тиркеме.</p>
+
+    <h2>💻 Кантип колдонуу керек:</h2>
+
+    <ol>
+
+    <li>Параметрлериңизди жана атыңызды киргизиңиз.</li>
+
+    <li>Барган жерлериңизди киргизиңиз.</li>
+
+    <li>Карталарыңызды түзүңүз! Сиз карталарды түзүү баскычын басканда, сиздин иш
+    сапарларыңыз жана параметрлериңиз сакталат.</li>
+
+    </ol>
+
+    <h2>📋 YAML файлдары бар:</h2>
+
+    <p>Берилген <code>.yaml</code> файлдары - бул жеткиликтүү бардык өлкөлөрдү, аймактарды
+    жана департаменттерди камтыган <strong>толук үлгүлөр</strong>.</p>
+
+    <p>▶️ Эгерде сиз бул ыкманы барган жерлерди белгилөөгө караганда артыкчылыктуу
+    деп эсептесеңиз, анда адегенде тиркеменин папкасындагы үлгүлөрдү көчүрүңүз. Андан
+    кийин барылбаган бардык жерлерди жок кылып, аларды тиркемеге жүктөңүз.</p>
+
+    <h2>❓ Байланыш:</h2>
+
+    <p>Тиркеме интуитивдүү болушу керек, бирок суроолоруңуз болсо: xavier.cal181@gmail.com.</p>
+
+    <p>Котормолор автоматтык түрдө түзүлгөн жана кол менен каралып чыккан эмес. Ар
+    кандай каталар үчүн мага кайрылыңыз.
+
+    Ошондой эле, мүчүлүштүктөр пайда болсо же пикирлерди/сунуштарды бергиңиз келсе,
+    мага кайрылуудан тартынбаңыз.</p>
+
+    <h2>🗑️ Жок кылуу:</h2>
+
+    <p>Жөн гана папканы жок кылыңыз. Эч кандай системалык файлдар өзгөртүлбөйт.</p>
+
+    <hr />
+
+    <p><strong>MesVoyages тандаганыңыз үчүн рахмат!</strong></p>'
+  kurde: '<h2>📌 Danasîn :</h2>
+
+    <p>MesVoyages serîlêdanek e ku destûrê dide te ku hûn bi hilbijartina herêm an
+    departmanên welatên ku we serdana wan kiriye, nexşeyên rêwîtiyên kesane biafirînin.</p>
+
+    <h2>💻 Meriv çawa bikar tîne :</h2>
+
+    <ol>
+
+    <li>Parametreyên xwe û navê xwe binivîsin.</li>
+
+    <li>Cihên ku we serdana wan kiriye binivîsin.</li>
+
+    <li>Nexşeyên xwe biafirînin! Hilanîna serdanên we û mîhengên we dema ku hûn li
+    ser bişkoja afirandina nexşeyan bikirtînin pêk tê.</li>
+
+    </ol>
+
+    <h2>📋 Pelên YAML-ê yên berdest :</h2>
+
+    <p>Pelên <code>.yaml</code> ên ku hatine peyda kirin <strong>modelên bêkêmasî</strong>
+    ne ku hemî welat, herêm û departmanên berdest dihewîne.</p>
+
+    <p>▶️ Ger hûn vê rêbazê ji ya kontrolkirina cihên ku hatine serdan kirin tercîh
+    dikin, pêşî modelên di peldanka serîlêdanê de kopî bikin. Dûv re hemî cihên nehatine
+    serdan jêbirin û wan li serîlêdanê bar bikin.</p>
+
+    <h2>❓ Têkilî :</h2>
+
+    <p>Serîlêdan tê xwestin ku têgihîştî be, lê ji bo her pirsek: xavier.cal181@gmail.com.</p>
+
+    <p>Werger bi otomatîkî hatine çêkirin û bi destan nehatine vekolîn. Ji bo her
+    xeletiyek, bi min re têkilî daynin.
+
+    Di heman demê de, heke xeletî derkevin an jî hûn dixwazin nerîn / pêşniyazan bidin,
+    ji kerema xwe dudilî nebin ku bi min re têkilî daynin.</p>
+
+    <h2>🗑️ Rakirin :</h2>
+
+    <p>Tenê peldankê jêbirin. Ti pelên pergalê nayên guheztin.</p>
+
+    <hr />
+
+    <p><strong>Spas ji bo hilbijartina MesVoyages!</strong></p>'
+  latin: '## 📌 Descriptio:
+
+    <p>MesVoyages est applicatio quae tabulas itinerum proprias creandi sinit regiones
+    aut provincias patriarum quas visitavimus seligendo.</p>
+
+    <h2>💻 Quomodo uti:</h2>
+
+    <ol>
+
+    <li>Intra parametri tui una cum nomine tuo.</li>
+
+    <li>Intra loca quae visitavisti.</li>
+
+    <li>Tabulas tuas crea! Servatio visitationum tuarum et parametrorum fit cum pyxidem
+    creandi tabulas premes.</li>
+
+    </ol>
+
+    <h2>📋 Tabulae YAML praesto:</h2>
+
+    <p>Tabulae <code>.yaml</code> provisae sunt <strong>exempla integra</strong> quae
+    omnes nationes, regiones et provincias praesto continent.</p>
+
+    <p>▶️ Si hanc methodum praeferes quam loca visitata eligere, primo exempla in
+    archivo applicationis praesentia copia. Deinde omnia loca non visitata remove
+    et ea in applicationem adpone.</p>
+
+    <h2>❓ Contactus:</h2>
+
+    <p>Applicatio intuitiva esse vult, sed pro quavis quaestione: xavier.cal181@gmail.com.</p>
+
+    <p>Translationes automatice generatae sunt et non manu recognitae sunt. Pro quavis
+    errore, me contacta.
+
+    Item, si cimices fiunt aut si vis opiniones/commendationes facere, noli dubitare
+    me contactare.</p>
+
+    <h2>🗑️ Destructio:</h2>
+
+    <p>Simpliciter archivum remove. Nullus fasciculus systematis modificatur.</p>
+
+    <hr />
+
+    <p><strong>Gratias quod MesVoyages elegisti!</strong></p>'
+  letton: '## 📌 Apraksts:
+
+    <p>MesVoyages ir lietotne, kas ļauj izveidot personalizētas ceļojumu kartes, atlasot
+    valstu reģionus vai departamentus, kurus esat apmeklējuši.</p>
+
+    ## 💻 Kā lietot:
+
+    <ol>
+
+    <li>Ievadiet savus parametrus un savu vārdu.</li>
+
+    <li>Ievadiet apmeklētās vietas.</li>
+
+    <li>Izveidojiet savas kartes! Jūsu apmeklējumu un parametru saglabāšana notiek,
+    kad noklikšķināt uz karšu izveides pogas.</li>
+
+    </ol>
+
+    ## 📋 Pieejamie YAML faili:
+
+    <p>Nodrošinātie <code>.yaml</code> faili ir <strong>pilnīgi modeļi</strong>, kas
+    satur visas pieejamās valstis, reģionus un departamentus.</p>
+
+    <p>▶️ Ja vēlaties izmantot šo metodi, nevis atzīmēt apmeklētās vietas, vispirms
+    nokopējiet lietotnes mapē esošos modeļus. Pēc tam izdzēsiet visas neapmeklētās
+    vietas un ielādējiet tās lietotnē.</p>
+
+    ## ❓ Kontakti:
+
+    <p>Lietotne ir paredzēta intuitīvai lietošanai, bet jautājumu gadījumā: xavier.cal181@gmail.com.</p>
+
+    <p>Tulkojumi ir automātiski ģenerēti un nav manuāli pārskatīti. Kļūdu gadījumā,
+    lūdzu, sazinieties ar mani.
+
+    Tāpat, ja rodas kļūdas vai vēlaties sniegt atsauksmes/ieteikumus, lūdzu, sazinieties
+    ar mani.</p>
+
+    ## 🗑️ Atinstalēšana:
+
+    <p>Vienkārši izdzēsiet mapi. Neviens sistēmas fails netiek modificēts.</p>
+
+    <hr />
+
+    <p><strong>Paldies, ka izvēlējāties MesVoyages!</strong></p>'
+  lituanien: '## 📌 Aprašymas:
+
+    <p>MesVoyages yra programa, leidžianti kurti individualizuotus kelionių žemėlapius,
+    pasirenkant aplankytų šalių regionus arba departamentus.</p>
+
+    ## 💻 Kaip naudoti:
+
+    <ol>
+
+    <li>Įveskite savo parametrus ir vardą.</li>
+
+    <li>Įveskite aplankytas vietas.</li>
+
+    <li>Kurkite savo žemėlapius! Jūsų apsilankymų ir parametrų išsaugojimas atliekamas
+    spustelėjus žemėlapių kūrimo mygtuką.</li>
+
+    </ol>
+
+    ## 📋 Galimi YAML failai:
+
+    <p>Pateikti <code>.yaml</code> failai yra <strong>pilni šablonai</strong>, kuriuose
+    yra visos turimos šalys, regionai ir departamentai.</p>
+
+    <p>▶️ Jei norite naudoti šį metodą vietoj aplankytų vietų žymėjimo, pirmiausia
+    nukopijuokite šablonus, esančius programos aplanke. Tada ištrinkite visas neaplankytas
+    vietas ir įkelkite jas į programą.</p>
+
+    ## ❓ Kontaktas:
+
+    <p>Programa turėtų būti intuityvi, bet jei turite klausimų: xavier.cal181@gmail.com.</p>
+
+    <p>Vertimai buvo sukurti automatiškai ir nebuvo peržiūrėti rankiniu būdu. Jei
+    pastebėsite klaidų, susisiekite su manimi.
+
+    Taip pat, jei atsiranda klaidų arba norite pateikti atsiliepimų/rekomendacijų,
+    nedvejodami susisiekite su manimi.</p>
+
+    ## 🗑️ Išdiegimas:
+
+    <p>Tiesiog ištrinkite aplanką. Jokie sistemos failai nėra keičiami.</p>
+
+    <hr />
+
+    <p><strong>Dėkojame, kad pasirinkote MesVoyages!</strong></p>'
+  luxembourgeois: '<h2>📌 Beschreiwung:</h2>
+
+    <p>MesVoyages ass eng Applikatioun, déi et erméiglecht, personaliséiert Reeskaarten
+    ze kreéieren andeems Dir d''Regiounen oder Departementer vun de Länner auswielt,
+    déi Dir besicht hutt.</p>
+
+    <h2>💻 Wéi benotzen:</h2>
+
+    <ol>
+
+    <li>Gitt Är Astellungen an Ären Numm un.</li>
+
+    <li>Gitt d''Plazen un, déi Dir besicht hutt.</li>
+
+    <li>Erstellt Är Kaarten! D''Späichere vun Äre Visiten an Äre Parameteren geschitt
+    wann Dir op de Knäppchen fir d''Kaarten ze kreéieren klickt.</li>
+
+    </ol>
+
+    <h2>📋 Verfügbare YAML Dateien:</h2>
+
+    <p>Déi geliwwert <code>.yaml</code> Dateien sinn <strong>komplett Modeller</strong>
+    déi all d''Länner, Regiounen an Departementer enthalen déi verfügbar sinn.</p>
+
+    <p>▶️ Wann Dir dës Method dem Auswielen vun de besichte Plazen virzitt, kopéiert
+    als éischt d''Modeller am Dossier vun der Applikatioun. Ewechzehuelen dann all
+    déi net besichte Plazen an lued se an d''Applikatioun.</p>
+
+    <h2>❓ Kontakt:</h2>
+
+    <p>D''Applikatioun soll intuitiv sinn, awer fir all Fro: xavier.cal181@gmail.com.</p>
+
+    <p>D''Iwwersetzunge goufen automatesch generéiert a goufen net manuell gelies.
+    Fir all Feeler, kontaktéiert mech.
+
+    Och, wann Bugs optrieden oder wann Dir Feedback/Empfehlungen maache wëllt, zéckt
+    net mech ze kontaktéieren.</p>
+
+    <h2>🗑️ Deinstallatioun:</h2>
+
+    <p>Ewechzehuelen einfach den Dossier. Keng Systemdateien ginn geännert.</p>
+
+    <hr />
+
+    <p><strong>Merci fir MesVoyages ze wielen!</strong></p>'
+  macédonien: '## 📌 Опис:
+
+    <p>MesVoyages е апликација која ви овозможува да креирате персонализирани патни
+    карти со избирање региони или департмани на земјите што сте ги посетиле.</p>
+
+    ## 💻 Како да се користи:
+
+    <ol>
+
+    <li>Внесете ги вашите параметри и вашето име.</li>
+
+    <li>Внесете ги местата што сте ги посетиле.</li>
+
+    <li>Креирајте ги вашите карти! Зачувувањето на вашите посети и вашите параметри
+    се случува кога ќе кликнете на копчето за креирање карти.</li>
+
+    </ol>
+
+    ## 📋 Достапни YAML датотеки:
+
+    <p>Обезбедените <code>.yaml</code> датотеки се <strong>комплетни модели</strong>
+    кои ги содржат сите достапни земји, региони и департмани.</p>
+
+    <p>▶️ Ако го претпочитате овој метод наместо да ги штиклирате посетените места,
+    прво копирајте ги моделите во папката на апликацијата. Потоа избришете ги сите
+    непосетени места и вчитајте ги во апликацијата.</p>
+
+    ## ❓ Контакт:
+
+    <p>Апликацијата е дизајнирана да биде интуитивна, но за било какви прашања: xavier.cal181@gmail.com.</p>
+
+    <p>Преводите се генерирани автоматски и не се прегледани рачно. За било каква
+    грешка, контактирајте ме.
+
+    Исто така, ако се појават грешки или ако сакате да дадете повратни информации
+    / препораки, не двоумете се да ме контактирате.</p>
+
+    ## 🗑️ Деинсталација:
+
+    <p>Само избришете ја папката. Ниту една системска датотека не е изменета.</p>
+
+    <hr />
+
+    <p><strong>Ви благодариме што го избравте MesVoyages!</strong></p>'
+  malais: '## 📌 Penerangan:
+
+    <p>MesVoyages ialah aplikasi yang membolehkan anda mencipta peta perjalanan peribadi
+    dengan memilih wilayah atau jabatan negara yang telah anda lawati.</p>
+
+    ## 💻 Cara menggunakan:
+
+    <ol>
+
+    <li>Masukkan tetapan dan nama anda.</li>
+
+    <li>Masukkan tempat yang telah anda lawati.</li>
+
+    <li>Cipta peta anda! Lawatan dan tetapan anda disimpan apabila anda mengklik butang
+    untuk mencipta peta.</li>
+
+    </ol>
+
+    ## 📋 Fail YAML tersedia:
+
+    <p>Fail <code>.yaml</code> yang disediakan ialah <strong>templat lengkap</strong>
+    yang mengandungi semua negara, wilayah dan jabatan yang tersedia.</p>
+
+    <p>▶️ Jika anda lebih suka kaedah ini daripada menandai tempat yang dilawati,
+    mula-mula salin templat yang terdapat dalam folder aplikasi. Kemudian padam semua
+    tempat yang tidak dilawati dan muatkannya ke dalam aplikasi.</p>
+
+    ## ❓ Hubungi:
+
+    <p>Aplikasi ini bertujuan untuk menjadi intuitif, tetapi untuk sebarang pertanyaan:
+    xavier.cal181@gmail.com.</p>
+
+    <p>Terjemahan dijana secara automatik dan belum disemak secara manual. Untuk sebarang
+    ralat, hubungi saya.
+
+    Begitu juga, jika pepijat berlaku atau jika anda ingin membuat maklum balas/cadangan,
+    jangan teragak-agak untuk menghubungi saya.</p>
+
+    ## 🗑️ Nyahpasang:
+
+    <p>Hanya padam folder. Tiada fail sistem diubah suai.</p>
+
+    <hr />
+
+    <p><strong>Terima kasih kerana memilih MesVoyages!</strong></p>'
+  malgache: '## 📌 Famaritana:
+
+
+    <p>MesVoyages dia rindranasa ahafahana mamorona sarintanin''ny dia manokana amin''ny
+    alàlan''ny fisafidianana ny faritra na departemantan''ny firenena notsidihina.</p>
+
+
+    ## 💻 Ahoana ny fampiasana:
+
+
+    <ol>
+
+    <li>Ampidiro ny masontsivanao sy ny anaranao.</li>
+
+    <li>Ampidiro ireo toerana notsidihinao.</li>
+
+    <li>Mamorona ny sarintaninao! Ny fitahirizana ny fitsidihanao sy ny masontsivanao
+    dia atao rehefa manindry ny bokotra famoronana sarintany ianao.</li>
+
+    </ol>
+
+
+    ## 📋 Fandraketana YAML azo alaina:
+
+
+    <p>Ireo rakitra <code>.yaml</code> nomena dia <strong>modely feno</strong> misy
+    ny firenena, faritra ary departemanta rehetra azo alaina.</p>
+
+    <p>▶️ Raha aleonao io fomba io fa tsy ny fisafidianana ireo toerana notsidihina,
+    alao aloha ny modely hita ao amin''ny lahatahiry fampiharana. Avy eo, esory ireo
+    toerana rehetra tsy notsidihina ary ampidiro ao amin''ny rindranasa.</p>
+
+
+    ## ❓ Fifandraisana:
+
+
+    <p>Natao ho mora ampiasaina ny rindranasa, fa ho an''ny fanontaniana rehetra:
+    xavier.cal181@gmail.com.</p>
+
+    <p>Namboarina ho azy ny fandikan-teny ary tsy nojerena tamin''ny tanana. Raha
+    misy hadisoana, mifandraisa amiko.
+
+    Toy izany koa, raha misy lesoka mitranga na te-hanao fanehoan-kevitra/fanolorana
+    ianao, aza misalasala mifandray amiko.</p>
+
+
+    ## 🗑️ Fanesorana:
+
+
+    <p>Esory fotsiny ny lahatahiry. Tsy misy rakitra rafitra ovaina.</p>
+
+
+    <hr />
+
+
+    <p><strong>Misaotra nifidy MesVoyages !</strong></p>'
+  maltais: '<h2>📌 Deskrizzjoni:</h2>
+
+    <p>MesVoyages hija applikazzjoni li tippermetti li toħloq mapep tal-ivvjaġġar
+    personalizzati billi tagħżel ir-reġjuni jew id-dipartimenti tal-pajjiżi li żort.</p>
+
+    <h2>💻 Kif tuża:</h2>
+
+    <ol>
+
+    <li>Daħħal il-parametri tiegħek u ismek.</li>
+
+    <li>Daħħal il-postijiet li żort.</li>
+
+    <li>Oħloq il-mapep tiegħek! Is-salvata tal-żjarat tiegħek u tal-parametri tiegħek
+    issir meta tikklikkja fuq il-buttuna biex toħloq il-mapep.</li>
+
+    </ol>
+
+    <h2>📋 Fajls YAML disponibbli:</h2>
+
+    <p>Il-fajls <code>.yaml</code> ipprovduti huma <strong>mudelli kompluti</strong>
+    li fihom il-pajjiżi, ir-reġjuni u d-dipartimenti kollha disponibbli.</p>
+
+    <p>▶️ Jekk tippreferi din il-metodu milli tagħżel il-postijiet li żort, l-ewwel
+    ikkopja l-mudelli fil-folder tal-applikazzjoni. Imbagħad ħassar il-postijiet kollha
+    li ma żortx u tella’hom fl-applikazzjoni.</p>
+
+    <h2>❓ Kuntatt:</h2>
+
+    <p>L-applikazzjoni hija maħsuba li tkun intuwittiva, iżda għal kwalunkwe mistoqsija:
+    xavier.cal181@gmail.com.</p>
+
+    <p>It-traduzzjonijiet ġew iġġenerati awtomatikament u ma ġewx irriveduti manwalment.
+    Għal kwalunkwe żball, ikkuntattjani.
+
+    Bl-istess mod, jekk iseħħu bugs jew jekk tixtieq tagħmel feedback/rakkomandazzjonijiet,
+    toqgħodx lura milli tikkuntattjani.</p>
+
+    <h2>🗑️ Uninstallazzjoni:</h2>
+
+    <p>Sempliċement ħassar il-folder. L-ebda fajl tas-sistema ma jinbidel.</p>
+
+    <hr />
+
+    <p><strong>Grazzi talli għażilt MesVoyages!</strong></p>'
+  mandarin standard: '## 📌 描述：
+
+
+    MesVoyages 是一款应用程序，允许用户通过选择已访问国家的地区或省份来创建个性化的旅行地图。
+
+
+    ## 💻 如何使用：
+
+
+    <ol>
+
+    <li>输入您的参数和姓名。</li>
+
+    <li>输入您访问过的地点。</li>
+
+    <li>创建您的地图！ 当您点击创建地图按钮时，您的访问记录和参数将被保存。</li>
+
+    </ol>
+
+
+    ## 📋 可用的 YAML 文件：
+
+
+    <p>提供的 <code>.yaml</code> 文件是 <strong>完整的模板</strong>，包含所有可用的国家、地区和省份。</p>
+
+    <p>▶️ 如果您更喜欢这种方法而不是勾选已访问地点，请先复制应用程序文件夹中的模板。 然后删除所有未访问的地点，并将它们加载到应用程序中。</p>
+
+
+    ## ❓ 联系方式：
+
+
+    <p>该应用程序旨在直观易用，但如有任何疑问：xavier.cal181@gmail.com。</p>
+
+    <p>翻译是自动生成的，未经人工校对。 如有任何错误，请联系我。
+
+    同样，如果发生错误或您想提供反馈/建议，请随时与我联系。</p>
+
+
+    ## 🗑️ 卸载：
+
+
+    <p>只需删除该文件夹即可。 任何系统文件都不会被修改。</p>
+
+
+    <hr />
+
+
+    <p><strong>感谢您选择 MesVoyages！</strong></p>'
+  mongol: '## 📌 Тайлан:
+
+
+    <p>МинийАялал бол таны айлчилсан улс орнуудын бүс нутаг эсвэл мужуудыг сонгож
+    хувийн аяллын газрын зургийг үүсгэх боломжийг олгодог програм юм.</p>
+
+
+    ## 💻 Хэрхэн ашиглах вэ:
+
+
+    <ol>
+
+    <li>Параметрүүд болон нэрээ оруулна уу.</li>
+
+    <li>Айлчилсан газруудаа оруулна уу.</li>
+
+    <li>Газрын зургуудаа үүсгээрэй! Та газрын зураг үүсгэх товчийг дарахад таны айлчлал
+    болон параметрүүд хадгалагдана.</li>
+
+    </ol>
+
+
+    ## 📋 Ашиглах боломжтой YAML файлууд:
+
+
+    <p>Өгөгдсөн <code>.yaml</code> файлууд нь боломжтой бүх улс, бүс нутаг, мужуудыг
+    агуулсан <strong>бүрэн загвар</strong> юм.</p>
+
+
+    <p>▶️ Хэрэв та айлчилсан газруудыг шалгах аргаас илүүтэй энэ аргыг илүүд үзэж
+    байгаа бол эхлээд програмын хавтаснаас байгаа загваруудыг хуулбарлаарай. Дараа
+    нь айлчилаагүй бүх газруудыг устгаж, програмд оруулна уу.</p>
+
+
+    ## ❓ Холбоо барих:
+
+
+    <p>Програм нь ойлгомжтой байх зорилготой, гэхдээ ямар нэгэн асуулт байвал: xavier.cal181@gmail.com.</p>
+
+
+    <p>Орчуулгууд нь автоматаар үүсгэгдсэн бөгөөд гараар дахин шалгагдаагүй болно.
+    Ямар нэгэн алдаа гарсан тохиолдолд надтай холбогдоорой.
+
+    Мөн алдаа гарсан эсвэл санал хүсэлт, зөвлөмж өгөхийг хүсвэл надтай холбогдоход
+    бүү эргэлз.</p>
+
+
+    ## 🗑️ Устгах:
+
+
+    <p>Зүгээр л фолдерыг устгана уу. Системийн файл өөрчлөгдөхгүй.</p>
+
+
+    <hr />
+
+
+    <p><strong>МинийАялалыг сонгосонд баярлалаа!</strong></p>'
+  norvégien: '## 📌 Beskrivelse:
+
+    <p>MesVoyages er en applikasjon som lar deg lage personlige reisekart ved å velge
+    regioner eller fylker i land du har besøkt.</p>
+
+    ## 💻 Hvordan bruke:
+
+    <ol>
+
+    <li>Angi parameterne dine og navnet ditt.</li>
+
+    <li>Angi stedene du har besøkt.</li>
+
+    <li>Lag kartene dine! Lagringen av besøkene dine og parameterne dine skjer når
+    du klikker på knappen for å lage kart.</li>
+
+    </ol>
+
+    ## 📋 Tilgjengelige YAML-filer:
+
+    <p>De medfølgende <code>.yaml</code>-filene er <strong>komplette modeller</strong>
+    som inneholder alle tilgjengelige land, regioner og fylker.</p>
+
+    <p>▶️ Hvis du foretrekker denne metoden fremfor å merke av for besøkte steder,
+    må du først kopiere modellene i applikasjonsmappen. Slett deretter alle ikke-besøkte
+    steder og last dem inn i applikasjonen.</p>
+
+    ## ❓ Kontakt:
+
+    <p>Applikasjonen er ment å være intuitiv, men for spørsmål: xavier.cal181@gmail.com.</p>
+
+    <p>Oversettelsene er generert automatisk og er ikke gjennomgått manuelt. For eventuelle
+    feil, kontakt meg.
+
+    På samme måte, hvis det oppstår feil, eller hvis du ønsker å gi tilbakemelding/anbefalinger,
+    ikke nøl med å kontakte meg.</p>
+
+    ## 🗑️ Avinstallering:
+
+    <p>Bare slett mappen. Ingen systemfiler endres.</p>
+
+    <hr />
+
+    <p><strong>Takk for at du valgte MesVoyages!</strong></p>'
+  néerlandais: '## 📌 Beschrijving:
+
+    <p>MesVoyages is een applicatie waarmee u gepersonaliseerde reisplattegronden
+    kunt maken door regio''s of departementen van de landen die u hebt bezocht te
+    selecteren.</p>
+
+    ## 💻 Gebruik:
+
+    <ol>
+
+    <li>Voer uw parameters en uw naam in.</li>
+
+    <li>Voer de plaatsen in die u hebt bezocht.</li>
+
+    <li>Maak uw kaarten! De opslag van uw bezoeken en parameters gebeurt wanneer u
+    op de knop voor het maken van kaarten klikt.</li>
+
+    </ol>
+
+    ## 📋 Beschikbare YAML-bestanden:
+
+    <p>De meegeleverde <code>.yaml</code> bestanden zijn <strong>complete modellen</strong>
+    die alle beschikbare landen, regio''s en departementen bevatten.</p>
+
+    <p>▶️ Als u deze methode verkiest boven het aanvinken van de bezochte plaatsen,
+    kopieer dan eerst de modellen in de applicatiemap. Verwijder vervolgens alle niet-bezochte
+    plaatsen en laad ze in de applicatie.</p>
+
+    ## ❓ Contact:
+
+    <p>De applicatie is bedoeld om intuïtief te zijn, maar voor vragen: xavier.cal181@gmail.com.</p>
+
+    <p>De vertalingen zijn automatisch gegenereerd en niet handmatig herlezen. Neem
+    contact met mij op als u fouten ontdekt.
+
+    Ook, als er bugs optreden of als u feedback/aanbevelingen wilt geven, aarzel dan
+    niet om contact met mij op te nemen.</p>
+
+    ## 🗑️ Verwijderen:
+
+    <p>Verwijder gewoon de map. Er worden geen systeembestanden gewijzigd.</p>
+
+    <hr />
+
+    <p><strong>Bedankt dat u voor MesVoyages hebt gekozen!</strong></p>'
+  népalais: '<h2>📌 विवरण:</h2>
+
+    <p>मेसभोजेस एक अनुप्रयोग हो जसले भ्रमण गरिएका देशहरूको क्षेत्र वा विभागहरू चयन
+    गरेर निजीकृत यात्रा नक्साहरू सिर्जना गर्न अनुमति दिन्छ।</p>
+
+    <h2>💻 कसरी प्रयोग गर्ने:</h2>
+
+    <ol>
+
+    <li>तपाईंको सेटिङहरू र तपाईंको नाम प्रविष्ट गर्नुहोस्।</li>
+
+    <li>तपाईंले भ्रमण गरेका स्थानहरू प्रविष्ट गर्नुहोस्।</li>
+
+    <li>आफ्नो नक्सा सिर्जना गर्नुहोस्! तपाईंले नक्सा सिर्जना बटनमा क्लिक गर्दा तपाईंको
+    भ्रमण र सेटिङहरू बचत हुन्छन्।</li>
+
+    </ol>
+
+    <h2>📋 उपलब्ध YAML फाइलहरू:</h2>
+
+    <p>प्रदान गरिएका <code>.yaml</code> फाइलहरू <strong>पूर्ण मोडेलहरू</strong> हुन्
+    जसमा सबै उपलब्ध देशहरू, क्षेत्रहरू र विभागहरू छन्।</p>
+
+    <p>▶️ यदि तपाइँ भ्रमण गरिएका स्थानहरू जाँच गर्नुको सट्टा यो विधि रुचाउनुहुन्छ
+    भने, पहिले अनुप्रयोगको फोल्डरमा भएका मोडेलहरू प्रतिलिपि गर्नुहोस्। त्यसपछि सबै
+    भ्रमण नगरिएका स्थानहरू मेटाउनुहोस् र तिनीहरूलाई अनुप्रयोगमा लोड गर्नुहोस्।</p>
+
+    <h2>❓ सम्पर्क:</h2>
+
+    <p>अनुप्रयोग सहज हुनको लागि हो, तर कुनै पनि प्रश्नहरूको लागि: xavier.cal181@gmail.com।</p>
+
+    <p>अनुवादहरू स्वचालित रूपमा उत्पन्न भएका थिए र म्यानुअल रूपमा समीक्षा गरिएको छैन।
+    कुनै पनि त्रुटिको लागि, मलाई सम्पर्क गर्नुहोस्। साथै, यदि बगहरू देखा पर्छन् वा
+    यदि तपाइँ प्रतिक्रिया/सिफारिसहरू गर्न चाहनुहुन्छ भने, कृपया मलाई सम्पर्क गर्न
+    नहिचकिचाउनुहोस्।</p>
+
+    <h2>🗑️ स्थापना रद्द गर्नुहोस्:</h2>
+
+    <p>केवल फोल्डर मेटाउनुहोस्। कुनै पनि प्रणाली फाइल परिमार्जित छैन।</p>
+
+    <hr />
+
+    <p><strong>मेसभोजेस छनौट गर्नुभएकोमा धन्यवाद!</strong></p>'
+  ourdou: '## 📌 تفصیل:
+
+
+    <p>MesVoyages ایک ایسی ایپلیکیشن ہے جو ان ممالک کے خطوں یا محکموں کو منتخب کرکے
+    ذاتی نوعیت کے سفری نقشے بنانے کی اجازت دیتی ہے جن کا دورہ کیا گیا ہے۔</p>
+
+
+    ## 💻 استعمال کرنے کا طریقہ:
+
+
+    <ol>
+
+    <li>اپنے پیرامیٹرز اور اپنا نام درج کریں۔</li>
+
+    <li>ان جگہوں کو درج کریں جہاں آپ نے دورہ کیا ہے۔</li>
+
+    <li>اپنے نقشے بنائیں! آپ کے دوروں اور پیرامیٹرز کو محفوظ کیا جاتا ہے جب آپ نقشے
+    بنانے والے بٹن پر کلک کرتے ہیں۔</li>
+
+    </ol>
+
+
+    ## 📋 دستیاب YAML فائلیں:
+
+
+    <p>فراہم کردہ <code>.yaml</code> فائلیں <strong>مکمل ماڈل</strong> ہیں جن میں
+    تمام ممالک، خطے اور دستیاب محکمے شامل ہیں۔</p>
+
+    <p>▶️ اگر آپ وزٹ کردہ مقامات کو چیک کرنے کے طریقہ کار کو ترجیح دیتے ہیں، تو پہلے
+    ایپلیکیشن فولڈر میں موجود ماڈلز کو کاپی کریں۔ پھر تمام غیر منقولہ مقامات کو حذف
+    کریں اور انہیں ایپلیکیشن میں لوڈ کریں۔</p>
+
+
+    ## ❓ رابطہ:
+
+
+    <p>ایپلیکیشن کو بدیہی ہونے کے لیے ڈیزائن کیا گیا ہے، لیکن کسی بھی سوال کے لیے:
+    xavier.cal181@gmail.com۔</p>
+
+    <p>ترجمے خود بخود تیار کیے گئے ہیں اور دستی طور پر نظر ثانی نہیں کی گئی ہے۔ کسی
+    بھی غلطی کے لیے، مجھ سے رابطہ کریں۔
+
+    اسی طرح، اگر کوئی کیڑے ہوتے ہیں یا آپ رائے/سفارشات کرنا چاہتے ہیں، تو مجھ سے رابطہ
+    کرنے میں ہچکچاہٹ محسوس نہ کریں۔</p>
+
+
+    ## 🗑️ ان انسٹال کریں:
+
+
+    <p>بس فولڈر کو حذف کریں۔ کوئی بھی سسٹم فائل تبدیل نہیں کی جاتی ہے۔</p>
+
+
+    <hr />
+
+
+    <p><strong>MesVoyages کو منتخب کرنے کا شکریہ!</strong></p>'
+  ouzbek: '<h2>📌 Ta''rif:</h2>
+
+    <p>MesVoyages - sayohat xaritalarini yaratishga imkon beradigan ilova bo''lib,
+    tashrif buyurilgan mamlakatlarning mintaqalari yoki departamentlarini tanlash
+    orqali shaxsiylashtirilgan sayohat xaritalarini yaratishga imkon beradi.</p>
+
+    <h2>💻 Qanday ishlatish kerak:</h2>
+
+    <ol>
+
+    <li>Parametrlaringizni va ismingizni kiriting.</li>
+
+    <li>Tashrif buyurgan joylaringizni kiriting.</li>
+
+    <li>Xaritalaringizni yarating! Xaritalarni yaratish tugmachasini bosganingizda
+    tashriflaringiz va parametrlaringiz saqlanadi.</li>
+
+    </ol>
+
+    <h2>📋 Mavjud YAML fayllari:</h2>
+
+    <p>Taqdim etilgan <code>.yaml</code> fayllari mavjud bo''lgan barcha mamlakatlar,
+    mintaqalar va departamentlarni o''z ichiga olgan <strong>to''liq modellar</strong>dir.</p>
+
+    <p>▶️ Agar siz bu usulni tashrif buyurilgan joylarni belgilash usuliga afzal ko''rsangiz,
+    avval dastur papkasida mavjud bo''lgan modellarni nusxalang. Keyin tashrif buyurilmagan
+    barcha joylarni o''chiring va ularni dasturga yuklang.</p>
+
+    <h2>❓ Aloqa:</h2>
+
+    <p>Ilova intuitiv bo''lishga mo''ljallangan, lekin har qanday savol uchun: xavier.cal181@gmail.com.</p>
+
+    <p>Tarjimalar avtomatik ravishda yaratilgan va qo''lda qayta ko''rib chiqilmagan.
+    Har qanday xato uchun menga murojaat qiling.
+
+    Shuningdek, agar xatolar yuzaga kelsa yoki siz fikr-mulohazalar / tavsiyalar bermoqchi
+    bo''lsangiz, men bilan bog''lanishdan tortinmang.</p>
+
+    <h2>🗑️ O''chirish:</h2>
+
+    <p>Shunchaki papkani o''chiring. Hech qanday tizim fayli o''zgartirilmaydi.</p>
+
+    <hr />
+
+    <p><strong>MesVoyages-ni tanlaganingiz uchun rahmat!</strong></p>'
+  pachto: '## 📌 Description :
+
+    <p>زما سفرونه يو اپلیکیشن دی چې تاسو ته اجازه درکوي د سفر دودیز نقشې جوړې کړئ
+    د هیوادونو سیمې یا څانګې په ټاکلو سره چې تاسو لیدلي دي.</p>
+
+    <h2>💻 څنګه استعمال کړو :</h2>
+
+    <ol>
+
+    <li>خپل پیرامیټرې او خپل نوم دننه کړئ.</li>
+
+    <li>هغه ځایونه دننه کړئ چې تاسو لیدلي دي.</li>
+
+    <li>خپلې نقشې جوړې کړئ! ستاسو د لیدنو او ستاسو د پیرامیټرو خوندي کول هغه وخت ترسره
+    کیږي کله چې تاسو د نقشو جوړولو تڼۍ باندې کلیک وکړئ.</li>
+
+    </ol>
+
+    <h2>📋 د YAML فایلونه شته :</h2>
+
+    <p>د <code>.yaml</code> فایلونه چمتو شوي <strong>بشپړ ماډلونه</strong> دي چې ټول
+    هیوادونه، سیمې او څانګې لري.</p>
+
+    <p>▶️ که تاسو د لیدل شوي ځایونو د چک کولو پرځای دا میتود غوره کوئ، لومړی د غوښتنلیک
+    په فولډر کې موجود ماډلونه کاپي کړئ. بیا ټول نه لیدل شوي ځایونه حذف کړئ او په غوښتنلیک
+    کې یې پورته کړئ.</p>
+
+    <h2>❓ اړیکه :</h2>
+
+    <p>غوښتنلیک د پوهیدلو لپاره ډیزاین شوی، مګر د هرې پوښتنې لپاره: xavier.cal181@gmail.com.</p>
+
+    <p>ژباړې په اتوماتيک ډول تولید شوي او په لاسي ډول نه دي بیاکتل شوي. د هرې تېروتنې
+    لپاره، ما سره اړیکه ونیسئ.
+
+    په ورته ډول، که چیرې بګونه رامینځته شي یا تاسو غواړئ فیډبیک / سپارښتنې وکړئ، مهرباني
+    وکړئ ما سره اړیکه ونیسئ.</p>
+
+    <h2>🗑️ غیر نصب کول :</h2>
+
+    <p>په ساده ډول فولډر حذف کړئ. هیڅ سیسټم فایل نه دی بدل شوی.</p>
+
+    <hr />
+
+    <p><strong>مننه چې تاسو MesVoyages غوره کړی!</strong></p>'
+  persan: '## 📌 توضیحات:
+
+    <p>MesVoyages یک اپلیکیشن است که به شما امکان می دهد با انتخاب مناطق یا بخش های
+    کشورهایی که بازدید کرده اید، نقشه های سفر شخصی سازی شده ایجاد کنید.</p>
+
+    ## 💻 نحوه استفاده:
+
+    <ol>
+
+    <li>پارامترهای خود و نام خود را وارد کنید.</li>
+
+    <li>مکان هایی که بازدید کرده اید را وارد کنید.</li>
+
+    <li>نقشه های خود را ایجاد کنید! ذخیره بازدیدها و تنظیمات شما با کلیک بر روی دکمه
+    ایجاد نقشه انجام می شود.</li>
+
+    </ol>
+
+    ## 📋 فایل های YAML موجود:
+
+    <p>فایل های <code>.yaml</code> ارائه شده <strong>مدل های کاملی</strong> هستند
+    که شامل تمام کشورها، مناطق و بخش های موجود می شوند.</p>
+
+    <p>▶️ اگر این روش را به علامت زدن مکان های بازدید شده ترجیح می دهید، ابتدا مدل
+    های موجود در پوشه برنامه را کپی کنید. سپس تمام مکان های بازدید نشده را حذف کرده
+    و آنها را در برنامه بارگذاری کنید.</p>
+
+    ## ❓ تماس:
+
+    <p>این اپلیکیشن قصد دارد بصری باشد، اما برای هر سوال: xavier.cal181@gmail.com.</p>
+
+    <p>ترجمه ها به طور خودکار تولید شده اند و به صورت دستی بررسی نشده اند. برای هر
+    گونه اشتباه، با من تماس بگیرید.
+
+    همچنین، اگر اشکالاتی رخ داد یا می خواهید بازخورد/توصیه هایی ارائه دهید، دریغ نکنید
+    با من تماس بگیرید.</p>
+
+    ## 🗑️ حذف نصب:
+
+    <p>به سادگی پوشه را حذف کنید. هیچ فایل سیستمی تغییر نمی کند.</p>
+
+    <hr />
+
+    <p><strong>با تشکر از انتخاب MesVoyages!</strong></p>'
+  polonais: '## 📌 Opis:
+
+    <p>MesVoyages to aplikacja umożliwiająca tworzenie spersonalizowanych map podróży
+    poprzez wybór regionów lub departamentów krajów, które zostały odwiedzone.</p>
+
+    ## 💻 Jak używać:
+
+    <ol>
+
+    <li>Wprowadź swoje parametry oraz imię.</li>
+
+    <li>Wprowadź miejsca, które odwiedziłeś.</li>
+
+    <li>Twórz swoje mapy! Zapisywanie wizyt i parametrów następuje po kliknięciu przycisku
+    tworzenia map.</li>
+
+    </ol>
+
+    ## 📋 Dostępne pliki YAML:
+
+    <p>Dostarczone pliki <code>.yaml</code> to <strong>kompletne szablony</strong>
+    zawierające wszystkie dostępne kraje, regiony i departamenty.</p>
+
+    <p>▶️ Jeśli wolisz tę metodę od zaznaczania odwiedzonych miejsc, najpierw skopiuj
+    szablony obecne w folderze aplikacji. Następnie usuń wszystkie nieodwiedzone miejsca
+    i załaduj je do aplikacji.</p>
+
+    ## ❓ Kontakt:
+
+    <p>Aplikacja ma być intuicyjna, ale w przypadku jakichkolwiek pytań: xavier.cal181@gmail.com.</p>
+
+    <p>Tłumaczenia zostały wygenerowane automatycznie i nie zostały ręcznie sprawdzone.
+    W przypadku jakichkolwiek błędów, skontaktuj się ze mną.
+
+    Podobnie, jeśli wystąpią błędy lub chcesz przekazać informacje zwrotne / rekomendacje,
+    nie wahaj się ze mną skontaktować.</p>
+
+    ## 🗑️ Odinstalowanie:
+
+    <p>Po prostu usuń folder. Żaden plik systemowy nie jest modyfikowany.</p>
+
+    <hr />
+
+    <p><strong>Dziękujemy za wybranie MesVoyages!</strong></p>'
+  portugais: '## 📌 Descrição:
+
+    <p>MesVoyages é um aplicativo que permite criar mapas de viagem personalizados
+    selecionando as regiões ou departamentos dos países que você visitou.</p>
+
+    ## 💻 Como usar:
+
+    <ol>
+
+    <li>Insira seus parâmetros e seu nome.</li>
+
+    <li>Insira os lugares que você visitou.</li>
+
+    <li>Crie seus mapas! A gravação de suas visitas e de seus parâmetros é feita quando
+    você clica no botão de criação dos mapas.</li>
+
+    </ol>
+
+    ## 📋 Arquivos YAML disponíveis:
+
+    <p>Os arquivos <code>.yaml</code> fornecidos são <strong>modelos completos</strong>
+    contendo todos os países, regiões e departamentos disponíveis.</p>
+
+    <p>▶️ Se você preferir este método ao de marcar os lugares visitados, primeiro
+    copie os modelos presentes na pasta do aplicativo. Em seguida, exclua todos os
+    lugares não visitados e carregue-os no aplicativo.</p>
+
+    ## ❓ Contato:
+
+    <p>O aplicativo é projetado para ser intuitivo, mas para qualquer dúvida: xavier.cal181@gmail.com.</p>
+
+    <p>As traduções foram geradas automaticamente e não foram revisadas manualmente.
+    Para qualquer erro, entre em contato comigo.
+
+    Da mesma forma, se ocorrerem bugs ou se você deseja fazer comentários / recomendações,
+    não hesite em me contatar.</p>
+
+    ## 🗑️ Desinstalação:
+
+    <p>Simplesmente exclua a pasta. Nenhum arquivo do sistema é modificado.</p>
+
+    <hr />
+
+    <p><strong>Obrigado por escolher MesVoyages!</strong></p>'
+  roumain: '<h2>📌 Descriere:</h2>
+
+    <p>MesVoyages este o aplicație care permite crearea de hărți de călătorie personalizate
+    prin selectarea regiunilor sau departamentelor țărilor pe care le-ați vizitat.</p>
+
+    <h2>💻 Cum se utilizează:</h2>
+
+    <ol>
+
+    <li>Introduceți parametrii dvs. și numele dvs.</li>
+
+    <li>Introduceți locurile pe care le-ați vizitat.</li>
+
+    <li>Creați-vă hărțile! Salvarea vizitelor și a parametrilor se face atunci când
+    faceți clic pe butonul de creare a hărților.</li>
+
+    </ol>
+
+    <h2>📋 Fișiere YAML disponibile:</h2>
+
+    <p>Fișierele <code>.yaml</code> furnizate sunt <strong>modele complete</strong>
+    care conțin toate țările, regiunile și departamentele disponibile.</p>
+
+    <p>▶️ Dacă preferați această metodă în locul bifării locurilor vizitate, copiați
+    mai întâi modelele prezente în dosarul aplicației. Apoi, ștergeți toate locurile
+    nevizitate și încărcați-le în aplicație.</p>
+
+    <h2>❓ Contact:</h2>
+
+    <p>Aplicația se dorește a fi intuitivă, dar pentru orice întrebare: xavier.cal181@gmail.com.</p>
+
+    <p>Traducerile au fost generate automat și nu au fost revizuite manual. Pentru
+    orice eroare, contactați-mă.
+
+    De asemenea, dacă apar bug-uri sau doriți să faceți comentarii/recomandări, nu
+    ezitați să mă contactați.</p>
+
+    <h2>🗑️ Dezinstalare:</h2>
+
+    <p>Ștergeți pur și simplu dosarul. Niciun fișier de sistem nu este modificat.</p>
+
+    <hr />
+
+    <p><strong>Vă mulțumim că ați ales MesVoyages!</strong></p>'
+  russe: '## 📌 Описание:
+
+
+    <p>MesVoyages - это приложение, позволяющее создавать персонализированные карты
+    путешествий, выбирая регионы или департаменты стран, которые вы посетили.</p>
+
+
+    ## 💻 Как использовать:
+
+
+    <ol>
+
+    <li>Введите свои параметры и имя.</li>
+
+    <li>Введите места, которые вы посетили.</li>
+
+    <li>Создайте свои карты! Сохранение ваших посещений и ваших параметров происходит
+    при нажатии на кнопку создания карт.</li>
+
+    </ol>
+
+
+    ## 📋 Доступные файлы YAML:
+
+
+    <p>Предоставленные файлы <code>.yaml</code> являются <strong>полными моделями</strong>,
+    содержащими все доступные страны, регионы и департаменты.</p>
+
+    <p>▶️ Если вы предпочитаете этот метод методу выбора посещенных мест, сначала
+    скопируйте модели, присутствующие в папке приложения. Затем удалите все непосещенные
+    места и загрузите их в приложение.</p>
+
+
+    ## ❓ Контакт:
+
+
+    <p>Приложение задумывалось как интуитивно понятное, но по любым вопросам: xavier.cal181@gmail.com.</p>
+
+    <p>Переводы были сгенерированы автоматически и не были перепроверены вручную.
+    По любой ошибке обращайтесь ко мне.
+
+    Кроме того, если возникают ошибки или вы хотите предоставить отзывы/рекомендации,
+    не стесняйтесь обращаться ко мне.</p>
+
+
+    ## 🗑️ Удаление:
+
+
+    <p>Просто удалите папку. Никакие системные файлы не изменяются.</p>
+
+    <hr />
+
+    <p><strong>Спасибо, что выбрали MesVoyages!</strong></p>'
+  serbo-croate: '## 📌 Opis:
+
+    <p>MesVoyages je aplikacija koja omogućava kreiranje personaliziranih putnih karata
+    odabirom regija ili departmana zemalja koje ste posjetili.</p>
+
+    <h2>💻 Kako koristiti:</h2>
+
+    <ol>
+
+    <li>Unesite svoje parametre i svoje ime.</li>
+
+    <li>Unesite mjesta koja ste posjetili.</li>
+
+    <li>Kreirajte svoje karte! Spremanje vaših posjeta i parametara vrši se kada kliknete
+    na gumb za kreiranje karata.</li>
+
+    </ol>
+
+    <h2>📋 Dostupne YAML datoteke:</h2>
+
+    <p>Dostavljene <code>.yaml</code> datoteke su <strong>kompletni modeli</strong>
+    koji sadrže sve dostupne zemlje, regije i departmane.</p>
+
+    <p>▶️ Ako više volite ovu metodu umjesto označavanja posjećenih mjesta, prvo kopirajte
+    modele koji se nalaze u mapi aplikacije. Zatim izbrišite sva neposjećena mjesta
+    i učitajte ih u aplikaciju.</p>
+
+    <h2>❓ Kontakt:</h2>
+
+    <p>Aplikacija je zamišljena kao intuitivna, ali za sva pitanja: xavier.cal181@gmail.com.</p>
+
+    <p>Prijevodi su automatski generirani i nisu ručno pregledani. Za bilo kakve pogreške,
+    kontaktirajte me.
+
+    Također, ako se dogode greške ili želite dati povratne informacije/preporuke,
+    ne ustručavajte se kontaktirati me.</p>
+
+    <h2>🗑️ Deinstalacija:</h2>
+
+    <p>Jednostavno izbrišite mapu. Nijedna sistemska datoteka nije izmijenjena.</p>
+
+    <hr />
+
+    <p><strong>Hvala što ste odabrali MesVoyages!</strong></p>'
+  slovaque: '## 📌 Popis:
+
+    <p>MesVoyages je aplikácia, ktorá umožňuje vytvárať prispôsobené cestovné mapy
+    výberom regiónov alebo departementov krajín, ktoré ste navštívili.</p>
+
+    ## 💻 Ako používať:
+
+    <ol>
+
+    <li>Zadajte svoje parametre a svoje meno.</li>
+
+    <li>Zadajte miesta, ktoré ste navštívili.</li>
+
+    <li>Vytvorte si svoje mapy! Uloženie vašich návštev a vašich parametrov sa uskutoční,
+    keď kliknete na tlačidlo na vytvorenie máp.</li>
+
+    </ol>
+
+    ## 📋 Dostupné súbory YAML:
+
+    <p>Poskytnuté súbory <code>.yaml</code> sú <strong>kompletné modely</strong> obsahujúce
+    všetky dostupné krajiny, regióny a departementy.</p>
+
+    <p>▶️ Ak uprednostňujete túto metódu pred metódou zaškrtávania navštívených miest,
+    najprv skopírujte modely v priečinku aplikácie. Potom vymažte všetky nenavštívené
+    miesta a načítajte ich do aplikácie.</p>
+
+    ## ❓ Kontakt:
+
+    <p>Aplikácia má byť intuitívna, ale v prípade akýchkoľvek otázok: xavier.cal181@gmail.com.</p>
+
+    <p>Preklady boli vygenerované automaticky a neboli manuálne skontrolované. V prípade
+    akejkoľvek chyby ma kontaktujte.
+
+    Rovnako, ak sa vyskytnú chyby alebo ak chcete poskytnúť spätnú väzbu / odporúčania,
+    neváhajte ma kontaktovať.</p>
+
+    ## 🗑️ Odinštalácia:
+
+    <p>Jednoducho odstráňte priečinok. Žiadne systémové súbory sa nemenia.</p>
+
+    <hr />
+
+    <p><strong>Ďakujeme, že ste si vybrali MesVoyages!</strong></p>'
+  slovène: '## 📌 Opis:
+
+    <p>MesVoyages je aplikacija, ki omogoča ustvarjanje prilagojenih potovalnih zemljevidov
+    z izbiro regij ali departmajev držav, ki ste jih obiskali.</p>
+
+    ## 💻 Kako uporabljati:
+
+    <ol>
+
+    <li>Vnesite svoje nastavitve in svoje ime.</li>
+
+    <li>Vnesite kraje, ki ste jih obiskali.</li>
+
+    <li>Ustvarite svoje zemljevide! Shranjevanje vaših obiskov in nastavitev se izvede,
+    ko kliknete gumb za ustvarjanje zemljevidov.</li>
+
+    </ol>
+
+    ## 📋 Razpoložljive datoteke YAML:
+
+    <p>Priložene datoteke <code>.yaml</code> so <strong>popolni modeli</strong>, ki
+    vsebujejo vse razpoložljive države, regije in departmaje.</p>
+
+    <p>▶️ Če vam je ta metoda ljubša kot izbira obiskanih krajev, najprej kopirajte
+    modele, ki so v mapi aplikacije. Nato izbrišite vse neobiskanih krajev in jih
+    naložite v aplikacijo.</p>
+
+    ## ❓ Kontakt:
+
+    <p>Aplikacija naj bi bila intuitivna, vendar za vsa vprašanja: xavier.cal181@gmail.com.</p>
+
+    <p>Prevodi so bili ustvarjeni samodejno in niso bili ročno pregledani. Za morebitne
+    napake me kontaktirajte.
+
+    Prav tako, če se pojavijo napake ali želite podati povratne informacije/priporočila,
+    me kontaktirajte.</p>
+
+    ## 🗑️ Odstranitev:
+
+    <p>Preprosto izbrišite mapo. Nobena sistemska datoteka ni spremenjena.</p>
+
+    <hr />
+
+    <p><strong>Hvala, ker ste izbrali MesVoyages!</strong></p>'
+  suédois: '## 📌 Beskrivning:
+
+    <p>MesVoyages är en applikation som låter dig skapa personliga resekartor genom
+    att välja regioner eller departement i de länder du har besökt.</p>
+
+    <h2>💻 Hur man använder:</h2>
+
+    <ol>
+
+    <li>Ange dina inställningar och ditt namn.</li>
+
+    <li>Ange de platser du har besökt.</li>
+
+    <li>Skapa dina kartor! Dina besök och inställningar sparas när du klickar på knappen
+    för att skapa kartor.</li>
+
+    </ol>
+
+    <h2>📋 Tillgängliga YAML-filer:</h2>
+
+    <p>De medföljande <code>.yaml</code>-filerna är <strong>kompletta mallar</strong>
+    som innehåller alla tillgängliga länder, regioner och departement.</p>
+
+    <p>▶️ Om du föredrar denna metod framför att markera besökta platser, kopiera
+    först mallarna som finns i applikationsmappen. Ta sedan bort alla icke-besökta
+    platser och ladda dem i applikationen.</p>
+
+    <h2>❓ Kontakt:</h2>
+
+    <p>Applikationen är avsedd att vara intuitiv, men för alla frågor: xavier.cal181@gmail.com.</p>
+
+    <p>Översättningarna genererades automatiskt och har inte granskats manuellt. Kontakta
+    mig för eventuella fel.
+
+    På samma sätt, om buggar uppstår eller om du vill ge feedback/rekommendationer,
+    tveka inte att kontakta mig.</p>
+
+    <h2>🗑️ Avinstallation:</h2>
+
+    <p>Ta bara bort mappen. Inga systemfiler ändras.</p>
+
+    <hr />
+
+    <p><strong>Tack för att du valde MesVoyages!</strong></p>'
+  swahili: '<h2>📌 Maelezo:</h2>
+
+    <p>MesVoyages ni programu ambayo inakuwezesha kuunda ramani za usafiri zilizobinafsishwa
+    kwa kuchagua mikoa au idara za nchi ambazo umetembelea.</p>
+
+    <h2>💻 Jinsi ya kutumia:</h2>
+
+    <ol>
+
+    <li>Ingiza mipangilio yako na jina lako.</li>
+
+    <li>Ingiza maeneo ambayo umetembelea.</li>
+
+    <li>Unda ramani zako! Uokolewaji wa ziara zako na mipangilio yako hufanyika unapobofya
+    kitufe cha kuunda ramani.</li>
+
+    </ol>
+
+    <h2>📋 Faili za YAML zinazopatikana:</h2>
+
+    <p>Faili za <code>.yaml</code> zilizotolewa ni <strong>miundo kamili</strong>
+    iliyo na nchi zote, mikoa na idara zinazopatikana.</p>
+
+    <p>▶️ Ikiwa unapendelea njia hii kuliko kuangalia maeneo yaliyotembelewa, kwanza
+    nakili miundo iliyo katika folda ya programu. Kisha futa maeneo yote ambayo hayajatembelewa
+    na uziweke katika programu.</p>
+
+    <h2>❓ Mawasiliano:</h2>
+
+    <p>Programu inakusudiwa kuwa angavu, lakini kwa maswali yoyote: xavier.cal181@gmail.com.</p>
+
+    <p>Tafsiri zimezalishwa kiotomatiki na hazijakaguliwa tena kwa mikono. Kwa kosa
+    lolote, wasiliana nami.
+
+    Vile vile, ikiwa mende wanatokea au unataka kutoa maoni/mapendekezo, usisite kuwasiliana
+    nami.</p>
+
+    <h2>🗑️ Kuondoa:</h2>
+
+    <p>Futa tu folda. Hakuna faili la mfumo linalobadilishwa.</p>
+
+    <hr />
+
+    <p><strong>Asante kwa kuchagua MesVoyages!</strong></p>'
+  tadjik: '<h2>📌 Тавсиф:</h2>
+
+    <p>MesVoyages як барномаест, ки ба шумо имкон медиҳад харитаҳои сайёҳии фармоиширо
+    бо интихоби минтақаҳо ё департаментҳои кишварҳое, ки шумо дидан кардаед, эҷод
+    кунед.</p>
+
+    <h2>💻 Чӣ гуна истифода бурдан:</h2>
+
+    <ol>
+
+    <li>Параметрҳо ва номи худро ворид кунед.</li>
+
+    <li>Ҷойҳоеро, ки шумо дидан кардаед, ворид кунед.</li>
+
+    <li>Харитаҳои худро эҷод кунед! Сабт кардани боздидҳо ва танзимоти шумо вақте
+    ки шумо тугмаи эҷоди харитаҳоро клик мекунед, анҷом дода мешавад.</li>
+
+    </ol>
+
+    <h2>📋 Файлҳои YAML дастрас:</h2>
+
+    <p>Файлҳои <code>.yaml</code> пешниҳодшуда <strong>моделҳои пурра</strong> мебошанд,
+    ки тамоми кишварҳо, минтақаҳо ва департаментҳои дастрасро дар бар мегиранд.</p>
+
+    <p>▶️ Агар шумо ин усулро аз интихоби ҷойҳои дидашуда афзалтар донед, аввал моделҳои
+    дар папкаи барнома мавҷудбударо нусхабардорӣ кунед. Сипас, ҳамаи ҷойҳои диданнашударо
+    нест кунед ва онҳоро дар барнома бор кунед.</p>
+
+    <h2>❓ Тамос:</h2>
+
+    <p>Барнома бояд фаҳмо бошад, аммо барои ҳама саволҳо: xavier.cal181@gmail.com.</p>
+
+    <p>Тарҷумаҳо ба таври худкор тавлид карда шуданд ва дастӣ баррасӣ нашудаанд. Барои
+    ҳама гуна хатогиҳо, бо ман тамос гиред.
+
+    Ҳамчунин, агар хатогиҳо рух диҳанд ё шумо хоҳед, ки бозгашт/тавсияҳо диҳед, бо
+    ман тамос гиред.</p>
+
+    <h2>🗑️ Нест кардан:</h2>
+
+    <p>Танҳо ҷузвдонро нест кунед. Ҳеҷ гуна файли система тағир дода намешавад.</p>
+
+    <hr />
+
+    <p><strong>Ташаккур барои интихоби MesVoyages!</strong></p>'
+  tamoul: சாரி, நான் அந்த வாக்கியத்தை மொழிபெயர்க்க முடியாது
+  tchèque: '## 📌 Popis:
+
+    <p>MesVoyages je aplikace, která umožňuje vytvářet personalizované cestovní mapy
+    výběrem regionů nebo departementů zemí, které jste navštívili.</p>
+
+    ## 💻 Jak používat:
+
+    <ol>
+
+    <li>Zadejte své parametry a jméno.</li>
+
+    <li>Zadejte místa, která jste navštívili.</li>
+
+    <li>Vytvořte si své mapy! Uložení vašich návštěv a nastavení se provádí kliknutím
+    na tlačítko pro vytváření map.</li>
+
+    </ol>
+
+    ## 📋 Dostupný soubor YAML:
+
+    <p>Poskytnuté soubory <code>.yaml</code> jsou <strong>kompletní modely</strong>
+    obsahující všechny dostupné země, regiony a departementy.</p>
+
+    <p>▶️ Pokud dáváte přednost této metodě před zaškrtáváním navštívených míst, nejprve
+    zkopírujte modely z adresáře aplikace. Poté odstraňte všechna nenavštívená místa
+    a nahrajte je do aplikace.</p>
+
+    ## ❓ Kontakt:
+
+    <p>Aplikace by měla být intuitivní, ale v případě jakýchkoli dotazů: xavier.cal181@gmail.com.</p>
+
+    <p>Překlady byly generovány automaticky a nebyly ručně zkontrolovány. V případě
+    jakýchkoli chyb mě kontaktujte.
+
+    Stejně tak, pokud se vyskytnou chyby nebo chcete poskytnout zpětnou vazbu/doporučení,
+    neváhejte mě kontaktovat.</p>
+
+    ## 🗑️ Odinstalace:
+
+    <p>Jednoduše smažte složku. Žádné systémové soubory nejsou změněny.</p>
+
+    <hr />
+
+    <p><strong>Děkujeme, že jste si vybrali MesVoyages!</strong></p>'
+  thaï: MesVoyages เป็นแอปพลิเคชันที่ช่วยให้คุณสร้างแผนที่การเดินทางส่วนตัวได้โดยเลือกภูมิภาคหรือจังหวัดของประเทศที่คุณเคยไปเยือน
+  tibétain: བསྐྱོད་བསྐྱོད་ནི་རྒྱལ་ཁབ་ཀྱི་ས་ཁུལ་དང་སྡེ་ཚན་བདམས་ནས་རང་གིས་བསྐྱོད་པའི་ས་ཁྲ་བཟོ་བའི་སྤྱོད་ཆས་ཤིག་ཡིན།
+  turc: '<h2>📌 Açıklama:</h2>
+
+    <p>MesVoyages, ziyaret ettiğiniz ülkelerin bölgelerini veya illerini seçerek kişiselleştirilmiş
+    seyahat haritaları oluşturmanıza olanak tanıyan bir uygulamadır.</p>
+
+    <h2>💻 Nasıl kullanılır:</h2>
+
+    <ol>
+
+    <li>Parametrelerinizi ve adınızı girin.</li>
+
+    <li>Ziyaret ettiğiniz yerleri girin.</li>
+
+    <li>Haritalarınızı oluşturun! Ziyaretleriniz ve ayarlarınız, haritalar oluşturma
+    düğmesine tıkladığınızda kaydedilir.</li>
+
+    </ol>
+
+    <h2>📋 Mevcut YAML dosyaları:</h2>
+
+    <p>Sağlanan <code>.yaml</code> dosyaları, mevcut tüm ülkeleri, bölgeleri ve illeri
+    içeren <strong>eksiksiz şablonlardır</strong>.</p>
+
+    <p>▶️ Ziyaret edilen yerleri işaretlemek yerine bu yöntemi tercih ediyorsanız,
+    önce uygulamadaki klasördeki şablonları kopyalayın. Ardından ziyaret edilmeyen
+    tüm yerleri silin ve bunları uygulamaya yükleyin.</p>
+
+    <h2>❓ İletişim:</h2>
+
+    <p>Uygulama sezgisel olmayı amaçlamaktadır, ancak herhangi bir sorunuz için: xavier.cal181@gmail.com.</p>
+
+    <p>Çeviriler otomatik olarak oluşturulmuştur ve manuel olarak kontrol edilmemiştir.
+    Herhangi bir hata için lütfen benimle iletişime geçin.
+
+    Ayrıca, hatalar oluşursa veya geri bildirim/önerilerde bulunmak isterseniz, lütfen
+    benimle iletişime geçmekten çekinmeyin.</p>
+
+    <h2>🗑️ Kaldırma:</h2>
+
+    <p>Sadece klasörü silin. Hiçbir sistem dosyası değiştirilmez.</p>
+
+    <hr />
+
+    <p><strong>MesVoyages''i seçtiğiniz için teşekkür ederiz!</strong></p>'
+  turkmène: '<h2>📌 Düşündiriş:</h2>
+
+    <p>MesVoyages, barylan ýurtlaryň sebitlerini ýa-da departamentlerini saýlap, şahsy
+    syýahat kartlaryny döretmäge mümkinçilik berýän programma.</p>
+
+    <h2>💻 Ulanmak:</h2>
+
+    <ol>
+
+    <li>Parametrläriňizi we adyňyzy giriziň.</li>
+
+    <li>Barylan ýerleri giriziň.</li>
+
+    <li>Kartlaryňyzy dörediň! Kartlary döretmek düwmesine basanyňyzda, syýahatlaryňyz
+    we parametrläriňiz saklanar.</li>
+
+    </ol>
+
+    <h2>📋 Elýeterli YAML faýllary:</h2>
+
+    <p>Berlen <code>.yaml</code> faýllary, elýeterli ähli ýurtlary, sebitleri we departamentleri
+    öz içine alýan <strong>doly nusgalardyr</strong>.</p>
+
+    <p>▶️ Barylan ýerleri belläp geçmek usulyna garanda, bu usuly saýlasaňyz, ilki
+    programma bukjasynyň içinde bolan nusgalary göçüriň. Soňra barylmadyk ähli ýerleri
+    pozup, programmanyň içine ýükläň.</p>
+
+    <h2>❓ Aragatnaşyk:</h2>
+
+    <p>Programma düşnükli bolmagy maksat edinýär, ýöne islendik sorag üçin: xavier.cal181@gmail.com.</p>
+
+    <p>Terjime awtomatiki usulda döredildi we el bilen gaýtadan okalmady. Islendik
+    ýalňyşlyk bar bolsa, meniň bilen habarlaşyň.
+
+    Şeýle-de, näsazlyklar ýüze çyksa ýa-da teswirleri/teklipleri bermek isleseňiz,
+    meniň bilen habarlaşmagyňyzy haýyş edýärin.</p>
+
+    <h2>🗑️ Aýyrmak:</h2>
+
+    <p>Diňe bukjany poz. Hiç bir ulgam faýly üýtgedilmeýär.</p>
+
+    <hr />
+
+    <p><strong>MesVoyages-i saýlanyňyz üçin sag boluň!</strong></p>'
+  ukrainien: '## 📌 Опис:
+
+    <p>MesVoyages – це програма, яка дозволяє створювати персоналізовані карти подорожей,
+    вибираючи регіони або департаменти країн, які ви відвідали.</p>
+
+    ## 💻 Як використовувати:
+
+    <ol>
+
+    <li>Введіть свої параметри та ім''я.</li>
+
+    <li>Введіть місця, які ви відвідали.</li>
+
+    <li>Створіть свої карти! Збереження ваших візитів та параметрів відбувається,
+    коли ви натискаєте кнопку створення карт.</li>
+
+    </ol>
+
+    ## 📋 Доступні файли YAML:
+
+    <p>Надані файли <code>.yaml</code> є <strong>повними моделями</strong>, що містять
+    всі країни, регіони та департаменти.</p>
+
+    <p>▶️ Якщо ви віддаєте перевагу цьому методу замість відмічання відвіданих місць,
+    спочатку скопіюйте моделі, що містяться в папці програми. Потім видаліть усі невідвідані
+    місця та завантажте їх у програму.</p>
+
+    ## ❓ Контакт:
+
+    <p>Додаток розроблено як інтуїтивно зрозумілий, але з будь-якими питаннями звертайтеся:
+    xavier.cal181@gmail.com.</p>
+
+    <p>Переклади були згенеровані автоматично та не були перевірені вручну. З будь-якими
+    помилками, будь ласка, зв''яжіться зі мною.
+
+    Крім того, якщо виникають помилки або ви хочете залишити відгук/рекомендації,
+    будь ласка, зв''яжіться зі мною.</p>
+
+    ## 🗑️ Видалення:
+
+    <p>Просто видаліть папку. Жодні системні файли не змінюються.</p>
+
+    <hr />
+
+    <p><strong>Дякуємо, що вибрали MesVoyages!</strong></p>'
+  vietnamien: '## 📌 Mô tả:
+
+    <p>MesVoyages là một ứng dụng cho phép bạn tạo bản đồ du lịch cá nhân bằng cách
+    chọn các vùng hoặc tỉnh của các quốc gia mà bạn đã đến.</p>
+
+    ## 💻 Cách sử dụng:
+
+    <ol>
+
+    <li>Nhập các thông số và tên của bạn.</li>
+
+    <li>Nhập các địa điểm bạn đã đến.</li>
+
+    <li>Tạo bản đồ của bạn! Việc lưu các chuyến thăm và cài đặt của bạn được thực
+    hiện khi bạn nhấp vào nút tạo bản đồ.</li>
+
+    </ol>
+
+    ## 📋 Tệp YAML khả dụng:
+
+    <p>Các tệp <code>.yaml</code> được cung cấp là các <strong>mẫu hoàn chỉnh</strong>
+    chứa tất cả các quốc gia, vùng và tỉnh có sẵn.</p>
+
+    <p>▶️ Nếu bạn thích phương pháp này hơn là chọn các địa điểm đã đến, trước tiên
+    hãy sao chép các mẫu có trong thư mục ứng dụng. Sau đó, xóa tất cả các địa điểm
+    chưa được truy cập và tải chúng vào ứng dụng.</p>
+
+    ## ❓ Liên hệ:
+
+    <p>Ứng dụng được thiết kế để trực quan, nhưng đối với bất kỳ câu hỏi nào: xavier.cal181@gmail.com.</p>
+
+    <p>Các bản dịch đã được tạo tự động và chưa được xem xét thủ công. Vui lòng liên
+    hệ với tôi nếu có bất kỳ lỗi nào.
+
+    Ngoài ra, nếu bất kỳ lỗi nào xảy ra hoặc bạn muốn đưa ra phản hồi / đề xuất, đừng
+    ngần ngại liên hệ với tôi.</p>
+
+    ## 🗑️ Gỡ cài đặt:
+
+    <p>Chỉ cần xóa thư mục. Không có tệp hệ thống nào bị sửa đổi.</p>
+
+    <hr />
+
+    <p><strong>Cảm ơn bạn đã chọn MesVoyages!</strong></p>'
+  zoulou: Ngiyabonga ngokukhetha i-MesVoyages!
+? '<h2>📌 Description :</h2>
+
+  <p>MesVoyages est une application permettant de créer des cartes de voyages personnalisées
+  en sélectionnant les régions ou départements des pays que l''on a visités.</p>
+
+  <h2>💻 Comment utiliser :</h2>
+
+  <ol>
+
+  <li>Entrez vos paramètres ainsi que votre nom.</li>
+
+  <li>Entrez les lieux que vous avez visités.</li>
+
   <li>Créez vos cartes ! La sauvegrade de vos visites et de vos paramètres se fait
   lorsque vous cliquez sur le bouton de création des cartes.</li>
 
@@ -3534,6 +6423,134 @@ Aucun lieu n'a été coché:
   ukrainien: Жодне місце не було позначено
   vietnamien: Chưa có địa điểm nào được chọn
   zoulou: Akukho ndawo emakiwe
+Aucun lieu n'a été coché. Essayez de cocher le lieu associé à votre emplacement actuel !:
+  afrikaans: Geen plek is gekies nie. Probeer die plek wat met jou huidige ligging
+    verband hou, kies!
+  albanais: Asnjë vend nuk është shënuar. Provoni të shënoni vendin e lidhur me vendndodhjen
+    tuaj aktuale!
+  allemand: Kein Ort wurde angekreuzt. Bitte versuchen Sie, den Ort anzukreuzen, der
+    mit Ihrem aktuellen Standort verbunden ist!
+  anglais: No location has been checked. Try checking the location associated with
+    your current location!
+  arabe: لم يتم تحديد أي مكان. الرجاء تحديد المكان المرتبط بموقعك الحالي!
+  arménien: Ոչ մի վայր չի նշվել։ Փորձեք նշել ձեր ներկայիս գտնվելու վայրի հետ կապված
+    վայրը։
+  basque: Lekurik ez da hautatu. Saiatu zure uneko kokapenarekin lotutako lekua hautatzen!
+  bengali: কোনো স্থান চিহ্নিত করা হয়নি। আপনার বর্তমান অবস্থানের সাথে সম্পর্কিত স্থানটি
+    চিহ্নিত করার চেষ্টা করুন!
+  birman: မည်သည့်နေရာကိုမျှ အမှတ်မပေးရသေးပါ။ သင်၏ လက်ရှိတည်နေရာနှင့် သက်ဆိုင်သော နေရာကို
+    အမှတ်ပေးကြည့်ပါ။
+  breton: Lec'h ebet n'eo bet goullo. Klaskit gwaskañ al lec'h stag ouzh ho lec'hiadur
+    a-vremañ !
+  bulgare: Никое място не е отбелязано. Опитайте да отбележите мястото, свързано с
+    текущото ви местоположение!
+  catalan: Cap lloc ha estat marcat. Intenteu marcar el lloc associat a la vostra
+    ubicació actual!
+  corse: Nisunu locu ùn hè statu marcatu. Pruvate à marcà u locu assuciatu à a vostra
+    situazione attuale !
+  coréen: 아무 곳도 체크되지 않았습니다. 현재 위치와 관련된 장소를 체크해보세요!
+  danois: Ingen steder er blevet krydset af. Prøv at krydse det sted af, der er forbundet
+    med din nuværende placering!
+  espagnol: Ningún lugar ha sido marcado. ¡Intenta marcar el lugar asociado a tu ubicación
+    actual!
+  esperanto: Neniu loko estis markita. Provu marki la lokon asociitan kun via nuna
+    loko!
+  estonien: Ühtegi kohta ei ole märgitud. Proovige märkida oma praeguse asukohaga
+    seotud koht!
+  finnois: Paikkaa ei ole valittu. Yritä valita sijainti, joka liittyy nykyiseen sijaintiisi!
+  français: Aucun lieu n'a été coché. Essayez de cocher le lieu associé à votre emplacement
+    actuel !
+  gallois: Nid oes lle wedi'i wirio. Ceisiwch wirio'r lleoliad sy'n gysylltiedig â'ch
+    lleoliad cyfredol!
+  grec: Δεν επιλέχθηκε κανένα μέρος. Προσπαθήστε να επιλέξετε το μέρος που σχετίζεται
+    με την τρέχουσα τοποθεσία σας!
+  grec ancien: Οὐδεὶς τόπος ἐξελέγη. Πειρᾶσθε τὸν τόπον τὸν συνδεδεμένον τῇ νῦν ὑμετέρᾳ
+    θέσει ἐκλέξασθαι!
+  géorgien: არცერთი ადგილი არ არის მონიშნული. სცადეთ მონიშნოთ ადგილი, რომელიც თქვენს
+    ამჟამინდელ მდებარეობას უკავშირდება!
+  hindi: कोई भी स्थान चेक नहीं किया गया है। अपने वर्तमान स्थान से जुड़े स्थान को चेक
+    करने का प्रयास करें!
+  hongrois: Egy hely sem lett bejelölve. Próbálja meg bejelölni a helyet a jelenlegi
+    tartózkodási helyével kapcsolatban!
+  indonésien: Tidak ada lokasi yang dicentang. Coba centang lokasi yang terkait dengan
+    lokasi Anda saat ini!
+  irlandais: Níor seiceáladh aon áit. Déan iarracht an áit a sheiceáil a bhaineann
+    le do shuíomh reatha!
+  islandais: Ekkert staðsetningar hefur verið valið. Reyndu að velja staðsetninguna
+    sem samsvarar þinni núverandi staðsetningu!
+  italien: Nessun luogo è stato selezionato. Prova a selezionare il luogo associato
+    alla tua posizione attuale!
+  japonais: 場所はチェックされていません。現在地に関連する場所をチェックしてみてください！
+  kazakh: Ешбір орын белгіленбеген. Қазіргі орныңызға сәйкес келетін орынды белгілеп
+    көріңіз!
+  kirghize: Эч бир жер белгиленген эмес. Учурдагы жайгашкан жериңизге байланыштуу
+    жерди белгилеп көрүңүз!
+  kurde: هیچ شوێنێک هەڵبژێردرابوو. هەوڵ بدە شوێنی پەیوەندیدار بە شوێنی ئێستات هەڵبژێریت!
+  latin: Nullus locus lectus est. Conare locum loco tuo hodierno adnexum eligere!
+  letton: Neviena vieta nav atzīmēta. Mēģini atzīmēt vietu, kas saistīta ar tavu pašreizējo
+    atrašanās vietu!
+  lituanien: Nė viena vieta nepažymėta. Pabandykite pažymėti vietą, susijusią su jūsų
+    dabartine buvimo vieta!
+  luxembourgeois: Keng Plaz gouf ugekräizt. Probéiert d'Plaz ze markéieren, déi mat
+    Ärer aktueller Positioun verbonnen ass!
+  macédonien: Ниту едно место не е одбележано. Обидете се да го одбележите местото
+    поврзано со вашата моментална локација!
+  malais: Tiada tempat yang ditanda. Sila cuba tanda tempat yang dikaitkan dengan
+    lokasi semasa anda!
+  malgache: Tsy nisy toerana voafidy. Miezaha hifidy ny toerana misy anao ankehitriny!
+  maltais: L-ebda post ma ġie mmarkat. Ipprova mmarka l-post assoċjat mal-post attwali
+    tiegħek!
+  mandarin standard: 没有地方被选中。 尝试勾选与您当前位置相关的地点！
+  mongol: Ямар ч газар сонгогдоогүй байна. Одоо байгаа байршилд харгалзах газрыг сонгохыг
+    оролдоорой!
+  norvégien: Ingen steder er krysset av. Prøv å krysse av stedet som er knyttet til
+    din nåværende plassering!
+  néerlandais: Er is geen locatie aangevinkt. Probeer de locatie die bij uw huidige
+    locatie hoort aan te vinken!
+  népalais: कुनै पनि स्थानमा टिक लगाइएको छैन। आफ्नो हालको स्थानसँग सम्बन्धित स्थानमा
+    टिक लगाउने प्रयास गर्नुहोस्!
+  ourdou: کوئی جگہ چیک نہیں کی گئی ہے۔ اپنے موجودہ مقام سے منسلک جگہ کو چیک کرنے کی
+    کوشش کریں!
+  ouzbek: Hech qanday joy belgilab qo'yilmagan. Hozirgi joylashuvingizga mos joyni
+    belgilashga harakat qiling!
+  pachto: هیڅ ځای نه دی ټاکل شوی. هڅه وکړئ چې د خپل اوسني ځای سره تړلی ځای وټاکئ!
+  persan: هیچ مکانی انتخاب نشده است. سعی کنید مکان مرتبط با موقعیت فعلی خود را انتخاب
+    کنید!
+  polonais: Żadne miejsce nie zostało zaznaczone. Spróbuj zaznaczyć miejsce powiązane
+    z Twoją aktualną lokalizacją!
+  portugais: Nenhum local foi marcado. Tente marcar o local associado à sua localização
+    atual!
+  roumain: Niciun loc nu a fost bifat. Încercați să bifați locul asociat cu locația
+    dvs. curentă!
+  russe: Никакое место не было отмечено. Попробуйте отметить место, связанное с вашим
+    текущим местоположением!
+  serbo-croate: Nijedno mjesto nije označeno. Pokušajte označiti mjesto povezano s
+    vašom trenutnom lokacijom!
+  slovaque: Žiadne miesto nebolo zaškrtnuté. Skúste zaškrtnúť miesto spojené s vašou
+    aktuálnou polohou!
+  slovène: Nobena lokacija ni bila izbrana. Poskusite izbrati lokacijo, povezano z
+    vašo trenutno lokacijo!
+  suédois: Ingen plats har kryssats för. Försök att kryssa i platsen som är kopplad
+    till din nuvarande plats!
+  swahili: Hakuna eneo lililowekwa alama. Jaribu kuweka alama eneo linalohusiana na
+    eneo lako la sasa!
+  tadjik: Ҷое қайд карда нашудааст. Кӯшиш кунед ҷойеро, ки бо макони ҳозираи шумо
+    алоқаманд аст, қайд кунед!
+  tamoul: எந்த இடமும் தேர்ந்தெடுக்கப்படவில்லை. உங்கள் தற்போதைய இருப்பிடத்துடன் தொடர்புடைய
+    இடத்தை தேர்வு செய்ய முயற்சிக்கவும்!
+  tchèque: Žádné místo nebylo zaškrtnuto. Zkuste zaškrtnout místo spojené s vaší aktuální
+    polohou!
+  thaï: ไม่มีสถานที่ใดถูกเลือก ลองเลือกสถานที่ที่เกี่ยวข้องกับตำแหน่งปัจจุบันของคุณ!
+  tibétain: ས་གནས་གང་ཡང་གདམ་གཞི་བྱས་མེད། ཁྱེད་རང་གི་ད་ལྟའི་གནས་ཡུལ་དང་འབྲེལ་བའི་ས་གནས་དེ་གདམ་གཞི་བྱེད་རོགས་གནང་།
+  turc: Hiçbir yer işaretlenmedi. Mevcut konumunuzla ilişkili yeri işaretlemeye çalışın!
+  turkmène: Hiç bir ýer belligi goýulmady. Häzirki ýeriňize degişli ýeri bellemäge
+    synanyşyň!
+  ukrainien: Жодне місце не відмічено. Спробуйте відмітити місце, пов'язане з вашим
+    поточним місцезнаходженням!
+  vietnamien: Chưa có địa điểm nào được chọn. Hãy thử chọn địa điểm liên quan đến
+    vị trí hiện tại của bạn!
+  zoulou: Akukho ndawo ebekiwe. Zama ukumaka indawo ehambelana nendawo okhona kuyo
+    njengamanje!
 Autres régions du monde:
   afrikaans: Ander streke in die wêreld
   albanais: Rajone të tjera të botës
@@ -5240,6 +8257,70 @@ L'export n'a pas fonctionné. Veuillez réessayer de nouveau plus tard:
   ukrainien: Експорт не вдався. Будь ласка, спробуйте ще раз пізніше
   vietnamien: Xuất khẩu không thành công. Vui lòng thử lại sau
   zoulou: Ukuthumela ngaphandle akusebenzanga. Sicela uzame futhi ngokuhamba kwesikhathi
+L'export n'a pas fonctionné. Veuillez réessayer plus tard:
+  afrikaans: Die uitvoer het nie gewerk nie. Probeer asseblief later weer
+  albanais: Eksporti nuk funksionoi. Ju lutemi, provoni përsëri më vonë
+  allemand: Der Export hat nicht funktioniert. Bitte versuchen Sie es später erneut
+  anglais: The export failed. Please try again later
+  arabe: لم ينجح التصدير. يرجى إعادة المحاولة لاحقًا
+  arménien: Արտահանումը չստացվեց։ Խնդրում ենք փորձել մի փոքր ուշ։
+  basque: Esportazioak ez du funtzionatu. Saiatu berriro beranduago
+  bengali: রপ্তানি সফল হয়নি। অনুগ্রহ করে পরে আবার চেষ্টা করুন।
+  birman: တင်ပို့မှု မအောင်မြင်ပါ။ နောက်မှ ထပ်စမ်းကြည့်ပါ။
+  breton: N'eo ket aet en-dro an ezporzhiañ. Klaskit en-dro diwezhatoc'h
+  bulgare: Експортирането не се получи. Моля, опитайте отново по-късно
+  catalan: L'exportació no ha funcionat. Si us plau, torneu-ho a provar més tard
+  corse: L'esportazione ùn hà micca funziunatu. Vogliu ripruvà più tardi
+  coréen: 수출이 작동하지 않았습니다. 나중에 다시 시도해 주세요
+  danois: Eksporten virkede ikke. Prøv igen senere
+  espagnol: La exportación no funcionó. Por favor, inténtelo de nuevo más tarde
+  esperanto: La eksporto ne funkciis. Bonvolu reprovi poste
+  estonien: Eksport ei õnnestunud. Palun proovige hiljem uuesti
+  finnois: Vienti ei onnistunut. Yritä myöhemmin uudelleen
+  français: L'export n'a pas fonctionné. Veuillez réessayer plus tard
+  gallois: Nid oedd yr allforio wedi gweithio. Rhowch gynnig arall arni yn nes ymlaen
+  grec: Η εξαγωγή δεν λειτούργησε. Παρακαλώ, δοκιμάστε ξανά αργότερα
+  grec ancien: Ἡ ἐξαγωγὴ οὐκ ἐγένετο.  Πάλιν πειράσασθε ὕστερον
+  géorgien: ექსპორტი არ იმუშავა. გთხოვთ, სცადოთ მოგვიანებით
+  hindi: 'निर्यात काम नहीं किया। कृपया बाद में पुन: प्रयास करें।'
+  hongrois: Az export nem sikerült. Kérjük, próbálkozzon később
+  indonésien: Ekspor tidak berhasil. Silakan coba lagi nanti
+  irlandais: Níor oibrigh an onnmhairiú. Déan iarracht arís níos déanaí, le do thoil
+  islandais: Útflutningur virkaði ekki. Reyndu aftur síðar
+  italien: L'esportazione non ha funzionato. Riprovare più tardi
+  japonais: エクスポートはうまくいきませんでした。後でもう一度お試しください。
+  kazakh: Экспорт іске аспады. Кейінірек қайталап көріңіз
+  kirghize: Экспорт иштеген жок. Кийинчерээк кайталап көрүңүз
+  kurde: Eksport nexebû. Ji kerema xwe paşê dîsa biceribînin
+  latin: Exportatio non successit. Quaeso, postea iterum conare
+  letton: Eksports neizdevās. Lūdzu, mēģiniet vēlāk
+  lituanien: Eksportas nepavyko. Prašome bandyti vėliau
+  luxembourgeois: Den Export huet net geklappt. Probéiert et w.e.g. méi spéit nach
+    eng Kéier
+  macédonien: Извозот не успеа. Ве молиме обидете се повторно подоцна
+  malais: Eksport gagal. Sila cuba lagi nanti
+  malgache: Tsy nety ny fanondranana. Mba avereno indray aoriana
+  maltais: L-esportazzjoni ma ħadmitx. Jekk jogħġbok erġa' pprova aktar tard
+  mandarin standard: 导出失败，请稍后重试。
+  mongol: Экспорт ажилласангүй. Хожим дахин оролдоно уу
+  norvégien: Eksporten fungerte ikke. Prøv igjen senere
+  néerlandais: Het exporteren is niet gelukt. Probeer het later opnieuw
+  népalais: निर्यात सफल भएन। कृपया पछि फेरि प्रयास गर्नुहोस्।
+  ourdou: ایکسپورٹ کام نہیں کر سکا. براہ کرم بعد میں دوبارہ کوشش کریں۔
+  ouzbek: Eksport ishlamadi. Keyinroq qayta urinib ko'ring
+  pachto: صادرات کار نه کړل. مهرباني وکړئ وروسته بیا هڅه وکړئ
+  persan: صادرات انجام نشد. لطفاً بعداً دوباره امتحان کنید
+  polonais: Eksport nie zadziałał. Spróbuj ponownie później
+  portugais: A exportação não funcionou. Por favor, tente novamente mais tarde
+  roumain: Exportul nu a funcționat. Vă rugăm să încercați din nou mai târziu
+  russe: Экспорт не удался. Пожалуйста, повторите попытку позже
+  serbo-croate: Izvoz nije uspio. Pokušajte ponovo kasnije
+  slovaque: Export nefungoval. Skúste to znova neskôr
+  slovène: Izvoz ni deloval. Poskusite znova kasneje
+  suédois: Exporten misslyckades. Försök igen senare
+  swahili: Hamna usafirishaji. Tafadhali jaribu tena baadaye
+  tadjik: Содирот кор накард. Илтимос, баъдтар такрор кунед
+  tamoul: ஏற்றுமதி வேலை செய்யவில்லை. தயவுசெய்து பின்னர் மீண்டும் முயற்சிக்கவும்
 Langue:
   afrikaans: Taal
   albanais: Gjuhë
@@ -6950,6 +10031,11 @@ Permet d'avoir un fond de carte bleu clair et non blanc. Cela est utile pour les
   zoulou: Ivumela ukuthi kukhethwe ukuthi kufanele yini kushicilelwe wonke amabalazwe
     noma kuphela lawo anemininingwane oyifunayo. Ngokwesibonelo, ingabe sifuna ukushicilela
     ibalazwe elikhona kuphela ezingeni lesifunda uma sifuna amabalazwe ezingeni lesigceme?
+? Permet de choisir si l'on souhaite publier l'entièreté des cartes ou seulement celles
+  qui possèdent la granularité souhaitée. Veut-on par exemple publier une carte qui
+  n'existe qu'au niveau régional si l'on souhaite des cartes au niveau départemental
+  ?
+: {}
 ? Pour un pays donné, si des départements sont cochés, ils sont prioritaires sur les
   régions cochées. Dans ce cas, la liste des régions visitées est automatiquement
   reconstituée à partir de la liste des départements. Il n'est donc plus nécessaire

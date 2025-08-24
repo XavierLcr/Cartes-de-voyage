@@ -34,18 +34,10 @@ def creer_liste_pays_multilangue(
 ):
 
     modele = genai.GenerativeModel(modele_dict.get("modèle", "gemini-2.0-flash-lite"))
-    nb_max_requetes_par_minute = modele_dict.get("limite_appels_minute", 30)
-    nb_max_requetes_par_jour = modele_dict.get("limite_appels_jour", 200)
+    resultat = {} if liste_deja_existante is None else liste_deja_existante
     global appels_api_deja_faits
 
-    liste_pays = list(set(liste_pays))
-    liste_pays.sort()
-
-    if liste_deja_existante is not None:
-        resultat = liste_deja_existante
-    else:
-        resultat = {}
-    for i in liste_pays:
+    for i in list(set(liste_pays)):
 
         if blabla > 0:
             print(
@@ -62,7 +54,7 @@ def creer_liste_pays_multilangue(
             if j in resultat[i]:
                 resultat[i][j] = resultat[i][j].strip(" .'\n")
                 continue
-            elif appels_api_deja_faits >= nb_max_requetes_par_jour:
+            elif appels_api_deja_faits >= modele_dict.get("limite_appels_jour", 200):
                 continue
 
             if blabla == 2:
@@ -73,19 +65,15 @@ def creer_liste_pays_multilangue(
                 resultat[i][j] = i
                 continue
 
-            if version == 0:
-                reponse = modele.generate_content(
-                    f"Traduis le nom du pays qui va t'être donné en {j} : {i}. Ne donne que la traduction, rien d'autre. N'inclus en aucun cas la prononciation."
-                ).text
+            resultat[i][j] = modele.generate_content(
+                f"Traduis le nom du pays qui va t'être donné en {j} : {i}. Ne donne que la traduction, rien d'autre. N'inclus en aucun cas la prononciation."
+                if version == 0
+                else f"Traduis la phrase qui va t'être donnée en {j} : {i}. Ne donne que la traduction, rien d'autre. N'inclus en aucun cas la prononciation."
+            ).text.strip("\n .'")
 
-            else:
-                reponse = modele.generate_content(
-                    f"Traduis la phrase qui va t'être donnée en {j} : {i}. Ne donne que la traduction, rien d'autre. N'inclus en aucun cas la prononciation."
-                ).text
-
-            resultat[i][j] = reponse.strip("\n .'")
-
-            time.sleep(max(0, 60 / nb_max_requetes_par_minute - time.time() + temps_debut))
+            time.sleep(
+                max(0, 60 / modele_dict.get("limite_appels_minute", 30) - time.time() + temps_debut)
+            )
             appels_api_deja_faits = appels_api_deja_faits + 1
 
         if blabla == 2:
@@ -108,8 +96,6 @@ def creer_liste_parametres_multilangue(
 ):
 
     modele = genai.GenerativeModel(modele_dict.get("modèle", "gemini-2.0-flash-lite"))
-    nb_max_requetes_par_minute = modele_dict.get("limite_appels_minute", 30)
-    nb_max_requetes_par_jour = modele_dict.get("limite_appels_jour", 200)
     global appels_api_deja_faits
 
     if liste_deja_existante is None:
@@ -118,7 +104,7 @@ def creer_liste_parametres_multilangue(
     else:
         resultat = liste_deja_existante.get(nom_bouton, {})
 
-    for i in liste_langues:
+    for i in list(set(liste_langues)):
 
         if blabla == 2:
             print(i, end=" : ")
@@ -126,14 +112,12 @@ def creer_liste_parametres_multilangue(
             print(i, end=" – ")
         sys.stdout.flush()
 
-        resultat = resultat.get(i, {})
+        resultat[i] = resultat.get(i, {})
         for j in liste_parametres:
 
             temps_debut = time.time()
-
-            if (
-                j not in list(resultat[i].keys())
-                and appels_api_deja_faits < nb_max_requetes_par_jour
+            if j not in list(resultat[i].keys()) and appels_api_deja_faits < modele_dict.get(
+                "limite_appels_jour", 200
             ):
 
                 if blabla == 2:
@@ -144,19 +128,24 @@ def creer_liste_parametres_multilangue(
                     resultat[i][j] = j
                     continue
 
-                reponse_ij = modele.generate_content(
+                resultat[i][j] = modele.generate_content(
                     f"Traduis le mot ou l'expression suivante en {i} : '{j}'. Ne donne que la traduction, strictement rien d'autre - et aucune ponctuation. Le mot à traduire est à l'origine en français. N'oublie pas la majuscule en début d'expression quand c'est possible."
-                ).text
+                ).text.strip(" .'\n")
 
-                time.sleep(max(0, 60 / nb_max_requetes_par_minute - time.time() + temps_debut))
+                time.sleep(
+                    max(
+                        0,
+                        60 / modele_dict.get("limite_appels_minute", 30)
+                        - time.time()
+                        + temps_debut,
+                    )
+                )
                 appels_api_deja_faits = appels_api_deja_faits + 1
 
             elif j not in list(resultat[i].keys()):
                 continue
             else:
-                reponse_ij = resultat[i][j]
-
-            resultat[i][j] = reponse_ij.strip(" .'\n")
+                resultat[i][j] = resultat[i][j].strip(" .'\n")
 
         if blabla == 2:
             print("")
@@ -184,39 +173,33 @@ def creer_dictionnaire_langues(
 ):
 
     modele = genai.GenerativeModel(modele_dict.get("modèle", "gemini-2.0-flash-lite"))
-    nb_max_requetes_par_minute = modele_dict.get("limite_appels_minute", 30)
-    nb_max_requetes_par_jour = modele_dict.get("limite_appels_jour", 200)
+    resultat = {} if liste_deja_existante is None else liste_deja_existante
     global appels_api_deja_faits
 
-    liste_langues.sort()
+    for i in list(set(liste_langues)):
 
-    if liste_deja_existante is None:
-        resultat = {}
-    else:
-        resultat = liste_deja_existante
-
-    for i in liste_langues:
-
-        if i not in list(resultat.keys()) and appels_api_deja_faits < nb_max_requetes_par_jour:
+        if i not in list(resultat.keys()) and appels_api_deja_faits < modele_dict.get(
+            "limite_appels_jour", 200
+        ):
 
             temps_debut = time.time()
             appels_api_deja_faits = appels_api_deja_faits + 1
 
             # Traduction
             try:
-                reponse_i = modele.generate_content(
+                resultat[i] = modele.generate_content(
                     f"""Le nom d'une langue va t'être donné en français. Donne le nom de cette langue dans sa version propre. Par exemple anglais donne English et allemand donne Deutsch. Mets une majuscule quand cela est possible. Ne renvoie rien d'autre et surtout pas de ponctuation ou de prononciation pour les langues exotiques.
                 \nLa langue est : '{i}'."""
-                ).text
+                ).text.strip(" .'\n")
+
+                if blabla:
+                    print(f"{i} : {resultat[i]}")
             except:
                 continue
 
-            reponse_i = reponse_i.strip(" .'\n")
-            resultat[i] = reponse_i
-            if blabla:
-                print(f"{i} : {reponse_i}")
-
-            time.sleep(max(0, 60 / nb_max_requetes_par_minute + time.time() - temps_debut))
+            time.sleep(
+                max(0, 60 / modele_dict.get("limite_appels_minute", 30) + time.time() - temps_debut)
+            )
 
     return resultat
 
@@ -227,10 +210,7 @@ def verifier_doublons(data):
             seen = set()
             doublons = set()
             for cle, val in valeurs.items():
-                if val in seen:
-                    doublons.add(val)
-                else:
-                    seen.add(val)
+                doublons.add(val) if val in seen else seen.add(val)
             if doublons:
                 print(f"❌ Doublons détectés dans '{parametre}' > '{pays}' : {doublons}")
 
@@ -337,7 +317,7 @@ if __name__ == "__main__":
             "limite_appels_minute": 9,
             "limite_appels_jour": 249,
         },
-    ][0]
+    ][1]
 
     # Récupération du jour
     date_du_jour = time.localtime()

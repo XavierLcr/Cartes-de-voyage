@@ -390,7 +390,7 @@ def cree_graphe_depuis_debut(
         creer_graphique_region(
             gdf_visite_ori=df_visite,
             gdf_fond_ori=liste_dfs[0],
-            direction_res=direction_resultat,
+            direction_resultat=direction_resultat,
             pays_trad=noms_pays,
             nom_indiv=nom_indiv,
             format=format,

@@ -3,7 +3,7 @@
 # Application principale                                                       #
 ################################################################################
 
-import os, sys, warnings, copy, textwrap
+import os, sys, warnings, copy, textwrap, time
 
 # PyQt6
 from PyQt6.QtWidgets import (
@@ -52,8 +52,6 @@ sauvegarde = fonctions_utiles_2_0.ouvrir_fichier(
 class MesVoyagesApplication(QWidget):
     def __init__(self):
         super().__init__()
-
-        self.traductions_interface = constantes.outil_differentes_langues
 
         self.setWindowTitle("Cartes de voyage")
         self.setGeometry(
@@ -368,7 +366,7 @@ class MesVoyagesApplication(QWidget):
 
         # Création du bouton "Créer cartes"
         self.creation_cartes_bouton = QPushButton()
-        self.creation_cartes_bouton.clicked.connect(lambda: self.fonction_principale(False))
+        self.creation_cartes_bouton.clicked.connect(self.fonction_principale)
         self.barre_progression = QProgressBar()
         self.barre_progression.setMinimum(0)
         self.barre_progression.setValue(0)
@@ -376,7 +374,7 @@ class MesVoyagesApplication(QWidget):
 
         # Bouton de sauvegarde
         self.bouton_sauvegarde = QPushButton()
-        self.bouton_sauvegarde.clicked.connect(lambda: self.fonction_principale(True))
+        self.bouton_sauvegarde.clicked.connect(self.exporter_liste_parametres)
 
         # Bouton de réinitialisation
         self.reinit_parametres = QPushButton()
@@ -408,7 +406,7 @@ class MesVoyagesApplication(QWidget):
         self.selection_destinations = onglet_2.OngletSelectionnerDestinations(
             constantes=constantes,
             fct_traduire=self.traduire_depuis_id,
-            fct_principale=self.fonction_principale,
+            fct_sauvegarde=self.exporter_liste_parametres,
             fct_pop_up=self.montrer_popup,
         )
         self.tabs.addTab(self.selection_destinations, "Création de la liste des pays visités")
@@ -715,7 +713,9 @@ class MesVoyagesApplication(QWidget):
             clef = constantes.phrases_interface.get(clef, clef)
 
         # Récupération de la traduction
-        traduction = prefixe + self.traductions_interface.get(clef, {}).get(langue, clef) + suffixe
+        traduction = (
+            prefixe + constantes.outil_differentes_langues.get(clef, {}).get(langue, clef) + suffixe
+        )
 
         # Troncature si nécessaire
         if largeur_max is not None:
@@ -786,33 +786,32 @@ class MesVoyagesApplication(QWidget):
             self.dossier_stockage = dossier  # Stocke le chemin sélectionné
             self.selection_destinations.set_dossier(dossier=dossier)
 
-    def fonction_principale(self, sauvegarder_seulement=True):
+    def creer_liste_parametres(self):
 
-        settings = {
-            "langue": fonctions_utiles_2_0.obtenir_clef_par_valeur(
-                valeur=self.langue_utilisee.currentText(),
-                dictionnaire=constantes.dict_langues_dispo,
-            )
-        }
+        langue = fonctions_utiles_2_0.obtenir_clef_par_valeur(
+            valeur=self.langue_utilisee.currentText(),
+            dictionnaire=constantes.dict_langues_dispo,
+        )
 
-        settings |= {
+        return {
             "nom": self.nom_individu.currentText(),
             "granularite": fonctions_utiles_2_0.obtenir_clef_par_valeur(
                 valeur=self.granularite_visite.currentText(),
-                dictionnaire=constantes.parametres_traduits["granularite"][settings["langue"]],
+                dictionnaire=constantes.parametres_traduits["granularite"][langue],
             ),
             "granularite_fond": fonctions_utiles_2_0.obtenir_clef_par_valeur(
                 valeur=self.granularite_fond.currentText(),
-                dictionnaire=constantes.parametres_traduits["granularite"][settings["langue"]],
+                dictionnaire=constantes.parametres_traduits["granularite"][langue],
             ),
+            "langue": langue,
             "couleur": fonctions_utiles_2_0.obtenir_clef_par_valeur(
                 valeur=self.color_combo.currentText(),
-                dictionnaire=constantes.parametres_traduits["teintes_couleurs"][settings["langue"]],
+                dictionnaire=constantes.parametres_traduits["teintes_couleurs"][langue],
             ),
             "couleur_fond_carte": self.couleur_fond_checkbox.isChecked(),
             "theme": fonctions_utiles_2_0.obtenir_clef_par_valeur(
                 valeur=self.theme_combo.currentText(),
-                dictionnaire=constantes.parametres_traduits["themes_cartes"][settings["langue"]],
+                dictionnaire=constantes.parametres_traduits["themes_cartes"][langue],
             ),
             "qualite": self.curseur_qualite.value(),
             "format": self.format_cartes.currentText(),
@@ -840,31 +839,43 @@ class MesVoyagesApplication(QWidget):
             "format_onglet_3": self.onglet_resume_pays.mise_en_forme.isChecked(),
         }
 
-        self.selection_destinations.set_nom_individu(nom=settings["nom"])
+    def exporter_liste_parametres(self):
 
-        if sauvegarder_seulement:
+        parametres = self.creer_liste_parametres()
+        if parametres["nom"] is None or parametres["nom"] in [""]:
+            parametres["nom"] = fonctions_utiles_2_0.formater_temps_actuel()
+        sauvegarde[parametres["nom"]] = copy.deepcopy(parametres)
 
-            # Export
-            settings["nom"] = settings.get("nom", "")
-            sauvegarde[settings["nom"]] = copy.deepcopy(settings)
-            if settings["nom"] not in [
-                self.nom_individu.itemText(i) for i in range(self.nom_individu.count())
-            ]:
-                self.nom_individu.addItem(settings["nom"])
+        # Ajout à la liste déroulante
+        if parametres["nom"] not in [
+            self.nom_individu.itemText(i) for i in range(self.nom_individu.count())
+        ]:
+            self.nom_individu.addItem(parametres["nom"])
 
-            fonctions_utiles_2_0.exporter_fichier(
-                objet=sauvegarde,
-                direction_fichier=constantes.direction_donnees_application,
-                nom_fichier="sauvegarde_utilisateurs.yaml",
-                sort_keys=True,
-            )
+        # Export sous forme de YAML
+        fonctions_utiles_2_0.exporter_fichier(
+            objet=sauvegarde,
+            direction_fichier=constantes.direction_donnees_application,
+            nom_fichier="sauvegarde_utilisateurs.yaml",
+            sort_keys=True,
+        )
 
-            # Coche signalant la sauvegarde
-            self.bouton_sauvegarde.setText("💾✅")
-            self.selection_destinations.set_emoji_sauvegarde()
-            QTimer.singleShot(3000, lambda: self.bouton_sauvegarde.setText("💾"))
+        # Gestion des autres onglets
+        self.selection_destinations.set_nom_individu(nom=parametres["nom"])
 
-        elif self.dicts_granu["dep"] == {} and self.dicts_granu["region"] == {}:
+        # Visualisation de la sauvegarde
+        self.bouton_sauvegarde.setText("💾✅")
+        self.selection_destinations.set_emoji_sauvegarde()
+        QTimer.singleShot(3000, lambda: self.bouton_sauvegarde.setText("💾"))
+
+    def fonction_principale(self):
+
+        settings = self.creer_liste_parametres()
+
+        if (
+            settings["dictionnaire_regions"] is None
+            and settings["dictionnaire_departements"] is None
+        ):
 
             self.montrer_popup(
                 contenu=self.traduire_depuis_id("pop_up_aucun_lieu_coche", suffixe="."),
@@ -884,11 +895,9 @@ class MesVoyagesApplication(QWidget):
             )
 
         else:
-            # Export des paramètres
-            self.fonction_principale(sauvegarder_seulement=True)
 
-            # Publication des cartes
-            self.publier_cartes(settings)
+            self.exporter_liste_parametres()  # Export des paramètres
+            self.publier_cartes(settings)  # Publication des cartes
 
     def montrer_popup(
         self,
@@ -1061,6 +1070,7 @@ class MesVoyagesApplication(QWidget):
 
     def initialiser_sauvegarde(self, sauvegarde_complete):
 
+        self.reinitialisation_parametres(nom_aussi=False)
         sauv = sauvegarde_complete.get(self.nom_individu.currentText(), {})
 
         # Nom

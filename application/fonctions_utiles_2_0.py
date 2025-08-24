@@ -4,7 +4,7 @@
 ################################################################################
 
 
-import os, pickle, yaml
+import os, pickle, yaml, time
 from PyQt6.QtWidgets import QHBoxLayout, QFrame, QLabel
 from PyQt6.QtCore import Qt
 from collections import defaultdict
@@ -252,3 +252,7 @@ def somme_filee(lignes, a, b):
     for i in range(lignes):
         total = total + a + i * b
     return total
+
+
+def formater_temps_actuel():
+    return time.strftime("%d-%m-%Y %Hh%M", time.localtime())

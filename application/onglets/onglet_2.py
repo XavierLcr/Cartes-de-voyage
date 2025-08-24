@@ -22,7 +22,12 @@ from PyQt6.QtWidgets import (
     QListWidgetItem,
 )
 
-from application.fonctions_utiles_2_0 import obtenir_clef_par_valeur, reset_combo, exporter_fichier
+from application.fonctions_utiles_2_0 import (
+    obtenir_clef_par_valeur,
+    reset_combo,
+    exporter_fichier,
+    formater_temps_actuel,
+)
 
 
 class OngletSelectionnerDestinations(QWidget):
@@ -30,7 +35,7 @@ class OngletSelectionnerDestinations(QWidget):
     # Signal de modification des lieux visités
     dict_modif = pyqtSignal(dict)
 
-    def __init__(self, constantes, fct_principale, fct_traduire, fct_pop_up):
+    def __init__(self, constantes, fct_sauvegarde, fct_traduire, fct_pop_up):
         super().__init__()
 
         # Variables globales de la classe
@@ -41,7 +46,6 @@ class OngletSelectionnerDestinations(QWidget):
 
         # Fonctions et constantes
         self.constantes = constantes
-        self.fonction_principale = fct_principale
         self.fonction_traduire = fct_traduire
         self.fonction_pop_up = fct_pop_up
 
@@ -61,7 +65,7 @@ class OngletSelectionnerDestinations(QWidget):
         self.telecharger_lieux_visites = QPushButton()
         self.telecharger_lieux_visites.clicked.connect(self.exporter_yamls_visites)
         self.bouton_sauvegarde2 = QPushButton()
-        self.bouton_sauvegarde2.clicked.connect(lambda: self.fonction_principale(True))
+        self.bouton_sauvegarde2.clicked.connect(fct_sauvegarde)
 
         # Remplir les déroulés
         self.liste_des_pays.addItems(self.constantes.regions_par_pays.keys())
@@ -137,8 +141,6 @@ class OngletSelectionnerDestinations(QWidget):
 
     def exporter_yamls_visites(self):
 
-        self.fonction_principale(True)
-
         if self.dossier_stockage is None:
 
             self.fonction_pop_up(
@@ -153,11 +155,11 @@ class OngletSelectionnerDestinations(QWidget):
         else:
 
             nom = self.nom_individu
-            if nom is None:
-                nom = ""
+            if nom is None or nom in [""]:
+                nom = formater_temps_actuel()
 
             gran = self.constantes.parametres_traduits["granularite"][self.langue]
-            nom = f"{nom}{' – ' if nom != '' else nom}{self.fonction_traduire(clef='granularite_pays_visites')}"
+            nom = f"{nom}{' – '}{self.fonction_traduire(clef='granularite_pays_visites')}"
 
             nom_yaml_regions = f"{nom} – {gran['Régions']}.yaml"
             nom_yaml_departements = f"{nom} – {gran['Départements']}.yaml"
@@ -165,31 +167,33 @@ class OngletSelectionnerDestinations(QWidget):
             try:
 
                 # Export des régions
-                exporter_fichier(
-                    objet=self.dicts_granu["region"],
-                    direction_fichier=self.dossier_stockage,
-                    nom_fichier=nom_yaml_regions,
-                    sort_keys=True,
-                )
+                if self.dicts_granu["region"] != {}:
+                    exporter_fichier(
+                        objet=self.dicts_granu["region"],
+                        direction_fichier=self.dossier_stockage,
+                        nom_fichier=nom_yaml_regions,
+                        sort_keys=True,
+                    )
 
                 # Export des départements
-                exporter_fichier(
-                    objet=self.dicts_granu["dep"],
-                    direction_fichier=self.dossier_stockage,
-                    nom_fichier=nom_yaml_departements,
-                    sort_keys=True,
-                )
+                if self.dicts_granu["dep"] != {}:
+                    exporter_fichier(
+                        objet=self.dicts_granu["dep"],
+                        direction_fichier=self.dossier_stockage,
+                        nom_fichier=nom_yaml_departements,
+                        sort_keys=True,
+                    )
 
                 self.telecharger_lieux_visites.setText("📥✅")
                 QTimer.singleShot(3000, lambda: self.telecharger_lieux_visites.setText("📥"))
 
-            except:
+            except Exception as e:
 
                 self.fonction_pop_up(
                     titre=self.fonction_traduire("pop_up_probleme_titre", suffixe="."),
                     contenu=self.fonction_traduire(
                         "export_pas_fonctionnel",
-                        suffixe=".",
+                        suffixe=f".\n[{e}]",
                     ),
                     temps_max=10000,
                 )

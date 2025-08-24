@@ -789,12 +789,31 @@ class SettingsApp(QWidget):
     def fonction_principale(self, sauvegarder_seulement=True):
 
         settings = {
-            "nom": self.nom_individu.currentText(),
             "langue": fonctions_utiles_2_0.obtenir_clef_par_valeur(
                 valeur=self.langue_utilisee.currentText(),
                 dictionnaire=constantes.dict_langues_dispo,
+            )
+        }
+
+        settings |= {
+            "nom": self.nom_individu.currentText(),
+            "granularite": fonctions_utiles_2_0.obtenir_clef_par_valeur(
+                valeur=self.granularite_visite.currentText(),
+                dictionnaire=constantes.parametres_traduits["granularite"][settings["langue"]],
+            ),
+            "granularite_fond": fonctions_utiles_2_0.obtenir_clef_par_valeur(
+                valeur=self.granularite_fond.currentText(),
+                dictionnaire=constantes.parametres_traduits["granularite"][settings["langue"]],
+            ),
+            "couleur": fonctions_utiles_2_0.obtenir_clef_par_valeur(
+                valeur=self.color_combo.currentText(),
+                dictionnaire=constantes.parametres_traduits["teintes_couleurs"][settings["langue"]],
             ),
             "couleur_fond_carte": self.couleur_fond_checkbox.isChecked(),
+            "theme": fonctions_utiles_2_0.obtenir_clef_par_valeur(
+                valeur=self.theme_combo.currentText(),
+                dictionnaire=constantes.parametres_traduits["themes_cartes"][settings["langue"]],
+            ),
             "qualite": self.curseur_qualite.value(),
             "format": self.format_cartes.currentText(),
             "dossier_stockage": self.dossier_stockage,
@@ -807,7 +826,11 @@ class SettingsApp(QWidget):
             "autres_regions": self.autres_regions.isChecked(),
             "sortir_cartes_granu_inf": self.sortir_cartes_granu_inf.isChecked(),
             "cartes_des_pays": self.carte_pays.isChecked(),
-            "max_cartes_additionnelles": self.groupe_radio_max_cartes.checkedButton(),
+            "max_cartes_additionnelles": {
+                self.radio_carte_1: 5,
+                self.radio_carte_2: 10,
+                self.radio_carte_3: 15,
+            }.get(self.groupe_radio_max_cartes.checkedButton(), None),
             "dictionnaire_regions": (
                 self.dicts_granu["region"] if self.dicts_granu["region"] != {} else None
             ),
@@ -817,32 +840,7 @@ class SettingsApp(QWidget):
             "format_onglet_3": self.onglet_resume_pays.mise_en_forme.isChecked(),
         }
 
-        settings["granularite"] = fonctions_utiles_2_0.obtenir_clef_par_valeur(
-            valeur=self.granularite_visite.currentText(),
-            dictionnaire=constantes.parametres_traduits["granularite"][settings["langue"]],
-        )
-        settings["granularite_fond"] = fonctions_utiles_2_0.obtenir_clef_par_valeur(
-            valeur=self.granularite_fond.currentText(),
-            dictionnaire=constantes.parametres_traduits["granularite"][settings["langue"]],
-        )
-
-        settings["couleur"] = fonctions_utiles_2_0.obtenir_clef_par_valeur(
-            valeur=self.color_combo.currentText(),
-            dictionnaire=constantes.parametres_traduits["teintes_couleurs"][settings["langue"]],
-        )
-
         self.tab_yaml.set_nom_individu(nom=settings["nom"])
-
-        settings["max_cartes_additionnelles"] = {
-            self.radio_carte_1: 5,
-            self.radio_carte_2: 10,
-            self.radio_carte_3: 15,
-        }.get(settings["max_cartes_additionnelles"], None)
-
-        settings["theme"] = fonctions_utiles_2_0.obtenir_clef_par_valeur(
-            valeur=self.theme_combo.currentText(),
-            dictionnaire=constantes.parametres_traduits["themes_cartes"][settings["langue"]],
-        )
 
         if sauvegarder_seulement:
 

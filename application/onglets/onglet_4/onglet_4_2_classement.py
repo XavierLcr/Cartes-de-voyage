@@ -5,6 +5,7 @@
 ################################################################################
 
 
+import pandas as pd
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import (
     QWidget,
@@ -19,7 +20,8 @@ from application.fonctions_utiles_2_0 import (
     creer_classement_pays,
     creer_ligne_separation,
 )
-from production_cartes.creer_carte_1_1 import cree_base_toutes_granularites
+
+# from production_cartes.creer_carte_1_1 import cree_base_toutes_granularites
 
 
 # Quatrième onglet
@@ -28,7 +30,6 @@ class ClassementPays(QWidget):
         self,
         dicts_granu: dict,
         constantes,
-        liste_gdfs: list,
         langue_utilisee: str,
         top_n: int | None,
         ndigits: int | None = None,
@@ -43,7 +44,6 @@ class ClassementPays(QWidget):
         # Variables passées en paramètre
         self.dicts_granu = dicts_granu
         self.constantes = constantes
-        self.liste_gdfs = liste_gdfs
         self.langue_utilisee = langue_utilisee
         self.top_n = top_n
         self.ndigits = ndigits
@@ -104,21 +104,33 @@ class ClassementPays(QWidget):
         vbox: QGridLayout,
         ndigits: int | None = None,
     ):
-        dict_regions = self.dicts_granu["region"] or None
-        dict_departements = self.dicts_granu["dep"] or None
 
-        if dict_departements and dict_regions:
-            dict_regions = {k: v for k, v in dict_regions.items() if k not in dict_departements}
+        # Complétion des régions à partir des départements
+        dict_regions = self.dicts_granu["region"]
+        for pays, deps in self.dicts_granu["dep"].items():
+            mask = (self.constantes.table_superficie["NAME_0"] == pays) & (
+                self.constantes.table_superficie["NAME_2"].isin(deps)
+            )
+            dict_regions[pays] = (
+                self.constantes.table_superficie.loc[mask, "NAME_1"].unique().tolist()
+            )
 
         self.vider_layout(vbox)
 
         try:
 
             classement = creer_classement_pays(
-                gdf_visite=cree_base_toutes_granularites(
-                    liste_dfs=self.liste_gdfs,
-                    liste_dicts=[dict_regions, dict_departements],
-                    granularite_objectif=granularite,
+                gdf_visite=pd.DataFrame(
+                    [
+                        (k, v)
+                        for k, lst in (
+                            dict_regions.items()
+                            if granularite == 1
+                            else self.dicts_granu["dep"].items()
+                        )
+                        for v in lst
+                    ],
+                    columns=["Pays", "Region"],
                 ),
                 table_superficie=self.constantes.table_superficie,
                 granularite=granularite,

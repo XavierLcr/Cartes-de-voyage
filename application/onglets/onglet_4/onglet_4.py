@@ -31,7 +31,6 @@ class OngletTopPays(QWidget):
         lighter_value,
         continent_colors,
         dicts_granu,
-        liste_gdfs,
         # Classement
         top_n,
         ndigits,
@@ -61,7 +60,6 @@ class OngletTopPays(QWidget):
         self.classement_widget = onglet_4_2_classement.ClassementPays(
             dicts_granu=dicts_granu,
             constantes=constantes,
-            liste_gdfs=liste_gdfs,
             langue_utilisee=langue_utilisee,
             top_n=top_n,
             ndigits=ndigits,

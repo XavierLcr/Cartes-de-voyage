@@ -63,22 +63,15 @@ def creer_classement_pays(
     top_n: int | None = None,
 ):
 
-    # gdf_visite = (
-    #     gdf_visite.loc[gdf_visite["Granu"] == granularite]
-    #     .assign(Visite=lambda x: x["Visite"].astype(int))
-    #     .assign(Visite=lambda x: x.groupby("Region")["Visite"].transform("max"))
-    #     .loc[lambda x: x["Visite"] == 1]
-    # )
-
     gdf_visite = (
-        # Filtre sur la granularité
-        gdf_visite.loc[gdf_visite["Granu"] == granularite]
-        # Conversion en nombre en entier de l'indicatrice
-        .assign(Visite=lambda x: x["Visite"].astype(int))
-        # Sélection de ces régions et des colonnes utiles
-        .loc[lambda x: x["Visite"] == 1][["Pays", "Region", "Granu", "Visite"]]
+        # # Filtre sur la granularité
+        # gdf_visite.loc[gdf_visite["Granu"] == granularite]
+        # # Conversion en nombre en entier de l'indicatrice
+        # .assign(Visite=lambda x: x["Visite"].astype(int))
+        # # Sélection de ces régions et des colonnes utiles
+        # .loc[lambda x: x["Visite"] == 1][["Pays", "Region", "Granu", "Visite"]]
         # Ajout des superficies
-        .merge(
+        gdf_visite.merge(
             table_superficie,
             how="left",
             left_on=["Pays", "Region"],

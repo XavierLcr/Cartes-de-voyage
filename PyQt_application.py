@@ -431,7 +431,6 @@ class MesVoyagesApplication(QWidget):
                 dictionnaire=constantes.dict_langues_dispo,
                 valeur=self.langue_utilisee.currentText(),
             ),
-            liste_gdfs=liste_gdfs,
             parent=None,
             mise_en_page=constantes.parametres_application["onglet_4_mise_en_page"],
             # Classement

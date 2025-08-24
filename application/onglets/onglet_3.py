@@ -120,6 +120,7 @@ class OngletResumeDestinations(QWidget):
                 widget.deleteLater()
 
     def maj_layout_resume(self):
+
         self.vider_layout(self.layout_resume_regions)
         self.vider_layout(self.layout_resume_departements)
 

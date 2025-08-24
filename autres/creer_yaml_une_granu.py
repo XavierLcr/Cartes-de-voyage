@@ -27,13 +27,11 @@ def cree_yaml_un_pays(
     gdf = set(zip(gdf["NAME_0"], gdf[f"NAME_{granularite}"]))
 
     # Créer un DataFrame avec les résultats
-    liste_combinaisons = pd.DataFrame(list(gdf), columns=["nom1", "nom2"])
-
-    # Trier le DataFrame par 'nom2' (la deuxième colonne)
-    liste_combinaisons.sort_values(by="nom2", inplace=True)
-
-    # Grouper par 'nom1' et collecter les 'nom2' dans une liste
-    df_dict = liste_combinaisons.groupby("nom1")["nom2"].apply(list).to_dict()
+    liste_combinaisons = (
+        pd.DataFrame(list(gdf), columns=["nom1", "nom2"])
+        # Tri par nom2
+        .sort_values(by="nom2", inplace=False)
+    )
 
     if granularite > 1 and len(liste_combinaisons) == 1:
         cree_yaml_un_pays(
@@ -47,7 +45,7 @@ def cree_yaml_un_pays(
 
         # Exporter vers YAML
         exporter_fichier(
-            objet=df_dict,
+            objet=liste_combinaisons.groupby("nom1")["nom2"].apply(list).to_dict(),
             direction_fichier=direction_fichier,
             nom_fichier=nom_fichier,
             sort_keys=True,

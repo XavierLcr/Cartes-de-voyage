@@ -166,8 +166,7 @@ def creer_graphiques_pays(
             langue_i = groupe_pays_res_i["nom_langue"]
             gdf_i = groupe_pays_res_i["gdf_reduit"]
 
-            clef_i = groupe_pays_res_i["nom_groupe_pays"]
-            dictionnaire_pays_unis[clef_i]["deja_fait"] = True
+            dictionnaire_pays_unis[groupe_pays_res_i["nom_groupe_pays"]]["deja_fait"] = True
 
             gdf_monde_i = gdf_fond.copy()
 
@@ -187,10 +186,7 @@ def creer_graphiques_pays(
 
             gdf_monde_i = None
 
-        if nom_indiv != "":
-            nom_pays_i = f"{nom_indiv} – {langue_i}.{format}"
-        else:
-            nom_pays_i = f"{langue_i}.{format}"
+        nom_pays_i = f"{(nom_indiv + ' – ') if nom_indiv else ''}{langue_i}.{format}"
         if (
             sortir_cartes_granu_inf == True
             or max(gdf_i.loc[gdf_i["Visite"] == 1, "Granu"]) >= granularite_objectif
@@ -223,7 +219,7 @@ def creer_graphique_region(
     gdf_visite_ori,
     gdf_fond_ori,
     df_fond_granu_1,
-    direction_res: str,
+    direction_resultat: str,
     pays_trad: dict,
     liste_pays_region: list,
     gdf_eau=None,
@@ -255,7 +251,6 @@ def creer_graphique_region(
 
     if nom_region == "World":
         nom_langue_region = pays_trad.get("World Map", {}).get(langue, "World Map")
-        direction_region = direction_res
         gdf_region = gdf_visite.copy()
 
     else:
@@ -264,8 +259,8 @@ def creer_graphique_region(
             return
 
         # Nom du dossier
-        direction_region = os.path.join(
-            direction_res, pays_trad.get(nom_region, {}).get(langue, nom_region)
+        direction_resultat = os.path.join(
+            direction_resultat, pays_trad.get(nom_region, {}).get(langue, nom_region)
         )
 
         # Nom de la carte simple
@@ -303,7 +298,7 @@ def creer_graphique_region(
                 couleur_non_visites=couleur_non_visites,
                 couleur_de_fond=couleur_fond,
                 couleur_lacs=couleur_lacs,
-                chemin_impression=direction_region,
+                chemin_impression=direction_resultat,
                 nom=f"{nom_indiv + ' – ' if nom_indiv else ''}{nom_langue_region}.{format}",
                 qualite=qualite,
                 blabla=False,

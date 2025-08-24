@@ -4,91 +4,86 @@ import geopandas as gpd
 from constantes import direction_donnees, direction_base, direction_donnees_application
 from application.fonctions_utiles_2_0 import ouvrir_fichier
 
-gdf = gpd.read_file(os.path.join(direction_base, "Donnees_granu_et_plus", "gadm_410.gpkg"))
+gdf = gpd.read_file(os.path.join(direction_base, "Donnees_granu_et_plus", "gadm_410.gpkg"))[
+    # Sélection de colonnes
+    ["NAME_0", "NAME_1", "NAME_2", "NAME_3", "NAME_4", "NAME_5", "geometry"]
+]
 
-# On ne garde que les colonnes utiles
-gdf = gdf[["NAME_0", "NAME_1", "NAME_2", "NAME_3", "NAME_4", "NAME_5", "geometry"]]
-
+# Export
 with open(direction_donnees + "\\geodataframe_reduit.pkl", "wb") as f:
     pickle.dump(gdf, f)
 
-## On crée les cartes du monde avec une plus faible granularité
+# === Création des tables à une granularité plus faible ===
 
 # Niveau 4
-gdf_niveau_4 = gdf.dissolve(
-    by=["NAME_0", "NAME_1", "NAME_2", "NAME_3", "NAME_4"],
-    aggfunc={
-        "NAME_0": "first",
-        "NAME_1": "first",
-        "NAME_2": "first",
-        "NAME_3": "first",
-        "NAME_4": "first",
-    },
-)
-
 with open(direction_donnees + "\\carte_monde_niveau_4.pkl", "wb") as f:
-    pickle.dump(gdf_niveau_4, f)
+    pickle.dump(
+        gdf.dissolve(
+            by=["NAME_0", "NAME_1", "NAME_2", "NAME_3", "NAME_4"],
+            aggfunc={
+                "NAME_0": "first",
+                "NAME_1": "first",
+                "NAME_2": "first",
+                "NAME_3": "first",
+                "NAME_4": "first",
+            },
+        ),
+        f,
+    )
 
-gdf_niveau_4 = gdf.dissolve(
-    by=["NAME_0", "NAME_1", "NAME_2", "NAME_3", "NAME_4"],
-    aggfunc={
-        "NAME_0": "first",
-        "NAME_1": "first",
-        "NAME_2": "first",
-        "NAME_3": "first",
-        "NAME_4": "first",
-    },
-)
-
-with open(direction_donnees + "\\carte_monde_niveau_4.pkl", "wb") as f:
-    pickle.dump(gdf_niveau_4, f)
-
-
-gdf_niveau_3 = gdf.dissolve(
-    by=["NAME_0", "NAME_1", "NAME_2", "NAME_3"],
-    aggfunc={
-        "NAME_0": "first",
-        "NAME_1": "first",
-        "NAME_2": "first",
-        "NAME_3": "first",
-    },
-)
-
+# Niveau 3
 with open(direction_donnees + "\\carte_monde_niveau_3.pkl", "wb") as f:
-    pickle.dump(gdf_niveau_3, f)
+    pickle.dump(
+        gdf.dissolve(
+            by=["NAME_0", "NAME_1", "NAME_2", "NAME_3"],
+            aggfunc={
+                "NAME_0": "first",
+                "NAME_1": "first",
+                "NAME_2": "first",
+                "NAME_3": "first",
+            },
+        ),
+        f,
+    )
 
-gdf_niveau_2 = gdf.dissolve(
-    by=["NAME_0", "NAME_1", "NAME_2"],
-    aggfunc={
-        "NAME_0": "first",
-        "NAME_1": "first",
-        "NAME_2": "first",
-    },
-)
-
+# Niveau 2
 with open(direction_donnees + "\\carte_monde_niveau_2.pkl", "wb") as f:
-    pickle.dump(gdf_niveau_2, f)
+    pickle.dump(
+        gdf.dissolve(
+            by=["NAME_0", "NAME_1", "NAME_2"],
+            aggfunc={
+                "NAME_0": "first",
+                "NAME_1": "first",
+                "NAME_2": "first",
+            },
+        ),
+        f,
+    )
 
-gdf_niveau_1 = gdf.dissolve(
-    by=["NAME_0", "NAME_1"],
-    aggfunc={
-        "NAME_0": "first",
-        "NAME_1": "first",
-    },
-)
-
+# Niveau 1
 with open(direction_donnees + "\\carte_monde_niveau_1.pkl", "wb") as f:
-    pickle.dump(gdf_niveau_1, f)
+    pickle.dump(
+        gdf.dissolve(
+            by=["NAME_0", "NAME_1"],
+            aggfunc={
+                "NAME_0": "first",
+                "NAME_1": "first",
+            },
+        ),
+        f,
+    )
 
-gdf_niveau_0 = gdf.dissolve(
-    by=["NAME_0"],
-    aggfunc={
-        "NAME_0": "first",
-    },
-)
-
+# Niveau 0
 with open(direction_donnees + "\\carte_monde_niveau_0.pkl", "wb") as f:
-    pickle.dump(gdf_niveau_0, f)
+    pickle.dump(
+        gdf.dissolve(
+            by=["NAME_0"],
+            aggfunc={
+                "NAME_0": "first",
+            },
+        ),
+        f,
+    )
 
 
 def concatener_noms_si_dupliques(df: pd.DataFrame) -> pd.DataFrame:

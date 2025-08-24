@@ -62,22 +62,32 @@ def creer_classement_pays(
     top_n: int | None = None,
 ):
 
-    gdf_visite = gdf_visite[gdf_visite["Granu"] == granularite]
-    gdf_visite["Visite"] = gdf_visite["Visite"].astype(int)
-    gdf_visite["Visite"] = gdf_visite.groupby("Region")["Visite"].transform("max")
-    gdf_visite = gdf_visite[gdf_visite["Visite"] == 1]
+    # gdf_visite = (
+    #     gdf_visite.loc[gdf_visite["Granu"] == granularite]
+    #     .assign(Visite=lambda x: x["Visite"].astype(int))
+    #     .assign(Visite=lambda x: x.groupby("Region")["Visite"].transform("max"))
+    #     .loc[lambda x: x["Visite"] == 1]
+    # )
 
     gdf_visite = (
-        gdf_visite[["Pays", "Region", "Granu", "Visite"]]
+        # Filtre sur la granularité
+        gdf_visite.loc[gdf_visite["Granu"] == granularite]
+        # Conversion en nombre en entier de l'indicatrice
+        .assign(Visite=lambda x: x["Visite"].astype(int))
+        # Sélection de ces régions et des colonnes utiles
+        .loc[lambda x: x["Visite"] == 1][["Pays", "Region", "Granu", "Visite"]]
+        # Ajout des superficies
         .merge(
             table_superficie,
             how="left",
             left_on=["Pays", "Region"],
             right_on=["NAME_0", f"NAME_{granularite}"],
         )
+        # Somme par pays des superficies visitées
         .groupby("Pays")[["pct_superficie_dans_pays", "superficie"]]
         .sum()
         .reset_index()
+        # Tri des valeurs par ordre décroissant
         .sort_values(by=["pct_superficie_dans_pays", "superficie"], ascending=[False, False])
     )
 
@@ -86,22 +96,28 @@ def creer_classement_pays(
 
 def nb_pays_visites(dict_granu: dict, continents: dict):
 
-    # Conservation des lieux visités
-    pays_visites = list(dict_granu["region"].keys()) + list(dict_granu["dep"].keys())
-    pays_visites = list(set(pays_visites))
-
     resultat = {}
     for continent in list(continents.keys()):
 
-        resultat[continent] = {}
-        resultat[continent]["total"] = len(continents[continent])
-        resultat[continent]["visites"] = len(
-            [i for i in continents[continent] if i in pays_visites]
-        )
+        if continent in ["Middle East"]:
+            pass
 
-    if "Middle East" in list(continents.keys()):
-        del resultat["Middle East"]
+        resultat[continent] = {
+            # Nombre de pays dans le continents
+            "total": len(continents[continent]),
+            # Nombre de pays visités dans le continent
+            "visites": len(
+                [
+                    i
+                    for i in continents[continent]
+                    if i
+                    # Liste des pays visités
+                    in list(set(list(dict_granu["region"].keys()) + list(dict_granu["dep"].keys())))
+                ]
+            ),
+        }
 
+    print(resultat)
     return resultat
 
 
@@ -140,7 +156,7 @@ def ouvrir_fichier(direction_fichier, nom_fichier, defaut, afficher_erreur: str 
                 nom_fichier,
                 "rb",
             ) as file:
-                fichier = pickle.load(file)
+                return pickle.load(file)
 
         elif extention == ".yaml":
 
@@ -149,14 +165,13 @@ def ouvrir_fichier(direction_fichier, nom_fichier, defaut, afficher_erreur: str 
                 "r",
                 encoding="utf-8",
             ) as file:
-                fichier = yaml.safe_load(file)
+                return yaml.safe_load(file)
     except:
-        fichier = defaut
 
         if afficher_erreur is not None:
             print(afficher_erreur)
 
-    return fichier
+        return defaut
 
 
 def exporter_fichier(objet, direction_fichier, nom_fichier, sort_keys: bool = True):

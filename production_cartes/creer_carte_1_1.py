@@ -22,21 +22,25 @@ def creer_base_une_granularite(
         la base geopandas au bon avec les bonnes frontières
     """
 
-    # On limite la base aux pays en question
-    df_resultat = df[df["NAME_0"].isin(list(liste_destinations.keys()))]
-    df_resultat["Visite"] = df_resultat.apply(
-        lambda row: (
-            1 if row[f"NAME_{granularite}"] in liste_destinations.get(row["NAME_0"], []) else 0
-        ),
-        axis=1,
+    return (
+        # Filtre sur les pays visités
+        df.loc[df["NAME_0"].isin(liste_destinations.keys())]
+        # Création de l'indicatrice des lieux visités
+        .assign(
+            Visite=lambda x: x.apply(
+                lambda row: row[f"NAME_{granularite}"] in liste_destinations.get(row["NAME_0"], []),
+                axis=1,
+            ),
+            # Récupération de la région
+            Region=lambda x: x[f"NAME_{granularite}"],
+            # Ajout de la granularité
+            Granu=granularite,
+        )
+        # Renommage
+        .rename(columns={"NAME_0": "Pays"})
+        # Sélection des colonnes
+        .loc[:, ["Pays", "Region", "Visite", "geometry", "Granu"]]
     )
-
-    df_resultat["Region"] = df_resultat[f"NAME_{granularite}"]
-    df_resultat.rename(columns={"NAME_0": "Pays"}, inplace=True)
-    df_resultat["Granu"] = granularite
-
-    # Renvoi
-    return df_resultat[["Pays", "Region", "Visite", "geometry", "Granu"]]
 
 
 def creer_base_double_granularite(
@@ -50,32 +54,33 @@ def creer_base_double_granularite(
     # Suppression des pays sans régions assorties
     liste_destinations = {k: v for k, v in liste_destinations.items() if v is not None}
 
-    if granularite_obj > granularite_donnee:
+    # Renvoi de la granularité maximale possible si la souhaitée n'est pas disponible
+    if granularite_obj >= granularite_donnee:
         return creer_base_une_granularite(
             df=df_donnee,
             granularite=granularite_donnee,
             liste_destinations=liste_destinations,
         )
 
-    # On limite la base aux pays en question
-    df_resultat = df_donnee[df_donnee["NAME_0"].isin(list(liste_destinations.keys()))]
-    df_resultat["Visite"] = df_resultat.apply(
-        lambda row: (
-            1
-            if row[f"NAME_{granularite_donnee}"] in liste_destinations.get(row["NAME_0"], [])
-            else 0
-        ),
-        axis=1,
-    )
-    df_resultat = df_resultat[df_resultat["Visite"] == 1]
-    unique_gdf = set(zip(df_resultat["NAME_0"], df_resultat[f"NAME_{granularite_obj}"]))
-    unique_combinaison = pd.DataFrame(list(unique_gdf), columns=["nom1", "nom2"])
-    df_dict = unique_combinaison.groupby("nom1")["nom2"].apply(list).to_dict()
+    # Sélection des lieux visités
+    resultat = df_donnee.loc[
+        df_donnee.apply(
+            lambda row: row["NAME_0"] in liste_destinations
+            and row[f"NAME_{granularite_donnee}"] in liste_destinations[row["NAME_0"]],
+            axis=1,
+        )
+    ]
 
     return creer_base_une_granularite(
         df=df_obj,
         granularite=granularite_obj,
-        liste_destinations=df_dict,
+        liste_destinations=pd.DataFrame(
+            # Création des paires Pays/Région visités
+            list(set(zip(resultat["NAME_0"], resultat[f"NAME_{granularite_obj}"]))),
+            columns=["nom1", "nom2"],
+        )
+        # Mise sous la forme d'un dictionnaire
+        .groupby("nom1")["nom2"].apply(list).to_dict(),
     )
 
 
@@ -83,6 +88,7 @@ def remplacer_lieux_constants(liste_dfs: list, df_visite: pd.DataFrame, granular
 
     if granularite == 0:
         return df_visite
+
     else:
 
         # On isole la base à modifier
@@ -101,14 +107,19 @@ def remplacer_lieux_constants(liste_dfs: list, df_visite: pd.DataFrame, granular
             return df_visite
 
         # Récupération de la base à la bonne granularité
-        df_monde_granu = liste_dfs[granularite].copy().reset_index(drop=True)
+        df_monde_granu = (
+            liste_dfs[granularite]
+            .copy()
+            .reset_index(drop=True)
+            .assign(
+                Pays=lambda x: x["NAME_0"],
+                Region=lambda x: x[f"NAME_{granularite}"],
+                region_temp=lambda x: x[f"NAME_{granularite-1}"],
+            )[["Pays", "Region", "region_temp"]]
+        )
         assert not df_monde_granu.duplicated(
-            subset=["NAME_0", f"NAME_{granularite}"]
-        ).any(), "Le couple (NAME_0, NAME_{granularite}) n'est pas une clé unique."
-        df_monde_granu["Pays"] = df_monde_granu["NAME_0"]
-        df_monde_granu["Region"] = df_monde_granu[f"NAME_{granularite}"]
-        df_monde_granu["region_temp"] = df_monde_granu[f"NAME_{granularite-1}"]
-        df_monde_granu = df_monde_granu[["Pays", "Region", "region_temp"]]
+            subset=["Pays", "Region"]
+        ).any(), f"Le couple (Pays, Region) n'est pas une clé unique pour le passage de la granularité {granularite} à la granularité {granularite-1}."
 
         # Ajout de la granularité inférieure à la table
         df_a_modifier = (
@@ -126,41 +137,50 @@ def remplacer_lieux_constants(liste_dfs: list, df_visite: pd.DataFrame, granular
             df_a_modifier.groupby(["Pays", "region_temp"])["Visite"].transform("nunique") == 1
         )
 
-        # Séparation de la table à modifier et celle à garder identique
-        df_a_modifier_oui = df_a_modifier[df_a_modifier["visite_constante"] == True]
-        df_a_modifier_non = df_a_modifier[
-            # Sélection de la sous-table
-            df_a_modifier["visite_constante"]
-            == False
-        ][
-            # Sélection des variables
+        # Séparation de la table à modifier et celle non
+        ## Concaténation de la table de résultat avec celle des lieux partiellement visités
+        df_resultat = pd.concat(
             [
-                "Pays",
-                "Region",
-                "Granu",
-                "geometry",
-                "Visite",
+                # Table à ne pas modifier
+                df_resultat,
+                # Table pour laquelle aucune modification n'est nécessaire
+                df_a_modifier[
+                    # Sélection de la sous-table
+                    df_a_modifier["visite_constante"]
+                    == False
+                ][
+                    # Sélection des variables
+                    [
+                        "Pays",
+                        "Region",
+                        "Granu",
+                        "geometry",
+                        "Visite",
+                    ]
+                ],
             ]
-        ]
+        )
 
-        # Ajout au résultat de la partie inchangée
-        df_resultat = pd.concat([df_resultat, df_a_modifier_non])
-        if len(df_a_modifier_oui) == 0:
+        # Restriction de la table nécessitant des modifications
+        df_a_modifier = df_a_modifier[df_a_modifier["visite_constante"] == True]
+        if len(df_a_modifier) == 0:
             return df_resultat
 
-        # Récupération de la base de granularité inférieure
-        df_granu_monde_moins = liste_dfs[granularite - 1].copy().reset_index(drop=True)
-        df_granu_monde_moins["Pays"] = df_granu_monde_moins["NAME_0"]
-        df_granu_monde_moins["region_temp"] = df_granu_monde_moins[f"NAME_{granularite-1}"]
-
-        # Ajout de la géométrie
-        df_a_modifier_oui = (
-            df_a_modifier_oui[["Pays", "region_temp", "Visite"]]
+        # Ajout de la géométrie de la granularité inférieure
+        df_a_modifier = (
+            df_a_modifier[["Pays", "region_temp", "Visite"]]
             # Récupération des régions concernées
             .drop_duplicates()
             # Ajout de la géométrie
             .merge(
-                df_granu_monde_moins[["Pays", "region_temp", "geometry"]],
+                # Table de granularité inférieure
+                liste_dfs[granularite - 1].copy().reset_index(drop=True)
+                # Renommage
+                .assign(
+                    Pays=lambda x: x["NAME_0"],
+                    region_temp=lambda x: x[f"NAME_{granularite-1}"],
+                    # Sélection des variables
+                )[["Pays", "region_temp", "geometry"]],
                 how="left",
                 on=["Pays", "region_temp"],
                 # Sélection des colonnes
@@ -171,24 +191,12 @@ def remplacer_lieux_constants(liste_dfs: list, df_visite: pd.DataFrame, granular
             .assign(Granu=granularite - 1)
         )
 
-        # Concatnéation
-        df_resultat = pd.concat([df_resultat, df_a_modifier_oui], ignore_index=True)
-
-        # Récursivité
+        # Concaténation puis récursivité
         return remplacer_lieux_constants(
-            liste_dfs=liste_dfs, df_visite=df_resultat, granularite=granularite - 1
+            liste_dfs=liste_dfs,
+            df_visite=pd.concat([df_resultat, df_a_modifier], ignore_index=True),
+            granularite=granularite - 1,
         )
-
-
-def gerer_pays_sans_regions(df_0, liste_pays: list):
-
-    df_resultat = df_0[df_0["NAME_0"].isin(liste_pays)]
-    df_resultat["Pays"] = df_resultat["NAME_0"] * 1
-    df_resultat["Region"] = df_resultat["NAME_0"] * 1
-    df_resultat["Granu"] = 0
-    df_resultat["Visite"] = 1
-
-    return df_resultat[["Pays", "Region", "Visite", "geometry", "Granu"]]
 
 
 def cree_base_toutes_granularites(
@@ -220,9 +228,10 @@ def cree_base_toutes_granularites(
 
         for i in range(len(granu)):
 
-            # On calcule la dataframe de chaque granularité
+            # Pays non détaillés
             clefs_none_i = [k for k, v in dicos[i].items() if v is None]
 
+            # Calcul du dataframe de chaque granularité
             res_i = creer_base_double_granularite(
                 df_donnee=liste_dfs[granu[i]],
                 granularite_donnee=granu[i],
@@ -231,33 +240,44 @@ def cree_base_toutes_granularites(
                 df_obj=liste_dfs[granularite_objectif],
             )
 
-            if i == 0:
-                resultat = res_i
-                pays_reste = clefs_none_i
-            else:
-                resultat = pd.concat([resultat, res_i], ignore_index=True)
-                pays_reste = pays_reste + clefs_none_i
+            resultat, pays_reste = (
+                (res_i, clefs_none_i)
+                if i == 0
+                else (pd.concat([resultat, res_i], ignore_index=True), pays_reste + clefs_none_i)
+            )
 
         if len(pays_reste) > 0:
 
-            res_sans_region = gerer_pays_sans_regions(df_0=liste_dfs[0], liste_pays=pays_reste)
-            resultat = pd.concat([resultat, res_sans_region], ignore_index=True)
+            resultat = pd.concat(
+                [
+                    # Table des pays détaillés
+                    resultat,
+                    # Table des pays non détaillés
+                    liste_dfs[0][liste_dfs[0]["NAME_0"].isin(pays_reste)].assign(
+                        Pays=lambda x: x["NAME_0"] * 1,
+                        Region=lambda x: x["NAME_0"] * 1,
+                        Granu=0,
+                        Visite=1,
+                    )[["Pays", "Region", "Visite", "geometry", "Granu"]],
+                ],
+                ignore_index=True,
+            )
+
+        # Renvoi
+        return resultat
 
     else:
 
-        resultat = cree_base_toutes_granularites(
+        # Regroupement des régions non visitées
+        return remplacer_lieux_constants(
             liste_dfs=liste_dfs,
-            liste_dicts=liste_dicts,
-            granularite_objectif=max(granu),
+            granularite=int(max(granu)),
+            df_visite=cree_base_toutes_granularites(
+                liste_dfs=liste_dfs,
+                liste_dicts=liste_dicts,
+                granularite_objectif=int(max(granu)),
+            ),
         )
-
-        # On regroupe les régions non visitées
-        resultat = remplacer_lieux_constants(
-            liste_dfs=liste_dfs, granularite=int(max(resultat["Granu"])), df_visite=resultat
-        )
-
-    # Renvoi
-    return resultat
 
 
 def ajouter_indicatrice_visite(gdf_monde, gdf_visite, granularite=1):
@@ -280,22 +300,27 @@ def ajouter_indicatrice_visite(gdf_monde, gdf_visite, granularite=1):
     – (GeoDataFrame) : Un GeoDataFrame combiné avec une nouvelle colonne "Visite", indiquant si chaque pays ou région a été visité.
     """
 
-    # On renome la variable NAME_0
-    gdf_monde = gdf_monde.rename(columns={f"NAME_0": "Pays"})
-    if granularite > 0:
-        gdf_monde = gdf_monde.rename(columns={f"NAME_{granularite}": "Region"})
-    else:
-        gdf_monde["Region"] = gdf_monde["Pays"]
-
-    # On supprime les pays visités
-    gdf_monde = gdf_monde[gdf_monde["Pays"].isin(gdf_visite["Pays"]) == False]
-
-    # On met une indicatrice de visite
-    gdf_monde["Visite"] = False
-    gdf_monde["Granu"] = granularite
-
-    # On supprime les colonnes autres
-    gdf_monde = gdf_monde[["Pays", "Region", "Visite", "geometry", "Granu"]]
-
-    # Concaténation des deux bases et renvoi
-    return pd.concat([gdf_visite, gdf_monde], ignore_index=True)
+    # Concaténation des deux tables et renvoi
+    return pd.concat(
+        [
+            # Table des pays visités
+            gdf_visite,
+            # Table des pays non visités
+            (
+                # Suppression des pays visités
+                gdf_monde[gdf_monde["NAME_0"].isin(gdf_visite["Pays"]) == False].assign(
+                    # Création de la région
+                    Region=lambda x: x[f"NAME_{granularite}"]
+                )
+                # Renommage
+                .rename(columns={"NAME_0": "Pays"})
+                # Ajout de la granularité
+                .assign(Granu=granularite)
+                # Ajout de l'indicatrice de visite
+                .assign(Visite=False)
+                # Sélection des colonnes
+                [["Pays", "Region", "Visite", "geometry", "Granu"]]
+            ),
+        ],
+        ignore_index=True,
+    )

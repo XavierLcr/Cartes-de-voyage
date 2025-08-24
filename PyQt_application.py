@@ -49,7 +49,7 @@ sauvegarde = fonctions_utiles_2_0.ouvrir_fichier(
 )
 
 
-class SettingsApp(QWidget):
+class MesVoyagesApplication(QWidget):
     def __init__(self):
         super().__init__()
 
@@ -1242,7 +1242,7 @@ if __name__ == "__main__":
         for i in range(3)
     ]
 
-    window = SettingsApp()
+    window = MesVoyagesApplication()
     window.show()
 
     sys.exit(app.exec())

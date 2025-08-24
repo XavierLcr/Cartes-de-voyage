@@ -245,3 +245,10 @@ def exporter_fichier(objet, direction_fichier, nom_fichier, sort_keys: bool = Tr
 
 def reordonner_dict(dictionnaire: dict, clefs: list):
     return {k: dictionnaire[k] for k in clefs if k in dictionnaire}
+
+
+def somme_filee(lignes, a, b):
+    total = 0
+    for i in range(lignes):
+        total = total + a + i * b
+    return total

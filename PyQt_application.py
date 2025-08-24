@@ -1241,17 +1241,15 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
 
     # Import des bases de données contenant les cartes
-    liste_gdfs = []
-    for i in range(3):
-
-        liste_gdfs.append(
-            fonctions_utiles_2_0.ouvrir_fichier(
-                direction_fichier=constantes.direction_donnees_pickle,
-                nom_fichier=f"carte_monde_niveau_{i}.pkl",
-                defaut=None,
-                afficher_erreur=f"Base de granularité {i} introuvable.",
-            )
+    liste_gdfs = [
+        fonctions_utiles_2_0.ouvrir_fichier(
+            direction_fichier=constantes.direction_donnees_pickle,
+            nom_fichier=f"carte_monde_niveau_{i}.pkl",
+            defaut=None,
+            afficher_erreur=f"Base de granularité {i} introuvable.",
         )
+        for i in range(3)
+    ]
 
     window = SettingsApp()
     window.show()

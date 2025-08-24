@@ -143,7 +143,10 @@ def nb_pays_visites(
         for continent, liste_pays in continents.items()
     }
 
-    print(valeurs_dans_plusieurs_listes(continents), end="\n\n")
+    # Test
+    assert (
+        valeurs_dans_plusieurs_listes(continents) == {}
+    ), f"Pays en double :{valeurs_dans_plusieurs_listes(continents)}"
 
     resultat = {}
     for continent in list(continents.keys()):
@@ -163,7 +166,6 @@ def nb_pays_visites(
             ),
         }
 
-    print(resultat, end="\n\n")
     return resultat
 
 

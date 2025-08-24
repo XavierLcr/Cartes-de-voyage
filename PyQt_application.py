@@ -650,18 +650,36 @@ class SettingsApp(QWidget):
         )
 
         if parametres_aussi:
-            gran = constantes.parametres_traduits["granularite"][langue_actuelle]
-            teintes = constantes.parametres_traduits["teintes_couleurs"].get(langue_actuelle, {})
-            themes = constantes.parametres_traduits["themes_cartes"].get(langue_actuelle, {})
 
-            liste_granularite = [gran[k] for k in ["Pays", "Région", "Département", "Amusant"]]
+            # Mise à jour des granularités
+            liste_granularite = [
+                constantes.parametres_traduits["granularite"][langue_actuelle][k]
+                for k in ["Pays", "Région", "Département", "Amusant"]
+            ]
             fonctions_utiles_2_0.reset_combo(self.granularite_visite, liste_granularite)
             fonctions_utiles_2_0.reset_combo(
                 self.granularite_fond, liste_granularite[:-1], set_index=False
             )
 
-            fonctions_utiles_2_0.reset_combo(self.color_combo, sorted(teintes.values()))
-            fonctions_utiles_2_0.reset_combo(self.theme_combo, sorted(themes.values()))
+            # Mise à jour des teintes
+            fonctions_utiles_2_0.reset_combo(
+                self.color_combo,
+                sorted(
+                    constantes.parametres_traduits["teintes_couleurs"]
+                    .get(langue_actuelle, {})
+                    .values()
+                ),
+            )
+
+            # Mise à jour de l'ambiance
+            fonctions_utiles_2_0.reset_combo(
+                self.theme_combo,
+                sorted(
+                    constantes.parametres_traduits["themes_cartes"]
+                    .get(langue_actuelle, {})
+                    .values()
+                ),
+            )
 
     def traduire_depuis_id(
         self,
@@ -712,46 +730,38 @@ class SettingsApp(QWidget):
         return traduction
 
     def maj_style(self):
-        # Récupérer la langue sélectionnée
+
+        # Récupération de la langue sélectionnée
         langue_l = fonctions_utiles_2_0.obtenir_clef_par_valeur(
             dictionnaire=constantes.dict_langues_dispo,
             valeur=self.langue_utilisee.currentText(),
         )
 
-        # Récupérer la couleur sélectionnée
-        couleur_affichee = self.color_combo.currentText()
+        try:
 
-        # Récupérer la clé pour la teinte
-        teinte_l = fonctions_utiles_2_0.obtenir_clef_par_valeur(
-            dictionnaire=constantes.parametres_traduits["teintes_couleurs"].get(langue_l, {}),
-            valeur=couleur_affichee,
-        )
+            # Récupération de l'ambiance
+            liste_theme_temp = constantes.liste_ambiances.get(
+                fonctions_utiles_2_0.obtenir_clef_par_valeur(
+                    dictionnaire=constantes.parametres_traduits["themes_cartes"].get(langue_l, {}),
+                    valeur=self.theme_combo.currentText(),
+                )
+            )
 
-        # Vérifier si la teinte est valide
-        if teinte_l is None:
-            return  # Sortir si teinte non trouvée
+            # Récupération des teintes utilisées
+            liste_teintes_temp = constantes.liste_couleurs.get(
+                fonctions_utiles_2_0.obtenir_clef_par_valeur(
+                    dictionnaire=constantes.parametres_traduits["teintes_couleurs"].get(
+                        langue_l, {}
+                    ),
+                    valeur=self.color_combo.currentText(),
+                )
+            )
 
-        # Récupérer les données pour la teinte
-        liste_teintes_temp = constantes.liste_couleurs.get(teinte_l)
-        if liste_teintes_temp is None:
+        except:
             return
 
-        # Récupérer le thème sélectionné
-        theme_selectionne = self.theme_combo.currentText()
-
-        # Récupérer la clé pour le thème
-        theme_l = fonctions_utiles_2_0.obtenir_clef_par_valeur(
-            dictionnaire=constantes.parametres_traduits["themes_cartes"].get(langue_l, {}),
-            valeur=theme_selectionne,
-        )
-
-        # Vérifier si le thème est valide
-        if theme_l is None:
-            return  # Sortir si thème non trouvé
-
-        # Récupérer les données pour le thème
-        liste_theme_temp = constantes.liste_ambiances.get(theme_l)
-        if liste_theme_temp is None:
+        # Sortie si une valeur n'existe pas
+        if liste_theme_temp is None or liste_teintes_temp is None:
             return
 
         # Appliquer les styles dynamiques
@@ -784,7 +794,6 @@ class SettingsApp(QWidget):
                 valeur=self.langue_utilisee.currentText(),
                 dictionnaire=constantes.dict_langues_dispo,
             ),
-            "theme": self.theme_combo.currentText(),
             "couleur_fond_carte": self.couleur_fond_checkbox.isChecked(),
             "qualite": self.curseur_qualite.value(),
             "format": self.format_cartes.currentText(),
@@ -831,7 +840,7 @@ class SettingsApp(QWidget):
         }.get(settings["limite_nb_cartes"], None)
 
         settings["theme"] = fonctions_utiles_2_0.obtenir_clef_par_valeur(
-            valeur=settings["theme"],
+            valeur=self.theme_combo.currentText(),
             dictionnaire=constantes.parametres_traduits["themes_cartes"][settings["langue"]],
         )
 
@@ -853,16 +862,14 @@ class SettingsApp(QWidget):
             )
 
             # Coche signalant la sauvegarde
-            if sauvegarder_seulement:
-                self.bouton_sauvegarde.setText("💾✅")
-                self.tab_yaml.set_emoji_sauvegarde()
-                QTimer.singleShot(3000, lambda: self.bouton_sauvegarde.setText("💾"))
+            self.bouton_sauvegarde.setText("💾✅")
+            self.tab_yaml.set_emoji_sauvegarde()
+            QTimer.singleShot(3000, lambda: self.bouton_sauvegarde.setText("💾"))
 
         elif self.dicts_granu["dep"] == {} and self.dicts_granu["region"] == {}:
 
-            phrase_yaml = self.traduire_depuis_id("pop_up_aucun_lieu_coche", suffixe=".")
             self.montrer_popup(
-                contenu=phrase_yaml,
+                contenu=self.traduire_depuis_id("pop_up_aucun_lieu_coche", suffixe="."),
                 titre=self.traduire_depuis_id("pop_up_probleme_titre", suffixe="."),
                 temps_max=10000,
             )
@@ -934,8 +941,6 @@ class SettingsApp(QWidget):
         granularite = {"Pays": 0, "Région": 1, "Département": 2}.get(
             settings.get("granularite"), -1
         )
-
-        granularite_fond = {"Pays": 0, "Région": 1}.get(settings.get("granularite_fond"), 2)
 
         # Gestion des régions du monde
         liste_regions_temp = {}
@@ -1017,7 +1022,7 @@ class SettingsApp(QWidget):
             "direction_resultat": settings["dossier_stockage"],
             "langue": settings["langue"],
             "granularite_visite": granularite,
-            "granularite_reste": granularite_fond,
+            "granularite_reste": {"Pays": 0, "Région": 1}.get(settings.get("granularite_fond"), 2),
             "theme": constantes.liste_ambiances[settings["theme"]],
             "teinte": constantes.liste_couleurs[settings["couleur"]],
             "couleur_fond": "#CDEAF7" if settings["couleur_fond_carte"] else "#FFFFFF",

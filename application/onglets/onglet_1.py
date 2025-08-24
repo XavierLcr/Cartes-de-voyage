@@ -58,8 +58,8 @@ class CreerCartes(QObject):
 
     def run(self):
 
-        # --- Partie déplacée de publier_cartes ---
-        granularite = {"Pays": 0, "Région": 1, "Département": 2}.get(
+        # === Ajustement des variables ===
+        self.granularite = {"Pays": 0, "Région": 1, "Département": 2}.get(
             self.parametres.get("granularite"), -1
         )
 
@@ -119,7 +119,7 @@ class CreerCartes(QObject):
             nom_indiv=self.parametres["nom"],
             direction_resultat=self.parametres["dossier_stockage"],
             langue=self.parametres["langue"],
-            granularite_visite=granularite,
+            granularite_visite=self.granularite,
             granularite_reste={"Pays": 0, "Région": 1}.get(
                 self.parametres.get("granularite_fond"), 2
             ),
@@ -147,15 +147,11 @@ class CreerCartes(QObject):
         return (
             (
                 (len(list(dict_regions.keys())) if dict_regions is not None else 0)
+                * int((self.parametres["sortir_cartes_granu_inf"] or self.granularite < 2))
                 + (len(list(dict_departement.keys())) if dict_departement is not None else 0)
             )
             * self.parametres["cartes_des_pays"]
-            * (
-                {"Pays": 0, "Région": 1, "Département": 2}.get(
-                    self.parametres.get("granularite"), -1
-                )
-                != 0
-            )
+            * int(self.granularite != 0)
             + len(self.liste_regions_temp)
             + int(self.parametres["carte_du_monde"])
         )

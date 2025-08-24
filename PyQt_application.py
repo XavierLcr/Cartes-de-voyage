@@ -897,7 +897,7 @@ class MesVoyagesApplication(QWidget):
         else:
 
             self.exporter_liste_parametres()  # Export des paramètres
-            self.publier_cartes(settings)  # Publication des cartes
+            self.publier_cartes(settings | {"liste_dfs": liste_gdfs})  # Publication des cartes
 
     def montrer_popup(
         self,
@@ -942,8 +942,6 @@ class MesVoyagesApplication(QWidget):
         self.onglet_top_pays_visites.set_dicts_granu(dict_nv=self.dicts_granu)
 
     def publier_cartes(self, parametres):
-
-        parametres |= {"liste_dfs": liste_gdfs}
 
         # Initialisation de l'objet et de la barre de progression
         self.creation_cartes = onglet_1.CreerCartes(params=parametres, constantes=constantes)

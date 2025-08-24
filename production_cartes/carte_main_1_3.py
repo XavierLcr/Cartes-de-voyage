@@ -138,9 +138,6 @@ def creer_graphiques_pays(
 
         langue_i = pays_trad.get(liste_pays_visites[i], {}).get(langue, liste_pays_visites[i])
 
-        if tracker:
-            tracker.notify(langue_i)
-
         if blabla == True and (i + 1) % 5 == 0 and (i + 1) != len(liste_pays_visites):
             print(f"{i+1}/{len(liste_pays_visites)} : {langue_i}", end=".\n")
         elif blabla == True:
@@ -159,9 +156,17 @@ def creer_graphiques_pays(
         gdf_fond_regions_i = gdf_fond_regions.copy()
 
         if groupe_pays_res_i["deja_fait"] == True and groupe_pays_res_i["dans_la_liste"] == True:
+
+            gdf_i = gdf_visite[gdf_visite["Pays"] == liste_pays_visites[i]]
+            if (
+                sortir_cartes_granu_inf == True
+                or max(gdf_i.loc[gdf_i["Visite"] == 1, "Granu"]) >= granularite_objectif
+            ) and tracker:
+                tracker.notify(langue_i)
+
             continue
 
-        if groupe_pays_res_i["deja_fait"] == False and groupe_pays_res_i["dans_la_liste"] == True:
+        elif groupe_pays_res_i["deja_fait"] == False and groupe_pays_res_i["dans_la_liste"] == True:
 
             langue_i = groupe_pays_res_i["nom_langue"]
             gdf_i = groupe_pays_res_i["gdf_reduit"]
@@ -191,6 +196,9 @@ def creer_graphiques_pays(
             sortir_cartes_granu_inf == True
             or max(gdf_i.loc[gdf_i["Visite"] == 1, "Granu"]) >= granularite_objectif
         ):
+
+            if tracker:
+                tracker.notify(langue_i)
 
             creer_graphique_1_2.creer_image_carte(
                 gdf=gdf_i,

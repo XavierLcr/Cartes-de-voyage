@@ -7,6 +7,7 @@
 import os, pickle, yaml
 from PyQt6.QtWidgets import QHBoxLayout, QFrame, QLabel
 from PyQt6.QtCore import Qt
+from collections import defaultdict
 
 
 def creer_QLabel_centre(text: str | None = None, parent=None):
@@ -94,13 +95,58 @@ def creer_classement_pays(
     return gdf_visite if top_n is None else gdf_visite.head(top_n)
 
 
-def nb_pays_visites(dict_granu: dict, continents: dict):
+def valeurs_dans_plusieurs_listes(d):
+    valeur_cles = defaultdict(list)
+
+    # On parcourt le dictionnaire et on enregistre pour chaque valeur les clés où elle apparaît
+    for cle, liste in d.items():
+        for val in liste:
+            valeur_cles[val].append(cle)
+
+    # Ne garder que les valeurs qui apparaissent dans plusieurs listes
+    return {val: cles for val, cles in valeur_cles.items() if len(cles) > 1}
+
+
+def nb_pays_visites(
+    dict_granu: dict,
+    continents: dict,
+    a_supprimer: dict = {
+        "Africa": [
+            "French Southern Territories",
+            "Portugal",
+            "Saint Helena, Ascension and Tris",
+            "Spain",
+        ],
+        "Asia": [
+            "Akrotiri and Dhekelia",
+            "Armenia",
+            "Azerbaijan",
+            "Cyprus",
+            "Egypt",
+            "Georgia",
+            "Northern Cyprus",
+            "Turkey",
+        ],
+        "Oceania": ["Indonesia"],
+        "North America": ["United States Minor Outlying Isl", "Grenada"],
+        "South America": ["Bonaire, Sint Eustatius and Saba", "Panama"],
+    },
+):
+
+    # Suppression du Moyen-Orient
+    if "Middle East" in list(continents.keys()):
+        del continents["Middle East"]
+
+    # Suppression des doublons
+    continents = {
+        continent: [pays for pays in liste_pays if pays not in a_supprimer.get(continent, [])]
+        for continent, liste_pays in continents.items()
+    }
+
+    print(valeurs_dans_plusieurs_listes(continents), end="\n\n")
 
     resultat = {}
     for continent in list(continents.keys()):
-
-        if continent in ["Middle East"]:
-            pass
 
         resultat[continent] = {
             # Nombre de pays dans le continents
@@ -117,7 +163,7 @@ def nb_pays_visites(dict_granu: dict, continents: dict):
             ),
         }
 
-    print(resultat)
+    print(resultat, end="\n\n")
     return resultat
 
 

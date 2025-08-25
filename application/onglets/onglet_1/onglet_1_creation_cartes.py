@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
-# application/classes                                                          #
-# Onglet 1 – Paramètres et création des cartes                                 #
+# application/onglets/onglet_1                                                          #
+# Onglet 1 – Création des cartes                                               #
 ################################################################################
 
 

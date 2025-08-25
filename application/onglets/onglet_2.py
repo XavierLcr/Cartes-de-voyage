@@ -1,6 +1,6 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
-# application/classes                                                          #
+# application/onglets                                                          #
 # Onglet 2 – Sélection des destinations                                        #
 ################################################################################
 

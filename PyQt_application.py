@@ -34,7 +34,8 @@ from PyQt6.QtCore import Qt, QTimer, QThread
 import constantes
 from production_cartes import creer_graphique_1_2
 from application import fonctions_utiles_2_0
-from application.onglets import onglet_1, onglet_2, onglet_3, onglet_5
+from application.onglets.onglet_1 import onglet_1_creation_cartes
+from application.onglets import onglet_2, onglet_3, onglet_5
 from application.onglets.onglet_4 import onglet_4
 
 
@@ -923,7 +924,9 @@ class MesVoyagesApplication(QWidget):
     def publier_cartes(self, parametres):
 
         # Initialisation de l'objet et de la barre de progression
-        self.creation_cartes = onglet_1.CreerCartes(params=parametres, constantes=constantes)
+        self.creation_cartes = onglet_1_creation_cartes.CreerCartes(
+            params=parametres, constantes=constantes
+        )
         self.creation_cartes.nb_graphes.connect(self.initialiser_progression)
         self.creation_cartes.tracker_signal.connect(self.afficher_avancement)
 

@@ -76,9 +76,9 @@ class MesVoyagesApplication(QWidget):
         # Publication des cartes
         self.onglet_parametres.creation_cartes_bouton.clicked.connect(self.publier_cartes)
         # Mise à jour du style
-        self.onglet_parametres.utiliser_theme.stateChanged.connect(self.maj_style)
-        self.onglet_parametres.color_combo.currentTextChanged.connect(self.maj_style)
-        self.onglet_parametres.theme_combo.currentTextChanged.connect(self.maj_style)
+        self.onglet_parametres.utiliser_theme.stateChanged.connect(self.set_style)
+        self.onglet_parametres.color_combo.currentTextChanged.connect(self.set_style)
+        self.onglet_parametres.theme_combo.currentTextChanged.connect(self.set_style)
         # Suppression d'un individu
         self.onglet_parametres.suppression_profil.clicked.connect(
             lambda: self.supprimer_clef(self.onglet_parametres.nom_individu.currentText())
@@ -95,7 +95,7 @@ class MesVoyagesApplication(QWidget):
             fct_pop_up=self.montrer_popup,
         )
         self.tabs.addTab(self.selection_destinations, "Création de la liste des pays visités")
-        self.selection_destinations.dict_modif.connect(self.maj_dict_granu)
+        self.selection_destinations.dict_modif.connect(self.set_dictionnaire_destinations)
 
         # Troisième onglet
         self.onglet_resume_pays = onglet_3.OngletResumeDestinations(
@@ -281,7 +281,7 @@ class MesVoyagesApplication(QWidget):
             else traduction
         )
 
-    def maj_style(self):
+    def set_style(self):
 
         try:
 
@@ -445,7 +445,7 @@ class MesVoyagesApplication(QWidget):
         else:
             return msg
 
-    def maj_dict_granu(self, dictionnaire: dict):
+    def set_dictionnaire_destinations(self, dictionnaire: dict):
         self.dicts_granu = dictionnaire
         self.onglet_resume_pays.set_dicts_granu(dict_nv=copy.deepcopy(self.dicts_granu))
         self.onglet_top_pays_visites.set_dicts_granu(dict_nv=copy.deepcopy(self.dicts_granu))
@@ -470,9 +470,7 @@ class MesVoyagesApplication(QWidget):
 
             # Dossier de publication
             if sauv.get("dossier_stockage") is not None:
-                self.dossier_stockage = sauv.get("dossier_stockage")
-                self.onglet_parametres.set_dossier(dossier=self.dossier_stockage)
-                self.selection_destinations.set_dossier(dossier=self.dossier_stockage)
+                self.set_dossier(dossier=sauv.get("dossier_stockage"), onglet_parametres=True)
 
             # Langue
             if sauv.get("langue") is not None:
@@ -552,9 +550,7 @@ class MesVoyagesApplication(QWidget):
         self.selection_destinations.set_dict_granu(dictionnaire=self.dicts_granu)
 
         # Dossier
-        self.dossier_stockage = None
-        self.selection_destinations.set_dossier(dossier=self.dossier_stockage)
-        self.onglet_parametres.set_dossier(dossier=self.dossier_stockage)
+        self.set_dossier(dossier=None)
 
         self.onglet_parametres.radio_carte_2.setChecked(True)
         self.onglet_parametres.langue_utilisee.setCurrentIndex(0)
@@ -592,7 +588,7 @@ class MesVoyagesApplication(QWidget):
         self.onglet_top_pays_visites.set_dicts_granu(dict_nv=self.dicts_granu)
 
         self.set_langue_interface()
-        self.maj_style()
+        self.set_style()
 
     def supprimer_clef(self, clef):
         global sauvegarde
@@ -632,11 +628,15 @@ class MesVoyagesApplication(QWidget):
             self.dicts_granu = {"region": {}, "dep": {}}
             self.set_langue_interface()
 
-    def set_dossier(self, dossier):
-        self.selection_destinations.dossier_stockage = dossier
+    def set_dossier(self, dossier, onglet_parametres=False):
+        self.dossier = dossier
+        self.selection_destinations.set_dossier(dossier=dossier)
+        if onglet_parametres:
+            self.onglet_parametres.set_dossier(dossier=dossier)
 
 
 if __name__ == "__main__":
+
     app = QApplication(sys.argv)
 
     # Création d'une liste vide pour stocker les GDF

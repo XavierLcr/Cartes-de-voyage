@@ -22,32 +22,16 @@ class OngletTopPays(QWidget):
         self,
         constantes,
         parent,
-        mise_en_page: int,  # 0 ou 1
-        # Hémicycle
-        n_rangees,
-        points_base,
-        points_increment,
-        lighter_value,
-        continent_colors,
-        # Classement
-        top_n,
-        ndigits,
     ):
         super().__init__(parent)
 
-        self.mise_en_page = mise_en_page
+        self.mise_en_page = constantes.parametres_application["onglet_4_mise_en_page"]
 
         # === Création des pages
 
         ## === Onglet Hémicycle ===
         self.hemicycle = onglet_4_1_hemicycle.HemicycleWidget(
-            continents=constantes.liste_regions_monde,
             constantes=constantes,
-            n_rangees=n_rangees,
-            points_base=points_base,
-            points_increment=points_increment,
-            lighter_value=lighter_value,
-            continent_colors=continent_colors,
         )
         page_hemicycle = QWidget()
         layout_hemicycle = QVBoxLayout(page_hemicycle)
@@ -56,8 +40,6 @@ class OngletTopPays(QWidget):
         ## === Onglet Classement ===
         self.classement_widget = onglet_4_2_classement.ClassementPays(
             constantes=constantes,
-            top_n=top_n,
-            ndigits=ndigits,
         )
 
         # === Mise en page ===

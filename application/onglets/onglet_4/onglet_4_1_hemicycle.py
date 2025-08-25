@@ -17,26 +17,27 @@ from application.fonctions_utiles_2_0 import nb_pays_visites, reordonner_dict, s
 
 # Classe de type hémicycle
 class HemicycleWidget(QWidget):
+
     def __init__(
         self,
         constantes,
-        continents,
-        n_rangees=9,
-        points_base=15,
-        points_increment=4,
-        lighter_value=150,
-        continent_colors: dict = {},
     ):
 
         super().__init__()
         self.pays_visites = {"region": {}, "dep": {}}
-        self.continents = continents
+        self.continents = constantes.liste_regions_monde
         self.constantes = constantes
         self.langue = "français"
-        self.num_levels = max(min(n_rangees, 20), 4)  # Nombre de niveaux dans l'hémicycle
-        self.base_points = max(points_base, 5)  # Nombre de points de base pour le premier niveau
-        self.points_increment = max(points_increment, 1)  # Incrément du nombre de points par niveau
-        self.lighter_value = lighter_value
+        self.num_levels = max(
+            min(constantes.parametres_application["n_rangees"], 20), 4
+        )  # Nombre de niveaux dans l'hémicycle
+        self.base_points = max(
+            constantes.parametres_application["points_base"], 5
+        )  # Nombre de points de base pour le premier niveau
+        self.points_increment = max(
+            constantes.parametres_application["points_increment"], 1
+        )  # Incrément du nombre de points par niveau
+        self.lighter_value = constantes.parametres_application["lighter_value"]
         self.ordre_clefs = [
             "Antarctica",
             "Africa",
@@ -60,14 +61,15 @@ class HemicycleWidget(QWidget):
             )
 
         # Couleurs pour chaque continent
+        self.continent_colors = constantes.parametres_application["couleurs_continents"]
         self.continent_colors = {
-            "Africa": QColor(continent_colors.get("Africa", "#3454D1")),
-            "Antarctica": QColor(continent_colors.get("Antarctica", "#2E8B57")),
-            "Asia": QColor(continent_colors.get("Asia", "#C3423F")),
-            "Europe": QColor(continent_colors.get("Europe", "#7B4B94")),
-            "North America": QColor(continent_colors.get("North America", "#2A7F9E")),
-            "Oceania": QColor(continent_colors.get("Oceania", "#E27D60")),
-            "South America": QColor(continent_colors.get("South America", "#4A7856")),
+            "Africa": QColor(self.continent_colors.get("Africa", "#3454D1")),
+            "Antarctica": QColor(self.continent_colors.get("Antarctica", "#2E8B57")),
+            "Asia": QColor(self.continent_colors.get("Asia", "#C3423F")),
+            "Europe": QColor(self.continent_colors.get("Europe", "#7B4B94")),
+            "North America": QColor(self.continent_colors.get("North America", "#2A7F9E")),
+            "Oceania": QColor(self.continent_colors.get("Oceania", "#E27D60")),
+            "South America": QColor(self.continent_colors.get("South America", "#4A7856")),
         }
 
         self.creer_hemicycle()
@@ -77,10 +79,6 @@ class HemicycleWidget(QWidget):
 
     def center_y(self):
         return self.height() * 0.9
-
-    # def resizeEvent(self, event):
-    #     self.update()
-    #     super().resizeEvent(event)
 
     def creer_coordonnées(self):
         coords_angles = []

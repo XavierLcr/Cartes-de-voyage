@@ -422,16 +422,6 @@ class MesVoyagesApplication(QWidget):
         self.onglet_top_pays_visites = onglet_4.OngletTopPays(
             constantes=constantes,
             parent=None,
-            mise_en_page=constantes.parametres_application["onglet_4_mise_en_page"],
-            # Classement
-            top_n=constantes.parametres_application["top_n_pays"],
-            ndigits=constantes.parametres_application["pct_ndigits"],
-            # Hémicycle
-            lighter_value=constantes.parametres_application["lighter_value"],
-            n_rangees=constantes.parametres_application["n_rangees"],
-            points_base=constantes.parametres_application["points_base"],
-            points_increment=constantes.parametres_application["points_increment"],
-            continent_colors=constantes.parametres_application["couleurs_continents"],
         )
         self.tabs.addTab(self.onglet_top_pays_visites, "Pays les plus visités")
 

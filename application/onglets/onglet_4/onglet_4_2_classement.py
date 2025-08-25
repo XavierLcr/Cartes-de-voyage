@@ -27,16 +27,15 @@ class ClassementPays(QWidget):
     def __init__(
         self,
         constantes,
-        top_n: int | None,
-        ndigits: int | None = None,
         parent=None,
     ):
         super().__init__(parent)
 
         # Variables passées en paramètre
         self.constantes = constantes
-        self.top_n = top_n
-        self.ndigits = None if ndigits == 0 else ndigits
+        self.top_n = constantes.parametres_application["top_n_pays"]
+        self.ndigits = constantes.parametres_application["pct_ndigits"]
+        self.ndigits = None if self.ndigits == 0 else self.ndigits
         self.dicts_granu = {"region": {}, "dep": {}}
         self.langue_utilisee = "français"
 

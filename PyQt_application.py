@@ -917,8 +917,8 @@ class MesVoyagesApplication(QWidget):
 
     def maj_dict_granu(self, dictionnaire: dict):
         self.dicts_granu = dictionnaire
-        self.onglet_resume_pays.set_dicts_granu(dict_nv=self.dicts_granu)
-        self.onglet_top_pays_visites.set_dicts_granu(dict_nv=self.dicts_granu)
+        self.onglet_resume_pays.set_dicts_granu(dict_nv=copy.deepcopy(self.dicts_granu))
+        self.onglet_top_pays_visites.set_dicts_granu(dict_nv=copy.deepcopy(self.dicts_granu))
 
     def publier_cartes(self, parametres):
 

@@ -21,7 +21,6 @@ class OngletTopPays(QWidget):
     def __init__(
         self,
         constantes,
-        langue_utilisee,
         parent,
         mise_en_page: int,  # 0 ou 1
         # Hémicycle
@@ -30,7 +29,6 @@ class OngletTopPays(QWidget):
         points_increment,
         lighter_value,
         continent_colors,
-        dicts_granu,
         # Classement
         top_n,
         ndigits,
@@ -45,7 +43,6 @@ class OngletTopPays(QWidget):
         self.hemicycle = onglet_4_1_hemicycle.HemicycleWidget(
             continents=constantes.liste_regions_monde,
             constantes=constantes,
-            langue=langue_utilisee,
             n_rangees=n_rangees,
             points_base=points_base,
             points_increment=points_increment,
@@ -58,9 +55,7 @@ class OngletTopPays(QWidget):
 
         ## === Onglet Classement ===
         self.classement_widget = onglet_4_2_classement.ClassementPays(
-            dicts_granu=dicts_granu,
             constantes=constantes,
-            langue_utilisee=langue_utilisee,
             top_n=top_n,
             ndigits=ndigits,
         )

@@ -23,16 +23,14 @@ class OngletResumeDestinations(QWidget):
         self,
         traduire_depuis_id,
         constantes,
-        langue_utilisee,
-        dicts_granu,
         parent=None,
     ):
         super().__init__(parent)
 
         self.traduire_depuis_id = traduire_depuis_id
         self.constantes = constantes
-        self.dicts_granu = dicts_granu
-        self.langue_utilisee = langue_utilisee
+        self.dicts_granu = {"region": {}, "dep": {}}
+        self.langue_utilisee = "français"
 
         self.layout_onglet_3 = QVBoxLayout()
         self.layout_resume_pays = QHBoxLayout()

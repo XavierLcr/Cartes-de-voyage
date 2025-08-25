@@ -415,22 +415,12 @@ class MesVoyagesApplication(QWidget):
         self.onglet_resume_pays = onglet_3.OngletResumeDestinations(
             traduire_depuis_id=self.traduire_depuis_id,
             constantes=constantes,
-            dicts_granu=self.dicts_granu,
-            langue_utilisee=fonctions_utiles_2_0.obtenir_clef_par_valeur(
-                dictionnaire=constantes.dict_langues_dispo,
-                valeur=self.langue_utilisee.currentText(),
-            ),
         )
         self.tabs.addTab(self.onglet_resume_pays, "📊")
 
         # Quatrième onglet
         self.onglet_top_pays_visites = onglet_4.OngletTopPays(
-            dicts_granu=self.dicts_granu,
             constantes=constantes,
-            langue_utilisee=fonctions_utiles_2_0.obtenir_clef_par_valeur(
-                dictionnaire=constantes.dict_langues_dispo,
-                valeur=self.langue_utilisee.currentText(),
-            ),
             parent=None,
             mise_en_page=constantes.parametres_application["onglet_4_mise_en_page"],
             # Classement

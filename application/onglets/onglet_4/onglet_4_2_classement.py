@@ -26,25 +26,19 @@ from application.fonctions_utiles_2_0 import (
 class ClassementPays(QWidget):
     def __init__(
         self,
-        dicts_granu: dict,
         constantes,
-        langue_utilisee: str,
         top_n: int | None,
         ndigits: int | None = None,
         parent=None,
     ):
         super().__init__(parent)
 
-        # Correction
-        if ndigits == 0:
-            ndigits = None
-
         # Variables passées en paramètre
-        self.dicts_granu = dicts_granu
         self.constantes = constantes
-        self.langue_utilisee = langue_utilisee
         self.top_n = top_n
-        self.ndigits = ndigits
+        self.ndigits = None if ndigits == 0 else ndigits
+        self.dicts_granu = {"region": {}, "dep": {}}
+        self.langue_utilisee = "français"
 
         # --- Bloc "Top pays par région" ---
         self.entete_top_pays_regions = QLabel(alignment=Qt.AlignmentFlag.AlignCenter)

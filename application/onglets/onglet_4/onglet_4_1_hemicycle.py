@@ -21,7 +21,6 @@ class HemicycleWidget(QWidget):
         self,
         constantes,
         continents,
-        langue,
         n_rangees=9,
         points_base=15,
         points_increment=4,
@@ -33,7 +32,7 @@ class HemicycleWidget(QWidget):
         self.pays_visites = {"region": {}, "dep": {}}
         self.continents = continents
         self.constantes = constantes
-        self.langue = langue
+        self.langue = "français"
         self.num_levels = max(min(n_rangees, 20), 4)  # Nombre de niveaux dans l'hémicycle
         self.base_points = max(points_base, 5)  # Nombre de points de base pour le premier niveau
         self.points_increment = max(points_increment, 1)  # Incrément du nombre de points par niveau

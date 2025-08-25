@@ -54,7 +54,6 @@ class MesVoyagesApplication(QWidget):
         self.tabs = QTabWidget()
 
         # Variables globales
-        self.nom = ""
         self.langue = "français"
 
         self.onglet_parametres = onglet_1.OngletParametres(
@@ -127,14 +126,14 @@ class MesVoyagesApplication(QWidget):
         self.onglet_parametres.nom_individu.currentIndexChanged.connect(
             lambda: self.initialiser_sauvegarde(sauvegarde)
         )
-        # self.nom_individu.editTextChanged.connect(
+        # self.onglet_parametres.nom_individu.editTextChanged.connect(
         #     lambda: self.initialiser_sauvegarde(sauvegarde)
         # )
 
         self.onglet_parametres.nom_individu.currentIndexChanged.connect(
             lambda: self.set_langue_interface()
         )
-        # self.nom_individu.editTextChanged.connect(
+        # self.onglet_parametres.nom_individu.editTextChanged.connect(
         #     lambda: self.set_langue_interface()
         # )
 

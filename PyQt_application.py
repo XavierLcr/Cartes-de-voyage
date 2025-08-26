@@ -72,7 +72,9 @@ class MesVoyagesApplication(QWidget):
             lambda: self.reinitialisation_parametres(True)
         )
         # Export
-        self.onglet_parametres.bouton_sauvegarde.clicked.connect(self.exporter_liste_parametres)
+        self.onglet_parametres.bouton_sauvegarde.clicked.connect(
+            self.exporter_liste_parametres
+        )
         # Publication des cartes
         self.onglet_parametres.creation_cartes_bouton.clicked.connect(self.publier_cartes)
         # Mise à jour du style
@@ -112,7 +114,9 @@ class MesVoyagesApplication(QWidget):
         self.tabs.addTab(self.onglet_top_pays_visites, "Pays les plus visités")
 
         # Cinquième onglet
-        self.onglet_description_application = onglet_5.OngletInformations()
+        self.onglet_description_application = onglet_5.OngletInformations(
+            fct_traduire=self.traduire_depuis_id, version_logiciel=constantes.version_logiciel
+        )
         self.tabs.addTab(self.onglet_description_application, "ℹ️")
 
         # Définir le QTabWidget comme layout principal pour le widget principal
@@ -150,14 +154,6 @@ class MesVoyagesApplication(QWidget):
         self.onglet_parametres.titre.setText(self.traduire_depuis_id(clef="titre_application"))
 
         self.tabs.setTabText(
-            self.tabs.indexOf(self.onglet_parametres),
-            self.traduire_depuis_id(
-                "titre_onglet_1",
-                suffixe=(" 🎨"),
-            ),
-        )
-
-        self.tabs.setTabText(
             self.tabs.indexOf(self.selection_destinations),
             self.traduire_depuis_id(
                 "titre_onglet_2",
@@ -180,12 +176,15 @@ class MesVoyagesApplication(QWidget):
                 suffixe=(" 📊"),
             ),
         )
-        self.tabs.setTabToolTip(
-            self.tabs.indexOf(self.onglet_top_pays_visites),
-            self.traduire_depuis_id("description_onglet_4", suffixe="."),
-        )
 
         # Onglet 1
+        self.tabs.setTabText(
+            self.tabs.indexOf(self.onglet_parametres),
+            self.traduire_depuis_id(
+                "titre_onglet_1",
+                suffixe=(" 🎨"),
+            ),
+        )
         self.onglet_parametres.set_langue()
 
         # Onglet 2
@@ -195,6 +194,10 @@ class MesVoyagesApplication(QWidget):
         self.onglet_resume_pays.set_langue(nouvelle_langue=self.langue)
 
         # Onglet 4
+        self.tabs.setTabToolTip(
+            self.tabs.indexOf(self.onglet_top_pays_visites),
+            self.traduire_depuis_id("description_onglet_4", suffixe="."),
+        )
         self.onglet_top_pays_visites.set_entetes(
             texte_region=self.traduire_depuis_id(
                 "classement_selon_regions", prefixe="<b>", suffixe="</b>"
@@ -214,22 +217,8 @@ class MesVoyagesApplication(QWidget):
 
         self.onglet_top_pays_visites.set_langue(nouvelle_langue=self.langue)
 
-        # # Onglet 5
-        self.onglet_description_application.set_description(
-            self.traduire_depuis_id(
-                "description_application",
-                prefixe=self.traduire_depuis_id(
-                    "version",
-                    prefixe=self.traduire_depuis_id(
-                        "sous_titre_description_application",
-                        prefixe="<h2>MesVoyages – ",
-                        suffixe="<br>(",
-                    ),
-                    suffixe=f" {constantes.version_logiciel})</h2><hr>",
-                ),
-                suffixe="<br>",
-            )
-        )
+        # Onglet 5
+        self.onglet_description_application.set_langue()
 
     def traduire_depuis_id(
         self,
@@ -269,7 +258,9 @@ class MesVoyagesApplication(QWidget):
 
         # Récupération de la traduction
         traduction = (
-            prefixe + constantes.outil_differentes_langues.get(clef, {}).get(langue, clef) + suffixe
+            prefixe
+            + constantes.outil_differentes_langues.get(clef, {}).get(langue, clef)
+            + suffixe
         )
 
         # Troncature si nécessaire

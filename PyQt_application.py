@@ -118,6 +118,11 @@ class MesVoyagesApplication(QWidget):
 
         self.onglet_top_pays_visites = onglet_4.OngletTopPays(
             constantes=constantes,
+            table_superficie=fonctions_utiles_2_0.ouvrir_fichier(
+                direction_fichier=constantes.direction_donnees_pickle,
+                nom_fichier="table_superficie.pkl",
+                defaut=None,
+            ),
             parent=None,
         )
         self.tabs.addTab(self.onglet_top_pays_visites, "Pays les plus visités")

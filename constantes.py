@@ -86,13 +86,6 @@ gdf_lacs = ouvrir_fichier(
     defaut=None,
 )
 
-# Import dela table des superficies
-table_superficie = ouvrir_fichier(
-    direction_fichier=direction_donnees_pickle,
-    nom_fichier="table_superficie.pkl",
-    defaut=None,
-)
-
 
 # ––––––– Import des données YAML internes –––––––
 

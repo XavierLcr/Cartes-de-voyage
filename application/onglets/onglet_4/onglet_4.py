@@ -21,6 +21,7 @@ class OngletTopPays(QWidget):
     def __init__(
         self,
         constantes,
+        table_superficie,
         parent,
     ):
         super().__init__(parent)
@@ -39,7 +40,7 @@ class OngletTopPays(QWidget):
 
         ## === Onglet Classement ===
         self.classement_widget = onglet_4_2_classement.ClassementPays(
-            constantes=constantes,
+            constantes=constantes, table_superficie=table_superficie
         )
 
         # === Mise en page ===

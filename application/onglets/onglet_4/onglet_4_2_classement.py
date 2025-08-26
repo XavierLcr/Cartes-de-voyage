@@ -27,12 +27,14 @@ class ClassementPays(QWidget):
     def __init__(
         self,
         constantes,
+        table_superficie,
         parent=None,
     ):
         super().__init__(parent)
 
         # Variables passées en paramètre
         self.constantes = constantes
+        self.table_superficie = table_superficie
         self.top_n = constantes.parametres_application["top_n_pays"]
         self.ndigits = constantes.parametres_application["pct_ndigits"]
         self.ndigits = None if self.ndigits == 0 else self.ndigits
@@ -93,12 +95,10 @@ class ClassementPays(QWidget):
         # Complétion des régions à partir des départements
         dict_regions = self.dicts_granu["region"]
         for pays, deps in self.dicts_granu["dep"].items():
-            mask = (self.constantes.table_superficie["NAME_0"] == pays) & (
-                self.constantes.table_superficie["NAME_2"].isin(deps)
+            mask = (self.table_superficie["NAME_0"] == pays) & (
+                self.table_superficie["NAME_2"].isin(deps)
             )
-            dict_regions[pays] = (
-                self.constantes.table_superficie.loc[mask, "NAME_1"].unique().tolist()
-            )
+            dict_regions[pays] = self.table_superficie.loc[mask, "NAME_1"].unique().tolist()
 
         self.vider_layout(vbox)
 
@@ -117,7 +117,7 @@ class ClassementPays(QWidget):
                     ],
                     columns=["Pays", "Region"],
                 ),
-                table_superficie=self.constantes.table_superficie,
+                table_superficie=self.table_superficie,
                 granularite=granularite,
                 top_n=self.top_n,
             )

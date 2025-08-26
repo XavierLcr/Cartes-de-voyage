@@ -88,13 +88,7 @@ class ClassementPays(QWidget):
             if child.widget():
                 child.widget().deleteLater()
 
-    def lancer_classement_pays(
-        self,
-        granularite: int,
-        top_n: int | None,
-        vbox: QGridLayout,
-        ndigits: int | None = None,
-    ):
+    def lancer_classement_pays(self, granularite: int, vbox: QGridLayout):
 
         # Complétion des régions à partir des départements
         dict_regions = self.dicts_granu["region"]
@@ -125,13 +119,16 @@ class ClassementPays(QWidget):
                 ),
                 table_superficie=self.constantes.table_superficie,
                 granularite=granularite,
-                top_n=top_n,
+                top_n=self.top_n,
             )
 
             for i, (_, row) in enumerate(classement.iterrows()):
                 pays = row["Pays"]
 
-                if i < 3 or round(100 * row["pct_superficie_dans_pays"], ndigits=ndigits) > 0:
+                if (
+                    i < 3
+                    or round(100 * row["pct_superficie_dans_pays"], ndigits=self.ndigits) > 0
+                ):
 
                     indice = ["🥇", "🥈", "🥉"][i] if i < 3 else f"<b>{i + 1}.</b>"
                     label_widget = self.constantes.pays_differentes_langues.get(pays, {}).get(
@@ -144,7 +141,7 @@ class ClassementPays(QWidget):
                     label_widget = (
                         indice
                         + "<br>"
-                        + f"{label_widget}<br>{round(100 * row['pct_superficie_dans_pays'], ndigits=ndigits)} %"
+                        + f"{label_widget}<br>{round(100 * row['pct_superficie_dans_pays'], ndigits=self.ndigits)} %"
                     ).replace(".", ",")
 
                     label_widget = QLabel(label_widget)
@@ -172,26 +169,17 @@ class ClassementPays(QWidget):
         except:
             pass
 
-    def lancer_classement_par_region_departement(
-        self, top_n: int | None = 10, ndigits: int | None = None
-    ):
-        self.lancer_classement_pays(
-            vbox=self.layout_top_pays_regions,
-            granularite=1,
-            top_n=top_n,
-            ndigits=ndigits,
-        )
-        self.lancer_classement_pays(
-            vbox=self.layout_top_pays_deps, granularite=2, top_n=top_n, ndigits=ndigits
-        )
+    def lancer_classement_par_region_departement(self):
+        self.lancer_classement_pays(vbox=self.layout_top_pays_regions, granularite=1)
+        self.lancer_classement_pays(vbox=self.layout_top_pays_deps, granularite=2)
 
     def set_dicts_granu(self, dict_nv):
         self.dicts_granu = dict_nv
-        self.lancer_classement_par_region_departement(top_n=self.top_n, ndigits=self.ndigits)
+        self.lancer_classement_par_region_departement()
 
     def set_langue(self, nouvelle_langue):
         self.langue_utilisee = nouvelle_langue
-        self.lancer_classement_par_region_departement(top_n=self.top_n, ndigits=self.ndigits)
+        self.lancer_classement_par_region_departement()
 
     def set_entetes(self, texte_region, texte_departement):
         self.entete_top_pays_regions.setText(texte_region)

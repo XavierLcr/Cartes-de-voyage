@@ -22,13 +22,13 @@ class OngletResumeDestinations(QWidget):
     def __init__(
         self,
         traduire_depuis_id,
-        constantes,
+        emojis_pays,
         parent=None,
     ):
         super().__init__(parent)
 
         self.traduire_depuis_id = traduire_depuis_id
-        self.constantes = constantes
+        self.emojis_pays = emojis_pays
         self.dicts_granu = {"region": {}, "dep": {}}
         self.langue_utilisee = "français"
 
@@ -75,10 +75,10 @@ class OngletResumeDestinations(QWidget):
         scroll.setWidget(widget)
         return scroll
 
-    def ajouter_partie_a_layout(
-        self, granu, pays_donnees, vbox, affichage_groupe=True, inclure_emojis=True
-    ):
-        label_titre = QLabel(self.traduire_depuis_id(clef=granu, prefixe="<b>", suffixe="</b>"))
+    def ajouter_partie_a_layout(self, granu, pays_donnees, vbox, affichage_groupe=True):
+        label_titre = QLabel(
+            self.traduire_depuis_id(clef=granu, prefixe="<b>", suffixe="</b>")
+        )
         label_titre.setAlignment(Qt.AlignmentFlag.AlignCenter)
         vbox.addWidget(label_titre)
 
@@ -86,7 +86,7 @@ class OngletResumeDestinations(QWidget):
         vbox.addWidget(QLabel(""))
 
         for pays, items in pays_donnees.items():
-            emoji_i = f"{self.constantes.emojis_pays.get(pays, '')} " if inclure_emojis else ""
+            emoji_i = f"{self.emojis_pays.get(pays, '')} "
 
             if affichage_groupe:
                 texte_items = ", ".join(items) if items else "Aucun élément"
@@ -104,7 +104,9 @@ class OngletResumeDestinations(QWidget):
 
             label_sep = QLabel("– " * 3)
             label_sep.setAlignment(
-                Qt.AlignmentFlag.AlignCenter if affichage_groupe else Qt.AlignmentFlag.AlignLeft
+                Qt.AlignmentFlag.AlignCenter
+                if affichage_groupe
+                else Qt.AlignmentFlag.AlignLeft
             )
             vbox.addWidget(label_sep)
 

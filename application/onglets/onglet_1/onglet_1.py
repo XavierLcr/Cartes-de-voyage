@@ -40,7 +40,7 @@ class OngletParametres(QWidget):
 
     envoi_dossier = pyqtSignal(str)
 
-    def __init__(self, constantes, sauvegarde, fct_traduction, fct_pop_up):
+    def __init__(self, constantes, liste_individus, fct_traduction, fct_pop_up):
 
         super().__init__()
 
@@ -70,7 +70,7 @@ class OngletParametres(QWidget):
         self.nom_individu = QComboBox(self)
         self.nom_individu.setEditable(True)
         self.nom_individu.setPlaceholderText(" ")
-        self.nom_individu.addItems(list(sauvegarde.keys()))
+        self.nom_individu.addItems(liste_individus)
         layout_params_individu.addWidget(self.nom_individu)
 
         # Bouton pour choisir le dossier de stockage
@@ -388,7 +388,9 @@ class OngletParametres(QWidget):
             if self.dossier_stockage is None
             else os.sep.join(os.path.normpath(self.dossier_stockage).split(os.sep)[-3:])
         )
-        self.label_langue.setText(self.fonction_traduction(clef="langue_individu", suffixe=" :"))
+        self.label_langue.setText(
+            self.fonction_traduction(clef="langue_individu", suffixe=" :")
+        )
         self.suppression_profil.setText(self.fonction_traduction("supprimer_profil"))
 
         # Granularité des cartes
@@ -422,7 +424,9 @@ class OngletParametres(QWidget):
 
         # Paramètres visuels
         self.groupe_couleurs.setTitle(self.fonction_traduction("titre_params_esthetiques"))
-        self.color_label.setText(self.fonction_traduction(clef="cartes_couleurs", suffixe=" :"))
+        self.color_label.setText(
+            self.fonction_traduction(clef="cartes_couleurs", suffixe=" :")
+        )
         self.theme_label.setText(self.fonction_traduction(clef="cartes_theme", suffixe=" :"))
         self.utiliser_theme.setText(self.fonction_traduction("tick_style_dans_app"))
         self.utiliser_theme.setToolTip(
@@ -437,7 +441,9 @@ class OngletParametres(QWidget):
         )
 
         # Paramètres de format et de qualité
-        self.groupe_params_publication.setTitle(self.fonction_traduction("titre_params_techniques"))
+        self.groupe_params_publication.setTitle(
+            self.fonction_traduction("titre_params_techniques")
+        )
         self.label_format.setText(self.fonction_traduction("cartes_format", suffixe=" :"))
         self.label_qualite.setText(self.fonction_traduction("cartes_qualite", suffixe=" :"))
         self.label_qualite_max.setText(self.fonction_traduction("qualite_elevee"))
@@ -451,12 +457,16 @@ class OngletParametres(QWidget):
         self.radio_carte_1.setText(self.fonction_traduction("cinq_cartes"))
         self.radio_carte_2.setText(self.fonction_traduction("dix_cartes"))
         self.radio_carte_3.setText(self.fonction_traduction("quinze_cartes"))
-        self.radio_carte_sans_limite.setText(self.fonction_traduction("pas_de_limite_de_cartes"))
+        self.radio_carte_sans_limite.setText(
+            self.fonction_traduction("pas_de_limite_de_cartes")
+        )
 
         # Boutons en bas de l'onglet 1
         self.reinit_parametres.setText(self.fonction_traduction("reinitialisation_interface"))
         self.reinit_parametres.setToolTip(
-            self.fonction_traduction("description_bouton_reinitialisation_interface", suffixe=".")
+            self.fonction_traduction(
+                "description_bouton_reinitialisation_interface", suffixe="."
+            )
         )
         self.creation_cartes_bouton.setText(self.fonction_traduction("bouton_publier_cartes"))
         self.creation_cartes_bouton.setToolTip(
@@ -580,7 +590,9 @@ class OngletParametres(QWidget):
             self.creation_cartes.finished.connect(self.thread_temp.quit)
             self.creation_cartes.finished.connect(self.creation_cartes.deleteLater)
             self.thread_temp.finished.connect(self.thread_temp.deleteLater)
-            self.thread_temp.finished.connect(lambda: self.debut_fin_creation_cartes(debut=False))
+            self.thread_temp.finished.connect(
+                lambda: self.debut_fin_creation_cartes(debut=False)
+            )
 
             self.thread_temp.started.connect(self.creation_cartes.run)
             self.thread_temp.start()

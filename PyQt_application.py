@@ -56,9 +56,11 @@ class MesVoyagesApplication(QWidget):
         # Variables globales
         self.langue = "français"
 
+        # === Premier onglet ===
+
         self.onglet_parametres = onglet_1.OngletParametres(
             constantes=constantes,
-            sauvegarde=sauvegarde,
+            liste_individus=list(sauvegarde.keys()),
             fct_traduction=self.traduire_depuis_id,
             fct_pop_up=self.montrer_popup,
         )
@@ -66,6 +68,10 @@ class MesVoyagesApplication(QWidget):
         # Langue
         self.onglet_parametres.langue_utilisee.currentIndexChanged.connect(
             self.set_langue_interface
+        )
+        # Chargement d'un individu
+        self.onglet_parametres.nom_individu.currentIndexChanged.connect(
+            lambda: self.initialiser_sauvegarde(sauvegarde)
         )
         # Réinitialisation
         self.onglet_parametres.reinit_parametres.clicked.connect(
@@ -88,7 +94,8 @@ class MesVoyagesApplication(QWidget):
         # Dossier de stockage
         self.onglet_parametres.envoi_dossier.connect(self.set_dossier)
 
-        # Deuxième onglet
+        # === Deuxième onglet ===
+
         self.dicts_granu = {"region": {}, "dep": {}}
         self.selection_destinations = onglet_2.OngletSelectionnerDestinations(
             constantes=constantes,
@@ -99,47 +106,36 @@ class MesVoyagesApplication(QWidget):
         self.tabs.addTab(self.selection_destinations, "Création de la liste des pays visités")
         self.selection_destinations.dict_modif.connect(self.set_dictionnaire_destinations)
 
-        # Troisième onglet
+        # === Troisième onglet ===
         self.onglet_resume_pays = onglet_3.OngletResumeDestinations(
             traduire_depuis_id=self.traduire_depuis_id,
-            constantes=constantes,
+            emojis_pays=constantes.emojis_pays,
+            parent=None,
         )
         self.tabs.addTab(self.onglet_resume_pays, "📊")
 
-        # Quatrième onglet
+        # === Quatrième onglet ===
+
         self.onglet_top_pays_visites = onglet_4.OngletTopPays(
             constantes=constantes,
             parent=None,
         )
         self.tabs.addTab(self.onglet_top_pays_visites, "Pays les plus visités")
 
-        # Cinquième onglet
+        # === Cinquième onglet ===
+
         self.onglet_description_application = onglet_5.OngletInformations(
             fct_traduire=self.traduire_depuis_id, version_logiciel=constantes.version_logiciel
         )
         self.tabs.addTab(self.onglet_description_application, "ℹ️")
 
-        # Définir le QTabWidget comme layout principal pour le widget principal
+        # === Mise en forme ===
+
         main_layout = QVBoxLayout()
         main_layout.addWidget(self.tabs)
-
-        self.reinitialisation_parametres(nom_aussi=True, set_interface=True)
         self.setLayout(main_layout)
 
-        # Connections aux fonctions
-        self.onglet_parametres.nom_individu.currentIndexChanged.connect(
-            lambda: self.initialiser_sauvegarde(sauvegarde)
-        )
-        # self.onglet_parametres.nom_individu.editTextChanged.connect(
-        #     lambda: self.initialiser_sauvegarde(sauvegarde)
-        # )
-
-        self.onglet_parametres.nom_individu.currentIndexChanged.connect(
-            lambda: self.set_langue_interface()
-        )
-        # self.onglet_parametres.nom_individu.editTextChanged.connect(
-        #     lambda: self.set_langue_interface()
-        # )
+        self.reinitialisation_parametres(nom_aussi=True, set_interface=True)
 
     def set_langue_interface(self):
         """Met à jour les textes des widgets selon la langue sélectionnée."""
@@ -468,14 +464,11 @@ class MesVoyagesApplication(QWidget):
 
             # Langue
             if sauv.get("langue") is not None:
-                self.onglet_parametres.langue_utilisee.blockSignals(True)
                 self.onglet_parametres.langue_utilisee.setCurrentIndex(
                     self.onglet_parametres.langue_utilisee.findText(
                         constantes.dict_langues_dispo.get(sauv.get("langue"), "Français")
                     )
                 )
-                self.onglet_parametres.langue_utilisee.blockSignals(False)
-                self.set_langue_interface()
 
             # Cartes à publier
             checkboxes = {

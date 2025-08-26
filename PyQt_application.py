@@ -524,12 +524,30 @@ class MesVoyagesApplication(QWidget):
             self.selection_destinations.set_dict_granu(dictionnaire=self.dicts_granu)
 
             # Chargement du thème
-            if sauv.get("theme") is not None:
-                self.onglet_parametres.theme_combo.blockSignals(True)
-                self.onglet_parametres.theme_combo.setCurrentIndex(
-                    self.onglet_parametres.theme_combo.findText(sauv.get("theme"))
+            self.onglet_parametres.theme_combo.blockSignals(True)
+            self.onglet_parametres.theme_combo.setCurrentIndex(
+                self.onglet_parametres.theme_combo.findText(
+                    constantes.parametres_traduits["themes_cartes"]
+                    .get(self.langue)
+                    .get(sauv.get("theme"))
                 )
-                self.onglet_parametres.theme_combo.blockSignals(False)
+                if sauv.get("theme") is not None
+                else 0
+            )
+            self.onglet_parametres.theme_combo.blockSignals(False)
+
+            # Chargement de la teinte
+            self.onglet_parametres.color_combo.blockSignals(True)
+            self.onglet_parametres.color_combo.setCurrentIndex(
+                self.onglet_parametres.color_combo.findText(
+                    constantes.parametres_traduits["teintes_couleurs"]
+                    .get(self.langue)
+                    .get(sauv.get("couleur"))
+                )
+                if sauv.get("couleur") is not None
+                else 0
+            )
+            self.onglet_parametres.color_combo.blockSignals(False)
 
             # Limite de cartes
             if sauv.get("max_cartes_additionnelles") is not None:

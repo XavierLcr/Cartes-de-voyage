@@ -145,8 +145,6 @@ class MesVoyagesApplication(QWidget):
             valeur=self.onglet_parametres.langue_utilisee.currentText(),
         )
 
-        print("Langue :", self.langue)
-
         # Titres généraux
         self.setWindowTitle(self.traduire_depuis_id("titre_windows"))
         self.onglet_parametres.titre.setText(self.traduire_depuis_id(clef="titre_application"))

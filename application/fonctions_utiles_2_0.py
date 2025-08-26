@@ -35,10 +35,13 @@ def obtenir_clef_par_valeur(dictionnaire, valeur):
 
 
 def reset_combo(combo, items, set_index=True):
+
+    combo.blockSignals(True)
     combo.clear()
     combo.addItems(items)
     if set_index:
         combo.setCurrentIndex(0)
+    combo.blockSignals(False)
 
 
 def style_bouton_de_suppression(sombre):

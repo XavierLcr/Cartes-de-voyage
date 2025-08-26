@@ -378,6 +378,9 @@ class OngletParametres(QWidget):
             valeur=self.langue_utilisee.currentText(),
         )
 
+        if langue_actuelle is None:
+            return
+
         # Paramètres de l'individu
         self.groupe_params_individu.setTitle(self.fonction_traduction("titre_params_individu"))
         self.dossier_stockage_bouton.setText(
@@ -469,13 +472,13 @@ class OngletParametres(QWidget):
             self.constantes.parametres_traduits["granularite"][langue_actuelle][k]
             for k in ["Pays", "Région", "Département", "Amusant"]
         ]
-        reset_combo(self.granularite_visite, liste_granularite)
-        reset_combo(self.granularite_fond, liste_granularite[:-1], set_index=False)
+        reset_combo(combo=self.granularite_visite, items=liste_granularite)
+        reset_combo(combo=self.granularite_fond, items=liste_granularite[:-1])
 
         # Mise à jour des teintes
         reset_combo(
-            self.color_combo,
-            sorted(
+            combo=self.color_combo,
+            items=sorted(
                 self.constantes.parametres_traduits["teintes_couleurs"]
                 .get(langue_actuelle, {})
                 .values()

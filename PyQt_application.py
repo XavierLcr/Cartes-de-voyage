@@ -119,7 +119,7 @@ class MesVoyagesApplication(QWidget):
         main_layout = QVBoxLayout()
         main_layout.addWidget(self.tabs)
 
-        self.reinitialisation_parametres()
+        self.reinitialisation_parametres(nom_aussi=True, set_interface=True)
         self.setLayout(main_layout)
 
         # Connections aux fonctions
@@ -144,6 +144,8 @@ class MesVoyagesApplication(QWidget):
             dictionnaire=constantes.dict_langues_dispo,
             valeur=self.onglet_parametres.langue_utilisee.currentText(),
         )
+
+        print("Langue :", self.langue)
 
         # Titres généraux
         self.setWindowTitle(self.traduire_depuis_id("titre_windows"))
@@ -462,7 +464,7 @@ class MesVoyagesApplication(QWidget):
 
     def initialiser_sauvegarde(self, sauvegarde_complete):
 
-        self.reinitialisation_parametres(nom_aussi=False)
+        self.reinitialisation_parametres(nom_aussi=False, set_interface=False)
         sauv = sauvegarde_complete.get(self.onglet_parametres.nom_individu.currentText(), {})
 
         # Nom
@@ -474,7 +476,13 @@ class MesVoyagesApplication(QWidget):
 
             # Langue
             if sauv.get("langue") is not None:
-                self.langue = sauv.get("langue")
+                self.onglet_parametres.langue_utilisee.blockSignals(True)
+                self.onglet_parametres.langue_utilisee.setCurrentIndex(
+                    self.onglet_parametres.langue_utilisee.findText(
+                        constantes.dict_langues_dispo.get(sauv.get("langue"), "Français")
+                    )
+                )
+                self.onglet_parametres.langue_utilisee.blockSignals(False)
                 self.set_langue_interface()
 
             # Cartes à publier
@@ -520,6 +528,14 @@ class MesVoyagesApplication(QWidget):
             # Affectation du dictionnaire au deuxième onglet également
             self.selection_destinations.set_dict_granu(dictionnaire=self.dicts_granu)
 
+            # Chargement du thème
+            if sauv.get("theme") is not None:
+                self.onglet_parametres.theme_combo.blockSignals(True)
+                self.onglet_parametres.theme_combo.setCurrentIndex(
+                    self.onglet_parametres.theme_combo.findText(sauv.get("theme"))
+                )
+                self.onglet_parametres.theme_combo.blockSignals(False)
+
             # Limite de cartes
             if sauv.get("max_cartes_additionnelles") is not None:
                 {
@@ -537,7 +553,7 @@ class MesVoyagesApplication(QWidget):
             self.onglet_top_pays_visites.set_dicts_granu(dict_nv=self.dicts_granu)
             self.onglet_resume_pays.set_dicts_granu(dict_nv=self.dicts_granu)
 
-    def reinitialisation_parametres(self, nom_aussi=True):
+    def reinitialisation_parametres(self, nom_aussi: bool = True, set_interface: bool = True):
 
         # Paramètres individuels
         if nom_aussi == True:
@@ -550,10 +566,9 @@ class MesVoyagesApplication(QWidget):
         self.selection_destinations.set_dict_granu(dictionnaire=self.dicts_granu)
 
         # Dossier
-        self.set_dossier(dossier=None)
+        self.set_dossier(dossier=None, onglet_parametres=True)
 
         self.onglet_parametres.radio_carte_2.setChecked(True)
-        self.onglet_parametres.langue_utilisee.setCurrentIndex(0)
 
         # Paramètres de publication
         self.onglet_parametres.curseur_qualite.setValue(
@@ -587,8 +602,9 @@ class MesVoyagesApplication(QWidget):
         self.onglet_resume_pays.set_dicts_granu(dict_nv=self.dicts_granu)
         self.onglet_top_pays_visites.set_dicts_granu(dict_nv=self.dicts_granu)
 
-        self.set_langue_interface()
-        self.set_style()
+        if set_interface:
+            self.set_langue_interface()
+            self.set_style()
 
     def supprimer_clef(self, clef):
         global sauvegarde
@@ -624,9 +640,7 @@ class MesVoyagesApplication(QWidget):
             )
 
             # Réinitialisation des paramètres
-            self.reinitialisation_parametres(True)
-            self.dicts_granu = {"region": {}, "dep": {}}
-            self.set_langue_interface()
+            self.reinitialisation_parametres(nom_aussi=True, set_interface=True)
 
     def set_dossier(self, dossier, onglet_parametres=False):
         self.dossier = dossier

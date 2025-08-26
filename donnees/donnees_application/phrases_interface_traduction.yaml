@@ -8321,6 +8321,14 @@ L'export n'a pas fonctionné. Veuillez réessayer plus tard:
   swahili: Hamna usafirishaji. Tafadhali jaribu tena baadaye
   tadjik: Содирот кор накард. Илтимос, баъдтар такрор кунед
   tamoul: ஏற்றுமதி வேலை செய்யவில்லை. தயவுசெய்து பின்னர் மீண்டும் முயற்சிக்கவும்
+  tchèque: Export se nezdařil. Zkuste to prosím později
+  thaï: การส่งออกไม่ทำงาน กรุณาลองใหม่อีกครั้งในภายหลัง
+  tibétain: ཕྱིར་ཚོང་བྱས་མ་བྱུང་། ཕྱིས་སུ་བསྐྱར་དུ་ཚོད་ལྟ་གནང་རོགས།
+  turc: İhracat çalışmadı. Lütfen daha sonra tekrar deneyiniz
+  turkmène: Eksport işlärlik etmedi. Soňra gaýtadan synanyşmagyňyzy haýyş edýäris
+  ukrainien: Експорт не вдався. Будь ласка, спробуйте пізніше
+  vietnamien: Xuất không thành công. Vui lòng thử lại sau
+  zoulou: Ukuthumela ngaphandle akusebenzanga. Sicela uzame futhi ngemva kwesikhashana
 Langue:
   afrikaans: Taal
   albanais: Gjuhë
@@ -9670,6 +9678,77 @@ Pays visités:
   ukrainien: Відвідані країни
   vietnamien: Các nước đã ghé thăm
   zoulou: Amazwe avakashelwe
+Pays visités par continent:
+  afrikaans: Lande besoek per vasteland
+  albanais: Vende të vizituara sipas kontinenteve
+  allemand: Besuchte Länder nach Kontinent
+  anglais: Countries visited by continent
+  arabe: البلدان التي تمت زيارتها حسب القارة
+  arménien: Մայրցամաքներով այցելված երկրներ։
+  basque: Kontinentez bisitatutako herrialdeak
+  bengali: মহাদেশ অনুযায়ী পরিদর্শন করা দেশ।
+  birman: တိုက်ကြီးအလိုက် လည်ပတ်ခဲ့သောနိုင်ငံများ
+  breton: Broioù gweladennet dre kevandir
+  bulgare: Страни по континент
+  catalan: Països visitats per continent
+  corse: Paesi visitati par cuntinente
+  coréen: 대륙별 방문 국가
+  danois: Lande besøgt per kontinent
+  espagnol: Países visitados por continente
+  esperanto: Landoj vizititaj laŭ kontinento
+  estonien: Mandridel külastatud riigid
+  finnois: Maanosittain vierailut maat
+  français: Pays visités par continent
+  gallois: Gwledydd a ymwelwyd yn ôl cyfandir
+  grec: Χώρες ανά ήπειρο
+  grec ancien: Χῶραι κατὰ ἤπειρον ἐπεσκεμμέναι
+  géorgien: კონტინენტების მიხედვით მონახულებული ქვეყნები
+  hindi: महाद्वीप के अनुसार दौरा किए गए देश।
+  hongrois: Kontinensenként látogatott országok
+  indonésien: Negara yang dikunjungi berdasarkan benua
+  irlandais: Tíortha ar cuairt de réir ilchríche
+  islandais: Lönd heimsótt eftir heimsálfum
+  italien: Paesi visitati per continente
+  japonais: 大陸別の訪問国
+  kazakh: Континенттер бойынша барылған елдер
+  kirghize: Континент боюнча кыдырылган өлкөлөр
+  kurde: کۆمەڵگەی وڵاتەکان بە کیشوەر
+  latin: Terrae per continentem visitae
+  letton: Apmeklētās valstis pēc kontinenta
+  lituanien: Žemynuose aplankytos šalys
+  luxembourgeois: Länner, déi pro Kontinent besicht goufen
+  macédonien: Земји посетени по континент
+  malais: Negara yang dilawati mengikut benua
+  malgache: Firenena notsidihina isam-ben'ny kaontinanta
+  maltais: Pajjiżi miżjura skont il-kontinent
+  mandarin standard: 按洲访问的国家
+  mongol: Тивээр үзсэн улсууд
+  norvégien: Land besøkt per kontinent
+  néerlandais: Bezochte landen per continent
+  népalais: महादेश अनुसार भ्रमण गरिएका देशहरू
+  ourdou: براعظمی ممالک۔
+  ouzbek: Qit'alar bo'yicha tashrif buyurilgan davlatlar
+  pachto: د براعظمونو له مخې لیدل شوي هیوادونه
+  persan: کشورهای بازدید شده بر اساس قاره
+  polonais: Kraje odwiedzone według kontynentu
+  portugais: Países visitados por continente
+  roumain: Țări vizitate pe continent
+  russe: Страны по континентам
+  serbo-croate: Zemlje posjećene po kontinentu
+  slovaque: Krajiny navštívené podľa kontinentov
+  slovène: Države, obiskane po celinah
+  suédois: Länder besökta per kontinent
+  swahili: Nchi zilizotembelewa kwa bara
+  tadjik: Кишварҳо аз рӯи қитъаҳо дидан карда шудаанд
+  tamoul: கண்டம் வாரியாகப் பார்வையிட்ட நாடுகள்
+  tchèque: Země navštívené podle kontinentu
+  thaï: ทวีปที่ไปเยือน
+  tibétain: གླིང་ཆེན་སོ་སོར་བསྐྱོད་པའི་ཡུལ་ལུང་།
+  turc: Kıtaya göre ziyaret edilen ülkeler
+  turkmène: Yurtlar yurdyň kontinentleri boýunça
+  ukrainien: Країни, які відвідуються за континентами
+  vietnamien: Các quốc gia đã đến thăm theo châu lục
+  zoulou: Amazwe avakashelwe yizwekazi
 Permet d'avoir un fond de carte bleu clair et non blanc. Cela est utile pour les régions ou pays entourés de mer:
   afrikaans: Maak voorsiening vir 'n ligblou agtergrond in plaas van wit. Dit is nuttig
     vir streke of lande wat deur die see omring word
@@ -10035,7 +10114,228 @@ Permet d'avoir un fond de carte bleu clair et non blanc. Cela est utile pour les
   qui possèdent la granularité souhaitée. Veut-on par exemple publier une carte qui
   n'existe qu'au niveau régional si l'on souhaite des cartes au niveau départemental
   ?
-: {}
+: afrikaans: Laat toe om te kies of die hele kaarte gepubliseer wil word of net dié
+    met die gewenste granulariteit. Wil ons byvoorbeeld 'n kaart publiseer wat slegs
+    op streeksvlak bestaan ​​as ons kaarte op departementele vlak wil hê?
+  albanais: Lejon të zgjedhim nëse duam të publikojmë të gjitha hartat apo vetëm ato
+    me granularitetin e dëshiruar. Për shembull, a duam të publikojmë një hartë që
+    ekziston vetëm në nivel rajonal nëse duam harta në nivel departamenti?
+  allemand: Ermöglicht die Auswahl, ob die Gesamtheit der Karten oder nur diejenigen
+    mit der gewünschten Granularität veröffentlicht werden sollen. Möchte man beispielsweise
+    eine Karte, die nur auf regionaler Ebene existiert, veröffentlichen, wenn man
+    Karten auf Departementebene möchte?
+  anglais: Allows you to choose whether to publish all maps or only those with the
+    desired granularity. For example, do you want to publish a map that only exists
+    at the regional level if you want maps at the departmental level?
+  arabe: يسمح بالاختيار بين نشر الخرائط كاملة أو تلك التي تحتوي على المستوى التفصيلي
+    المطلوب. على سبيل المثال، هل نرغب في نشر خريطة موجودة فقط على المستوى الإقليمي
+    إذا كنا نريد خرائط على المستوى الإقليمي الفرعي؟
+  arménien: Թույլ է տալիս ընտրել՝ արդյոք ցանկանում ենք հրապարակել բոլոր քարտեզները,
+    թե միայն այնները, որոնք ունեն ցանկալի մանրայնություն։ Օրինակ՝ արդյո՞ք ցանկանում
+    ենք հրապարակել մի քարտեզ, որը գոյություն ունի միայն տարածաշրջանային մակարդակով,
+    եթե ցանկանում ենք մարզային մակարդակով քարտեզներ։
+  basque: Kartez osotasuna argitaratu nahi den ala granularitate egokia dutenak soilik
+    aukeratzeko aukera ematen du. Adibidez, departamendu mailako mapak nahi baditugu,
+    eskualde mailan bakarrik dagoen mapa argitaratu nahi dugu?
+  bengali: আমরা সম্পূর্ণ মানচিত্র প্রকাশ করতে চাই নাকি শুধুমাত্র পছন্দসই বিস্তারিততা
+    সম্পন্ন মানচিত্র প্রকাশ করতে চাই, তা নির্বাচন করার অনুমতি দেয়। উদাহরণস্বরূপ,
+    আমরা কি বিভাগীয় স্তরের মানচিত্র চাইলেও শুধুমাত্র আঞ্চলিক স্তরে বিদ্যমান একটি
+    মানচিত্র প্রকাশ করতে চাই?
+  birman: ကတ်အားလုံးကို ထုတ်ဝေချင်သလား ဒါမှမဟုတ် လိုချင်တဲ့ granularité ရှိတဲ့ ကတ်တွေကိုပဲ
+    ထုတ်ဝေချင်သလားဆိုတာ ရွေးချယ်ခွင့်ပေးပါတယ်။ ဥပမာအားဖြင့်၊ ခရိုင်အဆင့်မှာ မြေပုံတွေလိုချင်ရင်
+    ဒေသအဆင့်မှာပဲ ရှိတဲ့ မြေပုံကို ထုတ်ဝေမှာလား။
+  breton: Aotre da zibab hag-eñ e fell deomp embann an holl gartennoù pe nemet ar
+    re a zo ganto ar c'hranelezh a fell deomp. Ha fellout a ra deomp, da skouer, embann
+    ur gartenn n'eus anezhi nemet er rannvro ma fell deomp kaout kartennnoù er rannvroioù-departamant
+    ?
+  bulgare: Позволява да се избере дали да се публикуват всички карти или само тези,
+    които имат желаната гранулярност. Искаме ли например да публикуваме карта, която
+    съществува само на регионално ниво, ако искаме карти на ниво департамент?
+  catalan: Permet de triar si es volen publicar totes les cartes o només aquelles
+    que tenen la granularitat desitjada. Es vol, per exemple, publicar una carta que
+    només existeix a nivell regional si es volen cartes a nivell departamental?
+  corse: Permette di sceglie s'è si vole publicà a totalità di e carte o solu quesse
+    chì anu a granularità desiderata. Volemu per esempiu publicà una carta chì esiste
+    solu à livellu regiunale se si volenu carte à livellu dipartimentale?
+  coréen: 전체 카드를 게시할지 아니면 원하는 세분성 수준을 가진 카드만 게시할지 선택할 수 있습니다. 예를 들어, 지역 수준에서만 존재하는
+    카드를 부서 수준에서만 카드를 게시하려고 할 때 게시하시겠습니까?
+  danois: Gør det muligt at vælge, om man vil offentliggøre alle kortene eller kun
+    dem, der har den ønskede granularitet. Vil man for eksempel offentliggøre et kort,
+    der kun eksisterer på regionalt niveau, hvis man ønsker kort på departementsniveau?
+  espagnol: Permite elegir si se desea publicar la totalidad de los mapas o solo aquellos
+    que poseen la granularidad deseada. ¿Se desea, por ejemplo, publicar un mapa que
+    solo existe a nivel regional si se desean mapas a nivel departamental?
+  esperanto: Ebligas elekti ĉu oni deziras publikigi la tutaĵon de la mapoj aŭ nur
+    tiujn, kiuj havas la deziritan grenularon. Ĉu oni ekzemple volas publikigi mapon,
+    kiu ekzistas nur je regiona nivelo, se oni deziras mapojn je departementa nivelo?
+  estonien: Võimaldab valida, kas avaldada kõik kaardid või ainult need, millel on
+    soovitud detailitase. Kas avaldada näiteks ainult piirkondlikul tasandil olemasolev
+    kaart, kui soovitakse maakondlikke kaarte?
+  finnois: Mahdollistaa valinnan, halutaanko julkaista kaikki kartat vai vain ne,
+    joilla on haluttu tarkkuus. Halutaanko esimerkiksi julkaista kartta, joka on olemassa
+    vain alueellisella tasolla, jos halutaan departementtitasoisia karttoja?
+  français: Permet de choisir si l'on souhaite publier l'entièreté des cartes ou seulement
+    celles qui possèdent la granularité souhaitée. Veut-on par exemple publier une
+    carte qui n'existe qu'au niveau régional si l'on souhaite des cartes au niveau
+    départemental ?
+  gallois: Canysgu'n ddewis a gyhoeddir yr holl fapiau neu'r rheini'n unig sydd â'r
+    graddfa fân a ddymunir. A ydym, er enghraifft, eisiau cyhoeddi map sy'n bodoli
+    ar lefel ranbarthol yn unig os ydym yn dymuno mapiau ar lefel sirol?
+  grec: Επιτρέπει την επιλογή αν θέλουμε να δημοσιεύσουμε το σύνολο των χαρτών ή μόνο
+    εκείνους με την επιθυμητή λεπτομέρεια. Θέλουμε, για παράδειγμα, να δημοσιεύσουμε
+    έναν χάρτη που υπάρχει μόνο σε περιφερειακό επίπεδο, αν θέλουμε χάρτες σε επίπεδο
+    νομού;
+  grec ancien: Ἐάτω αἱρεῖσθαι εἰ βούλεταί τις τὰς ἁπάσας χάρτας ἐκδιδόναι ἢ μόνον
+    τὰς τὴν ἐπιθυμητὴν λεπτότητα ἐχούσας. Πότερον βουλόμεθα παραδιδόναι, οἷον, χάρτην
+    ἥτις οὐκ ἔστιν εἰ μὴ κατὰ τὴν περιφέρειαν ἐὰν χάρτας κατὰ τὸν νομόν βουλώμεθα;
+  géorgien: შეიძლება არჩევანის გაკეთება, გამოქვეყნდეს თუ არა რუკების მთელი ნაკრები,
+    თუ მხოლოდ ის რუკები, რომლებსაც სურთ გრანულარობა. მაგალითად, გვინდა თუ არა რეგიონულ
+    დონეზე არსებული რუკის გამოქვეყნება, თუ დეპარტამენტის დონის რუკები გვსურს?
+  hindi: यह चुनने की अनुमति देता है कि क्या संपूर्ण मानचित्र प्रकाशित करना है या केवल
+    वे जिनमें वांछित दानेदारी है। उदाहरण के लिए, क्या कोई ऐसा मानचित्र प्रकाशित करना
+    चाहता है जो केवल क्षेत्रीय स्तर पर मौजूद है यदि कोई जिला स्तर के मानचित्र चाहता
+    है?
+  hongrois: Lehetőséget ad arra, hogy kiválasszuk, a térképek egészét vagy csak a
+    kívánt részletességgel rendelkezőket szeretnénk-e közzétenni. Például, szeretnénk-e
+    egy olyan térképet közzétenni, amely csak regionális szinten létezik, ha megyei
+    szintű térképeket szeretnénk?
+  indonésien: Memungkinkan untuk memilih apakah akan mempublikasikan semua peta atau
+    hanya yang memiliki granularitas yang diinginkan. Misalnya, apakah kita ingin
+    mempublikasikan peta yang hanya ada di tingkat regional jika kita menginginkan
+    peta di tingkat kabupaten/kota?
+  irlandais: Ligeann sé duit a roghnú an bhfuil tú ag iarraidh na léarscáileanna go
+    léir a fhoilsiú nó gan ach iad siúd a bhfuil an gráinneacht atá uait acu. Mar
+    shampla, an bhfuil tú ag iarraidh léarscáil a fhoilsiú nach bhfuil ach ar leibhéal
+    réigiúnach má tá léarscáileanna ar leibhéal na roinne uait?
+  islandais: Gerir þér kleift að velja hvort þú vilt birta allar kortin eða bara þau
+    sem hafa viðkomandi nákvæmni. Til dæmis, viltu birta kort sem aðeins er til á
+    svæðisbundnu stigi ef þú vilt kort á sýslustigi?
+  italien: Permette di scegliere se si desidera pubblicare l'intera mappa o solo quelle
+    con la granularità desiderata. Vogliamo, ad esempio, pubblicare una mappa che
+    esiste solo a livello regionale se si desiderano mappe a livello dipartimentale?
+  japonais: カード全体を公開するか、あるいは希望する粒度を持つカードのみを公開するかを選択できるようにします。例えば、都道府県レベルのカードが必要な場合に、地方レベルでのみ存在するカードを公開したいですか？
+  kazakh: Карталардың барлығын жариялауды немесе қажетті дәрежедегілерін ғана жариялауды
+    таңдауға мүмкіндік береді. Мысалы, облыстық деңгейдегі карталарды қаласақ, тек
+    облыстық деңгейдегі картаны жариялау керек пе?
+  kirghize: Карталардын баарын же керектүү деталдуулугу бар карталарды гана жарыялоону
+    тандоого мүмкүндүк берет. Мисалы, эгер биз райондук деңгээлдеги карталарды кааласак,
+    облустук деңгээлде гана бар картаны жарыялагыбыз келеби?
+  kurde: Dibe ku meriv hilbijêre gelo meriv tevahiya nexşeyan biweşîne an tenê yên
+    ku xwedî granularîteya xwestî ne. Mînakî, gelo em dixwazin nexşeyek ku tenê di
+    asta herêmî de heye biweşînin ger em nexşeyên li ser asta departmanî bixwazin?
+  latin: Permittit eligere utrum integrae tabulae edantur an tantum quae granulitatem
+    desideratam habent. Utrum, verbi gratia, tabula quae tantum ad gradum regionalem
+    existit edenda sit si tabulae ad gradum departmentalem desiderantur?
+  letton: Ļauj izvēlēties, vai vēlas publicēt visas kartes vai tikai tās, kurām ir
+    vēlamā granularitāte. Piemēram, vai vēlas publicēt karti, kas eksistē tikai reģionālā
+    līmenī, ja vēlas kartes departamentu līmenī?
+  lituanien: Leidžia pasirinkti, ar norima publikuoti visus žemėlapius, ar tik tuos,
+    kurie turi pageidaujamą detalumą. Ar norime, pavyzdžiui, publikuoti žemėlapį,
+    kuris egzistuoja tik regioniniu lygiu, jei norime žemėlapių departamento lygiu?
+  luxembourgeois: Erlaabt ze wielen, ob een all d'Kaarten wëll publizéieren oder nëmmen
+    déi mat der gewënschter Granularitéit. Wëll een zum Beispill eng Kaart publizéieren,
+    déi et nëmmen op regionalem Niveau gëtt, wann ee Kaarten op Departement-Niveau
+    wëllt?
+  macédonien: Овозможува да се избере дали да се објават сите карти или само оние
+    со посакуваната грануларност. На пример, дали сакаме да објавиме карта која постои
+    само на регионално ниво ако сакаме карти на ниво на област?
+  malais: Membenarkan pilihan untuk menerbitkan semua peta atau hanya yang mempunyai
+    butiran yang diingini. Contohnya, adakah kita mahu menerbitkan peta yang hanya
+    wujud di peringkat wilayah jika kita mahu peta di peringkat daerah?
+  malgache: Mamela hisafidy raha tiana ny hamoaka ny sarintany rehetra na ireo izay
+    manana ny halehibeazana irina ihany. Ohatra, azo ve ny hamoaka sarintany izay
+    misy amin'ny ambaratonga isam-paritra raha sarintany amin'ny ambaratonga isam-paritra
+    no irina?
+  maltais: Jippermetti li tagħżel jekk tridx tippubblika l-mappa kollha jew biss dawk
+    li għandhom il-granularità mixtieqa. Pereżempju, irridu nippubblikaw mappa li
+    teżisti biss fil-livell reġjonali jekk irridu mapep fil-livell dipartimentali?
+  mandarin standard: 可以选择发布所有地图，也可以只发布具有所需粒度的地图。例如，如果只想获取县级地图，是否要发布仅存在于省级级别的地图？
+  mongol: Бүх газрын зургийг нийтлэх, эсвэл зөвхөн хүссэн нарийвчлалтайг нь нийтлэхийг
+    сонгох боломжтой. Жишээлбэл, хэрэв бид аймагт газрын зураг авахыг хүсвэл зөвхөн
+    бүс нутгийн түвшинд байдаг газрын зургийг нийтлэх үү?
+  norvégien: Gjør det mulig å velge om man vil publisere alle kartene eller bare de
+    med ønsket granularitet. Ønsker man for eksempel å publisere et kart som bare
+    finnes på regionalt nivå hvis man ønsker kart på fylkesnivå?
+  néerlandais: Maakt het mogelijk om te kiezen of men alle kaarten wil publiceren
+    of alleen de kaarten met de gewenste granulariteit. Willen we bijvoorbeeld een
+    kaart publiceren die alleen op regionaal niveau bestaat als we kaarten op departementaal
+    niveau willen?
+  népalais: सबै नक्सा वा चाहेको तह मात्रै प्रकाशित गर्ने छनौट गर्न अनुमति दिन्छ। उदाहरणका
+    लागि, के हामी क्षेत्रीय स्तरमा मात्रै अवस्थित नक्सालाई जिल्ला स्तरका नक्सा चाहिने
+    बेला प्रकाशित गर्न चाहन्छौं?
+  ourdou: یہ آپ کو منتخب کرنے کی اجازت دیتا ہے کہ آیا آپ تمام نقشے شائع کرنا چاہتے
+    ہیں یا صرف وہ نقشے جن میں مطلوبہ گرینیوریٹی ہے۔ کیا، مثال کے طور پر، ہم ایک نقشہ
+    شائع کرنا چاہتے ہیں جو صرف علاقائی سطح پر موجود ہے اگر ہم ضلعی سطح پر نقشے چاہتے
+    ہیں؟
+  ouzbek: Barcha kartalarni nashr etish yoki faqat kerakli maydalash darajasiga ega
+    bo'lganlarini tanlash imkonini beradi. Misol uchun, agar biz tuman darajasidagi
+    kartalarni istasak, faqat mintaqaviy darajada mavjud bo'lgan kartani nashr etishni
+    xohlaymizmi?
+  pachto: د دې اجازه ورکوي چې وټاکل شي که ټولې نقشې خپرول غواړي یا یوازې هغه نقشې
+    چې مطلوبې اندازې لري. ایا موږ غواړو د مثال په توګه یوه نقشه خپره کړو چې یوازې
+    په سیمه ایزه کچه شتون لري که موږ د ولسوالۍ په کچه نقشې غواړو؟
+  persan: به شما اجازه می‌دهد انتخاب کنید که آیا می‌خواهید تمام نقشه‌ها را منتشر کنید
+    یا فقط نقشه‌هایی را که دارای دانه‌بندی مورد نظر هستند. به عنوان مثال، آیا می‌خواهیم
+    نقشه‌ای را که فقط در سطح منطقه‌ای وجود دارد، در صورتی که نقشه‌های سطح دپارتمانال
+    مورد نیاز است، منتشر کنیم؟
+  polonais: Pozwala wybrać, czy chcemy opublikować całe mapy, czy tylko te, które
+    mają pożądaną szczegółowość. Czy na przykład chcemy opublikować mapę, która istnieje
+    tylko na poziomie regionalnym, jeśli chcemy mapy na poziomie departamentu?
+  portugais: Permite escolher se se deseja publicar a totalidade dos mapas ou apenas
+    aqueles com a granularidade desejada. Pretende-se, por exemplo, publicar um mapa
+    que só existe a nível regional se se desejam mapas a nível departamental?
+  roumain: Permite de a alege dacă se dorește publicarea tuturor hărților sau doar
+    a celor cu granularitatea dorită. De exemplu, dorim să publicăm o hartă care există
+    doar la nivel regional dacă dorim hărți la nivel județean?
+  russe: Позволяет выбрать, следует ли публиковать все карты или только те, которые
+    имеют желаемую детализацию. Например, следует ли публиковать карту, существующую
+    только на региональном уровне, если нужны карты на департаментском уровне?
+  serbo-croate: Omogućava izbor da li želite da objavite sve karte ili samo one sa
+    željenom granularnošću. Na primer, da li želite da objavite kartu koja postoji
+    samo na regionalnom nivou ako želite karte na nivou okruga?
+  slovaque: Umožňuje zvoliť, či sa majú publikovať všetky mapy, alebo iba tie s požadovanou
+    granularitou. Chceme napríklad publikovať mapu, ktorá existuje iba na regionálnej
+    úrovni, ak chceme mapy na úrovni okresov?
+  slovène: Omogoča izbiro, ali želite objaviti celotne karte ali samo tiste z želeno
+    stopnjo podrobnosti. Želimo na primer objaviti karto, ki obstaja samo na regionalni
+    ravni, če želimo karte na ravni departmaja?
+  suédois: Gör det möjligt att välja om man vill publicera hela kartorna eller bara
+    de med önskad granularitet. Vill man till exempel publicera en karta som bara
+    finns på regional nivå om man vill ha kartor på länsnivå?
+  swahili: Inaruhusu kuchagua kama unataka kuchapisha ramani zote au zile tu zenye
+    usahihi unaohitajika. Je, kwa mfano, tunataka kuchapisha ramani ambayo ipo tu
+    katika ngazi ya mkoa ikiwa tunataka ramani katika ngazi ya idara?
+  tadjik: Имконият медиҳад, ки оё тамоми харитаҳо ё танҳо харитаҳоеро, ки дараҷаи
+    дилхоҳ доранд, нашр кардан мехоҳанд, интихоб кунем. Масалан, оё мо мехоҳем харитаеро
+    нашр кунем, ки танҳо дар сатҳи минтақавӣ вуҷуд дорад, агар мо харитаҳоро дар сатҳи
+    вилоятӣ мехоҳем?
+  tamoul: முழு அட்டைகளையும் வெளியிட வேண்டுமா அல்லது விரும்பிய நுணுக்கங்களைக் கொண்ட
+    அட்டைகளை மட்டுமே வெளியிட வேண்டுமா என்பதைத் தேர்ந்தெடுக்க இது அனுமதிக்கிறது. உதாரணமாக,
+    மாவட்ட அளவில் வரைபடங்கள் தேவைப்பட்டால், பிராந்திய அளவில் மட்டுமே இருக்கும் ஒரு
+    வரைபடத்தை வெளியிட விரும்புகிறோமா?
+  tchèque: Umožňuje vybrat, zda se mají publikovat všechny mapy, nebo pouze ty s požadovanou
+    granularitou. Chceme například publikovat mapu, která existuje pouze na regionální
+    úrovni, pokud chceme mapy na úrovni okresů?
+  thaï: ช่วยให้สามารถเลือกได้ว่าจะเผยแพร่แผนที่ทั้งหมดหรือเฉพาะแผนที่ที่มีรายละเอียดตามที่ต้องการ
+    ตัวอย่างเช่น เราต้องการเผยแพร่แผนที่ที่มีเฉพาะระดับภูมิภาคหรือไม่ ถ้าเราต้องการแผนที่ในระดับจังหวัด?
+  tibétain: ས་ཁྲ་ཡོངས་རྫོགས་སྤེལ་འདོད་ཡོད་མེད་དང་། ཡང་ན་ཞིབ་ཚགས་ཀྱི་ཆ་རྐྱེན་དང་འཚམ་པའི་ས་ཁྲ་ཁོ་ན་སྤེལ་འདོད་ཡོད་མེད་གདམ་ཀ་བྱེད་ཆོག
+    དཔེར་ན། རྫོང་རིམ་པའི་ས་ཁྲ་དགོས་སྐབས་ས་ཁུལ་རིམ་པའི་ས་ཁྲ་སྤེལ་འདོད་ཡོད་དམ།
+  turc: Haritaların tamamının mı yoksa sadece istenen ayrıntı düzeyine sahip olanların
+    mı yayınlanmak istendiğini seçme imkanı sağlar. Örneğin, departman düzeyinde haritalar
+    isteniyorsa, yalnızca bölgesel düzeyde mevcut olan bir harita yayınlanmak istenebilir
+    mi?
+  turkmène: Kartalaryň ählisini ýa-da diňe islenýän granullarlygy bolanlaryny neşir
+    etmek islegi barada karara gelmäge mümkinçilik berýär. Meselem, etrap derejesindäki
+    kartalary islesek, diňe welaýat derejesinde bar bolan kartany neşir etmek isleýärismi?
+  ukrainien: Дозволяє вибирати, чи бажаєте ви опублікувати всі карти або лише ті,
+    які мають бажану деталізацію. Наприклад, чи хочемо ми опублікувати карту, яка
+    існує лише на регіональному рівні, якщо нам потрібні карти на рівні департаменту?
+  vietnamien: Cho phép chọn đăng tải toàn bộ bản đồ hay chỉ những bản đồ có độ chi
+    tiết mong muốn. Ví dụ, có nên đăng bản đồ chỉ tồn tại ở cấp độ vùng nếu muốn có
+    bản đồ ở cấp độ tỉnh/thành phố không?
+  zoulou: Ivumela ukuthi kukhethwe ukuthi ngabe kufanele yini ukushicilela wonke amamephu
+    noma labo kuphela abanegranularity oyifunayo. Ngokwesibonelo, ingabe sifuna ukushicilela
+    imephu ekhona kuphela ezingeni lesifunda uma sifuna amamephu ezingeni lesifunda?
 ? Pour un pays donné, si des départements sont cochés, ils sont prioritaires sur les
   régions cochées. Dans ce cas, la liste des régions visitées est automatiquement
   reconstituée à partir de la liste des départements. Il n'est donc plus nécessaire

@@ -202,7 +202,10 @@ class MesVoyagesApplication(QWidget):
             texte_departement=self.traduire_depuis_id(
                 "classement_selon_departements", prefixe="<b>", suffixe="</b>"
             ),
-            texte_onglet_1="🗺️",
+            texte_onglet_1=self.traduire_depuis_id(
+                "titre_sous_onglet_4_1",
+                suffixe=(" 🗺️"),
+            ),
             texte_onglet_2=self.traduire_depuis_id(
                 "titre_sous_onglet_4_2",
                 suffixe=(" 🏆"),

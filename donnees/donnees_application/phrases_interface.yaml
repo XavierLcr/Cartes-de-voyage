@@ -7,7 +7,6 @@ titre_onglet_1 : Paramètres
 titre_onglet_2 : Création de la liste des pays visités
 titre_onglet_3 : Liste des lieux visités
 titre_onglet_4 : Statistiques
-titre_sous_onglet_4_2 : Pays les plus visités
 description_onglet_4 : En termes de pourcentage de la superficie visitée pour chaque pays
 
 # Paramètres individuels
@@ -88,10 +87,14 @@ titre_departements_visites : Départements visités
 mise_en_forme_onglet_3 : Affichage regroupé
 
 # Onglet 4
+## Hémicycle
+titre_sous_onglet_4_1: Pays visités par continent
+## Classement
+titre_sous_onglet_4_2 : Pays les plus visités
 classement_selon_regions : Selon les régions visitées
 classement_selon_departements : Selon les départements visités
 
-# Onglet 4
+# Onglet 5
 sous_titre_description_application : Création de cartes de voyages
 version : Version
 description_application : "<h2>📌 Description :</h2>\n<p>MesVoyages est une application permettant de créer des cartes de voyages personnalisées en sélectionnant les régions ou départements des pays que l'on a visités.</p>\n<h2>💻 Comment utiliser :</h2>\n<ol>\n<li>Entrez vos paramètres ainsi que votre nom.</li>\n<li>Entrez les lieux que vous avez visités.</li>\n<li>Créez vos cartes ! La sauvegarde de vos visites et de vos paramètres se fait lorsque vous cliquez sur le bouton de création des cartes.</li>\n</ol>\n<h2>📋 Fichiers YAML disponibles :</h2>\n<p>Les fichiers <code>.yaml</code> fournis sont des <strong>modèles complets</strong> contenant tous les pays, régions et départements disponibles.</p>\n<p>▶️ Si vous préférez cette méthode à celle de cocher les lieux visités, copiez d'abord les modèles présents dans le dossier de l'application. Supprimez ensuite tous les lieux non visités et chargez-les dans l'application.</p>\n<h2>❓ Contact :</h2>\n<p>L'application se veut intuitive, mais pour toute question : xavier.cal181@gmail.com.</p>\n<p>Les traductions ont été générées automatiquement et n'ont pas été relues manuellement. Pour toute erreur, contactez-moi.\nDe même, si des bugs se produisent ou que vous souhaitez effectuer des retours/recommandations, n'hésitez pas à me contacter.</p>\n<h2>🗑️ Désinstallation :</h2>\n<p>Supprimez simplement le dossier. Aucun fichier système n’est modifié.</p>\n<hr />\n<p><strong>Merci d’avoir choisi MesVoyages !</strong></p>"

@@ -76,17 +76,6 @@ parametres_application.update(
 )
 
 
-# ––––––– Import des données géographiques –––––––
-
-
-# Import des lieux avec de l'eau
-gdf_lacs = ouvrir_fichier(
-    direction_fichier=direction_donnees_pickle,
-    nom_fichier="carte_monde_lacs.pkl",
-    defaut=None,
-)
-
-
 # ––––––– Import des données YAML internes –––––––
 
 

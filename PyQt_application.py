@@ -59,6 +59,11 @@ class MesVoyagesApplication(QWidget):
         # === Premier onglet ===
 
         self.onglet_parametres = onglet_1.OngletParametres(
+            gdf_eau=fonctions_utiles_2_0.ouvrir_fichier(
+                direction_fichier=constantes.direction_donnees_pickle,
+                nom_fichier="carte_monde_lacs.pkl",
+                defaut=None,
+            ),
             constantes=constantes,
             liste_individus=list(sauvegarde.keys()),
             fct_traduction=self.traduire_depuis_id,

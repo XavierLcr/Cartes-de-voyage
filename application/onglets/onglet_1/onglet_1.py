@@ -40,10 +40,11 @@ class OngletParametres(QWidget):
 
     envoi_dossier = pyqtSignal(str)
 
-    def __init__(self, constantes, liste_individus, fct_traduction, fct_pop_up):
+    def __init__(self, gdf_eau, constantes, liste_individus, fct_traduction, fct_pop_up):
 
         super().__init__()
 
+        self.gdf_eau = gdf_eau
         self.constantes = constantes
         self.fonction_traduction = fct_traduction
         self.fonction_pop_up = fct_pop_up
@@ -580,7 +581,9 @@ class OngletParametres(QWidget):
         else:
 
             # Initialisation de l'objet et de la barre de progression
-            self.creation_cartes = CreerCartes(params=settings, constantes=self.constantes)
+            self.creation_cartes = CreerCartes(
+                gdf_eau=self.gdf_eau, params=settings, constantes=self.constantes
+            )
             self.creation_cartes.nb_graphes.connect(self.initialiser_progression)
             self.creation_cartes.tracker_signal.connect(self.afficher_avancement)
 

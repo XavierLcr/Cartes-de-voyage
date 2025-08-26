@@ -7,10 +7,7 @@
 
 import math
 from PyQt6.QtCore import Qt, QPointF
-from PyQt6.QtWidgets import (
-    QWidget,
-    QLabel,
-)
+from PyQt6.QtWidgets import QWidget
 from PyQt6.QtGui import QPainter, QPen, QColor, QBrush, QFont
 from application.fonctions_utiles_2_0 import nb_pays_visites, reordonner_dict, somme_filee
 
@@ -56,7 +53,9 @@ class HemicycleWidget(QWidget):
         while self.decalage < 0:
             self.base_points = max(self.base_points - 1, 10)
             self.points_increment = max(self.points_increment, 4)
-            self.decalage = len(list(self.constantes.departements_par_pays.keys())) - somme_filee(
+            self.decalage = len(
+                list(self.constantes.departements_par_pays.keys())
+            ) - somme_filee(
                 lignes=self.num_levels, a=self.base_points, b=self.points_increment
             )
 

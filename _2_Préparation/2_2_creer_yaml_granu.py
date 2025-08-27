@@ -1,7 +1,7 @@
 import os, yaml, pickle
 import pandas as pd
 from constantes import direction_donnees
-from application.fonctions_utiles_2_0 import ouvrir_fichier, exporter_fichier
+from _0_Utilitaires._0_1_Fonctions_utiles import ouvrir_fichier, exporter_fichier
 
 
 def cree_yaml_un_pays(

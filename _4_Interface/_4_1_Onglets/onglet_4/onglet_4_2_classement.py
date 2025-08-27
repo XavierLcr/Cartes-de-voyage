@@ -16,7 +16,7 @@ from PyQt6.QtWidgets import (
     QGridLayout,
 )
 
-from application.fonctions_utiles_2_0 import creer_ligne_separation
+from _0_Utilitaires._0_1_Fonctions_utiles import creer_ligne_separation
 
 
 def creer_classement_pays(

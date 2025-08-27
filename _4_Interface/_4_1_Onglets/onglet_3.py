@@ -15,7 +15,7 @@ from PyQt6.QtWidgets import (
     QCheckBox,
 )
 
-from ..fonctions_utiles_2_0 import creer_ligne_separation
+from _0_Utilitaires._0_1_Fonctions_utiles import creer_ligne_separation
 
 
 class OngletResumeDestinations(QWidget):

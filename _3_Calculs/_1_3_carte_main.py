@@ -1,10 +1,11 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
-# 1.3 – Création de la base de données et de la production des graphiques      #
+# _3_Calculs/                                                                  #
+# 3.3 – Création de la base de données et de la production des graphiques      #
 ################################################################################
 
 import os, sys, gc
-from production_cartes import creer_carte_1_1, creer_graphique_1_2
+from _3_Calculs import _1_1_creer_carte, _1_2_creer_graphique
 
 
 def cree_gdf_depuis_dicts(
@@ -31,9 +32,9 @@ def cree_gdf_depuis_dicts(
     – granularite (int, optionnel) : Le niveau de granularité pour lequel vous souhaitez créer le graphique. Par défaut, la granularité est de 1 (région).
     """
 
-    return creer_carte_1_1.ajouter_indicatrice_visite(
+    return _1_1_creer_carte.ajouter_indicatrice_visite(
         gdf_monde=liste_dfs[granularite_reste],
-        gdf_visite=creer_carte_1_1.cree_base_toutes_granularites(
+        gdf_visite=_1_1_creer_carte.cree_base_toutes_granularites(
             liste_dfs=liste_dfs,
             liste_dicts=liste_dicts,
             granularite_objectif=granularite_visite,
@@ -155,7 +156,10 @@ def creer_graphiques_pays(
 
         gdf_fond_regions_i = gdf_fond_regions.copy()
 
-        if groupe_pays_res_i["deja_fait"] == True and groupe_pays_res_i["dans_la_liste"] == True:
+        if (
+            groupe_pays_res_i["deja_fait"] == True
+            and groupe_pays_res_i["dans_la_liste"] == True
+        ):
 
             gdf_i = gdf_visite[gdf_visite["Pays"] == liste_pays_visites[i]]
             if (
@@ -166,7 +170,10 @@ def creer_graphiques_pays(
 
             continue
 
-        elif groupe_pays_res_i["deja_fait"] == False and groupe_pays_res_i["dans_la_liste"] == True:
+        elif (
+            groupe_pays_res_i["deja_fait"] == False
+            and groupe_pays_res_i["dans_la_liste"] == True
+        ):
 
             langue_i = groupe_pays_res_i["nom_langue"]
             gdf_i = groupe_pays_res_i["gdf_reduit"]
@@ -200,7 +207,7 @@ def creer_graphiques_pays(
             if tracker:
                 tracker.notify(langue_i)
 
-            creer_graphique_1_2.creer_image_carte(
+            _1_2_creer_graphique.creer_image_carte(
                 gdf=gdf_i,
                 gdf_monde=gdf_monde_i,
                 gdf_eau=gdf_eau,
@@ -273,7 +280,11 @@ def creer_graphique_region(
 
         # Nom de la carte simple
         nom_langue_region = pays_trad.get(
-            (f"Map of the {nom_region}" if nom_region == "Middle East" else f"Map of {nom_region}"),
+            (
+                f"Map of the {nom_region}"
+                if nom_region == "Middle East"
+                else f"Map of {nom_region}"
+            ),
             {},
         ).get(langue, f"Map of the {nom_region}")
 
@@ -296,7 +307,7 @@ def creer_graphique_region(
             if blabla:
                 print(nom_langue_region, end=". ")
 
-            creer_graphique_1_2.creer_image_carte(
+            _1_2_creer_graphique.creer_image_carte(
                 gdf=gdf_region,
                 gdf_monde=gdf_fond,
                 gdf_regions=df_fond_granu_1,

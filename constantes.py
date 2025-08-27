@@ -4,22 +4,27 @@
 ################################################################################
 
 import os, sys
-from application.fonctions_utiles_2_0 import ouvrir_fichier
+from _0_Utilitaires._0_1_Fonctions_utiles import ouvrir_fichier
 
 
 if getattr(sys, "frozen", False):
     # cx_Freeze place tout à côté de l'exécutable
     direction_base = os.path.dirname(sys.executable)
-    direction_donnees_pickle = os.path.join(direction_base, "Données pickle")
-    direction_donnees_application = os.path.join(direction_base, "Données application")
+    direction_donnees_geographiques = os.path.join(direction_base, "1 – Données géographiques")
+    direction_donnees_application = os.path.join(direction_base, "2 – Données application")
+    direction_donnees_traductions = os.path.join(direction_base, "3 – Traductions")
     compilation = True
 else:
     direction_base = os.path.dirname(os.path.abspath(__file__))
     direction_generale = os.path.dirname(direction_base)
-    direction_donnees = os.path.join(direction_base, "donnees")
-    direction_donnees_pickle = os.path.join(direction_donnees, "donnees_pickle")
-    direction_donnees_application = os.path.join(direction_donnees, "donnees_application")
-    direction_donnees_autres = os.path.join(direction_donnees, "donnees_autres")
+    direction_donnees = os.path.join(direction_base, "_1_Données")
+    direction_donnees_geographiques = os.path.join(
+        direction_donnees, "_1_2_Données_géographiques"
+    )
+    direction_donnees_application = os.path.join(direction_donnees, "_1_3_Données_application")
+    print(direction_donnees_application)
+    direction_donnees_traductions = os.path.join(direction_donnees, "_1_4_Traductions")
+    direction_donnees_autres = os.path.join(direction_donnees, "_1_X_Autres")
     compilation = False
 
 # Version de l'application
@@ -68,6 +73,7 @@ parametres_application = ouvrir_fichier(
     direction_fichier=direction_donnees_application,
     nom_fichier="parametres_application.yaml",
     defaut=parametres_application_defaut,
+    afficher_erreur="Paramètres introuvables.",
 )
 
 # Complétion si nécessaire des paramètres
@@ -81,9 +87,10 @@ parametres_application.update(
 
 # Import de la traduction des nom des pays
 pays_differentes_langues = ouvrir_fichier(
-    direction_fichier=direction_donnees_application,
+    direction_fichier=direction_donnees_traductions,
     nom_fichier="noms_pays_traduction.yaml",
     defaut={},
+    afficher_erreur="Traductions des noms de pays introuvables.",
 )
 
 # Import des regroupements de pays
@@ -91,6 +98,7 @@ liste_pays_groupes = ouvrir_fichier(
     direction_fichier=direction_donnees_application,
     nom_fichier="cartes_pays_regroupements.yaml",
     defaut={},
+    afficher_erreur="Regroupements des pays introuvables.",
 )
 
 # Import des régions mondiales considérées
@@ -98,6 +106,7 @@ liste_regions_monde = ouvrir_fichier(
     direction_fichier=direction_donnees_application,
     nom_fichier="continents.yaml",
     defaut={},
+    afficher_erreur="Continents introuvables.",
 )
 
 # Import des emojis associés aux pays
@@ -105,6 +114,7 @@ emojis_pays = ouvrir_fichier(
     direction_fichier=direction_donnees_application,
     nom_fichier="emojis_pays.yaml",
     defaut={},
+    afficher_erreur="Emojis des pays introuvables.",
 )
 
 
@@ -116,13 +126,15 @@ phrases_interface = ouvrir_fichier(
     direction_fichier=direction_donnees_application,
     nom_fichier="phrases_interface.yaml",
     defaut={},
+    afficher_erreur="Phrases de l'interface introuvables.",
 )
 
 # Import de la traduction de l'interface
 outil_differentes_langues = ouvrir_fichier(
-    direction_fichier=direction_donnees_application,
+    direction_fichier=direction_donnees_traductions,
     nom_fichier="phrases_interface_traduction.yaml",
     defaut={},
+    afficher_erreur="Traduction des phrases de l'interface introuvables.",
 )
 
 # Import des régions
@@ -130,6 +142,7 @@ regions_par_pays = ouvrir_fichier(
     direction_fichier=direction_donnees_application,
     nom_fichier="regions_par_pays.yaml",
     defaut={},
+    afficher_erreur="Régions des pays introuvables.",
 )
 
 # Import des départements
@@ -137,6 +150,7 @@ departements_par_pays = ouvrir_fichier(
     direction_fichier=direction_donnees_application,
     nom_fichier="departements_par_pays.yaml",
     defaut={},
+    afficher_erreur="Départements des pays introuvables.",
 )
 
 # Import de la liste de thèmes
@@ -151,6 +165,7 @@ liste_ambiances = ouvrir_fichier(
             "max_saturation": 0.4,
         }
     },
+    afficher_erreur="Ambiances introuvables.",
 )
 
 # Import de la liste des teintes
@@ -158,18 +173,21 @@ liste_couleurs = ouvrir_fichier(
     direction_fichier=direction_donnees_application,
     nom_fichier="cartes_teintes.yaml",
     defaut={"Multicolore": [i / 360 for i in range(0, 360)]},
+    afficher_erreur="Teintes introuvables.",
 )
 
 # Import des langues disponibles
 dict_langues_dispo = ouvrir_fichier(
-    direction_fichier=direction_donnees_application,
+    direction_fichier=direction_donnees_traductions,
     nom_fichier="noms_langues_traduction.yaml",
     defaut={},
+    afficher_erreur="Langues introuvables.",
 )
 
 # Import des paramètres traduits
 parametres_traduits = ouvrir_fichier(
-    direction_fichier=direction_donnees_application,
+    direction_fichier=direction_donnees_traductions,
     nom_fichier="parametres_cartes_traduction.yaml",
     defaut={},
+    afficher_erreur="Traductions des paramètres introuvables.",
 )

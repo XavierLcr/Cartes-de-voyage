@@ -1,7 +1,7 @@
 import pickle
 import constantes
 import os
-from application.fonctions_utiles_2_0 import ouvrir_fichier
+from _0_Utilitaires._0_1_Fonctions_utiles import ouvrir_fichier
 
 
 # Fonction de calcul de la superficie

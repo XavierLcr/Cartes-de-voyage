@@ -6,7 +6,7 @@
 
 
 from PyQt6.QtCore import pyqtSignal, QObject
-from production_cartes.carte_main_1_3 import cree_graphe_depuis_debut
+from _3_Calculs._1_3_carte_main import cree_graphe_depuis_debut
 
 
 # Classe de suivi du pays en cours de cartographie

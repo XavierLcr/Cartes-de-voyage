@@ -25,8 +25,8 @@ from PyQt6.QtWidgets import (
     QSizePolicy,
 )
 from PyQt6.QtCore import Qt, QTimer, QThread, pyqtSignal
-from application.onglets.onglet_1.onglet_1_creation_cartes import CreerCartes
-from application.fonctions_utiles_2_0 import (
+from _4_Interface._4_1_Onglets.onglet_1.onglet_1_creation_cartes import CreerCartes
+from _0_Utilitaires._0_1_Fonctions_utiles import (
     creer_ligne_verticale,
     creer_ligne_separation,
     creer_QLabel_centre,

@@ -2,7 +2,7 @@ import os, pickle
 import pandas as pd
 import geopandas as gpd
 from constantes import direction_donnees, direction_base, direction_donnees_application
-from application.fonctions_utiles_2_0 import ouvrir_fichier
+from _0_Utilitaires._0_1_Fonctions_utiles import ouvrir_fichier
 
 gdf = gpd.read_file(os.path.join(direction_base, "Donnees_granu_et_plus", "gadm_410.gpkg"))[
     # Sélection de colonnes

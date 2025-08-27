@@ -14,7 +14,7 @@ from PyQt6.QtWidgets import (
     QStackedWidget,
 )
 
-from application.onglets.onglet_4 import onglet_4_1_hemicycle, onglet_4_2_classement
+from _4_Interface._4_1_Onglets.onglet_4 import onglet_4_1_hemicycle, onglet_4_2_classement
 
 
 class OngletTopPays(QWidget):

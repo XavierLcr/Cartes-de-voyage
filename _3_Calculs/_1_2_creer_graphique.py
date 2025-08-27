@@ -1,6 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
-# 1.2 – Fichier de création des cartes                                         #
+# _3_Calculs/                                                                  #
+# 3.2 – Fichier de création des cartes                                         #
 ################################################################################
 
 import os, random, json, colorsys
@@ -35,7 +36,9 @@ def generer_couleur_aleatoire_hex(
 
     # Conversion HSV –> RGB
     r, g, b = colorsys.hsv_to_rgb(
-        (random.choice(teintes_autorisees) if teintes_autorisees else random.random()),  # Teinte
+        (
+            random.choice(teintes_autorisees) if teintes_autorisees else random.random()
+        ),  # Teinte
         random.uniform(config["min_saturation"], config["max_saturation"]),  # Saturation
         random.uniform(config["min_luminosite"], config["max_luminosite"]),  # Luminosité
     )
@@ -271,7 +274,9 @@ def renvoyer_couleur_widget(style, teinte, nuances, clair, sombre):
         return sombre
 
 
-def renvoyer_couleur_widget_differente(style, teinte, nuances, clair, sombre, reference, essais=20):
+def renvoyer_couleur_widget_differente(
+    style, teinte, nuances, clair, sombre, reference, essais=20
+):
     for _ in range(essais):
         resultat = renvoyer_couleur_widget(
             style=style,

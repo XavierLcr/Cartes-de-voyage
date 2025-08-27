@@ -22,7 +22,7 @@ from PyQt6.QtWidgets import (
     QListWidgetItem,
 )
 
-from application.fonctions_utiles_2_0 import (
+from _0_Utilitaires._0_1_Fonctions_utiles import (
     obtenir_clef_par_valeur,
     reset_combo,
     exporter_fichier,
@@ -320,7 +320,8 @@ class OngletSelectionnerDestinations(QWidget):
                 self.dicts_granu[clef][pays_i].append(texte)
                 self.dicts_granu[clef][pays_i].sort()
                 self.dicts_granu[clef] = {
-                    pays: self.dicts_granu[clef][pays] for pays in sorted(self.dicts_granu[clef])
+                    pays: self.dicts_granu[clef][pays]
+                    for pays in sorted(self.dicts_granu[clef])
                 }
         else:
             if texte in self.dicts_granu[clef][pays_i]:

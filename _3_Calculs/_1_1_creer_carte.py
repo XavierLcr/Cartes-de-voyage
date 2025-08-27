@@ -1,6 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
-# 1.1 – Fichier de création de la base de données                              #
+# _3_Calculs/                                                                  #
+# 3.1 – Fichier de création de la base de données                              #
 ################################################################################
 
 import pandas as pd
@@ -28,7 +29,8 @@ def creer_base_une_granularite(
         # Création de l'indicatrice des lieux visités
         .assign(
             Visite=lambda x: x.apply(
-                lambda row: row[f"NAME_{granularite}"] in liste_destinations.get(row["NAME_0"], []),
+                lambda row: row[f"NAME_{granularite}"]
+                in liste_destinations.get(row["NAME_0"], []),
                 axis=1,
             ),
             # Récupération de la région
@@ -243,7 +245,10 @@ def cree_base_toutes_granularites(
             resultat, pays_reste = (
                 (res_i, clefs_none_i)
                 if i == 0
-                else (pd.concat([resultat, res_i], ignore_index=True), pays_reste + clefs_none_i)
+                else (
+                    pd.concat([resultat, res_i], ignore_index=True),
+                    pays_reste + clefs_none_i,
+                )
             )
 
         if len(pays_reste) > 0:

@@ -8,7 +8,7 @@ import os, sys, time, textwrap
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import constantes
-from application.fonctions_utiles_2_0 import ouvrir_fichier, exporter_fichier
+from _0_Utilitaires._0_1_Fonctions_utiles import ouvrir_fichier, exporter_fichier
 
 from clefs_et_mots_de_passe import clef_api_gemini
 

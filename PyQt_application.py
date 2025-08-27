@@ -18,18 +18,18 @@ from PyQt6.QtCore import QTimer
 
 # Scripts et fonctions du projet
 import constantes
-from production_cartes import creer_graphique_1_2
-from application import fonctions_utiles_2_0
-from application.onglets.onglet_1 import onglet_1
-from application.onglets import onglet_2, onglet_3, onglet_5
-from application.onglets.onglet_4 import onglet_4
+from _3_Calculs._1_2_creer_graphique import utiliser_style_dynamique
+from _0_Utilitaires import _0_1_Fonctions_utiles
+from _4_Interface._4_1_Onglets.onglet_1 import onglet_1
+from _4_Interface._4_1_Onglets import onglet_2, onglet_3, onglet_5
+from _4_Interface._4_1_Onglets.onglet_4 import onglet_4
 
 
 warnings.filterwarnings("ignore")
 
 
 # Import de la sauvegarde
-sauvegarde = fonctions_utiles_2_0.ouvrir_fichier(
+sauvegarde = _0_1_Fonctions_utiles.ouvrir_fichier(
     direction_fichier=constantes.direction_donnees_application,
     nom_fichier="sauvegarde_utilisateurs.yaml",
     defaut={},
@@ -59,8 +59,8 @@ class MesVoyagesApplication(QWidget):
         # === Premier onglet ===
 
         self.onglet_parametres = onglet_1.OngletParametres(
-            gdf_eau=fonctions_utiles_2_0.ouvrir_fichier(
-                direction_fichier=constantes.direction_donnees_pickle,
+            gdf_eau=_0_1_Fonctions_utiles.ouvrir_fichier(
+                direction_fichier=constantes.direction_donnees_geographiques,
                 nom_fichier="carte_monde_lacs.pkl",
                 defaut=None,
             ),
@@ -123,8 +123,8 @@ class MesVoyagesApplication(QWidget):
 
         self.onglet_top_pays_visites = onglet_4.OngletTopPays(
             constantes=constantes,
-            table_superficie=fonctions_utiles_2_0.ouvrir_fichier(
-                direction_fichier=constantes.direction_donnees_pickle,
+            table_superficie=_0_1_Fonctions_utiles.ouvrir_fichier(
+                direction_fichier=constantes.direction_donnees_application,
                 nom_fichier="table_superficie.pkl",
                 defaut=None,
             ),
@@ -150,7 +150,7 @@ class MesVoyagesApplication(QWidget):
     def set_langue_interface(self):
         """Met à jour les textes des widgets selon la langue sélectionnée."""
 
-        self.langue = fonctions_utiles_2_0.obtenir_clef_par_valeur(
+        self.langue = _0_1_Fonctions_utiles.obtenir_clef_par_valeur(
             dictionnaire=constantes.dict_langues_dispo,
             valeur=self.onglet_parametres.langue_utilisee.currentText(),
         )
@@ -251,7 +251,7 @@ class MesVoyagesApplication(QWidget):
         """
 
         langue = (
-            fonctions_utiles_2_0.obtenir_clef_par_valeur(
+            _0_1_Fonctions_utiles.obtenir_clef_par_valeur(
                 dictionnaire=constantes.dict_langues_dispo,
                 valeur=self.onglet_parametres.langue_utilisee.currentText(),
             )
@@ -287,7 +287,7 @@ class MesVoyagesApplication(QWidget):
 
             # Récupération de l'ambiance
             liste_theme_temp = constantes.liste_ambiances.get(
-                fonctions_utiles_2_0.obtenir_clef_par_valeur(
+                _0_1_Fonctions_utiles.obtenir_clef_par_valeur(
                     dictionnaire=constantes.parametres_traduits["themes_cartes"].get(
                         self.langue, {}
                     ),
@@ -297,7 +297,7 @@ class MesVoyagesApplication(QWidget):
 
             # Récupération des teintes utilisées
             liste_teintes_temp = constantes.liste_couleurs.get(
-                fonctions_utiles_2_0.obtenir_clef_par_valeur(
+                _0_1_Fonctions_utiles.obtenir_clef_par_valeur(
                     dictionnaire=constantes.parametres_traduits["teintes_couleurs"].get(
                         self.langue, {}
                     ),
@@ -314,7 +314,7 @@ class MesVoyagesApplication(QWidget):
 
         # Appliquer les styles dynamiques
         self.setStyleSheet(
-            creer_graphique_1_2.utiliser_style_dynamique(
+            utiliser_style_dynamique(
                 style=(
                     0
                     if self.onglet_parametres.utiliser_theme.isChecked()
@@ -328,28 +328,28 @@ class MesVoyagesApplication(QWidget):
 
     def creer_liste_parametres(self):
 
-        langue = fonctions_utiles_2_0.obtenir_clef_par_valeur(
+        langue = _0_1_Fonctions_utiles.obtenir_clef_par_valeur(
             valeur=self.onglet_parametres.langue_utilisee.currentText(),
             dictionnaire=constantes.dict_langues_dispo,
         )
 
         return {
             "nom": self.onglet_parametres.nom_individu.currentText(),
-            "granularite": fonctions_utiles_2_0.obtenir_clef_par_valeur(
+            "granularite": _0_1_Fonctions_utiles.obtenir_clef_par_valeur(
                 valeur=self.onglet_parametres.granularite_visite.currentText(),
                 dictionnaire=constantes.parametres_traduits["granularite"][langue],
             ),
-            "granularite_fond": fonctions_utiles_2_0.obtenir_clef_par_valeur(
+            "granularite_fond": _0_1_Fonctions_utiles.obtenir_clef_par_valeur(
                 valeur=self.onglet_parametres.granularite_fond.currentText(),
                 dictionnaire=constantes.parametres_traduits["granularite"][langue],
             ),
             "langue": langue,
-            "couleur": fonctions_utiles_2_0.obtenir_clef_par_valeur(
+            "couleur": _0_1_Fonctions_utiles.obtenir_clef_par_valeur(
                 valeur=self.onglet_parametres.color_combo.currentText(),
                 dictionnaire=constantes.parametres_traduits["teintes_couleurs"][langue],
             ),
             "couleur_fond_carte": self.onglet_parametres.couleur_fond_checkbox.isChecked(),
-            "theme": fonctions_utiles_2_0.obtenir_clef_par_valeur(
+            "theme": _0_1_Fonctions_utiles.obtenir_clef_par_valeur(
                 valeur=self.onglet_parametres.theme_combo.currentText(),
                 dictionnaire=constantes.parametres_traduits["themes_cartes"][langue],
             ),
@@ -383,7 +383,7 @@ class MesVoyagesApplication(QWidget):
 
         parametres = self.creer_liste_parametres()
         if parametres["nom"] is None or parametres["nom"] in [""]:
-            parametres["nom"] = fonctions_utiles_2_0.formater_temps_actuel()
+            parametres["nom"] = _0_1_Fonctions_utiles.formater_temps_actuel()
         sauvegarde[parametres["nom"]] = copy.deepcopy(parametres)
 
         # Ajout à la liste déroulante
@@ -394,7 +394,7 @@ class MesVoyagesApplication(QWidget):
             self.onglet_parametres.nom_individu.addItem(parametres["nom"])
 
         # Export sous forme de YAML
-        fonctions_utiles_2_0.exporter_fichier(
+        _0_1_Fonctions_utiles.exporter_fichier(
             objet=sauvegarde,
             direction_fichier=constantes.direction_donnees_application,
             nom_fichier="sauvegarde_utilisateurs.yaml",
@@ -524,7 +524,7 @@ class MesVoyagesApplication(QWidget):
             self.selection_destinations.set_dict_granu(dictionnaire=self.dicts_granu)
 
             # Chargement de la granularité
-            fonctions_utiles_2_0.restaurer_valeur_combo(
+            _0_1_Fonctions_utiles.restaurer_valeur_combo(
                 combo=self.onglet_parametres.granularite_visite,
                 dict_parent=constantes.parametres_traduits["granularite"],
                 langue=self.langue,
@@ -533,7 +533,7 @@ class MesVoyagesApplication(QWidget):
             )
 
             # Chargement de la granularité de fond
-            fonctions_utiles_2_0.restaurer_valeur_combo(
+            _0_1_Fonctions_utiles.restaurer_valeur_combo(
                 combo=self.onglet_parametres.granularite_fond,
                 dict_parent=constantes.parametres_traduits["granularite"],
                 langue=self.langue,
@@ -542,7 +542,7 @@ class MesVoyagesApplication(QWidget):
             )
 
             # Chargement du thème
-            fonctions_utiles_2_0.restaurer_valeur_combo(
+            _0_1_Fonctions_utiles.restaurer_valeur_combo(
                 combo=self.onglet_parametres.theme_combo,
                 dict_parent=constantes.parametres_traduits["themes_cartes"],
                 langue=self.langue,
@@ -551,7 +551,7 @@ class MesVoyagesApplication(QWidget):
             )
 
             # Chargement de la teinte
-            fonctions_utiles_2_0.restaurer_valeur_combo(
+            _0_1_Fonctions_utiles.restaurer_valeur_combo(
                 combo=self.onglet_parametres.color_combo,
                 dict_parent=constantes.parametres_traduits["teintes_couleurs"],
                 langue=self.langue,
@@ -655,7 +655,7 @@ class MesVoyagesApplication(QWidget):
             self.onglet_parametres.nom_individu.addItems(list(sauvegarde.keys()))
 
             # sauvegarde
-            fonctions_utiles_2_0.exporter_fichier(
+            _0_1_Fonctions_utiles.exporter_fichier(
                 objet=sauvegarde,
                 direction_fichier=constantes.direction_donnees_application,
                 nom_fichier="sauvegarde_utilisateurs.yaml",
@@ -681,8 +681,8 @@ if __name__ == "__main__":
 
     # Lancement du thread de chargement
     threading.Thread(
-        target=fonctions_utiles_2_0.charger_gdfs,
-        args=(liste_gdfs, constantes.direction_donnees_pickle, 3),
+        target=_0_1_Fonctions_utiles.charger_gdfs,
+        args=(liste_gdfs, constantes.direction_donnees_geographiques, 3),
         daemon=True,
     ).start()
 

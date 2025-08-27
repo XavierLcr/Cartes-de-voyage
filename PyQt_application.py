@@ -523,31 +523,41 @@ class MesVoyagesApplication(QWidget):
             # Affectation du dictionnaire au deuxième onglet également
             self.selection_destinations.set_dict_granu(dictionnaire=self.dicts_granu)
 
-            # Chargement du thème
-            self.onglet_parametres.theme_combo.blockSignals(True)
-            self.onglet_parametres.theme_combo.setCurrentIndex(
-                self.onglet_parametres.theme_combo.findText(
-                    constantes.parametres_traduits["themes_cartes"]
-                    .get(self.langue)
-                    .get(sauv.get("theme"))
-                )
-                if sauv.get("theme") is not None
-                else 0
+            # Chargement de la granularité
+            fonctions_utiles_2_0.restaurer_valeur_combo(
+                combo=self.onglet_parametres.granularite_visite,
+                dict_parent=constantes.parametres_traduits["granularite"],
+                langue=self.langue,
+                valeur=sauv.get("granularite"),
+                defaut_index=0,
             )
-            self.onglet_parametres.theme_combo.blockSignals(False)
+
+            # Chargement de la granularité de fond
+            fonctions_utiles_2_0.restaurer_valeur_combo(
+                combo=self.onglet_parametres.granularite_fond,
+                dict_parent=constantes.parametres_traduits["granularite"],
+                langue=self.langue,
+                valeur=sauv.get("granularite_fond"),
+                defaut_index=0,
+            )
+
+            # Chargement du thème
+            fonctions_utiles_2_0.restaurer_valeur_combo(
+                combo=self.onglet_parametres.theme_combo,
+                dict_parent=constantes.parametres_traduits["themes_cartes"],
+                langue=self.langue,
+                valeur=sauv.get("theme"),
+                defaut_index=0,
+            )
 
             # Chargement de la teinte
-            self.onglet_parametres.color_combo.blockSignals(True)
-            self.onglet_parametres.color_combo.setCurrentIndex(
-                self.onglet_parametres.color_combo.findText(
-                    constantes.parametres_traduits["teintes_couleurs"]
-                    .get(self.langue)
-                    .get(sauv.get("couleur"))
-                )
-                if sauv.get("couleur") is not None
-                else 0
+            fonctions_utiles_2_0.restaurer_valeur_combo(
+                combo=self.onglet_parametres.color_combo,
+                dict_parent=constantes.parametres_traduits["teintes_couleurs"],
+                langue=self.langue,
+                valeur=sauv.get("couleur"),
+                defaut_index=0,
             )
-            self.onglet_parametres.color_combo.blockSignals(False)
 
             # Limite de cartes
             if sauv.get("max_cartes_additionnelles") is not None:

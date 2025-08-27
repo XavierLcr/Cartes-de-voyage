@@ -44,6 +44,31 @@ def reset_combo(combo, items, set_index=True):
     combo.blockSignals(False)
 
 
+def restaurer_valeur_combo(combo, dict_parent, langue, valeur, defaut_index=0):
+    """
+    Met à jour un QComboBox avec une valeur trouvée dans un dictionnaire traduit.
+
+    combo : QComboBox à mettre à jour
+    dict_parent : dictionnaire contenant les traductions (ex: constantes.parametres_traduits["themes_cartes"])
+    langue : langue courante
+    valeur : valeur à restaurer en français
+    defaut_index : index à mettre si aucune valeur trouvée
+    """
+    combo.blockSignals(True)
+
+    if valeur is not None:
+        traduction = dict_parent.get(langue, {}).get(valeur)
+        if traduction is not None:
+            idx = combo.findText(traduction)
+            combo.setCurrentIndex(idx if idx != -1 else defaut_index)
+        else:
+            combo.setCurrentIndex(defaut_index)
+    else:
+        combo.setCurrentIndex(defaut_index)
+
+    combo.blockSignals(False)
+
+
 def style_bouton_de_suppression(sombre):
     return f"""QPushButton {{
                             background-color:{"#000000" if sombre else "#f8d7da"};
@@ -157,7 +182,9 @@ def nb_pays_visites(
                     for i in continents[continent]
                     if i
                     # Liste des pays visités
-                    in list(set(list(dict_granu["region"].keys()) + list(dict_granu["dep"].keys())))
+                    in list(
+                        set(list(dict_granu["region"].keys()) + list(dict_granu["dep"].keys()))
+                    )
                 ]
             ),
         }

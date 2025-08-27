@@ -9,7 +9,91 @@ import math
 from PyQt6.QtCore import Qt, QPointF
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtGui import QPainter, QPen, QColor, QBrush, QFont
-from application.fonctions_utiles_2_0 import nb_pays_visites, reordonner_dict, somme_filee
+from collections import defaultdict
+from application.fonctions_utiles_2_0 import reordonner_dict
+
+
+def somme_filee(lignes, a, b):
+    total = 0
+    for i in range(lignes):
+        total = total + a + i * b
+    return total
+
+
+def valeurs_dans_plusieurs_listes(dictionnaire):
+    valeur_cles = defaultdict(list)
+
+    # On parcourt le dictionnaire et on enregistre pour chaque valeur les clés où elle apparaît
+    for cle, liste in dictionnaire.items():
+        for val in liste:
+            valeur_cles[val].append(cle)
+
+    # Ne garder que les valeurs qui apparaissent dans plusieurs listes
+    return {val: cles for val, cles in valeur_cles.items() if len(cles) > 1}
+
+
+def nb_pays_visites(
+    dict_granu: dict,
+    continents: dict,
+    a_supprimer: dict = {
+        "Africa": [
+            "French Southern Territories",
+            "Portugal",
+            "Saint Helena, Ascension and Tris",
+            "Spain",
+        ],
+        "Asia": [
+            "Akrotiri and Dhekelia",
+            "Armenia",
+            "Azerbaijan",
+            "Cyprus",
+            "Egypt",
+            "Georgia",
+            "Northern Cyprus",
+            "Turkey",
+        ],
+        "Oceania": ["Indonesia"],
+        "North America": ["United States Minor Outlying Isl", "Grenada"],
+        "South America": ["Bonaire, Sint Eustatius and Saba", "Panama"],
+    },
+):
+
+    # Suppression du Moyen-Orient
+    if "Middle East" in list(continents.keys()):
+        del continents["Middle East"]
+
+    # Suppression des doublons
+    continents = {
+        continent: [pays for pays in liste_pays if pays not in a_supprimer.get(continent, [])]
+        for continent, liste_pays in continents.items()
+    }
+
+    # Test de vérification de l'absence de doublons
+    assert (
+        valeurs_dans_plusieurs_listes(continents) == {}
+    ), f"Pays en double :{valeurs_dans_plusieurs_listes(continents)}"
+
+    resultat = {}
+    for continent in list(continents.keys()):
+
+        resultat[continent] = {
+            # Nombre de pays dans le continents
+            "total": len(continents[continent]),
+            # Nombre de pays visités dans le continent
+            "visites": len(
+                [
+                    i
+                    for i in continents[continent]
+                    if i
+                    # Liste des pays visités
+                    in list(
+                        set(list(dict_granu["region"].keys()) + list(dict_granu["dep"].keys()))
+                    )
+                ]
+            ),
+        }
+
+    return resultat
 
 
 # Classe de type hémicycle

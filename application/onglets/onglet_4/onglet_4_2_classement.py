@@ -16,10 +16,33 @@ from PyQt6.QtWidgets import (
     QGridLayout,
 )
 
-from application.fonctions_utiles_2_0 import (
-    creer_classement_pays,
-    creer_ligne_separation,
-)
+from application.fonctions_utiles_2_0 import creer_ligne_separation
+
+
+def creer_classement_pays(
+    gdf_visite,
+    table_superficie,
+    granularite: int = 1,
+    top_n: int | None = None,
+):
+
+    gdf_visite = (
+        # Ajout des superficies
+        gdf_visite.merge(
+            table_superficie,
+            how="left",
+            left_on=["Pays", "Region"],
+            right_on=["NAME_0", f"NAME_{granularite}"],
+        )
+        # Somme par pays des superficies visitées
+        .groupby("Pays")[["pct_superficie_dans_pays", "superficie"]]
+        .sum()
+        .reset_index()
+        # Tri des valeurs par ordre décroissant
+        .sort_values(by=["pct_superficie_dans_pays", "superficie"], ascending=[False, False])
+    )
+
+    return gdf_visite if top_n is None else gdf_visite.head(top_n)
 
 
 # Quatrième onglet

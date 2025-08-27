@@ -7,7 +7,6 @@
 import os, pickle, yaml, time
 from PyQt6.QtWidgets import QHBoxLayout, QFrame, QLabel
 from PyQt6.QtCore import Qt
-from collections import defaultdict
 
 
 def creer_QLabel_centre(text: str | None = None, parent=None):
@@ -84,114 +83,6 @@ def style_bouton_de_suppression(sombre):
             """
 
 
-def creer_classement_pays(
-    gdf_visite,
-    table_superficie,
-    granularite: int = 1,
-    top_n: int | None = None,
-):
-
-    gdf_visite = (
-        # # Filtre sur la granularité
-        # gdf_visite.loc[gdf_visite["Granu"] == granularite]
-        # # Conversion en nombre en entier de l'indicatrice
-        # .assign(Visite=lambda x: x["Visite"].astype(int))
-        # # Sélection de ces régions et des colonnes utiles
-        # .loc[lambda x: x["Visite"] == 1][["Pays", "Region", "Granu", "Visite"]]
-        # Ajout des superficies
-        gdf_visite.merge(
-            table_superficie,
-            how="left",
-            left_on=["Pays", "Region"],
-            right_on=["NAME_0", f"NAME_{granularite}"],
-        )
-        # Somme par pays des superficies visitées
-        .groupby("Pays")[["pct_superficie_dans_pays", "superficie"]]
-        .sum()
-        .reset_index()
-        # Tri des valeurs par ordre décroissant
-        .sort_values(by=["pct_superficie_dans_pays", "superficie"], ascending=[False, False])
-    )
-
-    return gdf_visite if top_n is None else gdf_visite.head(top_n)
-
-
-def valeurs_dans_plusieurs_listes(d):
-    valeur_cles = defaultdict(list)
-
-    # On parcourt le dictionnaire et on enregistre pour chaque valeur les clés où elle apparaît
-    for cle, liste in d.items():
-        for val in liste:
-            valeur_cles[val].append(cle)
-
-    # Ne garder que les valeurs qui apparaissent dans plusieurs listes
-    return {val: cles for val, cles in valeur_cles.items() if len(cles) > 1}
-
-
-def nb_pays_visites(
-    dict_granu: dict,
-    continents: dict,
-    a_supprimer: dict = {
-        "Africa": [
-            "French Southern Territories",
-            "Portugal",
-            "Saint Helena, Ascension and Tris",
-            "Spain",
-        ],
-        "Asia": [
-            "Akrotiri and Dhekelia",
-            "Armenia",
-            "Azerbaijan",
-            "Cyprus",
-            "Egypt",
-            "Georgia",
-            "Northern Cyprus",
-            "Turkey",
-        ],
-        "Oceania": ["Indonesia"],
-        "North America": ["United States Minor Outlying Isl", "Grenada"],
-        "South America": ["Bonaire, Sint Eustatius and Saba", "Panama"],
-    },
-):
-
-    # Suppression du Moyen-Orient
-    if "Middle East" in list(continents.keys()):
-        del continents["Middle East"]
-
-    # Suppression des doublons
-    continents = {
-        continent: [pays for pays in liste_pays if pays not in a_supprimer.get(continent, [])]
-        for continent, liste_pays in continents.items()
-    }
-
-    # Test
-    assert (
-        valeurs_dans_plusieurs_listes(continents) == {}
-    ), f"Pays en double :{valeurs_dans_plusieurs_listes(continents)}"
-
-    resultat = {}
-    for continent in list(continents.keys()):
-
-        resultat[continent] = {
-            # Nombre de pays dans le continents
-            "total": len(continents[continent]),
-            # Nombre de pays visités dans le continent
-            "visites": len(
-                [
-                    i
-                    for i in continents[continent]
-                    if i
-                    # Liste des pays visités
-                    in list(
-                        set(list(dict_granu["region"].keys()) + list(dict_granu["dep"].keys()))
-                    )
-                ]
-            ),
-        }
-
-    return resultat
-
-
 def creer_ligne_separation(lStretch=1, ligne_largeur=4, rStretch=1):
     """Afficher une simple ligne horizontale."""
     layout_temp = QHBoxLayout()
@@ -215,6 +106,7 @@ def creer_ligne_verticale():
 
 # Fonction d'ouverture dedonnées
 def ouvrir_fichier(direction_fichier, nom_fichier, defaut, afficher_erreur: str | None = None):
+    """Ouvre un fichier de type YAML ou pickle."""
 
     nom_fichier = os.path.join(direction_fichier, nom_fichier)
     nom, extention = os.path.splitext(nom_fichier)
@@ -259,6 +151,7 @@ def charger_gdfs(liste_gdfs, direction_base, max_niveau=3):
 
 
 def exporter_fichier(objet, direction_fichier, nom_fichier, sort_keys: bool = True):
+    """Exporte un fichier de type YAML ou pickle."""
 
     nom_fichier = os.path.join(direction_fichier, nom_fichier)
     nom, extention = os.path.splitext(nom_fichier)
@@ -278,16 +171,19 @@ def exporter_fichier(objet, direction_fichier, nom_fichier, sort_keys: bool = Tr
                 objet, file, allow_unicode=True, default_flow_style=False, sort_keys=sort_keys
             )
 
+    elif extention == ".pkl":
+        with open(
+            nom_fichier,
+            "wb",
+        ) as f:
+            pickle.dump(objet, f)
+
+    else:
+        print("Fichier non exportable.")
+
 
 def reordonner_dict(dictionnaire: dict, clefs: list):
     return {k: dictionnaire[k] for k in clefs if k in dictionnaire}
-
-
-def somme_filee(lignes, a, b):
-    total = 0
-    for i in range(lignes):
-        total = total + a + i * b
-    return total
 
 
 def formater_temps_actuel():

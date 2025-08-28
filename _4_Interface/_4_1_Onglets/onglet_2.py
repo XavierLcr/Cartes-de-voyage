@@ -267,8 +267,6 @@ class OngletSelectionnerDestinations(QWidget):
             dictionnaire=self.constantes.parametres_traduits["granularite"][self.langue],
         )
 
-        print(pays_i, ";", niveau_i)
-
         self.liste_endroits.blockSignals(True)  # ⚠️ Empêche les signaux pendant le remplissage
         self.liste_endroits.clear()
 

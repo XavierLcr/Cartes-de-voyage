@@ -390,7 +390,7 @@ print("Nettoyage général.")
 for i in range(6):
 
     # Ajout d'une parenthèse pour les cas restants
-    mask_i = (gdf[f"name_{i}"].str.contains("\(", na=False)) & (
+    mask = (gdf[f"name_{i}"].str.contains("\(", na=False)) & (
         gdf[f"name_{i}"].str.contains("\)", na=False) == False
     )
     gdf.loc[mask, f"name_{i}"] = gdf.loc[mask, f"name_{i}"] + ")"
@@ -401,10 +401,11 @@ for i in range(6):
         gdf.loc[mask, f"name_{i}"] = (
             gdf.loc[mask, f"name_{i-1}"]
             + " – "
-            + gdf.loc[mask, f"name_{i}"].str.replace("n.a.", "", regex=False, case=False)
-        )
+            + gdf.loc[mask, f"name_{i}"].str.replace(
+                "n.a.", "Unknown", regex=False, case=False
+            )
+        ).str.replace("( ", "(", regex=False, case=False)
 
-    print("Nettoyage général")
     # Nettoyage des espaces
     gdf[f"name_{i}"] = (
         gdf[f"name_{i}"]

@@ -384,11 +384,12 @@ class OngletParametres(QWidget):
 
         # Paramètres de l'individu
         self.groupe_params_individu.setTitle(self.fonction_traduction("titre_params_individu"))
-        self.dossier_stockage_bouton.setText(
-            self.fonction_traduction("dossier_stockage_individu")
-            if self.dossier_stockage is None
-            else os.sep.join(os.path.normpath(self.dossier_stockage).split(os.sep)[-3:])
-        )
+        # self.dossier_stockage_bouton.setText(
+        #     self.fonction_traduction("dossier_stockage_individu")
+        #     if self.dossier_stockage is None
+        #     else os.sep.join(os.path.normpath(self.dossier_stockage).split(os.sep)[-3:])
+        # )
+        self.set_dossier(dossier=self.dossier_stockage)
         self.label_langue.setText(
             self.fonction_traduction(clef="langue_individu", suffixe=" :")
         )
@@ -507,7 +508,13 @@ class OngletParametres(QWidget):
         )
 
     def set_dossier(self, dossier):
+
         self.dossier_stockage = dossier
+        self.dossier_stockage_bouton.setText(
+            self.fonction_traduction("dossier_stockage_individu")
+            if self.dossier_stockage is None
+            else os.sep.join(os.path.normpath(self.dossier_stockage).split(os.sep)[-3:])
+        )
         self.envoi_dossier.emit(self.dossier_stockage)
 
     def choisir_dossier(self):

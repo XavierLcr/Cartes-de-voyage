@@ -69,8 +69,8 @@ class OngletSelectionnerDestinations(QWidget):
 
         # Remplir les déroulés
         self.liste_des_pays.addItems(self.constantes.regions_par_pays.keys())
-        self.liste_des_pays.currentTextChanged.connect(self.maj_liste_reg_dep_pays)
-        self.liste_niveaux.currentTextChanged.connect(self.maj_liste_reg_dep_pays)
+        self.liste_des_pays.currentIndexChanged.connect(self.maj_liste_reg_dep_pays)
+        self.liste_niveaux.currentIndexChanged.connect(self.maj_liste_reg_dep_pays)
         self.liste_endroits.itemChanged.connect(self.changer_item_liste_pays)
 
         layout_selection_params = QHBoxLayout()
@@ -267,6 +267,8 @@ class OngletSelectionnerDestinations(QWidget):
             dictionnaire=self.constantes.parametres_traduits["granularite"][self.langue],
         )
 
+        print(pays_i, ";", niveau_i)
+
         self.liste_endroits.blockSignals(True)  # ⚠️ Empêche les signaux pendant le remplissage
         self.liste_endroits.clear()
 
@@ -276,6 +278,10 @@ class OngletSelectionnerDestinations(QWidget):
             liste_end = self.constantes.departements_par_pays.get(pays_i, [])
         else:
             liste_end = []
+
+        if liste_end == []:
+            self.liste_endroits.blockSignals(False)
+            return
 
         for item in liste_end:
             liste_item = QListWidgetItem(item)

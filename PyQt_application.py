@@ -620,13 +620,22 @@ class MesVoyagesApplication(QWidget):
         self.onglet_parametres.sortir_cartes_granu_inf.setChecked(False)
         self.onglet_parametres.utiliser_theme.setChecked(False)
 
+        if set_interface:
+            self.set_langue_interface()
+
+        # Onglet 2
+        self.selection_destinations.liste_des_pays.setCurrentIndex(1)
+        self.selection_destinations.liste_niveaux.setCurrentIndex(0)
+        ## Changement forcé de l'index
+        self.selection_destinations.liste_des_pays.setCurrentIndex(0)
+
         self.selection_destinations.reset_yaml()
         self.onglet_resume_pays.mise_en_forme.setChecked(False)
         self.onglet_resume_pays.set_dicts_granu(dict_nv=self.dicts_granu)
         self.onglet_top_pays_visites.set_dicts_granu(dict_nv=self.dicts_granu)
 
         if set_interface:
-            self.set_langue_interface()
+            # self.set_langue_interface()
             self.set_style()
 
     def supprimer_clef(self, clef):

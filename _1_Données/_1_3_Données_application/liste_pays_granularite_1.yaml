@@ -153,7 +153,7 @@ Anguilla:
 - The Valley
 - West End
 Antarctica:
-- ''
+- Antarctica
 Antigua and Barbuda:
 - Barbuda
 - Redonda
@@ -201,7 +201,7 @@ Armenia:
 - Tavush
 - Vayots Dzor
 Aruba:
-- ''
+- Aruba
 Arunachal Pradesh:
 - Arunachal Pradesh
 Australia:
@@ -399,7 +399,7 @@ Botswana:
 - Southern
 - Sowa
 Bouvet Island:
-- ''
+- Bouvet Island
 Brazil:
 - Acre
 - Alagoas
@@ -429,7 +429,7 @@ Brazil:
 - São Paulo
 - Tocantins
 British Indian Ocean Territory:
-- ''
+- British Indian Ocean Territory
 British Virgin Islands:
 - Anegada
 - Jost Van Dyke
@@ -576,6 +576,8 @@ Canada:
 - Québec
 - Saskatchewan
 - Yukon
+Caspian Sea:
+- Caspian Sea
 Cayman Islands:
 - Bodden Town
 - East End
@@ -677,17 +679,17 @@ China:
 - Yunnan
 - Zhejiang
 Christmas Island:
-- ''
+- Christmas Island
 Clipperton Island:
-- ''
+- Clipperton Island
 Cocos Islands:
-- ''
+- Cocos Islands
 Colombia:
 - Amazonas
 - Antioquia
 - Arauca
 - Atlántico
-- Bogotá D.C.
+- Bogotá DC
 - Bolívar
 - Boyacá
 - Caldas
@@ -780,7 +782,7 @@ Cuba:
 - Santiago de Cuba
 - Villa Clara
 Curaçao:
-- ''
+- Curaçao
 Cyprus:
 - Famagusta
 - Larnaca
@@ -1014,7 +1016,7 @@ Ethiopia:
 - Southern Nations, Nationalities
 - Tigray
 Falkland Islands:
-- ''
+- Falkland Islands
 Faroe Islands:
 - Eysturoyar
 - Norderøerne
@@ -1127,7 +1129,7 @@ Ghana:
 - Western
 - Western North
 Gibraltar:
-- ''
+- Gibraltar
 Greece:
 - Aegean
 - Athos
@@ -1252,7 +1254,7 @@ Haiti:
 - Sud
 - Sud-Est
 Heard Island and McDonald Island:
-- ''
+- Heard Island and McDonald Island
 Honduras:
 - Atlántida
 - Choluteca
@@ -1660,7 +1662,7 @@ Kenya:
 - Wajir
 - West Pokot
 Kiribati:
-- ''
+- Kiribati
 Kosovo:
 - Gnjilane
 - Kosovska Mitrovica
@@ -1700,7 +1702,7 @@ Laos:
 - Saravan
 - Savannakhét
 - Vientiane
-- Vientiane [prefecture]
+- Vientiane prefecture
 - Xaignabouri
 - Xaisômboun
 - Xiangkhoang
@@ -1853,7 +1855,7 @@ Malaysia:
 - Selangor
 - Trengganu
 Maldives:
-- ''
+- Maldives
 Mali:
 - Bamako
 - Gao
@@ -2258,9 +2260,9 @@ Nigeria:
 - Yobe
 - Zamfara
 Niue:
-- ''
+- Niue
 Norfolk Island:
-- ''
+- Norfolk Island
 North Korea:
 - Chagang-do
 - Hamgyŏng-bukto
@@ -2468,7 +2470,7 @@ Papua New Guinea:
 - Western
 - Western Highlands
 Paracel Islands:
-- ''
+- Paracel Islands
 Paraguay:
 - Alto Paraguay
 - Alto Paraná
@@ -2598,7 +2600,7 @@ Philippines:
 - Zamboanga del Norte
 - Zamboanga del Sur
 Pitcairn Islands:
-- ''
+- Pitcairn Islands
 Poland:
 - Dolnośląskie
 - Kujawsko-Pomorskie
@@ -2794,7 +2796,7 @@ Russia:
 - Chelyabinsk
 - Chukot
 - Chuvash
-- City of St. Petersburg
+- City of St Petersburg
 - Dagestan
 - Gorno-Altay
 - Ingush
@@ -2919,7 +2921,7 @@ Saint-Barthélemy:
 - Au Vent
 - Sous le Vent
 Saint-Martin:
-- ''
+- Saint-Martin
 Samoa:
 - A'ana
 - Aiga-i-le-Tai
@@ -3041,7 +3043,7 @@ Singapore:
 - North-East
 - West
 Sint Maarten:
-- ''
+- Sint Maarten
 Slovakia:
 - Banskobystrický
 - Bratislavský
@@ -3105,7 +3107,7 @@ South Africa:
 - Northern Cape
 - Western Cape
 South Georgia and the South Sand:
-- ''
+- South Georgia and the South Sand
 South Korea:
 - Busan
 - Chungcheongbuk-do
@@ -3155,7 +3157,7 @@ Spain:
 - Principado de Asturias
 - Región de Murcia
 Spratly Islands:
-- ''
+- Spratly Islands
 Sri Lanka:
 - Ampara
 - Anuradhapura
@@ -3521,7 +3523,7 @@ Turkey:
 - Istanbul
 - Izmir
 - Iğdır
-- K. Maras
+- K Maras
 - Karabük
 - Karaman
 - Kars
@@ -3648,7 +3650,6 @@ Uganda:
 - Wakiso
 - Yumbe
 Ukraine:
-- '?'
 - Cherkasy
 - Chernihiv
 - Chernivtsi
@@ -3794,7 +3795,7 @@ Vanuatu:
 - Tafea
 - Torba
 Vatican City:
-- ''
+- Vatican City
 Venezuela:
 - Amazonas
 - Anzoátegui
@@ -3885,7 +3886,7 @@ Vietnam:
 - Đắk Nông
 - Đồng Nai
 - Đồng Tháp
-Virgin Islands, U.S.:
+Virgin Islands, US:
 - Saint Croix
 - Saint John
 - Saint Thomas

@@ -1,0 +1,23 @@
+import os, sys
+import pandas as pd
+import geopandas as gpd
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+import constantes
+from _0_Utilitaires._0_1_Fonctions_utiles import exporter_fichier
+
+gdf = gpd.read_file(
+    os.path.join(constantes.direction_donnees, "_1_1_Données_brutes", "gadm_410.gpkg")
+).rename(columns={f"NAME_{i}": f"name_{i}" for i in range(6)})
+
+mask = (
+    gdf[[f"ENGTYPE_{i}" for i in range(1, 6)]]
+    .apply(lambda col: col.str.lower().isin(["water body", "waterbody"]))
+    .any(axis=1)
+)
+
+exporter_fichier(
+    objet=gdf[mask],
+    direction_fichier=constantes.direction_donnees_geographiques,
+    nom_fichier="carte_monde_lacs.pkl",
+)

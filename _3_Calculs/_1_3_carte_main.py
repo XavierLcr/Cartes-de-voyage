@@ -20,8 +20,8 @@ def cree_gdf_depuis_dicts(
     Ces informations sont ensuite utilisées pour créer une carte avec les lieux marqués comme visités ou non.
 
     Paramètres :
-    – df_monde (DataFrame) : DataFrame contenant les informations géographiques mondiales, incluant des colonnes comme `NAME_0` pour les pays
-      et `NAME_{granularite}` pour les régions.
+    – df_monde (DataFrame) : DataFrame contenant les informations géographiques mondiales, incluant des colonnes comme `name_0` pour les pays
+      et `name_{granularite}` pour les régions.
     – df_monde_granu (GeoDataFrame) : Un GeoDataFrame avec les informations géographiques globales (pays, régions, etc.)
       et la géométrie associée.
     – dict1 (dict, optionnel) : Dictionnaire représentant les informations pour le deuxième niveau de granularité (par exemple, régions).
@@ -133,7 +133,7 @@ def creer_graphiques_pays(
     )
 
     # On gère la carte de fond des régions
-    gdf_fond_regions = gdf_fond_regions[gdf_fond_regions["NAME_0"].isin(liste_pays_visites)]
+    gdf_fond_regions = gdf_fond_regions[gdf_fond_regions["name_0"].isin(liste_pays_visites)]
 
     for i in range(len(liste_pays_visites)):
 

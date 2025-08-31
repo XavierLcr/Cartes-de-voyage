@@ -9,7 +9,7 @@ def calculer_superficie(gdf, espg):
 
     gdf = gdf.to_crs(epsg=espg).assign(
         superficie=lambda x: x.geometry.area,
-        superficie_par_pays=lambda x: x.groupby("NAME_0")["superficie"].transform("sum"),
+        superficie_par_pays=lambda x: x.groupby("name_0")["superficie"].transform("sum"),
         pct_superficie_dans_pays=lambda x: x["superficie"] / x["superficie_par_pays"],
     )
 

@@ -25,21 +25,21 @@ def creer_base_une_granularite(
 
     return (
         # Filtre sur les pays visités
-        df.loc[df["NAME_0"].isin(liste_destinations.keys())]
+        df.loc[df["name_0"].isin(liste_destinations.keys())]
         # Création de l'indicatrice des lieux visités
         .assign(
             Visite=lambda x: x.apply(
-                lambda row: row[f"NAME_{granularite}"]
-                in liste_destinations.get(row["NAME_0"], []),
+                lambda row: row[f"name_{granularite}"]
+                in liste_destinations.get(row["name_0"], []),
                 axis=1,
             ),
             # Récupération de la région
-            Region=lambda x: x[f"NAME_{granularite}"],
+            Region=lambda x: x[f"name_{granularite}"],
             # Ajout de la granularité
             Granu=granularite,
         )
         # Renommage
-        .rename(columns={"NAME_0": "Pays"})
+        .rename(columns={"name_0": "Pays"})
         # Sélection des colonnes
         .loc[:, ["Pays", "Region", "Visite", "geometry", "Granu"]]
     )
@@ -67,8 +67,8 @@ def creer_base_double_granularite(
     # Sélection des lieux visités
     resultat = df_donnee.loc[
         df_donnee.apply(
-            lambda row: row["NAME_0"] in liste_destinations
-            and row[f"NAME_{granularite_donnee}"] in liste_destinations[row["NAME_0"]],
+            lambda row: row["name_0"] in liste_destinations
+            and row[f"name_{granularite_donnee}"] in liste_destinations[row["name_0"]],
             axis=1,
         )
     ]
@@ -78,7 +78,7 @@ def creer_base_double_granularite(
         granularite=granularite_obj,
         liste_destinations=pd.DataFrame(
             # Création des paires Pays/Région visités
-            list(set(zip(resultat["NAME_0"], resultat[f"NAME_{granularite_obj}"]))),
+            list(set(zip(resultat["name_0"], resultat[f"name_{granularite_obj}"]))),
             columns=["nom1", "nom2"],
         )
         # Mise sous la forme d'un dictionnaire
@@ -114,9 +114,9 @@ def remplacer_lieux_constants(liste_dfs: list, df_visite: pd.DataFrame, granular
             .copy()
             .reset_index(drop=True)
             .assign(
-                Pays=lambda x: x["NAME_0"],
-                Region=lambda x: x[f"NAME_{granularite}"],
-                region_temp=lambda x: x[f"NAME_{granularite-1}"],
+                Pays=lambda x: x["name_0"],
+                Region=lambda x: x[f"name_{granularite}"],
+                region_temp=lambda x: x[f"name_{granularite-1}"],
             )[["Pays", "Region", "region_temp"]]
         )
         assert not df_monde_granu.duplicated(
@@ -179,8 +179,8 @@ def remplacer_lieux_constants(liste_dfs: list, df_visite: pd.DataFrame, granular
                 liste_dfs[granularite - 1].copy().reset_index(drop=True)
                 # Renommage
                 .assign(
-                    Pays=lambda x: x["NAME_0"],
-                    region_temp=lambda x: x[f"NAME_{granularite-1}"],
+                    Pays=lambda x: x["name_0"],
+                    region_temp=lambda x: x[f"name_{granularite-1}"],
                     # Sélection des variables
                 )[["Pays", "region_temp", "geometry"]],
                 how="left",
@@ -258,9 +258,9 @@ def cree_base_toutes_granularites(
                     # Table des pays détaillés
                     resultat,
                     # Table des pays non détaillés
-                    liste_dfs[0][liste_dfs[0]["NAME_0"].isin(pays_reste)].assign(
-                        Pays=lambda x: x["NAME_0"] * 1,
-                        Region=lambda x: x["NAME_0"] * 1,
+                    liste_dfs[0][liste_dfs[0]["name_0"].isin(pays_reste)].assign(
+                        Pays=lambda x: x["name_0"] * 1,
+                        Region=lambda x: x["name_0"] * 1,
                         Granu=0,
                         Visite=1,
                     )[["Pays", "Region", "Visite", "geometry", "Granu"]],
@@ -293,8 +293,8 @@ def ajouter_indicatrice_visite(gdf_monde, gdf_visite, granularite=1):
     Les pays et régions visités sont également concaténés avec ceux non visités pour produire un GeoDataFrame complet.
 
     Paramètres :
-    – gdf_monde (GeoDataFrame) : Un GeoDataFrame contenant les informations mondiales, incluant des colonnes comme `NAME_0` pour les pays
-      et `NAME_{granularite}` pour les régions (selon le niveau de granularité).
+    – gdf_monde (GeoDataFrame) : Un GeoDataFrame contenant les informations mondiales, incluant des colonnes comme `name_0` pour les pays
+      et `name_{granularite}` pour les régions (selon le niveau de granularité).
     – gdf_visite (GeoDataFrame) : Un GeoDataFrame contenant les informations des pays ou régions visités, avec une colonne "Pays" ou
       "Region" correspondante.
     – granularite (int, optionnel) : Le niveau de granularité pour la région (par défaut, 1 représente la région, mais cela peut être
@@ -313,12 +313,12 @@ def ajouter_indicatrice_visite(gdf_monde, gdf_visite, granularite=1):
             # Table des pays non visités
             (
                 # Suppression des pays visités
-                gdf_monde[gdf_monde["NAME_0"].isin(gdf_visite["Pays"]) == False].assign(
+                gdf_monde[gdf_monde["name_0"].isin(gdf_visite["Pays"]) == False].assign(
                     # Création de la région
-                    Region=lambda x: x[f"NAME_{granularite}"]
+                    Region=lambda x: x[f"name_{granularite}"]
                 )
                 # Renommage
-                .rename(columns={"NAME_0": "Pays"})
+                .rename(columns={"name_0": "Pays"})
                 # Ajout de la granularité
                 .assign(Granu=granularite)
                 # Ajout de l'indicatrice de visite

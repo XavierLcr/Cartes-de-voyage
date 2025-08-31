@@ -131,7 +131,7 @@ def creer_image_carte(
         if blabla:
             print("Ajout des frontières nationales", end="")
 
-        gdf_monde = gdf_monde[gdf_monde["NAME_0"].isin(liste_pays)]
+        gdf_monde = gdf_monde[gdf_monde["name_0"].isin(liste_pays)]
 
         if len(gdf_monde) > 0:
             gdf_monde.plot(ax=ax, color="none", edgecolor="black", linewidth=0.04, zorder=3)
@@ -139,7 +139,7 @@ def creer_image_carte(
     if gdf_regions is not None:
 
         liste_pays_regions = list(gdf.loc[(gdf["Granu"] >= 1), "Pays"].unique())
-        gdf_regions = gdf_regions[gdf_regions["NAME_0"].isin(liste_pays_regions)]
+        gdf_regions = gdf_regions[gdf_regions["name_0"].isin(liste_pays_regions)]
 
         if len(gdf_regions) > 0:
 
@@ -153,7 +153,7 @@ def creer_image_carte(
         if blabla:
             print(", des lacs", end="")
 
-        gdf_eau = gdf_eau[gdf_eau["NAME_0"].isin(liste_pays)]
+        gdf_eau = gdf_eau[gdf_eau["name_0"].isin(liste_pays)]
 
         if len(gdf_eau) > 0:
             gdf_eau.plot(ax=ax, color=couleur_lacs, edgecolor="none", alpha=1, zorder=3)

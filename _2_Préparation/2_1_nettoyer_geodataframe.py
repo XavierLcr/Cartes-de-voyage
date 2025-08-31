@@ -437,37 +437,33 @@ for i in range(0, 5):
 
 def concatener_noms_si_dupliques(df: pd.DataFrame) -> pd.DataFrame:
     """
-    Pour chaque colonne name_i (en partant de name_n vers name_1), concatène les valeurs
-    des colonnes name_0 à name_i si le couple (name_0, name_i) apparaît plusieurs fois.
-
-    Paramètres :
-    - df (pd.DataFrame) : Le DataFrame à traiter.
-
-    Retour :
-    - pd.DataFrame : Le DataFrame modifié.
+    Concatène les niveaux supérieurs uniquement pour la colonne la plus fine (dernière)
+    si des doublons apparaissent dans un même pays mais avec hiérarchie différente.
     """
+    # Colonnes hiérarchiques
+    colonnes = sorted(
+        [col for col in df.columns if col.startswith("name_")],
+        key=lambda x: int(x.split("_")[1]),
+    )
 
-    # Identifier toutes les colonnes name_i et les trier selon l'indice croissant
-    colonnes = sorted([col for col in gdf.columns if col.startswith("name_")])
+    # Dernier niveau
+    i = len(colonnes) - 1
+    col = colonnes[i]
 
-    for i in range(len(colonnes) - 1, 1, -1):
+    # Masque : doublons sur (name_0, name_i) mais hiérarchie différente
+    mask = df.duplicated(subset=["name_0", col], keep=False) & ~df.duplicated(
+        subset=["name_0"] + colonnes[: i + 1], keep=False
+    )
 
-        for k in range(i - 1, 0, -1):
+    if mask.any():
+        # Concaténer name_1 .. name_i
+        df.loc[mask, col] = df.loc[mask, colonnes[1 : i + 1]].agg(" – ".join, axis=1)
 
-            # Conservation des doublons qui ont une hiérarchie différente
-            mask = (df.duplicated(subset=["name_0", f"name_{i}"], keep=False)) & (
-                ~df.duplicated(subset=[f"name_{j}" for j in range(0, i + 1)], keep=False)
-            )
-
-            df.loc[mask, f"name_{i}"] = (
-                df.loc[mask, f"name_{k}"] + " – " + df.loc[mask, f"name_{i}"]
-            )
+        assert len(df[df[["name_0", col]].duplicated(keep=False)]) == len(
+            df[df[[f"name_{i}" for i in range(len(colonnes))]].duplicated(keep=False)]
+        ), "Des doublons non souhaités existent"
 
     return df
-
-
-print("Concaténation des valeurs dupliquées.")
-gdf = concatener_noms_si_dupliques(gdf)
 
 
 # === Tests ===
@@ -496,27 +492,24 @@ for i in range(6):
         len(gdf[gdf[f"name_{i}"].str.contains("\*", na=False)]) == 0
     ), f"Il y a des '*' dans la colonne name_{i}"
 
-assert len(gdf[gdf[["name_0", "name_5"]].duplicated(keep=False)]) == len(
-    gdf[gdf[[f"name_{i}" for i in range(6)]].duplicated(keep=False)]
-), "Des doublons non souhaités existent"
-
 
 # Réduction des bases et export
 def aggreger_lieux(gdf, direction_fichier, granularite=5):
 
-    print("Début de l'agrégation : granularité ", granularite, end=". ")
+    resultat = (
+        copy.deepcopy(gdf)[[f"name_{i}" for i in range(granularite + 1)] + ["geometry"]]
+        .dissolve(by=[f"name_{i}" for i in range(granularite + 1)])
+        .reset_index()
+    )
+    resultat = concatener_noms_si_dupliques(resultat)
 
     exporter_fichier(
-        objet=copy.deepcopy(gdf)
-        .dissolve(
-            by=[f"name_{i}" for i in range(granularite + 1)],
-        )
-        .reset_index(),
+        objet=resultat,
         direction_fichier=direction_fichier,
         nom_fichier=f"carte_monde_niveau_{granularite}.pkl",
     )
 
-    print("Export effectué.")
+    print("Granularité", granularite, ": export effectué.")
 
 
 # Application
@@ -525,142 +518,4 @@ for granularite in range(6):
         gdf=gdf, direction_fichier=constantes.direction_donnees_autres, granularite=granularite
     )
 
-    # # Export
-    # with open(direction_donnees + "\\geodataframe_reduit.pkl", "wb") as f:
-    #     pickle.dump(gdf, f)
-
-    # # === Création des tables à une granularité plus faible ===
-
-    # # Niveau 4
-    # with open(direction_donnees + "\\carte_monde_niveau_4.pkl", "wb") as f:
-    #     pickle.dump(
-    #         gdf.dissolve(
-    #             by=["name_0", "name_1", "name_2", "name_3", "name_4"],
-    #             aggfunc={
-    #                 "name_0": "first",
-    #                 "name_1": "first",
-    #                 "name_2": "first",
-    #                 "name_3": "first",
-    #                 "name_4": "first",
-    #             },
-    #         ),
-    #         f,
-    #     )
-
-    # # Niveau 3
-    # with open(direction_donnees + "\\carte_monde_niveau_3.pkl", "wb") as f:
-    #     pickle.dump(
-    #         gdf.dissolve(
-    #             by=["name_0", "name_1", "name_2", "name_3"],
-    #             aggfunc={
-    #                 "name_0": "first",
-    #                 "name_1": "first",
-    #                 "name_2": "first",
-    #                 "name_3": "first",
-    #             },
-    #         ),
-    #         f,
-    #     )
-
-    # # Niveau 2
-    # with open(direction_donnees + "\\carte_monde_niveau_2.pkl", "wb") as f:
-    #     pickle.dump(
-    #         gdf.dissolve(
-    #             by=["name_0", "name_1", "name_2"],
-    #             aggfunc={
-    #                 "name_0": "first",
-    #                 "name_1": "first",
-    #                 "name_2": "first",
-    #             },
-    #         ),
-    #         f,
-    #     )
-
-    # # Niveau 1
-    # with open(direction_donnees + "\\carte_monde_niveau_1.pkl", "wb") as f:
-    #     pickle.dump(
-    #         gdf.dissolve(
-    #             by=["name_0", "name_1"],
-    #             aggfunc={
-    #                 "name_0": "first",
-    #                 "name_1": "first",
-    #             },
-    #         ),
-    #         f,
-    #     )
-
-    # # Niveau 0
-    # with open(direction_donnees + "\\carte_monde_niveau_0.pkl", "wb") as f:
-    #     pickle.dump(
-    #         gdf.dissolve(
-    #             by=["name_0"],
-    #             aggfunc={
-    #                 "name_0": "first",
-    #             },
-    #         ),
-    #         f,
-    #     )
-
-    # def concatener_noms_si_dupliques(df: pd.DataFrame) -> pd.DataFrame:
-    #     """
-    #     Pour chaque colonne name_i (en partant de name_n vers name_1), concatène les valeurs
-    #     des colonnes name_0 à name_i si le couple (name_0, name_i) apparaît plusieurs fois.
-
-    #     Paramètres :
-    #     - df (pd.DataFrame) : Le DataFrame à traiter.
-
-    #     Retour :
-    #     - pd.DataFrame : Le DataFrame modifié.
-    #     """
-
-    #     # Identifier toutes les colonnes name_i et les trier selon l'indice croissant
-    #     colonnes = sorted(
-    #         [col for col in df.columns if col.startswith("name_")],
-    #         key=lambda x: int(x.split("_")[1]),
-    #     )
-
-    #     # Récursivement, on part de name_n vers name_1 (on ne touche pas à name_0)
-    #     for i in range(len(colonnes) - 1, 0, -1):
-    #         col_courante = colonnes[i]
-    #         # Vérifier les doublons (name_0, name_i)
-    #         doublons = df.duplicated(subset=["name_0", col_courante], keep=False)
-
-    #         # Colonnes à concaténer : name_0 à name_i
-    #         colonnes_a_concat = colonnes[: i + 1]
-
-    #         # Fonction de concaténation
-    #         def concat_ligne(ligne):
-    #             return "-".join(
-    #                 str(ligne[col]) for col in colonnes_a_concat if pd.notnull(ligne[col])
-    #             ).strip("- ")
-
-    #         # Appliquer la concaténation sur les doublons
-    #         df.loc[doublons, col_courante] = df.loc[doublons, colonnes_a_concat].apply(
-    #             concat_ligne, axis=1
-    #         )
-
-    #     return df
-
-    # for i in range(2, 6):
-    #     print(f"Granularité : {i}", end=". ")
-
-    #     with open(
-    #         os.path.join(
-    #             direction_donnees_geographiques,
-    #             "_1_2_Données_géographiques",
-    #             f"carte_monde_niveau_{i}.pkl",
-    #         ),
-    #         "wb",
-    #     ) as f:
-    #         pickle.dump(
-    #             concatener_noms_si_dupliques(
-    #                 ouvrir_fichier(
-    #                     direction_fichier=direction_donnees_geographiques,
-    #                     nom_fichier=f"carte_monde_niveau_{i}.pkl",
-    #                     defaut=None,
-    #                 )
-    #             ),
-    #             f,
-    #         )
-
-    print("Terminé.")
+print("Terminé.")

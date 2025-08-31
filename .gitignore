@@ -1,6 +1,7 @@
 # Ignorer les dossiers de données dans /donnees
-donnees/donnees_pickle/
-donnees/donnees_autres/
+_1_Données/_1_1_Données_brutes/
+_1_Données/_1_2_Données_géographiques/
+_1_Données/_1_X_Autres/
 
 # Fichiers temporaires
 *.pyc

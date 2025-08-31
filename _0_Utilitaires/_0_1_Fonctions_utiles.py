@@ -6,6 +6,7 @@
 
 
 import os, pickle, yaml, time
+import pandas as pd
 from PyQt6.QtWidgets import QHBoxLayout, QFrame, QLabel
 from PyQt6.QtCore import Qt
 
@@ -189,3 +190,49 @@ def reordonner_dict(dictionnaire: dict, clefs: list):
 
 def formater_temps_actuel():
     return time.strftime("%d-%m-%Y %Hh%M", time.localtime())
+
+
+def cree_yaml_un_pays(
+    gdf,
+    direction_fichier,
+    nom_fichier,
+    nom_pays: None | list = None,
+    granularite: int = 1,
+):
+    """Crée le yaml pour un pays à un niveau de granularité donné
+
+    Args:
+        gdf: la base geopandas.
+        nom_pays (str): nom du pays dans la dataframe geopandas.
+        granularite (int): 1 (faible) à 5 (forte). Sera réduite si inexistante.
+        nom (str): nom du document.
+    """
+
+    if nom_pays is not None:
+        gdf = gdf[gdf["name_0"].isin(nom_pays)]
+
+    # On garde le pays et la subdivision voulue
+    gdf = set(zip(gdf["name_0"], gdf[f"name_{granularite}"]))
+
+    # Créer un DataFrame avec les résultats
+    liste_combinaisons = (
+        (
+            pd.DataFrame(list(gdf), columns=["nom1", "nom2"])
+            # Tri par nom2
+            .sort_values(by="nom2", inplace=False)
+        )
+        .groupby("nom1")["nom2"]
+        .apply(list)
+        .to_dict()
+    )
+
+    if nom_fichier is None:
+        return liste_combinaisons
+
+    # Exporter vers YAML
+    exporter_fichier(
+        objet=liste_combinaisons,
+        direction_fichier=direction_fichier,
+        nom_fichier=nom_fichier,
+        sort_keys=True,
+    )

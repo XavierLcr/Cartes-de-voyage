@@ -1,6 +1,11 @@
-import os, yaml, pickle
+import os, sys
 import pandas as pd
-from constantes import direction_donnees
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from constantes import (
+    direction_donnees_autres,
+    direction_donnees_application,
+)
 from _0_Utilitaires._0_1_Fonctions_utiles import ouvrir_fichier, exporter_fichier
 
 
@@ -21,10 +26,10 @@ def cree_yaml_un_pays(
     """
 
     if nom_pays is not None:
-        gdf = gdf[gdf["NAME_0"].isin(nom_pays)]
+        gdf = gdf[gdf["name_0"].isin(nom_pays)]
 
     # On garde le pays et la subdivision voulue
-    gdf = set(zip(gdf["NAME_0"], gdf[f"NAME_{granularite}"]))
+    gdf = set(zip(gdf["name_0"], gdf[f"name_{granularite}"]))
 
     # Créer un DataFrame avec les résultats
     liste_combinaisons = (
@@ -52,18 +57,21 @@ def cree_yaml_un_pays(
         )
 
 
-granularite = 2
-gdf = ouvrir_fichier(
-    direction_fichier=direction_donnees,
-    nom_fichier=f"carte_monde_niveau_{granularite}_bis.pkl",
-    defaut=None,
-    afficher_erreur="Base non trouvée.",
-)
+for granularite in range(6):
 
-cree_yaml_un_pays(
-    gdf=gdf,
-    nom_pays=None,
-    granularite=granularite,
-    direction_fichier=os.path.join(os.path.expanduser("~"), "Documents", "Voyages"),
-    nom_fichier="liste_pays_departements.yaml",
-)
+    print(granularite, end=" ; ")
+
+    gdf = ouvrir_fichier(
+        direction_fichier=direction_donnees_autres,
+        nom_fichier=f"carte_monde_niveau_{granularite}.pkl",
+        defaut=None,
+        afficher_erreur="Base non trouvée.",
+    )
+
+    cree_yaml_un_pays(
+        gdf=gdf,
+        nom_pays=None,
+        granularite=granularite,
+        direction_fichier=direction_donnees_autres,
+        nom_fichier=f"liste_pays_granularite_{granularite}.yaml",
+    )

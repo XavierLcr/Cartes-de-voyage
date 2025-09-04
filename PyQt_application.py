@@ -376,7 +376,7 @@ class MesVoyagesApplication(QWidget):
             "dictionnaire_departements": (
                 self.dicts_granu["dep"] if self.dicts_granu["dep"] != {} else None
             ),
-            "format_onglet_3": self.onglet_resume_pays.mise_en_forme.isChecked(),
+            "format_onglet_3": self.onglet_resume_pays.donner_mise_en_forme(),
         }
 
     def exporter_liste_parametres(self):
@@ -447,6 +447,7 @@ class MesVoyagesApplication(QWidget):
 
     def set_dictionnaire_destinations(self, dictionnaire: dict):
         self.dicts_granu = dictionnaire
+        self.selection_destinations.set_dict_granu(dictionnaire=self.dicts_granu)
         self.onglet_resume_pays.set_dicts_granu(dict_nv=copy.deepcopy(self.dicts_granu))
         self.onglet_top_pays_visites.set_dicts_granu(dict_nv=copy.deepcopy(self.dicts_granu))
 
@@ -508,20 +509,13 @@ class MesVoyagesApplication(QWidget):
             if sauv.get("format") is not None:
                 self.onglet_parametres.format_cartes.setCurrentText(sauv.get("format"))
 
-            # Récupération des régions
-            if sauv.get("dictionnaire_regions") is not None:
-                self.dicts_granu["region"] = sauv.get("dictionnaire_regions")
-            else:
-                self.dicts_granu["region"] = {}
-
-            # Récupération des départements
-            if sauv.get("dictionnaire_departements") is not None:
-                self.dicts_granu["dep"] = sauv.get("dictionnaire_departements")
-            else:
-                self.dicts_granu["dep"] = {}
-
-            # Affectation du dictionnaire au deuxième onglet également
-            self.selection_destinations.set_dict_granu(dictionnaire=self.dicts_granu)
+            # Récupération des destinations
+            self.set_dictionnaire_destinations(
+                dictionnaire={
+                    "region": (sauv.get("dictionnaire_regions", {})),
+                    "dep": sauv.get("dictionnaire_departements", {}),
+                }
+            )
 
             # Chargement de la granularité
             _0_1_Fonctions_utiles.restaurer_valeur_combo(
@@ -573,8 +567,6 @@ class MesVoyagesApplication(QWidget):
                 )
 
             self.selection_destinations.reset_yaml()
-            self.onglet_top_pays_visites.set_dicts_granu(dict_nv=self.dicts_granu)
-            self.onglet_resume_pays.set_dicts_granu(dict_nv=self.dicts_granu)
 
     def reinitialisation_parametres(self, nom_aussi: bool = True, set_interface: bool = True):
 
@@ -585,8 +577,8 @@ class MesVoyagesApplication(QWidget):
             self.onglet_parametres.nom_individu.setCurrentIndex(-1)
             self.onglet_parametres.nom_individu.blockSignals(False)
 
-        self.dicts_granu = {"region": {}, "dep": {}}
-        self.selection_destinations.set_dict_granu(dictionnaire=self.dicts_granu)
+        # Destinations
+        self.set_dictionnaire_destinations(dictionnaire={"region": {}, "dep": {}})
 
         # Dossier
         self.set_dossier(dossier=None, onglet_parametres=True)
@@ -630,9 +622,7 @@ class MesVoyagesApplication(QWidget):
         self.selection_destinations.liste_des_pays.setCurrentIndex(0)
 
         self.selection_destinations.reset_yaml()
-        self.onglet_resume_pays.mise_en_forme.setChecked(False)
-        self.onglet_resume_pays.set_dicts_granu(dict_nv=self.dicts_granu)
-        self.onglet_top_pays_visites.set_dicts_granu(dict_nv=self.dicts_granu)
+        self.onglet_resume_pays.set_mise_en_forme(coche=False)
 
         if set_interface:
             # self.set_langue_interface()

@@ -110,25 +110,23 @@ class ClassementPays(QWidget):
     def lancer_classement_pays(self, granularite: int, vbox: QGridLayout):
 
         # Complétion des régions à partir des départements
-        dict_regions = (
-            self.dicts_granu.get("region")
-            if self.dicts_granu.get("region") is not None
-            else {}
-        )
-        dict_departements = (
-            self.dicts_granu.get("dep") if self.dicts_granu.get("dep") is not None else {}
-        )
+        dict_regions = self.dicts_granu.get("region") or {}
+        dict_departements = self.dicts_granu.get("dep") or {}
+
         for pays, deps in dict_departements.items():
             mask = (self.table_superficie["NAME_0"] == pays) & (
                 self.table_superficie["NAME_2"].isin(deps)
             )
             dict_regions[pays] = self.table_superficie.loc[mask, "NAME_1"].unique().tolist()
 
+        # Layout nettoyé
         vider_layout(vbox)
 
         try:
 
+            # Classement des pays
             classement = creer_classement_pays(
+                # transformation du dictionnaire en Data.frame
                 gdf_visite=pd.DataFrame(
                     [
                         (k, v)
@@ -154,14 +152,18 @@ class ClassementPays(QWidget):
                     or round(100 * row["pct_superficie_dans_pays"], ndigits=self.ndigits) > 0
                 ):
 
+                    # Récupération du noms du pays
                     label_widget = self.constantes.pays_differentes_langues.get(pays, {}).get(
                         self.langue_utilisee,
                         pays,
                     )
 
                     label_widget = (
+                        # Classement
                         (["🥇", "🥈", "🥉"][i] if i < 3 else f"<b>{i + 1}.</b>")
-                        + f"<br>{f"<b>{label_widget}</b>" if i <3 else label_widget}<br>"
+                        # Nom du pays, potentiellement en gras
+                        + f"<br>{f'<b>{label_widget}</b>' if i <3 else label_widget}<br>"
+                        # Part de la superficie visitée
                         + f"{round(100 * row['pct_superficie_dans_pays'], ndigits=self.ndigits)} %"
                     ).replace(".", ",")
 
@@ -171,17 +173,22 @@ class ClassementPays(QWidget):
                     )
 
                     if i == 0:
+
+                        # Couronne à gauche
                         couronne_g = QLabel("👑")
                         couronne_g.setAlignment(
                             Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter
                         )
                         vbox.addWidget(couronne_g, i, 0)
                         vbox.addWidget(label_widget, i, 1)
+
+                        # Couronne à droite
                         couronne_d = QLabel("👑")
                         couronne_d.setAlignment(
                             Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter
                         )
                         vbox.addWidget(couronne_d, i, 2)
+
                     elif i in [1, 2]:
                         vbox.addWidget(label_widget, 1, 2 * i - 2)
                     else:

@@ -16,7 +16,7 @@ from PyQt6.QtWidgets import (
     QGridLayout,
 )
 
-from _0_Utilitaires._0_1_Fonctions_utiles import creer_ligne_separation
+from _0_Utilitaires._0_1_Fonctions_utiles import creer_ligne_separation, vider_layout
 
 
 def creer_classement_pays(
@@ -107,23 +107,24 @@ class ClassementPays(QWidget):
         layout.addWidget(scroll_top_pays_regions)
         layout.addWidget(scroll_top_pays_deps)
 
-    def vider_layout(self, layout):
-        while layout.count():
-            child = layout.takeAt(0)
-            if child.widget():
-                child.widget().deleteLater()
-
     def lancer_classement_pays(self, granularite: int, vbox: QGridLayout):
 
         # Complétion des régions à partir des départements
-        dict_regions = self.dicts_granu["region"]
-        for pays, deps in self.dicts_granu["dep"].items():
+        dict_regions = (
+            self.dicts_granu.get("region")
+            if self.dicts_granu.get("region") is not None
+            else {}
+        )
+        dict_departements = (
+            self.dicts_granu.get("dep") if self.dicts_granu.get("dep") is not None else {}
+        )
+        for pays, deps in dict_departements.items():
             mask = (self.table_superficie["NAME_0"] == pays) & (
                 self.table_superficie["NAME_2"].isin(deps)
             )
             dict_regions[pays] = self.table_superficie.loc[mask, "NAME_1"].unique().tolist()
 
-        self.vider_layout(vbox)
+        vider_layout(vbox)
 
         try:
 
@@ -134,9 +135,9 @@ class ClassementPays(QWidget):
                         for k, lst in (
                             dict_regions.items()
                             if granularite == 1
-                            else self.dicts_granu["dep"].items()
+                            else dict_departements.items()
                         )
-                        for v in lst
+                        for v in (lst or [])
                     ],
                     columns=["Pays", "Region"],
                 ),
@@ -153,18 +154,15 @@ class ClassementPays(QWidget):
                     or round(100 * row["pct_superficie_dans_pays"], ndigits=self.ndigits) > 0
                 ):
 
-                    indice = ["🥇", "🥈", "🥉"][i] if i < 3 else f"<b>{i + 1}.</b>"
                     label_widget = self.constantes.pays_differentes_langues.get(pays, {}).get(
                         self.langue_utilisee,
                         pays,
                     )
-                    if i < 3:
-                        label_widget = f"<b>{label_widget}</b>"
 
                     label_widget = (
-                        indice
-                        + "<br>"
-                        + f"{label_widget}<br>{round(100 * row['pct_superficie_dans_pays'], ndigits=self.ndigits)} %"
+                        (["🥇", "🥈", "🥉"][i] if i < 3 else f"<b>{i + 1}.</b>")
+                        + f"<br>{f"<b>{label_widget}</b>" if i <3 else label_widget}<br>"
+                        + f"{round(100 * row['pct_superficie_dans_pays'], ndigits=self.ndigits)} %"
                     ).replace(".", ",")
 
                     label_widget = QLabel(label_widget)

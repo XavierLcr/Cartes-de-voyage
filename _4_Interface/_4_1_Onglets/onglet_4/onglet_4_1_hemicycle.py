@@ -87,7 +87,10 @@ def nb_pays_visites(
                     if i
                     # Liste des pays visités
                     in list(
-                        set(list(dict_granu["region"].keys()) + list(dict_granu["dep"].keys()))
+                        set(
+                            list((dict_granu.get("region") or {}).keys())
+                            + list((dict_granu.get("dep") or {}).keys())
+                        )
                     )
                 ]
             ),

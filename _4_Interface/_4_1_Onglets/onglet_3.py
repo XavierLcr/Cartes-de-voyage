@@ -15,7 +15,7 @@ from PyQt6.QtWidgets import (
     QCheckBox,
 )
 
-from _0_Utilitaires._0_1_Fonctions_utiles import creer_ligne_separation
+from _0_Utilitaires._0_1_Fonctions_utiles import creer_ligne_separation, vider_layout
 
 
 class OngletResumeDestinations(QWidget):
@@ -61,6 +61,12 @@ class OngletResumeDestinations(QWidget):
         self.dicts_granu = dict_nv
         self.maj_layout_resume()
 
+    def set_mise_en_forme(self, coche: bool):
+        self.mise_en_forme.setChecked(coche)
+
+    def donner_mise_en_forme(self):
+        return self.mise_en_forme.isChecked()
+
     def set_langue(self, nouvelle_langue):
         """Permet de mettre à jour la langue."""
         self.langue_utilisee = nouvelle_langue
@@ -85,54 +91,48 @@ class OngletResumeDestinations(QWidget):
         vbox.addLayout(creer_ligne_separation())
         vbox.addWidget(QLabel(""))
 
-        for pays, items in pays_donnees.items():
-            emoji_i = f"{self.emojis_pays.get(pays, '')} "
+        if pays_donnees is not None:
+            for pays, items in pays_donnees.items():
+                emoji_i = f"{self.emojis_pays.get(pays, '')} "
 
-            if affichage_groupe:
-                texte_items = ", ".join(items) if items else "Aucun élément"
-                texte = f"<b>{pays}</b> {emoji_i}: {texte_items}"
-                label = QLabel(texte)
-                label.setWordWrap(True)
-                vbox.addWidget(label)
-            else:
-                vbox.addWidget(QLabel(f"<b>{pays}</b> {emoji_i}:"))
-                if items:
-                    for item in items:
-                        label = QLabel(f"   • {item}")
-                        label.setWordWrap(True)
-                        vbox.addWidget(label)
+                if affichage_groupe:
+                    texte_items = ", ".join(items) if items else "Aucun élément"
+                    texte = f"<b>{pays}</b> {emoji_i}: {texte_items}"
+                    label = QLabel(texte)
+                    label.setWordWrap(True)
+                    vbox.addWidget(label)
+                else:
+                    vbox.addWidget(QLabel(f"<b>{pays}</b> {emoji_i}:"))
+                    if items:
+                        for item in items:
+                            label = QLabel(f"   • {item}")
+                            label.setWordWrap(True)
+                            vbox.addWidget(label)
 
-            label_sep = QLabel("– " * 3)
-            label_sep.setAlignment(
-                Qt.AlignmentFlag.AlignCenter
-                if affichage_groupe
-                else Qt.AlignmentFlag.AlignLeft
-            )
-            vbox.addWidget(label_sep)
+                label_sep = QLabel("– " * 3)
+                label_sep.setAlignment(
+                    Qt.AlignmentFlag.AlignCenter
+                    if affichage_groupe
+                    else Qt.AlignmentFlag.AlignLeft
+                )
+                vbox.addWidget(label_sep)
 
         vbox.addStretch()
 
-    def vider_layout(self, layout):
-        while layout.count():
-            item = layout.takeAt(0)
-            widget = item.widget()
-            if widget:
-                widget.deleteLater()
-
     def maj_layout_resume(self):
 
-        self.vider_layout(self.layout_resume_regions)
-        self.vider_layout(self.layout_resume_departements)
+        vider_layout(self.layout_resume_regions)
+        vider_layout(self.layout_resume_departements)
 
         self.ajouter_partie_a_layout(
             "titre_regions_visitees",
             self.dicts_granu.get("region", {}),
             self.layout_resume_regions,
-            affichage_groupe=self.mise_en_forme.isChecked(),
+            affichage_groupe=self.donner_mise_en_forme(),
         )
         self.ajouter_partie_a_layout(
             "titre_departements_visites",
             self.dicts_granu.get("dep", {}),
             self.layout_resume_departements,
-            affichage_groupe=self.mise_en_forme.isChecked(),
+            affichage_groupe=self.donner_mise_en_forme,
         )

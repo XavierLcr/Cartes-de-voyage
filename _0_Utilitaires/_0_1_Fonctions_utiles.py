@@ -45,6 +45,14 @@ def reset_combo(combo, items, set_index=True):
     combo.blockSignals(False)
 
 
+def vider_layout(layout):
+    """Supprime tous les widgets d'un QLayout."""
+    while layout.count():
+        child = layout.takeAt(0)
+        if child.widget():
+            child.widget().deleteLater()
+
+
 def restaurer_valeur_combo(combo, dict_parent, langue, valeur, defaut_index=0):
     """
     Met à jour un QComboBox avec une valeur trouvée dans un dictionnaire traduit.

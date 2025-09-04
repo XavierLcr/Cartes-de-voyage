@@ -139,7 +139,6 @@ outil_differentes_langues = ouvrir_fichier(
 # Import des régions
 regions_par_pays = ouvrir_fichier(
     direction_fichier=direction_donnees_application,
-    # nom_fichier="regions_par_pays.yaml",
     nom_fichier="liste_pays_granularite_1.yaml",
     defaut={},
     afficher_erreur="Régions des pays introuvables.",
@@ -149,7 +148,6 @@ regions_par_pays = ouvrir_fichier(
 departements_par_pays = ouvrir_fichier(
     direction_fichier=direction_donnees_application,
     nom_fichier="liste_pays_granularite_2.yaml",
-    # nom_fichier="departements_par_pays.yaml",
     defaut={},
     afficher_erreur="Départements des pays introuvables.",
 )

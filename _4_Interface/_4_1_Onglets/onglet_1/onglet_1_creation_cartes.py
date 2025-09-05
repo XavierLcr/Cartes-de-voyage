@@ -1,6 +1,6 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
-# application/onglets/onglet_1                                                 #
+# _4_Interface/_4_1_Onglets/onglet_1/                                          #
 # Onglet 1 – Création des cartes                                               #
 ################################################################################
 

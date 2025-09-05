@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
-# application/onglets/onglet_4                                                 #
-# Onglet 4 – Partie classement des pays visités                                #
+# _4_Interface/_4_1_Onglets/onglet_4/                                          #
+# Onglet 4.2 – Partie classement des pays visités                              #
 ################################################################################
 
 

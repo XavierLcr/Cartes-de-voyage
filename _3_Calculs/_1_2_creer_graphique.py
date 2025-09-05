@@ -4,6 +4,7 @@
 # 3.2 – Fichier de création des graphiques cartes                              #
 ################################################################################
 
+
 import os, random, json, colorsys
 import matplotlib.pyplot as plt
 from datetime import datetime

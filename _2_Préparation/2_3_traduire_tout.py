@@ -4,8 +4,9 @@
 # 2.3 – Fichier de traduction des différents paramètres et non de pays         #
 ################################################################################
 
-import google.generativeai as genai
+
 import os, sys, time, textwrap
+import google.generativeai as genai
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import constantes

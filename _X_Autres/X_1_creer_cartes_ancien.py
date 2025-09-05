@@ -4,6 +4,7 @@
 # X.1 – Ancien script de création de cartes (SVG) avec la bibliothèque wordmap #                              #
 ################################################################################
 
+
 import os, yaml
 import worldmap as wm
 from translate import Translator

@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
-# application/onglets/onglet_4                                                 #
-# Onglet 4 – Partie hémicycle                                                  #
+# _4_Interface/_4_1_Onglets/onglet_4/                                          #
+# Onglet 4.1 – Partie hémicycle                                                #
 ################################################################################
 
 

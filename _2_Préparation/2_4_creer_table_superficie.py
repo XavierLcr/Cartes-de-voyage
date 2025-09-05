@@ -4,6 +4,7 @@
 # 2.4 – Fichier de création de la table de superficie utile à l'onglet n°4     #
 ################################################################################
 
+
 import os, pickle
 import constantes
 from _0_Utilitaires._0_1_Fonctions_utiles import ouvrir_fichier

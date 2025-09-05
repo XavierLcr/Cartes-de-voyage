@@ -129,6 +129,7 @@ class MesVoyagesApplication(QWidget):
                 defaut=None,
             ),
             parent=None,
+            fct_traduction=self.traduire_depuis_id,
         )
         self.tabs.addTab(self.onglet_top_pays_visites, "Pays les plus visités")
 
@@ -204,23 +205,6 @@ class MesVoyagesApplication(QWidget):
             self.tabs.indexOf(self.onglet_top_pays_visites),
             self.traduire_depuis_id("description_onglet_4", suffixe="."),
         )
-        self.onglet_top_pays_visites.set_entetes(
-            texte_region=self.traduire_depuis_id(
-                "classement_selon_regions", prefixe="<b>", suffixe="</b>"
-            ),
-            texte_departement=self.traduire_depuis_id(
-                "classement_selon_departements", prefixe="<b>", suffixe="</b>"
-            ),
-            texte_onglet_1=self.traduire_depuis_id(
-                "titre_sous_onglet_4_1",
-                suffixe=(" 🗺️"),
-            ),
-            texte_onglet_2=self.traduire_depuis_id(
-                "titre_sous_onglet_4_2",
-                suffixe=(" 🏆"),
-            ),
-        )
-
         self.onglet_top_pays_visites.set_langue(nouvelle_langue=self.langue)
 
         # Onglet 5

@@ -50,6 +50,7 @@ class ClassementPays(QWidget):
     def __init__(
         self,
         constantes,
+        fct_traduction,
         table_superficie,
         parent=None,
     ):
@@ -60,6 +61,7 @@ class ClassementPays(QWidget):
         self.table_superficie = table_superficie
         self.top_n = constantes.parametres_application["top_n_pays"]
         self.ndigits = constantes.parametres_application["pct_ndigits"]
+        self.fonction_traduction = fct_traduction
         self.ndigits = None if self.ndigits == 0 else self.ndigits
         self.dicts_granu = {"region": {}, "dep": {}}
         self.langue_utilisee = "français"
@@ -209,6 +211,11 @@ class ClassementPays(QWidget):
         self.langue_utilisee = nouvelle_langue
         self.lancer_classement_par_region_departement()
 
-    def set_entetes(self, texte_region, texte_departement):
-        self.entete_top_pays_regions.setText(texte_region)
-        self.entete_top_pays_departements.setText(texte_departement)
+        self.entete_top_pays_regions.setText(
+            self.fonction_traduction("classement_selon_regions", prefixe="<b>", suffixe="</b>")
+        )
+        self.entete_top_pays_departements.setText(
+            self.fonction_traduction(
+                "classement_selon_departements", prefixe="<b>", suffixe="</b>"
+            )
+        )

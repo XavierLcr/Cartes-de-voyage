@@ -21,12 +21,14 @@ class OngletTopPays(QWidget):
     def __init__(
         self,
         constantes,
+        fct_traduction,
         table_superficie,
         parent,
     ):
         super().__init__(parent)
 
         self.mise_en_page = constantes.parametres_application["onglet_4_mise_en_page"]
+        self.fonction_traduction = fct_traduction
 
         # === Création des pages
 
@@ -40,7 +42,9 @@ class OngletTopPays(QWidget):
 
         ## === Onglet Classement ===
         self.classement_widget = onglet_4_2_classement.ClassementPays(
-            constantes=constantes, table_superficie=table_superficie
+            constantes=constantes,
+            table_superficie=table_superficie,
+            fct_traduction=self.fonction_traduction,
         )
 
         # === Mise en page ===
@@ -78,8 +82,22 @@ class OngletTopPays(QWidget):
             ## === Layout principal ===
             layout.addWidget(self.sous_onglets)
 
-    def set_entetes(self, texte_region, texte_departement, texte_onglet_1, texte_onglet_2):
-        self.classement_widget.set_entetes(texte_region, texte_departement)
+    def set_dicts_granu(self, dict_nv):
+        self.hemicycle.set_pays_visites(pays_visites=dict_nv)
+        self.classement_widget.set_dicts_granu(dict_nv)
+
+    def set_langue(self, nouvelle_langue):
+        self.hemicycle.set_langue(langue=nouvelle_langue)
+        self.classement_widget.set_langue(nouvelle_langue)
+
+        texte_onglet_1 = self.fonction_traduction(
+            "titre_sous_onglet_4_1",
+            suffixe=(" 🗺️"),
+        )
+        texte_onglet_2 = self.fonction_traduction(
+            "titre_sous_onglet_4_2",
+            suffixe=(" 🏆"),
+        )
 
         if self.mise_en_page == 0:
             self.btn_hemicycle.setText(texte_onglet_1)
@@ -91,11 +109,3 @@ class OngletTopPays(QWidget):
             self.sous_onglets.setTabText(
                 self.sous_onglets.indexOf(self.classement_widget), texte_onglet_2
             )
-
-    def set_dicts_granu(self, dict_nv):
-        self.hemicycle.set_pays_visites(pays_visites=dict_nv)
-        self.classement_widget.set_dicts_granu(dict_nv)
-
-    def set_langue(self, nouvelle_langue):
-        self.hemicycle.set_langue(langue=nouvelle_langue)
-        self.classement_widget.set_langue(nouvelle_langue)

@@ -3,6 +3,7 @@
 # Application principale                                                       #
 ################################################################################
 
+
 import os, sys, warnings, copy, textwrap, threading
 
 # PyQt6
@@ -51,7 +52,7 @@ class MesVoyagesApplication(QWidget):
             QIcon(os.path.join(constantes.direction_donnees_application, "icone_france.ico"))
         )
 
-        self.tabs = QTabWidget()
+        self.liste_onglets = QTabWidget()
 
         # Variables globales
         self.langue = "français"
@@ -69,7 +70,7 @@ class MesVoyagesApplication(QWidget):
             fct_traduction=self.traduire_depuis_id,
             fct_pop_up=self.montrer_popup,
         )
-        self.tabs.addTab(self.onglet_parametres, "Paramètres")
+        self.liste_onglets.addTab(self.onglet_parametres, "Paramètres")
         # Langue
         self.onglet_parametres.langue_utilisee.currentIndexChanged.connect(
             self.set_langue_interface
@@ -102,26 +103,30 @@ class MesVoyagesApplication(QWidget):
         # === Deuxième onglet ===
 
         self.dicts_granu = {"region": {}, "dep": {}}
-        self.selection_destinations = onglet_2.OngletSelectionnerDestinations(
+        self.onglet_selection_destinations = onglet_2.OngletSelectionnerDestinations(
             constantes=constantes,
             fct_traduire=self.traduire_depuis_id,
             fct_sauvegarde=self.exporter_liste_parametres,
             fct_pop_up=self.montrer_popup,
         )
-        self.tabs.addTab(self.selection_destinations, "Création de la liste des pays visités")
-        self.selection_destinations.dict_modif.connect(self.set_dictionnaire_destinations)
+        self.liste_onglets.addTab(
+            self.onglet_selection_destinations, "Création de la liste des pays visités"
+        )
+        self.onglet_selection_destinations.dict_modif.connect(
+            self.set_dictionnaire_destinations
+        )
 
         # === Troisième onglet ===
-        self.onglet_resume_pays = onglet_3.OngletResumeDestinations(
+        self.onglet_resume_destinations = onglet_3.OngletResumeDestinations(
             traduire_depuis_id=self.traduire_depuis_id,
             emojis_pays=constantes.emojis_pays,
             parent=None,
         )
-        self.tabs.addTab(self.onglet_resume_pays, "📊")
+        self.liste_onglets.addTab(self.onglet_resume_destinations, "📊")
 
         # === Quatrième onglet ===
 
-        self.onglet_top_pays_visites = onglet_4.OngletTopPays(
+        self.onglet_statistiques = onglet_4.OngletTopPays(
             constantes=constantes,
             table_superficie=_0_1_Fonctions_utiles.ouvrir_fichier(
                 direction_fichier=constantes.direction_donnees_application,
@@ -131,19 +136,19 @@ class MesVoyagesApplication(QWidget):
             parent=None,
             fct_traduction=self.traduire_depuis_id,
         )
-        self.tabs.addTab(self.onglet_top_pays_visites, "Pays les plus visités")
+        self.liste_onglets.addTab(self.onglet_statistiques, "Pays les plus visités")
 
         # === Cinquième onglet ===
 
         self.onglet_description_application = onglet_5.OngletInformations(
             fct_traduire=self.traduire_depuis_id, version_logiciel=constantes.version_logiciel
         )
-        self.tabs.addTab(self.onglet_description_application, "ℹ️")
+        self.liste_onglets.addTab(self.onglet_description_application, "ℹ️")
 
         # === Mise en forme ===
 
         main_layout = QVBoxLayout()
-        main_layout.addWidget(self.tabs)
+        main_layout.addWidget(self.liste_onglets)
         self.setLayout(main_layout)
 
         self.reinitialisation_parametres(nom_aussi=True, set_interface=True)
@@ -160,33 +165,9 @@ class MesVoyagesApplication(QWidget):
         self.setWindowTitle(self.traduire_depuis_id("titre_windows"))
         self.onglet_parametres.titre.setText(self.traduire_depuis_id(clef="titre_application"))
 
-        self.tabs.setTabText(
-            self.tabs.indexOf(self.selection_destinations),
-            self.traduire_depuis_id(
-                "titre_onglet_2",
-                suffixe=(" 📌"),
-            ),
-        )
-
-        self.tabs.setTabText(
-            self.tabs.indexOf(self.onglet_resume_pays),
-            self.traduire_depuis_id(
-                "titre_onglet_3",
-                suffixe=(" 🧭"),
-            ),
-        )
-
-        self.tabs.setTabText(
-            self.tabs.indexOf(self.onglet_top_pays_visites),
-            self.traduire_depuis_id(
-                "titre_onglet_4",
-                suffixe=(" 📊"),
-            ),
-        )
-
         # Onglet 1
-        self.tabs.setTabText(
-            self.tabs.indexOf(self.onglet_parametres),
+        self.liste_onglets.setTabText(
+            self.liste_onglets.indexOf(self.onglet_parametres),
             self.traduire_depuis_id(
                 "titre_onglet_1",
                 suffixe=(" 🎨"),
@@ -195,17 +176,38 @@ class MesVoyagesApplication(QWidget):
         self.onglet_parametres.set_langue()
 
         # Onglet 2
-        self.selection_destinations.set_langue(langue=self.langue)
+        self.liste_onglets.setTabText(
+            self.liste_onglets.indexOf(self.onglet_selection_destinations),
+            self.traduire_depuis_id(
+                "titre_onglet_2",
+                suffixe=(" 📌"),
+            ),
+        )
+        self.onglet_selection_destinations.set_langue(langue=self.langue)
 
         # Onglet 3
-        self.onglet_resume_pays.set_langue(nouvelle_langue=self.langue)
+        self.liste_onglets.setTabText(
+            self.liste_onglets.indexOf(self.onglet_resume_destinations),
+            self.traduire_depuis_id(
+                "titre_onglet_3",
+                suffixe=(" 🧭"),
+            ),
+        )
+        self.onglet_resume_destinations.set_langue(nouvelle_langue=self.langue)
 
         # Onglet 4
-        self.tabs.setTabToolTip(
-            self.tabs.indexOf(self.onglet_top_pays_visites),
+        self.liste_onglets.setTabText(
+            self.liste_onglets.indexOf(self.onglet_statistiques),
+            self.traduire_depuis_id(
+                "titre_onglet_4",
+                suffixe=(" 📊"),
+            ),
+        )
+        self.onglet_statistiques.set_langue(nouvelle_langue=self.langue)
+        self.liste_onglets.setTabToolTip(
+            self.liste_onglets.indexOf(self.onglet_statistiques),
             self.traduire_depuis_id("description_onglet_4", suffixe="."),
         )
-        self.onglet_top_pays_visites.set_langue(nouvelle_langue=self.langue)
 
         # Onglet 5
         self.onglet_description_application.set_langue()
@@ -360,7 +362,7 @@ class MesVoyagesApplication(QWidget):
             "dictionnaire_departements": (
                 self.dicts_granu["dep"] if self.dicts_granu["dep"] != {} else None
             ),
-            "format_onglet_3": self.onglet_resume_pays.donner_mise_en_forme(),
+            "format_onglet_3": self.onglet_resume_destinations.donner_mise_en_forme(),
         }
 
     def exporter_liste_parametres(self):
@@ -386,10 +388,10 @@ class MesVoyagesApplication(QWidget):
         )
 
         # Gestion des autres onglets
-        self.selection_destinations.set_nom_individu(nom=parametres["nom"])
+        self.onglet_selection_destinations.set_nom_individu(nom=parametres["nom"])
 
         # Visualisation de la sauvegarde
-        self.selection_destinations.set_emoji_sauvegarde()
+        self.onglet_selection_destinations.set_emoji_sauvegarde()
         self.onglet_parametres.set_emoji_sauvegarde()
 
     def montrer_popup(
@@ -431,9 +433,11 @@ class MesVoyagesApplication(QWidget):
 
     def set_dictionnaire_destinations(self, dictionnaire: dict):
         self.dicts_granu = dictionnaire
-        self.selection_destinations.set_dict_granu(dictionnaire=self.dicts_granu)
-        self.onglet_resume_pays.set_dicts_granu(dict_nv=copy.deepcopy(self.dicts_granu))
-        self.onglet_top_pays_visites.set_dicts_granu(dict_nv=copy.deepcopy(self.dicts_granu))
+        self.onglet_selection_destinations.set_dict_granu(dictionnaire=self.dicts_granu)
+        self.onglet_resume_destinations.set_dicts_granu(
+            dict_nv=copy.deepcopy(self.dicts_granu)
+        )
+        self.onglet_statistiques.set_dicts_granu(dict_nv=copy.deepcopy(self.dicts_granu))
 
     def publier_cartes(self):
 
@@ -479,7 +483,7 @@ class MesVoyagesApplication(QWidget):
                 "sortir_cartes_granu_inf": self.onglet_parametres.sortir_cartes_granu_inf,
                 "couleur_fond_carte": self.onglet_parametres.couleur_fond_checkbox,
                 # Onglet 3
-                "format_onglet_3": self.onglet_resume_pays.mise_en_forme,
+                "format_onglet_3": self.onglet_resume_destinations.mise_en_forme,
             }
             for nom_cle, checkbox in checkboxes.items():
                 if sauv.get(nom_cle) is not None:
@@ -550,7 +554,7 @@ class MesVoyagesApplication(QWidget):
                     True
                 )
 
-            self.selection_destinations.reset_yaml()
+            self.onglet_selection_destinations.reset_yaml()
 
     def reinitialisation_parametres(self, nom_aussi: bool = True, set_interface: bool = True):
 
@@ -600,13 +604,13 @@ class MesVoyagesApplication(QWidget):
             self.set_langue_interface()
 
         # Onglet 2
-        self.selection_destinations.liste_des_pays.setCurrentIndex(1)
-        self.selection_destinations.liste_niveaux.setCurrentIndex(0)
+        self.onglet_selection_destinations.liste_des_pays.setCurrentIndex(1)
+        self.onglet_selection_destinations.liste_niveaux.setCurrentIndex(0)
         ## Changement forcé de l'index
-        self.selection_destinations.liste_des_pays.setCurrentIndex(0)
+        self.onglet_selection_destinations.liste_des_pays.setCurrentIndex(0)
 
-        self.selection_destinations.reset_yaml()
-        self.onglet_resume_pays.set_mise_en_forme(coche=False)
+        self.onglet_selection_destinations.reset_yaml()
+        self.onglet_resume_destinations.set_mise_en_forme(coche=False)
 
         if set_interface:
             # self.set_langue_interface()
@@ -650,7 +654,7 @@ class MesVoyagesApplication(QWidget):
 
     def set_dossier(self, dossier, onglet_parametres=False):
         self.dossier = dossier
-        self.selection_destinations.set_dossier(dossier=dossier)
+        self.onglet_selection_destinations.set_dossier(dossier=dossier)
         if onglet_parametres:
             self.onglet_parametres.set_dossier(dossier=dossier)
 

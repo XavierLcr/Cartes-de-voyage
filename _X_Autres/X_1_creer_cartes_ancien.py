@@ -1,12 +1,12 @@
-# -------------------------------------------------------
-# Auteur : Xavier Lacour
-# Projet : Réalisation des cartes de destinations d'un individu
-# -------------------------------------------------------
+################################################################################
+# Projet de cartes de voyage                                                   #
+# _X_Autres/                                                                   #
+# X.1 – Ancien script de création de cartes (SVG) avec la bibliothèque wordmap #                              #
+################################################################################
 
+import os, yaml
 import worldmap as wm
-import yaml
 from translate import Translator
-import os
 
 # Nom de la personne
 nom = "Xavier"
@@ -33,18 +33,14 @@ def cree_carte_pays(
 ):
 
     # Création du nom du fichier
-    translator = Translator(to_lang=langue)
-    translation = translator.translate(nom_pays)
-    nom_fichier = f"{translation}"
-    if nom_pays == "Oman":
-        nom_fichier = "Oman"
-    if personne != "":
-        nom_fichier = f"{personne} – {nom_fichier}"
-    nom_fichier = f"{nom_fichier}.svg"
+    nom_fichier = (
+        "Oman" if nom_pays == "Oman" else Translator(to_lang=langue).translate(nom_pays)
+    )
+    nom_fichier = f"{(personne + ' – ') if personne else ''}{nom_fichier}.svg"
     if direction != None:
         nom_fichier = os.path.join(direction, nom_fichier)
 
-    # Edition de la carte si cela est possible
+    # Édition de la carte si cela est possible
     if nom_pays in list(liste_destinations.keys()) and nom_pays != "United States":
 
         if liste_destinations[nom_pays] != None:
@@ -97,9 +93,7 @@ def cree_toutes_les_cartes(
 
     ## Crée la carte du monde
     # Création du nom du fichier
-    nom_fichier = "Carte du monde.svg"
-    if personne != "":
-        nom_fichier = f"{personne} – {nom_fichier}"
+    nom_fichier = f"{personne} – Carte du monde.svg" if personne else "Carte du monde.svg"
     if direction != None:
         nom_fichier = os.path.join(direction, nom_fichier)
 

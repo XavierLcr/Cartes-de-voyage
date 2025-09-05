@@ -1,3 +1,9 @@
+################################################################################
+# Projet de cartes de voyage                                                   #
+# _2_Préparation/                                                              #
+# 2.1 – Fichier de nettoyage de la table des données géographiques             #
+################################################################################
+
 import os, sys, copy
 import pandas as pd
 import geopandas as gpd
@@ -14,7 +20,8 @@ gdf = gpd.read_file(
 ]
 gdf.columns = gdf.columns.str.lower()
 
-# === Remplacement de valeurs manquantes ===
+
+# === Remplacement de valeurs manquantes === #
 
 
 # Allemagne

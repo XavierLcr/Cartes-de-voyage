@@ -1,5 +1,10 @@
+################################################################################
+# Projet de cartes de voyage                                                   #
+# _2_Préparation/                                                              #
+# 2.2 – Fichier de création des YAMLs des granularités par pays                #
+################################################################################
+
 import os, sys
-import pandas as pd
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from constantes import (

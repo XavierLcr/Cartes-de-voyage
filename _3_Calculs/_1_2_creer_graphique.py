@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
 # _3_Calculs/                                                                  #
-# 3.2 – Fichier de création des cartes                                         #
+# 3.2 – Fichier de création des graphiques cartes                              #
 ################################################################################
 
 import os, random, json, colorsys

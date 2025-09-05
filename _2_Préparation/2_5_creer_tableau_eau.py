@@ -1,5 +1,10 @@
+################################################################################
+# Projet de cartes de voyage                                                   #
+# _2_Préparation/                                                              #
+# 2.5 – Fichier de création dela table des surfaces d'eau (lacs, ...)          #
+################################################################################
+
 import os, sys
-import pandas as pd
 import geopandas as gpd
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))

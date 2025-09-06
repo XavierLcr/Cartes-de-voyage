@@ -19,7 +19,7 @@ from constantes import (
 
 
 setup(
-    name="MesVoyages",
+    name="Mes Voyages",
     version=version_logiciel,
     description="Créez facilement vos cartes de voyages personnalisées et suivez vos aventures autour du monde !",
     options={
@@ -80,7 +80,7 @@ setup(
         Executable(
             "PyQt_application_main.py",
             icon=os.path.join(direction_donnees_application, "icone_application.ico"),
-            target_name="MesVoyages.exe",
+            target_name="Mes Voyages.exe",
             base="Win32GUI",
         )
     ],

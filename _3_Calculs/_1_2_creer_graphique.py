@@ -312,6 +312,7 @@ def utiliser_style_dynamique(
         "max_saturation": 0.4,
     },
     limite_essais=20,
+    font_size=12,
 ):
 
     # Cas général
@@ -498,7 +499,7 @@ def utiliser_style_dynamique(
             QWidget {{
                 background-color: {couleur_widget};
                 color: {couleur_widget_texte};
-                font-size: 12px;
+                font-size: {font_size}px;
             }}
             QPushButton {{
                 background-color: {couleur_push};

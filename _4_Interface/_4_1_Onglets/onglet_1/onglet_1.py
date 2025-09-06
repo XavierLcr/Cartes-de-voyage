@@ -54,9 +54,7 @@ class OngletParametres(QWidget):
 
         # Créer un label comme titre
         self.titre = QLabel()
-        self.titre.setStyleSheet(
-            "font-size: 24px; font-weight: bold; text-align: center; font-family: Vivaldi, sans-serif;"
-        )
+        self.set_style_titre(taille=24)
 
         # Layout vertical
         layout.addWidget(self.titre, stretch=2)  # Ajouter le titre en haut
@@ -616,3 +614,8 @@ class OngletParametres(QWidget):
 
             self.thread_temp.started.connect(self.creation_cartes.run)
             self.thread_temp.start()
+
+    def set_style_titre(self, taille=24):
+        self.titre.setStyleSheet(
+            f"font-size: {taille}px; font-weight: bold; text-align: center; font-family: Vivaldi, sans-serif;"
+        )

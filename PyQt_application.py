@@ -690,6 +690,7 @@ if __name__ == "__main__":
 
     # Lancement de l'application
     window = MesVoyagesApplication()
+    window.setMaximumSize(1200, 800)
     window.show()
 
     sys.exit(app.exec())

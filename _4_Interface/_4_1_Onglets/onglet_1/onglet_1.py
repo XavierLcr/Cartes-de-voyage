@@ -59,7 +59,7 @@ class OngletParametres(QWidget):
         )
 
         # Layout vertical
-        layout.addWidget(self.titre)  # Ajouter le titre en haut
+        layout.addWidget(self.titre, stretch=2)  # Ajouter le titre en haut
 
         self.setLayout(layout)
 
@@ -73,13 +73,13 @@ class OngletParametres(QWidget):
         self.nom_individu.setEditable(True)
         self.nom_individu.setPlaceholderText(" ")
         self.nom_individu.addItems(liste_individus)
-        layout_params_individu.addWidget(self.nom_individu)
+        layout_params_individu.addWidget(self.nom_individu, stretch=2)
 
         # Bouton pour choisir le dossier de stockage
         self.dossier_stockage = None
         self.dossier_stockage_bouton = QPushButton()
         self.dossier_stockage_bouton.clicked.connect(self.choisir_dossier)
-        layout_params_individu.addWidget(self.dossier_stockage_bouton)
+        layout_params_individu.addWidget(self.dossier_stockage_bouton, stretch=3)
 
         # Choix de la langue
         self.label_langue = creer_QLabel_centre()
@@ -92,22 +92,22 @@ class OngletParametres(QWidget):
                 if langue not in {"Français", "English"}
             )
         )
-        layout_params_individu.addWidget(self.label_langue)
-        layout_params_individu.addWidget(self.langue_utilisee)
+        layout_params_individu.addWidget(self.label_langue, stretch=1)
+        layout_params_individu.addWidget(self.langue_utilisee, stretch=2)
 
         # Ajout de la possibilité de supprimer un profil
-        layout_params_individu.addWidget(creer_ligne_verticale())
+        layout_params_individu.addWidget(creer_ligne_verticale(), stretch=1)
         self.suppression_profil = QPushButton()
         self.suppression_profil.setStyleSheet(
             style_bouton_de_suppression(
                 sombre=constantes.parametres_application["interface_foncee"]
             )
         )
-        layout_params_individu.addWidget(self.suppression_profil)
+        layout_params_individu.addWidget(self.suppression_profil, stretch=2)
 
         # Ajouter le layout à la group box et la group box au layout général
         self.groupe_params_individu.setLayout(layout_params_individu)
-        layout.addWidget(self.groupe_params_individu)
+        layout.addWidget(self.groupe_params_individu, stretch=3)
 
         # Créer un QGroupBox pour les choix de granularité
         self.groupe_granularite = QGroupBox()
@@ -117,23 +117,23 @@ class OngletParametres(QWidget):
 
         self.granularite_visite = QComboBox()
         layout_granularite_visite = QHBoxLayout()
-        layout_granularite_visite.addWidget(self.label_granularite_visite)
-        layout_granularite_visite.addWidget(self.granularite_visite)
-        layout_granularite_visite.addWidget(creer_ligne_verticale())
+        layout_granularite_visite.addWidget(self.label_granularite_visite, stretch=2)
+        layout_granularite_visite.addWidget(self.granularite_visite, stretch=4)
 
         # Granularité de fond
         self.label_granularite_fond = creer_QLabel_centre()
         self.granularite_fond = QComboBox()
         layout_granularite_fond = QHBoxLayout()
-        layout_granularite_fond.addWidget(self.label_granularite_fond)
-        layout_granularite_fond.addWidget(self.granularite_fond)
+        layout_granularite_fond.addWidget(self.label_granularite_fond, stretch=2)
+        layout_granularite_fond.addWidget(self.granularite_fond, stretch=4)
 
         # Ajouter le layout horizontal à la group box
         layout_granularite = QHBoxLayout()
-        layout_granularite.addLayout(layout_granularite_visite)
-        layout_granularite.addLayout(layout_granularite_fond)
+        layout_granularite.addLayout(layout_granularite_visite, stretch=5)
+        layout_granularite.addWidget(creer_ligne_verticale(), stretch=2)
+        layout_granularite.addLayout(layout_granularite_fond, stretch=5)
         self.groupe_granularite.setLayout(layout_granularite)
-        layout.addWidget(self.groupe_granularite)
+        layout.addWidget(self.groupe_granularite, stretch=3)
 
         # Création des cases à cocher
         self.groupe_cartes_a_creer = QGroupBox()
@@ -264,22 +264,26 @@ class OngletParametres(QWidget):
         # self.utiliser_theme.stateChanged.connect(self.maj_style)
 
         # Choix de la couleur de fond
+        layout_couleur_fond = QHBoxLayout()
         self.couleur_fond_label = QLabel()
         self.combo_couleur_fond = FondCarteCombo(constantes=self.constantes)
+        layout_couleur_fond.addWidget(
+            self.couleur_fond_label, alignment=Qt.AlignmentFlag.AlignHCenter
+        )
+        layout_couleur_fond.addWidget(
+            self.combo_couleur_fond, alignment=Qt.AlignmentFlag.AlignHCenter
+        )
 
         # Ajout des widgets au layout vertical
         layout_theme_couleurs.addLayout(layout_theme)
         layout_theme_couleurs.addLayout(layout_couleurs)
-        layout_theme_couleurs.addWidget(self.utiliser_theme)
+        layout_theme_couleurs.addWidget(
+            self.utiliser_theme, alignment=Qt.AlignmentFlag.AlignCenter
+        )
         layout_theme_couleurs.addLayout(
             creer_ligne_separation(lStretch=0, ligne_largeur=1, rStretch=0)
         )
-        layout_theme_couleurs.addWidget(
-            self.couleur_fond_label, alignment=Qt.AlignmentFlag.AlignHCenter
-        )
-        layout_theme_couleurs.addWidget(
-            self.combo_couleur_fond, alignment=Qt.AlignmentFlag.AlignHCenter
-        )
+        layout_theme_couleurs.addLayout(layout_couleur_fond)
 
         # Ajout du layout de couleurs au groupbox et ajout du groupbox au layout principal
         self.groupe_couleurs.setLayout(layout_theme_couleurs)
@@ -289,7 +293,7 @@ class OngletParametres(QWidget):
         layout_cartes_et_couleurs.addWidget(self.groupe_couleurs)
 
         # # Ajouter ce layout horizontal au layout principal
-        layout.addLayout(layout_cartes_et_couleurs)
+        layout.addLayout(layout_cartes_et_couleurs, stretch=8)
 
         # Group box et layout des paramètres de publication
         self.groupe_params_publication = QGroupBox()
@@ -338,7 +342,7 @@ class OngletParametres(QWidget):
         self.groupe_params_publication.setLayout(layout_params_publication)
 
         # Ajouter le QGroupBox au layout principal
-        layout.addWidget(self.groupe_params_publication)
+        layout.addWidget(self.groupe_params_publication, stretch=6)
 
         # Bouton de validation
         layout_valid_reinit = QGridLayout()
@@ -373,7 +377,7 @@ class OngletParametres(QWidget):
         layout_valid_reinit.setColumnStretch(1, 4)  # plus grande colonne au milieu
         layout_valid_reinit.setColumnStretch(2, 1)  # petite colonne à gauche
 
-        layout.addLayout(layout_valid_reinit)
+        layout.addLayout(layout_valid_reinit, stretch=1)
         self.setLayout(layout)
 
     def set_langue(self):

@@ -9,7 +9,8 @@ import os, sys
 from PIL import Image
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-import constantes
+from constantes import direction_donnees_application
+from clefs_et_mots_de_passe import png_pour_icone
 
 
 def rendre_carre(image: Image.Image, mode: str = "marges") -> Image.Image:
@@ -31,37 +32,21 @@ def rendre_carre(image: Image.Image, mode: str = "marges") -> Image.Image:
     if mode == "recadrer":
         gauche = (largeur - cote) // 2
         haut = (hauteur - cote) // 2
-        droite = gauche + cote
-        bas = haut + cote
-        return image.crop(box=(gauche, haut, droite, bas))
+        return image.crop(box=(gauche, haut, gauche + cote, haut + cote))
 
     elif mode == "marges":
         nouvelle_image = Image.new("RGBA", (cote, cote), (0, 0, 0, 0))  # transparent
-        position = ((cote - largeur) // 2, (cote - hauteur) // 2)
-        nouvelle_image.paste(image, position)
+        nouvelle_image.paste(image, ((cote - largeur) // 2, (cote - hauteur) // 2))
         return nouvelle_image
 
     else:
         raise ValueError("Le mode doit être 'recadrer' ou 'marges'")
 
 
-# Ouverture de l'image à utiliser
-img = Image.open(
-    os.path.join(
-        "C:\\Users\\xaruo",
-        "Documents",
-        "Voyages",
-        "Xavier – Cartes de voyage",
-        "France, Monaco et Îles Anglo-Normandes",
-        "Xavier – France, Monaco et Îles Anglo-Normandes (5).png",
-    )
-)
-
-
-carre = rendre_carre(img, mode="recadrer")
-carre.save(
-    os.path.join(constantes.direction_donnees_application, "icone_france.ico"),
+# Ouverture de l'image à utiliser et recadrage
+rendre_carre(Image.open(png_pour_icone), mode="recadrer").save(
+    # Export
+    os.path.join(direction_donnees_application, "icone_application.ico"),
     format="ICO",
-    # sizes=[(256, 256)],
     sizes=[(256, 256)],
 )

@@ -49,7 +49,9 @@ class MesVoyagesApplication(QWidget):
             constantes.parametres_application["application_hauteur"],
         )
         self.setWindowIcon(
-            QIcon(os.path.join(constantes.direction_donnees_application, "icone_france.ico"))
+            QIcon(
+                os.path.join(constantes.direction_donnees_application, "icone_application.ico")
+            )
         )
 
         self.liste_onglets = QTabWidget()
@@ -117,6 +119,7 @@ class MesVoyagesApplication(QWidget):
         )
 
         # === Troisième onglet ===
+
         self.onglet_resume_destinations = onglet_3.OngletResumeDestinations(
             traduire_depuis_id=self.traduire_depuis_id,
             emojis_pays=constantes.emojis_pays,

@@ -29,7 +29,7 @@ for f in os.listdir(constantes.direction_donnees_pickle):
 setup(
     name="MesVoyages",
     version=constantes.version_logiciel,
-    description="Permet de créer ses cartes de voyages.",
+    description="Créez facilement vos cartes de voyages personnalisées et suivez vos aventures autour du monde !",
     options={
         "build_exe": {
             "build_exe": r"C:\Users\xaruo\Documents\Voyages\Application",
@@ -60,7 +60,9 @@ setup(
     executables=[
         Executable(
             "PyQt_application_main.py",
-            icon=os.path.join(constantes.direction_donnees_application, "icone_france.ico"),
+            icon=os.path.join(
+                constantes.direction_donnees_application, "icone_application.ico"
+            ),
             target_name="MesVoyages.exe",
             base="Win32GUI",
         )

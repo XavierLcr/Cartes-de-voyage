@@ -1,3 +1,533 @@
+arrière_plans:
+  afrikaans:
+    Blanc: Wit
+    Bleu ciel: Hemelblou
+    Bleu clair: Ligblou
+    Bleu foncé: Donkerblou
+    Bleu marine: Vlootblou
+    Bleu moyen: Middelblou
+    Transparent: Deursigtig
+  albanais:
+    Blanc: I bardhë
+    Bleu ciel: Blu qielli
+    Bleu clair: Blu e hapur
+    Bleu foncé: Blu e errët
+    Bleu marine: Blu marino
+    Bleu moyen: Blu mesatare
+    Transparent: Transparent
+  allemand:
+    Blanc: Weiß
+    Bleu ciel: Himmelblau
+    Bleu clair: Hellblau
+    Bleu foncé: Dunkelblau
+    Bleu marine: Marineblau
+    Bleu moyen: Mittelblau
+    Transparent: Transparent
+  anglais:
+    Blanc: White
+    Bleu ciel: Sky blue
+    Bleu clair: Light blue
+    Bleu foncé: Dark blue
+    Bleu marine: Navy blue
+    Bleu moyen: Medium blue
+    Transparent: Transparent
+  arabe:
+    Blanc: أبيض
+    Bleu ciel: أزرق سماوي
+    Bleu clair: أزرق فاتح
+    Bleu foncé: أزرق غامق
+    Bleu marine: أزرق كحلي
+    Bleu moyen: أزرق متوسط
+    Transparent: شفاف
+  arménien:
+    Blanc: Սպիտակ
+    Bleu ciel: Երկնագույն
+    Bleu clair: Բաց երկնագույն
+    Bleu foncé: Մուգ կապույտ
+    Bleu marine: Կապույտ ծովային
+    Bleu moyen: Միջին կապույտ
+    Transparent: Թափանցիկ
+  basque:
+    Blanc: Zuri
+    Bleu ciel: Zeru urdin
+    Bleu clair: Urdin argi
+    Bleu foncé: Urdin ilun
+    Bleu marine: Itsas urdin
+    Bleu moyen: Urdin ertain
+    Transparent: Gardena
+  bengali:
+    Blanc: সাদা
+    Bleu ciel: আকাশী নীল
+    Bleu clair: হালকা নীল
+    Bleu foncé: গাঢ় নীল
+    Bleu marine: নৌसेना নীল
+    Bleu moyen: মাঝারি নীল
+    Transparent: স্বচ্ছ
+  birman:
+    Blanc: အဖြူရောင်
+    Bleu ciel: မိုးပြာရောင်
+    Bleu clair: အပြာနုရောင်
+    Bleu foncé: ပြာညို
+    Bleu marine: ရေတပ်ပြာ
+    Bleu moyen: အပြာလတ်
+    Transparent: ပွင့်လင်းမြင်သာသော
+  breton:
+    Blanc: Gwenn
+    Bleu ciel: Glas oabl
+    Bleu clair: Glas sklaer
+    Bleu foncé: Glas teñval
+    Bleu marine: Glas-mor
+    Bleu moyen: Glas kreiz
+    Transparent: Treuzlucent
+  bulgare:
+    Blanc: Бял
+    Bleu ciel: Небесносин
+    Bleu clair: Светлосин
+    Bleu foncé: Тъмносин
+    Bleu marine: Морско синьо
+    Bleu moyen: Средно син
+    Transparent: Прозрачен
+  catalan:
+    Blanc: Blanc
+    Bleu ciel: Blau cel
+    Bleu clair: Blau clar
+    Bleu foncé: Blau fosc
+    Bleu marine: Blau marí
+    Bleu moyen: Blau mitjà
+    Transparent: Transparent
+  corse:
+    Blanc: Biancu
+    Bleu ciel: Turchinu celu
+    Bleu clair: Turchinu chjaru
+    Bleu foncé: Turchinu scuru
+    Bleu marine: Turchinu
+    Bleu moyen: Turchinu mediu
+    Transparent: Trasparente
+  coréen:
+    Blanc: 하얀색
+    Bleu ciel: 하늘색
+    Bleu clair: 연한 파란색
+    Bleu foncé: 짙은 파랑
+    Bleu marine: 남색
+    Bleu moyen: 중간 파랑
+    Transparent: 투명한
+  danois:
+    Blanc: Hvid
+    Bleu ciel: Himmelblå
+    Bleu clair: Lyseblå
+    Bleu foncé: Mørkeblå
+    Bleu marine: Marineblå
+    Bleu moyen: Mellemblå
+    Transparent: Transparent
+  espagnol:
+    Blanc: Blanco
+    Bleu ciel: Azul celeste
+    Bleu clair: Azul claro
+    Bleu foncé: Azul oscuro
+    Bleu marine: Azul marino
+    Bleu moyen: Azul medio
+    Transparent: Transparente
+  esperanto:
+    Blanc: Blanka
+    Bleu ciel: Ĉielblua
+    Bleu clair: Helblua
+    Bleu foncé: Malhelblua
+    Bleu marine: Marblua
+    Bleu moyen: Mezblua
+    Transparent: Travidebla
+  estonien:
+    Blanc: Valge
+    Bleu ciel: Taevasinine
+    Bleu clair: Helesinine
+    Bleu foncé: Sügavsinine
+    Bleu marine: Tumesinine
+    Bleu moyen: Keskmine sinine
+    Transparent: Läbipaistev
+  finnois:
+    Blanc: Valkoinen
+    Bleu ciel: Sinitaivas
+    Bleu clair: Vaaleansininen
+    Bleu foncé: Tummansininen
+    Bleu marine: Laivastonsininen
+    Bleu moyen: Keskisininen
+    Transparent: Läpinäkyvä
+  français:
+    Blanc: Blanc
+    Bleu ciel: Bleu ciel
+    Bleu clair: Bleu clair
+    Bleu foncé: Bleu foncé
+    Bleu marine: Bleu marine
+    Bleu moyen: Bleu moyen
+    Transparent: Transparent
+  gallois:
+    Blanc: Gwyn
+    Bleu ciel: Glas yr awyr
+    Bleu clair: Glaswyrdd
+    Bleu foncé: Glas tywyll
+    Bleu marine: Glas Navy
+    Bleu moyen: Glas canolig
+    Transparent: Tryloyw
+  grec:
+    Blanc: Λευκός
+    Bleu ciel: Γαλάζιος
+    Bleu clair: Ανοιχτό μπλε
+    Bleu foncé: Μπλε σκούρο
+    Bleu marine: Μπλε ναυτικό
+    Bleu moyen: Μπλε μεσαίο
+    Transparent: Διαφανής
+  grec ancien:
+    Blanc: Λευκός
+    Bleu ciel: Κυανός οὐρανός
+    Bleu clair: Γλαυκός
+    Bleu foncé: κυανοῦς βαθύς
+    Bleu marine: Κυανός θαλάσσιος
+    Bleu moyen: μεσογάλανος
+    Transparent: Διαφανής
+  géorgien:
+    Blanc: თეთრი
+    Bleu ciel: ცისფერი
+    Bleu clair: Ცისფერი
+    Bleu foncé: Mუქი ლურჯი
+    Bleu marine: მუქი ლურჯი
+    Bleu moyen: საშუალო ლურჯი
+    Transparent: გამჭვირვალე
+  hindi:
+    Blanc: सफेद
+    Bleu ciel: आसमानी नीला
+    Bleu clair: हल्का नीला
+    Bleu foncé: गहरा नीला
+    Bleu marine: नौसेना नीला
+    Bleu moyen: मध्यम नीला
+    Transparent: पारदर्शी
+  hongrois:
+    Blanc: Fehér
+    Bleu ciel: Égkék
+    Bleu clair: Világoskék
+    Bleu foncé: Sötétkék
+    Bleu marine: Tengerészkék
+    Bleu moyen: Középkék
+    Transparent: Átlátszó
+  indonésien:
+    Blanc: Putih
+    Bleu ciel: Biru langit
+    Bleu clair: Biru muda
+    Bleu foncé: Biru tua
+    Bleu marine: Biru laut
+    Bleu moyen: Biru sedang
+    Transparent: Transparan
+  irlandais:
+    Blanc: Bán
+    Bleu ciel: Gorm na spéire
+    Bleu clair: Gorm éadrom
+    Bleu foncé: Gormdorcha
+    Bleu marine: Gorm na Mara
+    Bleu moyen: Gorm meánach
+    Transparent: Trédhearcach
+  islandais:
+    Blanc: Hvítur
+    Bleu ciel: Himnablár
+    Bleu clair: Ljósblár
+    Bleu foncé: Dökkblár
+    Bleu marine: Sæblár
+    Bleu moyen: Milliblár
+    Transparent: Gegnsær
+  italien:
+    Blanc: Bianco
+    Bleu ciel: Azzurro cielo
+    Bleu clair: Azzurro chiaro
+    Bleu foncé: Blu scuro
+    Bleu marine: Blu marino
+    Bleu moyen: Blu medio
+    Transparent: Trasparente
+  japonais:
+    Blanc: 白
+    Bleu ciel: 空色
+    Bleu clair: 水色
+    Bleu foncé: 濃い青
+    Bleu marine: 紺色
+    Bleu moyen: 中青
+    Transparent: 透明
+  kazakh:
+    Blanc: Ақ
+    Bleu ciel: Аспан көк
+    Bleu clair: Ашық көк
+    Bleu foncé: Қою көк
+    Bleu marine: Қара көк
+    Bleu moyen: Орташа көк
+    Transparent: Мөлдір
+  kirghize:
+    Blanc: Ак
+    Bleu ciel: Асман көк
+    Bleu clair: Ачык көк
+    Bleu foncé: Терең көк
+    Bleu marine: Кочкул көк
+    Bleu moyen: Орто көк
+    Transparent: Тунук
+  kurde:
+    Blanc: Spî
+    Bleu ciel: Şîna asman
+    Bleu clair: شین کاڵ
+    Bleu foncé: شینی تۆخ
+    Bleu marine: Şînî behrî
+    Bleu moyen: شینی مامناوەند
+    Transparent: Şefaf
+  latin:
+    Blanc: Albus
+    Bleu ciel: Caeruleus
+    Bleu clair: Caeruleus pallidus
+    Bleu foncé: Profundus caeruleus
+    Bleu marine: Caeruleus marinus
+    Bleu moyen: Caeruleus Medius
+    Transparent: Translucidus
+  letton:
+    Blanc: Balts
+    Bleu ciel: Debesu zils
+    Bleu clair: Gaiši zils
+    Bleu foncé: Tumšzils
+    Bleu marine: Tumši zils
+    Bleu moyen: Vidēji zils
+    Transparent: Caurspīdīgs
+  lituanien:
+    Blanc: Baltas
+    Bleu ciel: Žydra
+    Bleu clair: Šviesiai mėlyna
+    Bleu foncé: Tamsiai mėlyna
+    Bleu marine: Jūros mėlyna
+    Bleu moyen: Vidutiniškai mėlyna
+    Transparent: Skaidrus
+  luxembourgeois:
+    Blanc: Wäiss
+    Bleu ciel: Himmelblo
+    Bleu clair: Hellblo
+    Bleu foncé: Donkelblo
+    Bleu marine: Marineblo
+    Bleu moyen: Mëttelblo
+    Transparent: Transparent
+  macédonien:
+    Blanc: Бел
+    Bleu ciel: Небесно сина
+    Bleu clair: Светло сина
+    Bleu foncé: Длабоко сина
+    Bleu marine: Темно сина
+    Bleu moyen: Средно сина
+    Transparent: Транспарентен
+  malais:
+    Blanc: Putih
+    Bleu ciel: Biru Langit
+    Bleu clair: Biru Cerah
+    Bleu foncé: Biru gelap
+    Bleu marine: Biru kelasi
+    Bleu moyen: Biru Sederhana
+    Transparent: Telus
+  malgache:
+    Blanc: Fotsy
+    Bleu ciel: Manga lanitra
+    Bleu clair: Manga mazava
+    Bleu foncé: Manga maizina
+    Bleu marine: Manga matroka
+    Bleu moyen: Manga salasalany
+    Transparent: Mangarahara
+  maltais:
+    Blanc: Abjad
+    Bleu ciel: Blu tas-sema
+    Bleu clair: Blu ċar
+    Bleu foncé: Blu skur
+    Bleu marine: Blu baħar
+    Bleu moyen: Blu Medju
+    Transparent: Trasparenti
+  mandarin standard:
+    Blanc: 白
+    Bleu ciel: 天蓝色
+    Bleu clair: 浅蓝色
+    Bleu foncé: 深蓝
+    Bleu marine: 海军蓝
+    Bleu moyen: 中蓝
+    Transparent: 透明
+  mongol:
+    Blanc: Цагаан
+    Bleu ciel: Тэнгэрийн цэнхэр
+    Bleu clair: Цайвар хөх
+    Bleu foncé: Хар цэнхэр
+    Bleu marine: Тэнгисийн цэнхэр
+    Bleu moyen: Дунд хөх
+    Transparent: Тунгалаг
+  norvégien:
+    Blanc: Hvit
+    Bleu ciel: Himmelblå
+    Bleu clair: 'Lys blå
+
+      Lys blå'
+    Bleu foncé: Mørk blå
+    Bleu marine: Marineblå
+    Bleu moyen: Mellomblå
+    Transparent: Gjennomsiktig
+  néerlandais:
+    Blanc: Wit
+    Bleu ciel: Hemelsblauw
+    Bleu clair: Lichtblauw
+    Bleu foncé: Donkerblauw
+    Bleu marine: Marineblauw
+    Bleu moyen: Middelblauw
+    Transparent: Transparant
+  népalais:
+    Blanc: सेतो
+    Bleu ciel: आकाशे निलो
+    Bleu clair: फिक्का निलो
+    Bleu foncé: गाढा नीलो
+    Bleu marine: नेभी ब्लू
+    Bleu moyen: मध्यम नीलो
+    Transparent: पारदर्शी
+  ourdou:
+    Blanc: سفید
+    Bleu ciel: آسمانی
+    Bleu clair: ہلکا نیلا
+    Bleu foncé: گہرا نیلا
+    Bleu marine: نیوی نیلا
+    Bleu moyen: درمیانہ نیلا
+    Transparent: شفاف
+  ouzbek:
+    Blanc: Oq
+    Bleu ciel: Osmon koʻk
+    Bleu clair: Och ko'k
+    Bleu foncé: Chuqur koʻk
+    Bleu marine: Toʻq koʻk
+    Bleu moyen: O'rtacha ko'k
+    Transparent: Shafof
+  pachto:
+    Blanc: سپین
+    Bleu ciel: اسماني
+    Bleu clair: لږ شین
+    Bleu foncé: تیار ابی
+    Bleu marine: تورو شين
+    Bleu moyen: منځنی نیلي
+    Transparent: روڼ
+  persan:
+    Blanc: سفید
+    Bleu ciel: آبی آسمانی
+    Bleu clair: آبی روشن
+    Bleu foncé: آبی تیره
+    Bleu marine: آبی سرمه‌ای
+    Bleu moyen: آبی میانه
+    Transparent: شفاف
+  polonais:
+    Blanc: Biały
+    Bleu ciel: Błękitny
+    Bleu clair: Jasnoniebieski
+    Bleu foncé: Ciemnoniebieski
+    Bleu marine: Granatowy
+    Bleu moyen: Średni Niebieski
+    Transparent: Transparent
+  portugais:
+    Blanc: Branco
+    Bleu ciel: Azul Celeste
+    Bleu clair: Azul claro
+    Bleu foncé: Azul escuro
+    Bleu marine: Azul-marinho
+    Bleu moyen: Azul médio
+    Transparent: Transparente
+  roumain:
+    Blanc: Alb
+    Bleu ciel: Albastru cer
+    Bleu clair: Albastru deschis
+    Bleu foncé: Albastru închis
+    Bleu marine: Albastru marin
+    Bleu moyen: Albastru mediu
+    Transparent: Transparent
+  russe:
+    Blanc: Белый
+    Bleu ciel: Небесно-голубой
+    Bleu clair: Голубой
+    Bleu foncé: Темно-синий
+    Bleu marine: Тёмно-синий
+    Bleu moyen: Средний синий
+    Transparent: Прозрачный
+  serbo-croate:
+    Blanc: Belo
+    Bleu ciel: Nebesko plavo
+    Bleu clair: Svetlo plava
+    Bleu foncé: Tamnoplava
+    Bleu marine: Mornarsko plava
+    Bleu moyen: Srednje plava
+    Transparent: Transparentan
+  slovaque:
+    Blanc: Biely
+    Bleu ciel: Nebeská modrá
+    Bleu clair: Svetlomodrá
+    Bleu foncé: Tmavomodrý
+    Bleu marine: Námornícka modrá
+    Bleu moyen: Stredne modrá
+    Transparent: Priehľadný
+  slovène:
+    Blanc: Bel
+    Bleu ciel: Nebesno moder
+    Bleu clair: Svetlo modra
+    Bleu foncé: Temno modra
+    Bleu marine: Mornarsko modra
+    Bleu moyen: Srednje modra
+    Transparent: Prozoren
+  suédois:
+    Blanc: Vit
+    Bleu ciel: Himmelsblå
+    Bleu clair: Ljusblå
+    Bleu foncé: Mörkblå
+    Bleu marine: Marinblå
+    Bleu moyen: Mellanblå
+    Transparent: Transparent
+  swahili:
+    Blanc: Nyeupe
+    Bleu ciel: Samawati
+    Bleu clair: Bluu nyepesi
+    Bleu foncé: Bluu nzito
+    Bleu marine: Bluu nyeusi
+    Bleu moyen: Bluu ya wastani
+    Transparent: Wazi
+  tadjik:
+    Blanc: Сафед
+    Bleu ciel: Кабуди осмонӣ
+    Bleu clair: Кабуди равшан
+    Bleu foncé: Кабуди торик
+    Bleu marine: Кабуди баҳрӣ
+    Bleu moyen: Кабуди миёна
+    Transparent: Шаффоф
+  tamoul:
+    Blanc: வெள்ளை
+    Bleu ciel: வான நீலம்
+    Bleu clair: வெளிர் நீலம்
+    Bleu foncé: அடர் நீலம்
+    Bleu marine: கருநீலம்
+    Bleu moyen: நடுத்தர நீலம்
+    Transparent: தெளிவான
+  tchèque:
+    Blanc: 'Bílá
+
+      Bílá'
+    Bleu ciel: Nebeská modř
+    Bleu clair: Světle modrý
+    Bleu foncé: Tmavě modrá
+    Bleu marine: Námořnická modř
+    Bleu moyen: Středně modrá
+    Transparent: Průhledný
+  thaï:
+    Blanc: ขาว
+    Bleu ciel: สีฟ้า
+    Bleu clair: ฟ้าอ่อน
+    Bleu foncé: สีน้ำเงินเข้ม
+    Bleu marine: สีกรมท่า
+    Bleu moyen: สีน้ำเงินกลาง
+    Transparent: โปร่งใส
+  tibétain:
+    Blanc: དཀར་པོ
+    Bleu ciel: གནམ་སྔོན་པོ་
+    Bleu clair: སྔོ་སྐྱ་
+    Bleu foncé: སྔོ་ནག་
+    Bleu marine: མུན་སྔོན
+    Bleu moyen: སྔོན་པོ་འབྲིང་
+    Transparent: གསལ་པོ
+  turc: {}
+  turkmène: {}
+  ukrainien: {}
+  vietnamien: {}
+  zoulou: {}
 granularite:
   afrikaans:
     Amusant: Prettig

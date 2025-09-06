@@ -99,7 +99,6 @@ def creer_liste_parametres_multilangue(
     blabla=1,  # 0 = Non, 1 = Pays, 2 = Pays x langues
 ):
 
-    modele = genai.GenerativeModel(modele_dict.get("modèle", "gemini-2.0-flash-lite"))
     global appels_api_deja_faits
 
     if liste_deja_existante is None:
@@ -109,6 +108,8 @@ def creer_liste_parametres_multilangue(
         resultat = liste_deja_existante.get(nom_bouton, {})
 
     for i in sorted(liste_langues):
+
+        modele = genai.GenerativeModel(modele_dict.get("modèle", "gemini-2.0-flash-lite"))
 
         if blabla == 2:
             print(i, end=" : ")
@@ -320,14 +321,17 @@ if __name__ == "__main__":
             "limite_appels_minute": 9,
             "limite_appels_jour": 249,
         },
+        {
+            "modèle": "gemini-2.5-pro",
+            "limite_appels_minute": 4.5,
+            "limite_appels_jour": 99,
+        },
     ]:
 
-        # === Variables générales au script ===
+        # === Variables générales au script === #
 
         # Clef API
         genai.configure(api_key=clef_api_gemini)
-
-        # Choix du modèle de Google Gemini
 
         # Récupération du jour
         date_du_jour = time.localtime()
@@ -344,33 +348,9 @@ if __name__ == "__main__":
             liste_appels_api_deja_faits.get(date_du_jour, {}).get(modele_utilise["modèle"], 0)
         )
 
-        # === Traduction des paramètres ===
+        # === Traduction des paramètres === #
 
-        # Ouverture des fichiers
-
-        ## Traduction déjà existante des paramètres
-        parametres_deja_trad = ouvrir_fichier(
-            direction_fichier=constantes.direction_donnees_traductions,
-            nom_fichier="parametres_cartes_traduction.yaml",
-            defaut=None,
-            afficher_erreur="Fichier YAML des traductions des paramètres non trouvé.",
-        )
-
-        ## YAML des teintes
-        teintes_couleurs = ouvrir_fichier(
-            direction_fichier=constantes.direction_donnees_application,
-            nom_fichier="cartes_teintes.yaml",
-            defaut={},
-        )
-
-        ## YAML des thèmes
-        themes_cartes = ouvrir_fichier(
-            direction_fichier=constantes.direction_donnees_application,
-            nom_fichier="cartes_ambiances.yaml",
-            defaut={},
-        )
-
-        # Traductions
+        # Granularité
         print("\n\n Traduction des paramètres : \n")
         parametres_traduits = creer_liste_parametres_multilangue(
             liste_parametres=[
@@ -381,26 +361,44 @@ if __name__ == "__main__":
                 "Régions",
                 "Départements",
             ],
-            liste_deja_existante=parametres_deja_trad,
+            ## Traduction déjà existante des paramètres
+            liste_deja_existante=ouvrir_fichier(
+                direction_fichier=constantes.direction_donnees_traductions,
+                nom_fichier="parametres_cartes_traduction.yaml",
+                defaut=None,
+                afficher_erreur="Fichier YAML des traductions des paramètres non trouvé.",
+            ),
             nom_bouton="granularite",
             modele_dict=modele_utilise,
             liste_langues=liste_langues,
-            blabla=2,
+            blabla=1,
         )
 
+        # Ambiances
         parametres_traduits = creer_liste_parametres_multilangue(
-            liste_parametres=list(themes_cartes.keys()),
+            liste_parametres=list(constantes.liste_ambiances.keys()),
             liste_deja_existante=parametres_traduits,
             nom_bouton="themes_cartes",
             modele_dict=modele_utilise,
             liste_langues=liste_langues,
-            blabla=2,
+            blabla=1,
         )
 
+        # Teintes
         parametres_traduits = creer_liste_parametres_multilangue(
-            liste_parametres=list(teintes_couleurs.keys()),
+            liste_parametres=list(constantes.liste_couleurs.keys()),
             liste_deja_existante=parametres_traduits,
             nom_bouton="teintes_couleurs",
+            modele_dict=modele_utilise,
+            liste_langues=liste_langues,
+            blabla=1,
+        )
+
+        # Arrière-plans
+        parametres_traduits = creer_liste_parametres_multilangue(
+            liste_parametres=list(constantes.dictionnaire_arriere_plans.keys()),
+            liste_deja_existante=parametres_traduits,
+            nom_bouton="arrière_plans",
             modele_dict=modele_utilise,
             liste_langues=liste_langues,
             blabla=2,
@@ -423,12 +421,7 @@ if __name__ == "__main__":
         exporter_fichier(
             objet=creer_dictionnaire_langues(
                 modele_dict=modele_utilise,
-                liste_deja_existante=ouvrir_fichier(
-                    direction_fichier=constantes.direction_donnees_traductions,
-                    nom_fichier="noms_langues_traduction.yaml",
-                    defaut=None,
-                    afficher_erreur="Fichier YAML des traductions des langues non trouvé.",
-                ),
+                liste_deja_existante=constantes.dict_langues_dispo,
                 blabla=True,
                 liste_langues=liste_langues,
             ),
@@ -444,14 +437,7 @@ if __name__ == "__main__":
         print("\n\n Traduction de l'interface graphique : \n")
         exporter_fichier(
             objet=creer_liste_pays_multilangue(
-                liste_pays=list(
-                    ouvrir_fichier(  # Phrases à traduire
-                        direction_fichier=constantes.direction_donnees_application,
-                        nom_fichier="phrases_interface.yaml",
-                        defaut={},
-                        afficher_erreur="Fichiers YAML des phrases de l'interface non trouvé.",
-                    ).values()
-                ),
+                liste_pays=list(constantes.phrases_interface.values()),
                 modele_dict=modele_utilise,
                 liste_deja_existante=ouvrir_fichier(  # Traduction déjà existante
                     direction_fichier=constantes.direction_donnees_traductions,
@@ -475,16 +461,9 @@ if __name__ == "__main__":
         # Construction de la liste de pays, régions, continents, ...
 
         ## Liste des continents
-        liste_pays = list(
-            ouvrir_fichier(
-                direction_fichier=constantes.direction_donnees_application,
-                nom_fichier="continents.yaml",
-                defaut={},
-                afficher_erreur="Fichiers YAML des régions par pays non trouvé.",
-            ).keys()
-        ) + ["World Map", "World"]
+        liste_pays = ["World Map", "World"]
 
-        for continent in liste_pays[:]:
+        for continent in constantes.liste_regions_monde.keys():
             liste_pays.append(continent)
             if continent == "Middle East":
                 liste_pays.append(f"Map of the {continent}")
@@ -492,27 +471,10 @@ if __name__ == "__main__":
                 liste_pays.append(f"Map of {continent}")
 
         ## Liste des pays regroupés
-        liste_pays.extend(
-            gr["categorie"]
-            for gr in ouvrir_fichier(
-                direction_fichier=constantes.direction_donnees_application,
-                nom_fichier="cartes_pays_regroupements.yaml",
-                defaut={},
-                afficher_erreur="Fichiers YAML des regroupements de pays non trouvé.",
-            ).values()
-        )
+        liste_pays.extend(gr["categorie"] for gr in constantes.liste_pays_groupes.values())
 
         ## Liste des pays individuels
-        liste_pays.extend(
-            list(
-                ouvrir_fichier(
-                    direction_fichier=constantes.direction_donnees_application,
-                    nom_fichier="regions_par_pays.yaml",
-                    defaut={},
-                    afficher_erreur="Fichiers YAML des regroupements de pays non trouvé.",
-                ).keys()
-            )
-        )
+        liste_pays.extend(list(constantes.regions_par_pays.keys()))
 
         # Traduction et export
         print("\n\n Traduction des noms de pays et régions : \n")

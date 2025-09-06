@@ -175,6 +175,13 @@ liste_couleurs = ouvrir_fichier(
     afficher_erreur="Teintes introuvables.",
 )
 
+# Import de la liste des arrières-plans
+dictionnaire_arriere_plans = ouvrir_fichier(
+    direction_fichier=direction_donnees_application,
+    nom_fichier="cartes_arriere_plans.yaml",
+    defaut={},
+)
+
 # Import des langues disponibles
 dict_langues_dispo = ouvrir_fichier(
     direction_fichier=direction_donnees_traductions,

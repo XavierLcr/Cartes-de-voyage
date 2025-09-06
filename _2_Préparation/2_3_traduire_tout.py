@@ -108,7 +108,7 @@ def creer_liste_parametres_multilangue(
     else:
         resultat = liste_deja_existante.get(nom_bouton, {})
 
-    for i in list(set(liste_langues)):
+    for i in sorted(liste_langues):
 
         if blabla == 2:
             print(i, end=" : ")
@@ -306,7 +306,7 @@ if __name__ == "__main__":
             "limite_appels_jour": 199,
         },
         {
-            "modèle": "gemini-2.5-flash-lite-preview-06-17",
+            "modèle": "gemini-2.5-flash-lite",
             "limite_appels_minute": 14,
             "limite_appels_jour": 999,
         },
@@ -350,7 +350,7 @@ if __name__ == "__main__":
 
         ## Traduction déjà existante des paramètres
         parametres_deja_trad = ouvrir_fichier(
-            direction_fichier=constantes.direction_donnees_application,
+            direction_fichier=constantes.direction_donnees_traductions,
             nom_fichier="parametres_cartes_traduction.yaml",
             defaut=None,
             afficher_erreur="Fichier YAML des traductions des paramètres non trouvé.",
@@ -385,7 +385,7 @@ if __name__ == "__main__":
             nom_bouton="granularite",
             modele_dict=modele_utilise,
             liste_langues=liste_langues,
-            blabla=1,
+            blabla=2,
         )
 
         parametres_traduits = creer_liste_parametres_multilangue(
@@ -394,7 +394,7 @@ if __name__ == "__main__":
             nom_bouton="themes_cartes",
             modele_dict=modele_utilise,
             liste_langues=liste_langues,
-            blabla=1,
+            blabla=2,
         )
 
         parametres_traduits = creer_liste_parametres_multilangue(
@@ -403,28 +403,28 @@ if __name__ == "__main__":
             nom_bouton="teintes_couleurs",
             modele_dict=modele_utilise,
             liste_langues=liste_langues,
-            blabla=1,
+            blabla=2,
         )
 
         # Export
         verifier_doublons(parametres_traduits)  # Vérification des doublons
         exporter_fichier(
             objet=parametres_traduits,
-            direction_fichier=constantes.direction_donnees_application,
+            direction_fichier=constantes.direction_donnees_traductions,
             nom_fichier="parametres_cartes_traduction.yaml",
             sort_keys=True,
         )
 
         time.sleep(1)
 
-        # === Traduction des noms de langues ===
+        # === Traduction des noms de langues === #
 
         print("\n\n Traduction des noms de langues : \n")
         exporter_fichier(
             objet=creer_dictionnaire_langues(
                 modele_dict=modele_utilise,
                 liste_deja_existante=ouvrir_fichier(
-                    direction_fichier=constantes.direction_donnees_application,
+                    direction_fichier=constantes.direction_donnees_traductions,
                     nom_fichier="noms_langues_traduction.yaml",
                     defaut=None,
                     afficher_erreur="Fichier YAML des traductions des langues non trouvé.",
@@ -432,14 +432,14 @@ if __name__ == "__main__":
                 blabla=True,
                 liste_langues=liste_langues,
             ),
-            direction_fichier=constantes.direction_donnees_application,
+            direction_fichier=constantes.direction_donnees_traductions,
             nom_fichier="noms_langues_traduction.yaml",
             sort_keys=True,
         )
 
         time.sleep(1)
 
-        # === Traduction de l'interface ===
+        # === Traduction de l'interface === #
 
         print("\n\n Traduction de l'interface graphique : \n")
         exporter_fichier(
@@ -454,7 +454,7 @@ if __name__ == "__main__":
                 ),
                 modele_dict=modele_utilise,
                 liste_deja_existante=ouvrir_fichier(  # Traduction déjà existante
-                    direction_fichier=constantes.direction_donnees_application,
+                    direction_fichier=constantes.direction_donnees_traductions,
                     nom_fichier="phrases_interface_traduction.yaml",
                     defaut=None,
                     afficher_erreur="Fichiers YAML des traductions des phrases de l'interface non trouvé.",
@@ -463,7 +463,7 @@ if __name__ == "__main__":
                 version=1,
                 blabla=1,
             ),
-            direction_fichier=constantes.direction_donnees_application,
+            direction_fichier=constantes.direction_donnees_traductions,
             nom_fichier="phrases_interface_traduction.yaml",
             sort_keys=True,
         )
@@ -521,7 +521,7 @@ if __name__ == "__main__":
                 liste_pays=liste_pays,
                 modele_dict=modele_utilise,
                 liste_deja_existante=ouvrir_fichier(
-                    direction_fichier=constantes.direction_donnees_application,
+                    direction_fichier=constantes.direction_donnees_traductions,
                     nom_fichier="noms_pays_traduction.yaml",
                     defaut=None,
                     afficher_erreur="Fichiers YAML des traductions des noms de pays non trouvé.",
@@ -529,7 +529,7 @@ if __name__ == "__main__":
                 liste_langues=liste_langues,
                 blabla=1,
             ),
-            direction_fichier=constantes.direction_donnees_application,
+            direction_fichier=constantes.direction_donnees_traductions,
             nom_fichier="noms_pays_traduction.yaml",
             sort_keys=True,
         )

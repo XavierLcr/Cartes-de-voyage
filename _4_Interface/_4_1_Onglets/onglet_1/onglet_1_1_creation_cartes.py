@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
 # _4_Interface/_4_1_Onglets/onglet_1/                                          #
-# Onglet 1 – Création des cartes                                               #
+# Onglet 1.1 – Création des cartes                                             #
 ################################################################################
 
 
@@ -100,7 +100,8 @@ class CreerCartes(QObject):
             ),
             theme=self.constantes.liste_ambiances[self.parametres["theme"]],
             teinte=self.constantes.liste_couleurs[self.parametres["couleur"]],
-            couleur_fond="#CDEAF7" if self.parametres["couleur_fond_carte"] else "#FFFFFF",
+            couleur_fond="none",
+            # couleur_fond="#CDEAF7" if self.parametres["couleur_fond_carte"] else "#FFFFFF",
             couleur_non_visites="#ECEBED",
             couleur_lacs="#CEE3F5",
             format=self.parametres["format"],

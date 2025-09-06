@@ -337,7 +337,7 @@ class MesVoyagesApplication(QWidget):
                 valeur=self.onglet_parametres.color_combo.currentText(),
                 dictionnaire=constantes.parametres_traduits["teintes_couleurs"][langue],
             ),
-            "couleur_fond_carte": self.onglet_parametres.couleur_fond_checkbox.isChecked(),
+            "couleur_fond_carte": self.onglet_parametres.combo_couleur_fond.valeur_en_francais(),
             "theme": _0_1_Fonctions_utiles.obtenir_clef_par_valeur(
                 valeur=self.onglet_parametres.theme_combo.currentText(),
                 dictionnaire=constantes.parametres_traduits["themes_cartes"][langue],
@@ -487,7 +487,6 @@ class MesVoyagesApplication(QWidget):
                 "moyen_orient": self.onglet_parametres.moyen_orient,
                 "autres_regions": self.onglet_parametres.autres_regions,
                 "sortir_cartes_granu_inf": self.onglet_parametres.sortir_cartes_granu_inf,
-                "couleur_fond_carte": self.onglet_parametres.couleur_fond_checkbox,
                 # Onglet 3
                 "format_onglet_3": self.onglet_resume_destinations.mise_en_forme,
             }
@@ -514,7 +513,7 @@ class MesVoyagesApplication(QWidget):
             # Chargement de la granularité
             _0_1_Fonctions_utiles.restaurer_valeur_combo(
                 combo=self.onglet_parametres.granularite_visite,
-                dict_parent=constantes.parametres_traduits["granularite"],
+                dict_parent=constantes.parametres_traduits.get("granularite", {}),
                 langue=self.langue,
                 valeur=sauv.get("granularite"),
                 defaut_index=0,
@@ -523,7 +522,7 @@ class MesVoyagesApplication(QWidget):
             # Chargement de la granularité de fond
             _0_1_Fonctions_utiles.restaurer_valeur_combo(
                 combo=self.onglet_parametres.granularite_fond,
-                dict_parent=constantes.parametres_traduits["granularite"],
+                dict_parent=constantes.parametres_traduits.get("granularite", {}),
                 langue=self.langue,
                 valeur=sauv.get("granularite_fond"),
                 defaut_index=0,
@@ -532,7 +531,7 @@ class MesVoyagesApplication(QWidget):
             # Chargement du thème
             _0_1_Fonctions_utiles.restaurer_valeur_combo(
                 combo=self.onglet_parametres.theme_combo,
-                dict_parent=constantes.parametres_traduits["themes_cartes"],
+                dict_parent=constantes.parametres_traduits.get("themes_cartes", {}),
                 langue=self.langue,
                 valeur=sauv.get("theme"),
                 defaut_index=0,
@@ -541,9 +540,18 @@ class MesVoyagesApplication(QWidget):
             # Chargement de la teinte
             _0_1_Fonctions_utiles.restaurer_valeur_combo(
                 combo=self.onglet_parametres.color_combo,
-                dict_parent=constantes.parametres_traduits["teintes_couleurs"],
+                dict_parent=constantes.parametres_traduits.get("teintes_couleurs", {}),
                 langue=self.langue,
                 valeur=sauv.get("couleur"),
+                defaut_index=0,
+            )
+
+            # Chargement de l'arrière plan
+            _0_1_Fonctions_utiles.restaurer_valeur_combo(
+                combo=self.onglet_parametres.combo_couleur_fond,
+                dict_parent=constantes.parametres_traduits.get("arrière_plans", {}),
+                langue=self.langue,
+                valeur=sauv.get("couleur_fond_carte"),
                 defaut_index=0,
             )
 
@@ -591,7 +599,7 @@ class MesVoyagesApplication(QWidget):
             )
         )
         self.onglet_parametres.format_cartes.setCurrentText("png")
-        self.onglet_parametres.couleur_fond_checkbox.setChecked(False)
+        self.onglet_parametres.combo_couleur_fond.setCurrentIndex(0)
 
         # Cartes à créer
         self.onglet_parametres.carte_monde.setChecked(False)

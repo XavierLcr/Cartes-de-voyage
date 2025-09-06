@@ -98,9 +98,13 @@ class CreerCartes(QObject):
             granularite_reste={"Pays": 0, "Région": 1}.get(
                 self.parametres.get("granularite_fond"), 2
             ),
-            theme=self.constantes.liste_ambiances[self.parametres["theme"]],
-            teinte=self.constantes.liste_couleurs[self.parametres["couleur"]],
-            couleur_fond="none",
+            theme=self.constantes.liste_ambiances[self.parametres.get("theme", "Pastel")],
+            teinte=self.constantes.liste_couleurs[
+                self.parametres.get("couleur", "Multicolore")
+            ],
+            couleur_fond=self.constantes.dictionnaire_arriere_plans[
+                self.parametres.get("couleur_fond_carte", "Blanc")
+            ],
             # couleur_fond="#CDEAF7" if self.parametres["couleur_fond_carte"] else "#FFFFFF",
             couleur_non_visites="#ECEBED",
             couleur_lacs="#CEE3F5",

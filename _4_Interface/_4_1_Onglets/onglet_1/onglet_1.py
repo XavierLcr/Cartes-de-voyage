@@ -264,7 +264,8 @@ class OngletParametres(QWidget):
         # self.utiliser_theme.stateChanged.connect(self.maj_style)
 
         # Choix de la couleur de fond
-        self.couleur_fond_checkbox = QCheckBox()
+        self.couleur_fond_label = QLabel()
+        self.combo_couleur_fond = FondCarteCombo(constantes=self.constantes)
 
         # Ajout des widgets au layout vertical
         layout_theme_couleurs.addLayout(layout_theme)
@@ -274,7 +275,10 @@ class OngletParametres(QWidget):
             creer_ligne_separation(lStretch=0, ligne_largeur=1, rStretch=0)
         )
         layout_theme_couleurs.addWidget(
-            self.couleur_fond_checkbox, alignment=Qt.AlignmentFlag.AlignHCenter
+            self.couleur_fond_label, alignment=Qt.AlignmentFlag.AlignHCenter
+        )
+        layout_theme_couleurs.addWidget(
+            self.combo_couleur_fond, alignment=Qt.AlignmentFlag.AlignHCenter
         )
 
         # Ajout du layout de couleurs au groupbox et ajout du groupbox au layout principal
@@ -436,12 +440,13 @@ class OngletParametres(QWidget):
             self.fonction_traduction("description_tick_style_dans_app", suffixe=".")
         )
 
-        self.couleur_fond_checkbox.setText(
-            self.fonction_traduction(clef="cartes_couleurs_fond", suffixe="")
+        self.couleur_fond_label.setText(
+            self.fonction_traduction("cartes_couleurs_fond", suffixe=" :")
         )
-        self.couleur_fond_checkbox.setToolTip(
+        self.couleur_fond_label.setToolTip(
             self.fonction_traduction(clef="cartes_couleurs_fond_tool_tip", suffixe=".")
         )
+        self.combo_couleur_fond.set_langue(langue=langue_actuelle, taille=20)
 
         # Paramètres de format et de qualité
         self.groupe_params_publication.setTitle(

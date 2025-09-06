@@ -8,7 +8,7 @@
 from PyQt6.QtWidgets import QComboBox, QListView
 from PyQt6.QtGui import QPixmap, QPainter, QColor, QIcon
 from PyQt6.QtCore import Qt
-from _0_Utilitaires._0_1_Fonctions_utiles import reset_combo, obtenir_clef_par_valeur
+from _0_Utilitaires._0_1_Fonctions_utiles import obtenir_clef_par_valeur
 
 
 def creer_icone_cercle(couleur: QColor, taille=24, transparent=False) -> QIcon:
@@ -72,20 +72,32 @@ class FondCarteCombo(QComboBox):
     def valeur_en_francais(self):
         """Retourne le choix courant en français."""
 
-        obtenir_clef_par_valeur(
+        return obtenir_clef_par_valeur(
             dictionnaire=self.constantes.parametres_traduits["arrière_plans"].get(
                 self.langue, {}
             ),
             valeur=self.valeur(),
         )
 
-    def set_langue(self, langue):
+    def set_langue(self, langue, taille: int):
 
         self.langue = langue
 
-        reset_combo(
-            self,
-            self.constantes.parametres_traduits.get("arrière_plans", {})
-            .get(self.langue, {})
-            .values(),
-        )
+        # Mise à jour du déroulé
+        self.blockSignals(True)
+        self.clear()
+
+        for clef, valeur in self.constantes.dictionnaire_arriere_plans.items():
+
+            self.addItem(
+                creer_icone_cercle(
+                    couleur=QColor(valeur) if (clef != "Transparent") else QColor("#FFFFFF"),
+                    taille=taille,
+                    transparent=(clef == "Transparent"),
+                ),
+                self.constantes.parametres_traduits.get("arrière_plans", {})
+                .get(self.langue, {})
+                .get(clef, clef),
+            )
+
+        self.blockSignals(False)

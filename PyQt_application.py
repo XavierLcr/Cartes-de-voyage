@@ -460,6 +460,9 @@ class MesVoyagesApplication(QWidget):
         # Nom
         if sauv.get("nom") is not None:
 
+            # Nom
+            self.onglet_selection_destinations.set_nom_individu(nom=sauv.get("nom"))
+
             # Dossier de publication
             if sauv.get("dossier_stockage") is not None:
                 self.set_dossier(dossier=sauv.get("dossier_stockage"), onglet_parametres=True)
@@ -493,12 +496,12 @@ class MesVoyagesApplication(QWidget):
                     checkbox.setChecked(sauv.get(nom_cle))
 
             # Qualité
-            if sauv.get("qualite") is not None:
-                self.onglet_parametres.curseur_qualite.setValue(sauv.get("qualite"))
+            if (val := sauv.get("qualite")) is not None:
+                self.onglet_parametres.curseur_qualite.setValue(val)
 
             # Format
-            if sauv.get("format") is not None:
-                self.onglet_parametres.format_cartes.setCurrentText(sauv.get("format"))
+            if (fmt := sauv.get("format")) is not None:
+                self.onglet_parametres.format_cartes.setCurrentText(fmt)
 
             # Récupération des destinations
             self.set_dictionnaire_destinations(
@@ -567,6 +570,7 @@ class MesVoyagesApplication(QWidget):
             self.onglet_parametres.nom_individu.blockSignals(True)
             self.onglet_parametres.nom_individu.setCurrentIndex(-1)
             self.onglet_parametres.nom_individu.blockSignals(False)
+            self.onglet_selection_destinations.set_nom_individu(nom="")
 
         # Destinations
         self.set_dictionnaire_destinations(dictionnaire={"region": {}, "dep": {}})

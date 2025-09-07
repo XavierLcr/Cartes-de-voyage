@@ -93,13 +93,22 @@ def style_bouton_de_suppression(sombre):
             """
 
 
-def creer_ligne_separation(lStretch=1, ligne_largeur=4, rStretch=1):
+def creer_ligne_separation(
+    lStretch=1,
+    ligne_largeur=4,
+    rStretch=1,
+    ligne_epaisseur=1,
+    ligne_epaisseur_interieur=0,
+    relief=QFrame.Shadow.Sunken,
+):
     """Afficher une simple ligne horizontale."""
     layout_temp = QHBoxLayout()
     ligne = QFrame()
     ligne.setFixedHeight(2)
     ligne.setFrameShape(QFrame.Shape.HLine)  # Ligne horizontale
-    ligne.setFrameShadow(QFrame.Shadow.Sunken)  # Style de relief
+    ligne.setFrameShadow(relief)  # Style de relief
+    ligne.setLineWidth(ligne_epaisseur)
+    ligne.setMidLineWidth(ligne_epaisseur_interieur)
     layout_temp.addStretch(lStretch)
     layout_temp.addWidget(ligne, ligne_largeur)
     layout_temp.addStretch(rStretch)

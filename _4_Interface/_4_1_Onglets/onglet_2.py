@@ -240,6 +240,9 @@ class OngletSelectionnerDestinations(QWidget):
         self.bouton_sauvegarde2.setToolTip(
             self.fonction_traduire("sauvegarder_profil", suffixe=".")
         )
+        self.liste_des_pays.setToolTip(
+            self.fonction_traduire("precision_diplomatique_onglet_2", suffixe=".")
+        )
 
         # Chargement des YAMLs
         self.groupe_chargement_yaml.setTitle(

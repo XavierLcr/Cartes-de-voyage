@@ -4737,6 +4737,399 @@ Création des cartes:
   ukrainien: Створення карт
   vietnamien: Tạo bản đồ
   zoulou: Ukudala amakhadi
+? Dans ce logiciel, le terme « pays » est employé par commodité pour regrouper des
+  ensembles géographiques. Il peut ainsi désigner non seulement un État souverain,
+  mais aussi un territoire, une île éloignée ou une subdivision administrative particulière.
+  Cette approche vise uniquement à simplifier l’organisation et l’utilisation des
+  cartes. Elle ne reflète aucune prise de position politique, diplomatique ou juridique
+  concernant le statut des lieux représentés.
+: afrikaans: In hierdie sagteware word die term "land" uit gemak gebruik om geografiese
+    entiteite te groepeer. Dit kan dus nie net 'n soewereine staat aandui nie, maar
+    ook 'n gebied, 'n afgeleë eiland of 'n spesifieke administratiewe onderverdeling.
+    Hierdie benadering is slegs bedoel om die organisasie en gebruik van kaarte te
+    vereenvoudig. Dit weerspieël geen politieke, diplomatieke of juridiese standpunt
+    oor die status van die plekke wat verteenwoordig word nie
+  albanais: Në këtë softuer, termi "vend" përdoret për lehtësi për të grupuar bashkësi
+    gjeografike. Kështu, ai mund të nënkuptojë jo vetëm një shtet sovran, por edhe
+    një territor, një ishull të largët ose një nëndarje administrative të veçantë.
+    Ky qasje synon vetëm të thjeshtojë organizimin dhe përdorimin e hartave. Ajo nuk
+    pasqyron asnjë qëndrim politik, diplomatik ose ligjor në lidhje me statusin e
+    vendeve të paraqitura
+  allemand: In dieser Software wird der Begriff "Land" der Einfachheit halber verwendet,
+    um geografische Einheiten zusammenzufassen. Er kann somit nicht nur einen souveränen
+    Staat, sondern auch ein Territorium, eine abgelegene Insel oder eine besondere
+    administrative Unterteilung bezeichnen. Dieser Ansatz dient ausschließlich der
+    Vereinfachung der Organisation und Nutzung von Karten. Er spiegelt keine politische,
+    diplomatische oder rechtliche Haltung bezüglich des Status der dargestellten Orte
+    wider
+  anglais: In this software, the term "country" is used for convenience to group geographical
+    entities. It can thus refer not only to a sovereign state, but also to a territory,
+    a remote island, or a particular administrative subdivision. This approach solely
+    aims to simplify the organization and use of maps. It does not reflect any political,
+    diplomatic, or legal stance regarding the status of the represented locations
+  arabe: في هذا البرنامج، يُستخدم مصطلح "بلد" من باب التسهيل لتجميع مجموعات جغرافية.
+    يمكن أن يشير ذلك ليس فقط إلى دولة ذات سيادة، ولكن أيضًا إلى إقليم أو جزيرة نائية
+    أو تقسيم إداري معين. يهدف هذا النهج فقط إلى تبسيط تنظيم الخرائط واستخدامها. إنه
+    لا يعكس أي موقف سياسي أو دبلوماسي أو قانوني فيما يتعلق بوضع الأماكن المصورة
+  arménien: Այս ծրագրային ապահովումում «երկիր» տերմինը օգտագործվում է հարմարության
+    համար՝ աշխարհագրական միավորումները խմբավորելու նպատակով։ Այն կարող է նշանակել
+    ոչ միայն ինքնիշխան պետություն, այլև տարածք, հեռավոր կղզի կամ հատուկ վարչական ստորաբաժանում։
+    Այս մոտեցումը միայն նպատակ ունի պարզեցնել քարտեզների կազմակերպումն ու օգտագործումը։
+    Այն չի արտացոլում որևէ քաղաքական, դիվանագիտական կամ իրավական դիրքորոշում՝ ներկայացվող
+    վայրերի կարգավիճակի վերաբերյալ։
+  basque: Software honetan, "herrialde" terminoa erabilpen erosoagatik erabiltzen
+    da, multzo geografikoak biltzeko. Horrela, estatu subirano bat ez ezik, lurralde
+    bat, uharte urrun bat edo administrazio-dibisio berezi bat ere adieraz dezake.
+    Ikuspegi honek, mapen antolaketa eta erabilera erraztea baino ez du helburu. Ez
+    du islatzen ordezkatutako lekuen egoerari buruzko jarrera politiko, diplomatiko
+    edo juridikorik
+  bengali: এই সফ্টওয়্যারে, "দেশ" শব্দটি ভৌগলিক অঞ্চলগুলিকে একত্রিত করার সুবিধার জন্য
+    ব্যবহৃত হয়। এটি কেবল একটি সার্বভৌম রাষ্ট্রই নয়, একটি অঞ্চল, একটি প্রত্যন্ত দ্বীপ
+    বা একটি বিশেষ প্রশাসনিক বিভাগও বোঝাতে পারে। এই পদ্ধতির উদ্দেশ্য কেবল মানচিত্রের
+    বিন্যাস এবং ব্যবহারকে সহজতর করা। এটি উপস্থাপিত স্থানগুলির মর্যাদা সম্পর্কে কোনও
+    রাজনৈতিক, কূটনৈতিক বা আইনি অবস্থান প্রতিফলিত করে না।
+  birman: ဤဆော့ဝဲလ်တွင် "နိုင်ငံ" ဟူသော ဝေါဟာရကို ပထဝီဆိုင်ရာ အုပ်စုများကို စုစည်းရန်
+    အဆင်ပြေစေရန် အသုံးပြုထားပါသည်။ ထို့ကြောင့် ၎င်းသည် အချုပ်အခြာအာဏာပိုင် နိုင်ငံတစ်ခုကို
+    သာမက နယ်မြေတစ်ခု၊ ဝေးလံသော ကျွန်းတစ်ခု သို့မဟုတ် အထူးအုပ်ချုပ်ရေးခွဲတစ်ခုကိုလည်း
+    ဖော်ပြနိုင်သည်။ ဤနည်းလမ်းသည် မြေပုံများကို စီစဉ်ရေးဆွဲခြင်းနှင့် အသုံးပြုခြင်းကို
+    လွယ်ကူစေရန် ရည်ရွယ်ပါသည်။ ၎င်းသည် တင်ပြထားသော နေရာများ၏ အခြေအနေနှင့် ပတ်သက်၍ နိုင်ငံရေး၊
+    သံတမန်ရေး သို့မဟုတ် တရားရေးဆိုင်ရာ သဘောထားတစ်စုံတစ်ရာကို ထင်ဟပ်စေမည်မဟုတ်ပါ။
+  breton: Er programm-mañ, an term "bro" a vez implijet evit an aes da strollañ strolladoù
+    douaroniel. Gallout a ra eta ober dave ouzh ur stad dizalc'h, met ivez ouzh un
+    dachenn, un enezenn pell pe un isrann melestradurel resis. Ar memes doare a zo
+    evit simplaat an aozadur hag implij ar c'hartennoù. N'eo ket ur savboent politikel,
+    diplomatek pe lezennel a-zivout statud al lec'hioù diskouezet
+  bulgare: В този софтуер терминът „държава“ се използва за удобство при групиране
+    на географски единици. Той може да означава не само суверенна държава, но и територия,
+    отдалечен остров или специфично административно подразделение. Този подход е само
+    с цел опростяване на организацията и използването на картите. Той не отразява
+    никаква политическа, дипломатическа или правна позиция относно статута на изобразените
+    места
+  catalan: En aquest programari, el terme «país» s'utilitza per comoditat per agrupar
+    conjunts geogràfics. Per tant, pot designar no només un estat sobirà, sinó també
+    un territori, una illa remota o una subdivisió administrativa particular. Aquest
+    enfocament només pretén simplificar l'organització i l'ús dels mapes. No reflecteix
+    cap presa de posició política, diplomàtica o jurídica respecte a l'estatus dels
+    llocs representats
+  corse: In stu lugiziale, u termine « paese » hè adupratu per cummodità per raggruppà
+    inseme geografichi. Pò cusì designà micca solu un Statu suvranu, ma dinò un territoriu,
+    un isula luntana o una subdivisione amministrativa particulare. Stu approcciu
+    ùn hà chè u scopu di simplificà l'organizazione è l'usu di e carte. Ùn riflette
+    micca alcuna pusizione pulitica, diplomatica o legale quant'è u statutu di i lochi
+    rapresentati
+  coréen: 이 소프트웨어에서 "국가"라는 용어는 지리적 집합을 그룹화하기 위해 편의상 사용됩니다. 따라서 주권 국가뿐만 아니라 특정 영토,
+    외딴 섬 또는 행정 구역을 지칭할 수도 있습니다. 이러한 접근 방식은 지도 구성 및 사용을 단순화하기 위한 것입니다. 이는 표시된 장소의 상태에
+    대한 정치적, 외교적 또는 법적 입장을 반영하지 않습니다
+  danois: I denne software bruges udtrykket "land" af bekvemmelighed til at gruppere
+    geografiske områder. Det kan derfor betegne ikke kun en suveræn stat, men også
+    et territorium, en fjern ø eller en særlig administrativ underinddeling. Denne
+    tilgang har til formål udelukkende at forenkle organisationen og brugen af kort.
+    Den afspejler ingen politisk, diplomatisk eller juridisk holdning til status for
+    de repræsenterede steder
+  espagnol: En este software, el término "país" se utiliza por conveniencia para agrupar
+    conjuntos geográficos. Por lo tanto, puede designar no solo a un Estado soberano,
+    sino también a un territorio, una isla remota o una subdivisión administrativa
+    particular. Este enfoque tiene como único objetivo simplificar la organización
+    y el uso de los mapas. No refleja ninguna postura política, diplomática o legal
+    sobre el estatus de los lugares representados
+  esperanto: En ĉi tiu programaro, la termino "lando" estas uzata por oportuno por
+    grupi geografiajn areojn. Tiel, ĝi povas signifi ne nur suverenan ŝtaton, sed
+    ankaŭ teritorion, malproksiman insulon aŭ specifan administran subsekcion. Ĉi
+    tiu aliro celas nur simpligi la organizon kaj uzon de mapoj. Ĝi ne reflektas ajnan
+    politikan, diplomatian aŭ juran pozicion pri la statuso de la reprezentataj lokoj
+  estonien: Selles tarkvaras kasutatakse mõistet "riik" mugavuse huvides geograafiliste
+    piirkondade koondamiseks. Seega võib see tähendada mitte ainult suveräänset riiki,
+    vaid ka territooriumi, kaugemakoloist saart või konkreetset haldusjaotust. Selle
+    lähenemisviisi eesmärk on üksnes kaartide korralduse ja kasutamise lihtsustamine.
+    See ei kajasta mingit poliitilist, diplomaatilist või juriidilist seisukohta esindatavate
+    kohtade staatuse kohta
+  finnois: Tässä ohjelmistossa termiä "maa" käytetään kätevyyden vuoksi maantieteellisten
+    kokonaisuuksien ryhmittelemiseen. Se voi siis tarkoittaa paitsi suvereenia valtiota,
+    myös esimerkiksi aluetta, syrjäistä saarta tai tiettyä hallinnollista alajakoa.
+    Tämän lähestymistavan tarkoituksena on ainoastaan yksinkertaistaa karttojen järjestämistä
+    ja käyttöä. Se ei heijasta minkäänlaista poliittista, diplomaattista tai oikeudellista
+    kantaa esitettyjen paikkojen asemaan liittyen
+  français: Dans ce logiciel, le terme « pays » est employé par commodité pour regrouper
+    des ensembles géographiques. Il peut ainsi désigner non seulement un État souverain,
+    mais aussi un territoire, une île éloignée ou une subdivision administrative particulière.
+    Cette approche vise uniquement à simplifier l’organisation et l’utilisation des
+    cartes. Elle ne reflète aucune prise de position politique, diplomatique ou juridique
+    concernant le statut des lieux représentés
+  gallois: Yn y feddalwedd hon, defnyddir y term "gwlad" er hwylustod i grwpio setiau
+    daearyddol. Gall ddynodi nid yn unig gwladwriaeth sofranaidd, ond hefyd diriogaeth,
+    ynys bell, neu is-adran weinyddol benodol. Dim ond i symleiddio'r drefniant a'r
+    defnydd o fapiau y mae'r dull hwn yn anelu. Nid yw'n adlewyrchu unrhyw safiad
+    gwleidyddol, diplomyddol, na chyfreithiol ynghylch statws y lleoedd a gynrychiolir
+  grec: Σε αυτό το λογισμικό, ο όρος «χώρα» χρησιμοποιείται για λόγους ευκολίας για
+    την ομαδοποίηση γεωγραφικών συνόλων. Μπορεί έτσι να αναφέρεται όχι μόνο σε ένα
+    κυρίαρχο κράτος, αλλά και σε μια περιοχή, ένα απομακρυσμένο νησί ή μια ειδική
+    διοικητική υποδιαίρεση. Αυτή η προσέγγιση στοχεύει αποκλειστικά στην απλοποίηση
+    της οργάνωσης και της χρήσης των χαρτών. Δεν αντικατοπτρίζει καμία πολιτική, διπλωματική
+    ή νομική θέση σχετικά με το καθεστώς των τόπων που απεικονίζονται
+  grec ancien: Ἐν τῷδε τῷ λογισμικῷ, ὁ ὅρος "χώρα" κεχρημένος ἐστὶ δι' εὐκολίαν συλλέγειν
+    γεωγραφικὰ σύνολα. Δύναται οὖν δηλοῦν οὐ μόνον κρατικὴν ἀρχήν, ἀλλὰ καὶ χώραν,
+    νῆσον ἀπόκρυφον, ἢ ἰδίαν διοικητικὴν ὑποδιαίρεσιν. Ἡ τοιαύτη προσέγγισις μόνον
+    ἀποβλέπει εἰς ἁπλοῦν οργάνωσιν καὶ χρῆσιν τῶν χαρτῶν. Οὐδεμίαν πολιτικὴν, διπλωματικὴν,
+    ἢ νομικὴν γνώμην περὶ τῆς καταστάσεως τῶν τόπων ἀναφερομένων ἐκφράζει
+  géorgien: ამ პროგრამულ უზრუნველყოფაში ტერმინი "ქვეყანა" გამოიყენება გეოგრაფიული
+    ერთეულების ჯგუფისთვის. შესაბამისად, მას შეუძლია აღნიშნოს არა მხოლოდ სუვერენული
+    სახელმწიფო, არამედ ტერიტორია, შორეული კუნძული ან კონკრეტული ადმინისტრაციული დაყოფა.
+    ეს მიდგომა მიზნად ისახავს მხოლოდ რუქების ორგანიზაციისა და გამოყენების გამარტივებას.
+    ის არ ასახავს არანაირ პოლიტიკურ, დიპლომატიურ ან იურიდიულ პოზიციას წარმოდგენილი
+    ადგილების სტატუსთან დაკავშირებით
+  hindi: इस सॉफ़्टवेयर में, "देश" शब्द का प्रयोग भौगोलिक समूहों को समूहित करने की
+    सुविधा के लिए किया गया है। इस प्रकार, यह न केवल एक संप्रभु राज्य, बल्कि एक क्षेत्र,
+    एक दूरस्थ द्वीप, या एक विशेष प्रशासनिक उपखंड को भी नामित कर सकता है। इस दृष्टिकोण
+    का उद्देश्य केवल मानचित्रों के संगठन और उपयोग को सरल बनाना है। यह दर्शाए गए स्थानों
+    की स्थिति के बारे में कोई राजनीतिक, राजनयिक या कानूनी रुख नहीं दर्शाता है।
+  hongrois: Ebben a szoftverben a "ország" kifejezést kényelmi okokból használjuk
+    földrajzi egységek csoportosítására. Így nem csak egy szuverén államot jelölhet,
+    hanem egy területet, egy távoli szigetet vagy egy speciális közigazgatási egységet
+    is. Ez a megközelítés kizárólag a térképek elrendezésének és használatának egyszerűsítését
+    célozza. Nem tükröz politikai, diplomáciai vagy jogi álláspontot az ábrázolt helyek
+    státuszát illetően
+  indonésien: Dalam perangkat lunak ini, istilah "negara" digunakan untuk kenyamanan
+    pengelompokan himpunan geografis. Dengan demikian, ini tidak hanya dapat merujuk
+    pada negara berdaulat, tetapi juga wilayah, pulau terpencil, atau subdivisi administratif
+    tertentu. Pendekatan ini bertujuan semata-mata untuk menyederhanakan organisasi
+    dan penggunaan peta. Ini tidak mencerminkan posisi politik, diplomatik, atau hukum
+    mengenai status tempat-tempat yang digambarkan
+  irlandais: Sa bhogearra seo, úsáidtear an téarma "tír" ar mhaithe le héascaíocht
+    chun grúpaí geografacha a chur le chéile. D'fhéadfadh sé stát ceannasach a chur
+    in iúl, ach freisin críoch, oileán iargúlta, nó foirgniú riaracháin ar leith.
+    Is é an aidhm amháin atá leis an gcur chuige seo ná eagair agus úsáid na léarscáileanna
+    a shimpliú. Ní léiríonn sé seasamh polaitiúil, taidhleoireachta, nó dlíthiúil
+    ar bith maidir le stádas na n-áiteanna atá á léiriú
+  islandais: Í þessum hugbúnaði er hugtakið „land“ notað til þæginda til að flokka
+    landfræðileg svæði. Það getur því vísað ekki aðeins til fullvalda ríkis, heldur
+    einnig til lands, afskekktrar eyju eða sérstakrar stjórnsýslueiningar. Þessi nálgun
+    miðar eingöngu að því að einfalda skipulagningu og notkun korta. Hún endurspeglar
+    ekki neina pólitíska, diplómatíska eða lagalega afstöðu varðandi stöðu staðanna
+    sem sýndir eru
+  italien: In questo software, il termine "paese" è utilizzato per comodità per raggruppare
+    insiemi geografici. Può quindi indicare non solo uno stato sovrano, ma anche un
+    territorio, un'isola remota o una particolare suddivisione amministrativa. Questo
+    approccio mira unicamente a semplificare l'organizzazione e l'utilizzo delle mappe.
+    Non riflette alcuna posizione politica, diplomatica o giuridica riguardante lo
+    status dei luoghi rappresentati
+  japonais: このソフトウェアでは、「国」という言葉は地理的範囲をまとめる便宜上の用語として使用されています。そのため、主権国家だけでなく、領土、遠隔の島、あるいは特定の行政区分を指すこともあります。このアプローチは、地図の整理と利用を容易にすることを目的としたものです。地図に示された場所の地位に関する政治的、外交的、あるいは法的な立場を反映するものではありません。
+  kazakh: Бұл бағдарламалық жасақта "ел" термині географиялық аумақтарды топтау үшін
+    ыңғайлылық мақсатында қолданылады. Осылайша, ол тек суверенді мемлекетті ғана
+    емес, сонымен қатар аумақты, шалғайдағы аралды немесе ерекше әкімшілік бөліністі
+    де білдіруі мүмкін. Бұл тәсіл карталарды ұйымдастыру мен пайдалануды жеңілдетуге
+    ғана бағытталған. Ол көрсетілген жерлердің мәртебесіне қатысты саяси, дипломатиялық
+    немесе заңды ұстанымды білдірмейді
+  kirghize: Бул программада "өлкө" термини географиялык жамааттарды топтоо үчүн ыңгайлуулук
+    үчүн колдонулат. Ошентип, ал суверендик мамлекетти гана эмес, аймакты, алыскы
+    аралды же өзгөчө административдик бөлүнүштү да билдириши мүмкүн. Бул ыкма карталарды
+    уюштурууну жана колдонууну жөнөкөйлөштүрүүгө гана багытталган. Ал көрсөтүлгөн
+    жерлердин статусуна байланыштуу эч кандай саясий, дипломатиялык же юридикалык
+    позицияны чагылдырбайт
+  kurde: Di vê nermalava de, peyva "welat" ji bo komkirina komên erdnîgarî bi hêsanî
+    tê bikar anîn. Ji ber vê yekê, ew dikare ne tenê dewletek serwer, lê her weha
+    ax, giravek dûr an dabeşkirina îdarî ya taybet jî destnîşan bike. Ev nêzîkatî
+    tenê ji bo hêsankirina rêxistin û karanîna kartan e. Ew li ser statûya cihên temsîlkirî
+    ti helwesta siyasî, dîplomatîk an qanûnî nîşan nade
+  latin: In hoc programmate, terminus "patria" adhibetur commoditatis causa ad coetus
+    geographicos comprehendendos. Sic potest significare non solum statum sovereignum,
+    sed etiam territorium, insulam remotam vel peculiarem partitionem administrativam.
+    Haec approbatio tantummodo spectat ad organizationem et usum tabularum geographicarum
+    simplificandum. Nullo modo pondus politicam, diplomaticam, vel iudicialem de statu
+    locorum depictorum respicit
+  letton: Šajā programmatūrā termins "valsts" tiek lietots ērtības labad, lai apvienotu
+    ģeogrāfiskus kopumus. Tādējādi tas var apzīmēt ne tikai suverēnu valsti, bet arī
+    teritoriju, attālu salu vai īpašu administratīvo iedalījumu. Šī pieeja ir paredzēta
+    tikai karšu organizācijas un lietošanas vienkāršošanai. Tā neatspoguļo nekādu
+    politisku, diplomātisku vai juridisku nostāju attiecībā uz attēloto vietu statusu
+  lituanien: Šioje programinėje įrangoje terminas „šalis“ vartojamas patogumo dėlei,
+    siekiant sugrupuoti geografinius vienetus. Taigi jis gali reikšti ne tik suverenią
+    valstybę, bet ir teritoriją, atokią salą ar tam tikrą administracinį padalinį.
+    Toks požiūris skirtas tik palengvinti žemėlapių organizavimą ir naudojimą. Tai
+    neatspindi jokios politinės, diplomatinės ar teisinės pozicijos dėl vaizduojamų
+    vietovių statuso
+  luxembourgeois: An dëser Software gëtt de Begrëff "Land" aus praktesche Grënn benotzt
+    fir geographesch Eenheeten ze gruppéieren. E kann esou net nëmmen en souveräne
+    Staat bezeechnen, mee och en Territoire, eng wäit ewech geluede Insel oder eng
+    speziell administrativ Ënnerdeelung. Dës Approche huet nëmmen zum Zil d'Organisatioun
+    an d'Benotzung vun de Kaarten ze vereinfachen. Si spigelt keng politesch, diplomatesch
+    oder juristesch Positioun iwwer de Status vun de representéierte Plazen erun
+  macédonien: Во овој софтвер, терминот „земја“ се користи од погодност за групирање
+    на географски области. Тој може да означува не само суверена држава, туку и територија,
+    оддалечен остров или посебна административна поделба. Овој пристап има за цел
+    единствено да го поедностави организирањето и користењето на мапите. Тој не одразува
+    никаква политичка, дипломатска или правна позиција во однос на статусот на прикажаните
+    места
+  malais: Dalam perisian ini, istilah "negara" digunakan secara mudah untuk mengelompokkan
+    set geografi. Ia boleh merujuk bukan sahaja kepada negara berdaulat, tetapi juga
+    kepada wilayah, pulau terpencil, atau bahagian pentadbiran tertentu. Pendekatan
+    ini bertujuan semata-mata untuk memudahkan organisasi dan penggunaan peta. Ia
+    tidak mencerminkan sebarang pendirian politik, diplomatik atau undang-undang mengenai
+    status tempat yang diwakili
+  malgache: Ao anatin'ity rindrambaiko ity, ny teny hoe « firenena » dia ampiasaina
+    ho fanamorana mba hanangonana ireo faritra ara-jeôgrafia. Izany no mahatonga azy
+    handika tsy ny fanjakana mahaleo tena ihany, fa ny faritany, ny nosy lavitra na
+    ny sampan-draharaha ara-pitantanana manokana. Ity fomba ity dia natao hanamorana
+    fotsiny ny fandaminana sy ny fampiasana ny sarintany. Tsy maneho fihetseham-po
+    politika, diplaomatika na ara-dalàna izany momba ny satan'ireo toerana aseho
+  maltais: F'dan il-softwer, it-terminu "pajjiż" huwa użat bħala konvenjenza biex
+    jgħaqqad gruppi ġeografiċi. Jista' jfisser mhux biss stat sovran, iżda wkoll territorju,
+    gżira remota jew sussidjarja amministrattiva partikolari. Din l-approċċ għandha
+    l-iskop biss li tissimplifika l-organizzazzjoni u l-użu tal-mapep. Ma tirrifletti
+    ebda pożizzjoni politika, diplomatika jew legali rigward l-istatus tal-postijiet
+    rappreżentati
+  mandarin standard: 在此软件中，“国家”一词仅为方便起见，用于指代地理集合。因此，它不仅可以指代主权国家，还可以指代领土、偏远岛屿或特定的行政区划。此方法仅旨在简化地图的组织和使用。它不反映关于所代表地点的地位的任何政治、外交或法律立场。
+  mongol: Энэхүү програм хангамжид "улс" гэсэн нэр томьёог газарзүйн бүлгүүдийг нэгтгэх
+    зорилгоор энгийн байдлаар ашигладаг. Үүний үр дүнд энэ нь зөвхөн эрх мэдэлтэй
+    улсыг төдийгүй газар нутаг, алслагдсан арлууд, эсвэл тусгай захиргааны нэгжийг
+    ч нэрлэж болно. Энэхүү хандлага нь газрын зургийг зохион байгуулах, ашиглах явцыг
+    хялбарчлах зорилготой юм. Энэ нь тухайн газрын статустай холбоотой улс төр, дипломат,
+    эсвэл хууль эрх зүйн ямар нэгэн байр суурийг илэрхийлэхгүй
+  norvégien: I denne programvaren brukes begrepet «land» av praktiske årsaker for
+    å gruppere geografiske enheter. Det kan dermed betegne ikke bare en suveren stat,
+    men også et territorium, en avsidesliggende øy eller en spesiell administrativ
+    underavdeling. Denne tilnærmingen er utelukkende ment å forenkle organiseringen
+    og bruken av kart. Den reflekterer ingen politisk, diplomatisk eller juridisk
+    holdning til statusen til de representerte stedene
+  néerlandais: In deze software wordt de term "land" uit gemakzucht gebruikt om geografische
+    eenheden te groeperen. Het kan dus niet alleen een soevereine staat aanduiden,
+    maar ook een gebied, een afgelegen eiland of een specifieke administratieve onderverdeling.
+    Deze aanpak is uitsluitend bedoeld om de organisatie en het gebruik van kaarten
+    te vereenvoudigen. Het weerspiegelt geen enkele politieke, diplomatieke of juridische
+    stellingname met betrekking tot de status van de weergegeven locaties
+  népalais: यो सफ्टवेयरमा, "देश" भन्ने शब्द भौगोलिक क्षेत्रहरूको समूह बनाउने सुविधाको
+    लागि प्रयोग गरिएको छ। यसले सार्वभौम राज्य मात्र नभई कुनै क्षेत्र, टाढाको टापु
+    वा विशेष प्रशासनिक उपविभागलाई पनि बुझाउन सक्छ। यो दृष्टिकोणको उद्देश्य नक्साको
+    संगठन र प्रयोगलाई सरल बनाउनु मात्र हो। यसले प्रतिनिधित्व गरिएका स्थानहरूको स्थितिको
+    बारेमा कुनै राजनीतिक, कूटनीतिक वा कानुनी अडान प्रतिबिम्बित गर्दैन।
+  ourdou: اس سافٹ ویئر میں، "ملک" کی اصطلاح جغرافیائی اکائیوں کو گروپ کرنے کے لیے
+    سہولت کے طور پر استعمال کی جاتی ہے۔ اس میں نہ صرف ایک خودمختار ریاست بلکہ ایک
+    علاقہ، ایک دور دراز جزیرہ، یا ایک خاص انتظامی ذیلی تقسیم بھی شامل ہو سکتی ہے۔
+    اس نقطہ نظر کا مقصد صرف نقشوں کی تنظیم اور استعمال کو آسان بنانا ہے۔ یہ نمائندگی
+    شدہ مقامات کی حیثیت کے بارے میں کوئی سیاسی، سفارتی، یا قانونی موقف کی عکاسی نہیں
+    کرتا ہے۔
+  ouzbek: Ushbu dasturiy ta'minotda "mamlakat" atamasi geografik birliklarni guruhlash
+    qulayligi uchun ishlatiladi. Shu sababli, u nafaqat suveren davlatni, balki hududni,
+    chekka orolni yoki ma'muriy bo'linmani ham anglatishi mumkin. Ushbu yondashuv
+    faqat xaritalarni tashkil etish va ulardan foydalanishni soddalashtirishga qaratilgan.
+    U tasvirlangan joylarning maqomi bo'yicha hech qanday siyosiy, diplomatik yoki
+    yuridik pozitsiyani aks ettirmaydi
+  pachto: په دې سافټویر کې، د "هیواد" اصطلاح د جغرافیایي سیټونو د ګروپ کولو لپاره
+    د اسانتیا په توګه کارول کیږي. دا نه یوازې یو حاکم دولت، بلکې یوه سیمه، یوه لیرې
+    ټاپو یا یوه ځانګړې اداري فرعي هم کولی شي. دا طریقه یوازې د نقشې تنظیم او کارول
+    اسانه کول دي. دا د استازیتوب شوي ځایونو وضعیت په اړه هیڅ سیاسي، ډیپلوماتیک یا
+    قانوني دریځ نه منعکس کوي
+  persan: در این نرم‌افزار، اصطلاح "کشور" صرفاً برای دسته‌بندی مجموعه‌های جغرافیایی
+    به کار رفته است. این اصطلاح می‌تواند نه تنها به یک دولت مستقل، بلکه به یک قلمرو،
+    یک جزیره دورافتاده یا یک زیرمجموعه اداری خاص نیز اشاره کند. این رویکرد تنها با
+    هدف ساده‌سازی سازماندهی و استفاده از نقشه‌ها صورت گرفته است. هیچ موضع‌گیری سیاسی،
+    دیپلماتیک یا حقوقی در مورد وضعیت مکان‌های نمایش داده شده را بازتاب نمی‌دهد
+  polonais: W tym oprogramowaniu termin „kraj” jest używany ze względów praktycznych
+    do grupowania obszarów geograficznych. Może on zatem oznaczać nie tylko suwerenny
+    państwo, ale także terytorium, odległą wyspę lub specyficzny podział administracyjny.
+    Takie podejście ma na celu jedynie uproszczenie organizacji i użytkowania map.
+    Nie odzwierciedla ono żadnego stanowiska politycznego, dyplomatycznego ani prawnego
+    w odniesieniu do statusu przedstawionych miejsc
+  portugais: Neste software, o termo "país" é utilizado por conveniência para agrupar
+    conjuntos geográficos. Assim, pode designar não só um Estado soberano, mas também
+    um território, uma ilha remota ou uma subdivisão administrativa particular. Esta
+    abordagem visa apenas simplificar a organização e a utilização dos mapas. Não
+    reflete qualquer posição política, diplomática ou jurídica em relação ao estatuto
+    dos locais representados
+  roumain: În acest software, termenul „țară” este utilizat din motive de conveniență
+    pentru a grupa entități geografice. Astfel, poate desemna nu doar un stat suveran,
+    ci și un teritoriu, o insulă îndepărtată sau o subdiviziune administrativă specifică.
+    Această abordare urmărește exclusiv simplificarea organizării și utilizării hărților.
+    Nu reflectă nicio poziție politică, diplomatică sau juridică referitoare la statutul
+    locurilor reprezentate
+  russe: В этом программном обеспечении термин «страна» используется для удобства
+    группировки географических объектов. Таким образом, он может обозначать не только
+    суверенное государство, но и территорию, отдаленный остров или отдельную административную
+    единицу. Такой подход призван исключительно упростить организацию и использование
+    карт. Он не отражает никакой политической, дипломатической или юридической позиции
+    относительно статуса представленных мест
+  serbo-croate: U ovom softveru, termin "zemlja" se koristi iz praktičnih razloga
+    za grupiranje geografskih entiteta. Na taj način, on može označavati ne samo suverenu
+    državu, već i teritoriju, udaljeno ostrvo ili poseban administrativni pododjel.
+    Ovaj pristup ima za cilj isključivo pojednostavljenje organizacije i korištenja
+    karata. On ne odražava nikakav politički, diplomatski ili pravni stav u vezi sa
+    statusom prikazanih mjesta
+  slovaque: V tomto softvéri sa termín „krajina“ používa pre zjednodušenie na zoskupenie
+    geografických celkov. Môže teda označovať nielen suverénny štát, ale aj územie,
+    odľahlý ostrov alebo špecifickú administratívnu jednotku. Tento prístup má výlučne
+    za cieľ zjednodušiť organizáciu a používanie máp. Neodráža žiadne politické, diplomatické
+    ani právne stanoviská týkajúce sa štatútu zastúpených miest
+  slovène: V tej programski opremi se izraz "država" uporablja iz priročnosti za združevanje
+    geografskih enot. Lahko tako označuje ne le suvereno državo, temveč tudi ozemlje,
+    oddaljen otok ali posebno upravno pododdelitev. Ta pristop je namenjen izključno
+    poenostavitvi organizacije in uporabe zemljevidov. Ne odraža nobenega političnega,
+    diplomatskega ali pravnega stališča glede statusa prikazanih lokacij
+  suédois: I denna programvara används termen "land" av bekvämlighetsskäl för att
+    gruppera geografiska enheter. Det kan därför hänvisa inte bara till en suverän
+    stat, utan också till ett territorium, en avlägsen ö eller en särskild administrativ
+    indelning. Detta tillvägagångssätt syftar endast till att förenkla organisationen
+    och användningen av kartor. Det återspeglar ingen politisk, diplomatisk eller
+    juridisk ställningstagande gällande statusen för de platser som representeras
+  swahili: Katika programu hii, neno "nchi" linatumiwa kwa urahisi kuelezea vikundi
+    vya maeneo ya kijiografia. Hivyo, linaweza kumaanisha si tu taifa huru, bali pia
+    eneo, kisiwa cha mbali, au kitengo maalum cha utawala. Mtindo huu unalenga tu
+    kurahisisha upangaji na matumizi ya ramani. Haionyeshi msimamo wowote wa kisiasa,
+    kidiplomasia, au kisheria kuhusu hadhi ya maeneo yaliyoonyeshwa
+  tadjik: Дар ин нармафзор, истилоҳи "кишвар" ба хотири осонӣ барои гурӯҳбандӣ кардани
+    маҷмӯи маҳалҳои ҷуғрофӣ истифода мешавад. Аз ин рӯ, он метавонад на танҳо як давлати
+    мустақил, балки инчунин як қаламрав, ҷазираи дурдаст ё як воҳиди маъмурии махсусро
+    дар бар гирад. Ин равиш танҳо барои содда кардани ташкил ва истифодаи харитаҳо
+    пешбинӣ шудааст. Он ҳеҷ гуна мавқеи сиёсӣ, дипломатӣ ё ҳуқуқиро нисбати мақоми
+    маҳалҳои нишон додашуда инъикос намекунад
+  tamoul: இந்த மென்பொருளில், புவியியல் பகுதிகளை வகைப்படுத்த வசதிக்காக "நாடு" என்ற
+    சொல் பயன்படுத்தப்படுகிறது. இது ஒரு இறையாண்மை கொண்ட அரசை மட்டுமல்லாமல், ஒரு பிரதேசம்,
+    தொலைதூர தீவு அல்லது குறிப்பிட்ட நிர்வாகப் பிரிவையும் குறிக்கலாம். இந்த அணுகுமுறை
+    வரைபடங்களை ஒழுங்கமைக்கவும் பயன்படுத்தவும் எளிதாக்குவதை மட்டுமே நோக்கமாகக் கொண்டுள்ளது.
+    இது குறிப்பிடப்பட்ட இடங்களின் நிலை குறித்த எந்த அரசியல், இராஜதந்திர அல்லது சட்ட
+    நிலைப்பாட்டையும் பிரதிபலிக்காது
+  tchèque: V tomto softwaru je termín „země“ použit z praktických důvodů pro seskupování
+    geografických celků. Může tak označovat nejen suverénní stát, ale také území,
+    odlehlý ostrov nebo konkrétní administrativní pododdělení. Tento přístup má pouze
+    za cíl zjednodušit organizaci a používání map. Neodráží žádný politický, diplomatický
+    ani právní postoj ke statusu zobrazených míst
+  thaï: ในซอฟต์แวร์นี้ คำว่า "ประเทศ" ถูกใช้เพื่อความสะดวกในการจัดกลุ่มเขตพื้นที่ต่างๆ
+    โดยอาจหมายถึงรัฐอธิปไตยเพียงอย่างเดียว หรืออาจหมายถึงดินแดน เกาะที่อยู่ห่างไกล
+    หรือหน่วยการปกครองย่อยพิเศษบางประเภท แนวทางนี้มีวัตถุประสงค์เพียงเพื่ออำนวยความสะดวกในการจัดระเบียบและการใช้แผนที่เท่านั้น
+    และไม่ได้สะท้อนถึงจุดยืนทางการเมือง การทูต หรือกฎหมายใดๆ เกี่ยวกับสถานะของสถานที่ที่แสดง
+  tibétain: དེ་རིང་གི་སྒྲིག་ཆས་འདིའི་ནང་དུ་། ས་གནས་སྡེ་ཚན་གཅིག་ཏུ་བསྡུ་ཆེད་དུ་། "རྒྱལ་ཁབ་"
+    ཞེས་པའི་ཐ་སྙད་དེ་སྟབས་བདེའི་ཆེད་དུ་བེད་སྤྱོད་བྱས་ཡོད། དེས་རྒྱལ་ཁབ་གཅིག་པུ་མ་ཡིན་པར།
+    ས་ཁུལ་ཞིག་དང་། རྒྱང་རིང་གི་གླིང་ཕྲན་ཞིག་ཡང་ན་སྲིད་འཛིན་ནང་ཁུལ་གྱི་ས་གནས་ཀྱི་དམིགས་བསལ་ཆ་ཤས་ཀྱང་མཚོན་པར་བྱེད་ཐུབ།
+    དེའི་འདི་ལྟར་བྱེད་པའི་དགོས་དོན་ནི། ས་ཁྲ་ཇེ་ལེགས་སུ་གྱུར་བའི་སྒྲིག་འཛུགས་དང་སྤྱོད་ཡུལ་སྟབས་བདེ་བྱེད་རྒྱུ་ཙམ་ཞིག་ཡིན།
+    དེ་ཡིས་སྐབས་འདིར་སྐད་གྲགས་ཆབ་གཤིས་དང་། འཛིན་སྐྱོང་གི་གནས་སྟངས་སམ་ཁྲིམས་ཀྱི་གནས་སྟངས་ལ་རྩ་བ་ནས་མཚོན་པར་མི་བྱེད།
+  turc: Bu yazılımda, coğrafi grupları bir araya toplamak amacıyla "ülke" terimi kolaylık
+    gereği kullanılmıştır. Bu nedenle, yalnızca egemen bir devlet değil, aynı zamanda
+    bir bölge, uzak bir ada veya özel bir idari bölümü de ifade edebilir. Bu yaklaşımın
+    tek amacı haritaların organizasyonunu ve kullanımını basitleştirmektir. Temsil
+    edilen yerlerin statüsüyle ilgili hiçbir siyasi, diplomatik veya yasal duruşu
+    yansıtmamaktadır
+  turkmène: Bu programma üpjünçiliginde «ýurt» termini geografiki toplumlary toparlamak
+    üçin amatlylyk üçin ulanylýar. Şeýlelikde, ol diňe egallanan döwleti däl-de, eýsem
+    territoriýany, uzak adany ýa-da aýratyn administratiw bölünişi hem aňladyp biler.
+    Bu çemeleşme diňe kartalary guramak we ulanmak üçin aňsatlaşdyrmak maksadydyr.
+    Ol görkezilen ýerleriň statusy barada hiç hili syýasy, diplomatik ýa-da hukukly
+    garaýyşy beýan etmeýär
+  ukrainien: У цьому програмному забезпеченні термін «країна» використовується для
+    зручності групування географічних зон. Він може позначати не лише суверенну державу,
+    а й територію, віддалений острів або певну адміністративну одиницю. Такий підхід
+    спрямований виключно на спрощення організації та використання карт. Він не відображає
+    жодної політичної, дипломатичної чи юридичної позиції щодо статусу представлених
+    місць
+  vietnamien: Trong phần mềm này, thuật ngữ "quốc gia" được sử dụng để thuận tiện
+    nhóm các tập hợp địa lý. Do đó, nó có thể không chỉ dùng để chỉ một quốc gia có
+    chủ quyền, mà còn một lãnh thổ, một đảo xa xôi hoặc một đơn vị hành chính đặc
+    biệt. Cách tiếp cận này chỉ nhằm mục đích đơn giản hóa việc tổ chức và sử dụng
+    bản đồ. Nó không phản ánh bất kỳ lập trường chính trị, ngoại giao hoặc pháp lý
+    nào liên quan đến tình trạng của các địa điểm được biểu thị
+  zoulou: Kulolu hlelo lokusebenza, igama elithi "izwe" lisetshenziswa ngobunono ukuze
+    kuhlelwe izindawo ezingokwezwe. Ngakho-ke, lingachaza hhayi kuphela isifunda esizimele,
+    kodwa futhi nendawo, isiqhingi esikude, noma isifunda esithile esiphethwe ngaphansi.
+    Lo mbono uhlose kuphela ukwenza lula ukuhlelwa nokusetshenziswa kwamabalazwe.
+    Akubonisani nesimo sezombusazwe, sezokuxhumana, noma sezomthetho mayelana nesimo
+    sezindawo ezikhonjisiwe
 Dix cartes:
   afrikaans: Tien kaarte
   albanais: Dhjetë letra

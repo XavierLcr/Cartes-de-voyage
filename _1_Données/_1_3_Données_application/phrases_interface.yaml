@@ -73,6 +73,7 @@ titre_choix_destinations_visitees : Sélection des lieux visités
 telecharger_lieux_visites : Télécharger les fichiers YAML des lieux visités
 export_pas_fonctionnel : L'export n'a pas fonctionné. Veuillez réessayer plus tard
 avertissement_onglet_2 : Pour un pays donné, si des départements sont cochés, ils sont prioritaires sur les régions cochées. Dans ce cas, la liste des régions visitées est automatiquement reconstituée à partir de la liste des départements. Il n'est donc plus nécessaire de cocher les régions visitées (les régions peuvent rester cochées mais ne seront pas prises en compte)
+precision_diplomatique_onglet_2 : Dans ce logiciel, le terme « pays » est employé par commodité pour regrouper des ensembles géographiques. Il peut ainsi désigner non seulement un État souverain, mais aussi un territoire, une île éloignée ou une subdivision administrative particulière. Cette approche vise uniquement à simplifier l’organisation et l’utilisation des cartes. Elle ne reflète aucune prise de position politique, diplomatique ou juridique concernant le statut des lieux représentés.
 
 # Chargement des YAMLs
 titre_chargement_yamls : ou charger manuellement un fichier YAML contenant la liste des lieux visités

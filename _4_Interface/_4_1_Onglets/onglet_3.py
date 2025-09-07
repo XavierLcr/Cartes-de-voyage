@@ -134,5 +134,5 @@ class OngletResumeDestinations(QWidget):
             "titre_departements_visites",
             self.dicts_granu.get("dep", {}),
             self.layout_resume_departements,
-            affichage_groupe=self.donner_mise_en_forme,
+            affichage_groupe=self.donner_mise_en_forme(),
         )

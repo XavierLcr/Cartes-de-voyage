@@ -82,6 +82,9 @@ class OngletResumeDestinations(QWidget):
         return scroll
 
     def ajouter_partie_a_layout(self, granu, pays_donnees, vbox, affichage_groupe=True):
+
+        vider_layout(vbox)
+
         label_titre = QLabel(
             self.traduire_depuis_id(clef=granu, prefixe="<b>", suffixe="</b>")
         )
@@ -120,9 +123,6 @@ class OngletResumeDestinations(QWidget):
         vbox.addStretch()
 
     def maj_layout_resume(self):
-
-        vider_layout(self.layout_resume_regions)
-        vider_layout(self.layout_resume_departements)
 
         self.ajouter_partie_a_layout(
             "titre_regions_visitees",

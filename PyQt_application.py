@@ -312,17 +312,9 @@ class MesVoyagesApplication(QWidget):
                 nuances=liste_theme_temp,
                 teinte=liste_teintes_temp,
                 limite_essais=50,
-                font_size=13 if (self.width() >= 900 or self.height() >= 600) else 12,
+                font_size=12,
             )
         )
-        self.onglet_parametres.set_style_titre(
-            taille=26 if (self.width() >= 900 or self.height() >= 600) else 24
-        )
-
-    def resizeEvent(self, event):
-        """Mets à jour le style quand la fenêtre change de taille"""
-        self.set_style()
-        super().resizeEvent(event)
 
     def creer_liste_parametres(self):
 

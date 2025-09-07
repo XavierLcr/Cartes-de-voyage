@@ -15,7 +15,11 @@ from PyQt6.QtWidgets import (
     QCheckBox,
 )
 
-from _0_Utilitaires._0_1_Fonctions_utiles import creer_ligne_separation, vider_layout
+from _0_Utilitaires._0_1_Fonctions_utiles import (
+    creer_ligne_separation,
+    vider_layout,
+    creer_QLabel_centre,
+)
 
 
 class OngletResumeDestinations(QWidget):
@@ -85,11 +89,11 @@ class OngletResumeDestinations(QWidget):
 
         vider_layout(vbox)
 
-        label_titre = QLabel(
-            self.traduire_depuis_id(clef=granu, prefixe="<b>", suffixe="</b>")
+        vbox.addWidget(
+            creer_QLabel_centre(
+                text=self.traduire_depuis_id(clef=granu, prefixe="<b>", suffixe="</b>")
+            )
         )
-        label_titre.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        vbox.addWidget(label_titre)
 
         vbox.addLayout(creer_ligne_separation())
         vbox.addWidget(QLabel(""))

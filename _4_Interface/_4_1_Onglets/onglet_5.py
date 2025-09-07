@@ -23,11 +23,9 @@ class OngletInformations(QWidget):
 
         layout = QHBoxLayout(self)
 
-        self.scroll_area = QScrollArea()
-        self.scroll_area.setWidgetResizable(True)
+        self.scroll_area = QScrollArea(widgetResizable=True)
 
-        self.label = QLabel()
-        self.label.setWordWrap(True)
+        self.label = QLabel(wordWrap=True)
         self.scroll_area.setWidget(self.label)
 
         layout.addWidget(self.scroll_area)

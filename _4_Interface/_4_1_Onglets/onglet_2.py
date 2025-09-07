@@ -270,15 +270,17 @@ class OngletSelectionnerDestinations(QWidget):
             dictionnaire=self.constantes.parametres_traduits["granularite"][self.langue],
         )
 
-        self.liste_endroits.blockSignals(True)  # ⚠️ Empêche les signaux pendant le remplissage
+        self.liste_endroits.blockSignals(True)
         self.liste_endroits.clear()
 
-        if niveau_i == "Régions":
-            liste_end = self.constantes.regions_par_pays.get(pays_i, [])
-        elif niveau_i == "Départements":
-            liste_end = self.constantes.departements_par_pays.get(pays_i, [])
-        else:
-            liste_end = []
+        liste_end = (
+            {
+                "Régions": self.constantes.regions_par_pays,
+                "Départements": self.constantes.departements_par_pays,
+            }
+            .get(niveau_i, {})
+            .get(pays_i, [])
+        )
 
         if liste_end == []:
             self.liste_endroits.blockSignals(False)
@@ -308,14 +310,18 @@ class OngletSelectionnerDestinations(QWidget):
     def changer_item_liste_pays(self, item):
 
         pays_i = self.liste_des_pays.currentText()
-        niveau_i = obtenir_clef_par_valeur(
-            valeur=self.liste_niveaux.currentText(),
-            dictionnaire=self.constantes.parametres_traduits["granularite"][self.langue],
-        )
         texte = item.text()
 
         # Détermine la clé du dictionnaire selon le niveau
-        clef = "region" if niveau_i == "Régions" else "dep"
+        clef = (
+            "region"
+            if obtenir_clef_par_valeur(
+                valeur=self.liste_niveaux.currentText(),
+                dictionnaire=self.constantes.parametres_traduits["granularite"][self.langue],
+            )
+            == "Régions"
+            else "dep"
+        )
 
         # Initialise le dictionnaire pour le pays s’il n’existe pas
         if pays_i not in self.dicts_granu[clef]:

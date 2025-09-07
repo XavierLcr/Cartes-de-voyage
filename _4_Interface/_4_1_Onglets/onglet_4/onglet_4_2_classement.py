@@ -16,7 +16,11 @@ from PyQt6.QtWidgets import (
     QGridLayout,
 )
 
-from _0_Utilitaires._0_1_Fonctions_utiles import creer_ligne_separation, vider_layout
+from _0_Utilitaires._0_1_Fonctions_utiles import (
+    creer_ligne_separation,
+    vider_layout,
+    creer_QLabel_centre,
+)
 
 
 def creer_classement_pays(
@@ -160,18 +164,15 @@ class ClassementPays(QWidget):
                         pays,
                     )
 
-                    label_widget = (
-                        # Classement
-                        (["🥇", "🥈", "🥉"][i] if i < 3 else f"<b>{i + 1}.</b>")
-                        # Nom du pays, potentiellement en gras
-                        + f"<br>{f'<b>{label_widget}</b>' if i <3 else label_widget}<br>"
-                        # Part de la superficie visitée
-                        + f"{round(100 * row['pct_superficie_dans_pays'], ndigits=self.ndigits)} %"
-                    ).replace(".", ",")
-
-                    label_widget = QLabel(label_widget)
-                    label_widget.setAlignment(
-                        Qt.AlignmentFlag.AlignCenter | Qt.AlignmentFlag.AlignVCenter
+                    label_widget = creer_QLabel_centre(
+                        text=(
+                            # Classement
+                            (["🥇", "🥈", "🥉"][i] if i < 3 else f"<b>{i + 1}.</b>")
+                            # Nom du pays, potentiellement en gras
+                            + f"<br>{f'<b>{label_widget}</b>' if i <3 else label_widget}<br>"
+                            # Part de la superficie visitée
+                            + f"{round(100 * row['pct_superficie_dans_pays'], ndigits=self.ndigits)} %"
+                        ).replace(".", ",")
                     )
 
                     if i == 0:

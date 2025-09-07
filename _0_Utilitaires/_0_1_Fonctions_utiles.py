@@ -228,13 +228,13 @@ def cree_yaml_un_pays(
     if nom_pays is not None:
         gdf = gdf[gdf["name_0"].isin(nom_pays)]
 
-    # On garde le pays et la subdivision voulue
-    gdf = set(zip(gdf["name_0"], gdf[f"name_{granularite}"]))
-
     # Créer un DataFrame avec les résultats
     liste_combinaisons = (
         (
-            pd.DataFrame(list(gdf), columns=["nom1", "nom2"])
+            pd.DataFrame(
+                list(set(zip(gdf["name_0"], gdf[f"name_{granularite}"]))),
+                columns=["nom1", "nom2"],
+            )
             # Tri par nom2
             .sort_values(by="nom2", inplace=False)
         )

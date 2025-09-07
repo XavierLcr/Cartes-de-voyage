@@ -523,11 +523,46 @@ arrière_plans:
     Bleu marine: མུན་སྔོན
     Bleu moyen: སྔོན་པོ་འབྲིང་
     Transparent: གསལ་པོ
-  turc: {}
-  turkmène: {}
-  ukrainien: {}
-  vietnamien: {}
-  zoulou: {}
+  turc:
+    Blanc: Beyaz
+    Bleu ciel: Gök mavisi
+    Bleu clair: Açık mavi
+    Bleu foncé: Koyu Mavi
+    Bleu marine: Lacivert
+    Bleu moyen: Orta Mavi
+    Transparent: Şeffaf
+  turkmène:
+    Blanc: Ak
+    Bleu ciel: Gök reňk
+    Bleu clair: Açyk gök
+    Bleu foncé: Gök reňkli
+    Bleu marine: Deňiz güni
+    Bleu moyen: Orta gök
+    Transparent: Açyk
+  ukrainien:
+    Blanc: Білий
+    Bleu ciel: Небесно-блакитний
+    Bleu clair: Світло-блакитний
+    Bleu foncé: Темно-синій
+    Bleu marine: Морський синій
+    Bleu moyen: Середній синій
+    Transparent: Прозорий
+  vietnamien:
+    Blanc: Trắng
+    Bleu ciel: Xanh da trời
+    Bleu clair: Xanh nhạt
+    Bleu foncé: Xanh đậm
+    Bleu marine: Màu xanh hải quân
+    Bleu moyen: Xanh lam trung bình
+    Transparent: Trong suốt
+  zoulou:
+    Blanc: Mhlophe
+    Bleu ciel: Luhlaza lwezulu
+    Bleu clair: Luhlaza olukhanyayo
+    Bleu foncé: Luhlaza olumnyama
+    Bleu marine: Okhalayo oluhlaza okwesibhakabhaka
+    Bleu moyen: Okuluhlaza okwesilinganiselo
+    Transparent: Obonakalayo
 granularite:
   afrikaans:
     Amusant: Prettig

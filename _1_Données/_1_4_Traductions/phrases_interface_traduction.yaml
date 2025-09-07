@@ -4453,6 +4453,77 @@ Cinq cartes:
   ukrainien: П'ять карток
   vietnamien: Năm lá bài
   zoulou: Amakhadi amahlanu
+Couleur de l'arrière plan:
+  afrikaans: Agtergrondkleur
+  albanais: Ngjyra e sfondit
+  allemand: Hintergrundfarbe
+  anglais: Background color
+  arabe: لون الخلفية
+  arménien: Ֆոնի գույնը
+  basque: Atzeko planoko kolorea
+  bengali: পটভূমির রঙ
+  birman: နောက်ခံအရောင်
+  breton: Liv an dremmoù
+  bulgare: Цвят на фона
+  catalan: Color de fons
+  corse: Culore di u fondu
+  coréen: 배경색
+  danois: Baggrundsfarve
+  espagnol: Color de fondo
+  esperanto: Fona koloro
+  estonien: Taustavärv
+  finnois: Taustaväri
+  français: Couleur de l'arrière plan
+  gallois: Lliw cefndir
+  grec: Χρώμα φόντου
+  grec ancien: χρῶμα τοῦ ὄπισθεν
+  géorgien: ფონის ფერი
+  hindi: पृष्ठभूमि का रंग
+  hongrois: Háttérszín
+  indonésien: Warna latar belakang
+  irlandais: Dath cúlra
+  islandais: Bakgrunnslitur
+  italien: Colore di sfondo
+  japonais: 背景色
+  kazakh: Фон түсі
+  kirghize: Фондун түсү
+  kurde: Rengê paşxaneyê
+  latin: Color posticiorum
+  letton: Fona krāsa
+  lituanien: Fono spalva
+  luxembourgeois: Hannergrondfaarf
+  macédonien: Боја на позадината
+  malais: Warna latar belakang
+  malgache: Loko ambadiky ny sary
+  maltais: Kulur tal-isfond
+  mandarin standard: 背景颜色
+  mongol: Арын өнгө
+  norvégien: Bakgrunnsfarge
+  néerlandais: Achtergrondkleur
+  népalais: पृष्ठभूमिको रंग
+  ourdou: پس منظر کا رنگ
+  ouzbek: Fon rangi
+  pachto: د شالید رنګ
+  persan: رنگ پس زمینه
+  polonais: Kolor tła
+  portugais: Cor de fundo
+  roumain: Culoarea fundalului
+  russe: Цвет фона
+  serbo-croate: Boja pozadine
+  slovaque: Farba pozadia
+  slovène: Barva ozadja
+  suédois: Bakgrundsfärg
+  swahili: Rangi ya mandharinyuma
+  tadjik: Ранги замина
+  tamoul: பின்னணி நிறம்
+  tchèque: Barva pozadí
+  thaï: สีพื้นหลัง
+  tibétain: རྒྱབ་ལོགས་ཀྱི་ཚོས་མདོག
+  turc: Arka plan rengi
+  turkmène: Arka fonuň reňki
+  ukrainien: Колір фону
+  vietnamien: Màu nền
+  zoulou: Umbala wengemuva
 Création de cartes de voyages:
   afrikaans: Skep van reisplanne
   albanais: Krijimi i hartave të udhëtimit
@@ -7077,6 +7148,231 @@ Permet d'avoir un fond de carte bleu clair et non blanc. Cela est utile pour les
     ích cho các khu vực hoặc quốc gia được bao quanh bởi biển
   zoulou: Ivumela ukuba kube khona umbala oluhlaza okwesibhakabhaka okukhanyayo ongatshayi
     omhlophe. Lokhu kusiza ezindaweni noma emazweni azungezwe ulwandle
+? Permet de choisir la couleur d'arrière plan. Sont disponibles comme couleurs le
+  blanc, divers bleus plus ou moins proche de la couleur de la mer, ainsi que transparent.
+  Le bleu le plus clair disponible est celui utilisé pour représenter les lacs sur
+  les cartes.
+: afrikaans: Laat toe om die agtergrondkleur te kies. Beskikbaar as kleure is wit,
+    verskeie blou kleure meer of minder soortgelyk aan die kleur van die see, asook
+    deursigtig. Die ligste blou wat beskikbaar is, is die een wat gebruik word om
+    mere op kaarte voor te stel
+  albanais: Lejo të zgjedhësh ngjyrën e sfondit. Janë të disponueshme si ngjyra e
+    bardhë, blu të ndryshme më shumë ose më pak afër ngjyrës së detit, si dhe transparent.
+    Bluja më e lehtë në dispozicion është ajo që përdoret për të përfaqësuar liqenet
+    në harta
+  allemand: Ermöglicht die Auswahl der Hintergrundfarbe. Als Farben stehen Weiß, verschiedene
+    Blautöne, die mehr oder weniger der Farbe des Meeres ähneln, sowie Transparent
+    zur Verfügung. Das hellste verfügbare Blau ist dasjenige, das zur Darstellung
+    von Seen auf Karten verwendet wird
+  anglais: Allows you to choose the background color. Available colors are white,
+    various blues more or less close to the sea color, as well as transparent. The
+    lightest blue available is the one used to represent lakes on maps
+  arabe: يسمح لك باختيار لون الخلفية. الألوان المتاحة هي الأبيض، درجات مختلفة من اللون
+    الأزرق القريبة من لون البحر، بالإضافة إلى الشفاف. أفتح لون أزرق متاح هو المستخدم
+    لتمثيل البحيرات على الخرائط
+  arménien: Ներկայացնում է ֆոնի գույնի ընտրությունը։ Հասանելի գույներն են սպիտակը,
+    տարբեր կապույտներ՝ ավելի կամ պակաս մոտ ծովի գույնին, ինչպես նաև թափանցիկը։ Առկա
+    ամենաթեթև կապույտը օգտագործվում է քարտեզների վրա լճերը ներկայացնելու համար։
+  basque: Atzeko planoko kolorea aukeratzeko aukera ematen du. Koloreen artean zuria,
+    itsasoaren kolorearen antzeko hainbat urdin, eta gardena daude. Eskuragarri dagoen
+    urdin argienak mapetan lakuak irudikatzeko erabiltzen dena da
+  bengali: পটভূমির রঙ নির্বাচন করার অনুমতি দিন। সাদা, বিভিন্ন নীল যা সমুদ্রের রঙের
+    কাছাকাছি, সেইসাথে স্বচ্ছ রঙ হিসাবে উপলব্ধ। সবচেয়ে হালকা নীল যা উপলব্ধ তা মানচিত্রে
+    হ্রদগুলি চিত্রিত করতে ব্যবহৃত হয়।
+  birman: နောက်ခံအရောင်ကို ရွေးချယ်နိုင်ပါတယ်။ အဖြူရောင်၊ ပင်လယ်အရောင်နှင့်နီးစပ်သော
+    အပြာရောင်အမျိုးမျိုး၊ နှင့် ပွင့်လင်းမြင်သာမှုတို့ ရရှိနိုင်ပါတယ်။ ရရှိနိုင်သော
+    အဖျော့ဆုံးအပြာရောင်မှာ မြေပုံများပေါ်ရှိ ရေကန်များကို ကိုယ်စားပြုရန် အသုံးပြုသော
+    အရောင်ဖြစ်သည်။
+  breton: Aesañ a ra da zibab liv an a-dreñv. Er c'herz eo ar gwenn, meur a glas tost
+    pe dost da liv ar mor, hag ivez treuzwelus. Ar glas sklaerañ zo da gaout eo hini
+    implijet evit diskouez al lennoù war ar c'hartennoù
+  bulgare: Позволява избор на цвят на фона. Налични като цветове са бяло, различни
+    сини, повече или по-малко близки до цвета на морето, както и прозрачно. Най-светлото
+    налично синьо е това, използвано за представяне на езерата на картите
+  catalan: Permet triar el color de fons. Són disponibles com a colors el blanc, diversos
+    blaus més o menys propers al color del mar, així com transparent. El blau més
+    clar disponible és el que s'utilitza per representar els llacs als mapes
+  corse: Permette di sceglie u culore di fondu. Sò dispunibili cum'è culori u biancu,
+    diversi blu più o menu vicini à u culore di u mare, è ancu trasparente. U blu
+    u più chjaru dispunibile hè quellu utilizatu per riprisintà i laghi nantu à e
+    carte
+  coréen: 배경 색상을 선택할 수 있습니다. 흰색, 바다색과 비슷한 다양한 파란색, 투명색을 사용할 수 있습니다. 사용 가능한 가장 밝은 파란색은
+    지도에서 호수를 나타내는 데 사용됩니다
+  danois: Giver mulighed for at vælge baggrundsfarve. Hvid, forskellige blå farver
+    mere eller mindre tæt på havets farve samt transparent er tilgængelige som farver.
+    Den lyseste blå, der er tilgængelig, er den, der bruges til at repræsentere søer
+    på kort
+  espagnol: Permite elegir el color de fondo. Están disponibles como colores el blanco,
+    varios azules más o menos cercanos al color del mar, así como transparente. El
+    azul más claro disponible es el que se utiliza para representar los lagos en los
+    mapas
+  esperanto: Eblas elekti la fonan koloron. Kiel koloroj disponeblas blanka, diversaj
+    bluoj pli-malpli proksimaj al la koloro de la maro, kaj travidebla. La plej hela
+    bluo disponebla estas tiu uzata por reprezenti lagojn sur la mapoj
+  estonien: Võimaldab valida taustavärvi. Saadaval on valge, mitmesugused sinised,
+    mis on rohkem või vähem merevärvi lähedased, samuti läbipaistev. Heledaim sinine,
+    mis on saadaval, on see, mida kasutatakse järvede esitamiseks kaartidel
+  finnois: Mahdollistaa taustavärin valinnan. Värivaihtoehtoina ovat valkoinen, erilaiset
+    meren värille läheiset siniset sekä läpinäkyvä. Vaalein saatavilla oleva sininen
+    on sama, jota käytetään kartoilla järvien esittämiseen
+  français: Permet de choisir la couleur d'arrière plan. Sont disponibles comme couleurs
+    le blanc, divers bleus plus ou moins proche de la couleur de la mer, ainsi que
+    transparent. Le bleu le plus clair disponible est celui utilisé pour représenter
+    les lacs sur les cartes
+  gallois: Yn caniatáu dewis lliw cefndir. Mae gwyn, amrywiol las yn fwy neu lai yn
+    agos i liw'r môr, yn ogystal â thryloyw, ar gael fel lliwiau. Y glas ysgafnaf
+    sydd ar gael yw'r un a ddefnyddir i gynrychioli llynnoedd ar fapiau
+  grec: Επιτρέπει την επιλογή του χρώματος φόντου. Είναι διαθέσιμα ως χρώματα το λευκό,
+    διάφορα μπλε που μοιάζουν λίγο-πολύ με το χρώμα της θάλασσας, καθώς και διαφανές.
+    Το πιο ανοιχτό γαλάζιο που είναι διαθέσιμο είναι αυτό που χρησιμοποιείται για
+    την αναπαράσταση των λιμνών στους χάρτες
+  grec ancien: Ἐπιλέγεσθαι χρῶμα ὑποθέσεως. Ἔστι δὲ διαθέσιμα λευκόν, ποικίλα κυανοῦ
+    χρώματος μᾶλλον ἢ ἧσσον ἐγγὺς θαλάττης, καὶ διαφανές. Ὁ δὲ ἐλαφρότατος κυανοῦ
+    χρώματος διαθέσιμος ἐστὶν ὁ χρώμενος εἰς τὴν παράστασιν λιμνῶν ἐν ταῖς χάρταις
+  géorgien: ფონის ფერის არჩევის შესაძლებლობა. ხელმისაწვდომია თეთრი ფერი, სხვადასხვა
+    ლურჯი, ზღვის ფერის მსგავსი და გამჭვირვალე. ყველაზე ღია ლურჯი ფერი გამოიყენება
+    რუკებზე ტბების წარმოსაჩენად
+  hindi: पृष्ठभूमि रंग चुनने की अनुमति है। सफेद, समुद्र के रंग के समान विभिन्न नीले
+    रंग, और पारदर्शी रंग उपलब्ध हैं। सबसे हल्का नीला रंग मानचित्रों पर झीलों को दर्शाने
+    के लिए उपयोग किया जाता है।
+  hongrois: Lehetővé teszi a háttérszín kiválasztását. A fehér, a tenger színéhez
+    többé-kevésbé közelítő különböző kékek, valamint az átlátszó színek érhetők el.
+    A legvilágosabb kék, ami elérhető, a tavakat ábrázolja a térképeken
+  indonésien: Memungkinkan untuk memilih warna latar belakang. Warna yang tersedia
+    adalah putih, berbagai warna biru yang kurang lebih mirip dengan warna laut, serta
+    transparan. Biru paling terang yang tersedia adalah yang digunakan untuk mewakili
+    danau pada peta
+  irlandais: Ligeann sé duit dath cúlra a roghnú. Tá bán, gormacha éagsúla níos gaire
+    nó níos faide i gcéin do dhath na farraige, agus trédhearcach ar fáil mar dhathanna.
+    Is é an gorm is éadroime atá ar fáil an ceann a úsáidtear chun lochanna a léiriú
+    ar léarscáileanna
+  islandais: Gerir þér kleift að velja bakgrunnslit. Hvítt, ýmsir bláir litir sem
+    líkjast sjó og gagnsætt eru í boði. Ljósblái liturinn sem er í boði er notaður
+    til að tákna vötn á kortum
+  italien: Permette di scegliere il colore di sfondo. Sono disponibili come colori
+    il bianco, diversi blu più o meno simili al colore del mare, e il trasparente.
+    Il blu più chiaro disponibile è quello utilizzato per rappresentare i laghi sulle
+    mappe
+  japonais: 背景色を選択できます。白、海の色の濃淡に近い様々な青色、そして透明色が利用可能です。最も明るい青色は、地図上で湖を表すために使用されるものです。
+  kazakh: Артқы фон түсін таңдауға мүмкіндік береді. Ақ, теңіз түсіне жақын әртүрлі
+    көк, сондай-ақ мөлдір түстер қолжетімді. Ең ашық көк түс карталардағы көлдерді
+    көрсету үшін қолданылады
+  kirghize: Фондун түсүн тандоого мүмкүнчүлүк берет. Ак, деңиздин түсүнө жакын ар
+    кандай көк түстөр, ошондой эле тунук түстөр бар. Эң ачык көк түс карталарда көлдөрдү
+    көрсөтүү үчүн колдонулат
+  kurde: ڕێگە دەدات ڕەنگی پاشخان هەڵبژێریت. وەک ڕەنگ سپی، چەندین شین کە نزیکن لە ڕەنگی
+    دەریا، هەروەها ڕوون. شینی ڕووناکتر کە بەردەستە ئەوەیە کە بۆ نیشاندانی دەریاچەکان
+    لەسەر نەخشەکان بەکاردێت
+  latin: Permittit colorem tergiversationis eligere. Colores praesto sunt albus, diversi
+    caerulei mari proximi, et etiam transparens. Caeruleus levissimus praesto est
+    ille qui lacūs in mappis depingit
+  letton: Ļauj izvēlēties fona krāsu. Ir pieejami kā krāsas balta, dažādi zili, vairāk
+    vai mazāk tuvu jūras krāsai, kā arī caurspīdīga. Gaišākais zilais, kas pieejams,
+    ir tas, ko izmanto, lai attēlotu ezerus kartēs
+  lituanien: Leidžia pasirinkti fono spalvą. Kaip spalvos prieinami balti, įvairūs
+    mėlyni atspalviai, daugiau ar mažiau artimi jūros spalvai, taip pat permatomi.
+    Šviesiausia mėlyna spalva, kurią galima pasirinkti, yra ta, kuri naudojama ežerams
+    žemėlapiuose žymėti
+  luxembourgeois: Erlaabt d'Hannergrondfaarf ze wielen. Als Faarwe sinn wäiss, verschidde
+    blo Téin méi oder manner no bei der Faarf vum Mier, souwéi transparent verfügbar.
+    De hellste bloe Ton deen verfügbar ass, gëtt benotzt fir d'Séien op de Kaarten
+    duerzestellen
+  macédonien: Овозможува избор на боја на позадината. Достапни се бела, разни сини
+    блиски до бојата на морето, како и проѕирна. Најсветлата сина боја достапна е
+    онаа што се користи за претставување на езерата на картите
+  malais: Membolehkan pemilihan warna latar belakang. Warna yang tersedia adalah putih,
+    pelbagai warna biru yang lebih kurang serupa dengan warna laut, serta lutsinar.
+    Warna biru paling cerah yang tersedia adalah warna yang digunakan untuk mewakili
+    tasik pada peta
+  malgache: Mamela hisafidy ny lokon'ny ambadika. Misy loko fotsy, manga maromaro
+    izay saika mitovy amin'ny lokon'ny ranomasina, ary mangarahara. Ny manga mazava
+    indrindra dia ilay ampiasaina hanehoana ny farihy amin'ny sarintany
+  maltais: Jippermetti li tagħżel il-kulur tal-isfond. Il-kuluri disponibbli huma
+    l-abjad, diversi blu aktar jew inqas qrib il-kulur tal-baħar, kif ukoll trasparenti.
+    L-aktar blu ċar disponibbli huwa dak użat biex jirrappreżenta l-lagi fuq il-mapep
+  mandarin standard: 允许选择背景颜色。 可用的颜色有白色，各种接近海的蓝色，以及透明。 可用的最浅的蓝色是用于在地图上表示湖泊的颜色。
+  mongol: Арын өнгө сонгох боломжтой. Цагаан, далайн өнгөтэй ойролцоо янз бүрийн цэнхэр,
+    мөн тунгалаг өнгөнүүд ашиглах боломжтой. Хамгийн цайвар цэнхэр өнгө нь газрын
+    зураг дээр нуурыг дүрслэхэд ашиглагддаг өнгө юм
+  norvégien: Lar deg velge bakgrunnsfarge. Tilgjengelige farger er hvitt, forskjellige
+    blåtoner som minner om havfargen, samt gjennomsiktig. Den lyseste blåfargen som
+    er tilgjengelig, er den som brukes til å representere innsjøer på kart
+  néerlandais: Maakt het mogelijk om de achtergrondkleur te kiezen. Beschikbaar als
+    kleuren zijn wit, diverse blauwtinten die min of meer lijken op de kleur van de
+    zee, evenals transparant. Het lichtste blauw dat beschikbaar is, is degene die
+    wordt gebruikt om meren op kaarten weer te geven
+  népalais: पृष्ठभूमिको रंग छान्ने अनुमति दिन्छ। सेतो, समुद्रको रंगसँग मिल्दोजुल्दो
+    विभिन्न निलो र पारदर्शी रंगहरू उपलब्ध छन्। उपलब्ध सबैभन्दा हल्का निलो नक्सामा
+    तालहरू देखाउन प्रयोग गरिन्छ।
+  ourdou: پس منظر کا رنگ منتخب کرنے کی اجازت دیتا ہے۔ سفید، مختلف نیلے رنگ جو سمندر
+    کے رنگ سے ملتے جلتے ہیں، اور شفاف رنگ دستیاب ہیں۔ سب سے ہلکا نیلا نقشوں پر جھیلوں
+    کی نمائندگی کے لیے استعمال ہوتا ہے۔
+  ouzbek: Orqa fon rangini tanlash imkonini beradi. Oq, dengiz rangiga yaqin turli
+    xil ko'k ranglar, shuningdek shaffof ranglar mavjud. Mavjud bo'lgan eng ochiq
+    ko'k rang xaritalarda ko'llarni ifodalash uchun ishlatiladi
+  pachto: د شاليد رنګ د انتخاب اجازه ورکوي. سپين، د سمندر رنګ ته نږدې مختلف نیلي رنګونه،
+    او شفاف شتون لري. تر ټولو روښانه نیلي رنګ هغه دی چې په نقشه کې د جهيلونو د ښودلو
+    لپاره کارول کیږي
+  persan: به شما اجازه می دهد رنگ پس زمینه را انتخاب کنید. رنگ های سفید، آبی های مختلف
+    نزدیک به رنگ دریا و همچنین شفاف در دسترس هستند. روشن ترین آبی موجود، آبی است که
+    برای نشان دادن دریاچه ها در نقشه ها استفاده می شود
+  polonais: Pozwala wybrać kolor tła. Dostępne są kolory biały, różne odcienie niebieskiego,
+    zbliżone do koloru morza, a także przezroczysty. Najjaśniejszy dostępny niebieski
+    to ten używany do przedstawiania jezior na mapach
+  portugais: Permite escolher a cor de fundo. Estão disponíveis como cores o branco,
+    diversos azuis mais ou menos próximos da cor do mar, bem como transparente. O
+    azul mais claro disponível é aquele usado para representar lagos nos mapas
+  roumain: Permite alegerea culorii de fundal. Sunt disponibile ca și culori alb,
+    diverse nuanțe de albastru mai mult sau mai puțin apropiate de culoarea mării,
+    precum și transparent. Albastrul cel mai deschis disponibil este cel folosit pentru
+    a reprezenta lacurile pe hărți
+  russe: Позволяет выбрать цвет фона. Доступны белый цвет, различные оттенки синего,
+    более или менее близкие к цвету моря, а также прозрачный. Самый светлый доступный
+    синий — тот, который используется для обозначения озер на картах
+  serbo-croate: Omogućava odabir boje pozadine. Dostupne su boje bijela, razni plavi,
+    više ili manje bliski boji mora, kao i prozirna. Najsvjetlija dostupna plava je
+    ona koja se koristi za predstavljanje jezera na kartama
+  slovaque: Umožňuje vybrať farbu pozadia. Dostupné farby sú biela, rôzne modré odtiene,
+    viac-menej blízke farbe mora, ako aj priehľadná. Najsvetlejšia dostupná modrá
+    je tá, ktorá sa používa na reprezentáciu jazier na mapách
+  slovène: Omogoča izbiro barve ozadja. Na voljo so bela, različne modre barve, bolj
+    ali manj podobne barvi morja, ter prozorna. Najsvetlejša modra, ki je na voljo,
+    je tista, ki se uporablja za predstavitev jezer na zemljevidih
+  suédois: Tillåter val av bakgrundsfärg. Tillgängliga färger är vitt, olika blå nyanser
+    mer eller mindre lika havets färg, samt transparent. Den ljusaste blå nyansen
+    som finns tillgänglig är den som används för att representera sjöar på kartor
+  swahili: Inaruhusu kuchagua rangi ya usuli. Rangi zinazopatikana ni nyeupe, bluu
+    mbalimbali karibu na rangi ya bahari, na pia uwazi. Bluu angavu zaidi inayopatikana
+    ndiyo inayotumika kuwakilisha maziwa kwenye ramani
+  tadjik: Барои интихоби ранги замина имкон медиҳад. Рангҳои сафед, кабудҳои гуногун,
+    ки ба ранги баҳр наздиканд, ва инчунин шаффоф дастрасанд. Кабуди аз ҳама сабук
+    барои тасвири кӯлҳо дар харитаҳо истифода мешавад
+  tamoul: பின்புல நிறத்தைத் தேர்ந்தெடுக்கலாம். வெள்ளை, கடலின் நிறத்திற்கு நெருக்கமான
+    பல நீலங்கள் மற்றும் வெளிப்படையானவை கிடைக்கின்றன. கிடைக்கக்கூடிய மிக இலகுவான நீலம்,
+    வரைபடங்களில் ஏரிகளைக் குறிக்கப் பயன்படும் நீலம் ஆகும்
+  tchèque: Umožňuje vybrat barvu pozadí. K dispozici jsou bílá barva, různé modré
+    barvy více či méně podobné barvě moře a také transparentní. Nejsvětlejší dostupná
+    modrá barva je ta, která se používá k reprezentaci jezer na mapách
+  thaï: อนุญาตให้เลือกสีพื้นหลังได้ มีสีขาว สีฟ้าหลายเฉดใกล้เคียงกับสีทะเล และสีโปร่งใส
+    สีฟ้าอ่อนที่สุดที่มีให้เลือกใช้คือสีที่ใช้แสดงทะเลสาบบนแผนที่
+  tibétain: རྒྱབ་ལྗོངས་ཀྱི་ཚོས་མདོག་འདེམས་པར་བསྐུལ་བ། དཀར་པོ། རྒྱ་མཚོའི་ཁ་དོག་དང་ཅུང་ཉེ་བའི་སྔོན་པོ་སྣ་ཚོགས་དང་།
+    མཐོང་ཐུབ་པའི་ཁ་དོག་བཅས་ཡོད། སྔོན་པོ་ཡང་ཤོས་ནི་ས་ཁྲའི་སྟེང་གི་མཚེའུ་མཚོན་པར་བེད་སྤྱོད་བྱེད།
+  turc: Arka plan rengini seçmeye izin verir. Beyaz, deniz rengine az çok yakın çeşitli
+    maviler ve şeffaf renkler mevcuttur. Mevcut en açık mavi, haritalarda gölleri
+    temsil etmek için kullanılan renktir
+  turkmène: Arka fonuň reňkini saýlamaga mümkinçilik berýär. Ak, deňziň reňkine gaty
+    ýakyn dürli gök reňkler we şeýle hem aç-aýdyň reňkler elýeterlidir. Elýeterli
+    iň açyk gök reňk kartalarda kölleri görkezmek üçin ulanylýar
+  ukrainien: 'Дозволяє вибрати колір фону. Доступні такі кольори: білий, різні сині
+    кольори, більш-менш близькі до кольору моря, а також прозорий. Найсвітліший доступний
+    синій колір використовується для позначення озер на картах'
+  vietnamien: Cho phép chọn màu nền. Các màu có sẵn là trắng, nhiều màu xanh lam khác
+    nhau gần với màu biển, và trong suốt. Màu xanh lam nhạt nhất có sẵn là màu được
+    sử dụng để đại diện cho các hồ trên bản đồ
+  zoulou: Ivumela ukukhetha umbala wangemuva. Imibala ekhona imhlophe, imibala ehlukene
+    eluhlaza okwesibhakabhaka ecishe ifane nombala wolwandle, kanye nokubonisa ngale.
+    Oluhlaza okwesibhakabhaka olukhanya kakhulu olutholakalayo yilolo olusetshenziselwa
+    ukukhombisa amachibi emabalazweni
 ? Permet de choisir si l'on souhaite publier l'entièreté des cartes ou seulement celles
   qui possède la granularité souhaitée. Veut-on par exemple publier une carte qui
   n'existe qu'au niveau régional si l'on souhaite des cartes au niveau départemental

@@ -3671,6 +3671,7 @@ Caspian Sea:
   breton: Mor Kaspia
   bulgare: Каспийско море
   catalan: Mar Càspi
+  corse: U mare Caspiu
   coréen: 카스피 해
   danois: Kaspiske Hav
   espagnol: Mar Caspio
@@ -3680,6 +3681,7 @@ Caspian Sea:
   français: Mer Caspienne
   gallois: Môr Caspia
   grec: Κασπία Θάλασσα
+  grec ancien: Κασπία θάλασσα
   géorgien: კასპიის ზღვა
   hindi: कैस्पियन सागर
   hongrois: Kaspi-tenger
@@ -3689,10 +3691,13 @@ Caspian Sea:
   italien: Mar Caspio
   japonais: カスピ海
   kazakh: Каспий теңізі
+  kirghize: Каспий деңизи
   kurde: Deryaya Xezerê
   latin: Mare Caspium
   letton: Kaspijas jūra
   lituanien: Kaspijos jūra
+  luxembourgeois: Kaspescht Mier
+  macédonien: Касписко Море
   malais: Laut Kaspia
   malgache: Ranomasina Kaspi
   maltais: Baħar Kaspju
@@ -3714,6 +3719,7 @@ Caspian Sea:
   slovène: Kaspijsko morje
   suédois: Kaspiska havet
   swahili: Bahari ya Kaspi
+  tadjik: Баҳри Каспий
   tamoul: காஸ்பியன் கடல்
   tchèque: Kaspické moře
   thaï: ทะเลแคสเปียน
@@ -21805,7 +21811,77 @@ Virgin Islands, U.S.:
   ukrainien: Віргінські Острови, США
   vietnamien: Quần đảo Virgin thuộc Hoa Kỳ
   zoulou: IZiqithi Zase-Virgin, e-US
-Virgin Islands, US: {}
+Virgin Islands, US:
+  afrikaans: Maagde-eilande, VSA
+  albanais: Ishujt e Virgjër, SHBA
+  allemand: Amerikanische Jungferninseln
+  anglais: Virgin Islands, US
+  arabe: جزر العذراء الأمريكية
+  arménien: Ամերիկյան Վիրջինյան կղզիներ
+  basque: Birjina uharteak, AEB
+  bengali: মার্কিন ভার্জিন দ্বীপপুঞ্জ
+  birman: ဗာဂျင်ကျွန်းစု၊ အမေရိကန်
+  breton: Inizi Gwerc'h ar Stadoù-Unanet
+  bulgare: Вирджински острови, САЩ
+  catalan: Illes Verges Nord-americanes
+  corse: Isole Vergini Americane
+  coréen: 미국령 버진아일랜드
+  danois: Jomfruøerne, US
+  espagnol: Islas Vírgenes de los Estados Unidos
+  esperanto: Usonaj Virgulininsuloj
+  estonien: USA Neitsisaared
+  finnois: Yhdysvaltain Neitsytsaaret
+  français: Îles Vierges américaines
+  gallois: Ynysoedd Gwyryf, UDA
+  grec: Παρθένοι Νήσοι ΗΠΑ
+  grec ancien: Παρθένοι Νήσοι, ΗΠΑ
+  géorgien: US Virgin Islands
+  hindi: यूएस वर्जिन द्वीप समूह
+  hongrois: Amerikai Egyesült Államok Virgin-szigetei
+  indonésien: Kepulauan Virgin Amerika Serikat
+  irlandais: Oileáin Mheiriceá
+  islandais: Jómfrúaeyjar, Bandaríkin
+  italien: Isole Vergini Americane
+  japonais: アメリカ領ヴァージン諸島
+  kazakh: АҚШ Виргин аралдары
+  kirghize: Америка Кошмо Штаттарынын Виргин аралдары
+  kurde: Giravên Virgin, Yekîtiya Dewletên Amerîkayê
+  latin: Insulae Virginis Americanae
+  letton: ASV Virdžīnas
+  lituanien: Jungtinių Amerikos Valstijų Mergelių salos
+  luxembourgeois: US Virgin Insuln
+  macédonien: Американски Виргински Острови
+  malais: Kepulauan Virgin Amerika Syarikat
+  malgache: Nosy Vahina Etazonia
+  maltais: Gżejjer Verġni tal-Istati Uniti
+  mandarin standard: 美属维尔京群岛
+  mongol: АНУ-ын Виржин арлууд
+  norvégien: De amerikanske Jomfruøyer
+  néerlandais: Amerikaanse Maagdeneilanden
+  népalais: यूएस भर्जिन टापुहरू
+  ourdou: जमीरा अ'लाह
+  ouzbek: AQSh Virginiya orollari
+  pachto: د امريکا متحده ایالاتو جزیرې
+  persan: جزایر ویرجین ایالات متحده
+  polonais: Wyspy Dziewicze Stanów Zjednoczonych
+  portugais: Ilhas Virgens Americanas
+  roumain: Insulele Virgine, SUA
+  russe: Виргинские острова США
+  serbo-croate: Američki Djevičanski otoci
+  slovaque: Americké Panenské ostrovy
+  slovène: Ameriški Deviški otoki
+  suédois: Amerikanska Jungfruöarna
+  swahili: Visiwa vya Virgin vya Marekani
+  tadjik: Ҷазираҳои Вирҷинии Иёлоти Муттаҳида
+  tamoul: US వర్జిన్ ఐలాండ్స్
+  tchèque: Americké Panenské ostrovy
+  thaï: หมู่เกาะเวอร์จินของสหรัฐอเมริกา
+  tibétain: ཨ་མི་རི་ཀའི་ཝེ་རི་ཇིན་གླིང་ཚོམ
+  turc: Amerika Birleşik Devletleri Virjin Adaları
+  turkmène: ABŞ-a degişli owal adalar
+  ukrainien: Американські Віргінські острови
+  vietnamien: Quần đảo Virgin thuộc Hoa Kỳ
+  zoulou: Izisombhuko ZaseMelika
 Wallis and Futuna:
   afrikaans: Wallis en Futuna
   albanais: Uollis dhe Futuna

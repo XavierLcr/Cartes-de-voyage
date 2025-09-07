@@ -112,13 +112,16 @@ class OngletResumeDestinations(QWidget):
                             label.setWordWrap(True)
                             vbox.addWidget(label)
 
-                label_sep = QLabel("– " * 3)
-                label_sep.setAlignment(
-                    Qt.AlignmentFlag.AlignCenter
-                    if affichage_groupe
-                    else Qt.AlignmentFlag.AlignLeft
+                vbox.addWidget(
+                    QLabel(
+                        "—  —  —",
+                        alignment=(
+                            Qt.AlignmentFlag.AlignCenter
+                            if affichage_groupe
+                            else Qt.AlignmentFlag.AlignLeft
+                        ),
+                    )
                 )
-                vbox.addWidget(label_sep)
 
         vbox.addStretch()
 

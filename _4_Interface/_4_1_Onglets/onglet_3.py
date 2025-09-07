@@ -96,21 +96,20 @@ class OngletResumeDestinations(QWidget):
 
         if pays_donnees is not None:
             for pays, items in pays_donnees.items():
-                emoji_i = f"{self.emojis_pays.get(pays, '')} "
 
-                if affichage_groupe:
-                    texte_items = ", ".join(items) if items else "Aucun élément"
-                    texte = f"<b>{pays}</b> {emoji_i}: {texte_items}"
-                    label = QLabel(texte)
-                    label.setWordWrap(True)
-                    vbox.addWidget(label)
-                else:
-                    vbox.addWidget(QLabel(f"<b>{pays}</b> {emoji_i}:"))
-                    if items:
-                        for item in items:
-                            label = QLabel(f"   • {item}")
-                            label.setWordWrap(True)
-                            vbox.addWidget(label)
+                vbox.addWidget(
+                    QLabel(
+                        # Pays avec emoji
+                        f"<b>{pays}</b> {self.emojis_pays.get(pays, '')}: "
+                        # items si affichage regroupé
+                        f"{', '.join(items) if affichage_groupe and items else '' if items else '⏳✒️'}",
+                        wordWrap=True,
+                    )
+                )
+
+                # items si affichage non regroupé
+                if not affichage_groupe and items:
+                    [vbox.addWidget(QLabel(f"   • {item}", wordWrap=True)) for item in items]
 
                 vbox.addWidget(
                     QLabel(

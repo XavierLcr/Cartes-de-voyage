@@ -11,7 +11,12 @@ from PyQt6.QtWidgets import QHBoxLayout, QFrame, QLabel
 from PyQt6.QtCore import Qt
 
 
-def creer_QLabel_centre(text: str | None = None, parent=None):
+def creer_QLabel_centre(
+    alignement=Qt.AlignmentFlag.AlignCenter,
+    text: str | None = None,
+    parent=None,
+    wordWrap=False,
+):
     """
     Crée un QLabel avec un alignement vertical centré.
 
@@ -22,8 +27,8 @@ def creer_QLabel_centre(text: str | None = None, parent=None):
     Returns:
         QLabel: Le label configuré.
     """
-    label = QLabel(text, parent)
-    label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+    label = QLabel(text, parent, wordWrap=wordWrap)
+    label.setAlignment(alignement)
     return label
 
 

@@ -28,6 +28,7 @@ def creer_classement_pays(
     table_superficie,
     granularite: int = 1,
     top_n: int | None = None,
+    ndigits: int | None = None,
 ):
 
     gdf_visite = (
@@ -36,7 +37,7 @@ def creer_classement_pays(
             table_superficie,
             how="left",
             left_on=["Pays", "Region"],
-            right_on=["NAME_0", f"NAME_{granularite}"],
+            right_on=["name_0", f"name_{granularite}"],
         )
         # Somme par pays des superficies visitées
         .groupby("Pays")[["pct_superficie_dans_pays", "superficie"]]
@@ -46,7 +47,19 @@ def creer_classement_pays(
         .sort_values(by=["pct_superficie_dans_pays", "superficie"], ascending=[False, False])
     )
 
-    return gdf_visite if top_n is None else gdf_visite.head(top_n)
+    # Sélection du top pays si souhaité
+    if top_n is not None:
+        gdf_visite = gdf_visite.head(top_n)
+
+    # Mise en forme
+    gdf_visite["pct_superficie_dans_pays_label"] = gdf_visite[
+        "pct_superficie_dans_pays"
+    ].apply(lambda x: f"{round(100 * (x or 0), ndigits=ndigits)} %".replace(".", ","))
+
+    return (
+        gdf_visite,
+        gdf_visite[gdf_visite["pct_superficie_dans_pays"] == 1].shape[0],
+    )
 
 
 # Quatrième onglet
@@ -57,6 +70,8 @@ class ClassementPays(QWidget):
         fct_traduction,
         table_superficie,
         parent=None,
+        min_changement_mise_en_forme: int = 4,
+        adapter_mise_en_forme: bool = True,
     ):
         super().__init__(parent)
 
@@ -65,10 +80,12 @@ class ClassementPays(QWidget):
         self.table_superficie = table_superficie
         self.top_n = constantes.parametres_application["top_n_pays"]
         self.ndigits = constantes.parametres_application["pct_ndigits"]
-        self.fonction_traduction = fct_traduction
         self.ndigits = None if self.ndigits == 0 else self.ndigits
+        self.fonction_traduction = fct_traduction
         self.dicts_granu = {"region": {}, "dep": {}}
         self.langue_utilisee = "français"
+        self.min_changement_mise_en_forme = min_changement_mise_en_forme
+        self.adapter_mise_en_forme = adapter_mise_en_forme
 
         # --- Bloc "Top pays par région" ---
         self.entete_top_pays_regions = QLabel(alignment=Qt.AlignmentFlag.AlignCenter)
@@ -113,17 +130,113 @@ class ClassementPays(QWidget):
         layout.addWidget(scroll_top_pays_regions)
         layout.addWidget(scroll_top_pays_deps)
 
-    def lancer_classement_pays(self, granularite: int, vbox: QGridLayout):
+    def classement_standard(
+        self, classement: pd.DataFrame, vbox: QGridLayout, taille_top_100: int, adapter: bool
+    ):
+        """
+        Affiche le classement des pays dans un QGridLayout (vbox).
+        - classement : DataFrame contenant 'Pays' et 'pct_superficie_dans_pays'
+        - vbox : QGridLayout où ajouter les QLabel
+        """
+
+        # Gestion des premières lignes
+        if adapter:
+
+            # Ajout des couronnes
+            vbox.addWidget(
+                creer_QLabel_centre(
+                    text="👑",
+                    alignement=Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter,
+                ),
+                0,
+                0,
+            )
+            vbox.addWidget(
+                creer_QLabel_centre(
+                    text="👑",
+                    alignement=Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter,
+                ),
+                0,
+                2,
+            )
+
+            liste_pays = [
+                self.constantes.pays_differentes_langues.get(p, {}).get(
+                    self.langue_utilisee, p
+                )
+                for p in classement["Pays"].head(taille_top_100)
+            ]
+
+            vbox.addWidget(
+                creer_QLabel_centre(
+                    text=f"🥇<br>{', '.join(f'<b>{x}</b>' for x in liste_pays)}<br>100 %",
+                    wordWrap=True,
+                ),
+                0,
+                1,
+            )
+
+        else:
+
+            taille_top_100 = min(3, classement.shape[0])
+            for i in range(taille_top_100):
+
+                pays = classement["Pays"].iloc[i]
+
+                nom_pays = self.constantes.pays_differentes_langues.get(pays, {}).get(
+                    self.langue_utilisee, pays
+                )
+
+                vbox.addWidget(
+                    creer_QLabel_centre(
+                        text=(
+                            ["🥇", "🥈", "🥉"][i]
+                            + f"<br><b>{nom_pays}</b><br>"
+                            + str(classement["pct_superficie_dans_pays_label"].iloc[i])
+                        ).replace(".", ",")
+                    ),
+                    int(i != 0),
+                    {0: 1, 1: 0}.get(i, i),
+                )
+
+        for i, (_, row) in enumerate(classement.iloc[taille_top_100:].iterrows()):
+
+            pays = row["Pays"]
+
+            if round(100 * row["pct_superficie_dans_pays"], ndigits=self.ndigits) > 0:
+                nom_pays = self.constantes.pays_differentes_langues.get(pays, {}).get(
+                    self.langue_utilisee,
+                    pays,
+                )
+
+                vbox.addWidget(
+                    creer_QLabel_centre(
+                        text=(
+                            # Classement
+                            (f"<b>{taille_top_100 + i + 1}.</b>")
+                            # Nom du pays
+                            + f"<br>{nom_pays}<br>"
+                            # Part de la superficie visitée
+                            + f"{row['pct_superficie_dans_pays_label']}"
+                        )
+                    ),
+                    2 + (i // 3) - int(adapter),
+                    i % 3,
+                )
+
+    def lancer_classement_pays(
+        self, granularite: int, vbox: QGridLayout, adapter_mise_en_forme=True
+    ):
 
         # Complétion des régions à partir des départements
         dict_regions = self.dicts_granu.get("region") or {}
         dict_departements = self.dicts_granu.get("dep") or {}
 
         for pays, deps in dict_departements.items():
-            mask = (self.table_superficie["NAME_0"] == pays) & (
-                self.table_superficie["NAME_2"].isin(deps)
+            mask = (self.table_superficie["name_0"] == pays) & (
+                self.table_superficie["name_2"].isin(deps)
             )
-            dict_regions[pays] = self.table_superficie.loc[mask, "NAME_1"].unique().tolist()
+            dict_regions[pays] = self.table_superficie.loc[mask, "name_1"].unique().tolist()
 
         # Layout nettoyé
         vider_layout(vbox)
@@ -131,7 +244,7 @@ class ClassementPays(QWidget):
         try:
 
             # Classement des pays
-            classement = creer_classement_pays(
+            classement, taille_top_100 = creer_classement_pays(
                 # transformation du dictionnaire en Data.frame
                 gdf_visite=pd.DataFrame(
                     [
@@ -148,61 +261,31 @@ class ClassementPays(QWidget):
                 table_superficie=self.table_superficie,
                 granularite=granularite,
                 top_n=self.top_n,
+                ndigits=self.ndigits,
             )
 
-            for i, (_, row) in enumerate(classement.iterrows()):
-                pays = row["Pays"]
+            self.classement_standard(
+                classement=classement,
+                vbox=vbox,
+                taille_top_100=taille_top_100,
+                adapter=(taille_top_100 >= self.min_changement_mise_en_forme)
+                and adapter_mise_en_forme,
+            )
 
-                if (
-                    i < 3
-                    or round(100 * row["pct_superficie_dans_pays"], ndigits=self.ndigits) > 0
-                ):
-
-                    # Récupération du noms du pays
-                    label_widget = self.constantes.pays_differentes_langues.get(pays, {}).get(
-                        self.langue_utilisee,
-                        pays,
-                    )
-
-                    label_widget = creer_QLabel_centre(
-                        text=(
-                            # Classement
-                            (["🥇", "🥈", "🥉"][i] if i < 3 else f"<b>{i + 1}.</b>")
-                            # Nom du pays, potentiellement en gras
-                            + f"<br>{f'<b>{label_widget}</b>' if i <3 else label_widget}<br>"
-                            # Part de la superficie visitée
-                            + f"{round(100 * row['pct_superficie_dans_pays'], ndigits=self.ndigits)} %"
-                        ).replace(".", ",")
-                    )
-
-                    if i == 0:
-
-                        # Couronne à gauche
-                        couronne_g = QLabel("👑")
-                        couronne_g.setAlignment(
-                            Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter
-                        )
-                        vbox.addWidget(couronne_g, i, 0)
-                        vbox.addWidget(label_widget, i, 1)
-
-                        # Couronne à droite
-                        couronne_d = QLabel("👑")
-                        couronne_d.setAlignment(
-                            Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter
-                        )
-                        vbox.addWidget(couronne_d, i, 2)
-
-                    elif i in [1, 2]:
-                        vbox.addWidget(label_widget, 1, 2 * i - 2)
-                    else:
-                        vbox.addWidget(label_widget, (i + 3) // 3, i % 3)
-
-        except:
+        except Exception as e:
             pass
 
     def lancer_classement_par_region_departement(self):
-        self.lancer_classement_pays(vbox=self.layout_top_pays_regions, granularite=1)
-        self.lancer_classement_pays(vbox=self.layout_top_pays_deps, granularite=2)
+        self.lancer_classement_pays(
+            vbox=self.layout_top_pays_regions,
+            granularite=1,
+            adapter_mise_en_forme=self.adapter_mise_en_forme,
+        )
+        self.lancer_classement_pays(
+            vbox=self.layout_top_pays_deps,
+            granularite=2,
+            adapter_mise_en_forme=self.adapter_mise_en_forme,
+        )
 
     def set_dicts_granu(self, dict_nv):
         self.dicts_granu = dict_nv

@@ -19,15 +19,13 @@ for granularite in range(1, 6):
 
     print(granularite)
 
-    gdf = ouvrir_fichier(
-        direction_fichier=direction_donnees_application,
-        nom_fichier=f"carte_monde_niveau_{granularite}.pkl",
-        defaut=None,
-        afficher_erreur="Base non trouvée.",
-    )
-
     cree_yaml_un_pays(
-        gdf=gdf,
+        gdf=ouvrir_fichier(
+            direction_fichier=direction_donnees_application,
+            nom_fichier=f"carte_monde_niveau_{granularite}.pkl",
+            defaut=None,
+            afficher_erreur="Base non trouvée.",
+        ),
         nom_pays=None,
         granularite=granularite,
         direction_fichier=direction_donnees_application,

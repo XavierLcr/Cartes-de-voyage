@@ -4,8 +4,9 @@
 # 2.4 – Fichier de création de la table de superficie utile à l'onglet n°4     #
 ################################################################################
 
+import os, sys, pickle
 
-import os, pickle
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import constantes
 from _0_Utilitaires._0_1_Fonctions_utiles import ouvrir_fichier
 
@@ -26,13 +27,19 @@ def calculer_superficie(gdf, espg):
     return gdf[liste_cols]
 
 
-# Téléchargement des données
-gdf = ouvrir_fichier(
-    direction_fichier=constantes.direction_donnees_application,
-    nom_fichier="carte_monde_niveau_2.pkl",
-    defaut=None,
-).reset_index(drop=True)
-
 # Export de la table
-with open(os.path.join(constantes.direction_donnees, "table_superficie.pkl"), "wb") as f:
-    pickle.dump(calculer_superficie(gdf, espg=8857), f)
+with open(
+    os.path.join(constantes.direction_donnees_application, "table_superficie.pkl"), "wb"
+) as f:
+    pickle.dump(
+        calculer_superficie(
+            # Téléchargement des données
+            ouvrir_fichier(
+                direction_fichier=constantes.direction_donnees_geographiques,
+                nom_fichier="carte_monde_niveau_2.pkl",
+                defaut=None,
+            ).reset_index(drop=True),
+            espg=8857,
+        ),
+        f,
+    )

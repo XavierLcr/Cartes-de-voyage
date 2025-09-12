@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
 # _X_Autres/                                                                   #
-# X.1 – Ancien script de création de cartes (SVG) avec la bibliothèque wordmap #                              #
+# X.1 – Ancien script de création de cartes (SVG) avec la bibliothèque wordmap #
 ################################################################################
 
 

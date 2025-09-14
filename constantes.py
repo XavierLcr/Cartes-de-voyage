@@ -17,6 +17,7 @@ if getattr(sys, "frozen", False):
 else:
     direction_base = os.path.dirname(os.path.abspath(__file__))
     direction_donnees = os.path.join(direction_base, "_1_Données")
+    direction_donnees_brutes = os.path.join(direction_donnees, "_1_1_Données_brutes")
     direction_donnees_geographiques = os.path.join(
         direction_donnees, "_1_2_Données_géographiques"
     )

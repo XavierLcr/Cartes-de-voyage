@@ -13,9 +13,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import constantes
 from _0_Utilitaires._0_1_Fonctions_utiles import exporter_fichier
 
-gdf = gpd.read_file(
-    os.path.join(constantes.direction_donnees, "_1_1_Données_brutes", "gadm_410.gpkg")
-)[
+gdf = gpd.read_file(os.path.join(constantes.direction_donnees_brutes, "gadm_410.gpkg"))[
     # Sélection de colonnes
     ["NAME_0", "NAME_1", "NAME_2", "NAME_3", "NAME_4", "NAME_5", "geometry"]
 ]

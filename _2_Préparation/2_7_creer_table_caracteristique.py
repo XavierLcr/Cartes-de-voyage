@@ -8,7 +8,7 @@
 import os, unicodedata
 import pandas as pd
 import constantes
-from _0_Utilitaires._0_1_Fonctions_utiles import ouvrir_fichier
+from _0_Utilitaires._0_1_Fonctions_utiles import ouvrir_fichier, exporter_fichier
 
 
 # === Import des données === #
@@ -24,33 +24,35 @@ gdf_1 = ouvrir_fichier(
 
 # Tables à intégrer
 df_IDH = pd.read_csv(
-    os.path.join(constantes.direction_donnes_brutes, "GDL-Subnational-HDI-data.csv")
+    os.path.join(constantes.direction_donnees_brutes, "GDL-Subnational-HDI-data.csv")
 )
 df_temperature = pd.read_csv(
     os.path.join(
-        constantes.direction_donnes_brutes,
+        constantes.direction_donnees_brutes,
         "GDL-Yearly-Average-Surface-Temperature-(ºC)-data.csv",
     )
 )
 df_pluie = pd.read_csv(
     os.path.join(
-        constantes.direction_donnes_brutes, "GDL-Total-Yearly-Precipitation-(m)-data.csv"
+        constantes.direction_donnees_brutes, "GDL-Total-Yearly-Precipitation-(m)-data.csv"
     )
 )
 df_humidite = pd.read_csv(
     os.path.join(
-        constantes.direction_donnes_brutes, "GDL-Yearly-Average-Relative-Humidity-(_)-data.csv"
+        constantes.direction_donnees_brutes,
+        "GDL-Yearly-Average-Relative-Humidity-(_)-data.csv",
     )
 )
 df_tourisme = pd.read_csv(
     os.path.join(
-        constantes.direction_donnes_brutes, "API_ST.INT.ARVL_DS2_en_csv_v2_697553.csv"
+        constantes.direction_donnees_brutes, "API_ST.INT.ARVL_DS2_en_csv_v2_697553.csv"
     ),
     skiprows=4,
 )
 df_religion = pd.read_csv(
     os.path.join(
-        constantes.direction_donnes_brutes, "Religious Composition 2010-2020 (percentages).csv"
+        constantes.direction_donnees_brutes,
+        "Religious Composition 2010-2020 (percentages).csv",
     ),
 )
 
@@ -77,12 +79,15 @@ def remplacer_noms(df, colonne, mapping):
 mapping = {
     # "Antigua And Barbuda": "Antigua and Barbuda",
     "Bahamas, The": "Bahamas",
-    # "Bosnia And Herzegovina": "Bosnia and Herzegovina",
+    "Bosnia-Herzegovina": "Bosnia and Herzegovina",
     "Brunei Darussalam": "Brunei",
+    "Cape Verde": "Cabo Verde",
     "Congo, Dem. Rep.": "Democratic Republic of the Congo",
     "Congo, Rep.": "Republic of the Congo",
     "Cote d'Ivoire": "Côte d'Ivoire",
+    "Ivory Coast": "Côte d'Ivoire",
     "Curacao": "Curaçao",
+    "Czech Republic": "Czechia",
     "Egypt, Arab Rep.": "Egypt",
     "Eswatini": "Swaziland",
     "FInland": "Finland",
@@ -95,8 +100,10 @@ mapping = {
     "Lao PDR": "Laos",
     "Mexico": "México",
     "Micronesia, Fed. Sts.": "Micronesia",
+    "Federated States of Micronesia": "Micronesia",
     "Puerto Rico (US)": "Puerto Rico",
     "Russian Federation": "Russia",
+    "Reunion": "Réunion",
     "St. Martin (French part)": "Saint-Martin",
     "Sint Maarten (Dutch part)": "Sint Maarten",
     "Sao Tome and Principe": "São Tomé and Príncipe",
@@ -111,8 +118,10 @@ mapping = {
     "United States of America": "United States",
     "Venezuela, RB": "Venezuela",
     "Virgin Islands (U.S.)": "Virgin Islands, US",
+    "U.S. Virgin Islands": "Virgin Islands, US",
     "Viet Nam": "Vietnam",
     "West Bank and Gaza": "Palestine",
+    "Palestinian territories": "Palestine",
     "Yemen, Rep.": "Yemen",
 }
 
@@ -180,6 +189,33 @@ df_tourisme = df_tourisme[["Country Name", "tourisme"]]
 df_tourisme.rename(columns={"Country Name": "name_0"}, inplace=True)
 
 
+# === Nettoyage de la table des religions === #
+
+
+df_religion = df_religion[df_religion["Level"] == 1]  # Sélection des pays
+df_religion = df_religion[df_religion["Year"] == 2020]  # Sélection de 2020
+df_religion.drop(columns=["Year", "Level", "Countrycode", "Region"], inplace=True)
+df_religion.rename(columns={"Country": "name_0"}, inplace=True)
+df_religion.columns = df_religion.columns.str.lower()
+
+# Remplacement des noms de pays différents
+df_religion = remplacer_noms(df=df_religion, colonne="name_0", mapping=mapping)
+
+# Gestion des îles anglo-normandes
+mask = df_religion["name_0"] == "Channel Islands"
+
+jersey = df_religion[mask].copy()
+jersey["name_0"] = "Jersey"
+jersey["population"] = 103_267
+
+guernsey = df_religion[mask].copy()
+guernsey["name_0"] = "Guernsey"
+guernsey["population"] = 67_334
+
+# On reconstruit le DataFrame
+df_religion = pd.concat([df_religion[~mask], jersey, guernsey], ignore_index=True)
+
+
 # === Jointures === #
 
 
@@ -237,8 +273,21 @@ assert df_tourisme.duplicated(subset=["name_0"], keep=False).sum() == 0, df_tour
     df_tourisme.duplicated(subset=["name_0"], keep=False)
 ]
 gdf_1 = gdf_1.merge(right=df_tourisme, how="left", on="name_0")
-gdf_1.loc[(gdf_1["name_0"] == "China") & (gdf_1["name_1"] == "Hong Kong"), "tourisme"] = (
-    df_tourisme.loc[df_tourisme["name_0"] == "Hong Kong", "tourisme"].iloc[0]
-)
+# gdf_1.loc[(gdf_1["name_0"] == "China") & (gdf_1["name_1"] == "Hong Kong"), "tourisme"] = (
+#     df_tourisme.loc[df_tourisme["name_0"] == "Hong Kong", "tourisme"].iloc[0]
+# )
 
 # Avec la table des religion
+assert df_religion.duplicated(subset=["name_0"], keep=False).sum() == 0, df_religion[
+    df_religion.duplicated(subset=["name_0"], keep=False)
+]
+gdf_1 = gdf_1.merge(right=df_religion, how="left", on="name_0")
+
+
+# === Export === #
+
+exporter_fichier(
+    objet=gdf_1,
+    direction_fichier=constantes.direction_donnees_application,
+    nom_fichier="caracteristiques_des_regions.pkl",
+)

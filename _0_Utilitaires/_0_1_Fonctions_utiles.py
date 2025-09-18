@@ -7,6 +7,7 @@
 
 import os, pickle, yaml, time
 import pandas as pd
+import numpy as np
 from PyQt6.QtWidgets import QHBoxLayout, QFrame, QLabel
 from PyQt6.QtCore import Qt
 
@@ -258,3 +259,13 @@ def cree_yaml_un_pays(
         nom_fichier=nom_fichier,
         sort_keys=True,
     )
+
+
+# Fonction de distance orthodromique (Haversine) en km
+def distance_haversine(lat1, lon1, lat2, lon2):
+    R = 6371  # rayon de la Terre en km
+    lat1, lon1, lat2, lon2 = map(np.radians, [lat1, lon1, lat2, lon2])
+    dlat = lat2 - lat1
+    dlon = lon2 - lon1
+    a = np.sin(dlat / 2) ** 2 + np.cos(lat1) * np.cos(lat2) * np.sin(dlon / 2) ** 2
+    return 2 * R * np.arcsin(np.sqrt(a))

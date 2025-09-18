@@ -5,10 +5,17 @@
 ################################################################################
 
 
-import os, unicodedata
+import os, sys, unicodedata
+import numpy as np
 import pandas as pd
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import constantes
-from _0_Utilitaires._0_1_Fonctions_utiles import ouvrir_fichier, exporter_fichier
+from _0_Utilitaires._0_1_Fonctions_utiles import (
+    ouvrir_fichier,
+    exporter_fichier,
+    distance_haversine,
+)
 
 
 # === Import des données === #
@@ -284,7 +291,85 @@ assert df_religion.duplicated(subset=["name_0"], keep=False).sum() == 0, df_reli
 gdf_1 = gdf_1.merge(right=df_religion, how="left", on="name_0")
 
 
+# === Imputation des valeurs manquantes === #
+
+
+def imputation_geo_knn(
+    df, n_voisins=5, colonnes_exclues=None, col_long="longitude", col_lat="latitude"
+):
+    """
+    Remplace les valeurs manquantes (NaN) par la moyenne des n voisins
+    géographiques les plus proches (selon la distance de Haversine).
+
+    Paramètres
+    ----------
+    df : pd.DataFrame
+        Table contenant les données avec colonnes latitude/longitude.
+    n_voisins : int
+        Nombre de voisins à utiliser pour calculer la moyenne.
+    colonnes_exclues : list
+        Colonnes à ne pas imputer (ex: identifiants, variables cibles).
+    col_long : str
+        Nom de la colonne longitude.
+    col_lat : str
+        Nom de la colonne latitude.
+
+    Retour
+    ------
+    pd.DataFrame : copie du DataFrame avec les valeurs imputées.
+    """
+    if colonnes_exclues is None:
+        colonnes_exclues = []
+
+    # Colonnes sur lesquelles on applique l’imputation
+    colonnes_a_imputer = [
+        c for c in df.columns if c not in colonnes_exclues + [col_long, col_lat]
+    ]
+    df_impute = df.copy()
+
+    for col in colonnes_a_imputer:
+        # Masque des lignes où la colonne est manquante
+        lignes_na = df_impute[col].isna()
+
+        def imputer_ligne(ligne):
+            # On récupère les autres lignes avec une valeur non manquante
+            autres = df_impute.loc[~df_impute[col].isna(), [col_lat, col_long, col]].copy()
+
+            # Calcul de la distance avec la ligne courante
+            autres["distance"] = autres.apply(
+                lambda r: distance_haversine(
+                    ligne[col_lat], ligne[col_long], r[col_lat], r[col_long]
+                ),
+                axis=1,
+            )
+
+            # On garde les n voisins les plus proches et on calcule la moyenne
+            voisins = autres.nsmallest(n_voisins, "distance")
+            return voisins[col].mean()
+
+        # Application de l’imputation aux lignes manquantes
+        df_impute.loc[lignes_na, col] = df_impute.loc[lignes_na].apply(imputer_ligne, axis=1)
+
+    return df_impute
+
+
+gdf_1 = imputation_geo_knn(
+    df=gdf_1,
+    n_voisins=5,
+    colonnes_exclues=["name_0", "name_1", "latitude", "longitude", "superficie", "population"],
+)
+
+
+# === Normalisation des colonnes === #
+
+
+for col in gdf_1.columns:
+    if col not in ["name_0", "name_1", "latitude", "longitude", "superficie", "population"]:
+        gdf_1[col] = gdf_1[col] / np.sqrt((gdf_1[col] ** 2).sum())
+
+
 # === Export === #
+
 
 exporter_fichier(
     objet=gdf_1,

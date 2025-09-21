@@ -170,6 +170,7 @@ class PaysAVisiter(QWidget):
         top_n=10,
         par_pays=True,
         alpha=0.2,
+        max_par_pays=5,
     ):
         super().__init__(parent)
 
@@ -182,6 +183,7 @@ class PaysAVisiter(QWidget):
         self.df = None
         self.table_superficie = table_superficie
         self.par_pays = par_pays
+        self.max_par_pays = max_par_pays
 
         layout = QVBoxLayout()
         # Bouton de lancement
@@ -268,6 +270,7 @@ class PaysAVisiter(QWidget):
                 par_pays=self.par_pays,
                 lignes_extra_par_pays=5,
                 alpha=self.alpha,
+                max_par_pays=self.max_par_pays,
             ).reset_index()
             if dict_temp != {}
             else None
@@ -286,7 +289,7 @@ class PaysAVisiter(QWidget):
                 )
             )
         )
-        self.corps_recommandations.addLayout(creer_ligne_separation())
+        self.corps_recommandations.addLayout(creer_ligne_separation(lStretch=2, rStretch=2))
         self.corps_recommandations.addWidget(QLabel(""))
 
         if self.df is not None:
@@ -354,3 +357,6 @@ class PaysAVisiter(QWidget):
     def set_langue(self, langue: str):
         self.langue = langue
         self.bouton_recommandations.setText(self.fonction_traduire("bouton_recommandations"))
+        self.bouton_recommandations.setToolTip(
+            self.fonction_traduire("recommandation_passeport")
+        )

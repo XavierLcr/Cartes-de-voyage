@@ -57,12 +57,13 @@ class OngletTopPays(QWidget):
         ## === Pop-up de recommandations === ##
         self.recommandations = onglet_4_3_recommendations.PaysAVisiter(
             constantes=constantes,
+            parent=None,
             table_superficie=table_superficie,
             fct_traduire=fct_traduction,
             top_n=10,
             par_pays=True,
-            alpha=0.3,
-            parent=None,
+            alpha=0.04,
+            max_par_pays=5,
         )
 
         # === Mise en page ===

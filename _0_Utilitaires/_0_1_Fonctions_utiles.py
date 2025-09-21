@@ -5,7 +5,7 @@
 ################################################################################
 
 
-import os, pickle, yaml, time
+import os, pickle, yaml, time, numba
 import pandas as pd
 import numpy as np
 from PyQt6.QtWidgets import QHBoxLayout, QFrame, QLabel
@@ -262,6 +262,7 @@ def cree_yaml_un_pays(
 
 
 # Fonction de distance orthodromique (Haversine) en km
+@numba.njit
 def distance_haversine(lat1, lon1, lat2, lon2):
     lat1, lon1, lat2, lon2 = map(np.radians, [lat1, lon1, lat2, lon2])
 

@@ -5,21 +5,15 @@
 ################################################################################
 
 
-import os, copy
+import os, copy, numba
 import numpy as np
 import pandas as pd
 from _0_Utilitaires._0_1_Fonctions_utiles import distance_haversine
 from PyQt6.QtWidgets import (
     QWidget,
-    QApplication,
-    QMainWindow,
     QPushButton,
-    QDialog,
     QVBoxLayout,
     QLabel,
-    QLineEdit,
-    QCheckBox,
-    QDialogButtonBox,
     QStyle,
     QScrollArea,
 )
@@ -30,12 +24,44 @@ from _0_Utilitaires._0_1_Fonctions_utiles import vider_layout
 # === Fonctions  === #
 
 
-def calculer_distance_deux_lieux(ligne1: pd.Series, ligne2: pd.Series, alpha=1 / 3):
+@numba.njit
+def calculer_score_region(
+    lats_visite, lons_visite, vals_visite, lats_reste, lons_reste, vals_reste, alpha
+):
+    n_reste = lats_reste.shape[0]
+    n_visite = lats_visite.shape[0]
+    scores = np.zeros(n_reste)
 
-    index = [
-        i
-        for i in ligne1.index
-        if i
+    for i in range(n_reste):
+        s = 0.0
+        for j in range(n_visite):
+            geo_dist = distance_haversine(
+                lats_reste[i], lons_reste[i], lats_visite[j], lons_visite[j]
+            )
+            diff_val = np.linalg.norm(vals_reste[i] - vals_visite[j])
+            s += diff_val / ((1 + geo_dist) ** alpha)
+        scores[i] = s / n_visite if n_visite > 0 else 0.0
+    return scores
+
+
+def calculer_recommandation(df, dict_visite, top_n=10, alpha=1 / 3):
+    # Création du set pour filtrer
+    visite_set = {(p, r) for p, regions in dict_visite.items() for r in regions}
+
+    # Séparer les colonnes
+    mask_visite = np.array(
+        [(row[0], row[1]) in visite_set for row in df[["name_0", "name_1"]].values]
+    )
+    mask_reste = ~mask_visite
+
+    df_visite = df.iloc[mask_visite]
+    df_reste = df.iloc[mask_reste]
+
+    # Extraire arrays NumPy
+    cols_val = [
+        c
+        for c in df.columns
+        if c
         not in [
             "name_0",
             "name_1",
@@ -46,36 +72,21 @@ def calculer_distance_deux_lieux(ligne1: pd.Series, ligne2: pd.Series, alpha=1 /
             "population",
         ]
     ]
+    lats_visite = df_visite["latitude"].to_numpy()
+    lons_visite = df_visite["longitude"].to_numpy()
+    vals_visite = df_visite[cols_val].to_numpy()
 
-    return np.linalg.norm(ligne1[index] - ligne2[index]) / (
-        (
-            1
-            + distance_haversine(
-                lat1=ligne1["latitude"],
-                lon1=ligne1["longitude"],
-                lat2=ligne2["latitude"],
-                lon2=ligne2["longitude"],
-            )
-        )
-        ** alpha
+    lats_reste = df_reste["latitude"].to_numpy()
+    lons_reste = df_reste["longitude"].to_numpy()
+    vals_reste = df_reste[cols_val].to_numpy()
+
+    # Calcul des scores
+    scores = calculer_score_region(
+        lats_visite, lons_visite, vals_visite, lats_reste, lons_reste, vals_reste, alpha
     )
 
-
-def calculer_recommandation(df: pd.DataFrame, dict_visite: dict, top_n=10):
-    print(dict_visite)
-    dict_visite = {(p, r) for p, regions in dict_visite.items() for r in regions}
-
-    df_visite = df[df.apply(lambda row: (row["name_0"], row["name_1"]) in dict_visite, axis=1)]
-    df_reste = df[~df.apply(lambda row: (row["name_0"], row["name_1"]) in dict_visite, axis=1)]
-
-    df_reste["score_region"] = df_reste.apply(
-        lambda row1: df_visite.apply(
-            lambda row2: calculer_distance_deux_lieux(row1, row2), axis=1
-        ).mean(),
-        axis=1,
-    )
-    print(len(df_reste[df_reste["score_region"].isna() == False]))
-
+    df_reste = df_reste.copy()
+    df_reste["score_region"] = scores
     return df_reste.sort_values("score_region", ascending=False).head(top_n)
 
 

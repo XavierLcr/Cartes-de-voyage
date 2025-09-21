@@ -291,6 +291,19 @@ assert df_religion.duplicated(subset=["name_0"], keep=False).sum() == 0, df_reli
 gdf_1 = gdf_1.merge(right=df_religion, how="left", on="name_0")
 
 
+colonnes_a_exclure = [
+    "name_0",
+    "name_1",
+    "latitude",
+    "longitude",
+    "superficie",
+    "population",
+]
+gdf_1["nombre_na"] = gdf_1.drop(columns=colonnes_a_exclure).isna().sum(axis=1) / (
+    gdf_1.shape[1] - len(colonnes_a_exclure)
+)
+
+
 # === Imputation des valeurs manquantes === #
 
 
@@ -356,7 +369,7 @@ def imputation_geo_knn(
 gdf_1 = imputation_geo_knn(
     df=gdf_1,
     n_voisins=5,
-    colonnes_exclues=["name_0", "name_1", "latitude", "longitude", "superficie", "population"],
+    colonnes_exclues=colonnes_a_exclure,
 )
 
 
@@ -364,8 +377,12 @@ gdf_1 = imputation_geo_knn(
 
 
 for col in gdf_1.columns:
-    if col not in ["name_0", "name_1", "latitude", "longitude", "superficie", "population"]:
+    if col not in colonnes_a_exclure:
         gdf_1[col] = gdf_1[col] / np.sqrt((gdf_1[col] ** 2).sum())
+
+for col in gdf_1.select_dtypes(include="object").columns:
+    if col not in ["name_0", "name_1", "name_2"]:
+        gdf_1[col] = gdf_1[col].astype(float)
 
 
 # === Export === #

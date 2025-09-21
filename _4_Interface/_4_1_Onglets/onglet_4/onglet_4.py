@@ -140,14 +140,3 @@ class OngletTopPays(QWidget):
             self.sous_onglets.setTabText(
                 self.sous_onglets.indexOf(self.classement_widget), texte_onglet_2
             )
-
-    # def pop_up_recommandations(self):
-
-    # dialogue = onglet_4_3_recommendations.PaysAVisiter(
-    #     constantes=self.constantes,
-    #     fct_traduire=self.fonction_traduction,
-    #     top_n=10,
-    #     parent=None,
-    # )
-    # dialogue.setStyleSheet(self.styleSheet())
-    # dialogue.exec()

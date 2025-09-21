@@ -263,9 +263,15 @@ def cree_yaml_un_pays(
 
 # Fonction de distance orthodromique (Haversine) en km
 def distance_haversine(lat1, lon1, lat2, lon2):
-    R = 6371  # rayon de la Terre en km
     lat1, lon1, lat2, lon2 = map(np.radians, [lat1, lon1, lat2, lon2])
-    dlat = lat2 - lat1
-    dlon = lon2 - lon1
-    a = np.sin(dlat / 2) ** 2 + np.cos(lat1) * np.cos(lat2) * np.sin(dlon / 2) ** 2
-    return 2 * R * np.arcsin(np.sqrt(a))
+
+    return (
+        2
+        * 6371
+        * np.arcsin(
+            np.sqrt(
+                np.sin((lat2 - lat1) / 2) ** 2
+                + np.cos(lat1) * np.cos(lat2) * np.sin((lon2 - lon1) / 2) ** 2
+            )
+        )
+    )

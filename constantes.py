@@ -198,3 +198,13 @@ parametres_traduits = ouvrir_fichier(
     defaut={},
     afficher_erreur="Traductions des paramètres introuvables.",
 )
+
+# -------------- Autres ------------------------------------
+
+# Import des caractéristiques des pays
+df_caracteristiques_pays = ouvrir_fichier(
+    direction_fichier=direction_donnees_application,
+    nom_fichier="caracteristiques_des_regions.pkl",
+    defaut=None,
+    afficher_erreur="Données caractéristiques des pays introuvables.",
+)

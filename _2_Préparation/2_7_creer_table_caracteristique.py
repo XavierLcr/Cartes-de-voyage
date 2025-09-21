@@ -62,6 +62,12 @@ df_religion = pd.read_csv(
         "Religious Composition 2010-2020 (percentages).csv",
     ),
 )
+df_urbanisme = pd.read_csv(
+    os.path.join(
+        constantes.direction_donnees_brutes,
+        "GDL-_-population-in-urban-areas-data.csv",
+    ),
+)
 
 # === Fonctions utiles === #
 
@@ -169,13 +175,33 @@ def nettoyer_GDL(df: pd.DataFrame, gdf, mapping: dict, annee: str, nom_col: str)
 
 
 # Application
+
+## IDH
 df_IDH = nettoyer_GDL(df=df_IDH, gdf=gdf_1, mapping=mapping, annee="2022", nom_col="IDH")
+
+## Températures
 df_temperature = nettoyer_GDL(
     df=df_temperature, gdf=gdf_1, mapping=mapping, annee="2022", nom_col="temperature"
 )
+
+## Pluies
 df_pluie = nettoyer_GDL(df=df_pluie, gdf=gdf_1, mapping=mapping, annee="2022", nom_col="pluie")
+
+## Humidité
 df_humidite = nettoyer_GDL(
     df=df_humidite, gdf=gdf_1, mapping=mapping, annee="2022", nom_col="humidite"
+)
+
+## Urbanisme
+### Valeur la plus récente
+df_urbanisme["recent"] = df_urbanisme[
+    [col for col in df_urbanisme.columns if col.isdigit()]
+].apply(
+    lambda row: row[row.last_valid_index()] if row.last_valid_index() is not None else pd.NA,
+    axis=1,
+)
+df_urbanisme = nettoyer_GDL(
+    df=df_urbanisme, gdf=gdf_1, mapping=mapping, annee="recent", nom_col="urbanisation"
 )
 
 
@@ -274,6 +300,8 @@ gdf_1 = merge_with_match(gdf_1, df_IDH)
 gdf_1 = merge_with_match(gdf_1, df_temperature)
 gdf_1 = merge_with_match(gdf_1, df_pluie)
 gdf_1 = merge_with_match(gdf_1, df_humidite)
+gdf_1 = merge_with_match(gdf_1, df_urbanisme)
+
 
 # Avec la table du tourisme
 assert df_tourisme.duplicated(subset=["name_0"], keep=False).sum() == 0, df_tourisme[

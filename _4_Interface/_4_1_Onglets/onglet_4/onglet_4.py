@@ -59,7 +59,7 @@ class OngletTopPays(QWidget):
             constantes=constantes,
             table_superficie=table_superficie,
             fct_traduire=fct_traduction,
-            top_n=20,
+            top_n=10,
             parent=None,
         )
 

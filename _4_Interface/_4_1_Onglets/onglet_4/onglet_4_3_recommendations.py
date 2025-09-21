@@ -221,7 +221,6 @@ class PaysAVisiter(QWidget):
         scroll_area = QScrollArea()
         scroll_area.setWidgetResizable(True)  # permet au scroll de s’adapter à la taille
         scroll_area.setWidget(scroll_widget)
-
         layout.addWidget(scroll_area)
 
         self.setLayout(layout)
@@ -229,13 +228,6 @@ class PaysAVisiter(QWidget):
     def calculer_prochaine_destination(self):
 
         vider_layout(self.corps_recommandations)
-
-        # Affichage temporaire
-        label_temp = QLabel()
-        label_temp.setPixmap(
-            self.style().standardPixmap(getattr(QStyle.StandardPixmap, "SP_BrowserReload"))
-        )
-        self.corps_recommandations.addWidget(label_temp)
 
         # Ajout des régions des départements
         dt_temp = self.table_superficie[

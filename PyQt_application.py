@@ -439,6 +439,16 @@ class MesVoyagesApplication(QWidget):
     def set_dictionnaire_destinations(self, dictionnaire: dict):
         self.dicts_granu = dictionnaire
         self.onglet_selection_destinations.set_dict_granu(dictionnaire=self.dicts_granu)
+
+        self.liste_onglets.setTabVisible(
+            self.liste_onglets.indexOf(self.onglet_resume_destinations),
+            self.dicts_granu != {"region": {}, "dep": {}},
+        )
+        self.liste_onglets.setTabVisible(
+            self.liste_onglets.indexOf(self.onglet_statistiques),
+            self.dicts_granu != {"region": {}, "dep": {}},
+        )
+
         self.onglet_resume_destinations.set_dicts_granu(
             dict_nv=copy.deepcopy(self.dicts_granu)
         )

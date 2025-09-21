@@ -13,7 +13,6 @@ from PyQt6.QtWidgets import (
     QWidget,
     QPushButton,
     QHBoxLayout,
-    QGraphicsDropShadowEffect,
     QVBoxLayout,
     QLabel,
     QStyle,
@@ -37,6 +36,7 @@ def calculer_score_region(
     lons_visite,
     vals_visite,
     na_visite,
+    superficie_visite,
     lats_reste,
     lons_reste,
     vals_reste,
@@ -46,20 +46,22 @@ def calculer_score_region(
     n_reste = lats_reste.shape[0]
     n_visite = lats_visite.shape[0]
     scores = np.zeros(n_reste)
-
     for i in range(n_reste):
         s = 0.0
+        total_i = 0.0
         for j in range(n_visite):
             geo_dist = distance_haversine(
                 lats_reste[i], lons_reste[i], lats_visite[j], lons_visite[j]
             )
             s += (
-                np.linalg.norm(vals_reste[i] - vals_visite[j])
+                (1 / (1 + np.linalg.norm(vals_reste[i] - vals_visite[j])))
                 / ((1 + geo_dist) ** alpha)
+                * superficie_visite[j]
                 * (1 - na_visite[j])
                 * (1 - na_reste[i])
             )
-        scores[i] = 100 * s / n_visite if n_visite > 0 else 0.0
+            total_i += superficie_visite[j]
+        scores[i] = 100 * s / total_i if n_visite > 0 else 0.0
     return scores
 
 
@@ -105,6 +107,7 @@ def calculer_recommandation(
     lons_visite = df_visite["longitude"].to_numpy()
     vals_visite = df_visite[cols_val].to_numpy()
     na_visite = df_visite["nombre_na"].to_numpy()
+    superficie_visite = df_visite["superficie"].to_numpy()
 
     lats_reste = df_reste["latitude"].to_numpy()
     lons_reste = df_reste["longitude"].to_numpy()
@@ -117,6 +120,7 @@ def calculer_recommandation(
         lons_visite=lons_visite,
         vals_visite=vals_visite,
         na_visite=na_visite,
+        superficie_visite=superficie_visite,
         lats_reste=lats_reste,
         lons_reste=lons_reste,
         vals_reste=vals_reste,
@@ -158,7 +162,14 @@ def calculer_recommandation(
 class PaysAVisiter(QWidget):
 
     def __init__(
-        self, constantes, table_superficie, fct_traduire, parent=None, top_n=10, par_pays=True
+        self,
+        constantes,
+        table_superficie,
+        fct_traduire,
+        parent=None,
+        top_n=10,
+        par_pays=True,
+        alpha=0.2,
     ):
         super().__init__(parent)
 
@@ -167,6 +178,7 @@ class PaysAVisiter(QWidget):
         self.fonction_traduire = fct_traduire
         self.dict_granu = {"region": {}, "dep": {}}
         self.top_n = top_n
+        self.alpha = alpha
         self.df = None
         self.table_superficie = table_superficie
         self.par_pays = par_pays
@@ -255,6 +267,7 @@ class PaysAVisiter(QWidget):
                 top_n=self.top_n,
                 par_pays=self.par_pays,
                 lignes_extra_par_pays=5,
+                alpha=self.alpha,
             ).reset_index()
             if dict_temp != {}
             else None
@@ -323,6 +336,7 @@ class PaysAVisiter(QWidget):
                         conteneur = QWidget()
                         conteneur.setLayout(layout_temp)
                         self.corps_recommandations.addWidget(conteneur)
+                        self.corps_recommandations.addWidget(QLabel(""))
 
     def calculer_afficher_recommandation(self):
         self.calculer_prochaine_destination()

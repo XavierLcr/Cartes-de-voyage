@@ -60,6 +60,8 @@ class OngletTopPays(QWidget):
             table_superficie=table_superficie,
             fct_traduire=fct_traduction,
             top_n=10,
+            par_pays=True,
+            alpha=0.3,
             parent=None,
         )
 

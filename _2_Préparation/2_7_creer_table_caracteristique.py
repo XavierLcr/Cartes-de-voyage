@@ -69,6 +69,60 @@ df_urbanisme = pd.read_csv(
     ),
 )
 
+
+# Alimentation
+def ouvrir_gdd(direction, nom_fichier):
+
+    df_temp = pd.read_csv(os.path.join(direction, nom_fichier))
+    df_temp = df_temp[
+        (df_temp["year"] == 2018)
+        & (df_temp["edu"] == 999)
+        & (df_temp["age"] == 999)
+        & (df_temp["female"] == 999)
+        & (df_temp["urban"] == 999)
+    ]
+    df_temp = df_temp.rename(columns={"median": "alimentation"})
+
+    assert df_temp.duplicated(subset=["iso3"], keep=False).sum() == 0, df_temp[
+        df_temp.duplicated(subset=["iso3"], keep=False)
+    ]
+
+    return df_temp[["iso3", "alimentation"]]
+
+
+## Application
+csv_alimentation = [
+    f
+    for f in os.listdir(os.path.join(constantes.direction_donnees_brutes, "Alimentation"))
+    if f.endswith(".csv")
+]
+
+df_alimentation = pd.read_excel(
+    os.path.join(
+        constantes.direction_donnees_brutes,
+        "Alimentation",
+        "GDD 2018 Codebook_Jan 10 2022.xlsx",
+    ),
+    sheet_name="Stratum-level characteristics",
+    skiprows=1,
+)[["Label", "Code"]]
+df_alimentation.rename(columns={"Label": "name_0", "Code": "iso3"}, inplace=True)
+
+for i in range(len(csv_alimentation)):
+
+    print(i, "/", len(csv_alimentation), sep="", end=" ; ")
+
+    df_alimentation = df_alimentation.merge(
+        right=ouvrir_gdd(
+            direction=os.path.join(constantes.direction_donnees_brutes, "Alimentation"),
+            nom_fichier=csv_alimentation[i],
+        ),
+        how="outer",
+        on="iso3",
+        suffixes=("", f"_{i}"),
+    )
+
+
 # === Fonctions utiles === #
 
 
@@ -92,11 +146,13 @@ def remplacer_noms(df, colonne, mapping):
 mapping = {
     # "Antigua And Barbuda": "Antigua and Barbuda",
     "Bahamas, The": "Bahamas",
+    "The Bahamas": "Bahamas",
     "Bosnia-Herzegovina": "Bosnia and Herzegovina",
     "Brunei Darussalam": "Brunei",
     "Cape Verde": "Cabo Verde",
     "Congo, Dem. Rep.": "Democratic Republic of the Congo",
     "Congo, Rep.": "Republic of the Congo",
+    "Congo": "Republic of the Congo",
     "Cote d'Ivoire": "Côte d'Ivoire",
     "Ivory Coast": "Côte d'Ivoire",
     "Curacao": "Curaçao",
@@ -105,12 +161,14 @@ mapping = {
     "Eswatini": "Swaziland",
     "FInland": "Finland",
     "Gambia, The": "Gambia",
+    "The Gambia": "Gambia",
     "Hong Kong SAR, China": "Hong Kong",
     "Iran, Islamic Rep.": "Iran",
     "Korea, Dem. People's Rep.": "North Korea",
     "Korea, Rep.": "South Korea",
     "Kyrgyz Republic": "Kyrgyzstan",
     "Lao PDR": "Laos",
+    "Macedonia": "North Macedonia",
     "Mexico": "México",
     "Micronesia, Fed. Sts.": "Micronesia",
     "Federated States of Micronesia": "Micronesia",
@@ -207,6 +265,7 @@ df_urbanisme = nettoyer_GDL(
 
 # === Nettoyage de la table de tourisme === #
 
+
 df_tourisme = df_tourisme.loc[
     :, df_tourisme.nunique(dropna=False) > 1
 ]  # Suppression des colonnes constantes
@@ -247,6 +306,23 @@ guernsey["population"] = 67_334
 
 # On reconstruit le DataFrame
 df_religion = pd.concat([df_religion[~mask], jersey, guernsey], ignore_index=True)
+df_religion.drop("other_religions", axis=1, inplace=True)
+df_religion.rename(
+    columns={
+        col: f"religion_{col}"
+        for col in df_religion.columns
+        if col not in ["name_0", "population"]
+    },
+    inplace=True,
+)
+
+
+# === Nettoyage de la table alimentaire === #
+
+
+df_alimentation.loc[df_alimentation["iso3"] == "SSD", "name_0"] = "South Sudan"
+df_alimentation.drop("iso3", axis=1, inplace=True)
+df_alimentation = remplacer_noms(df=df_alimentation, colonne="name_0", mapping=mapping)
 
 
 # === Jointures === #
@@ -318,6 +394,12 @@ assert df_religion.duplicated(subset=["name_0"], keep=False).sum() == 0, df_reli
 ]
 gdf_1 = gdf_1.merge(right=df_religion, how="left", on="name_0")
 
+# Avec la table alimentaire
+assert df_alimentation.duplicated(subset=["name_0"], keep=False).sum() == 0, df_alimentation[
+    df_alimentation.duplicated(subset=["name_0"], keep=False)
+]
+gdf_1 = gdf_1.merge(right=df_alimentation, how="left", on="name_0")
+
 
 colonnes_a_exclure = [
     "name_0",
@@ -369,6 +451,8 @@ def imputation_geo_knn(
     df_impute = df.copy()
 
     for col in colonnes_a_imputer:
+
+        print(col)
         # Masque des lignes où la colonne est manquante
         lignes_na = df_impute[col].isna()
 
@@ -407,6 +491,14 @@ gdf_1 = imputation_geo_knn(
 for col in gdf_1.columns:
     if col not in colonnes_a_exclure:
         gdf_1[col] = gdf_1[col] / np.sqrt((gdf_1[col] ** 2).sum())
+
+for pattern in ["alimentation", "religion"]:
+    print("pattern :", pattern, end=" : ")
+
+    colonnes_i = [col for col in gdf_1.columns if pattern in col.lower()]
+    for col in colonnes_i:
+        gdf_1[col] = 2 * gdf_1[col] / len(colonnes_i)
+
 
 for col in gdf_1.select_dtypes(include="object").columns:
     if col not in ["name_0", "name_1", "name_2"]:

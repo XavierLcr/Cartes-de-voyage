@@ -126,7 +126,7 @@ class OngletTopPays(QWidget):
         )
         texte_onglet_3 = self.fonction_traduction(
             "titre_sous_onglet_4_3",
-            suffixe=(" 🚄​"),
+            suffixe=(" 🚂​"),
         )
 
         if self.mise_en_page == 0:

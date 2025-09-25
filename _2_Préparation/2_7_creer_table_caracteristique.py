@@ -6,7 +6,6 @@
 
 
 import os, sys, unicodedata
-import numpy as np
 import pandas as pd
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
@@ -68,6 +67,12 @@ df_urbanisme = pd.read_csv(
         "GDL-_-population-in-urban-areas-data.csv",
     ),
 )
+df_justice = pd.read_csv(
+    os.path.join(
+        constantes.direction_donnees_brutes,
+        "GDL-Comprehensive-Subnational-Corruption-Index-(SCI)-data.csv",
+    ),
+)
 
 
 # Alimentation
@@ -110,8 +115,6 @@ df_alimentation.rename(columns={"Label": "name_0", "Code": "iso3"}, inplace=True
 
 for i in range(len(csv_alimentation)):
 
-    print(i, "/", len(csv_alimentation), sep="", end=" ; ")
-
     df_alimentation = df_alimentation.merge(
         right=ouvrir_gdd(
             direction=os.path.join(constantes.direction_donnees_brutes, "Alimentation"),
@@ -145,13 +148,18 @@ def remplacer_noms(df, colonne, mapping):
 # Dictionnaire de remplacement des noms de pays
 mapping = {
     # "Antigua And Barbuda": "Antigua and Barbuda",
+    "Argentina urban": "Argentina",
     "Bahamas, The": "Bahamas",
     "The Bahamas": "Bahamas",
     "Bosnia-Herzegovina": "Bosnia and Herzegovina",
     "Brunei Darussalam": "Brunei",
     "Cape Verde": "Cabo Verde",
+    "Central African Republic CAR": "Central African Republic",
+    "Chili": "Chile",
     "Congo, Dem. Rep.": "Democratic Republic of the Congo",
+    "Congo Democratic Republic": "Democratic Republic of the Congo",
     "Congo, Rep.": "Republic of the Congo",
+    "Congo Brazzaville": "Republic of the Congo",
     "Congo": "Republic of the Congo",
     "Cote d'Ivoire": "Côte d'Ivoire",
     "Ivory Coast": "Côte d'Ivoire",
@@ -162,12 +170,14 @@ mapping = {
     "FInland": "Finland",
     "Gambia, The": "Gambia",
     "The Gambia": "Gambia",
+    "Guinea Bissau": "Guinea-Bissau",
     "Hong Kong SAR, China": "Hong Kong",
     "Iran, Islamic Rep.": "Iran",
     "Korea, Dem. People's Rep.": "North Korea",
     "Korea, Rep.": "South Korea",
     "Kyrgyz Republic": "Kyrgyzstan",
     "Lao PDR": "Laos",
+    "Lao": "Laos",
     "Macedonia": "North Macedonia",
     "Mexico": "México",
     "Micronesia, Fed. Sts.": "Micronesia",
@@ -178,12 +188,14 @@ mapping = {
     "St. Martin (French part)": "Saint-Martin",
     "Sint Maarten (Dutch part)": "Sint Maarten",
     "Sao Tome and Principe": "São Tomé and Príncipe",
+    "Sao Tome & Principe": "São Tomé and Príncipe",
     "Slovak Republic": "Slovakia",
     "St. Kitts and Nevis": "Saint Kitts and Nevis",
     "St. Lucia": "Saint Lucia",
     "St. Vincent and the Grenadines": "Saint Vincent and the Grenadines",
     "Syrian Arab Republic": "Syria",
     # "Trinidad And Tobago": "Trinidad and Tobago",
+    "Timor Leste": "Timor-Leste",
     "Turkiye": "Turkey",
     "Turks & Caicos Islands": "Turks and Caicos Islands",
     "United States of America": "United States",
@@ -248,6 +260,9 @@ df_pluie = nettoyer_GDL(df=df_pluie, gdf=gdf_1, mapping=mapping, annee="2022", n
 ## Humidité
 df_humidite = nettoyer_GDL(
     df=df_humidite, gdf=gdf_1, mapping=mapping, annee="2022", nom_col="humidite"
+)
+df_justice = nettoyer_GDL(
+    df=df_justice, gdf=gdf_1, mapping=mapping, annee="2022", nom_col="corruption"
 )
 
 ## Urbanisme
@@ -377,6 +392,7 @@ gdf_1 = merge_with_match(gdf_1, df_temperature)
 gdf_1 = merge_with_match(gdf_1, df_pluie)
 gdf_1 = merge_with_match(gdf_1, df_humidite)
 gdf_1 = merge_with_match(gdf_1, df_urbanisme)
+gdf_1 = merge_with_match(gdf_1, df_justice)
 
 
 # Avec la table du tourisme
@@ -490,7 +506,7 @@ gdf_1 = imputation_geo_knn(
 
 for col in gdf_1.columns:
     if col not in colonnes_a_exclure:
-        gdf_1[col] = gdf_1[col] / np.sqrt((gdf_1[col] ** 2).sum())
+        gdf_1[col] = (gdf_1[col] - gdf_1[col].min()) / (gdf_1[col].max() - gdf_1[col].min())
 
 for pattern in ["alimentation", "religion"]:
     print("pattern :", pattern, end=" : ")

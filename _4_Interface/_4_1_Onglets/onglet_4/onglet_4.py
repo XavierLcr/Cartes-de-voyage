@@ -132,6 +132,9 @@ class OngletTopPays(QWidget):
         if self.mise_en_page == 0:
             self.btn_hemicycle.setText(texte_onglet_1)
             self.btn_top_pays.setText(texte_onglet_2)
+            self.btn_top_pays.setToolTip(
+                self.fonction_traduction("description_onglet_4", suffixe=".")
+            )
             self.btn_recommandations.setText(texte_onglet_3)
         elif self.mise_en_page == 1:
             self.sous_onglets.setTabText(
@@ -139,4 +142,8 @@ class OngletTopPays(QWidget):
             )
             self.sous_onglets.setTabText(
                 self.sous_onglets.indexOf(self.classement_widget), texte_onglet_2
+            )
+            self.sous_onglets.setTabToolTip(
+                self.sous_onglets.indexOf(self.classement_widget),
+                self.fonction_traduction("description_onglet_4", suffixe="."),
             )

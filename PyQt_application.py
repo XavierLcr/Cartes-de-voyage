@@ -208,10 +208,6 @@ class MesVoyagesApplication(QWidget):
             ),
         )
         self.onglet_statistiques.set_langue(nouvelle_langue=self.langue)
-        self.liste_onglets.setTabToolTip(
-            self.liste_onglets.indexOf(self.onglet_statistiques),
-            self.traduire_depuis_id("description_onglet_4", suffixe="."),
-        )
 
         # Onglet 5
         self.onglet_description_application.set_langue()

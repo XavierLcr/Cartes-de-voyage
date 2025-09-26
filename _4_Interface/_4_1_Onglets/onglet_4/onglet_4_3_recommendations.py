@@ -5,17 +5,15 @@
 ################################################################################
 
 
-import os, copy, numba
+import copy, numba
 import numpy as np
-import pandas as pd
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import Qt, QThread, pyqtSignal, QObject
 from PyQt6.QtWidgets import (
     QWidget,
     QPushButton,
     QHBoxLayout,
     QVBoxLayout,
     QLabel,
-    QStyle,
     QScrollArea,
 )
 
@@ -159,6 +157,36 @@ def calculer_recommandation(
         )
 
 
+class WorkerRecommandation(QObject):
+    finished = pyqtSignal(object)  # Signal pour retourner le résultat
+
+    def __init__(self, df, dict_visite, top_n, par_pays, alpha, max_par_pays):
+        super().__init__()
+        self.df = df
+        self.dict_visite = dict_visite
+        self.top_n = top_n
+        self.par_pays = par_pays
+        self.alpha = alpha
+        self.max_par_pays = max_par_pays
+
+    def calculer(self):
+        """Méthode exécutée dans le thread."""
+        df = (
+            calculer_recommandation(
+                df=self.df,
+                dict_visite=self.dict_visite,
+                top_n=self.top_n,
+                par_pays=self.par_pays,
+                lignes_extra_par_pays=5,
+                alpha=self.alpha,
+                max_par_pays=self.max_par_pays,
+            ).reset_index()
+            if self.dict_visite != {}
+            else None
+        )
+        self.finished.emit(df)  # Émet le résultat
+
+
 class PaysAVisiter(QWidget):
 
     def __init__(
@@ -211,7 +239,7 @@ class PaysAVisiter(QWidget):
         )
 
         layout.addWidget(self.bouton_recommandations)
-        self.bouton_recommandations.clicked.connect(self.calculer_afficher_recommandation)
+        self.bouton_recommandations.clicked.connect(self.calculer_prochaine_destination)
 
         # Scroll area pour les recommandations
         scroll_widget = QWidget()  # widget qui contiendra le layout des recommandations
@@ -253,20 +281,27 @@ class PaysAVisiter(QWidget):
 
         dict_temp = {k: list(dict.fromkeys(v)) for k, v in dict_temp.items() if v is not None}
 
-        # Calcul de la table
-        self.df = (
-            calculer_recommandation(
-                df=self.constantes.df_caracteristiques_pays,
-                dict_visite=dict_temp,
-                top_n=self.top_n,
-                par_pays=self.par_pays,
-                lignes_extra_par_pays=5,
-                alpha=self.alpha,
-                max_par_pays=self.max_par_pays,
-            ).reset_index()
-            if dict_temp != {}
-            else None
+        self.thread_temp = QThread()
+        self.worker_temp = WorkerRecommandation(
+            df=self.constantes.df_caracteristiques_pays,
+            dict_visite=dict_temp,
+            top_n=self.top_n,
+            par_pays=self.par_pays,
+            alpha=self.alpha,
+            max_par_pays=self.max_par_pays,
         )
+        self.worker_temp.moveToThread(self.thread_temp)
+        self.thread_temp.started.connect(self.worker_temp.calculer)
+        self.worker_temp.finished.connect(self.on_calcul_fini)
+        self.worker_temp.finished.connect(self.thread_temp.quit)
+        self.worker_temp.finished.connect(self.worker_temp.deleteLater)
+        self.thread_temp.finished.connect(self.thread_temp.deleteLater)
+        self.thread_temp.start()
+
+    def on_calcul_fini(self, df):
+        """Méthode appelée quand le calcul est terminé."""
+        self.df = df
+        self.afficher_recommandation()
 
     def afficher_recommandation(self):
 
@@ -332,10 +367,6 @@ class PaysAVisiter(QWidget):
                         conteneur.setLayout(layout_temp)
                         self.corps_recommandations.addWidget(conteneur)
                         self.corps_recommandations.addWidget(QLabel(""))
-
-    def calculer_afficher_recommandation(self):
-        self.calculer_prochaine_destination()
-        self.afficher_recommandation()
 
     def set_dicts_granu(self, dict_nv: dict):
         """Permet de mettre à jour les sélections de destinations."""

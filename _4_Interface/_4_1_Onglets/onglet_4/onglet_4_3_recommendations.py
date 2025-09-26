@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
-# _4_Interface/_4_1_Onglets/onglet_2                                           #
-# Onglet 2 – Suggestions de nouvelles destinations                             #
+# _4_Interface/_4_1_Onglets/onglet_4                                           #
+# Onglet 4.3 – Suggestions de nouvelles destinations                           #
 ################################################################################
 
 

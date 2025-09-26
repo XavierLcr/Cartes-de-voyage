@@ -102,6 +102,7 @@ class OngletTopPays(QWidget):
             self.sous_onglets = QTabWidget()
             self.sous_onglets.addTab(page_hemicycle, "Hémicycle")
             self.sous_onglets.addTab(self.classement_widget, "Top Pays")
+            self.sous_onglets.addTab(self.recommandations, "Top Pays")
 
             ## === Layout principal ===
             layout.addWidget(self.sous_onglets)
@@ -146,4 +147,7 @@ class OngletTopPays(QWidget):
             self.sous_onglets.setTabToolTip(
                 self.sous_onglets.indexOf(self.classement_widget),
                 self.fonction_traduction("description_onglet_4", suffixe="."),
+            )
+            self.sous_onglets.setTabText(
+                self.sous_onglets.indexOf(self.recommandations), texte_onglet_3
             )

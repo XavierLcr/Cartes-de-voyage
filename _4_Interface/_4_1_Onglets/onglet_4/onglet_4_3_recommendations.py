@@ -352,3 +352,4 @@ class PaysAVisiter(QWidget):
         self.bouton_recommandations.setToolTip(
             self.fonction_traduire("recommandation_passeport")
         )
+        self.afficher_recommandation()

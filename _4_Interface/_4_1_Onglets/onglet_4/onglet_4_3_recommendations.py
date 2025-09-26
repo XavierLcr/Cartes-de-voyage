@@ -160,26 +160,26 @@ def calculer_recommandation(
 class WorkerRecommandation(QObject):
     finished = pyqtSignal(object)  # Signal pour retourner le résultat
 
-    def __init__(self, df, dict_visite, top_n, par_pays, alpha, max_par_pays):
+    def __init__(self, constantes, dict_visite):
         super().__init__()
-        self.df = df
+        self.constantes = constantes
         self.dict_visite = dict_visite
-        self.top_n = top_n
-        self.par_pays = par_pays
-        self.alpha = alpha
-        self.max_par_pays = max_par_pays
 
     def calculer(self):
         """Méthode exécutée dans le thread."""
         df = (
             calculer_recommandation(
-                df=self.df,
+                df=self.constantes.df_caracteristiques_pays,
                 dict_visite=self.dict_visite,
-                top_n=self.top_n,
-                par_pays=self.par_pays,
-                lignes_extra_par_pays=5,
-                alpha=self.alpha,
-                max_par_pays=self.max_par_pays,
+                top_n=self.constantes.parametres_application.get("n_recommandations", 10),
+                par_pays=self.constantes.parametres_application.get("par_pays", True),
+                lignes_extra_par_pays=self.constantes.parametres_application.get(
+                    "lignes_supp_apres_dernier_pays", 5
+                ),
+                alpha=self.constantes.parametres_application.get("coeff_distance", 0.05),
+                max_par_pays=self.constantes.parametres_application.get(
+                    "max_regions_par_pays", 5
+                ),
             ).reset_index()
             if self.dict_visite != {}
             else None
@@ -195,10 +195,6 @@ class PaysAVisiter(QWidget):
         table_superficie,
         fct_traduire,
         parent=None,
-        top_n=10,
-        par_pays=True,
-        alpha=0.2,
-        max_par_pays=5,
     ):
         super().__init__(parent)
 
@@ -206,12 +202,8 @@ class PaysAVisiter(QWidget):
         self.constantes = constantes
         self.fonction_traduire = fct_traduire
         self.dict_granu = {"region": {}, "dep": {}}
-        self.top_n = top_n
-        self.alpha = alpha
         self.df = None
         self.table_superficie = table_superficie
-        self.par_pays = par_pays
-        self.max_par_pays = max_par_pays
 
         layout = QVBoxLayout()
         # Bouton de lancement
@@ -283,12 +275,8 @@ class PaysAVisiter(QWidget):
 
         self.thread_temp = QThread()
         self.worker_temp = WorkerRecommandation(
-            df=self.constantes.df_caracteristiques_pays,
+            constantes=self.constantes,
             dict_visite=dict_temp,
-            top_n=self.top_n,
-            par_pays=self.par_pays,
-            alpha=self.alpha,
-            max_par_pays=self.max_par_pays,
         )
         self.worker_temp.moveToThread(self.thread_temp)
         self.thread_temp.started.connect(self.worker_temp.calculer)
@@ -322,7 +310,7 @@ class PaysAVisiter(QWidget):
         if self.df is not None:
             if len(self.df) > 0:
 
-                if not self.par_pays:
+                if not self.constantes.parametres_application.get("par_pays", True):
 
                     for i, ligne in self.df.iterrows():
 

@@ -30,3 +30,9 @@ lighter_value: 190
 ## Paramètres du top pays visités
 top_n_pays: null # null pour tous les avoir
 pct_ndigits: 0
+## Paramètres de recommandations
+par_pays: true
+n_recommandations: 10
+coeff_distance: 0.03
+max_regions_par_pays: 5
+lignes_supp_apres_dernier_pays: 5

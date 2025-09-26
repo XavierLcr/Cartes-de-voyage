@@ -302,14 +302,14 @@ if __name__ == "__main__":
 
     for modele_utilise in [
         {
-            "modèle": "gemini-2.0-flash-lite",
-            "limite_appels_minute": 28,
-            "limite_appels_jour": 199,
-        },
-        {
             "modèle": "gemini-2.5-flash-lite",
             "limite_appels_minute": 14,
             "limite_appels_jour": 999,
+        },
+        {
+            "modèle": "gemini-2.0-flash-lite",
+            "limite_appels_minute": 28,
+            "limite_appels_jour": 199,
         },
         {
             "modèle": "gemini-2.0-flash",

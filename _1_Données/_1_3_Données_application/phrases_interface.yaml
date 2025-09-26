@@ -94,6 +94,11 @@ titre_sous_onglet_4_1: Pays visités par continent
 titre_sous_onglet_4_2 : Pays les plus visités
 classement_selon_regions : Selon les régions visitées
 classement_selon_departements : Selon les départements visités
+# Recommandations
+titre_sous_onglet_4_3 : Suggestions de destinations
+bouton_recommandations : Cliquez ici afin de trouver votre prochaine destination !
+titre_recommandations : Nos suggestions rien que pour vous
+recommandation_passeport : À vos passeports, prêts, voyagez !
 
 # Onglet 5
 sous_titre_description_application : Création de cartes de voyages

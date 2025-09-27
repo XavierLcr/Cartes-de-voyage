@@ -13,6 +13,7 @@ from PyQt6.QtWidgets import (
     QPushButton,
     QHBoxLayout,
     QVBoxLayout,
+    QGridLayout,
     QLabel,
     QScrollArea,
 )
@@ -128,6 +129,7 @@ def calculer_recommandation(
 
     df_reste = df_reste.copy()
     df_reste["score_region"] = scores
+    df_reste["score_pays"] = df_reste.groupby("name_0")["score_region"].transform("sum")
     df_reste = df_reste.sort_values("score_region", ascending=False)
 
     if not par_pays:
@@ -147,11 +149,7 @@ def calculer_recommandation(
 
         return (
             df_reste.groupby("name_0", group_keys=False)
-            .apply(
-                lambda g: g.nlargest(max_par_pays, "score_region").assign(
-                    score_pays=g["score_region"].nlargest(max_par_pays).sum()
-                )
-            )
+            .apply(lambda g: g.nlargest(max_par_pays, "score_region"))
             .reset_index(drop=True)
             .sort_values(["score_pays", "score_region"], ascending=[False, False])
         )
@@ -312,9 +310,13 @@ class PaysAVisiter(QWidget):
 
                 if not self.constantes.parametres_application.get("par_pays", True):
 
+                    modulo = 4
                     for i, ligne in self.df.iterrows():
 
-                        self.corps_recommandations.addWidget(
+                        if i % modulo == 0:
+                            layout_temp = QGridLayout()
+
+                        layout_temp.addWidget(
                             QLabel(
                                 # Numéro
                                 f"{i + 1}. "
@@ -323,8 +325,16 @@ class PaysAVisiter(QWidget):
                                 # Régions si affichage regroupé
                                 f"{ligne['name_1']}",
                                 wordWrap=True,
-                            )
+                            ),
+                            0,
+                            i % modulo,
                         )
+
+                        if (i + 1) % modulo == 0:
+                            self.corps_recommandations.addLayout(layout_temp)
+                            self.corps_recommandations.addWidget(QLabel())
+
+                    self.corps_recommandations.addStretch()
 
                 else:
 

@@ -17,7 +17,140 @@ from _0_Utilitaires._0_1_Fonctions_utiles import (
 )
 
 
-# === Import des données === #
+# 1 -- Fonctions utiles --------------------------------------------------------
+
+
+## 1.1 -- Fonction de remplacement de valeurs au sein d'une colonne ------------
+
+
+def remplacer_noms(df, colonne, mapping):
+    """
+    Remplace les valeurs d'une colonne selon un dictionnaire.
+
+    Args:
+        df (pd.DataFrame): ton DataFrame
+        colonne (str): nom de la colonne à modifier
+        mapping (dict): dictionnaire {ancien_nom: nouveau_nom}
+
+    Returns:
+        pd.DataFrame: le DataFrame modifié
+    """
+    df[colonne] = df[colonne].replace(mapping)
+    return df
+
+
+# Dictionnaire de remplacement des noms de pays
+mapping = {
+    # "Antigua And Barbuda": "Antigua and Barbuda",
+    "Argentina urban": "Argentina",
+    "Bahamas, The": "Bahamas",
+    "The Bahamas": "Bahamas",
+    "Bosnia-Herzegovina": "Bosnia and Herzegovina",
+    "Brunei Darussalam": "Brunei",
+    "Cape Verde": "Cabo Verde",
+    "Central African Republic CAR": "Central African Republic",
+    "Chili": "Chile",
+    "Congo, Dem. Rep.": "Democratic Republic of the Congo",
+    "Dem. Rep. Congo": "Democratic Republic of the Congo",
+    "Congo Democratic Republic": "Democratic Republic of the Congo",
+    "Congo, Rep.": "Republic of the Congo",
+    "Congo Brazzaville": "Republic of the Congo",
+    "Congo": "Republic of the Congo",
+    "Republic of Congo": "Republic of the Congo",
+    "Cote d'Ivoire": "Côte d'Ivoire",
+    "Ivory Coast": "Côte d'Ivoire",
+    "Curacao": "Curaçao",
+    "Czech Republic": "Czechia",
+    "Egypt, Arab Rep.": "Egypt",
+    "Eswatini": "Swaziland",
+    "Faeroe Islands": "Faroe Islands",
+    "FInland": "Finland",
+    "Gambia, The": "Gambia",
+    "The Gambia": "Gambia",
+    "Guinea Bissau": "Guinea-Bissau",
+    "Holy See": "Vatican City",
+    "Hong Kong SAR, China": "Hong Kong",
+    "Iran, Islamic Rep.": "Iran",
+    "Korea, Dem. People's Rep.": "North Korea",
+    "Korea, Rep.": "South Korea",
+    "Kyrgyz Republic": "Kyrgyzstan",
+    "Lao PDR": "Laos",
+    "Lao": "Laos",
+    "Macedonia": "North Macedonia",
+    "Mexico": "México",
+    "Micronesia, Fed. Sts.": "Micronesia",
+    "Federated States of Micronesia": "Micronesia",
+    "Puerto Rico (US)": "Puerto Rico",
+    "Russian Federation": "Russia",
+    "Reunion": "Réunion",
+    "St. Martin (French part)": "Saint-Martin",
+    "Sint Maarten (Dutch part)": "Sint Maarten",
+    "Sao Tome and Principe": "São Tomé and Príncipe",
+    "Sao Tome & Principe": "São Tomé and Príncipe",
+    "Slovak Republic": "Slovakia",
+    "Saint Barthelemy": "Saint-Barthélemy",
+    "St. Kitts and Nevis": "Saint Kitts and Nevis",
+    "St. Lucia": "Saint Lucia",
+    "St. Vincent and the Grenadines": "Saint Vincent and the Grenadines",
+    "Syrian Arab Republic": "Syria",
+    # "Trinidad And Tobago": "Trinidad and Tobago",
+    "Timor Leste": "Timor-Leste",
+    "Turkiye": "Turkey",
+    "Turks & Caicos Islands": "Turks and Caicos Islands",
+    "United States of America": "United States",
+    "Venezuela, RB": "Venezuela",
+    "Virgin Islands (U.S.)": "Virgin Islands, US",
+    "U.S. Virgin Islands": "Virgin Islands, US",
+    "Viet Nam": "Vietnam",
+    "Wallis and Futuna Islands": "Wallis and Futuna",
+    "West Bank and Gaza": "Palestine",
+    "Palestinian territories": "Palestine",
+    "State of Palestine": "Palestine",
+    "Yemen, Rep.": "Yemen",
+}
+
+
+## 1.2 -- Modifier les noms de colonnes avec des années ------------------------
+
+
+def nettoyer_nom_colonne(nom):
+    chiffres = "".join(filter(str.isdigit, nom))
+    return chiffres if chiffres else nom
+
+
+## 1.3 -- Fonction de sélection de la dernière valeur existante ---------------
+
+
+def derniere_valeur_valide_par_ligne(df: pd.DataFrame) -> pd.Series:
+    """
+    Retourne la dernière valeur valide pour chaque ligne,
+    en ne considérant que les colonnes dont le nom est un nombre entier.
+
+    Args:
+        df (pd.DataFrame): DataFrame d'entrée.
+
+    Returns:
+        pd.Series: Série contenant la dernière valeur valide pour chaque ligne.
+    """
+    # Filtrer les colonnes dont le nom est un nombre entier
+    colonnes_chiffrees = [col for col in df.columns if str(col).isdigit()]
+
+    # Extraire uniquement ces colonnes
+    df_chiffres = df[colonnes_chiffrees]
+
+    # Appliquer la logique pour obtenir la dernière valeur valide par ligne
+    return df_chiffres.apply(
+        lambda row: (
+            row[row.last_valid_index()] if row.last_valid_index() is not None else pd.NA
+        ),
+        axis=1,
+    )
+
+
+# 2 -- Import des données ------------------------------------------------------
+
+
+## 2.1 -- Données simples ------------------------------------------------------
 
 
 # Table à compléter
@@ -40,7 +173,8 @@ df_temperature = pd.read_csv(
 )
 df_pluie = pd.read_csv(
     os.path.join(
-        constantes.direction_donnees_brutes, "GDL-Total-Yearly-Precipitation-(m)-data.csv"
+        constantes.direction_donnees_brutes,
+        "GDL-Total-Yearly-Precipitation-(m)-data.csv",
     )
 )
 df_humidite = pd.read_csv(
@@ -75,7 +209,12 @@ df_justice = pd.read_csv(
 )
 
 
-# Alimentation
+## 2.2 -- Données alimentaires -------------------------------------------------
+
+
+### Fonction générique ---------------------------------------------------------
+
+
 def ouvrir_gdd(direction, nom_fichier):
 
     df_temp = pd.read_csv(os.path.join(direction, nom_fichier))
@@ -88,6 +227,7 @@ def ouvrir_gdd(direction, nom_fichier):
     ]
     df_temp = df_temp.rename(columns={"median": "alimentation"})
 
+    # Test de granularité
     assert df_temp.duplicated(subset=["iso3"], keep=False).sum() == 0, df_temp[
         df_temp.duplicated(subset=["iso3"], keep=False)
     ]
@@ -95,10 +235,15 @@ def ouvrir_gdd(direction, nom_fichier):
     return df_temp[["iso3", "alimentation"]]
 
 
-## Application
+### Application ----------------------------------------------------------------
+
+
+# Récupération des noms de fichiers
 csv_alimentation = [
     f
-    for f in os.listdir(os.path.join(constantes.direction_donnees_brutes, "Alimentation"))
+    for f in os.listdir(
+        os.path.join(constantes.direction_donnees_brutes, "Alimentation")
+    )
     if f.endswith(".csv")
 ]
 
@@ -126,90 +271,52 @@ for i in range(len(csv_alimentation)):
     )
 
 
-# === Fonctions utiles === #
+## 2.3 -- Données environnementales --------------------------------------------
 
 
-def remplacer_noms(df, colonne, mapping):
-    """
-    Remplace les valeurs d'une colonne selon un dictionnaire.
-
-    Args:
-        df (pd.DataFrame): ton DataFrame
-        colonne (str): nom de la colonne à modifier
-        mapping (dict): dictionnaire {ancien_nom: nouveau_nom}
-
-    Returns:
-        pd.DataFrame: le DataFrame modifié
-    """
-    df[colonne] = df[colonne].replace(mapping)
-    return df
+# Récupération des noms de fichiers
+csv_environnement = [
+    f
+    for f in os.listdir(
+        os.path.join(constantes.direction_donnees_brutes, "Environnement")
+    )
+    if f.endswith(".csv")
+    and any(prefix in f for prefix in ["RMS", "FCL", "WWR", "UWD", "PAR"])
+]
 
 
-# Dictionnaire de remplacement des noms de pays
-mapping = {
-    # "Antigua And Barbuda": "Antigua and Barbuda",
-    "Argentina urban": "Argentina",
-    "Bahamas, The": "Bahamas",
-    "The Bahamas": "Bahamas",
-    "Bosnia-Herzegovina": "Bosnia and Herzegovina",
-    "Brunei Darussalam": "Brunei",
-    "Cape Verde": "Cabo Verde",
-    "Central African Republic CAR": "Central African Republic",
-    "Chili": "Chile",
-    "Congo, Dem. Rep.": "Democratic Republic of the Congo",
-    "Congo Democratic Republic": "Democratic Republic of the Congo",
-    "Congo, Rep.": "Republic of the Congo",
-    "Congo Brazzaville": "Republic of the Congo",
-    "Congo": "Republic of the Congo",
-    "Cote d'Ivoire": "Côte d'Ivoire",
-    "Ivory Coast": "Côte d'Ivoire",
-    "Curacao": "Curaçao",
-    "Czech Republic": "Czechia",
-    "Egypt, Arab Rep.": "Egypt",
-    "Eswatini": "Swaziland",
-    "FInland": "Finland",
-    "Gambia, The": "Gambia",
-    "The Gambia": "Gambia",
-    "Guinea Bissau": "Guinea-Bissau",
-    "Hong Kong SAR, China": "Hong Kong",
-    "Iran, Islamic Rep.": "Iran",
-    "Korea, Dem. People's Rep.": "North Korea",
-    "Korea, Rep.": "South Korea",
-    "Kyrgyz Republic": "Kyrgyzstan",
-    "Lao PDR": "Laos",
-    "Lao": "Laos",
-    "Macedonia": "North Macedonia",
-    "Mexico": "México",
-    "Micronesia, Fed. Sts.": "Micronesia",
-    "Federated States of Micronesia": "Micronesia",
-    "Puerto Rico (US)": "Puerto Rico",
-    "Russian Federation": "Russia",
-    "Reunion": "Réunion",
-    "St. Martin (French part)": "Saint-Martin",
-    "Sint Maarten (Dutch part)": "Sint Maarten",
-    "Sao Tome and Principe": "São Tomé and Príncipe",
-    "Sao Tome & Principe": "São Tomé and Príncipe",
-    "Slovak Republic": "Slovakia",
-    "St. Kitts and Nevis": "Saint Kitts and Nevis",
-    "St. Lucia": "Saint Lucia",
-    "St. Vincent and the Grenadines": "Saint Vincent and the Grenadines",
-    "Syrian Arab Republic": "Syria",
-    # "Trinidad And Tobago": "Trinidad and Tobago",
-    "Timor Leste": "Timor-Leste",
-    "Turkiye": "Turkey",
-    "Turks & Caicos Islands": "Turks and Caicos Islands",
-    "United States of America": "United States",
-    "Venezuela, RB": "Venezuela",
-    "Virgin Islands (U.S.)": "Virgin Islands, US",
-    "U.S. Virgin Islands": "Virgin Islands, US",
-    "Viet Nam": "Vietnam",
-    "West Bank and Gaza": "Palestine",
-    "Palestinian territories": "Palestine",
-    "Yemen, Rep.": "Yemen",
-}
+for i in range(len(csv_environnement)):
+
+    df_temp = remplacer_noms(
+        df=pd.read_csv(
+            os.path.join(
+                constantes.direction_donnees_brutes,
+                "Environnement",
+                csv_environnement[i],
+            )
+        ),
+        colonne="country",
+        mapping=mapping,
+    )
+
+    df_temp.columns = [nettoyer_nom_colonne(col) for col in df_temp.columns]
+    df_temp.rename(columns={"country": "name_0"}, inplace=True)
+    df_temp[f"environnement_{i}"] = derniere_valeur_valide_par_ligne(df_temp)
+    df_temp = df_temp[["name_0", f"environnement_{i}"]]
+
+    if i == 0:
+        df_environnement = df_temp.copy()
+    else:
+        df_environnement = df_environnement.merge(
+            right=df_temp, on="name_0", how="outer"
+        )
+
+# 3 -- Nettoyage ---------------------------------------------------------------
 
 
-# === Ajout de données géographiques === #
+## 3.1 -- Données géographiques ------------------------------------------------
+
+
 gdf_1["centroid"] = gdf_1["geometry"].centroid
 gdf_1["superficie"] = gdf_1["geometry"].area
 gdf_1["latitude"] = gdf_1["centroid"].y
@@ -218,7 +325,10 @@ gdf_1 = gdf_1.drop(columns=["centroid"])
 gdf_1 = gdf_1.drop(columns=["geometry"])
 
 
-# === Nettoyage des données Global Data Lab === #
+## 3.2 -- Données du Global Data Lab (GDL) -------------------------------------
+
+
+### Fonction de nettoyage générique --------------------------------------------
 
 
 def nettoyer_GDL(df: pd.DataFrame, gdf, mapping: dict, annee: str, nom_col: str):
@@ -227,7 +337,8 @@ def nettoyer_GDL(df: pd.DataFrame, gdf, mapping: dict, annee: str, nom_col: str)
     df["Country"] = df.apply(
         lambda row: (
             row["Region"]
-            if row["Region"] in (set(df["Region"].unique()) & set(gdf["name_0"].unique()))
+            if row["Region"]
+            in (set(df["Region"].unique()) & set(gdf["name_0"].unique()))
             else row["Country"]
         ),
         axis=1,
@@ -237,6 +348,7 @@ def nettoyer_GDL(df: pd.DataFrame, gdf, mapping: dict, annee: str, nom_col: str)
 
     df = df.groupby(["name_0", "name_1"], as_index=False)[nom_col].mean()
 
+    # Test de granularité
     assert df.duplicated(subset=["name_0", "name_1"], keep=False).sum() == 0, df[
         df.duplicated(subset=["name_0", "name_1"], keep=False)
     ]
@@ -244,10 +356,13 @@ def nettoyer_GDL(df: pd.DataFrame, gdf, mapping: dict, annee: str, nom_col: str)
     return df
 
 
-# Application
+### Application ----------------------------------------------------------------
+
 
 ## IDH
-df_IDH = nettoyer_GDL(df=df_IDH, gdf=gdf_1, mapping=mapping, annee="2022", nom_col="IDH")
+df_IDH = nettoyer_GDL(
+    df=df_IDH, gdf=gdf_1, mapping=mapping, annee="2022", nom_col="IDH"
+)
 
 ## Températures
 df_temperature = nettoyer_GDL(
@@ -255,7 +370,9 @@ df_temperature = nettoyer_GDL(
 )
 
 ## Pluies
-df_pluie = nettoyer_GDL(df=df_pluie, gdf=gdf_1, mapping=mapping, annee="2022", nom_col="pluie")
+df_pluie = nettoyer_GDL(
+    df=df_pluie, gdf=gdf_1, mapping=mapping, annee="2022", nom_col="pluie"
+)
 
 ## Humidité
 df_humidite = nettoyer_GDL(
@@ -270,7 +387,9 @@ df_justice = nettoyer_GDL(
 df_urbanisme["recent"] = df_urbanisme[
     [col for col in df_urbanisme.columns if col.isdigit()]
 ].apply(
-    lambda row: row[row.last_valid_index()] if row.last_valid_index() is not None else pd.NA,
+    lambda row: (
+        row[row.last_valid_index()] if row.last_valid_index() is not None else pd.NA
+    ),
     axis=1,
 )
 df_urbanisme = nettoyer_GDL(
@@ -278,7 +397,7 @@ df_urbanisme = nettoyer_GDL(
 )
 
 
-# === Nettoyage de la table de tourisme === #
+## 3.3 -- Table du tourisme ----------------------------------------------------
 
 
 df_tourisme = df_tourisme.loc[
@@ -289,14 +408,16 @@ df_tourisme = df_tourisme.dropna(axis=1, how="all")  # Suppression des colonnes 
 df_tourisme["tourisme"] = df_tourisme[
     [col for col in df_tourisme.columns if col.isdigit()]
 ].apply(
-    lambda row: row[row.last_valid_index()] if row.last_valid_index() is not None else pd.NA,
+    lambda row: (
+        row[row.last_valid_index()] if row.last_valid_index() is not None else pd.NA
+    ),
     axis=1,
 )
 df_tourisme = df_tourisme[["Country Name", "tourisme"]]
 df_tourisme.rename(columns={"Country Name": "name_0"}, inplace=True)
 
 
-# === Nettoyage de la table des religions === #
+## 3.4 -- Table des données religieuses ----------------------------------------
 
 
 df_religion = df_religion[df_religion["Level"] == 1]  # Sélection des pays
@@ -332,7 +453,7 @@ df_religion.rename(
 )
 
 
-# === Nettoyage de la table alimentaire === #
+## 3.5 -- Table des données alimentaires ---------------------------------------
 
 
 df_alimentation.loc[df_alimentation["iso3"] == "SSD", "name_0"] = "South Sudan"
@@ -340,19 +461,27 @@ df_alimentation.drop("iso3", axis=1, inplace=True)
 df_alimentation = remplacer_noms(df=df_alimentation, colonne="name_0", mapping=mapping)
 
 
-# === Jointures === #
+# 4 -- Jointures ---------------------------------------------------------------
+
+
+## 4.1 -- Avec les données GDL -------------------------------------------------
+
+
+### Fonction générique de jointure avec une table GDL --------------------------
 
 
 def normalize_string(s):
     if pd.isna(s):
         return ""
-    s = "".join(c for c in unicodedata.normalize("NFD", s) if unicodedata.category(c) != "Mn")
+    s = "".join(
+        c for c in unicodedata.normalize("NFD", s) if unicodedata.category(c) != "Mn"
+    )
     s = s.lower().replace(" ", "").replace("-", "").replace("'", "")
     return s
 
 
-# Fonction pour trouver la correspondance
 def merge_with_match(df1, df2):
+
     # Fonction interne pour trouver la correspondance pour une ligne
     def find_match_row(row):
         candidates = df2[df2["name_0"] == row["name_0"]].copy()
@@ -386,6 +515,9 @@ def merge_with_match(df1, df2):
     return result
 
 
+### Application ----------------------------------------------------------------
+
+
 # Avec les tables GDL
 gdf_1 = merge_with_match(gdf_1, df_IDH)
 gdf_1 = merge_with_match(gdf_1, df_temperature)
@@ -395,26 +527,58 @@ gdf_1 = merge_with_match(gdf_1, df_urbanisme)
 gdf_1 = merge_with_match(gdf_1, df_justice)
 
 
-# Avec la table du tourisme
+## 4.2 -- Jointures avec le reste des table ------------------------------------
+
+
+### Table de tourisme ----------------------------------------------------------
+
+
+# Test de granularité
 assert df_tourisme.duplicated(subset=["name_0"], keep=False).sum() == 0, df_tourisme[
     df_tourisme.duplicated(subset=["name_0"], keep=False)
 ]
-gdf_1 = gdf_1.merge(right=df_tourisme, how="left", on="name_0")
-# gdf_1.loc[(gdf_1["name_0"] == "China") & (gdf_1["name_1"] == "Hong Kong"), "tourisme"] = (
-#     df_tourisme.loc[df_tourisme["name_0"] == "Hong Kong", "tourisme"].iloc[0]
-# )
 
-# Avec la table des religion
+# Jointure
+gdf_1 = gdf_1.merge(right=df_tourisme, how="left", on="name_0")
+
+
+### Table des données religieuses ----------------------------------------------
+
+
+# Test de granularité
 assert df_religion.duplicated(subset=["name_0"], keep=False).sum() == 0, df_religion[
     df_religion.duplicated(subset=["name_0"], keep=False)
 ]
+
+# Jointure
 gdf_1 = gdf_1.merge(right=df_religion, how="left", on="name_0")
 
-# Avec la table alimentaire
-assert df_alimentation.duplicated(subset=["name_0"], keep=False).sum() == 0, df_alimentation[
-    df_alimentation.duplicated(subset=["name_0"], keep=False)
-]
+
+### Table des données alimentaires ---------------------------------------------
+
+
+# Test de granularité
+assert (
+    df_alimentation.duplicated(subset=["name_0"], keep=False).sum() == 0
+), df_alimentation[df_alimentation.duplicated(subset=["name_0"], keep=False)]
+
+# Jointure
 gdf_1 = gdf_1.merge(right=df_alimentation, how="left", on="name_0")
+
+
+### Table des données environnementales ----------------------------------------
+
+
+# Test de granularité
+assert (
+    df_environnement.duplicated(subset=["name_0"], keep=False).sum() == 0
+), df_environnement[df_environnement.duplicated(subset=["name_0"], keep=False)]
+
+# Jointure
+gdf_1 = gdf_1.merge(right=df_environnement, how="left", on="name_0")
+
+
+## 4.3 -- Ajout du nombre de NAs -----------------------------------------------
 
 
 colonnes_a_exclure = [
@@ -430,7 +594,13 @@ gdf_1["nombre_na"] = gdf_1.drop(columns=colonnes_a_exclure).isna().sum(axis=1) /
 )
 
 
-# === Imputation des valeurs manquantes === #
+# 5 -- Imputation des valeurs manquantes et normalisation ----------------------
+
+
+## 5.1 -- Imputation selon les régions les plus proches ------------------------
+
+
+### Fonction d'imputation ------------------------------------------------------
 
 
 def imputation_geo_knn(
@@ -474,7 +644,9 @@ def imputation_geo_knn(
 
         def imputer_ligne(ligne):
             # On récupère les autres lignes avec une valeur non manquante
-            autres = df_impute.loc[~df_impute[col].isna(), [col_lat, col_long, col]].copy()
+            autres = df_impute.loc[
+                ~df_impute[col].isna(), [col_lat, col_long, col]
+            ].copy()
 
             # Calcul de la distance avec la ligne courante
             autres["distance"] = autres.apply(
@@ -486,34 +658,55 @@ def imputation_geo_knn(
 
             # On garde les n voisins les plus proches et on calcule la moyenne
             voisins = autres.nsmallest(n_voisins, "distance")
-            return voisins[col].mean()
+            return (voisins[col] / voisins["distance"]).sum() / (
+                1 / voisins["distance"]
+            ).sum()
 
         # Application de l’imputation aux lignes manquantes
-        df_impute.loc[lignes_na, col] = df_impute.loc[lignes_na].apply(imputer_ligne, axis=1)
+        df_impute.loc[lignes_na, col] = df_impute.loc[lignes_na].apply(
+            imputer_ligne, axis=1
+        )
 
     return df_impute
 
 
+### Application ----------------------------------------------------------------
+
+
 gdf_1 = imputation_geo_knn(
     df=gdf_1,
-    n_voisins=5,
+    n_voisins=10,
     colonnes_exclues=colonnes_a_exclure,
 )
 
 
-# === Normalisation des colonnes === #
+## 5.2 -- Normalisation des colonnes -------------------------------------------
+
+
+### Normalisation entre le minimum (0) et le maximum (1) -----------------------
 
 
 for col in gdf_1.columns:
     if col not in colonnes_a_exclure:
-        gdf_1[col] = (gdf_1[col] - gdf_1[col].min()) / (gdf_1[col].max() - gdf_1[col].min())
+        gdf_1[col] = (gdf_1[col] - gdf_1[col].min()) / (
+            gdf_1[col].max() - gdf_1[col].min()
+        )
 
-for pattern in ["alimentation", "religion"]:
-    print("pattern :", pattern, end=" : ")
 
+### Pondération des colonnes ---------------------------------------------------
+
+
+for pattern, pondération in {
+    "alimentation": 2,
+    "religion": 1,
+    "environnement": 1.5,
+}.items():
     colonnes_i = [col for col in gdf_1.columns if pattern in col.lower()]
     for col in colonnes_i:
-        gdf_1[col] = 2 * gdf_1[col] / len(colonnes_i)
+        gdf_1[col] = pondération * gdf_1[col] / len(colonnes_i)
+
+
+### Assignation du type "float" aux colonnes -----------------------------------
 
 
 for col in gdf_1.select_dtypes(include="object").columns:
@@ -521,7 +714,7 @@ for col in gdf_1.select_dtypes(include="object").columns:
         gdf_1[col] = gdf_1[col].astype(float)
 
 
-# === Export === #
+# 6 -- Export ------------------------------------------------------------------
 
 
 exporter_fichier(

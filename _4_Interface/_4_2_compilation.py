@@ -45,6 +45,7 @@ setup(
                 "pickle",
                 "json",
                 "textwrap",
+                "numba",
             ],
             # Liste des fichiers/dossiers à inclure
             "include_files": (
@@ -78,7 +79,7 @@ setup(
     },
     executables=[
         Executable(
-            "PyQt_application_main.py",
+            "PyQt_application.py",
             icon=os.path.join(direction_donnees_application, "icone_application.ico"),
             target_name="Mes Voyages.exe",
             base="Win32GUI",

@@ -9,20 +9,29 @@ import os, yaml
 import worldmap as wm
 from translate import Translator
 
+
+# 1 -- Paramétrisation et import des données -----------------------------------
+
+
 # Nom de la personne
 nom = "Xavier"
 
-# Directions et adresses
+# Directions et chemins
 base_dir = os.path.join(os.path.expanduser("~"), "Documents", "Voyages")
 direction_dossier = os.path.join(base_dir, f"{nom} – Cartes de voyage")
 yaml_fichier = os.path.join(base_dir, f"Liste_destinations_{nom}.yaml")
 
-# Ouverture et lecture le fichier YAML
+# Lecture du fichier YAML contenant les visites
 with open(yaml_fichier, "r", encoding="utf-8") as file:
     destinations = yaml.safe_load(file)
 
 
-# Crée la carte pour un pays à partir d'un fichier Yaml
+# 2 -- Fonctions ---------------------------------------------------------------
+
+
+## 2.1 -- Fonction de création de cartes des pays ------------------------------
+
+
 def cree_carte_pays(
     nom_pays,
     liste_destinations,
@@ -42,39 +51,22 @@ def cree_carte_pays(
         nom_fichier = os.path.join(direction, nom_fichier)
 
     # Édition de la carte si cela est possible
-    if nom_pays in list(liste_destinations.keys()) and nom_pays != "United States":
-
-        if liste_destinations[nom_pays] != None:
-            return wm.plot(
-                liste_destinations[nom_pays],
-                map_name=nom_pays,
-                cmap=couleur,
-                filename=nom_fichier,
-                verbose=blabla,
-                showfig=False,
-            )
-        else:
-            print(nom_pays, "ne contient pas le détail des destinations effectuées.")
-
-    elif nom_pays == "United States":
-
-        if liste_destinations[nom_pays] != None:
-            return wm.plot(
-                liste_destinations[nom_pays],
-                map_name="usa",
-                cmap=couleur,
-                filename=nom_fichier,
-                verbose=blabla,
-                showfig=False,
-            )
-        else:
-            print(nom_pays, "ne contient pas le détail des destinations effectuées.")
-
+    if nom_pays in liste_destinations and liste_destinations[nom_pays] is not None:
+        return wm.plot(
+            liste_destinations[nom_pays],
+            map_name="usa" if nom_pays == "United States" else nom_pays,
+            cmap=couleur,
+            filename=nom_fichier,
+            verbose=blabla,
+            showfig=False,
+        )
     else:
-        print(nom_pays, "ne fait pas partie de la liste des pays visités.")
+        print(f"{nom_pays} ne contient pas le détail des destinations effectuées.")
 
 
-# Crée l'entièreté des cartes à partir du yaml
+## 2.2 -- Fonction de création de cartes des pays et du monde ------------------
+
+
 def cree_toutes_les_cartes(
     liste_destinations,
     direction=None,
@@ -94,7 +86,9 @@ def cree_toutes_les_cartes(
 
     ## Crée la carte du monde
     # Création du nom du fichier
-    nom_fichier = f"{personne} – Carte du monde.svg" if personne else "Carte du monde.svg"
+    nom_fichier = (
+        f"{personne} – Carte du monde.svg" if personne else "Carte du monde.svg"
+    )
     if direction != None:
         nom_fichier = os.path.join(direction, nom_fichier)
 

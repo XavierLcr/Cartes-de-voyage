@@ -10,6 +10,12 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 
 
+# 1 -- Fonctions ---------------------------------------------------------------
+
+
+## 1.1 -- Générer une couleur aléatoire selon des contraintes HSV --------------
+
+
 def generer_couleur_aleatoire_hex(
     preset: dict = {},
     teintes_autorisees: list | None = None,
@@ -40,12 +46,19 @@ def generer_couleur_aleatoire_hex(
         (
             random.choice(teintes_autorisees) if teintes_autorisees else random.random()
         ),  # Teinte
-        random.uniform(config["min_saturation"], config["max_saturation"]),  # Saturation
-        random.uniform(config["min_luminosite"], config["max_luminosite"]),  # Luminosité
+        random.uniform(
+            config["min_saturation"], config["max_saturation"]
+        ),  # Saturation
+        random.uniform(
+            config["min_luminosite"], config["max_luminosite"]
+        ),  # Luminosité
     )
 
     # Conversion RGB –> Hex
     return "#{:02x}{:02x}{:02x}".format(int(r * 255), int(g * 255), int(b * 255))
+
+
+## 1.2 -- Fonction de création de la carte -------------------------------------
 
 
 def creer_image_carte(
@@ -135,7 +148,9 @@ def creer_image_carte(
         gdf_monde = gdf_monde[gdf_monde["name_0"].isin(liste_pays)]
 
         if len(gdf_monde) > 0:
-            gdf_monde.plot(ax=ax, color="none", edgecolor="black", linewidth=0.04, zorder=3)
+            gdf_monde.plot(
+                ax=ax, color="none", edgecolor="black", linewidth=0.04, zorder=3
+            )
 
     if gdf_regions is not None:
 
@@ -147,7 +162,9 @@ def creer_image_carte(
             if blabla:
                 print(", des régions", end="")
 
-            gdf_regions.plot(ax=ax, color="none", edgecolor="black", linewidth=0.017, zorder=2)
+            gdf_regions.plot(
+                ax=ax, color="none", edgecolor="black", linewidth=0.017, zorder=2
+            )
 
     if gdf_eau is not None:
 
@@ -236,11 +253,16 @@ def creer_image_carte(
             "Granularité maximale": f"{max(gdf['Granu'])}",
         }
 
-    plt.savefig(nom, dpi=max(min(qualite, 4500), 100), bbox_inches="tight", metadata=metadata)
+    plt.savefig(
+        nom, dpi=max(min(qualite, 4500), 100), bbox_inches="tight", metadata=metadata
+    )
     plt.close(fig)
 
     if blabla == True:
         print("Terminé.")
+
+
+## 1.3 -- Renvoie noir ou blanc selon la couleur en entrée ---------------------
 
 
 def transformer_couleur_texte(bg_color):
@@ -266,6 +288,9 @@ def transformer_couleur_texte(bg_color):
     return "#FFFFFF" if 0.299 * r + 0.587 * g + 0.114 * b < 128 else "#000000"
 
 
+## 1.4 -- Renvoyer une couleur selon les paramètres de l'application -----------
+
+
 def renvoyer_couleur_widget(style, teinte, nuances, clair, sombre):
     if style == 0:
         return generer_couleur_aleatoire_hex(preset=nuances, teintes_autorisees=teinte)
@@ -273,6 +298,9 @@ def renvoyer_couleur_widget(style, teinte, nuances, clair, sombre):
         return clair
     else:
         return sombre
+
+
+## 1.5 -- Fonction de gestion des situations où deux couleurs doivent différer -
 
 
 def renvoyer_couleur_widget_differente(
@@ -293,6 +321,9 @@ def renvoyer_couleur_widget_differente(
     return resultat
 
 
+## 1.6 -- Fonction de couleur du texte selon la siutation ----------------------
+
+
 def renvoyer_couleur_texte(style, couleur):
     if style == 0:
         return transformer_couleur_texte(couleur)
@@ -300,6 +331,9 @@ def renvoyer_couleur_texte(style, couleur):
         return ("#2C2C2C",)
     else:
         return "#FFFFFF"
+
+
+## 1.7 -- Fonction de création du style complet de l'application ---------------
 
 
 def utiliser_style_dynamique(

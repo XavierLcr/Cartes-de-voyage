@@ -8,6 +8,12 @@ import os, sys, gc
 from _3_Calculs import _1_1_creer_carte, _1_2_creer_graphique
 
 
+# 1 -- Fonctions ---------------------------------------------------------------
+
+
+## 1.1 -- Création de la table complète ----------------------------------------
+
+
 def cree_gdf_depuis_dicts(
     liste_dfs: list,
     liste_dicts: list,
@@ -43,11 +49,19 @@ def cree_gdf_depuis_dicts(
     )
 
 
-def cas_pays_multiples(df, langue: str, liste_pays: list, nom_carte: str, pays_trad: dict):
+## 1.2 -- Fonction renvoyant la table et le nom des groupes de pays ------------
+
+
+def cas_pays_multiples(
+    df, langue: str, liste_pays: list, nom_carte: str, pays_trad: dict
+):
     return {
         "nom_langue": pays_trad.get(nom_carte, {}).get(langue, nom_carte),
         "gdf": df[df["Pays"].isin(liste_pays)],
     }
+
+
+## 1.3 -- Fonction renvoyant les informations d'un groupe de pays --------------
 
 
 def tous_cas_pays_multiples(
@@ -92,6 +106,9 @@ def tous_cas_pays_multiples(
     return resultat
 
 
+## 1.4 -- Fonction de création des cartes des pays -----------------------------
+
+
 def creer_graphiques_pays(
     gdf_visite,
     gdf_fond,
@@ -133,11 +150,15 @@ def creer_graphiques_pays(
     )
 
     # On gère la carte de fond des régions
-    gdf_fond_regions = gdf_fond_regions[gdf_fond_regions["name_0"].isin(liste_pays_visites)]
+    gdf_fond_regions = gdf_fond_regions[
+        gdf_fond_regions["name_0"].isin(liste_pays_visites)
+    ]
 
     for i in range(len(liste_pays_visites)):
 
-        langue_i = pays_trad.get(liste_pays_visites[i], {}).get(langue, liste_pays_visites[i])
+        langue_i = pays_trad.get(liste_pays_visites[i], {}).get(
+            langue, liste_pays_visites[i]
+        )
 
         if blabla == True and (i + 1) % 5 == 0 and (i + 1) != len(liste_pays_visites):
             print(f"{i+1}/{len(liste_pays_visites)} : {langue_i}", end=".\n")
@@ -178,7 +199,9 @@ def creer_graphiques_pays(
             langue_i = groupe_pays_res_i["nom_langue"]
             gdf_i = groupe_pays_res_i["gdf_reduit"]
 
-            dictionnaire_pays_unis[groupe_pays_res_i["nom_groupe_pays"]]["deja_fait"] = True
+            dictionnaire_pays_unis[groupe_pays_res_i["nom_groupe_pays"]][
+                "deja_fait"
+            ] = True
 
             gdf_monde_i = gdf_fond.copy()
 
@@ -228,6 +251,9 @@ def creer_graphiques_pays(
 
         if i % 10 == 0:
             gc.collect()
+
+
+## 1.5 -- Fonction créant la carte d'une région du monde -----------------------
 
 
 def creer_graphique_region(
@@ -302,7 +328,10 @@ def creer_graphique_region(
 
     if len(gdf_if) > 0:
 
-        if max(gdf_if["Granu"]) >= granularite_objectif or sortir_cartes_granu_inf == True:
+        if (
+            max(gdf_if["Granu"]) >= granularite_objectif
+            or sortir_cartes_granu_inf == True
+        ):
 
             if blabla:
                 print(nom_langue_region, end=". ")
@@ -326,6 +355,9 @@ def creer_graphique_region(
             )
 
     del gdf_region, gdf_fond
+
+
+## 1.6 -- Fonction créant et publiant l'ensemble des cartes souhaitées ---------
 
 
 def cree_graphe_depuis_debut(

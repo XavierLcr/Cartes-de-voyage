@@ -4,7 +4,14 @@
 # 3.1 – Fichier de création de la base de données                              #
 ################################################################################
 
+
 import pandas as pd
+
+
+# 1 -- Fonctions ---------------------------------------------------------------
+
+
+## 1.1 -- Création de la table de visite pour un pays à une granularité donnée -
 
 
 def creer_base_une_granularite(
@@ -43,6 +50,9 @@ def creer_base_une_granularite(
         # Sélection des colonnes
         .loc[:, ["Pays", "Region", "Visite", "geometry", "Granu"]]
     )
+
+
+## 1.2 -- Création de la table de visite pour un pays --------------------------
 
 
 def creer_base_double_granularite(
@@ -86,7 +96,12 @@ def creer_base_double_granularite(
     )
 
 
-def remplacer_lieux_constants(liste_dfs: list, df_visite: pd.DataFrame, granularite: int = 1):
+## 1.3 -- Création du mode 'Amusant' -------------------------------------------
+
+
+def remplacer_lieux_constants(
+    liste_dfs: list, df_visite: pd.DataFrame, granularite: int = 1
+):
 
     if granularite == 0:
         return df_visite
@@ -98,10 +113,12 @@ def remplacer_lieux_constants(liste_dfs: list, df_visite: pd.DataFrame, granular
             df_visite.groupby("Pays")["Granu"].transform("nunique") == 1
         )
         df_resultat = df_visite[
-            (df_visite["Granu"] != granularite) | (df_visite["granu_unique_pays"] == False)
+            (df_visite["Granu"] != granularite)
+            | (df_visite["granu_unique_pays"] == False)
         ].drop(columns=["granu_unique_pays"])
         df_a_modifier = df_visite[
-            (df_visite["Granu"] == granularite) & (df_visite["granu_unique_pays"] == True)
+            (df_visite["Granu"] == granularite)
+            & (df_visite["granu_unique_pays"] == True)
         ].drop(columns=["granu_unique_pays"])
 
         # Si la granularité en question n'existe pas, on renvoie la table originelle
@@ -136,7 +153,10 @@ def remplacer_lieux_constants(liste_dfs: list, df_visite: pd.DataFrame, granular
 
         # Ajout d'une indicatrice informant de si une région est visitée en entier ou pas du tout
         df_a_modifier["visite_constante"] = (
-            df_a_modifier.groupby(["Pays", "region_temp"])["Visite"].transform("nunique") == 1
+            df_a_modifier.groupby(["Pays", "region_temp"])["Visite"].transform(
+                "nunique"
+            )
+            == 1
         )
 
         # Séparation de la table à modifier et celle non
@@ -199,6 +219,9 @@ def remplacer_lieux_constants(liste_dfs: list, df_visite: pd.DataFrame, granular
             df_visite=pd.concat([df_resultat, df_a_modifier], ignore_index=True),
             granularite=granularite - 1,
         )
+
+
+## 1.4 -- Création de la table complète des pays visités -----------------------
 
 
 def cree_base_toutes_granularites(
@@ -283,6 +306,9 @@ def cree_base_toutes_granularites(
                 granularite_objectif=int(max(granu)),
             ),
         )
+
+
+## 1.5 -- Complétion de la carte du monde avec les pays non visités ------------
 
 
 def ajouter_indicatrice_visite(gdf_monde, gdf_visite, granularite=1):

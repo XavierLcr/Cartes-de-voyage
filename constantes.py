@@ -7,11 +7,18 @@ import os, sys
 from _0_Utilitaires._0_1_Fonctions_utiles import ouvrir_fichier
 
 
+# 1 -- Gestion des directions --------------------------------------------------
+
+
 if getattr(sys, "frozen", False):
     # cx_Freeze place tout à côté de l'exécutable
     direction_base = os.path.dirname(sys.executable)
-    direction_donnees_geographiques = os.path.join(direction_base, "1 – Données géographiques")
-    direction_donnees_application = os.path.join(direction_base, "2 – Données application")
+    direction_donnees_geographiques = os.path.join(
+        direction_base, "1 – Données géographiques"
+    )
+    direction_donnees_application = os.path.join(
+        direction_base, "2 – Données application"
+    )
     direction_donnees_traductions = os.path.join(direction_base, "3 – Traductions")
     compilation = True
 else:
@@ -21,19 +28,28 @@ else:
     direction_donnees_geographiques = os.path.join(
         direction_donnees, "_1_2_Données_géographiques"
     )
-    direction_donnees_application = os.path.join(direction_donnees, "_1_3_Données_application")
+    direction_donnees_application = os.path.join(
+        direction_donnees, "_1_3_Données_application"
+    )
     print(direction_donnees_application)
     direction_donnees_traductions = os.path.join(direction_donnees, "_1_4_Traductions")
     direction_donnees_autres = os.path.join(direction_donnees, "_1_X_Autres")
     compilation = False
 
-# Version de l'application
+
+# 2 -- Version du logiciel -----------------------------------------------------
+
+
 version_logiciel = "2.2"
 
 
-# ––––––– Import des paramètres –––––––
+# 3 -- Import des données ------------------------------------------------------
 
-# Paramètres par défaut
+
+## 3.1 -- Import des paramètres ------------------------------------------------
+
+
+# Paramètres par défaut si nécessaires
 parametres_application_defaut = {
     # Paramètres d'application
     "application_position_largeur": 250,
@@ -78,14 +94,20 @@ parametres_application = ouvrir_fichier(
 
 # Complétion si nécessaire des paramètres
 parametres_application.update(
-    {k: v for k, v in parametres_application_defaut.items() if k not in parametres_application}
+    {
+        k: v
+        for k, v in parametres_application_defaut.items()
+        if k not in parametres_application
+    }
 )
 
 
-# ––––––– Import des données YAML internes –––––––
+## 3.2 -- Import des données internes ------------------------------------------
 
 
-# Import de la traduction des nom des pays
+### Import de la traduction des noms des pays ----------------------------------
+
+
 pays_differentes_langues = ouvrir_fichier(
     direction_fichier=direction_donnees_traductions,
     nom_fichier="noms_pays_traduction.yaml",
@@ -93,7 +115,10 @@ pays_differentes_langues = ouvrir_fichier(
     afficher_erreur="Traductions des noms de pays introuvables.",
 )
 
-# Import des regroupements de pays
+
+### Import des regroupements de pays -------------------------------------------
+
+
 liste_pays_groupes = ouvrir_fichier(
     direction_fichier=direction_donnees_application,
     nom_fichier="cartes_pays_regroupements.yaml",
@@ -101,7 +126,10 @@ liste_pays_groupes = ouvrir_fichier(
     afficher_erreur="Regroupements des pays introuvables.",
 )
 
-# Import des régions mondiales considérées
+
+### Import des régions mondiales considérées -----------------------------------
+
+
 liste_regions_monde = ouvrir_fichier(
     direction_fichier=direction_donnees_application,
     nom_fichier="continents.yaml",
@@ -109,7 +137,10 @@ liste_regions_monde = ouvrir_fichier(
     afficher_erreur="Continents introuvables.",
 )
 
-# Import des emojis associés aux pays
+
+### Import des emojis associés aux pays ----------------------------------------
+
+
 emojis_pays = ouvrir_fichier(
     direction_fichier=direction_donnees_application,
     nom_fichier="emojis_pays.yaml",
@@ -118,10 +149,23 @@ emojis_pays = ouvrir_fichier(
 )
 
 
-# ––––––– Import des données YAML liées aux paramètres –––––––
+### Import des caractéristiques des pays ---------------------------------------
 
 
-# Import des phrases de l'interface
+df_caracteristiques_pays = ouvrir_fichier(
+    direction_fichier=direction_donnees_application,
+    nom_fichier="caracteristiques_des_regions.pkl",
+    defaut=None,
+    afficher_erreur="Données caractéristiques des pays introuvables.",
+)
+
+
+## 3.3 -- Import des paramètres accessibles à l'utilisateur –––––––––––––-------
+
+
+### Import des phrases de l'interface ------------------------------------------
+
+
 phrases_interface = ouvrir_fichier(
     direction_fichier=direction_donnees_application,
     nom_fichier="phrases_interface.yaml",
@@ -129,7 +173,10 @@ phrases_interface = ouvrir_fichier(
     afficher_erreur="Phrases de l'interface introuvables.",
 )
 
-# Import de la traduction de l'interface
+
+### Import de la traduction de l'interface -------------------------------------
+
+
 outil_differentes_langues = ouvrir_fichier(
     direction_fichier=direction_donnees_traductions,
     nom_fichier="phrases_interface_traduction.yaml",
@@ -137,7 +184,10 @@ outil_differentes_langues = ouvrir_fichier(
     afficher_erreur="Traduction des phrases de l'interface introuvables.",
 )
 
-# Import des régions
+
+### Import des régions ---------------------------------------------------------
+
+
 regions_par_pays = ouvrir_fichier(
     direction_fichier=direction_donnees_application,
     nom_fichier="liste_pays_granularite_1.yaml",
@@ -145,7 +195,10 @@ regions_par_pays = ouvrir_fichier(
     afficher_erreur="Régions des pays introuvables.",
 )
 
-# Import des départements
+
+### Import des départements ----------------------------------------------------
+
+
 departements_par_pays = ouvrir_fichier(
     direction_fichier=direction_donnees_application,
     nom_fichier="liste_pays_granularite_2.yaml",
@@ -153,7 +206,10 @@ departements_par_pays = ouvrir_fichier(
     afficher_erreur="Départements des pays introuvables.",
 )
 
-# Import de la liste de thèmes
+
+### Import de la liste de thèmes -----------------------------------------------
+
+
 liste_ambiances = ouvrir_fichier(
     direction_fichier=direction_donnees_application,
     nom_fichier="cartes_ambiances.yaml",
@@ -168,7 +224,10 @@ liste_ambiances = ouvrir_fichier(
     afficher_erreur="Ambiances introuvables.",
 )
 
-# Import de la liste des teintes
+
+### Import de la liste des teintes ---------------------------------------------
+
+
 liste_couleurs = ouvrir_fichier(
     direction_fichier=direction_donnees_application,
     nom_fichier="cartes_teintes.yaml",
@@ -176,14 +235,20 @@ liste_couleurs = ouvrir_fichier(
     afficher_erreur="Teintes introuvables.",
 )
 
-# Import de la liste des arrières-plans
+
+### Import de la liste des arrières-plans --------------------------------------
+
+
 dictionnaire_arriere_plans = ouvrir_fichier(
     direction_fichier=direction_donnees_application,
     nom_fichier="cartes_arriere_plans.yaml",
     defaut={},
 )
 
-# Import des langues disponibles
+
+### Import des langues disponibles ---------------------------------------------
+
+
 dict_langues_dispo = ouvrir_fichier(
     direction_fichier=direction_donnees_traductions,
     nom_fichier="noms_langues_traduction.yaml",
@@ -191,20 +256,13 @@ dict_langues_dispo = ouvrir_fichier(
     afficher_erreur="Langues introuvables.",
 )
 
-# Import des paramètres traduits
+
+### Import des paramètres traduits ---------------------------------------------
+
+
 parametres_traduits = ouvrir_fichier(
     direction_fichier=direction_donnees_traductions,
     nom_fichier="parametres_cartes_traduction.yaml",
     defaut={},
     afficher_erreur="Traductions des paramètres introuvables.",
-)
-
-# -------------- Autres ------------------------------------
-
-# Import des caractéristiques des pays
-df_caracteristiques_pays = ouvrir_fichier(
-    direction_fichier=direction_donnees_application,
-    nom_fichier="caracteristiques_des_regions.pkl",
-    defaut=None,
-    afficher_erreur="Données caractéristiques des pays introuvables.",
 )

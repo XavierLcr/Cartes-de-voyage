@@ -13,17 +13,25 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import constantes
 from _0_Utilitaires._0_1_Fonctions_utiles import exporter_fichier
 
+
+# 1 -- Import des données ------------------------------------------------------
+
+
 gdf = gpd.read_file(os.path.join(constantes.direction_donnees_brutes, "gadm_410.gpkg"))[
     # Sélection de colonnes
     ["NAME_0", "NAME_1", "NAME_2", "NAME_3", "NAME_4", "NAME_5", "geometry"]
 ]
+
+# Mise en minuscules des noms de colonnes
 gdf.columns = gdf.columns.str.lower()
 
 
-# === Remplacement de valeurs manquantes === #
+# 2 -- Correction d'erreurs dans la table  -------------------------------------
 
 
-# Allemagne
+## 2.1 -- Allemagne ------------------------------------------------------------
+
+
 print("Allemagne", end=" ; ")
 mask = (
     (gdf["name_0"] == "Germany")
@@ -49,14 +57,21 @@ gdf.loc[mask, "name_3"] = gdf.loc[mask, "name_3"].map(
 )
 
 
-# Algérie
+## 2.2 -- Algérie --------------------------------------------------------------
+
+
 print("Algérie", end=" ; ")
 gdf.loc[
-    (gdf["name_0"] == "Algeria") & (gdf["name_1"] == "Biskra") & (gdf["name_2"] == "M_Ziraa"),
+    (gdf["name_0"] == "Algeria")
+    & (gdf["name_1"] == "Biskra")
+    & (gdf["name_2"] == "M_Ziraa"),
     "name_2",
 ] = "El Mizaraa"
 
-# Autriche
+
+## 2.3 -- Autriche -------------------------------------------------------------
+
+
 print("Autriche", end=" ; ")
 mask = (
     (gdf["name_0"] == "Austria")
@@ -70,15 +85,22 @@ gdf.loc[mask, "name_4"] = gdf.loc[mask, "name_4"].str.replace(r"\*$", "Inn", reg
 gdf.loc[mask, "name_3"] = gdf.loc[mask, "name_3"].str.replace(r"\*$", "Inn", regex=True)
 
 mask = gdf["name_3"].str.contains(r"Sankt Marienkirchen an der Pols*", na=False)
-gdf.loc[mask, "name_4"] = gdf.loc[mask, "name_4"].str.replace("Pols*", "Polsenz", regex=False)
-gdf.loc[mask, "name_3"] = gdf.loc[mask, "name_3"].str.replace("Pols*", "Polsenz", regex=False)
+gdf.loc[mask, "name_4"] = gdf.loc[mask, "name_4"].str.replace(
+    "Pols*", "Polsenz", regex=False
+)
+gdf.loc[mask, "name_3"] = gdf.loc[mask, "name_3"].str.replace(
+    "Pols*", "Polsenz", regex=False
+)
 
 gdf.loc[
     (gdf["name_0"] == "Austria") & (gdf["name_4"] == "Nonndorf bei Raabs an der Tha*"),
     "name_4",
 ] = "Nondorf oder Nonndorf bei Raabs an der Thaya"
 
-# Bénin
+
+## 2.4 -- Bénin ----------------------------------------------------------------
+
+
 print("Bénin", end=" ; ")
 gdf.loc[gdf["name_0"] == "Benin", "name_3"] = gdf.loc[
     gdf["name_0"] == "Benin", "name_3"
@@ -90,12 +112,18 @@ gdf.loc[
     "name_3",
 ] = "Kokiborou"
 
-# Burundi
+
+## 2.5 -- Burundi --------------------------------------------------------------
+
+
 print("Burundi", end=" ; ")
 mask = (gdf["name_0"] == "Burundi") & (gdf["name_2"] == "Muyinga")
 gdf.loc[mask, "name_3"] = gdf.loc[mask, "name_3"].str.replace("_", " ", regex=False)
 
-# Croatie
+
+## 2.6 -- Croatie --------------------------------------------------------------
+
+
 print("Croatie", end=" ; ")
 gdf.loc[
     (gdf["name_0"] == "Croatia")
@@ -108,10 +136,17 @@ mask = (gdf["name_0"] == "Croatia") & (gdf["name_1"] == "Osjecko-Baranjska")
 gdf.loc[mask & (gdf["name_2"].isin(["Osjecko-Baranjska", "Unknown_2"])), "name_2"] = (
     "Šodolovci"
 )
-gdf.loc[mask & (gdf["name_2"].isin(["Unknown_1"])), "name_2"] = "Unknown 1 (Osjecko-Baranjska)"
-gdf.loc[mask & (gdf["name_2"].isin(["Unknown_3"])), "name_2"] = "Unknown 2 (Osjecko-Baranjska)"
+gdf.loc[mask & (gdf["name_2"].isin(["Unknown_1"])), "name_2"] = (
+    "Unknown 1 (Osjecko-Baranjska)"
+)
+gdf.loc[mask & (gdf["name_2"].isin(["Unknown_3"])), "name_2"] = (
+    "Unknown 2 (Osjecko-Baranjska)"
+)
 
-# Canada
+
+## 2.7 -- Canada ---------------------------------------------------------------
+
+
 print("Canada", end=" ; ")
 gdf.loc[
     (gdf["name_0"] == "Canada")
@@ -132,7 +167,10 @@ gdf.loc[mask, "name_3"] = (
     .str.title()  # met une majuscule à chaque mot
 )
 
-# France
+
+## 2.8 -- France ---------------------------------------------------------------
+
+
 print("France", end=" ; ")
 mask = (
     (gdf["name_0"] == "France")
@@ -142,18 +180,27 @@ mask = (
 gdf.loc[mask, "name_5"] = gdf.loc[mask, "name_5"].str.replace(r"\(.*", "", regex=True)
 
 
-# Guatemala
+## 2.9 -- Guatemala ------------------------------------------------------------
+
+
 print("Guatemala", end=" ; ")
 gdf.loc[
-    (gdf["name_0"] == "Guatemala") & (gdf["name_1"] == "Sololá") & (gdf["name_2"] == "?"),
+    (gdf["name_0"] == "Guatemala")
+    & (gdf["name_1"] == "Sololá")
+    & (gdf["name_2"] == "?"),
     "name_2",
 ] = "Lake Atitlán"
 gdf.loc[
-    (gdf["name_0"] == "Guatemala") & (gdf["name_1"] == "Izabal") & (gdf["name_2"] == "?"),
+    (gdf["name_0"] == "Guatemala")
+    & (gdf["name_1"] == "Izabal")
+    & (gdf["name_2"] == "?"),
     "name_2",
 ] = "Lake Izabal"
 
-# Guinée
+
+## 2.10 -- Guinée --------------------------------------------------------------
+
+
 print("Guinée", end=" ; ")
 gdf.loc[
     (gdf["name_0"] == "Guinea")
@@ -171,7 +218,9 @@ gdf.loc[
 ] = "Labé-Centre"
 
 
-# Guyana
+## 2.11 -- Guyana --------------------------------------------------------------
+
+
 print("Guyana", end=" ; ")
 mask = (
     (gdf["name_0"] == "Guyana")
@@ -180,7 +229,10 @@ mask = (
 )
 gdf.loc[mask, "name_2"] = gdf.loc[mask, "name_2"].str.replace(r"\(.*", "", regex=True)
 
-# Iran
+
+## 2.12 -- Iran ----------------------------------------------------------------
+
+
 print("Iran", end=" ; ")
 gdf.loc[
     (gdf["name_0"] == "Iran")
@@ -196,7 +248,10 @@ for i in range(1, 4):
         "3": "Chenaran",
     }.get(f"{i}", f"n.a. (0{i})")
 
-# Italie
+
+## 2.13 -- Italie --------------------------------------------------------------
+
+
 print("Italie", end=" ; ")
 gdf.loc[
     (gdf["name_0"] == "Italy")
@@ -227,7 +282,10 @@ gdf.loc[
     "name_3",
 ] = "Capoliveri"
 
-# Kenya
+
+## 2.14 -- Kenya ---------------------------------------------------------------
+
+
 print("Kenya", end=" ; ")
 gdf.loc[
     (gdf["name_0"] == "Kenya")
@@ -242,7 +300,9 @@ gdf.loc[
     ["name_2", "name_3"],
 ] = ["Machakos Town", "Kalama"]
 gdf.loc[
-    (gdf["name_0"] == "Kenya") & (gdf["name_1"] == "Mandera") & (gdf["name_2"] == "unknown 1"),
+    (gdf["name_0"] == "Kenya")
+    & (gdf["name_1"] == "Mandera")
+    & (gdf["name_2"] == "unknown 1"),
     ["name_2", "name_3"],
 ] = ["Mandera South", "Shimbir Fatuma & Fincharo"]
 gdf.loc[
@@ -252,7 +312,9 @@ gdf.loc[
     ["name_2", "name_3"],
 ] = ["Kwanza", "Kapomboi"]
 gdf.loc[
-    (gdf["name_0"] == "Kenya") & (gdf["name_1"] == "Turkana") & (gdf["name_2"] == "unknown 2"),
+    (gdf["name_0"] == "Kenya")
+    & (gdf["name_1"] == "Turkana")
+    & (gdf["name_2"] == "unknown 2"),
     ["name_2", "name_3"],
 ] = ["Turkana East", "Lokori/Kachodin"]
 gdf.loc[
@@ -262,17 +324,27 @@ gdf.loc[
     ["name_2", "name_3"],
 ] = ["Kapenguria", "Riwo"]
 gdf.loc[
-    (gdf["name_0"] == "Kenya") & (gdf["name_1"] == "Meru") & (gdf["name_2"] == "unknown 5"),
+    (gdf["name_0"] == "Kenya")
+    & (gdf["name_1"] == "Meru")
+    & (gdf["name_2"] == "unknown 5"),
     ["name_2", "name_3"],
 ] = ["Central Imenti", "Kiagu"]
 
-# Liberia
+
+## 2.15 -- Libéria -------------------------------------------------------------
+
+
 mask = gdf["name_0"] == "Liberia"
 gdf.loc[mask, "name_2"] = gdf.loc[mask, "name_2"].str.replace("#", "", regex=False)
 
-# Maroc
+
+## 2.16 -- Maroc -------------------------------------------------------------
+
+
 print("Maroc", end=" ; ")
-mask = (gdf["name_0"] == "Morocco") & (gdf["name_3"].str.contains("NA", na=False, case=True))
+mask = (gdf["name_0"] == "Morocco") & (
+    gdf["name_3"].str.contains("NA", na=False, case=True)
+)
 gdf.loc[mask, "name_3"] = (
     gdf.loc[mask, "name_3"].str.replace("\)", "").str.replace("NA \(", "")
 )
@@ -281,7 +353,10 @@ mask = (gdf["name_0"] == "Morocco") & (
 )
 gdf.loc[mask, "name_3"] = gdf.loc[mask, "name_4"]
 
-# Népal
+
+## 2.17 -- Népal ---------------------------------------------------------------
+
+
 print("Népal", end=" ; ")
 gdf.loc[
     (gdf["name_0"] == "Nepal")
@@ -299,7 +374,10 @@ gdf.loc[
     "name_4",
 ] = "Rampurwa (2)"
 
-# Ouganda
+
+## 2.18 -- Ouganda -------------------------------------------------------------
+
+
 print("Ouganda", end=" ; ")
 gdf.loc[
     (gdf["name_0"] == "Uganda")
@@ -308,7 +386,10 @@ gdf.loc[
     "name_2",
 ] = "Buliisa"
 
-# Portugal
+
+## 2.19 -- Portugal ------------------------------------------------------------
+
+
 print("Portugaal", end=" ; ")
 gdf.loc[
     (gdf["name_0"] == "Portugal")
@@ -319,7 +400,9 @@ gdf.loc[
 ] = "Geraz Do Lima"
 
 
-# Russie
+## 2.20 -- Russie --------------------------------------------------------------
+
+
 print("Russie", end=" ; ")
 gdf.loc[
     (gdf["name_0"] == "Russia")
@@ -328,7 +411,10 @@ gdf.loc[
     "name_2",
 ] = "Artemovskiy"
 
-# Rwanda
+
+## 2.21 -- Rwanda --------------------------------------------------------------
+
+
 print("Rwanda", end=" ; ")
 gdf.loc[
     (gdf["name_0"] == "Rwanda")
@@ -340,7 +426,10 @@ gdf.loc[
     "name_5",
 ] = "Ngando"
 
-# Soudan et Soudan du Sud
+
+## 2.22 -- Soudan et Soudan du Sud ---------------------------------------------
+
+
 print("Soudan et Soudan du Sud", end=" ; ")
 mask = gdf["name_0"].str.contains("Sudan", regex=False) & gdf["name_3"].str.contains(
     "_", regex=False
@@ -354,7 +443,10 @@ mask = (
 )
 gdf.loc[mask, "name_3"] = gdf.loc[mask, "name_2"]
 
-# Suisse
+
+## 2.23 -- Suisse --------------------------------------------------------------
+
+
 print("Suisse", end=" ; ")
 gdf.loc[
     (gdf["name_0"] == "Switzerland")
@@ -368,12 +460,20 @@ gdf.loc[
     "name_3",
 ] = "Lema"
 
-# Tonga
+
+## 2.24 -- Tonga ---------------------------------------------------------------
+
+
 print("Tonga", end=" ; ")
 mask = gdf["name_0"] == "Tonga"
-gdf.loc[mask, "name_2"] = gdf.loc[mask, "name_2"].str.replace(pat="n.a.", repl="", regex=False)
+gdf.loc[mask, "name_2"] = gdf.loc[mask, "name_2"].str.replace(
+    pat="n.a.", repl="", regex=False
+)
 
-# Tunisie
+
+## 2.25 -- Tunisie -------------------------------------------------------------
+
+
 print("Tunisie", end=" ; ")
 gdf.loc[
     (gdf["name_0"] == "Tunisia")
@@ -388,7 +488,10 @@ gdf.loc[
     "name_2",
 ] = "Unknown 1 (Tunis)"
 
-# Ukraine
+
+## 2.25 -- Ukraine -------------------------------------------------------------
+
+
 print("Ukraine", end=".\n")
 gdf.loc[(gdf["name_0"] == "Ukraine") & (gdf["name_1"] == "?"), ["name_1", "name_2"]] = [
     "Kiev City",
@@ -396,7 +499,13 @@ gdf.loc[(gdf["name_0"] == "Ukraine") & (gdf["name_1"] == "?"), ["name_1", "name_
 ]
 
 
-print("Nettoyage général.")
+# 3 -- Nettoyage ---------------------------------------------------------------
+
+
+## 3.1 -- Nettoyage global -----------------------------------------------------
+
+
+print("Nettoyage global.")
 for i in range(6):
 
     # Ajout d'une parenthèse pour les cas restants
@@ -435,10 +544,47 @@ for i in range(6):
         .str.strip()
     )
 
+
+## 3.2 -- Remplacement des valeurs vides par la granularité la plus élevée -----
+
+
 print("Remplacement des valeurs ''.")
 for i in range(0, 5):
     mask = gdf[f"name_{i+1}"] == ""
     gdf.loc[mask, f"name_{i+1}"] = gdf.loc[mask, f"name_{i}"]
+
+
+## 3.3 -- Tests ----------------------------------------------------------------
+
+
+print("Tests...")
+for i in range(6):
+
+    # Aucun "?"
+    assert (
+        len(gdf[gdf[f"name_{i}"].str.contains("\?", na=False)]) == 0
+    ), f"Il y a des '?' dans la colonne name_{i}"
+
+    # Aucun "_"
+    assert (
+        len(gdf[gdf[f"name_{i}"].str.contains("_", na=False)]) == 0
+    ), f"Il y a des '?' dans la colonne name_{i}"
+
+    # Aucun �
+    assert (
+        len(gdf[gdf[f"name_{i}"].str.contains("\ufffd", na=False)]) == 0
+    ), f"Il y a des '�' dans la colonne name_{i}"
+
+    # Aucun "*"
+    assert (
+        len(gdf[gdf[f"name_{i}"].str.contains("\*", na=False)]) == 0
+    ), f"Il y a des '*' dans la colonne name_{i}"
+
+
+# 4 -- Agrégation, concaténation et export -------------------------------------
+
+
+## 4.1 -- Fonction de concaténation des noms des régions dupliquées ------------
 
 
 def concatener_noms_si_dupliques(df: pd.DataFrame) -> pd.DataFrame:
@@ -472,34 +618,9 @@ def concatener_noms_si_dupliques(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-# === Tests ===
+## 4.2 -- Fonction d'agrégation, de concaténation et d'export de chaque table --
 
 
-print("Tests...")
-for i in range(6):
-
-    # Aucun "?"
-    assert (
-        len(gdf[gdf[f"name_{i}"].str.contains("\?", na=False)]) == 0
-    ), f"Il y a des '?' dans la colonne name_{i}"
-
-    # Aucun "_"
-    assert (
-        len(gdf[gdf[f"name_{i}"].str.contains("_", na=False)]) == 0
-    ), f"Il y a des '?' dans la colonne name_{i}"
-
-    # Aucun �
-    assert (
-        len(gdf[gdf[f"name_{i}"].str.contains("\ufffd", na=False)]) == 0
-    ), f"Il y a des '�' dans la colonne name_{i}"
-
-    # Aucun "*"
-    assert (
-        len(gdf[gdf[f"name_{i}"].str.contains("\*", na=False)]) == 0
-    ), f"Il y a des '*' dans la colonne name_{i}"
-
-
-# Réduction des bases et export
 def aggreger_lieux(gdf, direction_fichier, granularite=5):
 
     resultat = (
@@ -518,10 +639,12 @@ def aggreger_lieux(gdf, direction_fichier, granularite=5):
     print("Granularité", granularite, ": export effectué.")
 
 
-# Application
+## 4.3 -- Application ----------------------------------------------------------
+
+
 for granularite in range(6):
     aggreger_lieux(
-        gdf=gdf, direction_fichier=constantes.direction_donnees_autres, granularite=granularite
+        gdf=gdf,
+        direction_fichier=constantes.direction_donnees_autres,
+        granularite=granularite,
     )
-
-print("Terminé.")

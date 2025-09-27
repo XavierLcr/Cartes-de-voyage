@@ -29,7 +29,7 @@ with open(yaml_fichier, "r", encoding="utf-8") as file:
 # 2 -- Fonctions ---------------------------------------------------------------
 
 
-## 2.1 -- Fonction de création de cartes des pays ------------------------------
+## 2.1 -- Fonction de création de la carte d'un unique pays --------------------
 
 
 def cree_carte_pays(

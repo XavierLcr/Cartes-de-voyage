@@ -26,7 +26,10 @@ from _0_Utilitaires._0_1_Fonctions_utiles import (
 )
 
 
-# === Fonctions  === #
+# 1 -- Fonctions ---------------------------------------------------------------
+
+
+## 1.1 -- Fonction de calcul des scores entre régions --------------------------
 
 
 @numba.njit
@@ -64,6 +67,9 @@ def calculer_score_region(
     return scores
 
 
+## 1.2 -- Fonction renvoyant les régions recommandées, à l'aide des scores -----
+
+
 def calculer_recommandation(
     df,
     dict_visite,
@@ -77,7 +83,8 @@ def calculer_recommandation(
     # Séparer les colonnes
     mask_visite = np.array(
         [
-            (row[0], row[1]) in {(p, r) for p, regions in dict_visite.items() for r in regions}
+            (row[0], row[1])
+            in {(p, r) for p, regions in dict_visite.items() for r in regions}
             for row in df[["name_0", "name_1"]].values
         ]
     )
@@ -155,6 +162,9 @@ def calculer_recommandation(
         )
 
 
+# 2 -- Classe de calcul du tableau de recommandations --------------------------
+
+
 class WorkerRecommandation(QObject):
     finished = pyqtSignal(object)  # Signal pour retourner le résultat
 
@@ -169,12 +179,16 @@ class WorkerRecommandation(QObject):
             calculer_recommandation(
                 df=self.constantes.df_caracteristiques_pays,
                 dict_visite=self.dict_visite,
-                top_n=self.constantes.parametres_application.get("n_recommandations", 10),
+                top_n=self.constantes.parametres_application.get(
+                    "n_recommandations", 10
+                ),
                 par_pays=self.constantes.parametres_application.get("par_pays", True),
                 lignes_extra_par_pays=self.constantes.parametres_application.get(
                     "lignes_supp_apres_dernier_pays", 5
                 ),
-                alpha=self.constantes.parametres_application.get("coeff_distance", 0.05),
+                alpha=self.constantes.parametres_application.get(
+                    "coeff_distance", 0.05
+                ),
                 max_par_pays=self.constantes.parametres_application.get(
                     "max_regions_par_pays", 5
                 ),
@@ -183,6 +197,9 @@ class WorkerRecommandation(QObject):
             else None
         )
         self.finished.emit(df)  # Émet le résultat
+
+
+# 3 -- Classe de recommandations (déclenchement des calcul et affichage) -------
 
 
 class PaysAVisiter(QWidget):
@@ -237,7 +254,9 @@ class PaysAVisiter(QWidget):
         scroll_widget.setLayout(self.corps_recommandations)
 
         scroll_area = QScrollArea()
-        scroll_area.setWidgetResizable(True)  # permet au scroll de s’adapter à la taille
+        scroll_area.setWidgetResizable(
+            True
+        )  # permet au scroll de s’adapter à la taille
         scroll_area.setWidget(scroll_widget)
         layout.addWidget(scroll_area)
 
@@ -269,7 +288,9 @@ class PaysAVisiter(QWidget):
                 # Ajouter le pays s'il n'existait pas encore
                 dict_temp[pays] = regions
 
-        dict_temp = {k: list(dict.fromkeys(v)) for k, v in dict_temp.items() if v is not None}
+        dict_temp = {
+            k: list(dict.fromkeys(v)) for k, v in dict_temp.items() if v is not None
+        }
 
         self.thread_temp = QThread()
         self.worker_temp = WorkerRecommandation(
@@ -302,7 +323,9 @@ class PaysAVisiter(QWidget):
                 )
             )
         )
-        self.corps_recommandations.addLayout(creer_ligne_separation(lStretch=2, rStretch=2))
+        self.corps_recommandations.addLayout(
+            creer_ligne_separation(lStretch=2, rStretch=2)
+        )
         self.corps_recommandations.addWidget(QLabel(""))
 
         if self.df is not None:
@@ -355,10 +378,14 @@ class PaysAVisiter(QWidget):
                         layout_temp.setSpacing(5)
                         layout_temp.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-                        region_temp = list(self.df.loc[self.df["name_0"] == pays, "name_1"])
+                        region_temp = list(
+                            self.df.loc[self.df["name_0"] == pays, "name_1"]
+                        )
                         for i, region in enumerate(region_temp):
                             layout_temp.addWidget(creer_QLabel_centre(text=region))
-                            if i < len(region_temp) - 1:  # pas de séparateur après le dernier
+                            if (
+                                i < len(region_temp) - 1
+                            ):  # pas de séparateur après le dernier
                                 layout_temp.addWidget(QLabel("–"))
 
                         conteneur = QWidget()
@@ -369,15 +396,14 @@ class PaysAVisiter(QWidget):
     def set_dicts_granu(self, dict_nv: dict):
         """Permet de mettre à jour les sélections de destinations."""
         self.dict_granu = dict_nv
-        # self.df = calculer_recommandation(
-        #     df=self.df_caracteristiques, dict_visite=self.dict_granu, top_n=self.top_n
-        # )
         if self.dict_granu == {"region": {}, "dep": {}}:
             self.calculer_prochaine_destination()
 
     def set_langue(self, langue: str):
         self.langue = langue
-        self.bouton_recommandations.setText(self.fonction_traduire("bouton_recommandations"))
+        self.bouton_recommandations.setText(
+            self.fonction_traduire("bouton_recommandations")
+        )
         self.bouton_recommandations.setToolTip(
             self.fonction_traduire("recommandation_passeport")
         )

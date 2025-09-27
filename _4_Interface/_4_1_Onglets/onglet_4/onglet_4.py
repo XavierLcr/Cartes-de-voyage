@@ -37,7 +37,7 @@ class OngletTopPays(QWidget):
         self.fonction_traduction = fct_traduction
         self.constantes = constantes
 
-        # === Création des pages
+        # === Création des pages === #
 
         ## === Onglet Hémicycle === ##
         self.hemicycle = onglet_4_1_hemicycle.HemicycleWidget(
@@ -85,7 +85,9 @@ class OngletTopPays(QWidget):
             # Connexions
             self.btn_hemicycle.clicked.connect(lambda: self.pages.setCurrentIndex(0))
             self.btn_top_pays.clicked.connect(lambda: self.pages.setCurrentIndex(1))
-            self.btn_recommandations.clicked.connect(lambda: self.pages.setCurrentIndex(2))
+            self.btn_recommandations.clicked.connect(
+                lambda: self.pages.setCurrentIndex(2)
+            )
             # self.btn_recommandations.clicked.connect(self.pop_up_recommandations)
 
             # Layout principal

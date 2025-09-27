@@ -23,6 +23,7 @@ class OngletInformations(QWidget):
 
         layout = QHBoxLayout(self)
 
+        # Scroll area car le texte peut être long
         self.scroll_area = QScrollArea(widgetResizable=True)
 
         self.label = QLabel(wordWrap=True)
@@ -31,7 +32,7 @@ class OngletInformations(QWidget):
         layout.addWidget(self.scroll_area)
 
     def set_langue(self):
-        """Permet de mettre à jour le texte affiché."""
+        """Met à jour la langue."""
 
         self.label.setText(
             self.fonction_traduire(

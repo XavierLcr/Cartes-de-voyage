@@ -30,12 +30,20 @@ from _4_Interface._4_1_Onglets import onglet_3, onglet_5
 warnings.filterwarnings("ignore")
 
 
-# Import de la sauvegarde
+# 1 -- Import des données ------------------------------------------------------
+
+
+## 1.1 -- Import de la sauvegarde ----------------------------------------------
+
+
 sauvegarde = _0_1_Fonctions_utiles.ouvrir_fichier(
     direction_fichier=constantes.direction_donnees_application,
     nom_fichier="sauvegarde_utilisateurs.yaml",
     defaut={},
 )
+
+
+# 2 -- Classe principale -------------------------------------------------------
 
 
 class MesVoyagesApplication(QWidget):
@@ -51,7 +59,9 @@ class MesVoyagesApplication(QWidget):
         )
         self.setWindowIcon(
             QIcon(
-                os.path.join(constantes.direction_donnees_application, "icone_application.ico")
+                os.path.join(
+                    constantes.direction_donnees_application, "icone_application.ico"
+                )
             )
         )
 
@@ -91,14 +101,18 @@ class MesVoyagesApplication(QWidget):
             self.exporter_liste_parametres
         )
         # Publication des cartes
-        self.onglet_parametres.creation_cartes_bouton.clicked.connect(self.publier_cartes)
+        self.onglet_parametres.creation_cartes_bouton.clicked.connect(
+            self.publier_cartes
+        )
         # Mise à jour du style
         self.onglet_parametres.utiliser_theme.stateChanged.connect(self.set_style)
         self.onglet_parametres.color_combo.currentTextChanged.connect(self.set_style)
         self.onglet_parametres.theme_combo.currentTextChanged.connect(self.set_style)
         # Suppression d'un individu
         self.onglet_parametres.suppression_profil.clicked.connect(
-            lambda: self.supprimer_clef(self.onglet_parametres.nom_individu.currentText())
+            lambda: self.supprimer_clef(
+                self.onglet_parametres.nom_individu.currentText()
+            )
         )
         # Dossier de stockage
         self.onglet_parametres.envoi_dossier.connect(self.set_dossier)
@@ -145,7 +159,8 @@ class MesVoyagesApplication(QWidget):
         # === Cinquième onglet ===
 
         self.onglet_description_application = onglet_5.OngletInformations(
-            fct_traduire=self.traduire_depuis_id, version_logiciel=constantes.version_logiciel
+            fct_traduire=self.traduire_depuis_id,
+            version_logiciel=constantes.version_logiciel,
         )
         self.liste_onglets.addTab(self.onglet_description_application, "ℹ️")
 
@@ -167,7 +182,9 @@ class MesVoyagesApplication(QWidget):
 
         # Titres généraux
         self.setWindowTitle(self.traduire_depuis_id("titre_windows"))
-        self.onglet_parametres.titre.setText(self.traduire_depuis_id(clef="titre_application"))
+        self.onglet_parametres.titre.setText(
+            self.traduire_depuis_id(clef="titre_application")
+        )
 
         # Onglet 1
         self.liste_onglets.setTabText(
@@ -419,8 +436,12 @@ class MesVoyagesApplication(QWidget):
             # msg.setStandardButtons(
             #     QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
             # )
-            msg.addButton(self.traduire_depuis_id(clef="oui"), QMessageBox.ButtonRole.YesRole)
-            msg.addButton(self.traduire_depuis_id(clef="non"), QMessageBox.ButtonRole.NoRole)
+            msg.addButton(
+                self.traduire_depuis_id(clef="oui"), QMessageBox.ButtonRole.YesRole
+            )
+            msg.addButton(
+                self.traduire_depuis_id(clef="non"), QMessageBox.ButtonRole.NoRole
+            )
             msg.setIcon(QMessageBox.Icon.Question)
 
         # Timer pour fermer le message box après 3 secondes (3000 ms)
@@ -448,7 +469,9 @@ class MesVoyagesApplication(QWidget):
         self.onglet_resume_destinations.set_dicts_granu(
             dict_nv=copy.deepcopy(self.dicts_granu)
         )
-        self.onglet_statistiques.set_dicts_granu(dict_nv=copy.deepcopy(self.dicts_granu))
+        self.onglet_statistiques.set_dicts_granu(
+            dict_nv=copy.deepcopy(self.dicts_granu)
+        )
 
     def publier_cartes(self):
 
@@ -463,7 +486,9 @@ class MesVoyagesApplication(QWidget):
     def initialiser_sauvegarde(self, sauvegarde_complete):
 
         self.reinitialisation_parametres(nom_aussi=False, set_interface=False)
-        sauv = sauvegarde_complete.get(self.onglet_parametres.nom_individu.currentText(), {})
+        sauv = sauvegarde_complete.get(
+            self.onglet_parametres.nom_individu.currentText(), {}
+        )
 
         # Nom
         if sauv.get("nom") is not None:
@@ -473,13 +498,17 @@ class MesVoyagesApplication(QWidget):
 
             # Dossier de publication
             if sauv.get("dossier_stockage") is not None:
-                self.set_dossier(dossier=sauv.get("dossier_stockage"), onglet_parametres=True)
+                self.set_dossier(
+                    dossier=sauv.get("dossier_stockage"), onglet_parametres=True
+                )
 
             # Langue
             if sauv.get("langue") is not None:
                 self.onglet_parametres.langue_utilisee.setCurrentIndex(
                     self.onglet_parametres.langue_utilisee.findText(
-                        constantes.dict_langues_dispo.get(sauv.get("langue"), "Français")
+                        constantes.dict_langues_dispo.get(
+                            sauv.get("langue"), "Français"
+                        )
                     )
                 )
 
@@ -578,7 +607,9 @@ class MesVoyagesApplication(QWidget):
 
             self.onglet_selection_destinations.reset_yaml()
 
-    def reinitialisation_parametres(self, nom_aussi: bool = True, set_interface: bool = True):
+    def reinitialisation_parametres(
+        self, nom_aussi: bool = True, set_interface: bool = True
+    ):
 
         # Paramètres individuels
         if nom_aussi == True:
@@ -645,7 +676,9 @@ class MesVoyagesApplication(QWidget):
         # Pop-up afin de s'assurer de la décision
         message = self.montrer_popup(
             titre=self.traduire_depuis_id(clef="titre_pop_up_suppression"),
-            contenu=self.traduire_depuis_id(clef="contenu_pop_up_suppression", suffixe="."),
+            contenu=self.traduire_depuis_id(
+                clef="contenu_pop_up_suppression", suffixe="."
+            ),
             temps_max=None,
             bouton_ok=False,
             boutons_oui_non=True,
@@ -680,6 +713,9 @@ class MesVoyagesApplication(QWidget):
         self.onglet_selection_destinations.set_dossier(dossier=dossier)
         if onglet_parametres:
             self.onglet_parametres.set_dossier(dossier=dossier)
+
+
+# 3 -- Lancement de la classe principale ---------------------------------------
 
 
 if __name__ == "__main__":

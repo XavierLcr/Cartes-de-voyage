@@ -13,11 +13,20 @@ from collections import defaultdict
 from _0_Utilitaires._0_1_Fonctions_utiles import reordonner_dict
 
 
+# 1 -- Fonctions ---------------------------------------------------------------
+
+
+## 1.1 -- Fonction de calcul de sommes de sommes croissantes -------------------
+
+
 def somme_filee(lignes, a, b):
     total = 0
     for i in range(lignes):
         total = total + a + i * b
     return total
+
+
+## 1.2 -- Fonction de suppression des pays présents dans plusieurs continents --
 
 
 def valeurs_dans_plusieurs_listes(dictionnaire):
@@ -30,6 +39,9 @@ def valeurs_dans_plusieurs_listes(dictionnaire):
 
     # Ne garder que les valeurs qui apparaissent dans plusieurs listes
     return {val: cles for val, cles in valeur_cles.items() if len(cles) > 1}
+
+
+## 1.3 -- Fonction de calcul du nombre de pays visités par continent -----------
 
 
 def nb_pays_visites(
@@ -64,7 +76,9 @@ def nb_pays_visites(
 
     # Suppression des doublons
     continents = {
-        continent: [pays for pays in liste_pays if pays not in a_supprimer.get(continent, [])]
+        continent: [
+            pays for pays in liste_pays if pays not in a_supprimer.get(continent, [])
+        ]
         for continent, liste_pays in continents.items()
     }
 
@@ -99,7 +113,9 @@ def nb_pays_visites(
     return resultat
 
 
-# Classe de type hémicycle
+# 2 -- Classe de création de l'hémicycle des pays visités ----------------------
+
+
 class HemicycleWidget(QWidget):
 
     def __init__(
@@ -133,7 +149,9 @@ class HemicycleWidget(QWidget):
         ]
 
         # Ajustement du nombre de points par ligne
-        self.decalage = len(list(self.constantes.departements_par_pays.keys())) - somme_filee(
+        self.decalage = len(
+            list(self.constantes.departements_par_pays.keys())
+        ) - somme_filee(
             lignes=self.num_levels, a=self.base_points, b=self.points_increment
         )
         ## Si le total est trop haut
@@ -153,9 +171,13 @@ class HemicycleWidget(QWidget):
             "Antarctica": QColor(self.continent_colors.get("Antarctica", "#2E8B57")),
             "Asia": QColor(self.continent_colors.get("Asia", "#C3423F")),
             "Europe": QColor(self.continent_colors.get("Europe", "#7B4B94")),
-            "North America": QColor(self.continent_colors.get("North America", "#2A7F9E")),
+            "North America": QColor(
+                self.continent_colors.get("North America", "#2A7F9E")
+            ),
             "Oceania": QColor(self.continent_colors.get("Oceania", "#E27D60")),
-            "South America": QColor(self.continent_colors.get("South America", "#4A7856")),
+            "South America": QColor(
+                self.continent_colors.get("South America", "#4A7856")
+            ),
         }
 
         self.creer_hemicycle()
@@ -178,7 +200,11 @@ class HemicycleWidget(QWidget):
                 # Incément
                 + level * self.points_increment
                 # Écart
-                + (1 if (self.decalage % self.num_levels) >= (self.num_levels - level) else 0)
+                + (
+                    1
+                    if (self.decalage % self.num_levels) >= (self.num_levels - level)
+                    else 0
+                )
             )
 
             for i in range(num_points):
@@ -258,11 +284,12 @@ class HemicycleWidget(QWidget):
             # Incrément
             i = i + 1
 
-        # === Légendes : centrées sur le centroïde ===
+        # === Légendes : centrées sur le centroïde === #
+
         painter.setPen(Qt.GlobalColor.black)
         font = QFont()
         font.setPointSize(int(8 + self.level_distance / 10))  # Taille en points
-        # font.setPixelSize(20) # Alternative en pixels
+
         painter.setFont(font)
         font_metrics = painter.fontMetrics()
 
@@ -272,9 +299,9 @@ class HemicycleWidget(QWidget):
                 continue
 
             # Nom dans la bonne langue
-            nom_affiche = self.constantes.pays_differentes_langues.get(continent, {}).get(
-                self.langue, continent
-            )
+            nom_affiche = self.constantes.pays_differentes_langues.get(
+                continent, {}
+            ).get(self.langue, continent)
 
             # Calcul de l'angle du point par rapport au centre
             theta = math.atan2(
@@ -301,10 +328,12 @@ class HemicycleWidget(QWidget):
             painter.restore()
 
     def set_pays_visites(self, pays_visites):
+        """Met à jour la liste des pays visités."""
         self.pays_visites = pays_visites
         self.creer_hemicycle()
 
     def set_langue(self, langue):
+        """Met à jour la langue."""
         self.langue = langue
         self.creer_hemicycle()
 

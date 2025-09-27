@@ -9,7 +9,9 @@ from PyQt6.QtCore import pyqtSignal, QObject
 from _3_Calculs._1_3_carte_main import cree_graphe_depuis_debut
 
 
-# Classe de suivi du pays en cours de cartographie
+# 1 -- Classe de suivi de l'avancement de la publication des cartes ------------
+
+
 class TrackerPays(QObject):
     tracker_pays_en_cours = pyqtSignal(str)
 
@@ -17,7 +19,9 @@ class TrackerPays(QObject):
         self.tracker_pays_en_cours.emit(libelle_pays)
 
 
-# Classe de création des cartes
+# 2 -- Classe de création des cartes -------------------------------------------
+
+
 class CreerCartes(QObject):
     finished = pyqtSignal()
     tracker_signal = pyqtSignal(str)
@@ -62,7 +66,10 @@ class CreerCartes(QObject):
 
         dict_regions = self.parametres["dictionnaire_regions"]
         if self.parametres["dictionnaire_departements"] is not None:
-            if self.parametres["dictionnaire_departements"] != {} and dict_regions is not None:
+            if (
+                self.parametres["dictionnaire_departements"] != {}
+                and dict_regions is not None
+            ):
                 dict_regions = {
                     k: v
                     for k, v in self.parametres["dictionnaire_regions"].items()
@@ -98,7 +105,9 @@ class CreerCartes(QObject):
             granularite_reste={"Pays": 0, "Région": 1}.get(
                 self.parametres.get("granularite_fond"), 2
             ),
-            theme=self.constantes.liste_ambiances[self.parametres.get("theme", "Pastel")],
+            theme=self.constantes.liste_ambiances[
+                self.parametres.get("theme", "Pastel")
+            ],
             teinte=self.constantes.liste_couleurs[
                 self.parametres.get("couleur", "Multicolore")
             ],
@@ -126,8 +135,14 @@ class CreerCartes(QObject):
         return (
             (
                 (len(list(dict_regions.keys())) if dict_regions is not None else 0)
-                * int((self.parametres["sortir_cartes_granu_inf"] or self.granularite < 2))
-                + (len(list(dict_departement.keys())) if dict_departement is not None else 0)
+                * int(
+                    (self.parametres["sortir_cartes_granu_inf"] or self.granularite < 2)
+                )
+                + (
+                    len(list(dict_departement.keys()))
+                    if dict_departement is not None
+                    else 0
+                )
             )
             * self.parametres["cartes_des_pays"]
             * int(self.granularite != 0)

@@ -23,6 +23,12 @@ from _0_Utilitaires._0_1_Fonctions_utiles import (
 )
 
 
+# 1 -- Fonctions ---------------------------------------------------------------
+
+
+## 1.1 -- Fonction de création du classement des pays les plus visités ---------
+
+
 def creer_classement_pays(
     gdf_visite,
     table_superficie,
@@ -44,7 +50,9 @@ def creer_classement_pays(
         .sum()
         .reset_index()
         # Tri des valeurs par ordre décroissant
-        .sort_values(by=["pct_superficie_dans_pays", "superficie"], ascending=[False, False])
+        .sort_values(
+            by=["pct_superficie_dans_pays", "superficie"], ascending=[False, False]
+        )
     )
 
     # Sélection du top pays si souhaité
@@ -60,6 +68,9 @@ def creer_classement_pays(
         gdf_visite,
         gdf_visite[gdf_visite["pct_superficie_dans_pays"] == 1].shape[0],
     )
+
+
+# 2 -- Classe affichant les pays les plus visités ------------------------------
 
 
 # Quatrième onglet
@@ -107,7 +118,9 @@ class ClassementPays(QWidget):
         scroll_top_pays_regions.setWidget(widget_top_pays_regions)
 
         # --- Bloc "Top pays par département" ---
-        self.entete_top_pays_departements = QLabel(alignment=Qt.AlignmentFlag.AlignCenter)
+        self.entete_top_pays_departements = QLabel(
+            alignment=Qt.AlignmentFlag.AlignCenter
+        )
         layout_entete_top_pays_departements = QVBoxLayout()
         layout_entete_top_pays_departements.addWidget(self.entete_top_pays_departements)
 
@@ -131,7 +144,11 @@ class ClassementPays(QWidget):
         layout.addWidget(scroll_top_pays_deps)
 
     def classement_standard(
-        self, classement: pd.DataFrame, vbox: QGridLayout, taille_top_100: int, adapter: bool
+        self,
+        classement: pd.DataFrame,
+        vbox: QGridLayout,
+        taille_top_100: int,
+        adapter: bool,
     ):
         """
         Affiche le classement des pays dans un QGridLayout (vbox).
@@ -146,7 +163,8 @@ class ClassementPays(QWidget):
                 vbox.addWidget(
                     creer_QLabel_centre(
                         text="👑",
-                        alignement=Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter,
+                        alignement=Qt.AlignmentFlag.AlignRight
+                        | Qt.AlignmentFlag.AlignVCenter,
                     ),
                     0,
                     0,
@@ -154,7 +172,8 @@ class ClassementPays(QWidget):
                 vbox.addWidget(
                     creer_QLabel_centre(
                         text="👑",
-                        alignement=Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter,
+                        alignement=Qt.AlignmentFlag.AlignLeft
+                        | Qt.AlignmentFlag.AlignVCenter,
                     ),
                     0,
                     2,
@@ -239,7 +258,9 @@ class ClassementPays(QWidget):
             mask = (self.table_superficie["name_0"] == pays) & (
                 self.table_superficie["name_2"].isin(deps)
             )
-            dict_regions[pays] = self.table_superficie.loc[mask, "name_1"].unique().tolist()
+            dict_regions[pays] = (
+                self.table_superficie.loc[mask, "name_1"].unique().tolist()
+            )
 
         # Layout nettoyé
         vider_layout(vbox)
@@ -299,7 +320,9 @@ class ClassementPays(QWidget):
         self.lancer_classement_par_region_departement()
 
         self.entete_top_pays_regions.setText(
-            self.fonction_traduction("classement_selon_regions", prefixe="<b>", suffixe="</b>")
+            self.fonction_traduction(
+                "classement_selon_regions", prefixe="<b>", suffixe="</b>"
+            )
         )
         self.entete_top_pays_departements.setText(
             self.fonction_traduction(

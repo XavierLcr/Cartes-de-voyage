@@ -12,6 +12,12 @@ from PyQt6.QtWidgets import QHBoxLayout, QFrame, QLabel
 from PyQt6.QtCore import Qt
 
 
+# 1 -- Fonctions ---------------------------------------------------------------
+
+
+## 1.1 -- Fonction créant un QLabel --------------------------------------------
+
+
 def creer_QLabel_centre(
     alignement=Qt.AlignmentFlag.AlignCenter,
     text: str | None = None,
@@ -33,12 +39,18 @@ def creer_QLabel_centre(
     return label
 
 
+## 1.2 -- Retourne la première clef dont la valeur en vaut une de référence ----
+
+
 def obtenir_clef_par_valeur(dictionnaire, valeur):
     """Retourne la clé associée à une valeur donnée dans un dictionnaire."""
     for clef, val in dictionnaire.items():
         if val == valeur:
             return clef
     return None
+
+
+## 1.3 -- Remplace l'entièreté des valeurs d'un combo PyQt6 --------------------
 
 
 def reset_combo(combo, items, set_index=True):
@@ -51,12 +63,18 @@ def reset_combo(combo, items, set_index=True):
     combo.blockSignals(False)
 
 
+## 1.4 -- Vide l'entièreté d'un layout PyQt6 -----------------------------------
+
+
 def vider_layout(layout):
     """Supprime tous les widgets d'un QLayout."""
     while layout.count():
         child = layout.takeAt(0)
         if child.widget():
             child.widget().deleteLater()
+
+
+## 1.5 -- Conserve la valeur d'un combo vidé en PyQt6 --------------------------
 
 
 def restaurer_valeur_combo(combo, dict_parent, langue, valeur, defaut_index=0):
@@ -84,6 +102,9 @@ def restaurer_valeur_combo(combo, dict_parent, langue, valeur, defaut_index=0):
     combo.blockSignals(False)
 
 
+## 1.6 -- Assigne une couleur aux bouton de suppression et de réinitialisation -
+
+
 def style_bouton_de_suppression(sombre):
     return f"""QPushButton {{
                             background-color:{"#000000" if sombre else "#f8d7da"};
@@ -97,6 +118,9 @@ def style_bouton_de_suppression(sombre):
                                     background-color: {"#85040d" if sombre else "#f5c6cb"};
                                   }}
             """
+
+
+## 1.7 -- Crée une ligne horizontale en PyQt6 ----------------------------------
 
 
 def creer_ligne_separation(
@@ -121,6 +145,9 @@ def creer_ligne_separation(
     return layout_temp
 
 
+## 1.8 -- Crée une ligne verticale en PyQt6 ------------------------------------
+
+
 def creer_ligne_verticale():
     """Afficher une simple ligne verticale."""
     ligne = QFrame()
@@ -129,8 +156,13 @@ def creer_ligne_verticale():
     return ligne
 
 
+## 1.9 -- Ouvre un fichier de type .yaml ou .pkl -------------------------------
+
+
 # Fonction d'ouverture dedonnées
-def ouvrir_fichier(direction_fichier, nom_fichier, defaut, afficher_erreur: str | None = None):
+def ouvrir_fichier(
+    direction_fichier, nom_fichier, defaut, afficher_erreur: str | None = None
+):
     """Ouvre un fichier de type YAML ou pickle."""
 
     nom_fichier = os.path.join(direction_fichier, nom_fichier)
@@ -162,6 +194,9 @@ def ouvrir_fichier(direction_fichier, nom_fichier, defaut, afficher_erreur: str 
         return defaut
 
 
+## 1.10 -- Fonction de chargement des .pkl principaux --------------------------
+
+
 def charger_gdfs(liste_gdfs, direction_base, max_niveau=3):
     """
     Charge les fichiers pickle et remplit la liste_gdfs.
@@ -173,6 +208,9 @@ def charger_gdfs(liste_gdfs, direction_base, max_niveau=3):
             defaut=None,
             afficher_erreur=f"Base de granularité {i} introuvable.",
         )  # mise à jour de la liste partagée
+
+
+## 1.11 -- Fonction d'export de .yaml et de .pkl -------------------------------
 
 
 def exporter_fichier(objet, direction_fichier, nom_fichier, sort_keys: bool = True):
@@ -193,7 +231,11 @@ def exporter_fichier(objet, direction_fichier, nom_fichier, sort_keys: bool = Tr
             encoding="utf-8",
         ) as file:
             yaml.dump(
-                objet, file, allow_unicode=True, default_flow_style=False, sort_keys=sort_keys
+                objet,
+                file,
+                allow_unicode=True,
+                default_flow_style=False,
+                sort_keys=sort_keys,
             )
 
     elif extention == ".pkl":
@@ -207,12 +249,21 @@ def exporter_fichier(objet, direction_fichier, nom_fichier, sort_keys: bool = Tr
         print("Fichier non exportable.")
 
 
+## 1.12 -- Fonction réordonnant un dictionnaire --------------------------------
+
+
 def reordonner_dict(dictionnaire: dict, clefs: list):
     return {k: dictionnaire[k] for k in clefs if k in dictionnaire}
 
 
+## 1.13 -- Fonction de formatage de l'heure et de la date actuelles ------------
+
+
 def formater_temps_actuel():
     return time.strftime("%d-%m-%Y %Hh%M", time.localtime())
+
+
+## 1.14 -- Fonction créant les .yaml Pays × Région/Département/... -------------
 
 
 def cree_yaml_un_pays(
@@ -261,7 +312,9 @@ def cree_yaml_un_pays(
     )
 
 
-# Fonction de distance orthodromique (Haversine) en km
+## 1.15 -- Fonction calculant la distance entre deux points sur terre ----------
+
+
 @numba.njit
 def distance_haversine(lat1, lon1, lat2, lon2):
     lat1, lon1, lat2, lon2 = map(np.radians, [lat1, lon1, lat2, lon2])

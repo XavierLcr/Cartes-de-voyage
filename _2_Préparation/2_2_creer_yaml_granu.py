@@ -20,6 +20,7 @@ for granularite in range(1, 6):
     print(granularite)
 
     cree_yaml_un_pays(
+        # Import des données
         gdf=ouvrir_fichier(
             direction_fichier=direction_donnees_application,
             nom_fichier=f"carte_monde_niveau_{granularite}.pkl",

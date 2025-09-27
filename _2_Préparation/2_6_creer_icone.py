@@ -13,6 +13,18 @@ from constantes import direction_donnees_application
 from clefs_et_mots_de_passe import png_pour_icone
 
 
+# 1 -- Import des données ------------------------------------------------------
+
+
+image = Image.open(png_pour_icone)
+
+
+# 2 -- Recadrage de l'image ----------------------------------------------------
+
+
+## 2.1 -- Fonction de création de l'icône de l'application ---------------------
+
+
 def rendre_carre(image: Image.Image, mode: str = "marges") -> Image.Image:
     """
     Transforme une image en carré.
@@ -43,9 +55,16 @@ def rendre_carre(image: Image.Image, mode: str = "marges") -> Image.Image:
         raise ValueError("Le mode doit être 'recadrer' ou 'marges'")
 
 
-# Ouverture de l'image à utiliser et recadrage
-rendre_carre(Image.open(png_pour_icone), mode="recadrer").save(
-    # Export
+## 2.2 -- Application ----------------------------------------------------------
+
+
+image = rendre_carre(image=image, mode="recadrer")
+
+
+# 3 -- Export ------------------------------------------------------------------
+
+
+image.save(
     os.path.join(direction_donnees_application, "icone_application.ico"),
     format="ICO",
     sizes=[(256, 256)],

@@ -15,6 +15,9 @@ from _0_Utilitaires._0_1_Fonctions_utiles import ouvrir_fichier, exporter_fichie
 from clefs_et_mots_de_passe import clef_api_gemini
 
 
+# 1 -- Fonctions ---------------------------------------------------------------
+
+
 def creer_liste_pays_multilangue(
     liste_pays,
     modele_dict,
@@ -109,7 +112,9 @@ def creer_liste_parametres_multilangue(
 
     for i in sorted(liste_langues):
 
-        modele = genai.GenerativeModel(modele_dict.get("modèle", "gemini-2.0-flash-lite"))
+        modele = genai.GenerativeModel(
+            modele_dict.get("modèle", "gemini-2.0-flash-lite")
+        )
 
         if blabla == 2:
             print(i, end=" : ")
@@ -121,9 +126,9 @@ def creer_liste_parametres_multilangue(
         for j in liste_parametres:
 
             temps_debut = time.time()
-            if j not in list(resultat[i].keys()) and appels_api_deja_faits < modele_dict.get(
-                "limite_appels_jour", 200
-            ):
+            if j not in list(
+                resultat[i].keys()
+            ) and appels_api_deja_faits < modele_dict.get("limite_appels_jour", 200):
 
                 if blabla == 2:
                     print(j, end=" ")
@@ -222,7 +227,12 @@ def verifier_doublons(data):
             for cle, val in valeurs.items():
                 doublons.add(val) if val in seen else seen.add(val)
             if doublons:
-                print(f"❌ Doublons détectés dans '{parametre}' > '{pays}' : {doublons}")
+                print(
+                    f"❌ Doublons détectés dans '{parametre}' > '{pays}' : {doublons}"
+                )
+
+
+# 2 -- Liste des langues -------------------------------------------------------
 
 
 liste_langues = [
@@ -298,6 +308,10 @@ liste_langues = [
     "zoulou",
 ]
 
+
+# 3 -- Application -------------------------------------------------------------
+
+
 if __name__ == "__main__":
 
     for modele_utilise in [
@@ -335,7 +349,9 @@ if __name__ == "__main__":
 
         # Récupération du jour
         date_du_jour = time.localtime()
-        date_du_jour = f"{date_du_jour.tm_year}-{date_du_jour.tm_mon}-{date_du_jour.tm_mday}"
+        date_du_jour = (
+            f"{date_du_jour.tm_year}-{date_du_jour.tm_mon}-{date_du_jour.tm_mday}"
+        )
 
         # Gestion de la limite d'appels API quotidienne
         liste_appels_api_deja_faits = ouvrir_fichier(
@@ -345,7 +361,9 @@ if __name__ == "__main__":
             afficher_erreur="Fichier YAML des appels API non trouvé.",
         )
         appels_api_deja_faits = int(
-            liste_appels_api_deja_faits.get(date_du_jour, {}).get(modele_utilise["modèle"], 0)
+            liste_appels_api_deja_faits.get(date_du_jour, {}).get(
+                modele_utilise["modèle"], 0
+            )
         )
 
         # === Traduction des paramètres === #
@@ -471,7 +489,9 @@ if __name__ == "__main__":
                 liste_pays.append(f"Map of {continent}")
 
         ## Liste des pays regroupés
-        liste_pays.extend(gr["categorie"] for gr in constantes.liste_pays_groupes.values())
+        liste_pays.extend(
+            gr["categorie"] for gr in constantes.liste_pays_groupes.values()
+        )
 
         ## Liste des pays individuels
         liste_pays.extend(list(constantes.regions_par_pays.keys()))

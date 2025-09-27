@@ -11,12 +11,16 @@ import constantes
 from _0_Utilitaires._0_1_Fonctions_utiles import ouvrir_fichier
 
 
-# Fonction de calcul de la superficie
+### Fonction de calcul de la superficie ----------------------------------------
+
+
 def calculer_superficie(gdf, espg):
 
     gdf = gdf.to_crs(epsg=espg).assign(
         superficie=lambda x: x.geometry.area,
-        superficie_par_pays=lambda x: x.groupby("name_0")["superficie"].transform("sum"),
+        superficie_par_pays=lambda x: x.groupby("name_0")["superficie"].transform(
+            "sum"
+        ),
         pct_superficie_dans_pays=lambda x: x["superficie"] / x["superficie_par_pays"],
     )
 
@@ -27,13 +31,18 @@ def calculer_superficie(gdf, espg):
     return gdf[liste_cols]
 
 
-# Export de la table
+### Application ----------------------------------------------------------------
+
+
 with open(
     os.path.join(constantes.direction_donnees_application, "table_superficie.pkl"), "wb"
 ) as f:
+
+    # Export
     pickle.dump(
+        # Calcul de la superficie
         calculer_superficie(
-            # Téléchargement des données
+            # Import des données
             ouvrir_fichier(
                 direction_fichier=constantes.direction_donnees_geographiques,
                 nom_fichier="carte_monde_niveau_2.pkl",

@@ -397,7 +397,8 @@ class PaysAVisiter(QWidget):
         """Permet de mettre à jour les sélections de destinations."""
         self.dict_granu = dict_nv
         if self.dict_granu == {"region": {}, "dep": {}}:
-            self.calculer_prochaine_destination()
+            self.df = None
+            self.afficher_recommandation()
 
     def set_langue(self, langue: str):
         self.langue = langue

@@ -114,4 +114,5 @@ publication_cartes_reussie : Les cartes ont été créées avec succès !
 pop_up_probleme_titre : Problème
 pop_up_aucun_lieu_coche : Aucun lieu n'a été coché. Essayez de cocher le lieu associé à votre emplacement actuel !
 pop_up_pas_de_dossier_de_stockage : Il est nécessaire de choisir un dossier de stockage des cartes
+pop_up_dossier_de_stockage_faux : Il est nécessaire de choisir un dossier de stockage des cartes valide
 

@@ -26,7 +26,9 @@ from PyQt6.QtWidgets import (
 )
 from PyQt6.QtCore import Qt, QTimer, QThread, pyqtSignal
 from _4_Interface._4_1_Onglets.onglet_1.onglet_1_1_creation_cartes import CreerCartes
-from _4_Interface._4_1_Onglets.onglet_1.onglet_1_2_combobox_coloree import FondCarteCombo
+from _4_Interface._4_1_Onglets.onglet_1.onglet_1_2_combobox_coloree import (
+    FondCarteCombo,
+)
 from _0_Utilitaires._0_1_Fonctions_utiles import (
     creer_ligne_verticale,
     creer_ligne_separation,
@@ -41,7 +43,9 @@ class OngletParametres(QWidget):
 
     envoi_dossier = pyqtSignal(str)
 
-    def __init__(self, gdf_eau, constantes, liste_individus, fct_traduction, fct_pop_up):
+    def __init__(
+        self, gdf_eau, constantes, liste_individus, fct_traduction, fct_pop_up
+    ):
 
         super().__init__()
 
@@ -305,8 +309,12 @@ class OngletParametres(QWidget):
         self.label_qualite_min = creer_QLabel_centre()
         self.label_qualite_max = creer_QLabel_centre()
         self.curseur_qualite = QSlider(Qt.Orientation.Horizontal)
-        self.curseur_qualite.setMinimum(constantes.parametres_application["qualite_min"])
-        self.curseur_qualite.setMaximum(constantes.parametres_application["qualite_max"])
+        self.curseur_qualite.setMinimum(
+            constantes.parametres_application["qualite_min"]
+        )
+        self.curseur_qualite.setMaximum(
+            constantes.parametres_application["qualite_max"]
+        )
         self.curseur_qualite.setValue(
             int(
                 (
@@ -320,13 +328,17 @@ class OngletParametres(QWidget):
         # Choix du format d'image
         self.label_format = creer_QLabel_centre()
         self.format_cartes = QComboBox()
-        self.format_cartes.addItems(["png", "jpg", "svg", "pdf", "tif", "webp", "raw", "ps"])
+        self.format_cartes.addItems(
+            ["png", "jpg", "svg", "pdf", "tif", "webp", "raw", "ps"]
+        )
 
         # Ajout des widgets au layout horizontal
         layout_format_qualite.addWidget(self.label_format)
         layout_format_qualite.addWidget(self.format_cartes)
         layout_format_qualite.addItem(
-            QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+            QSpacerItem(
+                20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding
+            )
         )
         layout_format_qualite.addWidget(self.label_qualite)
         layout_format_qualite.addWidget(self.label_qualite_min)
@@ -390,7 +402,9 @@ class OngletParametres(QWidget):
             return
 
         # Paramètres de l'individu
-        self.groupe_params_individu.setTitle(self.fonction_traduction("titre_params_individu"))
+        self.groupe_params_individu.setTitle(
+            self.fonction_traduction("titre_params_individu")
+        )
         # self.dossier_stockage_bouton.setText(
         #     self.fonction_traduction("dossier_stockage_individu")
         #     if self.dossier_stockage is None
@@ -412,7 +426,9 @@ class OngletParametres(QWidget):
         )
 
         # Choix des cartes à publier
-        self.groupe_cartes_a_creer.setTitle(self.fonction_traduction("titre_cartes_a_publier"))
+        self.groupe_cartes_a_creer.setTitle(
+            self.fonction_traduction("titre_cartes_a_publier")
+        )
         self.carte_pays.setText(self.fonction_traduction("cartes_pays_visites"))
         self.carte_monde.setText(self.fonction_traduction("carte_du_monde"))
         self.afrique.setText(self.fonction_traduction("afrique"))
@@ -432,11 +448,15 @@ class OngletParametres(QWidget):
         )
 
         # Paramètres visuels
-        self.groupe_couleurs.setTitle(self.fonction_traduction("titre_params_esthetiques"))
+        self.groupe_couleurs.setTitle(
+            self.fonction_traduction("titre_params_esthetiques")
+        )
         self.color_label.setText(
             self.fonction_traduction(clef="cartes_couleurs", suffixe=" :")
         )
-        self.theme_label.setText(self.fonction_traduction(clef="cartes_theme", suffixe=" :"))
+        self.theme_label.setText(
+            self.fonction_traduction(clef="cartes_theme", suffixe=" :")
+        )
         self.utiliser_theme.setText(self.fonction_traduction("tick_style_dans_app"))
         self.utiliser_theme.setToolTip(
             self.fonction_traduction("description_tick_style_dans_app", suffixe=".")
@@ -454,15 +474,21 @@ class OngletParametres(QWidget):
         self.groupe_params_publication.setTitle(
             self.fonction_traduction("titre_params_techniques")
         )
-        self.label_format.setText(self.fonction_traduction("cartes_format", suffixe=" :"))
-        self.label_qualite.setText(self.fonction_traduction("cartes_qualite", suffixe=" :"))
+        self.label_format.setText(
+            self.fonction_traduction("cartes_format", suffixe=" :")
+        )
+        self.label_qualite.setText(
+            self.fonction_traduction("cartes_qualite", suffixe=" :")
+        )
         self.label_qualite_max.setText(self.fonction_traduction("qualite_elevee"))
         self.label_qualite_min.setText(self.fonction_traduction("qualite_faible"))
         self.label_nb_copies_cartes.setText(
             self.fonction_traduction("nombre_exemplaires_cartes", suffixe=" : ")
         )
         self.label_nb_copies_cartes.setToolTip(
-            self.fonction_traduction("description_nombre_exemplaires_cartes", suffixe=".")
+            self.fonction_traduction(
+                "description_nombre_exemplaires_cartes", suffixe="."
+            )
         )
         self.radio_carte_1.setText(self.fonction_traduction("cinq_cartes"))
         self.radio_carte_2.setText(self.fonction_traduction("dix_cartes"))
@@ -472,13 +498,17 @@ class OngletParametres(QWidget):
         )
 
         # Boutons en bas de l'onglet 1
-        self.reinit_parametres.setText(self.fonction_traduction("reinitialisation_interface"))
+        self.reinit_parametres.setText(
+            self.fonction_traduction("reinitialisation_interface")
+        )
         self.reinit_parametres.setToolTip(
             self.fonction_traduction(
                 "description_bouton_reinitialisation_interface", suffixe="."
             )
         )
-        self.creation_cartes_bouton.setText(self.fonction_traduction("bouton_publier_cartes"))
+        self.creation_cartes_bouton.setText(
+            self.fonction_traduction("bouton_publier_cartes")
+        )
         self.creation_cartes_bouton.setToolTip(
             self.fonction_traduction("description_bouton_publier_cartes", suffixe=".")
         )
@@ -558,7 +588,11 @@ class OngletParametres(QWidget):
 
         self.fonction_pop_up(
             contenu=self.fonction_traduction(
-                clef=("debut_publication_cartes" if debut else "publication_cartes_reussie"),
+                clef=(
+                    "debut_publication_cartes"
+                    if debut
+                    else "publication_cartes_reussie"
+                ),
                 suffixe="." if debut else " ✅​",
             ),
             temps_max=5000 if debut else None,
@@ -577,7 +611,9 @@ class OngletParametres(QWidget):
         ):
 
             self.fonction_pop_up(
-                contenu=self.fonction_traduction("pop_up_aucun_lieu_coche", suffixe="."),
+                contenu=self.fonction_traduction(
+                    "pop_up_aucun_lieu_coche", suffixe="."
+                ),
                 titre=self.fonction_traduction("pop_up_probleme_titre", suffixe="."),
                 temps_max=10000,
             )
@@ -585,11 +621,22 @@ class OngletParametres(QWidget):
         elif settings["dossier_stockage"] is None:
 
             self.fonction_pop_up(
+                titre=self.fonction_traduction("pop_up_probleme_titre", suffixe="."),
                 contenu=self.fonction_traduction(
                     "pop_up_pas_de_dossier_de_stockage",
                     suffixe=".",
                 ),
+                temps_max=10000,
+            )
+
+        elif not os.path.exists(settings["dossier_stockage"]):
+
+            self.fonction_pop_up(
                 titre=self.fonction_traduction("pop_up_probleme_titre", suffixe="."),
+                contenu=self.fonction_traduction(
+                    "pop_up_dossier_de_stockage_faux",
+                    suffixe=".",
+                ),
                 temps_max=10000,
             )
 

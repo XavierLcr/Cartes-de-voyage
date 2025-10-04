@@ -26,13 +26,14 @@ class OngletResumeDestinations(QWidget):
     def __init__(
         self,
         traduire_depuis_id,
-        emojis_pays,
+        constantes,
         parent=None,
     ):
         super().__init__(parent)
 
         self.traduire_depuis_id = traduire_depuis_id
-        self.emojis_pays = emojis_pays
+        self.emojis_pays = constantes.emojis_pays
+        self.noms_pays = constantes.pays_differentes_langues
         self.dicts_granu = {"region": {}, "dep": {}}
         self.langue_utilisee = "français"
 
@@ -74,7 +75,9 @@ class OngletResumeDestinations(QWidget):
     def set_langue(self, nouvelle_langue):
         """Permet de mettre à jour la langue."""
         self.langue_utilisee = nouvelle_langue
-        self.mise_en_forme.setText(self.traduire_depuis_id(clef="mise_en_forme_onglet_3"))
+        self.mise_en_forme.setText(
+            self.traduire_depuis_id(clef="mise_en_forme_onglet_3")
+        )
         self.maj_layout_resume()
 
     def _creer_scroll(self, vbox):
@@ -99,13 +102,18 @@ class OngletResumeDestinations(QWidget):
         vbox.addWidget(QLabel(""))
 
         if pays_donnees is not None:
-            for pays, items in pays_donnees.items():
+            for pays, items in sorted(
+                pays_donnees.items(),
+                key=lambda x: self.noms_pays.get(x[0], {}).get(
+                    self.langue_utilisee, x[0]
+                ),
+            ):
 
                 vbox.addWidget(
                     QLabel(
                         # Pays avec emoji
-                        f"<b>{pays}</b> {self.emojis_pays.get(pays, '')}: "
-                        # items si affichage regroupé
+                        f"<b>{self.noms_pays.get(pays, {}).get(self.langue_utilisee, pays)}</b> {self.emojis_pays.get(pays, '')}: "
+                        # Items si affichage regroupé
                         f"{', '.join(items) if affichage_groupe and items else '' if items else '⏳✒️'}",
                         wordWrap=True,
                     )
@@ -113,7 +121,10 @@ class OngletResumeDestinations(QWidget):
 
                 # items si affichage non regroupé
                 if not affichage_groupe and items:
-                    [vbox.addWidget(QLabel(f"   • {item}", wordWrap=True)) for item in items]
+                    [
+                        vbox.addWidget(QLabel(f"   • {item}", wordWrap=True))
+                        for item in items
+                    ]
 
                 vbox.addWidget(
                     QLabel(
@@ -131,14 +142,14 @@ class OngletResumeDestinations(QWidget):
     def maj_layout_resume(self):
 
         self.ajouter_partie_a_layout(
-            "titre_regions_visitees",
-            self.dicts_granu.get("region", {}),
-            self.layout_resume_regions,
+            granu="titre_regions_visitees",
+            pays_donnees=self.dicts_granu.get("region", {}),
+            vbox=self.layout_resume_regions,
             affichage_groupe=self.donner_mise_en_forme(),
         )
         self.ajouter_partie_a_layout(
-            "titre_departements_visites",
-            self.dicts_granu.get("dep", {}),
-            self.layout_resume_departements,
+            granu="titre_departements_visites",
+            pays_donnees=self.dicts_granu.get("dep", {}),
+            vbox=self.layout_resume_departements,
             affichage_groupe=self.donner_mise_en_forme(),
         )

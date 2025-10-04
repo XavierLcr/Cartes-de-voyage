@@ -137,7 +137,7 @@ class MesVoyagesApplication(QWidget):
 
         self.onglet_resume_destinations = onglet_3.OngletResumeDestinations(
             traduire_depuis_id=self.traduire_depuis_id,
-            emojis_pays=constantes.emojis_pays,
+            constantes=constantes,
             parent=None,
         )
         self.liste_onglets.addTab(self.onglet_resume_destinations, "📊")

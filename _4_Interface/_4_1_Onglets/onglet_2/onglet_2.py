@@ -78,10 +78,18 @@ class OngletSelectionnerDestinations(QWidget):
         layout_selection_params.addWidget(self.liste_niveaux)
         layout_selection_params.addWidget(self.telecharger_lieux_visites)
         layout_selection_params.addWidget(self.bouton_sauvegarde2)
-        layout_selection_params.setStretch(0, 3)  # Le premier widget prend plus de place
-        layout_selection_params.setStretch(1, 3)  # Le deuxième widget prend plus de place
-        layout_selection_params.setStretch(2, 1)  # Le troisième widget prend moins de place
-        layout_selection_params.setStretch(3, 1)  # Le troisième widget prend moins de place
+        layout_selection_params.setStretch(
+            0, 3
+        )  # Le premier widget prend plus de place
+        layout_selection_params.setStretch(
+            1, 3
+        )  # Le deuxième widget prend plus de place
+        layout_selection_params.setStretch(
+            2, 1
+        )  # Le troisième widget prend moins de place
+        layout_selection_params.setStretch(
+            3, 1
+        )  # Le troisième widget prend moins de place
 
         layout_selection_lieux.addLayout(layout_selection_params)
         layout_selection_lieux.addWidget(self.avertissement_prio)
@@ -159,7 +167,9 @@ class OngletSelectionnerDestinations(QWidget):
                 nom = formater_temps_actuel()
 
             gran = self.constantes.parametres_traduits["granularite"][self.langue]
-            nom = f"{nom}{' – '}{self.fonction_traduire(clef='granularite_pays_visites')}"
+            nom = (
+                f"{nom}{' – '}{self.fonction_traduire(clef='granularite_pays_visites')}"
+            )
 
             nom_yaml_regions = f"{nom} – {gran['Régions']}.yaml"
             nom_yaml_departements = f"{nom} – {gran['Départements']}.yaml"
@@ -185,7 +195,9 @@ class OngletSelectionnerDestinations(QWidget):
                     )
 
                 self.telecharger_lieux_visites.setText("📥✅")
-                QTimer.singleShot(3000, lambda: self.telecharger_lieux_visites.setText("📥"))
+                QTimer.singleShot(
+                    3000, lambda: self.telecharger_lieux_visites.setText("📥")
+                )
 
             except Exception as e:
 
@@ -267,7 +279,9 @@ class OngletSelectionnerDestinations(QWidget):
         pays_i = self.liste_des_pays.currentText()
         niveau_i = obtenir_clef_par_valeur(
             valeur=self.liste_niveaux.currentText(),
-            dictionnaire=self.constantes.parametres_traduits["granularite"][self.langue],
+            dictionnaire=self.constantes.parametres_traduits["granularite"][
+                self.langue
+            ],
         )
 
         self.liste_endroits.blockSignals(True)
@@ -291,8 +305,13 @@ class OngletSelectionnerDestinations(QWidget):
             liste_item.setFlags(liste_item.flags() | Qt.ItemFlag.ItemIsUserCheckable)
 
             # Si déjà sélectionné dans le dict, on coche
-            clef = "region" if niveau_i == "Régions" else "dep"
-            est_coche = item in self.dicts_granu.get(clef, {}).get(pays_i, [])
+            est_coche = item in (
+                (
+                    self.dicts_granu.get("region" if niveau_i == "Régions" else "dep")
+                    or {}
+                ).get(pays_i)
+                or []
+            )
             liste_item.setCheckState(
                 Qt.CheckState.Checked if est_coche else Qt.CheckState.Unchecked
             )
@@ -317,15 +336,17 @@ class OngletSelectionnerDestinations(QWidget):
             "region"
             if obtenir_clef_par_valeur(
                 valeur=self.liste_niveaux.currentText(),
-                dictionnaire=self.constantes.parametres_traduits["granularite"][self.langue],
+                dictionnaire=self.constantes.parametres_traduits["granularite"][
+                    self.langue
+                ],
             )
             == "Régions"
             else "dep"
         )
 
         # Initialise le dictionnaire pour le pays s’il n’existe pas
-        if pays_i not in self.dicts_granu[clef]:
-            self.dicts_granu[clef][pays_i] = []
+        self.dicts_granu[clef] = self.dicts_granu.get(clef) or {}
+        self.dicts_granu[clef][pays_i] = self.dicts_granu[clef].get(pays_i) or []
 
         # Ajoute ou retire l’élément selon son état
         if item.checkState() == Qt.CheckState.Checked:

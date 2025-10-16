@@ -1,8 +1,8 @@
 Douceur:
-  max_luminosite: 0.85
-  max_saturation: 0.5
-  min_luminosite: 0.6
-  min_saturation: 0.3
+  max_luminosite: 0.9
+  max_saturation: 0.6
+  min_luminosite: 0.65
+  min_saturation: 0.4
 Fluorescent:
   max_luminosite: 1.0
   max_saturation: 1.0

@@ -68,9 +68,9 @@ def creer_liste_pays_multilangue(
                 continue
 
             resultat[i][j] = modele.generate_content(
-                f"Traduis le nom du pays qui va t'être donné en {j} : {i}. Ne donne que la traduction, rien d'autre. N'inclus en aucun cas la prononciation."
+                f"Traduis le nom du pays (ou du groupe de pays) qui va t'être donné en {j} : {i}. Ne donne que la traduction, rien d'autre. N'inclus en aucun cas la prononciation. Si tu n'es pas certain, renvoie le nom non traduit."
                 if version == 0
-                else f"Traduis la phrase qui va t'être donnée en {j} : {i}. Ne donne que la traduction, rien d'autre. N'inclus en aucun cas la prononciation."
+                else f"Traduis la phrase qui va t'être donnée en {j} : {i}. Ne donne que la traduction, rien d'autre. N'inclus en aucun cas la prononciation.Si tu n'es pas certain, renvoie la phrase non traduite."
             ).text.strip("\n .'")
 
             time.sleep(

@@ -33,15 +33,18 @@ chypre:
   - Akrotiri and Dhekelia
   - Cyprus
   - Northern Cyprus
-coree:
-  categorie: Korean Peninsula
+coree_japon:
+  categorie: Japan and Korean Peninsula
   liste:
+  - Japan
   - North Korea
   - South Korea
-finlande:
-  categorie: Finland and Åland
+fennoscandia:
+  categorie: Fennoscandia
   liste:
   - Finland
+  - Norway
+  - Sweden
   - Åland
 france:
   categorie: France, Monaco and Channel Islands
@@ -94,11 +97,6 @@ jerusalem:
   liste:
   - Israel
   - Palestine
-suisse:
-  categorie: Liechtenstein and Switzerland
-  liste:
-  - Liechtenstein
-  - Switzerland
 malaisie:
   categorie: Malaysia, Singapore and Brunei
   liste:
@@ -131,3 +129,13 @@ serbie:
   liste:
   - Kosovo
   - Serbia
+suisse:
+  categorie: Liechtenstein and Switzerland
+  liste:
+  - Liechtenstein
+  - Switzerland
+uae_oman:
+  categorie: Oman and the United Arab Emirates
+  liste:
+  - Oman
+  - United Arab Emirates

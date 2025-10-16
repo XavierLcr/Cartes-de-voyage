@@ -74,6 +74,7 @@ def creer_image_carte(
     },
     teintes_autorisees: None | list = None,
     couleur_non_visites: str = "#ECEBED",
+    couleur_pays_contours: str = "#F7F7F7",
     couleur_de_fond: str = "#FFFFFF",
     couleur_lacs: str = "#CEE3F5",
     chemin_impression: str = os.path.dirname(os.path.abspath(__file__)),
@@ -133,15 +134,31 @@ def creer_image_carte(
 
     fig, ax = plt.subplots(figsize=(10, 6))
     ax.set_axis_off()
+    ax.margins(0)
     fig.patch.set_facecolor(couleur_de_fond)
 
     gdf.plot(ax=ax, color=gdf["Couleur"], edgecolor="black", linewidth=0.008, zorder=1)
 
     liste_pays = list(gdf["Pays"].unique())
 
-    # Ajout des frontières de façon plus marquée
     if gdf_monde is not None:
 
+        # Ajout des pays aux alentours
+        marge = 0.02
+        xmin, ymin, xmax, ymax = gdf.total_bounds
+        ax.set_xlim(xmin - marge * (xmax - xmin), xmax + marge * (xmax - xmin))
+        ax.set_ylim(ymin - marge * (ymax - ymin), ymax + marge * (ymax - ymin))
+        gdf_monde_temp = gdf_monde[~gdf_monde["name_0"].isin(liste_pays)]
+        if len(gdf_monde_temp) > 0:
+            gdf_monde_temp.plot(
+                ax=ax,
+                color=couleur_pays_contours,
+                edgecolor="dimgrey",
+                linewidth=0.04,
+                zorder=3,
+            )
+
+        # Ajout des frontières de façon plus marquée
         if blabla:
             print("Ajout des frontières nationales", end="")
 
@@ -171,10 +188,7 @@ def creer_image_carte(
         if blabla:
             print(", des lacs", end="")
 
-        gdf_eau = gdf_eau[gdf_eau["name_0"].isin(liste_pays)]
-
-        if len(gdf_eau) > 0:
-            gdf_eau.plot(ax=ax, color=couleur_lacs, edgecolor="none", alpha=1, zorder=3)
+        gdf_eau.plot(ax=ax, color=couleur_lacs, edgecolor="none", alpha=1, zorder=3)
 
     # Affichage du nom de la région
     if afficher_nom_lieu:

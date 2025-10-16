@@ -126,7 +126,8 @@ def creer_graphiques_pays(
         "max_saturation": 0.4,
     },
     teinte=None,
-    couleur_non_visites: str = "#ecebed",
+    couleur_non_visites: str = "#ECEBED",
+    couleur_pays_contours: str = "#ECEBED",
     couleur_fond: str = "#FFFFFF",
     couleur_lacs: str = "#CEE3F5",
     qualite: int = 200,
@@ -175,6 +176,7 @@ def creer_graphiques_pays(
             langue=langue,
         )
 
+        gdf_monde_i = gdf_fond.copy()
         gdf_fond_regions_i = gdf_fond_regions.copy()
 
         if (
@@ -203,8 +205,6 @@ def creer_graphiques_pays(
                 "deja_fait"
             ] = True
 
-            gdf_monde_i = gdf_fond.copy()
-
         else:
 
             gdf_i = gdf_visite.copy(deep=True)
@@ -217,9 +217,8 @@ def creer_graphiques_pays(
                 valeur_projection = "+proj=lcc +lat_1=50 +lat_2=70 +lat_0=60 +lon_0=90"
                 gdf_i = gdf_i.to_crs(valeur_projection)
                 gdf_eau = gdf_eau.to_crs(valeur_projection)
+                gdf_monde_i = gdf_monde_i.to_crs(valeur_projection)
                 gdf_fond_regions_i = gdf_fond_regions_i.to_crs(valeur_projection)
-
-            gdf_monde_i = None
 
         nom_pays_i = f"{(nom_indiv + ' – ') if nom_indiv else ''}{langue_i}.{format}"
         if (
@@ -240,6 +239,7 @@ def creer_graphiques_pays(
                 couleur_non_visites=couleur_non_visites,
                 couleur_de_fond=couleur_fond,
                 couleur_lacs=couleur_lacs,
+                couleur_pays_contours=couleur_pays_contours,
                 chemin_impression=os.path.join(direction_res, langue_i),
                 nom=nom_pays_i,
                 qualite=qualite,
@@ -273,7 +273,8 @@ def creer_graphique_region(
         "max_saturation": 0.4,
     },
     teinte=None,
-    couleur_non_visites: str = "#ecebed",
+    couleur_non_visites: str = "#ECEBED",
+    couleur_pays_contours: str = "#ECEBED",
     couleur_fond: str = "#FFFFFF",
     couleur_lacs: str = "#CEE3F5",
     qualite: int = 200,
@@ -346,6 +347,7 @@ def creer_graphique_region(
                 couleur_non_visites=couleur_non_visites,
                 couleur_de_fond=couleur_fond,
                 couleur_lacs=couleur_lacs,
+                couleur_pays_contours=couleur_pays_contours,
                 chemin_impression=direction_resultat,
                 nom=f"{nom_indiv + ' – ' if nom_indiv else ''}{nom_langue_region}.{format}",
                 qualite=qualite,
@@ -379,7 +381,8 @@ def cree_graphe_depuis_debut(
         "max_saturation": 0.4,
     },
     teinte: list | None = None,
-    couleur_non_visites: str = "#ecebed",
+    couleur_non_visites: str = "#ECEBED",
+    couleur_pays_contours: str = "#ECEBED",
     couleur_fond: str = "none",
     couleur_lacs: str = "#CEE3F5",
     qualite: int = 200,
@@ -485,6 +488,7 @@ def cree_graphe_depuis_debut(
             couleur_non_visites=couleur_non_visites,
             couleur_lacs=couleur_lacs,
             couleur_fond=couleur_fond,
+            couleur_pays_contours=couleur_pays_contours,
             qualite=qualite,
             langue=langue,
             blabla=blabla,

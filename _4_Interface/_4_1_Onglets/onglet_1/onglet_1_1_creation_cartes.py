@@ -114,7 +114,8 @@ class CreerCartes(QObject):
             couleur_fond=self.constantes.dictionnaire_arriere_plans[
                 self.parametres.get("couleur_fond_carte", "Blanc")
             ],
-            couleur_non_visites="#ECEBED",
+            couleur_non_visites="#DFDFDF",
+            couleur_pays_contours="#EBEBEB",
             couleur_lacs="#CDEAF7",
             format=self.parametres["format"],
             qualite=self.parametres["qualite"],

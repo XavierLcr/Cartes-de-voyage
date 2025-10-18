@@ -188,7 +188,9 @@ def creer_image_carte(
         if blabla:
             print(", des lacs", end="")
 
-        gdf_eau.plot(ax=ax, color=couleur_lacs, edgecolor="none", alpha=1, zorder=3)
+        gdf_eau = gdf_eau[gdf_eau["name_0"].isin(liste_pays)]
+        if len(gdf_eau) > 0:
+            gdf_eau.plot(ax=ax, color=couleur_lacs, edgecolor="none", alpha=1, zorder=3)
 
     # Affichage du nom de la région
     if afficher_nom_lieu:

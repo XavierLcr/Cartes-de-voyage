@@ -5,7 +5,7 @@
 ################################################################################
 
 
-import os, random, json, colorsys
+import os, random, json, colorsys, math, textwrap
 import matplotlib.pyplot as plt
 from datetime import datetime
 
@@ -148,9 +148,6 @@ def creer_image_carte(
         xmin, ymin, xmax, ymax = gdf.total_bounds
         ax.set_xlim(xmin - marge * (xmax - xmin), xmax + marge * (xmax - xmin))
         ax.set_ylim(ymin - marge * (ymax - ymin), ymax + marge * (ymax - ymin))
-        # gdf_monde["couleur"] = gdf_monde["name_0"].apply(
-        #     lambda x: "none" if x in liste_pays else couleur_pays_contours
-        # )
 
         # Ajout des frontières de façon plus marquée
         if blabla:
@@ -197,20 +194,38 @@ def creer_image_carte(
 
     # Affichage du nom de la région
     if afficher_nom_lieu:
-        for x, y, label, granu, couleur in zip(
+        # Calcul des dimensions des régions
+        bounds = gdf.geometry.bounds
+        gdf["largeur"] = bounds["maxx"] - bounds["minx"]
+        gdf["hauteur"] = bounds["maxy"] - bounds["miny"]
+
+        # Taille du texte selon la surface (plus douce grâce à log1p)
+        gdf["taille_texte"] = gdf["largeur"].apply(
+            lambda a: math.log1p(max(0.01, a * 0.5 * a / (a + 30)))
+        )
+
+        for x, y, label, couleur, taille, largeur in zip(
             gdf.geometry.centroid.x,
             gdf.geometry.centroid.y,
             gdf["Region"],
-            gdf["Granu"],
             gdf["Couleur"],
+            gdf["taille_texte"],
+            gdf["largeur"],
         ):
+
             ax.text(
                 x,
                 y,
-                label,
-                fontsize=3 / 3**granu,
+                "\n".join(
+                    textwrap.wrap(
+                        label, width=max(5, int(largeur * 3)), break_long_words=False
+                    )
+                ),
+                fontsize=taille,
                 ha="center",
+                va="center",
                 color=transformer_couleur_texte(couleur),
+                linespacing=0.8,
             )
 
     # Enregistrer la carte dans un fichier sans l'afficher

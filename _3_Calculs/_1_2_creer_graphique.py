@@ -122,7 +122,7 @@ def creer_image_carte(
         )
     )
     # On gère la mère Caspienne
-    gdf.loc[gdf["Pays"] == "Caspian Sea", "Couleur"] = couleur_de_fond  # "none"
+    gdf.loc[gdf["Pays"] == "Caspian Sea", "Couleur"] = couleur_de_fond
 
     # Crée la direction de sauvegarde du résultat si nécessaire
     if not os.path.exists(chemin_impression):
@@ -144,30 +144,33 @@ def creer_image_carte(
     if gdf_monde is not None:
 
         # Ajout des pays aux alentours
-        marge = 0.02
+        marge = 0.03
         xmin, ymin, xmax, ymax = gdf.total_bounds
         ax.set_xlim(xmin - marge * (xmax - xmin), xmax + marge * (xmax - xmin))
         ax.set_ylim(ymin - marge * (ymax - ymin), ymax + marge * (ymax - ymin))
-        gdf_monde_temp = gdf_monde[~gdf_monde["name_0"].isin(liste_pays)]
-        if len(gdf_monde_temp) > 0:
-            gdf_monde_temp.plot(
-                ax=ax,
-                color=couleur_pays_contours,
-                edgecolor="dimgrey",
-                linewidth=0.04,
-                zorder=3,
-            )
+        # gdf_monde["couleur"] = gdf_monde["name_0"].apply(
+        #     lambda x: "none" if x in liste_pays else couleur_pays_contours
+        # )
 
         # Ajout des frontières de façon plus marquée
         if blabla:
             print("Ajout des frontières nationales", end="")
 
-        gdf_monde = gdf_monde[gdf_monde["name_0"].isin(liste_pays)]
-
-        if len(gdf_monde) > 0:
-            gdf_monde.plot(
-                ax=ax, color="none", edgecolor="black", linewidth=0.04, zorder=3
-            )
+        gdf_monde.plot(
+            ax=ax,
+            color=gdf_monde["name_0"].apply(
+                lambda x: (
+                    couleur_de_fond
+                    if x == "Caspian Sea"
+                    else "none" if x in liste_pays else couleur_pays_contours
+                )
+            ),
+            edgecolor=gdf_monde["name_0"].apply(
+                lambda x: "black" if x in liste_pays else "dimgrey"
+            ),
+            linewidth=0.04,
+            zorder=3,
+        )
 
     if gdf_regions is not None:
 
@@ -270,7 +273,11 @@ def creer_image_carte(
         }
 
     plt.savefig(
-        nom, dpi=max(min(qualite, 4500), 100), bbox_inches="tight", metadata=metadata
+        nom,
+        dpi=max(min(qualite, 4500), 100),
+        bbox_inches="tight",
+        metadata=metadata,
+        pad_inches=0,
     )
     plt.close(fig)
 

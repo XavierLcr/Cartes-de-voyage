@@ -1,0 +1,141 @@
+afrique_sud:
+  categorie: South Africa, Lesotho and Eswatini
+  liste:
+  - Lesotho
+  - South Africa
+  - Swaziland
+amerique_centrale_nord:
+  categorie: Northern Central America
+  liste:
+  - Belize
+  - Guatemala
+  - Honduras
+  - El Salvador
+archipel_comores:
+  categorie: Comoro Islands
+  liste:
+  - Comoros
+  - Mayotte
+belux:
+  categorie: Belgium and Luxembourg
+  liste:
+  - Belgium
+  - Luxembourg
+caucase_sud:
+  categorie: South Caucasus
+  liste:
+  - Armenia
+  - Azerbaijan
+  - Georgia
+chypre:
+  categorie: Cyprus Island
+  liste:
+  - Akrotiri and Dhekelia
+  - Cyprus
+  - Northern Cyprus
+coree_japon:
+  categorie: Japan and Korean Peninsula
+  liste:
+  - Japan
+  - North Korea
+  - South Korea
+fennoscandia:
+  categorie: Fennoscandia
+  liste:
+  - Finland
+  - Norway
+  - Sweden
+  - Åland
+france:
+  categorie: France, Monaco and Channel Islands
+  liste:
+  - France
+  - Jersey
+  - Guernsey
+  - Monaco
+guam:
+  categorie: Guam and Northern Mariana Islands
+  liste:
+  - Guam
+  - Northern Mariana Islands
+iles_britanniques:
+  categorie: British Isles
+  liste:
+  - Ireland
+  - Isle of Man
+  - United Kingdom
+ile_hispaniola:
+  categorie: Hispaniola Island
+  liste:
+  - Dominican Republic
+  - Haiti
+ile_saint_martin:
+  categorie: Anguilla and Saint Martin Island
+  liste:
+  - Anguilla
+  - Saint-Martin
+  - Sint Maarten
+samoa:
+  categorie: Samoan Islands
+  liste:
+  - Samoa
+  - American Samoa
+iles_vierges:
+  categorie: Virgin Islands
+  liste:
+  - British Virgin Islands
+  - Puerto Rico
+  - Virgin Islands, U.S.
+indonesie:
+  categorie: Indonesia, Papua New Guinea and Timor-Leste
+  liste:
+  - Indonesia
+  - Papua New Guinea
+  - Timor-Leste
+jerusalem:
+  categorie: Israel and Palestine
+  liste:
+  - Israel
+  - Palestine
+malaisie:
+  categorie: Malaysia, Singapore and Brunei
+  liste:
+  - Brunei
+  - Malaysia
+  - Singapore
+mascareignes:
+  categorie: Mauritius and Réunion
+  liste:
+  - Mauritius
+  - Réunion
+pays_iberiques:
+  categorie: Spain and Gibraltar
+  liste:
+  - Gibraltar
+  - Spain
+pays_italiens:
+  categorie: Italy, Vatican City and San Marino
+  liste:
+  - Italy
+  - San Marino
+  - Vatican City
+senegal_gambie:
+  categorie: Senegal and Gambia
+  liste:
+  - Gambia
+  - Senegal
+serbie:
+  categorie: Serbia and Kosovo
+  liste:
+  - Kosovo
+  - Serbia
+suisse:
+  categorie: Liechtenstein and Switzerland
+  liste:
+  - Liechtenstein
+  - Switzerland
+uae_oman:
+  categorie: Oman and the United Arab Emirates
+  liste:
+  - Oman
+  - United Arab Emirates

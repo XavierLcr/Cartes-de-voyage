@@ -1,0 +1,28 @@
+# Ignorer les dossiers de données dans /donnees
+_1_Données/_1_1_Données_brutes/
+_1_Données/_1_2_Données_géographiques/
+_1_Données/_1_X_Autres/
+
+# Fichiers temporaires
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+*.log
+
+# Fichiers de données
+*.pkl
+*.gpkg
+
+# Fichiers de sauvegarde individuel
+sauvegarde_utilisateurs.yaml
+clefs_et_mots_de_passe.py
+
+# Fichiers d’IDE
+.vscode/
+.idea/
+*.swp
+
+# Fichiers système
+.DS_Store
+Thumbs.db

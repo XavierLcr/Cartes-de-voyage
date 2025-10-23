@@ -1,0 +1,118 @@
+# Titres généraux
+titre_windows : Cartes de voyage
+titre_application : Outil de création de cartes
+
+# Titres d'onglets
+titre_onglet_1 : Paramètres
+titre_onglet_2 : Création de la liste des pays visités
+titre_onglet_3 : Liste des lieux visités
+titre_onglet_4 : Statistiques
+description_onglet_4 : En termes de pourcentage de la superficie visitée pour chaque pays
+
+# Paramètres individuels
+titre_params_individu : Vos paramètres
+dossier_stockage_individu : Choisir le dossier de stockage des cartes
+dossier_stockage_pop_up : Sélectionner un dossier
+langue_individu : Langue
+supprimer_profil : Supprimer ce profil
+titre_pop_up_suppression : Suppression du profil
+contenu_pop_up_suppression : Soutaitez-vous vraiment supprimer ce profil ? Cette opération est définitive
+oui : Oui
+non : Non
+
+# Granularité des cartes
+titre_granularite : Granularité des cartes
+granularite_pays_visites : Pays visités
+granularite_pays_non_visites : Pays non visités
+
+# Cartes à publier
+titre_cartes_a_publier : Cartes à publier
+carte_du_monde : Carte du monde
+cartes_pays_visites : Cartes des pays visités
+afrique : Afrique
+amerique : Amérique
+asie : Asie
+europe : Europe
+moyen_orient : Moyen-Orient
+autres_regions_monde : Autres régions du monde
+publier_cartes_faible_granularite_uniquement : Également publier les cartes pour lesquelles la granularité souhaitée n'est pas disponible
+description_publier_cartes_faible_granularite_uniquement : Permet de choisir si l'on souhaite publier l'entièreté des cartes ou seulement celles qui possèdent la granularité souhaitée. Veut-on par exemple publier une carte qui n'existe qu'au niveau régional si l'on souhaite des cartes au niveau départemental ?
+
+# Paramètres esthétiques
+titre_params_esthetiques : Paramètres esthétiques
+cartes_theme : Thème
+cartes_couleurs : Teintes
+tick_style_dans_app : Utiliser le style dans l'application
+description_tick_style_dans_app : "Applique les paramètres esthétiques sélectionnés à l'application. Cela permet d'avoir un aperçu de leur rendu"
+cartes_couleurs_fond : Couleur de l'arrière plan
+cartes_couleurs_fond_tool_tip : Permet de choisir la couleur d'arrière plan. Sont disponibles comme couleurs le blanc, divers bleus plus ou moins proche de la couleur de la mer, ainsi que transparent. Le bleu le plus clair disponible est celui utilisé pour représenter les lacs sur les cartes.
+
+# Paramètres de format et de qualité
+titre_params_techniques : Paramètres de publication des cartes
+cartes_format : Format
+cartes_qualite : Qualité de l'image
+qualite_elevee : Élevée
+qualite_faible : Faible
+nombre_exemplaires_cartes : Nombre de versions conservées pour chaque carte
+description_nombre_exemplaires_cartes : S'il existe plus de versions d'une carte que la limite sélectionnée, alors la carte la plus ancienne sera supprimée
+cinq_cartes : Cinq cartes
+dix_cartes : Dix cartes
+quinze_cartes : Quinze cartes
+pas_de_limite_de_cartes : Pas de limite
+
+# Boutons finaux du premier onglet
+reinitialisation_interface : Réinitialiser l'interface
+description_bouton_reinitialisation_interface : Réinitialise l'interface ainsi que la liste des pays visités. Veuillez vérifier d'avoir bien sauvegardé les paramètres actuels avant de cliquer sur ce bouton
+sauvegarder_profil : Sauvegarder mes paramètres
+sauvegarde_effectuee : Vos paramètres ont bien été sauvegardés
+bouton_publier_cartes : Publier les cartes !
+description_bouton_publier_cartes : "Publier les cartes sauvegarde également les paramètres"
+
+# Onglet 2
+titre_choix_destinations_visitees : Sélection des lieux visités
+telecharger_lieux_visites : Télécharger les fichiers YAML des lieux visités
+export_pas_fonctionnel : L'export n'a pas fonctionné. Veuillez réessayer plus tard
+avertissement_onglet_2 : Pour un pays donné, si des départements sont cochés, ils sont prioritaires sur les régions cochées. Dans ce cas, la liste des régions visitées est automatiquement reconstituée à partir de la liste des départements. Il n'est donc plus nécessaire de cocher les régions visitées (les régions peuvent rester cochées mais ne seront pas prises en compte)
+precision_diplomatique_onglet_2 : Dans ce logiciel, le terme « pays » est employé par commodité pour regrouper des ensembles géographiques. Il peut ainsi désigner non seulement un État souverain, mais aussi un territoire, une île éloignée ou une subdivision administrative particulière. Cette approche vise uniquement à simplifier l’organisation et l’utilisation des cartes. Elle ne reflète aucune prise de position politique, diplomatique ou juridique concernant le statut des lieux représentés.
+
+# Chargement des YAMLs
+titre_chargement_yamls : ou charger manuellement un fichier YAML contenant la liste des lieux visités
+description_titre_chargement_yamls : Les deux fichiers YAMLs complets, avec l'entièreté des régions et des départements, sont fournis avec l'application. En cas d'utilisation, ne pas directement modifier les originaux mais plutôt des copies (afin de ne pas perdre la liste des lieux non visités)
+yaml_regions : Charger la liste des régions visitées
+yaml_departements : Charger la liste des départements visités
+pop_up_yaml : Charger un fichier YAML
+
+# Onglets 3
+titre_regions_visitees : Régions visitées
+titre_departements_visites : Départements visités
+mise_en_forme_onglet_3 : Affichage regroupé
+
+# Onglet 4
+## Hémicycle
+titre_sous_onglet_4_1: Pays visités par continent
+## Classement
+titre_sous_onglet_4_2 : Pays les plus visités
+classement_selon_regions : Selon les régions visitées
+classement_selon_departements : Selon les départements visités
+# Recommandations
+titre_sous_onglet_4_3 : Suggestions de destinations
+bouton_recommandations : Cliquez ici afin de trouver votre prochaine destination !
+titre_recommandations : Nos suggestions rien que pour vous
+recommandation_passeport : À vos passeports, prêts, voyagez !
+
+# Onglet 5
+sous_titre_description_application : Création de cartes de voyages
+version : Version
+description_application : "<h2>📌 Description :</h2>\n<p>Mes Voyages est une application permettant de créer des cartes de voyages personnalisées en sélectionnant les régions ou départements des pays que l'on a visités.</p>\n<h2>💻 Comment utiliser :</h2>\n<ol>\n<li>Entrez vos paramètres ainsi que votre nom.</li>\n<li>Entrez les lieux que vous avez visités.</li>\n<li>Créez vos cartes ! La sauvegarde de vos visites et de vos paramètres se fait lorsque vous cliquez sur le bouton de création des cartes.</li>\n</ol>\n<h2>📋 Fichiers YAML disponibles :</h2>\n<p>Les fichiers <code>.yaml</code> fournis sont des <strong>modèles complets</strong> contenant tous les pays, régions et départements disponibles.</p>\n<p>▶️ Si vous préférez cette méthode à celle de cocher les lieux visités, copiez d'abord les modèles présents dans le dossier de l'application. Supprimez ensuite tous les lieux non visités et chargez-les dans l'application.</p>\n<h2>❓ Contact :</h2>\n<p>L'application se veut intuitive, mais pour toute question : xavier.cal181@gmail.com.</p>\n<p>Les traductions ont été générées automatiquement et n'ont pas été relues manuellement. Pour toute erreur, contactez-moi.\nDe même, si des bugs se produisent ou que vous souhaitez effectuer des retours/recommandations, n'hésitez pas à me contacter.</p>\n<h2>🗑️ Désinstallation :</h2>\n<p>Supprimez simplement le dossier. Aucun fichier système n’est modifié.</p>\n<hr />\n<p><strong>Merci d’avoir choisi Mes Voyages !</strong></p>"
+
+# Pop_ups de publication des cartes
+titre_pop_up_publication_cartes : Création des cartes
+debut_publication_cartes : Début de l'opération
+publication_cartes_reussie : Les cartes ont été créées avec succès !
+
+# Pop-ups des problèmes
+pop_up_probleme_titre : Problème
+pop_up_aucun_lieu_coche : Aucun lieu n'a été coché. Essayez de cocher le lieu associé à votre emplacement actuel !
+pop_up_pas_de_dossier_de_stockage : Il est nécessaire de choisir un dossier de stockage des cartes
+pop_up_dossier_de_stockage_faux : Il est nécessaire de choisir un dossier de stockage des cartes valide
+

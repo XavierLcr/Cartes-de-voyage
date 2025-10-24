@@ -405,11 +405,6 @@ class OngletParametres(QWidget):
         self.groupe_params_individu.setTitle(
             self.fonction_traduction("titre_params_individu")
         )
-        # self.dossier_stockage_bouton.setText(
-        #     self.fonction_traduction("dossier_stockage_individu")
-        #     if self.dossier_stockage is None
-        #     else os.sep.join(os.path.normpath(self.dossier_stockage).split(os.sep)[-3:])
-        # )
         self.set_dossier(dossier=self.dossier_stockage)
         self.label_langue.setText(
             self.fonction_traduction(clef="langue_individu", suffixe=" :")

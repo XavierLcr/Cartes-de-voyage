@@ -25,6 +25,11 @@ from _0_Utilitaires._0_1_Fonctions_utiles import (
     creer_ligne_separation,
 )
 
+from _3_Calculs._1_2_creer_graphique import (
+    renvoyer_couleur_widget,
+    renvoyer_couleur_texte,
+)
+
 
 # 1 -- Fonctions ---------------------------------------------------------------
 
@@ -162,6 +167,44 @@ def calculer_recommandation(
         )
 
 
+## 1.3 -- Fonction de choix de la couleur du bouton ----------------------------
+
+
+def couleur_bouton_recommandations(style: int, teinte, nuances):
+
+    bg_couleur = renvoyer_couleur_widget(
+        style=style, teinte=teinte, nuances=nuances, clair="#C8E6C9", sombre="#2B523B"
+    )
+    bg_couleur_survol = renvoyer_couleur_widget(
+        style=style, teinte=teinte, nuances=nuances, clair="#B7E4C7", sombre="#0B9437"
+    )
+    bg_couleur_click = renvoyer_couleur_widget(
+        style=style, teinte=teinte, nuances=nuances, clair="#77B0AD", sombre="#0D7344"
+    )
+
+    return f"""
+        QPushButton {{
+            background-color: {bg_couleur};  /* pastel bleu-vert */
+            color: {renvoyer_couleur_texte(style=style, couleur=bg_couleur)};              /* texte bleu foncé pour contraste doux */
+            border-radius: 12px;
+            padding: 10px 22px;
+            font-size: 14px;
+            font-weight: bold;
+            border:  none;   /* bord subtil légèrement plus clair */
+        }}
+        QPushButton:hover {{
+            background-color: #B7E4C7;   /* légèrement plus saturé au survol */
+            color: {renvoyer_couleur_texte(style=style, couleur=bg_couleur_survol)};  
+            border-color: none;
+        }}
+        QPushButton:pressed {{
+            background-color: {bg_couleur_click};   /* un peu plus foncé à l’appui */
+            color: {renvoyer_couleur_texte(style=style, couleur=bg_couleur_click)};   
+            border-color: none;
+        }}
+    """
+
+
 # 2 -- Classe de calcul du tableau de recommandations --------------------------
 
 
@@ -223,27 +266,6 @@ class PaysAVisiter(QWidget):
         layout = QVBoxLayout()
         # Bouton de lancement
         self.bouton_recommandations = QPushButton()
-        self.bouton_recommandations.setStyleSheet(
-            f"""
-        QPushButton {{
-            background-color: {"#C8E6C9"};  /* pastel bleu-vert */
-            color: #2C2C2C;              /* texte bleu foncé pour contraste doux */
-            border-radius: 12px;
-            padding: 10px 22px;
-            font-size: 14px;
-            font-weight: bold;
-            border:  none;   /* bord subtil légèrement plus clair */
-        }}
-        QPushButton:hover {{
-            background-color: #B7E4C7;   /* légèrement plus saturé au survol */
-            border-color: none;
-        }}
-        QPushButton:pressed {{
-            background-color: #77B0AD;   /* un peu plus foncé à l’appui */
-            border-color: none;
-        }}
-    """
-        )
 
         layout.addWidget(self.bouton_recommandations)
         self.bouton_recommandations.clicked.connect(self.calculer_prochaine_destination)
@@ -409,3 +431,9 @@ class PaysAVisiter(QWidget):
             self.fonction_traduire("recommandation_passeport")
         )
         self.afficher_recommandation()
+
+    def set_bouton_recommandation(self, style, teinte, nuances):
+
+        self.bouton_recommandations.setStyleSheet(
+            couleur_bouton_recommandations(style=style, teinte=teinte, nuances=nuances)
+        )

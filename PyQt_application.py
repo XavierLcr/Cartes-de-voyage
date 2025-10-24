@@ -289,7 +289,7 @@ class MesVoyagesApplication(QWidget):
         try:
 
             # Récupération de l'ambiance
-            liste_theme_temp = constantes.liste_ambiances.get(
+            theme_temp = constantes.liste_ambiances.get(
                 _0_1_Fonctions_utiles.obtenir_clef_par_valeur(
                     dictionnaire=constantes.parametres_traduits["themes_cartes"].get(
                         self.langue, {}
@@ -299,7 +299,7 @@ class MesVoyagesApplication(QWidget):
             )
 
             # Récupération des teintes utilisées
-            liste_teintes_temp = constantes.liste_couleurs.get(
+            teinte_temp = constantes.liste_couleurs.get(
                 _0_1_Fonctions_utiles.obtenir_clef_par_valeur(
                     dictionnaire=constantes.parametres_traduits["teintes_couleurs"].get(
                         self.langue, {}
@@ -312,22 +312,27 @@ class MesVoyagesApplication(QWidget):
             return
 
         # Sortie si une valeur n'existe pas
-        if liste_theme_temp is None or liste_teintes_temp is None:
+        if theme_temp is None or teinte_temp is None:
             return
 
         # Appliquer les styles dynamiques
+        style_temp = (
+            0
+            if self.onglet_parametres.utiliser_theme.isChecked()
+            else int(constantes.parametres_application["interface_foncee"] + 1)
+        )
         self.setStyleSheet(
             utiliser_style_dynamique(
-                style=(
-                    0
-                    if self.onglet_parametres.utiliser_theme.isChecked()
-                    else int(constantes.parametres_application["interface_foncee"] + 1)
-                ),
-                nuances=liste_theme_temp,
-                teinte=liste_teintes_temp,
+                style=style_temp,
+                nuances=theme_temp,
+                teinte=teinte_temp,
                 limite_essais=50,
                 font_size=12,
             )
+        )
+
+        self.onglet_statistiques.recommandations.set_bouton_recommandation(
+            style=style_temp, teinte=teinte_temp, nuances=theme_temp
         )
 
     def creer_liste_parametres(self):

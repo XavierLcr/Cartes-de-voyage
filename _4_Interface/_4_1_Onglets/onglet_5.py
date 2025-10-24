@@ -42,9 +42,9 @@ class OngletInformations(QWidget):
                     prefixe=self.fonction_traduire(
                         "sous_titre_description_application",
                         prefixe="<h2>Mes Voyages – ",
-                        suffixe="<br>(",
+                        suffixe="</h2><h3>(",
                     ),
-                    suffixe=f" {self.version_logiciel})</h2><hr>",
+                    suffixe=f" {self.version_logiciel})</h3><hr>",
                 ),
                 suffixe="<br>",
             )

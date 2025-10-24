@@ -425,14 +425,14 @@ def utiliser_style_dynamique(
 
     # Boites
     couleur_box = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#EBF0F2", sombre="#07736F"
+        style=style, teinte=teinte, nuances=nuances, clair="#EBF0F2", sombre="#1696A9"
     )
     couleur_box_texte = renvoyer_couleur_texte(
         style=style,
         couleur=couleur_box,
     )
     couleur_box_bord = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#C9D6E0", sombre="#5C79A4"
+        style=style, teinte=teinte, nuances=nuances, clair="#C9D6E0", sombre="#1696A9"
     )
 
     # Lignes

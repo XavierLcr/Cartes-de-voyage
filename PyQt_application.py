@@ -14,12 +14,15 @@ from PyQt6.QtWidgets import (
     QMessageBox,
     QTabWidget,
 )
-from PyQt6.QtGui import QIcon
+from PyQt6.QtGui import QIcon, QPalette, QColor
 from PyQt6.QtCore import QTimer
 
 # Scripts et fonctions du projet
 import constantes
-from _3_Calculs._1_2_creer_graphique import utiliser_style_dynamique
+from _3_Calculs._1_2_creer_graphique import (
+    utiliser_style_dynamique,
+    renvoyer_couleur_texte,
+)
 from _0_Utilitaires import _0_1_Fonctions_utiles
 from _4_Interface._4_1_Onglets.onglet_1 import onglet_1
 from _4_Interface._4_1_Onglets.onglet_2 import onglet_2
@@ -333,6 +336,12 @@ class MesVoyagesApplication(QWidget):
 
         self.onglet_statistiques.recommandations.set_bouton_recommandation(
             style=style_temp, teinte=teinte_temp, nuances=theme_temp
+        )
+        self.onglet_statistiques.hemicycle.set_style(
+            couleur=renvoyer_couleur_texte(
+                style=style_temp,
+                couleur=self.palette().color(self.backgroundRole()).name(),
+            )
         )
 
     def creer_liste_parametres(self):

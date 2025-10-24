@@ -147,6 +147,7 @@ class HemicycleWidget(QWidget):
             "North America",
             "South America",
         ]
+        self.couleur_texte = "#2C2C2C"
 
         # Ajustement du nombre de points par ligne
         self.decalage = len(
@@ -286,7 +287,7 @@ class HemicycleWidget(QWidget):
 
         # === Légendes : centrées sur le centroïde === #
 
-        painter.setPen(Qt.GlobalColor.black)
+        painter.setPen(QColor(self.couleur_texte))
         font = QFont()
         font.setPointSize(int(8 + self.level_distance / 10))  # Taille en points
 
@@ -347,3 +348,7 @@ class HemicycleWidget(QWidget):
         )
 
         self.update()
+
+    def set_style(self, couleur):
+        self.couleur_texte = couleur
+        self.creer_hemicycle()

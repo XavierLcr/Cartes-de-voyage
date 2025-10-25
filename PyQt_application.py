@@ -14,7 +14,7 @@ from PyQt6.QtWidgets import (
     QMessageBox,
     QTabWidget,
 )
-from PyQt6.QtGui import QIcon, QPalette, QColor
+from PyQt6.QtGui import QIcon
 from PyQt6.QtCore import QTimer
 
 # Scripts et fonctions du projet
@@ -185,9 +185,6 @@ class MesVoyagesApplication(QWidget):
 
         # Titres généraux
         self.setWindowTitle(self.traduire_depuis_id("titre_windows"))
-        self.onglet_parametres.titre.setText(
-            self.traduire_depuis_id(clef="titre_application")
-        )
 
         # Onglet 1
         self.liste_onglets.setTabText(

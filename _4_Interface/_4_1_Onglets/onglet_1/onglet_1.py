@@ -36,6 +36,7 @@ from _0_Utilitaires._0_1_Fonctions_utiles import (
     style_bouton_de_suppression,
     obtenir_clef_par_valeur,
     reset_combo,
+    periode_particuliere,
 )
 
 
@@ -392,6 +393,14 @@ class OngletParametres(QWidget):
 
     def set_langue(self):
 
+        # Titre
+        self.titre.setText(
+            self.fonction_traduction(
+                clef="titre_application",
+                suffixe=periode_particuliere().get("emoji", ""),
+            )
+        )
+
         # Récupération de la langue
         langue_actuelle = obtenir_clef_par_valeur(
             dictionnaire=self.constantes.dict_langues_dispo,
@@ -658,6 +667,10 @@ class OngletParametres(QWidget):
             self.thread_temp.start()
 
     def set_style_titre(self, taille=24):
+
         self.titre.setStyleSheet(
-            f"font-size: {taille}px; font-weight: bold; text-align: center; font-family: Vivaldi, sans-serif;"
+            f"font-size: {taille * periode_particuliere().get('titre_police_coeff', 1)}px;"
+            f"font-weight: bold;"
+            f"text-align: center;"
+            f"font-family: {periode_particuliere().get('titre_police', 'Vivaldi')}, sans-serif;"
         )

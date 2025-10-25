@@ -8,6 +8,7 @@
 import os, pickle, yaml, time, numba
 import pandas as pd
 import numpy as np
+from datetime import date
 from PyQt6.QtWidgets import QHBoxLayout, QVBoxLayout, QFrame, QLabel, QGroupBox
 from PyQt6.QtCore import Qt
 
@@ -350,3 +351,32 @@ def renvoyer_groupbox(objet, horizontal=True):
     groupbox = QGroupBox()
     groupbox.setLayout(layout)
     return groupbox
+
+
+## 1.17 -- Sommes-nous dans la période de Halloween ? --------------------------
+
+
+def periode_particuliere() -> dict:
+
+    mois = date.today().month
+    jour = date.today().day
+
+    # Halloween
+    if mois == 10 and jour >= 15:
+        return {"titre_police": "Chiller", "titre_police_coeff": 1.2, "emoji": " 🎃​"}
+
+    # Noël
+    elif mois == 12 and jour >= 15:
+        return {
+            "titre_police": "Edwardian Script ITC",
+            "titre_police_coeff": 1.8,
+            "emoji": " 🎄​​",
+        }
+
+    # Défaut
+    else:
+        return {
+            "titre_police": "Vivaldi",
+            "titre_police_coeff": 1,
+            "emoji": "",
+        }

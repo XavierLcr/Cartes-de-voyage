@@ -350,5 +350,6 @@ class HemicycleWidget(QWidget):
         self.update()
 
     def set_style(self, couleur):
-        self.couleur_texte = couleur
+
+        self.couleur_texte = couleur[0] if isinstance(couleur, tuple) else couleur
         self.creer_hemicycle()

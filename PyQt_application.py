@@ -337,6 +337,7 @@ class MesVoyagesApplication(QWidget):
         self.onglet_statistiques.recommandations.set_bouton_recommandation(
             style=style_temp, teinte=teinte_temp, nuances=theme_temp
         )
+
         self.onglet_statistiques.hemicycle.set_style(
             couleur=renvoyer_couleur_texte(
                 style=style_temp,

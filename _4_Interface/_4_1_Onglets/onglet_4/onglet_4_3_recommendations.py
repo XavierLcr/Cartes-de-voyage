@@ -16,6 +16,7 @@ from PyQt6.QtWidgets import (
     QGridLayout,
     QLabel,
     QScrollArea,
+    QGroupBox,
 )
 
 from _0_Utilitaires._0_1_Fonctions_utiles import (
@@ -23,6 +24,7 @@ from _0_Utilitaires._0_1_Fonctions_utiles import (
     vider_layout,
     creer_QLabel_centre,
     creer_ligne_separation,
+    renvoyer_groupbox,
 )
 
 from _3_Calculs._1_2_creer_graphique import (
@@ -280,7 +282,7 @@ class PaysAVisiter(QWidget):
             True
         )  # permet au scroll de s’adapter à la taille
         scroll_area.setWidget(scroll_widget)
-        layout.addWidget(scroll_area)
+        layout.addWidget(renvoyer_groupbox(scroll_area))
 
         self.setLayout(layout)
 

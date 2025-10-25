@@ -13,6 +13,9 @@ from PyQt6.QtWidgets import (
 )
 
 
+from _0_Utilitaires._0_1_Fonctions_utiles import renvoyer_groupbox
+
+
 class OngletInformations(QWidget):
     def __init__(self, fct_traduire, version_logiciel, parent=None):
         super().__init__(parent)
@@ -29,7 +32,7 @@ class OngletInformations(QWidget):
         self.label = QLabel(wordWrap=True)
         self.scroll_area.setWidget(self.label)
 
-        layout.addWidget(self.scroll_area)
+        layout.addWidget(renvoyer_groupbox(self.scroll_area))
 
     def set_langue(self):
         """Met à jour la langue."""

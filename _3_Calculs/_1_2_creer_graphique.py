@@ -661,6 +661,7 @@ def utiliser_style_dynamique(
             border: 2px solid {couleur_scroll_area_bord};
             border-radius: 5px;
         }}
+
         QScrollBar:vertical {{
             background: {couleur_scroll_area_barre_partie}; /* cohérent avec couleur_box */
             width: 12px;

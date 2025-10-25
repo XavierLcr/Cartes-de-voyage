@@ -14,12 +14,14 @@ from PyQt6.QtWidgets import (
     QVBoxLayout,
     QScrollArea,
     QGridLayout,
+    QGroupBox,
 )
 
 from _0_Utilitaires._0_1_Fonctions_utiles import (
     creer_ligne_separation,
     vider_layout,
     creer_QLabel_centre,
+    renvoyer_groupbox,
 )
 
 
@@ -140,8 +142,8 @@ class ClassementPays(QWidget):
 
         # --- Layout principal ---
         layout = QHBoxLayout(self)
-        layout.addWidget(scroll_top_pays_regions)
-        layout.addWidget(scroll_top_pays_deps)
+        layout.addWidget(renvoyer_groupbox(scroll_top_pays_regions))
+        layout.addWidget(renvoyer_groupbox(scroll_top_pays_deps))
 
     def classement_standard(
         self,

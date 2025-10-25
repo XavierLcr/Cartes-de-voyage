@@ -8,7 +8,7 @@
 import os, pickle, yaml, time, numba
 import pandas as pd
 import numpy as np
-from PyQt6.QtWidgets import QHBoxLayout, QFrame, QLabel
+from PyQt6.QtWidgets import QHBoxLayout, QVBoxLayout, QFrame, QLabel, QGroupBox
 from PyQt6.QtCore import Qt
 
 
@@ -329,3 +329,24 @@ def distance_haversine(lat1, lon1, lat2, lon2):
             )
         )
     )
+
+
+## 1.16 -- Groupbox d'un widget ------------------------------------------------
+
+
+def renvoyer_groupbox(objet, horizontal=True):
+
+    layout = QHBoxLayout() if horizontal else QVBoxLayout()
+
+    # Si l'objet est une liste de widgets
+    if isinstance(objet, list):
+        for widget in objet:
+            layout.addWidget(widget)
+
+    # Si l'objet est un widget unique
+    else:
+        layout.addWidget(objet)
+
+    groupbox = QGroupBox()
+    groupbox.setLayout(layout)
+    return groupbox

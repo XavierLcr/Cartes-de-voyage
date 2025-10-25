@@ -640,57 +640,57 @@ def utiliser_style_dynamique(
                 padding: 5px;
             }}
             QListWidget {{
-            background-color: {couleur_widget_list_fond}; /* Très proche de ton fond principal, mais un peu plus lumineux */
-            color: {couleur_widget_list_texte};
-            border: none;
-            padding: 4px;
-            border-radius: 5px;
-        }}
-        QListWidget::item:selected {{
-            background-color: {couleur_widget_list_select}; /* Bleu clair (déjà utilisé dans QPushButton) */
-            color: {couleur_widget_list_texte};
-            border-radius: 4px;
-        }}
-        QListWidget::item:hover {{
-            background-color: {couleur_widget_list_survol_fond};
-            color: {couleur_widget_list_texte};
-        }}
-        QScrollArea {{
-            background-color: {couleur_scroll_area_fond}; 
-            color : {couleur_scroll_area_texte};
-            border: 2px solid {couleur_scroll_area_bord};
-            border-radius: 5px;
-        }}
+                background-color: {couleur_widget_list_fond}; /* Très proche de ton fond principal, mais un peu plus lumineux */
+                color: {couleur_widget_list_texte};
+                border: none;
+                padding: 4px;
+                border-radius: 5px;
+            }}
+            QListWidget::item:selected {{
+                background-color: {couleur_widget_list_select}; /* Bleu clair (déjà utilisé dans QPushButton) */
+                color: {couleur_widget_list_texte};
+                border-radius: 4px;
+            }}
+            QListWidget::item:hover {{
+                background-color: {couleur_widget_list_survol_fond};
+                color: {couleur_widget_list_texte};
+            }}
+            QScrollArea {{
+                background-color: {couleur_scroll_area_fond}; 
+                color : {couleur_scroll_area_texte};
+                border: 2px solid {couleur_scroll_area_bord};
+                border-radius: 5px;
+            }}
 
-        QScrollBar:vertical {{
-            background: {couleur_scroll_area_barre_partie}; /* cohérent avec couleur_box */
-            width: 12px;
-            margin: 2px;
-            border-radius: 6px;
-        }}
-        QScrollBar::handle:vertical {{
-            background: {couleur_scroll_area_barre}; /* slider2 : bleu-vert soutenu */
-            border-radius: 6px;
-        }}
-        QScrollBar::handle:vertical:hover {{
-            background: {couleur_scroll_area_barre_survol}; /* slider : bleu-vert doux */
-        }}
-        QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {{
-            background: none;
-            height: 0;
-        }}
+            QScrollBar:vertical {{
+                background: {couleur_scroll_area_barre_partie}; /* cohérent avec couleur_box */
+                width: 12px;
+                margin: 2px;
+                border-radius: 6px;
+            }}
+            QScrollBar::handle:vertical {{
+                background: {couleur_scroll_area_barre}; /* slider2 : bleu-vert soutenu */
+                border-radius: 6px;
+            }}
+            QScrollBar::handle:vertical:hover {{
+                background: {couleur_scroll_area_barre_survol}; /* slider : bleu-vert doux */
+            }}
+            QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {{
+                background: none;
+                height: 0;
+            }}
 
-        QCheckBox::indicator {{
-            border: 1px solid {couleur_checkbox_bord}; /* couleur du cadre */
-            background-color: transparent; 
-            border-radius: 3px;
-        }}
+            QCheckBox::indicator {{
+                border: 1px solid {couleur_checkbox_bord}; /* couleur du cadre */
+                background-color: transparent; 
+                border-radius: 3px;
+            }}
 
-        QCheckBox::indicator:checked {{
-            background-color: {couleur_checkbox_cochee_fond};  /* laisse Qt dessiner le tick */
-            border: 1px solid {couleur_checkbox_bord};
-        }}
-        QProgressBar {{
+            QCheckBox::indicator:checked {{
+                background-color: {couleur_checkbox_cochee_fond};  /* laisse Qt dessiner le tick */
+                border: 1px solid {couleur_checkbox_bord};
+            }}
+            QProgressBar {{
                 border: none; 
                 text-align: right;
                 color: {couleur_widget_texte};

@@ -158,9 +158,6 @@ class OngletSelectionnerDestinations(QWidget):
 
         ## Layout et Groupbox
         self.bouton_afficher_option_yaml = QPushButton()
-        # self.bouton_afficher_option_yaml.setSizePolicy(
-        #     QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
-        # )
         self.bouton_afficher_option_yaml.clicked.connect(
             self.afficher_option_alternative
         )

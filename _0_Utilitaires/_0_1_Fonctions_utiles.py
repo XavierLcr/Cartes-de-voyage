@@ -362,15 +362,47 @@ def periode_particuliere() -> dict:
     jour = date.today().day
 
     # Halloween
-    if mois == 10 and jour >= 15:
+    if mois == 10 and jour >= 20:
         return {"titre_police": "Chiller", "titre_police_coeff": 1.2, "emoji": " 🎃​"}
 
     # Noël
-    elif mois == 12 and jour >= 15:
+    elif mois == 12 and jour >= 15 and jour <= 28:
         return {
             "titre_police": "Edwardian Script ITC",
             "titre_police_coeff": 1.8,
             "emoji": " 🎄​​",
+        }
+
+    # Nouvel an
+    elif (mois == 12 and jour >= 29) or (mois == 1 and jour <= 2):
+        return {
+            "titre_police": "Monotype Corsiva",
+            "titre_police_coeff": 1.6,
+            "emoji": " 🎆​​​",
+        }
+
+    # Printemps
+    elif mois == 3 and jour in [19, 20, 21]:
+        return {
+            "titre_police": "Segoe Print",
+            "titre_police_coeff": 1.4,
+            "emoji": " 🌷​​​",
+        }
+
+    # Autômne
+    elif mois == 9 and jour in [21, 22, 23]:
+        return {
+            "titre_police": "Constantia",
+            "titre_police_coeff": 1,
+            "emoji": " 🍂​​​",
+        }
+
+    # Saint-Valentin
+    elif mois == 2 and jour in [12, 13, 14]:
+        return {
+            "titre_police": "French Script MT",
+            "titre_police_coeff": 1,
+            "emoji": " 💝​​​",
         }
 
     # Défaut

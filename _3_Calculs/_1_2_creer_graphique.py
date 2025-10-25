@@ -572,7 +572,7 @@ def utiliser_style_dynamique(
                 background-color: {couleur_widget};
                 color: {couleur_widget_texte};
                 font-size: {font_size}px;
-                font-family: Microsoft PhagsPa;
+                font-family: Goudy Old Style;
             }}
             QPushButton {{
                 background-color: {couleur_push};

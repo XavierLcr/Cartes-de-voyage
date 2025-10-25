@@ -329,7 +329,7 @@ class MesVoyagesApplication(QWidget):
                 nuances=theme_temp,
                 teinte=teinte_temp,
                 limite_essais=50,
-                font_size=12,
+                font_size=13,
             )
         )
 

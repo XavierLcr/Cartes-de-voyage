@@ -20,6 +20,7 @@ from PyQt6.QtWidgets import (
     QFileDialog,
     QListWidget,
     QListWidgetItem,
+    QSizePolicy,
 )
 
 from _0_Utilitaires._0_1_Fonctions_utiles import (
@@ -28,6 +29,50 @@ from _0_Utilitaires._0_1_Fonctions_utiles import (
     exporter_fichier,
     formater_temps_actuel,
 )
+
+from _3_Calculs._1_2_creer_graphique import (
+    renvoyer_couleur_texte,
+    renvoyer_couleur_widget,
+)
+
+
+# 1 -- Fonctions utiles --------------------------------------------------------
+
+
+## 1.1 -- Couleur du bouton de l'option additionnelle --------------------------
+
+
+def couleur_bouton_option(style: int, teinte, nuances):
+
+    bg_couleur = renvoyer_couleur_widget(
+        style=style, teinte=teinte, nuances=nuances, clair="#D6F0EE", sombre="#742C82"
+    )
+    bg_couleur_survol = renvoyer_couleur_widget(
+        style=style, teinte=teinte, nuances=nuances, clair="#EBD3E6", sombre="#B34FA9"
+    )
+    bg_couleur_click = renvoyer_couleur_widget(
+        style=style, teinte=teinte, nuances=nuances, clair="#A8AFEA", sombre="#6E0D73"
+    )
+
+    return f"""
+        QPushButton {{
+            background-color: {bg_couleur};
+            color: {renvoyer_couleur_texte(style=style, couleur=bg_couleur)}; 
+            border-radius: 8px;
+            padding: 10px 22px;
+            border:  none;
+        }}
+        QPushButton:hover {{
+            background-color: {bg_couleur_survol};
+            color: {renvoyer_couleur_texte(style=style, couleur=bg_couleur_survol)};  
+            border-color: none;
+        }}
+        QPushButton:pressed {{
+            background-color: {bg_couleur_click};
+            color: {renvoyer_couleur_texte(style=style, couleur=bg_couleur_click)};   
+            border-color: none;
+        }}
+    """
 
 
 class OngletSelectionnerDestinations(QWidget):
@@ -112,14 +157,32 @@ class OngletSelectionnerDestinations(QWidget):
         self.fichier_yaml_2_bouton.clicked.connect(lambda: self.charger_yaml(2))
 
         ## Layout et Groupbox
+        self.bouton_afficher_option_yaml = QPushButton()
+        # self.bouton_afficher_option_yaml.setSizePolicy(
+        #     QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+        # )
+        self.bouton_afficher_option_yaml.clicked.connect(
+            self.afficher_option_alternative
+        )
         self.groupe_chargement_yaml = QGroupBox()
+        self.groupe_chargement_yaml.setSizePolicy(
+            QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred
+        )
         layout_groupe_chargement_yaml = QHBoxLayout()
         layout_groupe_chargement_yaml.addWidget(self.fichier_yaml_1_bouton)
         layout_groupe_chargement_yaml.addWidget(self.fichier_yaml_2_bouton)
         self.groupe_chargement_yaml.setLayout(layout_groupe_chargement_yaml)
+        self.groupe_chargement_yaml.setVisible(False)
+        layout_yaml = QHBoxLayout()
+        layout_yaml.addWidget(
+            self.bouton_afficher_option_yaml, alignment=Qt.AlignmentFlag.AlignLeft
+        )
+        layout_yaml.addWidget(self.groupe_chargement_yaml)
 
         layout.addWidget(self.groupe_selection_lieux)
-        layout.addWidget(self.groupe_chargement_yaml)
+        layout.addLayout(layout_yaml)
+        # layout.addWidget(self.bouton_afficher_option_yaml)
+        # layout.addWidget(self.groupe_chargement_yaml)
 
         self.setLayout(layout)
 
@@ -237,6 +300,18 @@ class OngletSelectionnerDestinations(QWidget):
             self.fonction_traduire("avertissement_onglet_2", prefixe="⚠️ ", suffixe=".")
         )
 
+        if self.groupe_chargement_yaml.isVisible():
+
+            self.bouton_afficher_option_yaml.setText(
+                self.fonction_traduire("masquer_option_yaml", prefixe="", suffixe="")
+            )
+
+        else:
+
+            self.bouton_afficher_option_yaml.setText(
+                self.fonction_traduire("montrer_option_yaml", prefixe="", suffixe="")
+            )
+
         reset_combo(
             self.liste_niveaux,
             [
@@ -258,7 +333,7 @@ class OngletSelectionnerDestinations(QWidget):
 
         # Chargement des YAMLs
         self.groupe_chargement_yaml.setTitle(
-            self.fonction_traduire("titre_chargement_yamls", prefixe="... ")
+            self.fonction_traduire("titre_chargement_yamls")
         )
         self.groupe_chargement_yaml.setToolTip(
             self.fonction_traduire("description_titre_chargement_yamls", suffixe=".")
@@ -369,3 +444,19 @@ class OngletSelectionnerDestinations(QWidget):
         self.fichier_yaml_1 = None
         self.fichier_yaml_2 = None
         self.set_langue(langue=None)
+
+    def afficher_option_alternative(self):
+
+        (
+            self.groupe_chargement_yaml.hide()
+            if self.groupe_chargement_yaml.isVisible()
+            else self.groupe_chargement_yaml.show()
+        )
+
+        self.set_langue(langue=None)
+
+    def set_style(self, style, teinte, nuances):
+
+        self.bouton_afficher_option_yaml.setStyleSheet(
+            couleur_bouton_option(style=style, teinte=teinte, nuances=nuances)
+        )

@@ -3812,6 +3812,86 @@ Cartes à publier:
   ukrainien: Картки для публікації
   vietnamien: Thẻ bài để đăng tải
   zoulou: Amakhadi okuzothunyelwa
+Chargement manuel de fichiers YAML contenant la liste des lieux visités:
+  afrikaans: Handmatige laai van YAML-lêers wat die lys van besoekte plekke bevat
+  albanais: Ngarkim manual i skedarëve YAML që përmbajnë listën e vendeve të vizituara
+  allemand: Manuelles Hochladen von YAML-Dateien mit der Liste der besuchten Orte
+  anglais: Manual loading of YAML files containing the list of visited places
+  arabe: تحميل يدوي لملفات YAML تحتوي على قائمة الأماكن التي تمت زيارتها
+  arménien: YAML ֆայլերի ձեռքով բեռնում, որոնք պարունակում են այցելած վայրերի ցուցակը։
+  basque: Bisitatutako lekuen zerrenda duten YAML fitxategien eskuzko kargatzea
+  bengali: পরিদর্শিত স্থানগুলির তালিকা সম্বলিত YAML ফাইলগুলির ম্যানুয়াল লোডিং।
+  birman: လာရောက်လည်ပတ်ခဲ့သည့် နေရာများစာရင်းပါဝင်သော YAML ဖိုင်များကို လက်ဖြင့်တင်သွင်းခြင်း။
+  breton: Kargañ añvour restrennoù YAML a ra anv eus an ul lec'hioù bet gweladennet
+  bulgare: Ръчно зареждане на YAML файлове, съдържащи списък на посетените места
+  catalan: Càrrega manual de fitxers YAML que contenen la llista de llocs visitats
+  corse: Caricamentu manuale di fugliali YAML chì cuntenenu a lista di i lochi visitati
+  coréen: 방문한 장소 목록이 포함된 YAML 파일을 수동으로 로드
+  danois: Manuel indlæsning af YAML-filer, der indeholder listen over besøgte steder
+  espagnol: Carga manual de archivos YAML que contienen la lista de lugares visitados
+  esperanto: Manluda ŝargado de YAML-dosieroj enhavantaj la liston de vizititaj lokoj
+  estonien: YAML-failide käsitsi laadimine, mis sisaldavad külastatud kohtade loendit
+  finnois: Vierailukohteiden luettelon sisältävien YAML-tiedostojen manuaalinen lataaminen
+  français: Chargement manuel de fichiers YAML contenant la liste des lieux visités
+  gallois: Llwytho â llaw ffeiliau YAML sy'n cynnwys rhestr o leoliadau y buwyd ynddynt
+  grec: Μη αυτόματη φόρτωση αρχείων YAML που περιέχουν τη λίστα των επισκεφθέντων
+    τόπων
+  grec ancien: Φόρτωσις χειροκίνητος αρχείων YAML περιεχόντων τὸν κατάλογον τῶν τόπων
+    οὓς ἐπεσκέψατο
+  géorgien: მომხმარებლის მიერ YAML ფაილების ხელით ჩატვირთვა, სადაც ჩამოთვლილია მონახულებული
+    ადგილები
+  hindi: Visited locations ki list wale YAML files ka manual loading
+  hongrois: YAML fájlok kézi betöltése a meglátogatott helyek listájával
+  indonésien: Memuat file YAML secara manual yang berisi daftar tempat yang dikunjungi
+  irlandais: Luchtaigh comhaid YAML go láimhe ina bhfuil liosta na n-áiteanna ar tugadh
+    cuairt orthu
+  islandais: Handvirk hleðsla á YAML-skjölum sem innihalda lista yfir heimsótta staði
+  italien: Caricamento manuale di file YAML contenenti l'elenco dei luoghi visitati
+  japonais: 訪問した場所のリストを含むYAMLファイルを手動でロードします。
+  kazakh: Келген жерлердің тізімі бар YAML файлдарын қолмен жүктеу
+  kirghize: Кыдырылган жерлердин тизмеси бар YAML файлдарын кол менен жүктөө
+  kurde: Dakilkirina destî ya pelên YAML ku navnîşa cihên serdanbûyî tê de hene
+  latin: Manus impressio fasciculorum YAML continens catalgum locorum visitatorum
+  letton: Manuāla YAML failu ielāde, kas satur apmeklēto vietu sarakstu
+  lituanien: Rankinis YAML failų, kuriuose yra aplankytų vietų sąrašas, įkėlimas
+  luxembourgeois: Manuell Luede vun YAML-Dateien mat der Lëscht vun de besichte Plazen
+  macédonien: Рачно вчитување на YAML датотеки што содржат список на посетени места
+  malais: Memuatkan fail YAML yang mengandungi senarai tempat yang dilawati secara
+    manual
+  malgache: Famoronana rakitra YAML amin'ny tanana misy ny lisitry ny toerana notsidihina
+  maltais: Tniżżil manwali ta' fajls YAML li fihom il-lista tal-postijiet miżjura
+  mandarin standard: 手动加载包含已访问地点列表的 YAML 文件。
+  mongol: Очир цэцэрлэгт зочилсон газруудын жагсаалтыг агуулсан YAML файлыг гараар
+    ачаална
+  norvégien: Manuell lasting av YAML-filer som inneholder listen over besøkte steder
+  néerlandais: Handmatig laden van YAML-bestanden met de lijst van bezochte locaties
+  népalais: YAML फाइलमा भ्रमण गरेका स्थानहरूको सूची म्यानुअल रूपमा लोड गर्दै।
+  ourdou: دورہ شدہ مقامات کی فہرست پر مشتمل YAML فائلوں کو دستی طور پر لوڈ کرنا۔
+  ouzbek: Tashrif buyurilgan joylar ro'yxatini o'z ichiga olgan YAML fayllarini qo'lda
+    yuklash
+  pachto: د یادو شویو ځایونو لیست لرونکي YAML فایلونو لاسرسي بارول
+  persan: بارگذاری دستی فایل‌های YAML حاوی لیست مکان‌های بازدید شده
+  polonais: Ręczne ładowanie plików YAML zawierających listę odwiedzonych miejsc
+  portugais: Carregamento manual de arquivos YAML contendo a lista de locais visitados
+  roumain: Încărcare manuală a fișierelor YAML care conțin lista locurilor vizitate
+  russe: Ручная загрузка YAML-файлов, содержащих список посещенных мест
+  serbo-croate: Ručno učitavanje YAML datoteka koje sadrže popis posjećenih mjesta
+  slovaque: Manuálne načítanie súborov YAML obsahujúcich zoznam navštívených miest
+  slovène: Ročno nalaganje datotek YAML s seznamom obiskanih krajev
+  suédois: Manuell laddning av YAML-filer som innehåller en lista över besökta platser
+  swahili: Upakiaji wa faili za YAML zilizo na orodha ya maeneo yaliyotembelewa
+  tadjik: Боргузорӣ боркунии файлҳои YAML, ки рӯйхати ҷойҳои боздидшударо дар бар
+    мегиранд
+  tamoul: பார்வையிட்ட இடங்களின் பட்டியலைக் கொண்ட YAML கோப்புகளை கைமுறையாக ஏற்றுகிறது
+  tchèque: Manuální nahrávání souborů YAML obsahujících seznam navštívených míst
+  thaï: การโหลดไฟล์ YAML ด้วยตนเองซึ่งมีรายชื่อสถานที่ที่ไปเยือน
+  tibétain: ཡུ་མལ་ཡན་གྱི་ཡིག་ཆ་ལག་གིས་བཀལ་བའི་གནས་མཇལ་གྱི་ཐོ་།
+  turc: Ziyaret edilen yerlerin listesini içeren YAML dosyalarının manuel yüklenmesi
+  turkmène: Ziyaret edilen ýerleriň sanawyny öz içine alýan YAML faýllaryny elle usulda
+    ýüklemek
+  ukrainien: Ручне завантаження файлів YAML зі списком відвіданих місць
+  vietnamien: Tải lên thủ công các tệp YAML chứa danh sách các địa điểm đã ghé thăm
+  zoulou: Ukulayisha mathuluzi amafayela e-YAML aqukethe uhlu lwezindawo ezivakashelwe
 Charger la liste des départements visités:
   afrikaans: Laai die lys van besoekte departemente
   albanais: Ngarko listën e departamenteve të vizituara
@@ -8649,6 +8729,148 @@ Liste des lieux visités:
   ukrainien: Список відвіданих місць
   vietnamien: Danh sách các địa điểm đã tham quan
   zoulou: Uhlu lwezindawo ezivakashelwe
+Masquer la méthode alternative:
+  afrikaans: Verberg die alternatiewe metode
+  albanais: Fshih metodën alternative
+  allemand: Alternative Methode ausblenden
+  anglais: Hide the alternative method
+  arabe: إخفاء الطريقة البديلة
+  arménien: Թաքցնել այլընտրանքային մեթոդը։
+  basque: Metodo alternatiboa ezkutatu
+  bengali: বিকল্প পদ্ধতিটি লুকান।
+  birman: အခြားနည်းလမ်းကို ဖုံးကွယ်ပါ။
+  breton: Kuzhat an hent alternative
+  bulgare: Скрийте алтернативния метод
+  catalan: Ocultar el mètode alternatiu
+  corse: Ammuccà u metudu alternativo
+  coréen: 대안적 방법 숨기기
+  danois: Skjul den alternative metode
+  espagnol: Ocultar el método alternativo
+  esperanto: Kaŝu la alternativan metodon
+  estonien: Varja alternatiivne meetod
+  finnois: Piilota vaihtoehtoinen menetelmä
+  français: Masquer la méthode alternative
+  gallois: Cuddio'r dull arall
+  grec: Απόκρυψη της εναλλακτικής μεθόδου
+  grec ancien: ἀπόκρυψον τὴν ἐναλλακτικὴν μέθοδον
+  géorgien: ალტერნატიული მეთოდის დამალვა
+  hindi: वैकल्पिक विधि छिपाएँ।
+  hongrois: Alternatív metódus elrejtése
+  indonésien: Sembunyikan metode alternatif
+  irlandais: Folaigh an modh malartach
+  islandais: Fela aðferðina
+  italien: Nascondi il metodo alternativo
+  japonais: 代替手段を隠す
+  kazakh: Балама әдісті жасыру
+  kirghize: Альтернативдик ыкманы жашыруу
+  kurde: Dîyar nekina rêbaza alternatîf
+  latin: Methodum alternativam celare
+  letton: Alternatīvās metodes slēpšana
+  lituanien: Slėpti alternatyvųjį metodą
+  luxembourgeois: D'alternativ Method verstoppen
+  macédonien: Скриј го алтернативниот метод
+  malais: Sembunyikan kaedah alternatif
+  malgache: Afarino ny fomba hafa
+  maltais: Ħbi l-metodu alternattiv
+  mandarin standard: 隐藏替代方法
+  mongol: Нэмэлт аргыг нуух
+  norvégien: Skjul den alternative metoden
+  néerlandais: Verberg de alternatieve methode
+  népalais: वैकल्पिक विधि लुकाउनुहोस्।
+  ourdou: متبادل طریقہ چھپائیں
+  ouzbek: Altenativ usulni yashiring
+  pachto: پهلوي طریقه پټول
+  persan: روش جایگزین را مخفی کنید
+  polonais: Ukryj alternatywną metodę
+  portugais: Mascarar o método alternativo
+  roumain: Ascunde metoda alternativă
+  russe: Скрыть альтернативный метод
+  serbo-croate: Sakrij alternativnu metodu
+  slovaque: Skryť alternatívnu metódu
+  slovène: Skrij alternativno metodo
+  suédois: Göm den alternativa metoden
+  swahili: Ficha njia mbadala
+  tadjik: Имконият алтернативиро пинҳон кунед
+  tamoul: மாற்று முறையை மறைக்க
+  tchèque: Skrýt alternativní metodu
+  thaï: ซ่อนวิธีการสำรอง
+  tibétain: གསང་བའི་ལམ་ལུགས།
+  turc: Alternatif yöntemi gizle
+  turkmène: Alternatiw usuly gizle
+  ukrainien: Приховати альтернативний метод
+  vietnamien: Ẩn phương pháp thay thế
+  zoulou: Fihla indlela enye
+Montrer la méthode alternative:
+  afrikaans: Wys die alternatiewe metode
+  albanais: Trego metodën alternative
+  allemand: Zeigen Sie die alternative Methode
+  anglais: Show the alternative method
+  arabe: إظهار الطريقة البديلة
+  arménien: Այլընտրանքային մեթոդը ցուցադրել
+  basque: Metodo alternatiboa erakutsi
+  bengali: বিকল্প পদ্ধতি দেখান।
+  birman: ဘ alternatif နည်းလမ်းကို ပြသပါ။
+  breton: Diskowelet an hent all
+  bulgare: Покажете алтернативния метод
+  catalan: Mostra el mètode alternatiu
+  corse: Mostrà u metudu alternativu
+  coréen: 대체 방법을 보여주세요
+  danois: Vis den alternative metode
+  espagnol: Mostrar el método alternativo
+  esperanto: Montru la alternativan metodon
+  estonien: Näita alternatiivset meetodit
+  finnois: Näytä vaihtoehtoinen tapa
+  français: Montrer la méthode alternative
+  gallois: Dangos y dull amgen
+  grec: Δείξτε την εναλλακτική μέθοδο
+  grec ancien: δείξατε τὴν ἐναλλακτικὴν μέθοδον
+  géorgien: ალტერნატიული მეთოდის ჩვენება
+  hindi: वैकल्पिक विधि दिखाएं।
+  hongrois: Alternatív módszer bemutatása
+  indonésien: Tunjukkan metode alternatif
+  irlandais: Tais an modh eile
+  islandais: Sýna aðferðarval
+  italien: Mostrare il metodo alternativo
+  japonais: 代替案を示す
+  kazakh: Альтернативті әдісті көрсетіңіз
+  kirghize: Альтернативдик ыкманы көрсөт
+  kurde: Rêya alternatîf nîşan bide
+  latin: Modo alternativo demonstra
+  letton: Rādīt alternatīvo metodi
+  lituanien: Parodykite alternatyvų metodą
+  luxembourgeois: Weise déi alternativ Method
+  macédonien: Прикажи алтернативен метод
+  malais: Tunjukkan kaedah alternatif
+  malgache: Aseho ny fomba hafa
+  maltais: Uri l-metodu alternattiv
+  mandarin standard: 展示替代方法
+  mongol: Өөр аргыг харуул
+  norvégien: Vis den alternative metoden
+  néerlandais: Laat de alternatieve methode zien
+  népalais: वैकल्पिक विधि देखाउनुहोस्।
+  ourdou: متبادل طریقہ دکھائیں
+  ouzbek: Alternativ usulni ko'rsatish
+  pachto: بدیل طریقه ښودل
+  persan: روش جایگزین را نشان دهید
+  polonais: Pokaż alternatywną metodę
+  portugais: Mostrar o método alternativo
+  roumain: Arată metoda alternativă
+  russe: Показать альтернативный метод
+  serbo-croate: Prikaži alternativnu metodu
+  slovaque: Ukázať alternatívnu metódu
+  slovène: Pokaži alternativno metodo
+  suédois: Visa den alternativa metoden
+  swahili: Onyesha njia mbadala
+  tadjik: Роҳи алтернативиро нишон диҳед
+  tamoul: மாற்று முறையைக் காட்டு
+  tchèque: Ukázat alternativní metodu
+  thaï: แสดงวิธีทางเลือก
+  tibétain: གཞན་ལམ་བསྟན་པ།
+  turc: Alternatif yöntemi gösterin
+  turkmène: Alternatiw usuly görkez
+  ukrainien: Показати альтернативний метод
+  vietnamien: Chỉ ra phương pháp thay thế
+  zoulou: Bonisa indlela ehlukile
 Moyen-Orient:
   afrikaans: Midde-Ooste
   albanais: Lindja e Mesme

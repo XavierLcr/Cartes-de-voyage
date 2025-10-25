@@ -324,6 +324,8 @@ class MesVoyagesApplication(QWidget):
             if self.onglet_parametres.utiliser_theme.isChecked()
             else int(constantes.parametres_application["interface_foncee"] + 1)
         )
+
+        # Cas général
         self.setStyleSheet(
             utiliser_style_dynamique(
                 style=style_temp,
@@ -334,15 +336,22 @@ class MesVoyagesApplication(QWidget):
             )
         )
 
-        self.onglet_statistiques.recommandations.set_bouton_recommandation(
+        # Onglet 2
+        self.onglet_selection_destinations.set_style(
             style=style_temp, teinte=teinte_temp, nuances=theme_temp
         )
 
+        # Onglet 4.1
         self.onglet_statistiques.hemicycle.set_style(
             couleur=renvoyer_couleur_texte(
                 style=style_temp,
                 couleur=self.palette().color(self.backgroundRole()).name(),
             )
+        )
+
+        # Onglet 4.3
+        self.onglet_statistiques.recommandations.set_bouton_recommandation(
+            style=style_temp, teinte=teinte_temp, nuances=theme_temp
         )
 
     def creer_liste_parametres(self):

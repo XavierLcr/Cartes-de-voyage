@@ -639,22 +639,6 @@ def utiliser_style_dynamique(
             QComboBox QAbstractItemView::item {{
                 padding: 5px;
             }}
-            QListWidget {{
-                background-color: {couleur_widget_list_fond}; /* Très proche de ton fond principal, mais un peu plus lumineux */
-                color: {couleur_widget_list_texte};
-                border: none;
-                padding: 4px;
-                border-radius: 5px;
-            }}
-            QListWidget::item:selected {{
-                background-color: {couleur_widget_list_select}; /* Bleu clair (déjà utilisé dans QPushButton) */
-                color: {couleur_widget_list_texte};
-                border-radius: 4px;
-            }}
-            QListWidget::item:hover {{
-                background-color: {couleur_widget_list_survol_fond};
-                color: {couleur_widget_list_texte};
-            }}
             QScrollArea {{
                 background-color: {couleur_scroll_area_fond}; 
                 color : {couleur_scroll_area_texte};
@@ -703,6 +687,27 @@ def utiliser_style_dynamique(
                 background-color: {couleur_barre_progression};
                 width: 8px;
                 margin: 0.5px;
+            }}
+            QListWidget {{
+                background-color: {couleur_widget_list_fond}; /* Très proche de ton fond principal, mais un peu plus lumineux */
+                color: {couleur_widget_list_texte};
+                border: none;
+                padding: 4px;
+                border-radius: 5px;
+            }}
+            QListWidget::item:selected {{
+                background-color: {couleur_widget_list_select}; /* Bleu clair (déjà utilisé dans QPushButton) */
+                color: {couleur_widget_list_texte};
+                border-radius: 4px;
+            }}
+            QListWidget::indicator:checked {{
+                background-color: {couleur_checkbox_cochee_fond}; /* Bleu clair (déjà utilisé dans QPushButton) */
+                border: 1px solid {couleur_checkbox_bord};
+                border-radius: 4px;
+            }}
+            QListWidget::item:hover {{
+                background-color: {couleur_widget_list_survol_fond};
+                color: {couleur_widget_list_texte};
             }}
 
         """

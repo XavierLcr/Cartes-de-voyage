@@ -531,7 +531,7 @@ def utiliser_style_dynamique(
         style=style,
         teinte=teinte,
         nuances=nuances,
-        clair="#EBF0F2",
+        clair="#DEDEDE",
         sombre="#27364D",
         reference=couleur_scroll_area_barre,
         essais=limite_essais,
@@ -640,28 +640,32 @@ def utiliser_style_dynamique(
                 padding: 5px;
             }}
             QScrollArea {{
-                background-color: {couleur_scroll_area_fond}; 
-                color : {couleur_scroll_area_texte};
+                background-color: transparent;
                 border: 2px solid {couleur_scroll_area_bord};
                 border-radius: 5px;
             }}
 
+            QScrollArea > QWidget {{
+                background-color: {couleur_scroll_area_fond};
+                color: {couleur_scroll_area_texte};
+                border-radius: 5px;
+            }}
+
+            QScrollArea > QWidget > QWidget {{
+                background-color: {couleur_scroll_area_fond};
+            }}
             QScrollBar:vertical {{
                 background: {couleur_scroll_area_barre_partie}; /* cohérent avec couleur_box */
                 width: 12px;
                 margin: 2px;
-                border-radius: 6px;
+                border-radius: 0px;
             }}
-            QScrollBar::handle:vertical {{
-                background: {couleur_scroll_area_barre}; /* slider2 : bleu-vert soutenu */
-                border-radius: 6px;
+            QScrollBar::handle:vertical, QScrollBar::handle:horizontal {{
+                background: {couleur_scroll_area_barre}; 
+                border-radius: 0px;
             }}
-            QScrollBar::handle:vertical:hover {{
+            QScrollBar::handle:vertical:hover, QScrollBar::handle:horizontal:hover {{
                 background: {couleur_scroll_area_barre_survol}; /* slider : bleu-vert doux */
-            }}
-            QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {{
-                background: none;
-                height: 0;
             }}
 
             QCheckBox::indicator {{
@@ -708,6 +712,25 @@ def utiliser_style_dynamique(
             QListWidget::item:hover {{
                 background-color: {couleur_widget_list_survol_fond};
                 color: {couleur_widget_list_texte};
+            }}
+            QScrollBar::add-line:vertical,
+            QScrollBar::sub-line:vertical {{
+                background: none;
+                border: none;
+                height: 0px;
+            }}
+
+            QScrollBar::add-line:horizontal,
+            QScrollBar::sub-line:horizontal {{
+                background: none;
+                border: none;
+                width: 0px;
+            }}
+            QScrollBar::add-page:vertical,
+            QScrollBar::sub-page:vertical,
+            QScrollBar::add-page:horizontal,
+            QScrollBar::sub-page:horizontal {{
+                background: none;
             }}
 
         """

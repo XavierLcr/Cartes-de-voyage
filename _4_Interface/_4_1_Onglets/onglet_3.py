@@ -54,8 +54,8 @@ class OngletResumeDestinations(QWidget):
         self.mise_en_forme.stateChanged.connect(self.maj_layout_resume)
 
         # Assembler les widgets
-        self.layout_resume_pays.addWidget(renvoyer_groupbox(self.scroll_regions))
-        self.layout_resume_pays.addWidget(renvoyer_groupbox(self.scroll_departements))
+        self.layout_resume_pays.addWidget(self.scroll_regions)
+        self.layout_resume_pays.addWidget(self.scroll_departements)
 
         self.layout_onglet_3.addLayout(self.layout_resume_pays)
         self.layout_onglet_3.addWidget(self.mise_en_forme)

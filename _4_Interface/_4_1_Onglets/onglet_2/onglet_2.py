@@ -178,8 +178,6 @@ class OngletSelectionnerDestinations(QWidget):
 
         layout.addWidget(self.groupe_selection_lieux)
         layout.addLayout(layout_yaml)
-        # layout.addWidget(self.bouton_afficher_option_yaml)
-        # layout.addWidget(self.groupe_chargement_yaml)
 
         self.setLayout(layout)
 

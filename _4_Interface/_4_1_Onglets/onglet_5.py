@@ -32,7 +32,7 @@ class OngletInformations(QWidget):
         self.label = QLabel(wordWrap=True)
         self.scroll_area.setWidget(self.label)
 
-        layout.addWidget(renvoyer_groupbox(self.scroll_area))
+        layout.addWidget(self.scroll_area)
 
     def set_langue(self):
         """Met à jour la langue."""

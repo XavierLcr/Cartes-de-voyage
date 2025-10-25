@@ -142,8 +142,8 @@ class ClassementPays(QWidget):
 
         # --- Layout principal ---
         layout = QHBoxLayout(self)
-        layout.addWidget(renvoyer_groupbox(scroll_top_pays_regions))
-        layout.addWidget(renvoyer_groupbox(scroll_top_pays_deps))
+        layout.addWidget(scroll_top_pays_regions)
+        layout.addWidget(scroll_top_pays_deps)
 
     def classement_standard(
         self,

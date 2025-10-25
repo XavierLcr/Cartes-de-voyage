@@ -282,7 +282,7 @@ class PaysAVisiter(QWidget):
             True
         )  # permet au scroll de s’adapter à la taille
         scroll_area.setWidget(scroll_widget)
-        layout.addWidget(renvoyer_groupbox(scroll_area))
+        layout.addWidget(scroll_area)
 
         self.setLayout(layout)
 

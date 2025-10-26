@@ -419,3 +419,35 @@ def periode_particuliere() -> dict:
             "titre_police_coeff": 1,
             "emoji": "",
         }
+
+
+## 1.18 -- Filtrer un dictionnaire en deux -------------------------------------
+
+
+def separer_combinaisons(dico1, dico2):
+    """Filtrer un dictionnaire en deux : les entrées présentes dans un second dictionnaire, et celles qui n’y sont pas."""
+
+    result = {True: {}, False: {}}
+
+    for pays in dico1:
+        if pays not in result[True]:
+            result[True][pays] = []
+        if pays not in result[False]:
+            result[False][pays] = []
+
+        if dico1[pays] is not None:
+            for region in dico1[pays]:
+                if pays in dico2 and region in dico2[pays]:
+                    result[True][pays].append(region)
+                else:
+                    result[False][pays].append(region)
+
+    # Supprimer les pays sans régions
+    result[True] = {pays: regions for pays, regions in result[True].items() if regions}
+    result[False] = {
+        pays: regions
+        for pays, regions in result[False].items()
+        if regions or (dico1[pays] is None or not dico1[pays])
+    }
+
+    return result

@@ -28,6 +28,7 @@ from _0_Utilitaires._0_1_Fonctions_utiles import (
     reset_combo,
     exporter_fichier,
     formater_temps_actuel,
+    separer_combinaisons,
 )
 
 from _3_Calculs._1_2_creer_graphique import (
@@ -182,6 +183,7 @@ class OngletSelectionnerDestinations(QWidget):
         self.setLayout(layout)
 
     def charger_yaml(self, num):
+
         chemin_yaml, _ = QFileDialog.getOpenFileName(
             self,
             self.fonction_traduire("pop_up_yaml"),
@@ -189,17 +191,53 @@ class OngletSelectionnerDestinations(QWidget):
             "YAML Files (*.yaml *.yml)",
         )
         if chemin_yaml:
+
             with open(chemin_yaml, "r", encoding="utf-8") as file:
                 data = yaml.safe_load(file)
-                if num == 1:
-                    self.chemin_fichier_yaml_1 = chemin_yaml
-                    self.fichier_yaml_1 = data  # Stocke les données du YAML 1
-                    self.dicts_granu["region"] = data
 
-                else:
-                    self.chemin_fichier_yaml_2 = chemin_yaml
-                    self.fichier_yaml_2 = data  # Stocke les données du YAML 2
-                    self.dicts_granu["dep"] = data
+            if num == 1:
+
+                self.chemin_fichier_yaml_1 = chemin_yaml
+                # Séparation des lieux existants ou non
+                dict_sep = separer_combinaisons(
+                    dico1=data, dico2=self.constantes.regions_par_pays
+                )
+                self.fichier_yaml_1 = dict_sep[True]  # Stocke les données du YAML 1
+                self.dicts_granu["region"] = dict_sep[True]
+
+            else:
+
+                self.chemin_fichier_yaml_2 = chemin_yaml
+                dict_sep = separer_combinaisons(
+                    dico1=data, dico2=self.constantes.departements_par_pays
+                )
+                self.fichier_yaml_2 = dict_sep[True]  # Stocke les données du YAML 2
+                self.dicts_granu["dep"] = dict_sep[True]
+
+            if dict_sep[False]:
+
+                for pays in dict_sep[False]:
+
+                    temp = (
+                        ", ".join(dict_sep[False][pays])
+                        if dict_sep[False][pays]
+                        else ""
+                    )
+                    dict_sep[False][
+                        pays
+                    ] = f"– <b>{pays}</b>{(f' ({temp})' if temp else '')}"
+
+                self.fonction_pop_up(
+                    titre=self.fonction_traduire("pop_up_attention_titre"),
+                    contenu=self.fonction_traduire(
+                        "lieux_sans_correspondance",
+                        suffixe=f" :<br>{f' ; <br>'.join(list(dict_sep[False].values()))}.",
+                    ),
+                    temps_max=None,
+                    bouton_ok=True,
+                    boutons_oui_non=False,
+                    renvoyer_popup=False,
+                )
 
             self.dict_modif.emit(self.dicts_granu)
             self.maj_liste_reg_dep_pays()

@@ -3329,6 +3329,77 @@ Asie:
   ukrainien: Азія
   vietnamien: Châu Á
   zoulou: I-Eshiya
+Attention !:
+  afrikaans: Pasop!
+  albanais: Vëmendje!
+  allemand: Achtung!
+  anglais: Attention!
+  arabe: انتبه!
+  arménien: Ուշադրություն!
+  basque: Kontuz!
+  bengali: সাবধান!
+  birman: သတိထား
+  breton: Diwall
+  bulgare: Внимание!
+  catalan: Atenció!
+  corse: Attenti!
+  coréen: 조심해!
+  danois: Pas på!
+  espagnol: ¡Atención!
+  esperanto: Atentu!
+  estonien: Ettevaatust!
+  finnois: Varoitus!
+  français: Attention !
+  gallois: Gwyliwch!
+  grec: Προσοχή!
+  grec ancien: Πρόσεχε
+  géorgien: ყურადღება!
+  hindi: सावधान!
+  hongrois: Vigyázat!
+  indonésien: Awas!
+  irlandais: Aire!
+  islandais: Varúð!
+  italien: Attenzione!
+  japonais: 注意
+  kazakh: Назар аударыңыз!
+  kirghize: Абайлаңыз!
+  kurde: Gare!
+  latin: Cave!
+  letton: Uzmanību!
+  lituanien: Dėmesio!
+  luxembourgeois: Opgepasst!
+  macédonien: Внимание!
+  malais: Awas!
+  malgache: Tandremo!
+  maltais: Attenzjoni!
+  mandarin standard: 小心！
+  mongol: Анхаар!
+  norvégien: Forsiktig!
+  néerlandais: Pas op!
+  népalais: ध्यान दिनुहोस्!
+  ourdou: خبردار!
+  ouzbek: Diqqat!
+  pachto: خبردار!
+  persan: توجه
+  polonais: Uwaga!
+  portugais: Cuidado!
+  roumain: Atenție!
+  russe: Осторожно!
+  serbo-croate: Пажња!
+  slovaque: Pozor!
+  slovène: Pozor!
+  suédois: Akta dig!
+  swahili: Tahadhari!
+  tadjik: Эҳтиёт бошед!
+  tamoul: கவனம்!
+  tchèque: Pozor!
+  thaï: โปรดระวัง
+  tibétain: '! གས་པ།'
+  turc: Dikkat!
+  turkmène: Uwagtıň!
+  ukrainien: Увага!
+  vietnamien: Cẩn thận!
+  zoulou: Qaphela!
 Aucun lieu n'a été coché. Essayez de cocher le lieu associé à votre emplacement actuel !:
   afrikaans: Geen plek is gekies nie. Probeer die plek wat met jou huidige ligging
     verband hou, kies!
@@ -3812,6 +3883,77 @@ Cartes à publier:
   ukrainien: Картки для публікації
   vietnamien: Thẻ bài để đăng tải
   zoulou: Amakhadi okuzothunyelwa
+Certains lieux provenant de votre fichier n'ont pas de correspondance:
+  afrikaans: Sommige plekke uit jou lêer het geen wedstryd nie
+  albanais: Disa vende nga skedari juaj nuk kanë përputhje
+  allemand: Einige Orte aus Ihrer Datei wurden nicht gefunden
+  anglais: Some locations from your file have no match
+  arabe: بعض المواقع من ملفك ليس لها مطابق
+  arménien: Ձեր ֆայլից որոշ վայրեր համապատասխանություն չունեն։
+  basque: Zure fitxategiko leku batzuek ez dute parekorik
+  bengali: আপনার ফাইল থেকে কিছু জায়গার মিল পাওয়া যায়নি।
+  birman: သင့်ဖိုင်ရှိ နေရာအချို့နှင့် ကိုက်ညီမှုမရှိပါ။
+  breton: Kement lec'h a zeu eus ho restr n'o deus ket a glot
+  bulgare: Някои места от вашия файл не са намерени
+  catalan: Alguns llocs del vostre fitxer no tenen correspondència
+  corse: Certi lochi venuti da u vostru schedariu ùn anu micca currispundenza
+  coréen: 파일에 있는 일부 장소에 일치하는 항목이 없습니다
+  danois: Nogle steder fra din fil har ingen match
+  espagnol: Algunos lugares de su archivo no tienen coincidencia
+  esperanto: Iuj lokoj el via dosiero ne havas ekvivalenton
+  estonien: Teie failist pärit mõned asukohad ei vasta ühtegi kirjet
+  finnois: Jotkin paikat tiedostossasi eivät vastaa
+  français: Certains lieux provenant de votre fichier n'ont pas de correspondance
+  gallois: Mae rhai lleoedd o'ch ffeil heb gyfatebiaeth
+  grec: Κάποιοι χώροι από το αρχείο σας δεν έχουν αντίστοιχο
+  grec ancien: Οἱ τόποι τινὲς ἐκ τοῦ ἀρχείου σου ἀντιστοιχίας οὐκ ἔχουσιν
+  géorgien: ზოგიერთი ადგილი თქვენი ფაილიდან არ შეესაბამება
+  hindi: आपके फ़ाइल से कुछ स्थानों का कोई मिलान नहीं है।
+  hongrois: Bizonyos helyek a fájljából nem találtak párosítást
+  indonésien: Beberapa lokasi dari file Anda tidak memiliki padanan
+  irlandais: Níl suíomh ar bith i do chomhad a bhfuil comhionann leis
+  islandais: Sumir staðir úr skránni þinni eiga sér enga samsvörun
+  italien: Alcuni luoghi dal tuo file non hanno corrispondenza
+  japonais: ファイル内のいくつかの場所が見つかりませんでした。
+  kazakh: Файлыңыздағы кейбір жерлер сәйкес келмеді
+  kirghize: Сиздин файлыңыздан кээ бир жерлердин дал келүүсү жок
+  kurde: Hin cîhên ji dosyayê we li hev naçin
+  latin: Nonnulla loca ex tabella tua non respondent
+  letton: Dažas vietas no jūsu faila neatradās
+  lituanien: Kai kurios vietos iš jūsų failo neatitiko
+  luxembourgeois: E puer Plaze aus Ärer Fichier hunn keng Enträten
+  macédonien: Некои локации од вашата датотека немаат соодветност
+  malais: Beberapa lokasi dari fail anda tidak mempunyai padanan
+  malgache: Misy toerana avy amin'ny fisieo anao tsy mahita fifanarahana
+  maltais: Xi postijiet mill-fajl tiegħek mhumiex imqabbla
+  mandarin standard: 您文件中的某些位置没有匹配项。
+  mongol: Таны файлын зарим газрууд тохирохгүй байна
+  norvégien: Enkelte steder fra filen din har ingen match
+  néerlandais: Sommige locaties uit uw bestand hebben geen overeenkomst
+  népalais: तपाईंको फाइलका केही स्थानहरू मेल खाँदैनन्।
+  ourdou: آپ کی فائل میں موجود کچھ جگہیں میل نہیں کھاتیں۔
+  ouzbek: Sizning faylingizdan ba'zi joylar mos kelmadi
+  pachto: ستاسو د فایل ځینې ځایونه سمون نه لري
+  persan: برخی مکان‌های موجود در فایل شما مطابقت ندارند
+  polonais: Niektóre miejsca z Twojego pliku nie mają dopasowania
+  portugais: Alguns locais do seu arquivo não têm correspondência
+  roumain: Anumite locații din fișierul dumneavoastră nu au corespondenți
+  russe: Некоторые места из вашего файла не найдены
+  serbo-croate: Neka mjesta iz vaše datoteke nemaju podudaranja
+  slovaque: Niektoré miesta z vášho súboru nemajú zodpovedajúci záznam
+  slovène: Nekatere lokacije iz vaše datoteke se ne ujemajo
+  suédois: Vissa platser från din fil har ingen matchning
+  swahili: Baadhi ya maeneo kutoka kwenye faili yako hayana mechi
+  tadjik: Баъзе ҷойҳо аз файли шумо мувофиқат намекунанд
+  tamoul: உங்கள் கோப்பில் உள்ள சில இடங்களுக்குப் பொருத்தம் இல்லை
+  tchèque: Některá místa z vašeho souboru nemají shodu
+  thaï: สถานที่บางแห่งในไฟล์ของคุณไม่พบที่ตรงกัน
+  tibétain: ཁྱེད་ཀྱི་ཡིག་ཆའི་ནང་གི་ས་གནས་ཁ་ཤས་མ་རྙེད་པ་འདུག
+  turc: Dosyanızdaki bazı yerlerin karşılığı bulunamadı
+  turkmène: Faýlyňyzdan käbir ýerleriň gabatlama ýokdur
+  ukrainien: Деякі місця з вашого файлу не мають відповідності
+  vietnamien: Một số địa điểm từ tệp của bạn không có kết quả khớp
+  zoulou: Amanye amakheli avela kufayela lakho awahambelani
 Chargement manuel de fichiers YAML contenant la liste des lieux visités:
   afrikaans: Handmatige laai van YAML-lêers wat die lys van besoekte plekke bevat
   albanais: Ngarkim manual i skedarëve YAML që përmbajnë listën e vendeve të vizituara

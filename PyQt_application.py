@@ -15,7 +15,7 @@ from PyQt6.QtWidgets import (
     QTabWidget,
 )
 from PyQt6.QtGui import QIcon
-from PyQt6.QtCore import QTimer
+from PyQt6.QtCore import QTimer, Qt
 
 # Scripts et fonctions du projet
 import constantes
@@ -446,6 +446,7 @@ class MesVoyagesApplication(QWidget):
         msg = QMessageBox(self)
         msg.setWindowTitle(titre)
         msg.setText(contenu)
+        msg.setTextFormat(Qt.TextFormat.RichText)
         msg.setIcon(QMessageBox.Icon.Information)
 
         # Configure le bouton OK et centre le message box

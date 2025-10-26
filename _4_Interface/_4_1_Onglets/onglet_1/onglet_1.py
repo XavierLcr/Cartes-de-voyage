@@ -205,8 +205,9 @@ class OngletParametres(QWidget):
 
         widget_nb_copies_cartes = QWidget()
         radio_layout = QHBoxLayout()
+        radio_layout.setAlignment(Qt.AlignmentFlag.AlignHCenter)
         radio_layout.setContentsMargins(0, 0, 0, 0)
-        radio_layout.setSpacing(10)
+        radio_layout.setSpacing(12)
         widget_nb_copies_cartes.setLayout(radio_layout)
 
         # Titre (centré verticalement)

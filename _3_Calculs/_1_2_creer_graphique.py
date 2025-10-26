@@ -733,5 +733,37 @@ def utiliser_style_dynamique(
             QScrollBar::sub-page:horizontal {{
                 background: none;
             }}
+            QRadioButton {{
+                border: 1px solid transparent;
+                border-radius: 4px;
+                padding: 5px 7px;
+            }}
+
+            QRadioButton:hover {{
+                border: 1px solid {couleur_push_hover};
+            }}
+
+            QRadioButton:checked {{
+                border: 2px solid {couleur_checkbox_cochee_fond}; /* couleur de bordure quand sélectionné */
+                background-color: transparent;
+            }}
+            QRadioButton::indicator {{
+                width: 0px;
+                height: 0px;
+                border-radius: 7px;
+                border: 0px transparent;
+                background-color: transparent;
+            }}
+
+            QRadioButton::indicator:hover {{
+                border: transparent;
+            }}
+
+            QRadioButton::indicator:checked {{
+                width: 0px;
+                height: 0px;
+                border: 0px transparent; /* bordure du rond sélectionné */
+                background-color: transparent;  /* couleur du centre */
+            }}
 
         """

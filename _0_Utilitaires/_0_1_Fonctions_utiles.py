@@ -9,7 +9,7 @@ import os, pickle, yaml, time, numba
 import pandas as pd
 import numpy as np
 from datetime import date
-from PyQt6.QtWidgets import QHBoxLayout, QVBoxLayout, QFrame, QLabel, QGroupBox
+from PyQt6.QtWidgets import QHBoxLayout, QVBoxLayout, QFrame, QLabel, QGroupBox, QWidget
 from PyQt6.QtCore import Qt
 
 
@@ -133,17 +133,24 @@ def creer_ligne_separation(
     relief=QFrame.Shadow.Sunken,
 ):
     """Afficher une simple ligne horizontale."""
-    layout_temp = QHBoxLayout()
+
+    widget = QWidget()
+    layout_temp = QHBoxLayout(widget)
+    layout_temp.setContentsMargins(0, 0, 0, 0)
+    layout_temp.setSpacing(0)
+
     ligne = QFrame()
     ligne.setFixedHeight(2)
-    ligne.setFrameShape(QFrame.Shape.HLine)  # Ligne horizontale
-    ligne.setFrameShadow(relief)  # Style de relief
+    ligne.setFrameShape(QFrame.Shape.HLine)
+    ligne.setFrameShadow(relief)
     ligne.setLineWidth(ligne_epaisseur)
     ligne.setMidLineWidth(ligne_epaisseur_interieur)
+
     layout_temp.addStretch(lStretch)
     layout_temp.addWidget(ligne, ligne_largeur)
     layout_temp.addStretch(rStretch)
-    return layout_temp
+
+    return widget
 
 
 ## 1.8 -- Crée une ligne verticale en PyQt6 ------------------------------------

@@ -105,7 +105,7 @@ class ClassementPays(QWidget):
         layout_entete_top_pays_regions = QVBoxLayout()
         layout_entete_top_pays_regions.addWidget(self.entete_top_pays_regions)
 
-        layout_entete_top_pays_regions.addLayout(creer_ligne_separation())
+        layout_entete_top_pays_regions.addWidget(creer_ligne_separation())
         layout_entete_top_pays_regions.addWidget(QLabel(""))
 
         self.layout_top_pays_regions = QGridLayout()
@@ -126,7 +126,7 @@ class ClassementPays(QWidget):
         layout_entete_top_pays_departements = QVBoxLayout()
         layout_entete_top_pays_departements.addWidget(self.entete_top_pays_departements)
 
-        layout_entete_top_pays_departements.addLayout(creer_ligne_separation())
+        layout_entete_top_pays_departements.addWidget(creer_ligne_separation())
         layout_entete_top_pays_departements.addWidget(QLabel(""))
 
         self.layout_top_pays_deps = QGridLayout()

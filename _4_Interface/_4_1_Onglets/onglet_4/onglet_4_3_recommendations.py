@@ -347,7 +347,7 @@ class PaysAVisiter(QWidget):
                 )
             )
         )
-        self.corps_recommandations.addLayout(
+        self.corps_recommandations.addWidget(
             creer_ligne_separation(lStretch=2, rStretch=2)
         )
         self.corps_recommandations.addWidget(QLabel(""))

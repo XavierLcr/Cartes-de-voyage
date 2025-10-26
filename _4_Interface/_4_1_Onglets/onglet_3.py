@@ -99,7 +99,7 @@ class OngletResumeDestinations(QWidget):
             )
         )
 
-        vbox.addLayout(creer_ligne_separation())
+        vbox.addWidget(creer_ligne_separation())
         vbox.addWidget(QLabel(""))
 
         if pays_donnees is not None:

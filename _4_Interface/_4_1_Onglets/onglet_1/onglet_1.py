@@ -168,7 +168,7 @@ class OngletParametres(QWidget):
             self.carte_pays, 0, 3, 1, 3, alignment=Qt.AlignmentFlag.AlignCenter
         )
 
-        layout_cartes_a_creer.addLayout(
+        layout_cartes_a_creer.addWidget(
             creer_ligne_separation(lStretch=0, ligne_largeur=1, rStretch=0),
             1,
             0,
@@ -186,7 +186,7 @@ class OngletParametres(QWidget):
         layout_cartes_a_creer.addWidget(self.moyen_orient, ligne_regions_1, 2, 1, 2)
         layout_cartes_a_creer.addWidget(self.autres_regions, ligne_regions_1, 4, 1, 2)
 
-        layout_cartes_a_creer.addLayout(
+        layout_cartes_a_creer.addWidget(
             creer_ligne_separation(lStretch=0, ligne_largeur=1, rStretch=0),
             4,
             0,
@@ -283,7 +283,7 @@ class OngletParametres(QWidget):
         layout_theme_couleurs.addWidget(
             self.utiliser_theme, alignment=Qt.AlignmentFlag.AlignCenter
         )
-        layout_theme_couleurs.addLayout(
+        layout_theme_couleurs.addWidget(
             creer_ligne_separation(lStretch=0, ligne_largeur=1, rStretch=0)
         )
         layout_theme_couleurs.addLayout(layout_couleur_fond)

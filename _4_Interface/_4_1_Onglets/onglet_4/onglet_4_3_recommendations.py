@@ -363,12 +363,16 @@ class PaysAVisiter(QWidget):
                         if i % modulo == 0:
                             layout_temp = QGridLayout()
 
+                        pays_traduit = self.constantes.pays_differentes_langues.get(
+                            ligne["name_0"], {}
+                        ).get(self.langue, ligne["name_0"])
+
                         layout_temp.addWidget(
                             QLabel(
                                 # Numéro
                                 f"{i + 1}. "
                                 # Pays avec emoji
-                                f"<b>{ligne['name_0']}</b> {self.constantes.emojis_pays.get(ligne['name_0'], '')}: "
+                                f"<b>{pays_traduit}</b> {self.constantes.emojis_pays.get(ligne['name_0'], '')}: "
                                 # Régions si affichage regroupé
                                 f"{ligne['name_1']}",
                                 wordWrap=True,
@@ -392,7 +396,7 @@ class PaysAVisiter(QWidget):
                                 text=(
                                     # Pays avec emoji
                                     f"{self.constantes.emojis_pays.get(pays, '')} "
-                                    f"<b>{pays}</b>"
+                                    f"<b>{self.constantes.pays_differentes_langues.get(pays, {}).get(self.langue, pays)}</b>"
                                     f" {self.constantes.emojis_pays.get(pays, '')}"
                                 )
                             )

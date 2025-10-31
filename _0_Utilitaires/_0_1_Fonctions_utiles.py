@@ -451,3 +451,13 @@ def separer_combinaisons(dico1, dico2):
     }
 
     return result
+
+
+## 1.19 -- Tronquer un dictionnaire imbriqué -----------------------------------
+
+
+def tronquer_dict(d, n):
+    if n == 1:
+        return list(d.keys())
+    else:
+        return {k: tronquer_dict(v, n - 1) for k, v in d.items()}

@@ -549,9 +549,31 @@ for i in range(6):
 
 
 print("Remplacement des valeurs ''.")
-for i in range(0, 5):
-    mask = gdf[f"name_{i+1}"] == ""
-    gdf.loc[mask, f"name_{i+1}"] = gdf.loc[mask, f"name_{i}"]
+cols = [f"name_{i}" for i in range(1, 6)]
+gdf[cols] = gdf[cols].replace("", pd.NA)
+
+# Calculer, pour chaque ligne, le niveau maximal non vide
+gdf["niveau_max_ligne"] = gdf[cols].notna().sum(axis=1)
+
+# Maintenant, pour chaque name_0, trouver le niveau maximal observé
+gdf["niveau_max_par_name_0"] = gdf.groupby("name_0")["niveau_max_ligne"].transform(
+    "max"
+)
+
+gdf.drop(columns="niveau_max_ligne", inplace=True)
+
+for i in range(1, 6):
+    mask = (gdf["niveau_max_par_name_0"] >= i) & (gdf[f"name_{i}"].isna() == True)
+
+    if i > 0:
+
+        # Numérotation dans le groupe name_0
+        nums = gdf[mask].groupby("name_0").cumcount().add(1).astype(str)
+
+        # Concaténation du niveau supérieur + Unknown + numéro
+        gdf.loc[mask, f"name_{i}"] = (
+            gdf.loc[mask, f"name_{i-1}"].astype(str) + " – Unknown "
+        ) + nums
 
 
 ## 3.3 -- Tests ----------------------------------------------------------------
@@ -581,57 +603,88 @@ for i in range(6):
     ), f"Il y a des '*' dans la colonne name_{i}"
 
 
-# 4 -- Agrégation, concaténation et export -------------------------------------
+## 3.4 -- Gestion des doublons et des valeurs manquantes -----------------------
 
 
-## 4.1 -- Fonction de concaténation des noms des régions dupliquées ------------
+### Fonction -------------------------------------------------------------------
 
 
 def concatener_noms_si_dupliques(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Concatène les niveaux supérieurs uniquement pour la colonne la plus fine (dernière)
-    si des doublons apparaissent dans un même pays mais avec hiérarchie différente.
-    """
+    """Concatène les niveaux supérieurs uniquement pour la colonne la plus fine (dernière),
+    si des doublons apparaissent dans un même pays mais avec hiérarchie différente."""
     # Colonnes hiérarchiques
+    df_temp = df.copy().fillna("")
     colonnes = sorted(
         [col for col in df.columns if col.startswith("name_")],
         key=lambda x: int(x.split("_")[1]),
     )
+    for i in range(2, len(colonnes) + 1):
 
-    # Dernier niveau
-    i = len(colonnes) - 1
-    col = colonnes[i]
+        # Table réduite
+        df_reduit = df_temp[[colonnes[i] for i in range(i)]].drop_duplicates()
+        df_reduit["col_temp"] = df_reduit[colonnes[i - 1]].copy()
 
-    # Masque : doublons sur (name_0, name_i) mais hiérarchie différente
-    mask = df.duplicated(subset=["name_0", col], keep=False) & ~df.duplicated(
-        subset=["name_0"] + colonnes[: i + 1], keep=False
-    )
+        for j in range(i - 2, -1, -1):
+            mask = df_reduit.duplicated(subset=["name_0", "col_temp"], keep=False)
 
-    if mask.any():
-        # Concaténer name_1 .. name_i
-        df.loc[mask, col] = df.loc[mask, colonnes[1 : i + 1]].agg(" – ".join, axis=1)
+            if mask.any():  # Concaténer name_1 .. name_i
 
-        assert len(df[df[["name_0", col]].duplicated(keep=False)]) == len(
-            df[df[[f"name_{i}" for i in range(len(colonnes))]].duplicated(keep=False)]
-        ), "Des doublons non souhaités existent"
+                df_reduit.loc[mask, "col_temp"] = df_reduit.loc[
+                    mask, [colonnes[j], "col_temp"]
+                ].agg(" – ".join, axis=1)
 
-    return df
+            else:
+                break
+
+        assert (
+            len(df_reduit[df_reduit[["name_0", "col_temp"]].duplicated(keep=False)])
+            == 0
+        ), df_reduit[df_reduit[["name_0", "col_temp"]].duplicated(keep=False)]
+
+        df_temp = (
+            df_temp.merge(df_reduit, on=[colonnes[i] for i in range(i)], how="left")
+            .drop(columns=[colonnes[i - 1]])
+            .rename(columns={"col_temp": colonnes[i - 1]})
+        )
+
+    # Homogénéisation des noms de colonnes
+    for i in range(len(colonnes)):
+        mask = df_temp["niveau_max_par_name_0"] < i
+
+        # Pour chaque ligne où le masque est vrai, on récupère l'indice correspondant
+        def get_value(row):
+            idx = int(row["niveau_max_par_name_0"])
+            return row[colonnes[idx]]
+
+        # Appliquer la fonction ligne par ligne
+        df_temp.loc[mask, colonnes[i]] = df_temp[mask].apply(get_value, axis=1)
+
+    return df_temp
 
 
-## 4.2 -- Fonction d'agrégation, de concaténation et d'export de chaque table --
+### Application ----------------------------------------------------------------
 
 
-def aggreger_lieux(gdf, direction_fichier, granularite=5):
+print("Concaténation des noms au niveau des doublons.")
+gdf = concatener_noms_si_dupliques(df=gdf)
 
-    resultat = (
-        copy.deepcopy(gdf)[[f"name_{i}" for i in range(granularite + 1)] + ["geometry"]]
-        .dissolve(by=[f"name_{i}" for i in range(granularite + 1)])
-        .reset_index()
-    )
-    resultat = concatener_noms_si_dupliques(resultat)
+
+# 4 -- Agrégation, concaténation et export -------------------------------------
+
+
+## 4.1 -- Fonction d'agrégation, de concaténation et d'export de chaque table --
+
+
+def agreger_lieux(gdf, direction_fichier, granularite=5):
 
     exporter_fichier(
-        objet=resultat,
+        objet=(
+            copy.deepcopy(gdf)[
+                [f"name_{i}" for i in range(granularite + 1)] + ["geometry"]
+            ]
+            .dissolve(by=[f"name_{i}" for i in range(granularite + 1)])
+            .reset_index()
+        ),
         direction_fichier=direction_fichier,
         nom_fichier=f"carte_monde_niveau_{granularite}.pkl",
     )
@@ -639,12 +692,18 @@ def aggreger_lieux(gdf, direction_fichier, granularite=5):
     print("Granularité", granularite, ": export effectué.")
 
 
-## 4.3 -- Application ----------------------------------------------------------
+## 4.2 -- Application ----------------------------------------------------------
 
 
+print("Agrégation.")
 for granularite in range(6):
-    aggreger_lieux(
+
+    agreger_lieux(
         gdf=gdf,
-        direction_fichier=constantes.direction_donnees_autres,
+        direction_fichier=(
+            constantes.direction_donnees_autres
+            if i > 2
+            else constantes.direction_donnees_geographiques
+        ),
         granularite=granularite,
     )

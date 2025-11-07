@@ -29,6 +29,7 @@ from _0_Utilitaires._0_1_Fonctions_utiles import (
     exporter_fichier,
     formater_temps_actuel,
     separer_combinaisons,
+    creer_ligne_separation,
 )
 
 from _3_Calculs._1_2_creer_graphique import (
@@ -383,7 +384,12 @@ class OngletSelectionnerDestinations(QWidget):
         )
 
     def maj_liste_reg_dep_pays(self):
-
+        """
+        Remplit self.liste_endroits (QListWidget) selon la granularité choisie.
+        - Si niveau == "Régions" : on affiche une liste de régions cochables.
+        - Si niveau == "Départements" : on affiche les régions (non cochables) puis
+        les départements (cochables) sous chaque région.
+        """
         pays_i = self.liste_des_pays.currentText()
         niveau_i = obtenir_clef_par_valeur(
             valeur=self.liste_niveaux.currentText(),
@@ -395,39 +401,85 @@ class OngletSelectionnerDestinations(QWidget):
         self.liste_endroits.blockSignals(True)
         self.liste_endroits.clear()
 
-        liste_end = (
-            {
-                "Régions": self.constantes.regions_par_pays,
-                "Départements": self.constantes.departements_par_pays,
-            }
-            .get(niveau_i, {})
-            .get(pays_i, [])
-        )
+        data = self.constantes.hierarchie_par_pays.get(pays_i, {})
 
-        if liste_end == []:
+        if not data:
             self.liste_endroits.blockSignals(False)
             return
 
-        for item in liste_end:
-            liste_item = QListWidgetItem(item)
-            liste_item.setFlags(liste_item.flags() | Qt.ItemFlag.ItemIsUserCheckable)
+        if niveau_i == "Régions":
 
-            # Si déjà sélectionné dans le dict, on coche
-            est_coche = item in (
-                (
-                    self.dicts_granu.get("region" if niveau_i == "Régions" else "dep")
-                    or {}
-                ).get(pays_i)
-                or []
-            )
-            liste_item.setCheckState(
-                Qt.CheckState.Checked if est_coche else Qt.CheckState.Unchecked
-            )
-            self.liste_endroits.addItem(liste_item)
+            # liste plate de régions cochables
+            for region in sorted(data.keys()):
+                item = QListWidgetItem(region)
+                # cochable + sélectionnable
+                item.setFlags(
+                    item.flags()
+                    | Qt.ItemFlag.ItemIsUserCheckable
+                    | Qt.ItemFlag.ItemIsSelectable
+                    | Qt.ItemFlag.ItemIsEnabled
+                )
+                est_coche = region in (
+                    self.dicts_granu.get("region", {}).get(pays_i, [])
+                )
+                item.setCheckState(
+                    Qt.CheckState.Checked if est_coche else Qt.CheckState.Unchecked
+                )
+
+                # style visuel pour distinguer
+                font = item.font()
+                font.setBold(False)
+                item.setFont(font)
+                self.liste_endroits.addItem(item)
+
+        else:  # niveau_i == "Départements"
+
+            # Afficher régions (non cochables) puis départements cochables
+            for i, region in enumerate(sorted(data.keys())):
+                # Ajouter un séparateur sauf avant la première région
+                if i != 0:
+                    separator_item = QListWidgetItem()
+                    separator_item.setFlags(Qt.ItemFlag.NoItemFlags)
+                    separator_item.setSizeHint(QSize(0, 6))  # hauteur de la ligne
+
+                    self.liste_endroits.addItem(separator_item)
+                    self.liste_endroits.setItemWidget(
+                        separator_item, creer_ligne_separation()
+                    )
+
+                # Item région
+                region_item = QListWidgetItem(region)
+                region_item.setFlags(
+                    Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsSelectable
+                )
+                font = region_item.font()
+                font.setBold(True)
+                region_item.setFont(font)
+                region_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+                self.liste_endroits.addItem(region_item)
+
+                for dep in sorted(data[region]):
+                    dep_item = QListWidgetItem(f"    {dep}")  # indentation visuelle
+                    dep_item.setFlags(
+                        dep_item.flags()
+                        | Qt.ItemFlag.ItemIsUserCheckable
+                        | Qt.ItemFlag.ItemIsEnabled
+                        | Qt.ItemFlag.ItemIsSelectable
+                    )
+                    est_coche = dep in (self.dicts_granu.get("dep", {}).get(pays_i, []))
+                    dep_item.setCheckState(
+                        Qt.CheckState.Checked if est_coche else Qt.CheckState.Unchecked
+                    )
+                    self.liste_endroits.addItem(dep_item)
+
+                # optionnel : ligne vide pour lisibilité
+                spacer = QListWidgetItem("")
+                spacer.setFlags(Qt.ItemFlag.NoItemFlags)
+                self.liste_endroits.addItem(spacer)
 
         self.liste_endroits.blockSignals(False)
 
-        # Connecte le signal (une seule fois idéalement)
+        # reconnecte proprement le signal itemChanged
         try:
             self.liste_endroits.itemChanged.disconnect()
         except TypeError:

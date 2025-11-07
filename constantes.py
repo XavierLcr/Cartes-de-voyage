@@ -207,6 +207,17 @@ departements_par_pays = ouvrir_fichier(
 )
 
 
+### Import de la liste globale des lieux ---------------------------------------
+
+
+hierarchie_par_pays = ouvrir_fichier(
+    direction_fichier=direction_donnees_application,
+    nom_fichier="hierarchie_granularite_pays.pkl",
+    defaut={},
+    afficher_erreur="Hiérarchie des pays introuvables",
+)
+
+
 ### Import de la liste de thèmes -----------------------------------------------
 
 

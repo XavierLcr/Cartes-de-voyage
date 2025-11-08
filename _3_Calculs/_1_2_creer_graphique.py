@@ -572,7 +572,7 @@ def utiliser_style_dynamique(
                 background-color: {couleur_widget};
                 color: {couleur_widget_texte};
                 font-size: {font_size}px;
-                font-family: Goudy Old Style;
+                font-family: Sylfaen;
             }}
             QPushButton {{
                 background-color: {couleur_push};
@@ -669,6 +669,11 @@ def utiliser_style_dynamique(
                 background: {couleur_scroll_area_barre_survol}; /* slider : bleu-vert doux */
             }}
 
+            QCheckBox {{
+                spacing: 6px;  /* 👈 espace entre la boîte et le texte */
+                padding-left: 0px;  /* marge interne à gauche du tout */
+            }}
+
             QCheckBox::indicator {{
                 border: 1px solid {couleur_checkbox_bord}; /* couleur du cadre */
                 background-color: transparent; 
@@ -699,6 +704,10 @@ def utiliser_style_dynamique(
                 border: none;
                 padding: 4px;
                 border-radius: 5px;
+            }}
+            QListWidget::item {{
+                padding-left: 6px;
+                padding-right: 6px;
             }}
             QListWidget::item:selected {{
                 background-color: {couleur_widget_list_select}; /* Bleu clair (déjà utilisé dans QPushButton) */

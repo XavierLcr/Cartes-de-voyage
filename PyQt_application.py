@@ -402,7 +402,6 @@ class MesVoyagesApplication(QWidget):
             "dictionnaire_departements": (
                 self.dicts_granu["dep"] if self.dicts_granu["dep"] != {} else None
             ),
-            "format_onglet_3": self.onglet_resume_destinations.donner_mise_en_forme(),
         }
 
     def exporter_liste_parametres(self):
@@ -547,8 +546,6 @@ class MesVoyagesApplication(QWidget):
                 "moyen_orient": self.onglet_parametres.moyen_orient,
                 "autres_regions": self.onglet_parametres.autres_regions,
                 "sortir_cartes_granu_inf": self.onglet_parametres.sortir_cartes_granu_inf,
-                # Onglet 3
-                "format_onglet_3": self.onglet_resume_destinations.mise_en_forme,
             }
             for nom_cle, checkbox in checkboxes.items():
                 if sauv.get(nom_cle) is not None:
@@ -687,7 +684,6 @@ class MesVoyagesApplication(QWidget):
         self.onglet_selection_destinations.liste_des_pays.setCurrentIndex(0)
 
         self.onglet_selection_destinations.reset_yaml()
-        self.onglet_resume_destinations.set_mise_en_forme(coche=False)
 
         if set_interface:
             # self.set_langue_interface()

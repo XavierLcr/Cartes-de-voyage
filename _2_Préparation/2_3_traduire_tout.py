@@ -494,7 +494,7 @@ if __name__ == "__main__":
         )
 
         ## Liste des pays individuels
-        liste_pays.extend(list(constantes.regions_par_pays.keys()))
+        liste_pays.extend(list(constantes.hierarchie_par_pays.keys()))
 
         # Traduction et export
         print("\n\n Traduction des noms de pays et régions : \n")

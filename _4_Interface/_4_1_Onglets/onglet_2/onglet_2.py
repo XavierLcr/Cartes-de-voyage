@@ -114,7 +114,7 @@ class OngletSelectionnerDestinations(QWidget):
         self.bouton_sauvegarde2.clicked.connect(fct_sauvegarde)
 
         # Remplir les déroulés
-        self.liste_des_pays.addItems(self.constantes.regions_par_pays.keys())
+        self.liste_des_pays.addItems(self.constantes.hierarchie_par_pays.keys())
         self.liste_des_pays.currentIndexChanged.connect(self.maj_liste_reg_dep_pays)
         self.liste_niveaux.currentIndexChanged.connect(self.maj_liste_reg_dep_pays)
         self.liste_endroits.itemChanged.connect(self.changer_item_liste_pays)

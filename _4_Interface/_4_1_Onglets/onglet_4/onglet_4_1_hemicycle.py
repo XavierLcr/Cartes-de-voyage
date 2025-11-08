@@ -151,7 +151,7 @@ class HemicycleWidget(QWidget):
 
         # Ajustement du nombre de points par ligne
         self.decalage = len(
-            list(self.constantes.departements_par_pays.keys())
+            list(self.constantes.hierarchie_par_pays.keys())
         ) - somme_filee(
             lignes=self.num_levels, a=self.base_points, b=self.points_increment
         )
@@ -160,7 +160,7 @@ class HemicycleWidget(QWidget):
             self.base_points = max(self.base_points - 1, 10)
             self.points_increment = max(self.points_increment, 4)
             self.decalage = len(
-                list(self.constantes.departements_par_pays.keys())
+                list(self.constantes.hierarchie_par_pays.keys())
             ) - somme_filee(
                 lignes=self.num_levels, a=self.base_points, b=self.points_increment
             )
@@ -219,8 +219,8 @@ class HemicycleWidget(QWidget):
 
         coords_angles = sorted(coords_angles, key=lambda t: (-t[2], -t[3]))
         assert len(coords_angles) == len(
-            list(self.constantes.departements_par_pays.keys())
-        ), f"{len(coords_angles)} ≠ {len(list(self.constantes.departements_par_pays.keys()))}"
+            list(self.constantes.hierarchie_par_pays.keys())
+        ), f"{len(coords_angles)} ≠ {len(list(self.constantes.hierarchie_par_pays.keys()))}"
         return coords_angles
 
     def renvoyer_couleur(self, i: int, lighter_value: int):

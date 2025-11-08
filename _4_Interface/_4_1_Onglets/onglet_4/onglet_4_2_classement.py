@@ -14,14 +14,12 @@ from PyQt6.QtWidgets import (
     QVBoxLayout,
     QScrollArea,
     QGridLayout,
-    QGroupBox,
 )
 
 from _0_Utilitaires._0_1_Fonctions_utiles import (
     creer_ligne_separation,
     vider_layout,
     creer_QLabel_centre,
-    renvoyer_groupbox,
 )
 
 

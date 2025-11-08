@@ -13,9 +13,6 @@ from PyQt6.QtWidgets import (
 )
 
 
-from _0_Utilitaires._0_1_Fonctions_utiles import renvoyer_groupbox
-
-
 class OngletInformations(QWidget):
     def __init__(self, fct_traduire, version_logiciel, parent=None):
         super().__init__(parent)

@@ -6,7 +6,7 @@
 
 
 import math
-from PyQt6.QtCore import Qt, QPointF
+from PyQt6.QtCore import QPointF
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtGui import QPainter, QPen, QColor, QBrush, QFont
 from collections import defaultdict

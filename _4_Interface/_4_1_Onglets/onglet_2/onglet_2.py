@@ -29,7 +29,6 @@ from _0_Utilitaires._0_1_Fonctions_utiles import (
     exporter_fichier,
     formater_temps_actuel,
     separer_combinaisons,
-    creer_ligne_separation,
 )
 
 from _3_Calculs._1_2_creer_graphique import (

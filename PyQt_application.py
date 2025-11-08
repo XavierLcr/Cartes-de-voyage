@@ -172,6 +172,7 @@ class MesVoyagesApplication(QWidget):
         main_layout = QVBoxLayout()
         main_layout.addWidget(self.liste_onglets)
         self.setLayout(main_layout)
+        self.liste_onglets.setCurrentIndex(0 if sauvegarde else 4)
 
         self.reinitialisation_parametres(nom_aussi=True, set_interface=True)
 

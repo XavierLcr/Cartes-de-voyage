@@ -57,16 +57,27 @@ def calculer_score_region(
         s = 0.0
         total_i = 0.0
         for j in range(n_visite):
-            geo_dist = distance_haversine(
-                lats_reste[i], lons_reste[i], lats_visite[j], lons_visite[j]
-            )
             s += (
+                # Un bon score est un score avec une faible norme
                 (1 / (1 + np.linalg.norm(vals_reste[i] - vals_visite[j])))
-                / ((1 + geo_dist) ** alpha)
+                # Pondération par la distance
+                / (
+                    (
+                        1
+                        + distance_haversine(
+                            lats_reste[i], lons_reste[i], lats_visite[j], lons_visite[j]
+                        )
+                    )
+                    ** alpha
+                )
+                # Pondération par la superficie
                 * superficie_visite[j]
+                # Les couples avec des NA sont moins mis en avant
                 * (1 - na_visite[j])
                 * (1 - na_reste[i])
             )
+
+            # Pondération par la superficie
             total_i += superficie_visite[j]
         scores[i] = 100 * s / total_i if n_visite > 0 else 0.0
     return scores
@@ -93,10 +104,9 @@ def calculer_recommandation(
             for row in df[["name_0", "name_1"]].values
         ]
     )
-    mask_reste = ~mask_visite
 
     df_visite = df.iloc[mask_visite]
-    df_reste = df.iloc[mask_reste]
+    df_reste = df.iloc[~mask_visite]
 
     # Extraire arrays NumPy
     cols_val = [
@@ -114,35 +124,30 @@ def calculer_recommandation(
             "nombre_na",
         ]
     ]
-    lats_visite = df_visite["latitude"].to_numpy()
-    lons_visite = df_visite["longitude"].to_numpy()
-    vals_visite = df_visite[cols_val].to_numpy()
-    na_visite = df_visite["nombre_na"].to_numpy()
-    superficie_visite = df_visite["superficie"].to_numpy()
 
-    lats_reste = df_reste["latitude"].to_numpy()
-    lons_reste = df_reste["longitude"].to_numpy()
-    vals_reste = df_reste[cols_val].to_numpy()
-    na_reste = df_reste["nombre_na"].to_numpy()
-
-    # Calcul des scores
-    scores = calculer_score_region(
-        lats_visite=lats_visite,
-        lons_visite=lons_visite,
-        vals_visite=vals_visite,
-        na_visite=na_visite,
-        superficie_visite=superficie_visite,
-        lats_reste=lats_reste,
-        lons_reste=lons_reste,
-        vals_reste=vals_reste,
-        na_reste=na_reste,
-        alpha=alpha,
+    df_reste = (
+        # Calcul des scores
+        df_reste.assign(
+            score_region=calculer_score_region(
+                lats_visite=df_visite["latitude"].to_numpy(),
+                lons_visite=df_visite["longitude"].to_numpy(),
+                vals_visite=df_visite[cols_val].to_numpy(),
+                na_visite=df_visite["nombre_na"].to_numpy(),
+                superficie_visite=df_visite["superficie"].to_numpy(),
+                lats_reste=df_reste["latitude"].to_numpy(),
+                lons_reste=df_reste["longitude"].to_numpy(),
+                vals_reste=df_reste[cols_val].to_numpy(),
+                na_reste=df_reste["nombre_na"].to_numpy(),
+                alpha=alpha,
+            )
+        )
+        # Calcul du score du pays
+        .assign(
+            score_pays=lambda x: x.groupby("name_0")["score_region"].transform("sum")
+        )
+        # Tri
+        .sort_values("score_region", ascending=False)
     )
-
-    df_reste = df_reste.copy()
-    df_reste["score_region"] = scores
-    df_reste["score_pays"] = df_reste.groupby("name_0")["score_region"].transform("sum")
-    df_reste = df_reste.sort_values("score_region", ascending=False)
 
     if not par_pays:
         return df_reste.head(top_n)
@@ -157,10 +162,10 @@ def calculer_recommandation(
                     break
 
         df_reste = df_reste.head(limite + lignes_extra_par_pays)
-        df_reste = df_reste[df_reste["name_0"].isin(top_pays[:-1])]
 
         return (
-            df_reste.groupby("name_0", group_keys=False)
+            df_reste[df_reste["name_0"].isin(top_pays[:-1])]
+            .groupby("name_0", group_keys=False)
             .apply(lambda g: g.nlargest(max_par_pays, "score_region"))
             .reset_index(drop=True)
             .sort_values(["score_pays", "score_region"], ascending=[False, False])
@@ -288,8 +293,11 @@ class PaysAVisiter(QWidget):
 
         vider_layout(self.corps_recommandations)
 
-        # Ajout des régions des départements
-        dt_temp = self.table_superficie[
+        # Copie du dictionnaire pour éviter tout problème
+        dict_temp = copy.deepcopy(self.dict_granu.get("region"))
+
+        for pays, groupe in self.table_superficie[
+            # Ajout des régions des départements
             self.table_superficie.apply(
                 lambda row: (row["name_0"], row["name_2"])
                 in {
@@ -299,9 +307,7 @@ class PaysAVisiter(QWidget):
                 },
                 axis=1,
             )
-        ]
-        dict_temp = copy.deepcopy(self.dict_granu.get("region"))
-        for pays, groupe in dt_temp.groupby("name_0"):
+        ].groupby("name_0"):
             regions = groupe["name_1"].tolist()
             if pays in dict_temp:
                 # Ajouter les nouvelles régions sans doublons
@@ -310,14 +316,12 @@ class PaysAVisiter(QWidget):
                 # Ajouter le pays s'il n'existait pas encore
                 dict_temp[pays] = regions
 
-        dict_temp = {
-            k: list(dict.fromkeys(v)) for k, v in dict_temp.items() if v is not None
-        }
-
         self.thread_temp = QThread()
         self.worker_temp = WorkerRecommandation(
             constantes=self.constantes,
-            dict_visite=dict_temp,
+            dict_visite={
+                k: list(dict.fromkeys(v)) for k, v in dict_temp.items() if v is not None
+            },
         )
         self.worker_temp.moveToThread(self.thread_temp)
         self.thread_temp.started.connect(self.worker_temp.calculer)

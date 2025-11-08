@@ -390,6 +390,7 @@ class OngletSelectionnerDestinations(QWidget):
         - Si niveau == "Départements" : on affiche les régions (non cochables) puis
         les départements (cochables) sous chaque région.
         """
+
         pays_i = self.liste_des_pays.currentText()
         niveau_i = obtenir_clef_par_valeur(
             valeur=self.liste_niveaux.currentText(),
@@ -411,6 +412,7 @@ class OngletSelectionnerDestinations(QWidget):
 
             # liste plate de régions cochables
             for region in sorted(data.keys()):
+
                 item = QListWidgetItem(region)
                 # cochable + sélectionnable
                 item.setFlags(
@@ -436,30 +438,31 @@ class OngletSelectionnerDestinations(QWidget):
 
             # Afficher régions (non cochables) puis départements cochables
             for i, region in enumerate(sorted(data.keys())):
-                # Ajouter un séparateur sauf avant la première région
-                if i != 0:
-                    separator_item = QListWidgetItem()
-                    separator_item.setFlags(Qt.ItemFlag.NoItemFlags)
-                    separator_item.setSizeHint(QSize(0, 6))  # hauteur de la ligne
 
-                    self.liste_endroits.addItem(separator_item)
-                    self.liste_endroits.setItemWidget(
-                        separator_item, creer_ligne_separation()
-                    )
+                # deps = sorted(data[region])
+                # nb_total = len(deps)
+                # nb_checked = sum(
+                #     dep in (self.dicts_granu.get("dep", {}).get(pays_i, []) or [])
+                #     for dep in deps
+                # )
+
+                # region_item = QListWidgetItem(f"{region} ({nb_checked}/{nb_total})")
+                region_item = QListWidgetItem(region)
 
                 # Item région
-                region_item = QListWidgetItem(region)
                 region_item.setFlags(
                     Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsSelectable
                 )
                 font = region_item.font()
                 font.setBold(True)
+                font.setUnderline(True)
+                font.setKerning(False)
                 region_item.setFont(font)
                 region_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
                 self.liste_endroits.addItem(region_item)
 
                 for dep in sorted(data[region]):
-                    dep_item = QListWidgetItem(f"    {dep}")  # indentation visuelle
+                    dep_item = QListWidgetItem(dep)  # indentation visuelle
                     dep_item.setFlags(
                         dep_item.flags()
                         | Qt.ItemFlag.ItemIsUserCheckable
@@ -475,6 +478,7 @@ class OngletSelectionnerDestinations(QWidget):
                 # optionnel : ligne vide pour lisibilité
                 spacer = QListWidgetItem("")
                 spacer.setFlags(Qt.ItemFlag.NoItemFlags)
+                spacer.setSizeHint(QSize(0, 4))
                 self.liste_endroits.addItem(spacer)
 
         self.liste_endroits.blockSignals(False)

@@ -34,11 +34,7 @@ for granularite in range(1, 6):
         ),
         nom_pays=None,
         granularite=granularite,
-        direction_fichier=(
-            constantes.direction_donnees_application
-            if granularite < 3
-            else constantes.direction_donnees_autres
-        ),
+        direction_fichier=constantes.direction_donnees_autres,
         nom_fichier=f"liste_pays_granularite_{granularite}.yaml",
     )
 
@@ -73,29 +69,29 @@ def build_nested_dict(df, levels, value_col):
 
 
 print("Dictionnaire hiérarchique.")
-# dictception = build_nested_dict(
-#     df=ouvrir_fichier(
-#         direction_fichier=constantes.direction_donnees_geographiques,
-#         nom_fichier=f"carte_monde_niveau_{5}.pkl",
-#         defaut=None,
-#         afficher_erreur="Base non trouvée.",
-#     ),
-#     levels=["name_0", "name_1", "name_2", "name_3", "name_4"],
-#     value_col="name_5",
-# )
+dictception = build_nested_dict(
+    df=ouvrir_fichier(
+        direction_fichier=constantes.direction_donnees_geographiques,
+        nom_fichier=f"carte_monde_niveau_{5}.pkl",
+        defaut=None,
+        afficher_erreur="Base non trouvée.",
+    ),
+    levels=["name_0", "name_1", "name_2", "name_3", "name_4"],
+    value_col="name_5",
+)
 
-# # Hiérarchie complète
-# exporter_fichier(
-#     objet=dictception,
-#     direction_fichier=constantes.direction_donnees_autres,
-#     nom_fichier="hierarchie_complete_granularite_pays.pkl",
-#     sort_keys=True,
-# )
+# Hiérarchie complète
+exporter_fichier(
+    objet=dictception,
+    direction_fichier=constantes.direction_donnees_autres,
+    nom_fichier="hierarchie_complete_granularite_pays.pkl",
+    sort_keys=True,
+)
 
-# # Hiérarchie néessaire à l'application
-# exporter_fichier(
-#     objet=tronquer_dict(d=dictception, n=3),
-#     direction_fichier=constantes.direction_donnees_application,
-#     nom_fichier="hierarchie_granularite_pays.pkl",
-#     sort_keys=True,
-# )
+# Hiérarchie néessaire à l'application
+exporter_fichier(
+    objet=tronquer_dict(d=dictception, n=3),
+    direction_fichier=constantes.direction_donnees_application,
+    nom_fichier="hierarchie_granularite_pays.pkl",
+    sort_keys=True,
+)

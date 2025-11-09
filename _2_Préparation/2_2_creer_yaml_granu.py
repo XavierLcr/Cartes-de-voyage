@@ -20,27 +20,27 @@ from _0_Utilitaires._0_1_Fonctions_utiles import (
 # 1 -- YAML sans hiérarchie ----------------------------------------------------
 
 
-# for granularite in range(1, 6):
+for granularite in range(1, 6):
 
-#     print(granularite)
+    print("Granularité :", granularite, end=".\n")
 
-#     cree_yaml_un_pays(
-#         # Import des données
-#         gdf=ouvrir_fichier(
-#             direction_fichier=constantes.direction_donnees_geographiques,
-#             nom_fichier=f"carte_monde_niveau_{granularite}.pkl",
-#             defaut=None,
-#             afficher_erreur="Base non trouvée.",
-#         ),
-#         nom_pays=None,
-#         granularite=granularite,
-#         direction_fichier=(
-#             constantes.direction_donnees_application
-#             if granularite < 3
-#             else constantes.direction_donnees_autres
-#         ),
-#         nom_fichier=f"liste_pays_granularite_{granularite}.yaml",
-#     )
+    cree_yaml_un_pays(
+        # Import des données
+        gdf=ouvrir_fichier(
+            direction_fichier=constantes.direction_donnees_geographiques,
+            nom_fichier=f"carte_monde_niveau_{granularite}.pkl",
+            defaut=None,
+            afficher_erreur="Base non trouvée.",
+        ),
+        nom_pays=None,
+        granularite=granularite,
+        direction_fichier=(
+            constantes.direction_donnees_application
+            if granularite < 3
+            else constantes.direction_donnees_autres
+        ),
+        nom_fichier=f"liste_pays_granularite_{granularite}.yaml",
+    )
 
 
 # 2 -- YAMLs avec hiérarchie -----------------------------------------------
@@ -72,29 +72,30 @@ def build_nested_dict(df, levels, value_col):
 ## 2.2 -- Application ----------------------------------------------------------
 
 
-dictception = build_nested_dict(
-    df=ouvrir_fichier(
-        direction_fichier=constantes.direction_donnees_geographiques,
-        nom_fichier=f"carte_monde_niveau_{5}.pkl",
-        defaut=None,
-        afficher_erreur="Base non trouvée.",
-    ),
-    levels=["name_0", "name_1", "name_2", "name_3", "name_4"],
-    value_col="name_5",
-)
+print("Dictionnaire hiérarchique.")
+# dictception = build_nested_dict(
+#     df=ouvrir_fichier(
+#         direction_fichier=constantes.direction_donnees_geographiques,
+#         nom_fichier=f"carte_monde_niveau_{5}.pkl",
+#         defaut=None,
+#         afficher_erreur="Base non trouvée.",
+#     ),
+#     levels=["name_0", "name_1", "name_2", "name_3", "name_4"],
+#     value_col="name_5",
+# )
 
-# Hiérarchie complète
-exporter_fichier(
-    objet=dictception,
-    direction_fichier=constantes.direction_donnees_autres,
-    nom_fichier="hierarchie_complete_granularite_pays.pkl",
-    sort_keys=True,
-)
+# # Hiérarchie complète
+# exporter_fichier(
+#     objet=dictception,
+#     direction_fichier=constantes.direction_donnees_autres,
+#     nom_fichier="hierarchie_complete_granularite_pays.pkl",
+#     sort_keys=True,
+# )
 
-# Hiérarchie néessaire à l'application
-exporter_fichier(
-    objet=tronquer_dict(d=dictception, n=3),
-    direction_fichier=constantes.direction_donnees_application,
-    nom_fichier="hierarchie_granularite_pays.pkl",
-    sort_keys=True,
-)
+# # Hiérarchie néessaire à l'application
+# exporter_fichier(
+#     objet=tronquer_dict(d=dictception, n=3),
+#     direction_fichier=constantes.direction_donnees_application,
+#     nom_fichier="hierarchie_granularite_pays.pkl",
+#     sort_keys=True,
+# )

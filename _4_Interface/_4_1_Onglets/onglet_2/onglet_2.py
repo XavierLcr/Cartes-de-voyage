@@ -29,6 +29,8 @@ from _0_Utilitaires._0_1_Fonctions_utiles import (
     exporter_fichier,
     formater_temps_actuel,
     separer_combinaisons,
+    aplanir_dictionnaire,
+    tronquer_dict,
 )
 
 from _3_Calculs._1_2_creer_graphique import (
@@ -200,7 +202,8 @@ class OngletSelectionnerDestinations(QWidget):
                 self.chemin_fichier_yaml_1 = chemin_yaml
                 # Séparation des lieux existants ou non
                 dict_sep = separer_combinaisons(
-                    dico1=data, dico2=self.constantes.regions_par_pays
+                    dico1=data,
+                    dico2=tronquer_dict(d=self.constantes.hierarchie_par_pays, n=2),
                 )
                 self.fichier_yaml_1 = dict_sep[True]  # Stocke les données du YAML 1
                 self.dicts_granu["region"] = dict_sep[True]
@@ -209,7 +212,8 @@ class OngletSelectionnerDestinations(QWidget):
 
                 self.chemin_fichier_yaml_2 = chemin_yaml
                 dict_sep = separer_combinaisons(
-                    dico1=data, dico2=self.constantes.departements_par_pays
+                    dico1=data,
+                    dico2=aplanir_dictionnaire(self.constantes.hierarchie_par_pays),
                 )
                 self.fichier_yaml_2 = dict_sep[True]  # Stocke les données du YAML 2
                 self.dicts_granu["dep"] = dict_sep[True]

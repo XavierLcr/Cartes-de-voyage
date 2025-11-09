@@ -461,3 +461,25 @@ def tronquer_dict(d, n):
         return list(d.keys())
     else:
         return {k: tronquer_dict(v, n - 1) for k, v in d.items()}
+
+
+## 1.20 -- Aplanir un dictionnaire imbriqué ------------------------------------
+
+
+def aplanir_dictionnaire(d):
+    """Aplatis un dict de dict de dicts... avec listes finales"""
+    resultat = {}
+
+    def explorer(clef_top, valeur):
+        if isinstance(valeur, dict):
+            for sous_valeur in valeur.values():
+                explorer(clef_top, sous_valeur)
+        elif isinstance(valeur, list):
+            resultat.setdefault(clef_top, []).extend(valeur)
+        else:
+            raise ValueError(f"Valeur inattendue : {valeur}")
+
+    for clef, valeur in d.items():
+        explorer(clef, valeur)
+
+    return resultat

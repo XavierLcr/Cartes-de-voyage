@@ -76,11 +76,6 @@ class MesVoyagesApplication(QWidget):
         # === Premier onglet ===
 
         self.onglet_parametres = onglet_1.OngletParametres(
-            gdf_eau=_0_1_Fonctions_utiles.ouvrir_fichier(
-                direction_fichier=constantes.direction_donnees_geographiques,
-                nom_fichier="carte_monde_lacs.pkl",
-                defaut=None,
-            ),
             constantes=constantes,
             liste_individus=list(sauvegarde.keys()),
             fct_traduction=self.traduire_depuis_id,
@@ -502,7 +497,15 @@ class MesVoyagesApplication(QWidget):
 
         # Publication des cartes
         self.onglet_parametres.fonction_principale(
-            settings=self.creer_liste_parametres() | {"liste_dfs": liste_gdfs}
+            settings=self.creer_liste_parametres()
+            | {
+                "liste_dfs": liste_gdfs,
+                "gdf_eau": _0_1_Fonctions_utiles.ouvrir_fichier(
+                    direction_fichier=constantes.direction_donnees_geographiques,
+                    nom_fichier="carte_monde_lacs.pkl",
+                    defaut=None,
+                ),
+            }
         )
 
     def initialiser_sauvegarde(self, sauvegarde_complete):

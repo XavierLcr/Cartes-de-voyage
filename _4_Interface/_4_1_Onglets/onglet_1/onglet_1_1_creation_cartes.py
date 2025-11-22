@@ -27,11 +27,10 @@ class CreerCartes(QObject):
     tracker_signal = pyqtSignal(str)
     nb_graphes = pyqtSignal(int)
 
-    def __init__(self, gdf_eau, params, constantes):
+    def __init__(self, params, constantes):
 
         super().__init__()
 
-        self.gdf_eau = gdf_eau
         self.parametres = params
         self.constantes = constantes
 
@@ -95,7 +94,7 @@ class CreerCartes(QObject):
         cree_graphe_depuis_debut(
             liste_dfs=self.parametres["liste_dfs"],
             liste_dicts=[dict_regions, self.parametres["dictionnaire_departements"]],
-            gdf_eau=self.gdf_eau,
+            gdf_eau=self.parametres["gdf_eau"],
             noms_pays=self.constantes.pays_differentes_langues,
             dictionnaire_pays_unis=self.constantes.liste_pays_groupes,
             nom_indiv=self.parametres["nom"],

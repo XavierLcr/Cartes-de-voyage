@@ -13,13 +13,14 @@ from _0_Utilitaires._0_1_Fonctions_utiles import ouvrir_fichier
 if getattr(sys, "frozen", False):
     # cx_Freeze place tout à côté de l'exécutable
     direction_base = os.path.dirname(sys.executable)
+    direction_donnees = os.path.join(direction_base, "Données")
     direction_donnees_geographiques = os.path.join(
-        direction_base, "1 – Données géographiques"
+        direction_donnees, "1 – Données géographiques"
     )
     direction_donnees_application = os.path.join(
-        direction_base, "2 – Données application"
+        direction_donnees, "2 – Données application"
     )
-    direction_donnees_traductions = os.path.join(direction_base, "3 – Traductions")
+    direction_donnees_traductions = os.path.join(direction_donnees, "3 – Traductions")
     compilation = True
 else:
     direction_base = os.path.dirname(os.path.abspath(__file__))
@@ -31,7 +32,6 @@ else:
     direction_donnees_application = os.path.join(
         direction_donnees, "_1_3_Données_application"
     )
-    print(direction_donnees_application)
     direction_donnees_traductions = os.path.join(direction_donnees, "_1_4_Traductions")
     direction_donnees_autres = os.path.join(direction_donnees, "_1_X_Autres")
     compilation = False

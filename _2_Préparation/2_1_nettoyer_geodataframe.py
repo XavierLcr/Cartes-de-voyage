@@ -136,12 +136,8 @@ mask = (gdf["name_0"] == "Croatia") & (gdf["name_1"] == "Osjecko-Baranjska")
 gdf.loc[mask & (gdf["name_2"].isin(["Osjecko-Baranjska", "Unknown_2"])), "name_2"] = (
     "Šodolovci"
 )
-gdf.loc[mask & (gdf["name_2"].isin(["Unknown_1"])), "name_2"] = (
-    "Unknown 1 (Osjecko-Baranjska)"
-)
-gdf.loc[mask & (gdf["name_2"].isin(["Unknown_3"])), "name_2"] = (
-    "Unknown 2 (Osjecko-Baranjska)"
-)
+gdf.loc[mask & (gdf["name_2"].isin(["Unknown_1"])), "name_2"] = "Đakovo"
+gdf.loc[mask & (gdf["name_2"].isin(["Unknown_3"])), "name_2"] = "Draž"
 
 
 ## 2.7 -- Canada ---------------------------------------------------------------

@@ -696,10 +696,6 @@ for granularite in range(6):
 
     agreger_lieux(
         gdf=gdf,
-        direction_fichier=(
-            constantes.direction_donnees_autres
-            if i > 2
-            else constantes.direction_donnees_geographiques
-        ),
+        direction_fichier=constantes.direction_donnees_geographiques,
         granularite=granularite,
     )

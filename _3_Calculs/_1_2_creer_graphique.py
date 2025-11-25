@@ -8,6 +8,7 @@
 import os, random, json, colorsys, math, textwrap
 import matplotlib.pyplot as plt
 from datetime import datetime
+from shapely.geometry import box
 
 
 # 1 -- Fonctions ---------------------------------------------------------------
@@ -58,7 +59,32 @@ def generer_couleur_aleatoire_hex(
     return "#{:02x}{:02x}{:02x}".format(int(r * 255), int(g * 255), int(b * 255))
 
 
-## 1.2 -- Fonction de création de la carte -------------------------------------
+## 1.2 -- Renvoyer les marges les limites de la carte --------------------------
+
+
+def renvoyer_limites_carte(gdf, marge):
+
+    xmin_temp, ymin_temp, xmax_temp, ymax_temp = gdf.total_bounds
+    xmin = xmin_temp - marge * (xmax_temp - xmin_temp)
+    xmax = xmax_temp + marge * (xmax_temp - xmin_temp)
+    ymin = ymin_temp - marge * (ymax_temp - ymin_temp)
+    ymax = ymax_temp + marge * (ymax_temp - ymin_temp)
+
+    return xmin, xmax, ymin, ymax
+
+
+## 1.3 -- Fonction de limitation des tables complémentaires --------------------
+
+
+def selectionner_lieux(gdf, minx, maxx, miny, maxy):
+
+    if gdf is None:
+        return gdf
+    else:
+        return gdf[gdf.intersects(box(minx, miny, maxx, maxy))]
+
+
+## 1.4 -- Fonction de création de la carte -------------------------------------
 
 
 def creer_image_carte(
@@ -137,17 +163,25 @@ def creer_image_carte(
     ax.margins(0)
     fig.patch.set_facecolor(couleur_de_fond)
 
+    # Sélection du périmètre – Ajout des pays aux alentours
+    xmin, xmax, ymin, ymax = renvoyer_limites_carte(gdf=gdf, marge=0.03)
+    ax.set_xlim(xmin, xmax)
+    ax.set_ylim(ymin, ymax)
+
+    # Limitation des tables complémentaires
+    gdf_monde = selectionner_lieux(
+        gdf=gdf_monde, minx=xmin, maxx=xmax, miny=ymin, maxy=ymax
+    )
+    gdf_eau = selectionner_lieux(
+        gdf=gdf_eau, minx=xmin, maxx=xmax, miny=ymin, maxy=ymax
+    )
+
+    # Ajout de la carte principale
     gdf.plot(ax=ax, color=gdf["Couleur"], edgecolor="black", linewidth=0.008, zorder=1)
 
     liste_pays = list(gdf["Pays"].unique())
 
     if gdf_monde is not None:
-
-        # Ajout des pays aux alentours
-        marge = 0.03
-        xmin, ymin, xmax, ymax = gdf.total_bounds
-        ax.set_xlim(xmin - marge * (xmax - xmin), xmax + marge * (xmax - xmin))
-        ax.set_ylim(ymin - marge * (ymax - ymin), ymax + marge * (ymax - ymin))
 
         # Ajout des frontières de façon plus marquée
         if blabla:
@@ -159,7 +193,7 @@ def creer_image_carte(
                 lambda x: (
                     couleur_de_fond
                     if x == "Caspian Sea"
-                    else "none" if x in liste_pays else couleur_pays_contours
+                    else ("none" if x in liste_pays else couleur_pays_contours)
                 )
             ),
             edgecolor=gdf_monde["name_0"].apply(
@@ -171,8 +205,11 @@ def creer_image_carte(
 
     if gdf_regions is not None:
 
-        liste_pays_regions = list(gdf.loc[(gdf["Granu"] >= 1), "Pays"].unique())
-        gdf_regions = gdf_regions[gdf_regions["name_0"].isin(liste_pays_regions)]
+        gdf_regions = gdf_regions[
+            gdf_regions["name_0"].isin(
+                list(gdf.loc[(gdf["Granu"] >= 1), "Pays"].unique())
+            )
+        ]
 
         if len(gdf_regions) > 0:
 
@@ -188,9 +225,8 @@ def creer_image_carte(
         if blabla:
             print(", des lacs", end="")
 
-        gdf_eau = gdf_eau[gdf_eau["name_0"].isin(liste_pays)]
         if len(gdf_eau) > 0:
-            gdf_eau.plot(ax=ax, color=couleur_lacs, edgecolor="none", alpha=1, zorder=3)
+            gdf_eau.plot(ax=ax, color=couleur_lacs, edgecolor="none", alpha=1, zorder=4)
 
     # Affichage du nom de la région
     if afficher_nom_lieu:

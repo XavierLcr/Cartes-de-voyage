@@ -87,6 +87,52 @@ def selectionner_lieux(gdf, minx, maxx, miny, maxy):
 ## 1.4 -- Fonction de création de la carte -------------------------------------
 
 
+def creer_nom_fichier(chemin: str, nom: str, max_cartes: int | None):
+
+    # Suppression fichier le plus vieux si necessaire
+    if max_cartes is not None:
+        fichiers = [
+            os.path.join(chemin, f)
+            for f in os.listdir(chemin)
+            if (
+                os.path.isfile(os.path.join(chemin, f))
+                and os.path.splitext(f)[1].lower()
+                in [
+                    ".eps",
+                    ".jpg",
+                    ".jpeg",
+                    ".pdf",
+                    ".pgf",
+                    ".png",
+                    ".ps",
+                    ".raw",
+                    ".rgba",
+                    ".svg",
+                    ".svgz",
+                    ".tif",
+                    ".tiff",
+                    ".webp",
+                ]
+            )
+        ]
+
+        if len(fichiers) >= max(max_cartes, 1):
+            os.remove(min(fichiers, key=os.path.getmtime))
+
+    # Création d'un nom qui non utilisé
+    nom = os.path.join(chemin, nom)
+    nom_simple, type_fichier = os.path.splitext(nom)
+    compteur = 2
+    while os.path.exists(nom):
+        nom = f"{nom_simple} ({compteur}){type_fichier}"
+        compteur = compteur + 1
+
+    return nom
+
+
+## 1.5 -- Fonction de création de la carte -------------------------------------
+
+
 def creer_image_carte(
     gdf,
     gdf_monde=None,
@@ -268,47 +314,9 @@ def creer_image_carte(
     if blabla:
         print(". Sauvegarde de l'image.", end=" ")
 
-    # On supprime le fichier le plus vieux si necessaire
-    if max_cartes_additionnelles is not None:
-        fichiers = [
-            os.path.join(chemin_impression, f)
-            for f in os.listdir(chemin_impression)
-            if (
-                os.path.isfile(os.path.join(chemin_impression, f))
-                and os.path.splitext(f)[1].lower()
-                in [
-                    ".eps",
-                    ".jpg",
-                    ".jpeg",
-                    ".pdf",
-                    ".pgf",
-                    ".png",
-                    ".ps",
-                    ".raw",
-                    ".rgba",
-                    ".svg",
-                    ".svgz",
-                    ".tif",
-                    ".tiff",
-                    ".webp",
-                ]
-            )
-        ]
-
-        if len(fichiers) >= max(max_cartes_additionnelles, 1):
-            os.remove(min(fichiers, key=os.path.getmtime))
-
-    # On cree un nom qui n'existe pas encore si nécessaire
-    nom = os.path.join(chemin_impression, nom)
-    nom_simple, type_fichier = os.path.splitext(nom)
-    compteur = 2
-    while os.path.exists(nom):
-        nom = f"{nom_simple} ({compteur}){type_fichier}"
-        compteur = compteur + 1
-
     # Création des métadata
     metadata = None
-    if type_fichier.strip(". ") in ["png", "jpg", "jpeg", "tiff", "pdf"]:
+    if os.path.splitext(nom)[1].strip(". ") in ["png", "jpg", "jpeg", "tiff", "pdf"]:
         metadata = {
             "Application": "MesVoyages",
             "Auteur": "Xavier Lacour",
@@ -324,7 +332,9 @@ def creer_image_carte(
         }
 
     plt.savefig(
-        nom,
+        creer_nom_fichier(
+            chemin=chemin_impression, nom=nom, max_cartes=max_cartes_additionnelles
+        ),
         dpi=max(min(qualite, 4500), 100),
         bbox_inches="tight",
         metadata=metadata,

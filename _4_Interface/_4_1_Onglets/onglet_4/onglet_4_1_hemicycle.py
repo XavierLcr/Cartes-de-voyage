@@ -5,7 +5,7 @@
 ################################################################################
 
 
-import math
+import math, copy
 from PyQt6.QtCore import QPointF
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtGui import QPainter, QPen, QColor, QBrush, QFont
@@ -342,7 +342,7 @@ class HemicycleWidget(QWidget):
         self.resume = reordonner_dict(
             nb_pays_visites(
                 dict_granu=self.pays_visites,
-                continents=self.constantes.liste_regions_monde,
+                continents=copy.copy(self.constantes.liste_regions_monde),
             ),
             clefs=self.ordre_clefs,
         )

@@ -5,6 +5,9 @@
 ################################################################################
 
 import os, sys, gc
+import numpy as np
+from shapely.ops import transform
+from shapely.geometry import Polygon, MultiPolygon, GeometryCollection
 from _3_Calculs import _1_1_creer_carte, _1_2_creer_graphique
 
 
@@ -49,7 +52,102 @@ def cree_gdf_depuis_dicts(
     )
 
 
-## 1.2 -- Fonction renvoyant la table et le nom des groupes de pays ------------
+## 1.2 -- Recentrer la longitude d'une table -----------------------------------
+
+
+### Fonction de calcul des coordonnées du centre -------------------------------
+
+
+def calculer_centre(gdf):
+    """
+    Calcule le centre géographique (longitude, latitude) d'un GeoDataFrame.
+
+    Retour :
+    - tuple (lon_centre, lat_centre)
+    """
+
+    def ligne_valide(geom):
+        # Récupérer toutes les coordonnées
+        coords = []
+        if geom.geom_type == "Polygon":
+            coords = list(geom.exterior.coords)
+        elif geom.geom_type == "MultiPolygon":
+            for poly in geom.geoms:
+                coords.extend(list(poly.exterior.coords))
+        # Vérifier si une longitude est trop proche de ±180
+        return not any(abs(x) >= 179.75 for x, y in coords)
+
+    gdf_filtre = gdf[gdf.geometry.apply(ligne_valide)]
+
+    if gdf_filtre.empty:
+        # fallback si toutes les lignes sont filtrées
+        return (0, 0)
+
+    minx, miny, maxx, maxy = gdf_filtre.total_bounds
+    # minx = minx if minx >= 0 else minx + 360
+    # maxx = maxx if maxx >= 0 else maxx + 360
+    return (minx + maxx) / 2, (miny + maxy) / 2
+
+
+### Calcul de reprojection d'une carte -----------------------------------------
+
+
+def reprojeter_gdf(gdf, type_proj="laea", centre=None):
+    """
+    Reprojette un GeoDataFrame selon le type de projection choisi.
+
+    Paramètres :
+    - gdf : GeoDataFrame à reprojeter
+    - type_proj : type de projection. Options disponibles :
+        "laea"   : Lambert Azimuthal Equal-Area
+        "lcc"    : Lambert Conformal Conic
+        "mercator" : Mercator
+        "robinson" : Robinson
+        "wgs84"  : lat/lon WGS84 (EPSG:4326)
+        "auto"   : choisit automatiquement selon la latitude
+        None     : ne fait rien, renvoie le GeoDataFrame tel quel
+    - centre : tuple (lon, lat) pour centrer la projection. Si None, centre calculé automatiquement.
+
+    Retour :
+    - GeoDataFrame reprojeté
+    """
+    # Si type_proj est None, on renvoie le GeoDataFrame sans modification
+    if type_proj is None:
+        return gdf.copy()
+
+    # Calcul du centre si nécessaire
+    lon, lat = centre if centre is not None else calculer_centre(gdf)
+
+    # Dictionnaire des projections statiques
+    projections = {
+        "laea": f"+proj=laea +lat_0={lat} +lon_0={lon}",
+        "lcc": f"+proj=lcc +lat_1={lat-10} +lat_2={lat+10} +lat_0={lat} +lon_0={lon}",
+        # "mercator": "EPSG:3395",
+        "mercator": f"+proj=merc +lon_0={lon} +datum=WGS84",
+        "robinson": "+proj=robin +lon_0=0 +x_0=0 +y_0=0 +units=m +no_defs",
+        "wgs84": "EPSG:4326",
+        "washington": f"+init=epsg:3413 +lon_0={lon}",
+    }
+
+    # Mode automatique si invalide ou 'auto'
+    if type_proj not in projections:
+
+        return reprojeter_gdf(
+            gdf,
+            type_proj=(
+                "mercator" if abs(lat) < 30 else "lcc" if abs(lat) < 75 else "laea"
+            ),
+            centre=(lon, lat),
+        )
+
+    # Reprojeter et renvoyer
+    return (
+        gdf.copy().to_crs(projections[type_proj])
+        # .assign(geometry=lambda df: df.geometry.buffer(0))
+    )
+
+
+## 1.3 -- Fonction renvoyant la table et le nom des groupes de pays ------------
 
 
 def cas_pays_multiples(
@@ -61,7 +159,7 @@ def cas_pays_multiples(
     }
 
 
-## 1.3 -- Fonction renvoyant les informations d'un groupe de pays --------------
+## 1.4 -- Fonction renvoyant les informations d'un groupe de pays --------------
 
 
 def tous_cas_pays_multiples(
@@ -106,7 +204,7 @@ def tous_cas_pays_multiples(
     return resultat
 
 
-## 1.4 -- Fonction de création des cartes des pays -----------------------------
+## 1.5 -- Fonction de création des cartes des pays -----------------------------
 
 
 def creer_graphiques_pays(
@@ -213,12 +311,21 @@ def creer_graphiques_pays(
             if len(gdf_i) == 1:
                 continue
 
-            if liste_pays_visites[i] in ["Russia"]:
-                valeur_projection = "+proj=lcc +lat_1=50 +lat_2=70 +lat_0=60 +lon_0=90"
-                gdf_i = gdf_i.to_crs(valeur_projection)
-                gdf_eau = gdf_eau.to_crs(valeur_projection)
-                gdf_monde_i = gdf_monde_i.to_crs(valeur_projection)
-                gdf_fond_regions_i = gdf_fond_regions_i.to_crs(valeur_projection)
+        if liste_pays_visites[i] in ["Russia", "United States"]:
+            centre = calculer_centre(gdf_i)
+            type_proj = "lcc"
+            print(type_proj)
+            gdf_i = reprojeter_gdf(gdf=gdf_i, type_proj=type_proj, centre=centre)
+            # gdf_eau = reprojeter_gdf(gdf=gdf_eau, type_proj=type_proj, centre=centre)
+            # gdf_monde_i = reprojeter_gdf(
+            #     gdf=gdf_monde_i, type_proj=type_proj, centre=centre
+            # )
+            # gdf_fond_regions_i = reprojeter_gdf(
+            #     gdf=gdf_fond_regions_i, type_proj=type_proj, centre=centre
+            # )
+            gdf_eau = None
+            gdf_monde_i = None
+            gdf_fond_regions_i = None
 
         nom_pays_i = f"{(nom_indiv + ' – ') if nom_indiv else ''}{langue_i}.{format}"
         if (
@@ -253,7 +360,7 @@ def creer_graphiques_pays(
             gc.collect()
 
 
-## 1.5 -- Fonction créant la carte d'une région du monde -----------------------
+## 1.6 -- Fonction créant la carte d'une région du monde -----------------------
 
 
 def creer_graphique_region(
@@ -318,19 +425,17 @@ def creer_graphique_region(
         # Bases de données
         gdf_region = gdf_visite[gdf_visite["Pays"].isin(liste_pays_region)]
 
-    if nom_region == "Asia" or nom_region == "Oceania":
+    if nom_region in ("Asia", "Oceania"):
         valeur_projection = "+proj=lcc +lat_1=50 +lat_2=70 +lat_0=60 +lon_0=90"
         gdf_region = gdf_region.to_crs(valeur_projection)
         gdf_fond = gdf_fond.to_crs(valeur_projection)
         df_fond_granu_1 = df_fond_granu_1.to_crs(valeur_projection)
         gdf_eau = gdf_eau.to_crs(valeur_projection)
 
-    gdf_if = gdf_region[gdf_region["Visite"] == True]
-
-    if len(gdf_if) > 0:
+    if gdf_region["Visite"].any():
 
         if (
-            max(gdf_if["Granu"]) >= granularite_objectif
+            gdf_region.loc[gdf_region["Visite"], "Granu"].max() >= granularite_objectif
             or sortir_cartes_granu_inf == True
         ):
 
@@ -359,7 +464,7 @@ def creer_graphique_region(
     del gdf_region, gdf_fond
 
 
-## 1.6 -- Fonction créant et publiant l'ensemble des cartes souhaitées ---------
+## 1.7 -- Fonction créant et publiant l'ensemble des cartes souhaitées ---------
 
 
 def cree_graphe_depuis_debut(

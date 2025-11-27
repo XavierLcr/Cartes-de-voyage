@@ -33,8 +33,10 @@ from _0_Utilitaires._0_1_Fonctions_utiles import (
     tronquer_dict,
 )
 
-from _3_Calculs._1_2_creer_graphique import renvoyer_couleur_widget
-from _0_Utilitaires._0_2_fonctions_graphiques import renvoyer_couleur_texte
+from _0_Utilitaires._0_2_fonctions_graphiques import (
+    renvoyer_couleur_texte,
+    renvoyer_couleur_widget,
+)
 
 
 # 1 -- Fonctions utiles --------------------------------------------------------

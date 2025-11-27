@@ -14,6 +14,7 @@ from _0_Utilitaires._0_2_fonctions_graphiques import (
     renvoyer_couleur_texte,
     generer_couleur_aleatoire_hex,
     transformer_couleur_texte,
+    renvoyer_couleur_widget,
 )
 
 
@@ -316,18 +317,6 @@ def creer_image_carte(
 
     if blabla == True:
         print("Terminé.")
-
-
-# 6 -- Renvoyer une couleur selon les paramètres de l'application --------------
-
-
-def renvoyer_couleur_widget(style, teinte, nuances, clair, sombre):
-    if style == 0:
-        return generer_couleur_aleatoire_hex(preset=nuances, teintes_autorisees=teinte)
-    elif style == 1:
-        return clair
-    else:
-        return sombre
 
 
 # 7 -- Fonction de gestion des situations où deux couleurs doivent différer ----

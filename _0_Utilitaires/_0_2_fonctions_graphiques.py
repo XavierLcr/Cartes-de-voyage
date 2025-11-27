@@ -89,3 +89,15 @@ def renvoyer_couleur_texte(style, couleur):
         return ("#2C2C2C",)
     else:
         return "#FFFFFF"
+
+
+# 4 -- Renvoyer une couleur selon les paramètres de l'application --------------
+
+
+def renvoyer_couleur_widget(style, teinte, nuances, clair, sombre):
+    if style == 0:
+        return generer_couleur_aleatoire_hex(preset=nuances, teintes_autorisees=teinte)
+    elif style == 1:
+        return clair
+    else:
+        return sombre

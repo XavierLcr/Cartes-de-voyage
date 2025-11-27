@@ -5,6 +5,10 @@
 ################################################################################
 
 
+from PyQt6.QtWidgets import QHBoxLayout, QFrame, QLabel, QWidget
+from PyQt6.QtCore import Qt
+
+
 # 1 -- Fonctions sur les combo -------------------------------------------------
 
 
@@ -47,3 +51,30 @@ def restaurer_valeur_combo(combo, dict_parent, langue, valeur, defaut_index=0):
         combo.setCurrentIndex(defaut_index)
 
     combo.blockSignals(False)
+
+
+# 2 -- Fonctions sur les QLabel ------------------------------------------------
+
+
+## 2.1 -- Fonction créant un QLabel --------------------------------------------
+
+
+def creer_QLabel_centre(
+    alignement=Qt.AlignmentFlag.AlignCenter,
+    text: str | None = None,
+    parent=None,
+    wordWrap=False,
+):
+    """
+    Crée un QLabel avec un alignement vertical centré.
+
+    Args:
+        text (str|None): Texte à afficher dans le label (optionnel).
+        parent (QWidget): Widget parent (optionnel).
+
+    Returns:
+        QLabel: Le label configuré.
+    """
+    label = QLabel(text, parent, wordWrap=wordWrap)
+    label.setAlignment(alignement)
+    return label

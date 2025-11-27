@@ -20,8 +20,8 @@ from PyQt6.QtWidgets import (
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     creer_ligne_separation,
     vider_layout,
-    creer_QLabel_centre,
 )
+from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import creer_QLabel_centre
 
 
 # 1 -- Fonctions utiles --------------------------------------------------------

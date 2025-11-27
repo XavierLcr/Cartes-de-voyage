@@ -29,11 +29,10 @@ from PyQt6.QtCore import Qt, QTimer, QThread, pyqtSignal
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     creer_ligne_verticale,
     creer_ligne_separation,
-    creer_QLabel_centre,
     obtenir_clef_par_valeur,
     periode_particuliere,
 )
-from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import reset_combo
+from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import reset_combo, creer_QLabel_centre
 from _4_Interface._4_1_Onglets.onglet_1.onglet_1_1_creation_cartes import CreerCartes
 from _4_Interface._4_1_Onglets.onglet_1.onglet_1_2_combobox_coloree import (
     FondCarteCombo,

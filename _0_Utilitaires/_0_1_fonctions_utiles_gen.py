@@ -9,38 +9,13 @@ import os, pickle, yaml, time, numba
 import pandas as pd
 import numpy as np
 from datetime import date
-from PyQt6.QtWidgets import QHBoxLayout, QFrame, QLabel, QWidget
-from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QHBoxLayout, QFrame, QWidget
 
 
-# 1 -- Fonctions ---------------------------------------------------------------
+# 1 -- Fonctions sur les dictionnaires -----------------------------------------
 
 
-## 1.1 -- Fonction créant un QLabel --------------------------------------------
-
-
-def creer_QLabel_centre(
-    alignement=Qt.AlignmentFlag.AlignCenter,
-    text: str | None = None,
-    parent=None,
-    wordWrap=False,
-):
-    """
-    Crée un QLabel avec un alignement vertical centré.
-
-    Args:
-        text (str|None): Texte à afficher dans le label (optionnel).
-        parent (QWidget): Widget parent (optionnel).
-
-    Returns:
-        QLabel: Le label configuré.
-    """
-    label = QLabel(text, parent, wordWrap=wordWrap)
-    label.setAlignment(alignement)
-    return label
-
-
-## 1.2 -- Retourne la première clef dont la valeur en vaut une de référence ----
+## 1.1 -- Retourne la première clef dont la valeur en vaut une de référence ----
 
 
 def obtenir_clef_par_valeur(dictionnaire, valeur):
@@ -51,7 +26,81 @@ def obtenir_clef_par_valeur(dictionnaire, valeur):
     return None
 
 
-## 1.4 -- Vide l'entièreté d'un layout PyQt6 -----------------------------------
+## 1.2 -- Tronquer un dictionnaire imbriqué ------------------------------------
+
+
+def tronquer_dict(d, n):
+    if n == 1:
+        return list(d.keys())
+    else:
+        return {k: tronquer_dict(v, n - 1) for k, v in d.items()}
+
+
+## 1.3 -- Aplanir un dictionnaire imbriqué -------------------------------------
+
+
+def aplanir_dictionnaire(d):
+    """Aplatis un dict de dict de dicts... avec listes finales"""
+    resultat = {}
+
+    def explorer(clef_top, valeur):
+        if isinstance(valeur, dict):
+            for sous_valeur in valeur.values():
+                explorer(clef_top, sous_valeur)
+        elif isinstance(valeur, list):
+            resultat.setdefault(clef_top, []).extend(valeur)
+        else:
+            raise ValueError(f"Valeur inattendue : {valeur}")
+
+    for clef, valeur in d.items():
+        explorer(clef, valeur)
+
+    return resultat
+
+
+## 1.4 -- Fonction réordonnant un dictionnaire ---------------------------------
+
+
+def reordonner_dict(dictionnaire: dict, clefs: list):
+    return {k: dictionnaire[k] for k in clefs if k in dictionnaire}
+
+
+## 1.5 -- Filtrer un dictionnaire en deux --------------------------------------
+
+
+def separer_combinaisons(dico1, dico2):
+    """Filtrer un dictionnaire en deux : les entrées présentes dans un second dictionnaire, et celles qui n’y sont pas."""
+
+    result = {True: {}, False: {}}
+
+    for pays in dico1:
+        if pays not in result[True]:
+            result[True][pays] = []
+        if pays not in result[False]:
+            result[False][pays] = []
+
+        if dico1[pays] is not None:
+            for region in dico1[pays]:
+                if pays in dico2 and region in dico2[pays]:
+                    result[True][pays].append(region)
+                else:
+                    result[False][pays].append(region)
+
+    # Supprimer les pays sans régions
+    result[True] = {pays: regions for pays, regions in result[True].items() if regions}
+    result[False] = {
+        pays: regions
+        for pays, regions in result[False].items()
+        if regions or (dico1[pays] is None or not dico1[pays])
+    }
+
+    return result
+
+
+# 2 -- Fonctions d'import et d'export ------------------------------------------
+
+
+## 2.1 -- Vide l'entièreté d'un layout PyQt6 -----------------------------------
 
 
 def vider_layout(layout):
@@ -62,7 +111,7 @@ def vider_layout(layout):
             child.widget().deleteLater()
 
 
-## 1.6 -- Crée une ligne horizontale en PyQt6 ----------------------------------
+## 2.2 -- Crée une ligne horizontale en PyQt6 ----------------------------------
 
 
 def creer_ligne_separation(
@@ -94,7 +143,7 @@ def creer_ligne_separation(
     return widget
 
 
-## 1.7 -- Crée une ligne verticale en PyQt6 ------------------------------------
+## 2.3 -- Crée une ligne verticale en PyQt6 ------------------------------------
 
 
 def creer_ligne_verticale():
@@ -105,7 +154,7 @@ def creer_ligne_verticale():
     return ligne
 
 
-## 1.8 -- Ouvre un fichier de type .yaml ou .pkl -------------------------------
+## 2.4 -- Ouvre un fichier de type .yaml ou .pkl -------------------------------
 
 
 # Fonction d'ouverture dedonnées
@@ -143,7 +192,7 @@ def ouvrir_fichier(
         return defaut
 
 
-## 1.9 -- Fonction de chargement des .pkl principaux ---------------------------
+## 2.5 -- Fonction de chargement des .pkl principaux ---------------------------
 
 
 def charger_gdfs(liste_gdfs, direction_base, max_niveau=3):
@@ -159,7 +208,7 @@ def charger_gdfs(liste_gdfs, direction_base, max_niveau=3):
         )  # mise à jour de la liste partagée
 
 
-## 1.10 -- Fonction d'export de .yaml et de .pkl -------------------------------
+## 2.6 -- Fonction d'export de .yaml et de .pkl --------------------------------
 
 
 def exporter_fichier(objet, direction_fichier, nom_fichier, sort_keys: bool = True):
@@ -198,21 +247,14 @@ def exporter_fichier(objet, direction_fichier, nom_fichier, sort_keys: bool = Tr
         print("Fichier non exportable.")
 
 
-## 1.11 -- Fonction réordonnant un dictionnaire --------------------------------
-
-
-def reordonner_dict(dictionnaire: dict, clefs: list):
-    return {k: dictionnaire[k] for k in clefs if k in dictionnaire}
-
-
-## 1.12 -- Fonction de formatage de l'heure et de la date actuelles ------------
+## 2.7 -- Fonction de formatage de l'heure et de la date actuelles -------------
 
 
 def formater_temps_actuel():
     return time.strftime("%d-%m-%Y %Hh%M", time.localtime())
 
 
-## 1.13 -- Fonction créant les .yaml Pays × Région/Département/... -------------
+## 2.8 -- Fonction créant les .yaml Pays × Région/Département/... --------------
 
 
 def cree_yaml_un_pays(
@@ -261,7 +303,7 @@ def cree_yaml_un_pays(
     )
 
 
-## 1.14 -- Fonction calculant la distance entre deux points sur terre ----------
+## 2.9 -- Fonction calculant la distance entre deux points sur terre -----------
 
 
 @numba.njit
@@ -280,7 +322,7 @@ def distance_haversine(lat1, lon1, lat2, lon2):
     )
 
 
-## 1.15 -- Sommes-nous dans la période de Halloween ? --------------------------
+## 2.10 -- Sommes-nous dans la période de Halloween ? --------------------------
 
 
 def periode_particuliere() -> dict:
@@ -339,67 +381,3 @@ def periode_particuliere() -> dict:
             "titre_police_coeff": 1,
             "emoji": "",
         }
-
-
-## 1.16 -- Filtrer un dictionnaire en deux -------------------------------------
-
-
-def separer_combinaisons(dico1, dico2):
-    """Filtrer un dictionnaire en deux : les entrées présentes dans un second dictionnaire, et celles qui n’y sont pas."""
-
-    result = {True: {}, False: {}}
-
-    for pays in dico1:
-        if pays not in result[True]:
-            result[True][pays] = []
-        if pays not in result[False]:
-            result[False][pays] = []
-
-        if dico1[pays] is not None:
-            for region in dico1[pays]:
-                if pays in dico2 and region in dico2[pays]:
-                    result[True][pays].append(region)
-                else:
-                    result[False][pays].append(region)
-
-    # Supprimer les pays sans régions
-    result[True] = {pays: regions for pays, regions in result[True].items() if regions}
-    result[False] = {
-        pays: regions
-        for pays, regions in result[False].items()
-        if regions or (dico1[pays] is None or not dico1[pays])
-    }
-
-    return result
-
-
-## 1.17 -- Tronquer un dictionnaire imbriqué -----------------------------------
-
-
-def tronquer_dict(d, n):
-    if n == 1:
-        return list(d.keys())
-    else:
-        return {k: tronquer_dict(v, n - 1) for k, v in d.items()}
-
-
-## 1.18 -- Aplanir un dictionnaire imbriqué -------------------------------------
-
-
-def aplanir_dictionnaire(d):
-    """Aplatis un dict de dict de dicts... avec listes finales"""
-    resultat = {}
-
-    def explorer(clef_top, valeur):
-        if isinstance(valeur, dict):
-            for sous_valeur in valeur.values():
-                explorer(clef_top, sous_valeur)
-        elif isinstance(valeur, list):
-            resultat.setdefault(clef_top, []).extend(valeur)
-        else:
-            raise ValueError(f"Valeur inattendue : {valeur}")
-
-    for clef, valeur in d.items():
-        explorer(clef, valeur)
-
-    return resultat

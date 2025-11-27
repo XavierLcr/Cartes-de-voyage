@@ -89,6 +89,10 @@ def selectionner_lieux(gdf, minx, maxx, miny, maxy):
 
 def creer_nom_fichier(chemin: str, nom: str, max_cartes: int | None):
 
+    # Crée la direction de sauvegarde du résultat si nécessaire
+    if not os.path.exists(chemin):
+        os.makedirs(chemin)
+
     # Suppression fichier le plus vieux si necessaire
     if max_cartes is not None:
         fichiers = [
@@ -195,10 +199,6 @@ def creer_image_carte(
     )
     # On gère la mère Caspienne
     gdf.loc[gdf["Pays"] == "Caspian Sea", "Couleur"] = couleur_de_fond
-
-    # Crée la direction de sauvegarde du résultat si nécessaire
-    if not os.path.exists(chemin_impression):
-        os.makedirs(chemin_impression)
 
     # Cree le graphique
     if blabla:

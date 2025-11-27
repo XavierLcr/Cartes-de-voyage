@@ -78,3 +78,49 @@ def creer_QLabel_centre(
     label = QLabel(text, parent, wordWrap=wordWrap)
     label.setAlignment(alignement)
     return label
+
+
+# 3 -- Fonctions de création de lignes -----------------------------------------
+
+
+## 3.1 -- Fonction de création d'une ligne horizontale -------------------------
+
+
+def creer_ligne_horizontale(
+    lStretch=1,
+    ligne_largeur=4,
+    rStretch=1,
+    ligne_epaisseur=1,
+    ligne_epaisseur_interieur=0,
+    relief=QFrame.Shadow.Sunken,
+):
+    """Afficher une simple ligne horizontale."""
+
+    widget = QWidget()
+    layout_temp = QHBoxLayout(widget)
+    layout_temp.setContentsMargins(0, 0, 0, 0)
+    layout_temp.setSpacing(0)
+
+    ligne = QFrame()
+    ligne.setFixedHeight(2)
+    ligne.setFrameShape(QFrame.Shape.HLine)
+    ligne.setFrameShadow(relief)
+    ligne.setLineWidth(ligne_epaisseur)
+    ligne.setMidLineWidth(ligne_epaisseur_interieur)
+
+    layout_temp.addStretch(lStretch)
+    layout_temp.addWidget(ligne, ligne_largeur)
+    layout_temp.addStretch(rStretch)
+
+    return widget
+
+
+## 3.2 -- Fonction de création d'une ligne verticale ---------------------------
+
+
+def creer_ligne_verticale():
+    """Afficher une simple ligne verticale."""
+    ligne = QFrame()
+    ligne.setFrameShape(QFrame.Shape.VLine)
+    ligne.setFrameShadow(QFrame.Shadow.Raised)
+    return ligne

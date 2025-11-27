@@ -18,10 +18,12 @@ from PyQt6.QtWidgets import (
 )
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
-    creer_ligne_separation,
     vider_layout,
 )
-from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import creer_QLabel_centre
+from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
+    creer_QLabel_centre,
+    creer_ligne_horizontale,
+)
 
 
 # 1 -- Fonctions utiles --------------------------------------------------------
@@ -219,7 +221,7 @@ class OngletResumeDestinations(QWidget):
                 text=self.traduire_depuis_id(clef=granu, prefixe="<b>", suffixe="</b>")
             )
         )
-        vbox.addWidget(creer_ligne_separation())
+        vbox.addWidget(creer_ligne_horizontale())
         vbox.addWidget(QLabel(""))
 
         # --- Création de l'arbre ---

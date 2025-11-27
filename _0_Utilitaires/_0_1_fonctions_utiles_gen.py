@@ -111,50 +111,7 @@ def vider_layout(layout):
             child.widget().deleteLater()
 
 
-## 2.2 -- Crée une ligne horizontale en PyQt6 ----------------------------------
-
-
-def creer_ligne_separation(
-    lStretch=1,
-    ligne_largeur=4,
-    rStretch=1,
-    ligne_epaisseur=1,
-    ligne_epaisseur_interieur=0,
-    relief=QFrame.Shadow.Sunken,
-):
-    """Afficher une simple ligne horizontale."""
-
-    widget = QWidget()
-    layout_temp = QHBoxLayout(widget)
-    layout_temp.setContentsMargins(0, 0, 0, 0)
-    layout_temp.setSpacing(0)
-
-    ligne = QFrame()
-    ligne.setFixedHeight(2)
-    ligne.setFrameShape(QFrame.Shape.HLine)
-    ligne.setFrameShadow(relief)
-    ligne.setLineWidth(ligne_epaisseur)
-    ligne.setMidLineWidth(ligne_epaisseur_interieur)
-
-    layout_temp.addStretch(lStretch)
-    layout_temp.addWidget(ligne, ligne_largeur)
-    layout_temp.addStretch(rStretch)
-
-    return widget
-
-
-## 2.3 -- Crée une ligne verticale en PyQt6 ------------------------------------
-
-
-def creer_ligne_verticale():
-    """Afficher une simple ligne verticale."""
-    ligne = QFrame()
-    ligne.setFrameShape(QFrame.Shape.VLine)
-    ligne.setFrameShadow(QFrame.Shadow.Raised)
-    return ligne
-
-
-## 2.4 -- Ouvre un fichier de type .yaml ou .pkl -------------------------------
+## 2.2 -- Ouvre un fichier de type .yaml ou .pkl -------------------------------
 
 
 # Fonction d'ouverture dedonnées
@@ -192,7 +149,7 @@ def ouvrir_fichier(
         return defaut
 
 
-## 2.5 -- Fonction de chargement des .pkl principaux ---------------------------
+## 2.3 -- Fonction de chargement des .pkl principaux ---------------------------
 
 
 def charger_gdfs(liste_gdfs, direction_base, max_niveau=3):
@@ -208,7 +165,7 @@ def charger_gdfs(liste_gdfs, direction_base, max_niveau=3):
         )  # mise à jour de la liste partagée
 
 
-## 2.6 -- Fonction d'export de .yaml et de .pkl --------------------------------
+## 2.4 -- Fonction d'export de .yaml et de .pkl --------------------------------
 
 
 def exporter_fichier(objet, direction_fichier, nom_fichier, sort_keys: bool = True):
@@ -247,14 +204,14 @@ def exporter_fichier(objet, direction_fichier, nom_fichier, sort_keys: bool = Tr
         print("Fichier non exportable.")
 
 
-## 2.7 -- Fonction de formatage de l'heure et de la date actuelles -------------
+## 2.5 -- Fonction de formatage de l'heure et de la date actuelles -------------
 
 
 def formater_temps_actuel():
     return time.strftime("%d-%m-%Y %Hh%M", time.localtime())
 
 
-## 2.8 -- Fonction créant les .yaml Pays × Région/Département/... --------------
+## 2.6 -- Fonction créant les .yaml Pays × Région/Département/... --------------
 
 
 def cree_yaml_un_pays(
@@ -303,7 +260,7 @@ def cree_yaml_un_pays(
     )
 
 
-## 2.9 -- Fonction calculant la distance entre deux points sur terre -----------
+## 2.7 -- Fonction calculant la distance entre deux points sur terre -----------
 
 
 @numba.njit
@@ -322,7 +279,7 @@ def distance_haversine(lat1, lon1, lat2, lon2):
     )
 
 
-## 2.10 -- Sommes-nous dans la période de Halloween ? --------------------------
+## 2.8 -- Sommes-nous dans la période de Halloween ? ---------------------------
 
 
 def periode_particuliere() -> dict:

@@ -27,12 +27,15 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtCore import Qt, QTimer, QThread, pyqtSignal
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
-    creer_ligne_verticale,
-    creer_ligne_separation,
     obtenir_clef_par_valeur,
     periode_particuliere,
 )
-from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import reset_combo, creer_QLabel_centre
+from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
+    reset_combo,
+    creer_QLabel_centre,
+    creer_ligne_horizontale,
+    creer_ligne_verticale,
+)
 from _4_Interface._4_1_Onglets.onglet_1.onglet_1_1_creation_cartes import CreerCartes
 from _4_Interface._4_1_Onglets.onglet_1.onglet_1_2_combobox_coloree import (
     FondCarteCombo,
@@ -168,7 +171,7 @@ class OngletParametres(QWidget):
         )
 
         layout_cartes_a_creer.addWidget(
-            creer_ligne_separation(lStretch=0, ligne_largeur=1, rStretch=0),
+            creer_ligne_horizontale(lStretch=0, ligne_largeur=1, rStretch=0),
             1,
             0,
             1,
@@ -186,7 +189,7 @@ class OngletParametres(QWidget):
         layout_cartes_a_creer.addWidget(self.autres_regions, ligne_regions_1, 4, 1, 2)
 
         layout_cartes_a_creer.addWidget(
-            creer_ligne_separation(lStretch=0, ligne_largeur=1, rStretch=0),
+            creer_ligne_horizontale(lStretch=0, ligne_largeur=1, rStretch=0),
             4,
             0,
             1,
@@ -284,7 +287,7 @@ class OngletParametres(QWidget):
             self.utiliser_theme, alignment=Qt.AlignmentFlag.AlignCenter
         )
         layout_theme_couleurs.addWidget(
-            creer_ligne_separation(lStretch=0, ligne_largeur=1, rStretch=0)
+            creer_ligne_horizontale(lStretch=0, ligne_largeur=1, rStretch=0)
         )
         layout_theme_couleurs.addLayout(layout_couleur_fond)
 

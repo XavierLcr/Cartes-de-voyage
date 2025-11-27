@@ -17,10 +17,12 @@ from PyQt6.QtWidgets import (
 )
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
-    creer_ligne_separation,
     vider_layout,
 )
-from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import creer_QLabel_centre
+from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
+    creer_QLabel_centre,
+    creer_ligne_horizontale,
+)
 
 
 # 1 -- Fonctions ---------------------------------------------------------------
@@ -103,7 +105,7 @@ class ClassementPays(QWidget):
         layout_entete_top_pays_regions = QVBoxLayout()
         layout_entete_top_pays_regions.addWidget(self.entete_top_pays_regions)
 
-        layout_entete_top_pays_regions.addWidget(creer_ligne_separation())
+        layout_entete_top_pays_regions.addWidget(creer_ligne_horizontale())
         layout_entete_top_pays_regions.addWidget(QLabel(""))
 
         self.layout_top_pays_regions = QGridLayout()
@@ -124,7 +126,7 @@ class ClassementPays(QWidget):
         layout_entete_top_pays_departements = QVBoxLayout()
         layout_entete_top_pays_departements.addWidget(self.entete_top_pays_departements)
 
-        layout_entete_top_pays_departements.addWidget(creer_ligne_separation())
+        layout_entete_top_pays_departements.addWidget(creer_ligne_horizontale())
         layout_entete_top_pays_departements.addWidget(QLabel(""))
 
         self.layout_top_pays_deps = QGridLayout()

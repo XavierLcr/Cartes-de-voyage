@@ -134,7 +134,32 @@ def creer_nom_fichier(chemin: str, nom: str, max_cartes: int | None):
     return nom
 
 
-## 1.5 -- Fonction de création de la carte -------------------------------------
+## 1.5 -- Fonction de création des métadonnées ---------------------------------
+
+
+def renvoyer_metadonnees(
+    nom: str, theme: dict, teintes: list | None, qualite: int, granularite: int
+):
+
+    if os.path.splitext(nom)[1].strip(". ") in ["png", "jpg", "jpeg", "tiff", "pdf"]:
+        return {
+            "Application": "MesVoyages",
+            "Auteur": "Xavier Lacour",
+            "Date": datetime.now().isoformat(),
+            "HSV": json.dumps(
+                {
+                    "Bornes de luminosité et de saturation": theme,
+                    "Teintes possibles": teintes,
+                }
+            ),
+            "Qualité de l'image": str(qualite),
+            "Granularité maximale": f"{granularite}",
+        }
+    else:
+        return None
+
+
+## 1.6 -- Fonction de création de la carte -------------------------------------
 
 
 def creer_image_carte(
@@ -314,30 +339,19 @@ def creer_image_carte(
     if blabla:
         print(". Sauvegarde de l'image.", end=" ")
 
-    # Création des métadata
-    metadata = None
-    if os.path.splitext(nom)[1].strip(". ") in ["png", "jpg", "jpeg", "tiff", "pdf"]:
-        metadata = {
-            "Application": "MesVoyages",
-            "Auteur": "Xavier Lacour",
-            "Date": datetime.now().isoformat(),
-            "HSV": json.dumps(
-                {
-                    "Bornes de luminosité et de saturation": theme,
-                    "Teintes possibles": teintes_autorisees,
-                }
-            ),
-            "Qualité de l'image": str(qualite),
-            "Granularité maximale": f"{max(gdf['Granu'])}",
-        }
-
     plt.savefig(
         creer_nom_fichier(
             chemin=chemin_impression, nom=nom, max_cartes=max_cartes_additionnelles
         ),
         dpi=max(min(qualite, 4500), 100),
         bbox_inches="tight",
-        metadata=metadata,
+        metadata=renvoyer_metadonnees(
+            nom=nom,
+            theme=theme,
+            teintes=teintes_autorisees,
+            qualite=qualite,
+            granularite=max(gdf["Granu"]),
+        ),
         pad_inches=0,
     )
     plt.close(fig)
@@ -346,7 +360,7 @@ def creer_image_carte(
         print("Terminé.")
 
 
-## 1.3 -- Renvoie noir ou blanc selon la couleur en entrée ---------------------
+## 1.7 -- Renvoie noir ou blanc selon la couleur en entrée ---------------------
 
 
 def transformer_couleur_texte(bg_color):
@@ -372,7 +386,7 @@ def transformer_couleur_texte(bg_color):
     return "#FFFFFF" if 0.299 * r + 0.587 * g + 0.114 * b < 128 else "#000000"
 
 
-## 1.4 -- Renvoyer une couleur selon les paramètres de l'application -----------
+## 1.8 -- Renvoyer une couleur selon les paramètres de l'application -----------
 
 
 def renvoyer_couleur_widget(style, teinte, nuances, clair, sombre):
@@ -384,7 +398,7 @@ def renvoyer_couleur_widget(style, teinte, nuances, clair, sombre):
         return sombre
 
 
-## 1.5 -- Fonction de gestion des situations où deux couleurs doivent différer -
+## 1.9 -- Fonction de gestion des situations où deux couleurs doivent différer -
 
 
 def renvoyer_couleur_widget_differente(
@@ -405,7 +419,7 @@ def renvoyer_couleur_widget_differente(
     return resultat
 
 
-## 1.6 -- Fonction de couleur du texte selon la siutation ----------------------
+## 1.10 -- Fonction de couleur du texte selon la siutation ---------------------
 
 
 def renvoyer_couleur_texte(style, couleur):
@@ -417,7 +431,7 @@ def renvoyer_couleur_texte(style, couleur):
         return "#FFFFFF"
 
 
-## 1.7 -- Fonction de création du style complet de l'application ---------------
+## 1.11 -- Fonction de création du style complet de l'application --------------
 
 
 def utiliser_style_dynamique(

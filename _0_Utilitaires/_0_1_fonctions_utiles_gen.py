@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
 # _0_Utilitaires/                                                              #
-# 0.1 – Fonctions utiles à l'application                                       #
+# 0.1 – Fonctions génériques utiles                                            #
 ################################################################################
 
 
@@ -321,28 +321,7 @@ def distance_haversine(lat1, lon1, lat2, lon2):
     )
 
 
-## 1.15 -- Groupbox d'un widget ------------------------------------------------
-
-
-def renvoyer_groupbox(objet, horizontal=True):
-
-    layout = QHBoxLayout() if horizontal else QVBoxLayout()
-
-    # Si l'objet est une liste de widgets
-    if isinstance(objet, list):
-        for widget in objet:
-            layout.addWidget(widget)
-
-    # Si l'objet est un widget unique
-    else:
-        layout.addWidget(objet)
-
-    groupbox = QGroupBox()
-    groupbox.setLayout(layout)
-    return groupbox
-
-
-## 1.16 -- Sommes-nous dans la période de Halloween ? --------------------------
+## 1.15 -- Sommes-nous dans la période de Halloween ? --------------------------
 
 
 def periode_particuliere() -> dict:
@@ -403,7 +382,7 @@ def periode_particuliere() -> dict:
         }
 
 
-## 1.17 -- Filtrer un dictionnaire en deux -------------------------------------
+## 1.16 -- Filtrer un dictionnaire en deux -------------------------------------
 
 
 def separer_combinaisons(dico1, dico2):
@@ -435,7 +414,7 @@ def separer_combinaisons(dico1, dico2):
     return result
 
 
-## 1.18 -- Tronquer un dictionnaire imbriqué -----------------------------------
+## 1.17 -- Tronquer un dictionnaire imbriqué -----------------------------------
 
 
 def tronquer_dict(d, n):
@@ -445,7 +424,7 @@ def tronquer_dict(d, n):
         return {k: tronquer_dict(v, n - 1) for k, v in d.items()}
 
 
-## 1.19 -- Aplanir un dictionnaire imbriqué -------------------------------------
+## 1.18 -- Aplanir un dictionnaire imbriqué -------------------------------------
 
 
 def aplanir_dictionnaire(d):

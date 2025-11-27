@@ -19,13 +19,13 @@ from PyQt6.QtCore import QTimer, Qt
 
 # Scripts et fonctions du projet
 import constantes
-from _3_Calculs._1_2_creer_graphique import utiliser_style_dynamique
 from _0_Utilitaires._0_2_fonctions_graphiques import renvoyer_couleur_texte
 from _0_Utilitaires import _0_1_Fonctions_utiles
 from _4_Interface._4_1_Onglets.onglet_1 import onglet_1
 from _4_Interface._4_1_Onglets.onglet_2 import onglet_2
 from _4_Interface._4_1_Onglets.onglet_4 import onglet_4
 from _4_Interface._4_1_Onglets import onglet_3, onglet_5
+from _4_Interface._4_2_Style._4_2_1_style_principal import style_dynamique_application
 
 
 warnings.filterwarnings("ignore")
@@ -318,7 +318,7 @@ class MesVoyagesApplication(QWidget):
 
         # Cas général
         self.setStyleSheet(
-            utiliser_style_dynamique(
+            style_dynamique_application(
                 style=style_temp,
                 nuances=theme_temp,
                 teinte=teinte_temp,

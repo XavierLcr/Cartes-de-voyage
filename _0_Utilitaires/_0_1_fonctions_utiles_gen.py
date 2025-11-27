@@ -9,7 +9,7 @@ import os, pickle, yaml, time, numba
 import pandas as pd
 import numpy as np
 from datetime import date
-from PyQt6.QtWidgets import QHBoxLayout, QVBoxLayout, QFrame, QLabel, QGroupBox, QWidget
+from PyQt6.QtWidgets import QHBoxLayout, QFrame, QLabel, QWidget
 from PyQt6.QtCore import Qt
 
 
@@ -51,19 +51,6 @@ def obtenir_clef_par_valeur(dictionnaire, valeur):
     return None
 
 
-## 1.3 -- Remplace l'entièreté des valeurs d'un combo PyQt6 --------------------
-
-
-def reset_combo(combo, items, set_index=True):
-
-    combo.blockSignals(True)
-    combo.clear()
-    combo.addItems(items)
-    if set_index:
-        combo.setCurrentIndex(0)
-    combo.blockSignals(False)
-
-
 ## 1.4 -- Vide l'entièreté d'un layout PyQt6 -----------------------------------
 
 
@@ -73,34 +60,6 @@ def vider_layout(layout):
         child = layout.takeAt(0)
         if child.widget():
             child.widget().deleteLater()
-
-
-## 1.5 -- Conserve la valeur d'un combo vidé en PyQt6 --------------------------
-
-
-def restaurer_valeur_combo(combo, dict_parent, langue, valeur, defaut_index=0):
-    """
-    Met à jour un QComboBox avec une valeur trouvée dans un dictionnaire traduit.
-
-    combo : QComboBox à mettre à jour
-    dict_parent : dictionnaire contenant les traductions (ex: constantes.parametres_traduits["themes_cartes"])
-    langue : langue courante
-    valeur : valeur à restaurer en français
-    defaut_index : index à mettre si aucune valeur trouvée
-    """
-    combo.blockSignals(True)
-
-    if valeur is not None:
-        traduction = dict_parent.get(langue, {}).get(valeur)
-        if traduction is not None:
-            idx = combo.findText(traduction)
-            combo.setCurrentIndex(idx if idx != -1 else defaut_index)
-        else:
-            combo.setCurrentIndex(defaut_index)
-    else:
-        combo.setCurrentIndex(defaut_index)
-
-    combo.blockSignals(False)
 
 
 ## 1.6 -- Crée une ligne horizontale en PyQt6 ----------------------------------

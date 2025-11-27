@@ -19,7 +19,7 @@ from PyQt6.QtCore import QTimer, Qt
 
 # Scripts et fonctions du projet
 import constantes
-from _0_Utilitaires import _0_1_fonctions_utiles_gen
+from _0_Utilitaires import _0_1_fonctions_utiles_gen, _0_3_fonctions_utiles_pyqt6
 from _0_Utilitaires._0_2_fonctions_graphiques import renvoyer_couleur_texte
 from _4_Interface._4_1_Onglets.onglet_1 import onglet_1
 from _4_Interface._4_1_Onglets.onglet_2 import onglet_2
@@ -569,7 +569,7 @@ class MesVoyagesApplication(QWidget):
             )
 
             # Chargement de la granularité
-            _0_1_fonctions_utiles_gen.restaurer_valeur_combo(
+            _0_3_fonctions_utiles_pyqt6.restaurer_valeur_combo(
                 combo=self.onglet_parametres.granularite_visite,
                 dict_parent=constantes.parametres_traduits.get("granularite", {}),
                 langue=self.langue,
@@ -578,7 +578,7 @@ class MesVoyagesApplication(QWidget):
             )
 
             # Chargement de la granularité de fond
-            _0_1_fonctions_utiles_gen.restaurer_valeur_combo(
+            _0_3_fonctions_utiles_pyqt6.restaurer_valeur_combo(
                 combo=self.onglet_parametres.granularite_fond,
                 dict_parent=constantes.parametres_traduits.get("granularite", {}),
                 langue=self.langue,
@@ -587,7 +587,7 @@ class MesVoyagesApplication(QWidget):
             )
 
             # Chargement du thème
-            _0_1_fonctions_utiles_gen.restaurer_valeur_combo(
+            _0_3_fonctions_utiles_pyqt6.restaurer_valeur_combo(
                 combo=self.onglet_parametres.theme_combo,
                 dict_parent=constantes.parametres_traduits.get("themes_cartes", {}),
                 langue=self.langue,
@@ -596,7 +596,7 @@ class MesVoyagesApplication(QWidget):
             )
 
             # Chargement de la teinte
-            _0_1_fonctions_utiles_gen.restaurer_valeur_combo(
+            _0_3_fonctions_utiles_pyqt6.restaurer_valeur_combo(
                 combo=self.onglet_parametres.color_combo,
                 dict_parent=constantes.parametres_traduits.get("teintes_couleurs", {}),
                 langue=self.langue,
@@ -605,7 +605,7 @@ class MesVoyagesApplication(QWidget):
             )
 
             # Chargement de l'arrière plan
-            _0_1_fonctions_utiles_gen.restaurer_valeur_combo(
+            _0_3_fonctions_utiles_pyqt6.restaurer_valeur_combo(
                 combo=self.onglet_parametres.combo_couleur_fond,
                 dict_parent=constantes.parametres_traduits.get("arrière_plans", {}),
                 langue=self.langue,

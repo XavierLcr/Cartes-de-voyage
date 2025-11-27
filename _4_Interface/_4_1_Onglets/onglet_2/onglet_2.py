@@ -25,13 +25,13 @@ from PyQt6.QtWidgets import (
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     obtenir_clef_par_valeur,
-    reset_combo,
     exporter_fichier,
     formater_temps_actuel,
     separer_combinaisons,
     aplanir_dictionnaire,
     tronquer_dict,
 )
+from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import reset_combo
 
 from _4_Interface._4_2_Style._4_2_2_styles_complementaires import style_bouton_yaml
 

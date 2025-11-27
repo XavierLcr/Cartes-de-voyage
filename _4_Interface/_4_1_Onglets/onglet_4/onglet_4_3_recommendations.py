@@ -25,9 +25,8 @@ from _0_Utilitaires._0_1_Fonctions_utiles import (
     creer_ligne_separation,
 )
 
-from _0_Utilitaires._0_2_fonctions_graphiques import (
-    renvoyer_couleur_texte,
-    renvoyer_couleur_widget,
+from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
+    style_bouton_recommandation,
 )
 
 
@@ -170,44 +169,6 @@ def calculer_recommandation(
             .reset_index(drop=True)
             .sort_values(["score_pays", "score_region"], ascending=[False, False])
         )
-
-
-## 1.3 -- Fonction de choix de la couleur du bouton ----------------------------
-
-
-def couleur_bouton_recommandations(style: int, teinte, nuances):
-
-    bg_couleur = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#C8E6C9", sombre="#2B523B"
-    )
-    bg_couleur_survol = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#B7E4C7", sombre="#0B9437"
-    )
-    bg_couleur_click = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#77B0AD", sombre="#0D7344"
-    )
-
-    return f"""
-        QPushButton {{
-            background-color: {bg_couleur};  /* pastel bleu-vert */
-            color: {renvoyer_couleur_texte(style=style, couleur=bg_couleur)};              /* texte bleu foncé pour contraste doux */
-            border-radius: 12px;
-            padding: 10px 22px;
-            font-size: 14px;
-            font-weight: bold;
-            border:  none;   /* bord subtil légèrement plus clair */
-        }}
-        QPushButton:hover {{
-            background-color: #B7E4C7;   /* légèrement plus saturé au survol */
-            color: {renvoyer_couleur_texte(style=style, couleur=bg_couleur_survol)};  
-            border-color: none;
-        }}
-        QPushButton:pressed {{
-            background-color: {bg_couleur_click};   /* un peu plus foncé à l’appui */
-            color: {renvoyer_couleur_texte(style=style, couleur=bg_couleur_click)};   
-            border-color: none;
-        }}
-    """
 
 
 # 2 -- Classe de calcul du tableau de recommandations --------------------------
@@ -443,5 +404,5 @@ class PaysAVisiter(QWidget):
     def set_bouton_recommandation(self, style, teinte, nuances):
 
         self.bouton_recommandations.setStyleSheet(
-            couleur_bouton_recommandations(style=style, teinte=teinte, nuances=nuances)
+            style_bouton_recommandation(style=style, teinte=teinte, nuances=nuances)
         )

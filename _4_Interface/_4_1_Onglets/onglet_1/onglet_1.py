@@ -33,10 +33,12 @@ from _0_Utilitaires._0_1_Fonctions_utiles import (
     creer_ligne_verticale,
     creer_ligne_separation,
     creer_QLabel_centre,
-    style_bouton_de_suppression,
     obtenir_clef_par_valeur,
     reset_combo,
     periode_particuliere,
+)
+from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
+    style_bouton_de_suppression,
 )
 
 

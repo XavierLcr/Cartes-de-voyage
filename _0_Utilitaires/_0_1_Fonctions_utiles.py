@@ -103,25 +103,7 @@ def restaurer_valeur_combo(combo, dict_parent, langue, valeur, defaut_index=0):
     combo.blockSignals(False)
 
 
-## 1.6 -- Assigne une couleur aux bouton de suppression et de réinitialisation -
-
-
-def style_bouton_de_suppression(sombre):
-    return f"""QPushButton {{
-                            background-color:{"#000000" if sombre else "#f8d7da"};
-                            color: {"#E6E6E6" if sombre else "#2C2C2C"};
-                            font-size: 12px;
-                            border: none;
-                            border-radius: 5px;
-                            padding: 8px;
-                            }}
-                QPushButton:hover {{
-                                    background-color: {"#85040d" if sombre else "#f5c6cb"};
-                                  }}
-            """
-
-
-## 1.7 -- Crée une ligne horizontale en PyQt6 ----------------------------------
+## 1.6 -- Crée une ligne horizontale en PyQt6 ----------------------------------
 
 
 def creer_ligne_separation(
@@ -153,7 +135,7 @@ def creer_ligne_separation(
     return widget
 
 
-## 1.8 -- Crée une ligne verticale en PyQt6 ------------------------------------
+## 1.7 -- Crée une ligne verticale en PyQt6 ------------------------------------
 
 
 def creer_ligne_verticale():
@@ -164,7 +146,7 @@ def creer_ligne_verticale():
     return ligne
 
 
-## 1.9 -- Ouvre un fichier de type .yaml ou .pkl -------------------------------
+## 1.8 -- Ouvre un fichier de type .yaml ou .pkl -------------------------------
 
 
 # Fonction d'ouverture dedonnées
@@ -202,7 +184,7 @@ def ouvrir_fichier(
         return defaut
 
 
-## 1.10 -- Fonction de chargement des .pkl principaux --------------------------
+## 1.9 -- Fonction de chargement des .pkl principaux ---------------------------
 
 
 def charger_gdfs(liste_gdfs, direction_base, max_niveau=3):
@@ -218,7 +200,7 @@ def charger_gdfs(liste_gdfs, direction_base, max_niveau=3):
         )  # mise à jour de la liste partagée
 
 
-## 1.11 -- Fonction d'export de .yaml et de .pkl -------------------------------
+## 1.10 -- Fonction d'export de .yaml et de .pkl -------------------------------
 
 
 def exporter_fichier(objet, direction_fichier, nom_fichier, sort_keys: bool = True):
@@ -257,21 +239,21 @@ def exporter_fichier(objet, direction_fichier, nom_fichier, sort_keys: bool = Tr
         print("Fichier non exportable.")
 
 
-## 1.12 -- Fonction réordonnant un dictionnaire --------------------------------
+## 1.11 -- Fonction réordonnant un dictionnaire --------------------------------
 
 
 def reordonner_dict(dictionnaire: dict, clefs: list):
     return {k: dictionnaire[k] for k in clefs if k in dictionnaire}
 
 
-## 1.13 -- Fonction de formatage de l'heure et de la date actuelles ------------
+## 1.12 -- Fonction de formatage de l'heure et de la date actuelles ------------
 
 
 def formater_temps_actuel():
     return time.strftime("%d-%m-%Y %Hh%M", time.localtime())
 
 
-## 1.14 -- Fonction créant les .yaml Pays × Région/Département/... -------------
+## 1.13 -- Fonction créant les .yaml Pays × Région/Département/... -------------
 
 
 def cree_yaml_un_pays(
@@ -320,7 +302,7 @@ def cree_yaml_un_pays(
     )
 
 
-## 1.15 -- Fonction calculant la distance entre deux points sur terre ----------
+## 1.14 -- Fonction calculant la distance entre deux points sur terre ----------
 
 
 @numba.njit
@@ -339,7 +321,7 @@ def distance_haversine(lat1, lon1, lat2, lon2):
     )
 
 
-## 1.16 -- Groupbox d'un widget ------------------------------------------------
+## 1.15 -- Groupbox d'un widget ------------------------------------------------
 
 
 def renvoyer_groupbox(objet, horizontal=True):
@@ -360,7 +342,7 @@ def renvoyer_groupbox(objet, horizontal=True):
     return groupbox
 
 
-## 1.17 -- Sommes-nous dans la période de Halloween ? --------------------------
+## 1.16 -- Sommes-nous dans la période de Halloween ? --------------------------
 
 
 def periode_particuliere() -> dict:
@@ -421,7 +403,7 @@ def periode_particuliere() -> dict:
         }
 
 
-## 1.18 -- Filtrer un dictionnaire en deux -------------------------------------
+## 1.17 -- Filtrer un dictionnaire en deux -------------------------------------
 
 
 def separer_combinaisons(dico1, dico2):
@@ -453,7 +435,7 @@ def separer_combinaisons(dico1, dico2):
     return result
 
 
-## 1.19 -- Tronquer un dictionnaire imbriqué -----------------------------------
+## 1.18 -- Tronquer un dictionnaire imbriqué -----------------------------------
 
 
 def tronquer_dict(d, n):
@@ -463,7 +445,7 @@ def tronquer_dict(d, n):
         return {k: tronquer_dict(v, n - 1) for k, v in d.items()}
 
 
-## 1.20 -- Aplanir un dictionnaire imbriqué ------------------------------------
+## 1.19 -- Aplanir un dictionnaire imbriqué -------------------------------------
 
 
 def aplanir_dictionnaire(d):

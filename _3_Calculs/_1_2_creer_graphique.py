@@ -11,10 +11,8 @@ from datetime import datetime
 from shapely.geometry import box
 
 from _0_Utilitaires._0_2_fonctions_graphiques import (
-    renvoyer_couleur_texte,
     generer_couleur_aleatoire_hex,
     transformer_couleur_texte,
-    renvoyer_couleur_widget,
 )
 
 

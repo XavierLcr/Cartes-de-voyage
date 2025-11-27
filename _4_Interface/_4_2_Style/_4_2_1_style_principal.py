@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
 # _4_Interface/_4_2_Style                                                      #
-# 4.2 – Script contenant les fonctions esthétiques                             #
+# 4.2.1 – Script contenant les fonctions esthétiques                           #
 ################################################################################
 
 

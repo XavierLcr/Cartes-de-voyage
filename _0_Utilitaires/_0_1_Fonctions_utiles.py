@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
 # _0_Utilitaires/                                                              #
-# 0.1 - Fonctions utiles à l'application                                       #
+# 0.1 – Fonctions utiles à l'application                                       #
 ################################################################################
 
 

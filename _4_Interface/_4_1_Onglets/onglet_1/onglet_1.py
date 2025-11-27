@@ -29,7 +29,7 @@ from _4_Interface._4_1_Onglets.onglet_1.onglet_1_1_creation_cartes import CreerC
 from _4_Interface._4_1_Onglets.onglet_1.onglet_1_2_combobox_coloree import (
     FondCarteCombo,
 )
-from _0_Utilitaires._0_1_Fonctions_utiles import (
+from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     creer_ligne_verticale,
     creer_ligne_separation,
     creer_QLabel_centre,

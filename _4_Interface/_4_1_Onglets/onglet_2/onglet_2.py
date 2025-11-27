@@ -23,7 +23,7 @@ from PyQt6.QtWidgets import (
     QSizePolicy,
 )
 
-from _0_Utilitaires._0_1_Fonctions_utiles import (
+from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     obtenir_clef_par_valeur,
     reset_combo,
     exporter_fichier,

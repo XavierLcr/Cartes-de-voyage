@@ -16,7 +16,7 @@ from PyQt6.QtWidgets import (
     QGridLayout,
 )
 
-from _0_Utilitaires._0_1_Fonctions_utiles import (
+from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     creer_ligne_separation,
     vider_layout,
     creer_QLabel_centre,

@@ -8,7 +8,7 @@
 from PyQt6.QtWidgets import QComboBox, QListView
 from PyQt6.QtGui import QPixmap, QPainter, QColor, QIcon
 from PyQt6.QtCore import Qt
-from _0_Utilitaires._0_1_Fonctions_utiles import obtenir_clef_par_valeur
+from _0_Utilitaires._0_1_fonctions_utiles_gen import obtenir_clef_par_valeur
 
 
 def creer_icone_cercle(couleur: QColor, taille=24, transparent=False) -> QIcon:
@@ -62,7 +62,8 @@ class FondCarteCombo(QComboBox):
         self.addItem(creer_icone_cercle(QColor("white")), "Blanc")
         self.addItem(creer_icone_cercle(QColor("blue")), "Bleu")
         self.addItem(
-            creer_icone_cercle(QColor(255, 255, 255, 0), transparent=True), "Transparent"
+            creer_icone_cercle(QColor(255, 255, 255, 0), transparent=True),
+            "Transparent",
         )
 
     def valeur(self) -> str:
@@ -91,7 +92,9 @@ class FondCarteCombo(QComboBox):
 
             self.addItem(
                 creer_icone_cercle(
-                    couleur=QColor(valeur) if (clef != "Transparent") else QColor("#FFFFFF"),
+                    couleur=(
+                        QColor(valeur) if (clef != "Transparent") else QColor("#FFFFFF")
+                    ),
                     taille=taille,
                     transparent=(clef == "Transparent"),
                 ),

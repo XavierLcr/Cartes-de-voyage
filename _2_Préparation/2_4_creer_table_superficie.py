@@ -8,7 +8,7 @@ import os, sys
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import constantes
-from _0_Utilitaires._0_1_Fonctions_utiles import ouvrir_fichier, exporter_fichier
+from _0_Utilitaires._0_1_fonctions_utiles_gen import ouvrir_fichier, exporter_fichier
 
 
 ### Fonction de calcul de la superficie ----------------------------------------

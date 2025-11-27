@@ -10,7 +10,7 @@ from PyQt6.QtCore import QPointF
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtGui import QPainter, QPen, QColor, QBrush, QFont
 from collections import defaultdict
-from _0_Utilitaires._0_1_Fonctions_utiles import reordonner_dict
+from _0_Utilitaires._0_1_fonctions_utiles_gen import reordonner_dict
 
 
 # 1 -- Fonctions ---------------------------------------------------------------

@@ -10,7 +10,7 @@ import pandas as pd
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import constantes
-from _0_Utilitaires._0_1_Fonctions_utiles import (
+from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     ouvrir_fichier,
     exporter_fichier,
     distance_haversine,

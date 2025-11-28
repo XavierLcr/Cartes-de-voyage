@@ -97,189 +97,17 @@ def separer_combinaisons(dico1, dico2):
     return result
 
 
-# 2 -- Fonctions d'import et d'export ------------------------------------------
+# 2 -- Fonctions spacio-temporelles --------------------------------------------
 
 
-## 2.1 -- Vide l'entièreté d'un layout PyQt6 -----------------------------------
-
-
-def vider_layout(layout):
-    """Supprime tous les widgets d'un QLayout."""
-    while layout.count():
-        child = layout.takeAt(0)
-        if child.widget():
-            child.widget().deleteLater()
-
-
-## 2.2 -- Ouvre un fichier de type .yaml ou .pkl -------------------------------
-
-
-# Fonction d'ouverture dedonnées
-def ouvrir_fichier(
-    direction_fichier, nom_fichier, defaut, afficher_erreur: str | None = None
-):
-    """Ouvre un fichier de type YAML ou pickle."""
-
-    nom_fichier = os.path.join(direction_fichier, nom_fichier)
-    nom, extention = os.path.splitext(nom_fichier)
-
-    try:
-
-        if extention == ".pkl":
-
-            with open(
-                nom_fichier,
-                "rb",
-            ) as file:
-                return pickle.load(file)
-
-        elif extention == ".yaml":
-
-            with open(
-                nom_fichier,
-                "r",
-                encoding="utf-8",
-            ) as file:
-                return yaml.safe_load(file)
-    except:
-
-        if afficher_erreur is not None:
-            print(afficher_erreur)
-
-        return defaut
-
-
-## 2.3 -- Fonction de chargement des .pkl principaux ---------------------------
-
-
-def charger_gdfs(liste_gdfs, direction_base, max_niveau=3):
-    """
-    Charge les fichiers pickle et remplit la liste_gdfs.
-    """
-    for i in range(max_niveau):
-        liste_gdfs[i] = ouvrir_fichier(
-            direction_fichier=direction_base,
-            nom_fichier=f"carte_monde_niveau_{i}.pkl",
-            defaut=None,
-            afficher_erreur=f"Base de granularité {i} introuvable.",
-        )  # mise à jour de la liste partagée
-
-
-## 2.4 -- Fonction d'export de .yaml et de .pkl --------------------------------
-
-
-def exporter_fichier(objet, direction_fichier, nom_fichier, sort_keys: bool = True):
-    """Exporte un fichier de type YAML ou pickle."""
-
-    nom_fichier = os.path.join(direction_fichier, nom_fichier)
-    nom, extention = os.path.splitext(nom_fichier)
-
-    # Création de la direction de sauvegarde du résultat si nécessaire
-    if not os.path.exists(direction_fichier):
-        os.makedirs(direction_fichier)
-
-    if extention == ".yaml":
-
-        with open(
-            nom_fichier,
-            "w",
-            encoding="utf-8",
-        ) as file:
-            yaml.dump(
-                objet,
-                file,
-                allow_unicode=True,
-                default_flow_style=False,
-                sort_keys=sort_keys,
-            )
-
-    elif extention == ".pkl":
-        with open(
-            nom_fichier,
-            "wb",
-        ) as f:
-            pickle.dump(objet, f)
-
-    else:
-        print("Fichier non exportable.")
-
-
-## 2.5 -- Fonction de formatage de l'heure et de la date actuelles -------------
+## 2.1 -- Fonction de formatage de l'heure et de la date actuelles -------------
 
 
 def formater_temps_actuel():
     return time.strftime("%d-%m-%Y %Hh%M", time.localtime())
 
 
-## 2.6 -- Fonction créant les .yaml Pays × Région/Département/... --------------
-
-
-def cree_yaml_un_pays(
-    gdf,
-    direction_fichier,
-    nom_fichier,
-    nom_pays: None | list = None,
-    granularite: int = 1,
-):
-    """Crée le yaml pour un pays à un niveau de granularité donné
-
-    Args:
-        gdf: la base geopandas.
-        nom_pays (str): nom du pays dans la dataframe geopandas.
-        granularite (int): 1 (faible) à 5 (forte). Sera réduite si inexistante.
-        nom (str): nom du document.
-    """
-
-    if nom_pays is not None:
-        gdf = gdf[gdf["name_0"].isin(nom_pays)]
-
-    # Créer un DataFrame avec les résultats
-    liste_combinaisons = (
-        (
-            pd.DataFrame(
-                list(set(zip(gdf["name_0"], gdf[f"name_{granularite}"]))),
-                columns=["nom1", "nom2"],
-            )
-            # Tri par nom2
-            .sort_values(by="nom2", inplace=False)
-        )
-        .groupby("nom1")["nom2"]
-        .apply(list)
-        .to_dict()
-    )
-
-    if nom_fichier is None:
-        return liste_combinaisons
-
-    # Exporter vers YAML
-    exporter_fichier(
-        objet=liste_combinaisons,
-        direction_fichier=direction_fichier,
-        nom_fichier=nom_fichier,
-        sort_keys=True,
-    )
-
-
-## 2.7 -- Fonction calculant la distance entre deux points sur terre -----------
-
-
-@numba.njit
-def distance_haversine(lat1, lon1, lat2, lon2):
-    lat1, lon1, lat2, lon2 = map(np.radians, [lat1, lon1, lat2, lon2])
-
-    return (
-        2
-        * 6371
-        * np.arcsin(
-            np.sqrt(
-                np.sin((lat2 - lat1) / 2) ** 2
-                + np.cos(lat1) * np.cos(lat2) * np.sin((lon2 - lon1) / 2) ** 2
-            )
-        )
-    )
-
-
-## 2.8 -- Sommes-nous dans la période de Halloween ? ---------------------------
+## 2.2 -- Fonction de mise en forme du titre selon les événements --------------
 
 
 def periode_particuliere() -> dict:
@@ -338,3 +166,178 @@ def periode_particuliere() -> dict:
             "titre_police_coeff": 1,
             "emoji": "",
         }
+
+
+## 2.3 -- Fonction calculant la distance de Haversine --------------------------
+
+
+@numba.njit
+def distance_haversine(lat1, lon1, lat2, lon2):
+    lat1, lon1, lat2, lon2 = map(np.radians, [lat1, lon1, lat2, lon2])
+
+    return (
+        2
+        * 6371
+        * np.arcsin(
+            np.sqrt(
+                np.sin((lat2 - lat1) / 2) ** 2
+                + np.cos(lat1) * np.cos(lat2) * np.sin((lon2 - lon1) / 2) ** 2
+            )
+        )
+    )
+
+
+# 3 -- Fonctions d'import et d'export ------------------------------------------
+
+
+## 3.1 -- Vide l'entièreté d'un layout PyQt6 -----------------------------------
+
+
+def vider_layout(layout):
+    """Supprime tous les widgets d'un QLayout."""
+    while layout.count():
+        child = layout.takeAt(0)
+        if child.widget():
+            child.widget().deleteLater()
+
+
+## 3.2 -- Ouvre un fichier de type .yaml ou .pkl -------------------------------
+
+
+# Fonction d'ouverture dedonnées
+def ouvrir_fichier(
+    direction_fichier, nom_fichier, defaut, afficher_erreur: str | None = None
+):
+    """Ouvre un fichier de type YAML ou pickle."""
+
+    nom_fichier = os.path.join(direction_fichier, nom_fichier)
+    nom, extention = os.path.splitext(nom_fichier)
+
+    try:
+
+        if extention == ".pkl":
+
+            with open(
+                nom_fichier,
+                "rb",
+            ) as file:
+                return pickle.load(file)
+
+        elif extention == ".yaml":
+
+            with open(
+                nom_fichier,
+                "r",
+                encoding="utf-8",
+            ) as file:
+                return yaml.safe_load(file)
+    except:
+
+        if afficher_erreur is not None:
+            print(afficher_erreur)
+
+        return defaut
+
+
+## 3.3 -- Fonction de chargement des .pkl principaux ---------------------------
+
+
+def charger_gdfs(liste_gdfs, direction_base, max_niveau=3):
+    """
+    Charge les fichiers pickle et remplit la liste_gdfs.
+    """
+    for i in range(max_niveau):
+        liste_gdfs[i] = ouvrir_fichier(
+            direction_fichier=direction_base,
+            nom_fichier=f"carte_monde_niveau_{i}.pkl",
+            defaut=None,
+            afficher_erreur=f"Base de granularité {i} introuvable.",
+        )  # mise à jour de la liste partagée
+
+
+## 3.4 -- Fonction d'export de .yaml et de .pkl --------------------------------
+
+
+def exporter_fichier(objet, direction_fichier, nom_fichier, sort_keys: bool = True):
+    """Exporte un fichier de type YAML ou pickle."""
+
+    nom_fichier = os.path.join(direction_fichier, nom_fichier)
+    nom, extention = os.path.splitext(nom_fichier)
+
+    # Création de la direction de sauvegarde du résultat si nécessaire
+    if not os.path.exists(direction_fichier):
+        os.makedirs(direction_fichier)
+
+    if extention == ".yaml":
+
+        with open(
+            nom_fichier,
+            "w",
+            encoding="utf-8",
+        ) as file:
+            yaml.dump(
+                objet,
+                file,
+                allow_unicode=True,
+                default_flow_style=False,
+                sort_keys=sort_keys,
+            )
+
+    elif extention == ".pkl":
+        with open(
+            nom_fichier,
+            "wb",
+        ) as f:
+            pickle.dump(objet, f)
+
+    else:
+        print("Fichier non exportable.")
+
+
+## 3.5 -- Fonction créant les .yaml Pays × Région/Département/... --------------
+
+
+def cree_yaml_un_pays(
+    gdf,
+    direction_fichier,
+    nom_fichier,
+    nom_pays: None | list = None,
+    granularite: int = 1,
+):
+    """Crée le yaml pour un pays à un niveau de granularité donné
+
+    Args:
+        gdf: la base geopandas.
+        nom_pays (str): nom du pays dans la dataframe geopandas.
+        granularite (int): 1 (faible) à 5 (forte). Sera réduite si inexistante.
+        nom (str): nom du document.
+    """
+
+    if nom_pays is not None:
+        gdf = gdf[gdf["name_0"].isin(nom_pays)]
+
+    # Créer un DataFrame avec les résultats
+    liste_combinaisons = (
+        (
+            pd.DataFrame(
+                list(set(zip(gdf["name_0"], gdf[f"name_{granularite}"]))),
+                columns=["nom1", "nom2"],
+            )
+            # Tri par nom2
+            .sort_values(by="nom2", inplace=False)
+        )
+        .groupby("nom1")["nom2"]
+        .apply(list)
+        .to_dict()
+    )
+
+    if nom_fichier is None:
+        return liste_combinaisons
+
+    # Exporter vers YAML
+    exporter_fichier(
+        objet=liste_combinaisons,
+        direction_fichier=direction_fichier,
+        nom_fichier=nom_fichier,
+        sort_keys=True,
+    )

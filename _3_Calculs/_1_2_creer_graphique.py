@@ -7,9 +7,9 @@
 
 import os, json, math, textwrap
 import matplotlib.pyplot as plt
-from datetime import datetime
 from shapely.geometry import box
 
+from _0_Utilitaires._0_1_fonctions_utiles_gen import formater_temps_actuel
 from _0_Utilitaires._0_2_fonctions_graphiques import (
     generer_couleur_aleatoire_hex,
     transformer_couleur_texte,
@@ -102,7 +102,7 @@ def renvoyer_metadonnees(
         return {
             "Application": "MesVoyages",
             "Auteur": "Xavier Lacour",
-            "Date": datetime.now().isoformat(),
+            "Date": formater_temps_actuel(),
             "HSV": json.dumps(
                 {
                     "Bornes de luminosité et de saturation": theme,

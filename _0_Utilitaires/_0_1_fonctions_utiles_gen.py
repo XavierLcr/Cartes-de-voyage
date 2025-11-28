@@ -9,7 +9,6 @@ import os, pickle, yaml, time, numba
 import pandas as pd
 import numpy as np
 from datetime import date
-from PyQt6.QtWidgets import QHBoxLayout, QFrame, QWidget
 
 
 # 1 -- Fonctions sur les dictionnaires -----------------------------------------
@@ -190,21 +189,9 @@ def distance_haversine(lat1, lon1, lat2, lon2):
 # 3 -- Fonctions d'import et d'export ------------------------------------------
 
 
-## 3.1 -- Vide l'entièreté d'un layout PyQt6 -----------------------------------
+## 3.1 -- Fonction d'ouverture d'un fichier de type .yaml ou .pkl --------------
 
 
-def vider_layout(layout):
-    """Supprime tous les widgets d'un QLayout."""
-    while layout.count():
-        child = layout.takeAt(0)
-        if child.widget():
-            child.widget().deleteLater()
-
-
-## 3.2 -- Ouvre un fichier de type .yaml ou .pkl -------------------------------
-
-
-# Fonction d'ouverture dedonnées
 def ouvrir_fichier(
     direction_fichier, nom_fichier, defaut, afficher_erreur: str | None = None
 ):
@@ -239,7 +226,7 @@ def ouvrir_fichier(
         return defaut
 
 
-## 3.3 -- Fonction de chargement des .pkl principaux ---------------------------
+## 3.2 -- Fonction de chargement des .pkl principaux ---------------------------
 
 
 def charger_gdfs(liste_gdfs, direction_base, max_niveau=3):
@@ -255,7 +242,7 @@ def charger_gdfs(liste_gdfs, direction_base, max_niveau=3):
         )  # mise à jour de la liste partagée
 
 
-## 3.4 -- Fonction d'export de .yaml et de .pkl --------------------------------
+## 3.3 -- Fonction d'export de .yaml et de .pkl --------------------------------
 
 
 def exporter_fichier(objet, direction_fichier, nom_fichier, sort_keys: bool = True):
@@ -294,7 +281,7 @@ def exporter_fichier(objet, direction_fichier, nom_fichier, sort_keys: bool = Tr
         print("Fichier non exportable.")
 
 
-## 3.5 -- Fonction créant les .yaml Pays × Région/Département/... --------------
+## 3.4 -- Fonction créant les .yaml Pays × Région/Département/... --------------
 
 
 def cree_yaml_un_pays(

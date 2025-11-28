@@ -16,12 +16,10 @@ from PyQt6.QtWidgets import (
     QGridLayout,
 )
 
-from _0_Utilitaires._0_1_fonctions_utiles_gen import (
-    vider_layout,
-)
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     creer_QLabel_centre,
     creer_ligne_horizontale,
+    vider_layout,
 )
 
 

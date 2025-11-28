@@ -18,13 +18,11 @@ from PyQt6.QtWidgets import (
     QScrollArea,
 )
 
-from _0_Utilitaires._0_1_fonctions_utiles_gen import (
-    distance_haversine,
-    vider_layout,
-)
+from _0_Utilitaires._0_1_fonctions_utiles_gen import distance_haversine
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     creer_QLabel_centre,
     creer_ligne_horizontale,
+    vider_layout,
 )
 
 from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (

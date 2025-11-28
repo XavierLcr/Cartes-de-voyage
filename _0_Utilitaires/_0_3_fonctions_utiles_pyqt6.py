@@ -124,3 +124,17 @@ def creer_ligne_verticale():
     ligne.setFrameShape(QFrame.Shape.VLine)
     ligne.setFrameShadow(QFrame.Shadow.Raised)
     return ligne
+
+
+# 4 -- Fonctions sur les layout ------------------------------------------------
+
+
+## 4.1 -- Vide l'entièreté d'un layout PyQt6 -----------------------------------
+
+
+def vider_layout(layout):
+    """Supprime tous les widgets d'un QLayout."""
+    while layout.count():
+        child = layout.takeAt(0)
+        if child.widget():
+            child.widget().deleteLater()

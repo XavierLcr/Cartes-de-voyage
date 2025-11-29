@@ -33,10 +33,72 @@ def renvoyer_limites_carte(gdf, marge):
 # 2 -- Fonction de limitation des tables complémentaires -----------------------
 
 
-def selectionner_lieux(gdf, minx, maxx, miny, maxy):
+### Fonction de gestion des cas extrêmes ---------------------------------------
+
+
+def minmax_lon_wrap(gdf, minimum):
+    """
+    Pour un GeoDataFrame, renvoie :
+    - le min positif > 0 si disponible
+    - sinon le max négatif < 0
+
+    Prend en compte toutes les géométries du GeoDataFrame.
+    """
+    # Exploser les géométries multipolygones pour traiter chaque partie séparément
+    gdf_exp = gdf.explode(index_parts=False)
+
+    # Récupérer toutes les longitudes
+    longitudes = []
+    for geom in gdf_exp.geometry:
+        try:
+            # Pour polygones et multipoints
+            coords = getattr(geom, "exterior", geom).coords
+        except AttributeError:
+            # Pour points simples
+            coords = [geom.coords[0]]
+        for x, y in coords:
+            longitudes.append(x)
+
+    # Filtrer longitudes positives et négatives
+    pos_lon = [x for x in longitudes if x > 0]
+    neg_lon = [x for x in longitudes if x < 0]
+
+    if minimum and pos_lon:
+        return min(pos_lon)
+    elif minimum:
+        return -180
+    elif (not minimum) and neg_lon:
+        return max(neg_lon)
+    else:
+        180
+
+
+### Fonction générique ---------------------------------------------------------
+
+
+def selectionner_lieux(gdf, gdf_ref, extreme, marge):
+
+    minx, maxx, miny, maxy = renvoyer_limites_carte(gdf=gdf_ref, marge=marge)
 
     if gdf is None:
         return gdf
+    elif extreme:
+        print(minmax_lon_wrap(gdf=gdf_ref, minimum=True))
+        print(minmax_lon_wrap(gdf=gdf_ref, minimum=False))
+        print(gdf.total_bounds)
+        return gdf[
+            (
+                gdf.intersects(
+                    box(minmax_lon_wrap(gdf=gdf_ref, minimum=True), miny, 180, maxy)
+                )
+            )
+            | (
+                gdf.intersects(
+                    box(-180, miny, minmax_lon_wrap(gdf=gdf_ref, minimum=False), maxy)
+                )
+            )
+        ]
+
     else:
         return gdf[gdf.intersects(box(minx, miny, maxx, maxy))]
 
@@ -239,6 +301,7 @@ def creer_image_carte(
     blabla=True,
     max_cartes_additionnelles: int | None = 10,
     afficher_nom_lieu: bool = True,
+    marge_carte=0.03,
 ):
     r"""
     Crée une image de carte à partir d'un GeoDataFrame et l'exporte dans un fichier d'image.
@@ -292,34 +355,33 @@ def creer_image_carte(
     ax.margins(0)
     fig.patch.set_facecolor(couleur_de_fond)
 
-    # Reprojection des cartes si néessaire
-    if len(set(liste_pays) & set(["Russia", "United States"])) > 0:
-        centre = calculer_centre(gdf)
-        print(centre)
-        type_proj = "washington"
-        gdf = reprojeter_gdf(gdf=gdf, type_proj=type_proj, centre=centre)
-        # gdf_eau = reprojeter_gdf(gdf=gdf_eau, type_proj=type_proj, centre=centre)
-        # gdf_monde = reprojeter_gdf(
-        #     gdf=gdf_monde, type_proj=type_proj, centre=centre
-        # )
-        gdf_regions = reprojeter_gdf(
-            gdf=gdf_regions, type_proj=type_proj, centre=centre
-        )
-        gdf_eau = None
-        gdf_monde = None
-
-    # Sélection du périmètre – Ajout des pays aux alentours
-    xmin, xmax, ymin, ymax = renvoyer_limites_carte(gdf=gdf, marge=0.03)
-    ax.set_xlim(xmin, xmax)
-    ax.set_ylim(ymin, ymax)
+    extreme = len(set(liste_pays) & set(["Russia", "United States"])) > 0
 
     # Limitation des tables complémentaires
     gdf_monde = selectionner_lieux(
-        gdf=gdf_monde, minx=xmin, maxx=xmax, miny=ymin, maxy=ymax
+        gdf=gdf_monde, gdf_ref=gdf, extreme=extreme, marge=marge_carte
     )
     gdf_eau = selectionner_lieux(
-        gdf=gdf_eau, minx=xmin, maxx=xmax, miny=ymin, maxy=ymax
+        gdf=gdf_eau, gdf_ref=gdf, extreme=extreme, marge=marge_carte
     )
+    print(gdf_monde[["name_0"]])
+
+    # Reprojection des cartes si néessaire
+    if extreme:
+        centre = calculer_centre(gdf)
+        type_proj = "washington"
+        gdf = reprojeter_gdf(gdf=gdf, type_proj=type_proj, centre=centre)
+        gdf_eau = reprojeter_gdf(gdf=gdf_eau, type_proj=type_proj, centre=centre)
+        gdf_monde = reprojeter_gdf(gdf=gdf_monde, type_proj=type_proj, centre=centre)
+        gdf_regions = reprojeter_gdf(
+            gdf=gdf_regions, type_proj=type_proj, centre=centre
+        )
+        # gdf_monde = None
+
+    # Sélection du périmètre – Ajout des pays aux alentours
+    xmin, xmax, ymin, ymax = renvoyer_limites_carte(gdf=gdf, marge=marge_carte)
+    ax.set_xlim(xmin, xmax)
+    ax.set_ylim(ymin, ymax)
 
     # Ajout de la carte principale
     gdf.plot(ax=ax, color=gdf["Couleur"], edgecolor="black", linewidth=0.008, zorder=1)

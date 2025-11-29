@@ -116,7 +116,105 @@ def renvoyer_metadonnees(
         return None
 
 
-# 5 -- Fonction de création de la carte ----------------------------------------
+# 5 -- Recentrer la longitude d'une table --------------------------------------
+
+
+## 5.1 -- Fonction de calcul des coordonnées du centre -------------------------
+
+
+def calculer_centre(gdf):
+    """
+    Calcule le centre géographique (longitude, latitude) d'un GeoDataFrame.
+
+    Retour :
+    - tuple (lon_centre, lat_centre)
+    """
+
+    def ligne_valide(geom):
+        # Récupérer toutes les coordonnées
+        coords = []
+        if geom.geom_type == "Polygon":
+            coords = list(geom.exterior.coords)
+        elif geom.geom_type == "MultiPolygon":
+            for poly in geom.geoms:
+                coords.extend(list(poly.exterior.coords))
+        # Vérifier si une longitude est trop proche de ±180
+        return not any(abs(x) >= 179.75 for x, y in coords)
+
+    gdf_filtre = gdf[gdf.geometry.apply(ligne_valide)]
+
+    if gdf_filtre.empty:
+        # fallback si toutes les lignes sont filtrées
+        return (0, 0)
+
+    minx, miny, maxx, maxy = gdf_filtre.total_bounds
+    return (minx + maxx) / 2, (miny + maxy) / 2
+
+
+## 5.2 -- Calcul de reprojection d'une carte -----------------------------------
+
+
+def reprojeter_gdf(gdf, type_proj="laea", centre=None):
+    """
+    Reprojette un GeoDataFrame selon le type de projection choisi.
+
+    Paramètres :
+    - gdf : GeoDataFrame à reprojeter
+    - type_proj : type de projection. Options disponibles :
+        "laea"   : Lambert Azimuthal Equal-Area
+        "lcc"    : Lambert Conformal Conic
+        "mercator" : Mercator
+        "robinson" : Robinson
+        "wgs84"  : lat/lon WGS84 (EPSG:4326)
+        "auto"   : choisit automatiquement selon la latitude
+        None     : ne fait rien, renvoie le GeoDataFrame tel quel
+    - centre : tuple (lon, lat) pour centrer la projection. Si None, centre calculé automatiquement.
+
+    Retour :
+    - GeoDataFrame reprojeté
+    """
+
+    # Si le gdf est None, on renvoie None
+    if gdf is None:
+        return gdf
+
+    # Si type_proj est None, on renvoie le GeoDataFrame sans modification
+    if type_proj is None:
+        return gdf.copy()
+
+    # Calcul du centre si nécessaire
+    lon, lat = centre if centre is not None else calculer_centre(gdf)
+
+    # Dictionnaire des projections statiques
+    projections = {
+        "laea": f"+proj=laea +lat_0={lat} +lon_0={lon}",
+        "lcc": f"+proj=lcc +lat_1={lat-10} +lat_2={lat+10} +lat_0={lat} +lon_0={lon}",
+        # "mercator": "EPSG:3395",
+        "mercator": f"+proj=merc +lon_0={lon} +datum=WGS84",
+        "robinson": "+proj=robin +lon_0={lon} +datum=WGS84 +units=m +no_defs",
+        "wgs84": "EPSG:4326",
+        "washington": f"+proj=eqearth +lon_0={lon} +datum=WGS84 +units=m +no_defs",
+    }
+
+    # Mode automatique si invalide ou 'auto'
+    if type_proj not in projections:
+
+        return reprojeter_gdf(
+            gdf,
+            type_proj=(
+                "mercator" if abs(lat) < 30 else "lcc" if abs(lat) < 75 else "laea"
+            ),
+            centre=(lon, lat),
+        )
+
+    # Reprojeter et renvoyer
+    return (
+        gdf.copy().to_crs(projections[type_proj])
+        # .assign(geometry=lambda df: df.geometry.buffer(0))
+    )
+
+
+# 6 -- Fonction de création de la carte ----------------------------------------
 
 
 def creer_image_carte(
@@ -168,6 +266,9 @@ def creer_image_carte(
     – Aucune valeur retournée, mais l'image est enregistrée à l'emplacement spécifié dans chemin_impression.
     """
 
+    # Pays présents
+    liste_pays = list(gdf["Pays"].unique())
+
     # On ajoute la couleur de chaque ligne
     gdf["Couleur"] = gdf["Visite"].apply(
         lambda x: (
@@ -191,6 +292,22 @@ def creer_image_carte(
     ax.margins(0)
     fig.patch.set_facecolor(couleur_de_fond)
 
+    # Reprojection des cartes si néessaire
+    if len(set(liste_pays) & set(["Russia", "United States"])) > 0:
+        centre = calculer_centre(gdf)
+        print(centre)
+        type_proj = "washington"
+        gdf = reprojeter_gdf(gdf=gdf, type_proj=type_proj, centre=centre)
+        # gdf_eau = reprojeter_gdf(gdf=gdf_eau, type_proj=type_proj, centre=centre)
+        # gdf_monde = reprojeter_gdf(
+        #     gdf=gdf_monde, type_proj=type_proj, centre=centre
+        # )
+        gdf_regions = reprojeter_gdf(
+            gdf=gdf_regions, type_proj=type_proj, centre=centre
+        )
+        gdf_eau = None
+        gdf_monde = None
+
     # Sélection du périmètre – Ajout des pays aux alentours
     xmin, xmax, ymin, ymax = renvoyer_limites_carte(gdf=gdf, marge=0.03)
     ax.set_xlim(xmin, xmax)
@@ -206,8 +323,6 @@ def creer_image_carte(
 
     # Ajout de la carte principale
     gdf.plot(ax=ax, color=gdf["Couleur"], edgecolor="black", linewidth=0.008, zorder=1)
-
-    liste_pays = list(gdf["Pays"].unique())
 
     if gdf_monde is not None:
 

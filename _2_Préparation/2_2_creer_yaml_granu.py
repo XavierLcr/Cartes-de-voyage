@@ -79,6 +79,7 @@ dictception = build_nested_dict(
     levels=["name_0", "name_1", "name_2", "name_3", "name_4"],
     value_col="name_5",
 )
+del dictception["Caspian Sea"]
 
 # Hiérarchie complète
 exporter_fichier(

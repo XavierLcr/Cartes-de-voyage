@@ -384,7 +384,7 @@ class MesVoyagesApplication(QWidget):
             "autres_regions": self.onglet_parametres.autres_regions.isChecked(),
             "sortir_cartes_granu_inf": self.onglet_parametres.sortir_cartes_granu_inf.isChecked(),
             "cartes_des_pays": self.onglet_parametres.carte_pays.isChecked(),
-            "max_cartes_additionnelles": {
+            "limite_n_cartes": {
                 self.onglet_parametres.radio_carte_1: 5,
                 self.onglet_parametres.radio_carte_2: 10,
                 self.onglet_parametres.radio_carte_3: 15,
@@ -614,13 +614,13 @@ class MesVoyagesApplication(QWidget):
             )
 
             # Limite de cartes
-            if sauv.get("max_cartes_additionnelles") is not None:
+            if sauv.get("limite_n_cartes") is not None:
                 {
                     5: self.onglet_parametres.radio_carte_1,
                     10: self.onglet_parametres.radio_carte_2,
                     15: self.onglet_parametres.radio_carte_3,
                 }.get(
-                    sauv.get("max_cartes_additionnelles"),
+                    sauv.get("limite_n_cartes"),
                     self.onglet_parametres.radio_carte_sans_limite,
                 ).setChecked(
                     True

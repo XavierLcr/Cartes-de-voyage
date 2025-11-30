@@ -121,7 +121,7 @@ class CreerCartes(QObject):
             carte_du_monde=self.parametres["carte_du_monde"],
             liste_regions=self.liste_regions_temp,
             pays_individuel=self.parametres["cartes_des_pays"],
-            max_cartes_additionnelles=self.parametres["max_cartes_additionnelles"],
+            limite_n_cartes=self.parametres["limite_n_cartes"],
             sortir_cartes_granu_inf=self.parametres["sortir_cartes_granu_inf"],
             tracker=tracker,
             blabla=False,

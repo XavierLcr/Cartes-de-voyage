@@ -298,7 +298,7 @@ def creer_image_carte(
     nom: str = "Carte.jpg",
     qualite: int = 400,
     blabla=True,
-    max_cartes_additionnelles: int | None = 10,
+    limite_n_cartes: int | None = 10,
     afficher_nom_lieu: bool = True,
     marge_carte=0.03,
 ):
@@ -322,7 +322,7 @@ def creer_image_carte(
     – nom (str) : Le nom du fichier image exporté. Par défaut, "Carte.jpg".
     – qualite (int) : La qualité de l'image exportée, exprimée en DPI (points par pouce). Par défaut, 400 DPI.
     – blabla (bool, optionnel) : Un paramètre booléen permettant l'affichage du suivi d'éxecution de la fonction. Par défaut, `True`.
-    – max_cartes_additionnelles (int, optionnel) : Le nombre maximum de cartes additionnelles à générer. Par défaut, `10`.
+    – limite_n_cartes (int, optionnel) : Le nombre maximum de cartes additionnelles à générer. Par défaut, `10`.
 
     Retourne :
     – Aucune valeur retournée, mais l'image est enregistrée à l'emplacement spécifié dans chemin_impression.
@@ -473,7 +473,7 @@ def creer_image_carte(
 
     plt.savefig(
         creer_nom_fichier(
-            chemin=chemin_impression, nom=nom, max_cartes=max_cartes_additionnelles
+            chemin=chemin_impression, nom=nom, max_cartes=limite_n_cartes
         ),
         dpi=max(min(qualite, 4500), 100),
         bbox_inches="tight",

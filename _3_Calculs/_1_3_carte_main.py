@@ -63,7 +63,7 @@ def cas_pays_multiples(
 
 
 def tous_cas_pays_multiples(
-    dictionnaire_pays: dict,
+    dict_pays: dict,
     pays: str,
     df,
     pays_trad: dict,
@@ -78,11 +78,11 @@ def tous_cas_pays_multiples(
         "deja_fait": False,
     }
 
-    for groupe_pays in list(dictionnaire_pays.keys()):
+    for groupe_pays in list(dict_pays.keys()):
 
-        if pays in dictionnaire_pays[groupe_pays]["liste"]:
+        if pays in dict_pays[groupe_pays]["liste"]:
 
-            if dictionnaire_pays[groupe_pays]["deja_fait"] == True:
+            if dict_pays[groupe_pays]["deja_fait"] == True:
                 resultat["deja_fait"] = True
                 resultat["dans_la_liste"] = True
                 return resultat
@@ -91,10 +91,10 @@ def tous_cas_pays_multiples(
             resultat["dans_la_liste"] = True
             bases = cas_pays_multiples(
                 df=df,
-                nom_carte=dictionnaire_pays[groupe_pays]["categorie"],
+                nom_carte=dict_pays[groupe_pays]["categorie"],
                 langue=langue,
                 pays_trad=pays_trad,
-                liste_pays=dictionnaire_pays[groupe_pays]["liste"],
+                liste_pays=dict_pays[groupe_pays]["liste"],
             )
             resultat["nom_langue"] = bases["nom_langue"]
             resultat["gdf_reduit"] = bases["gdf"]
@@ -113,7 +113,7 @@ def creer_graphiques_pays(
     gdf_fond_regions,
     direction_res: str,
     pays_trad: dict,
-    dictionnaire_pays_unis: dict,
+    dict_pays_unis: dict,
     gdf_eau=None,
     nom_indiv: str = "Xavier",
     format: str = "png",
@@ -140,98 +140,93 @@ def creer_graphiques_pays(
     """Crée les cartes de chaque pays"""
 
     # Aucun pays des groupes de pays n'a déjà été fait
-    for p in list(dictionnaire_pays_unis.keys()):
-        dictionnaire_pays_unis[p]["deja_fait"] = False
+    for p in list(dict_pays_unis.keys()):
+        dict_pays_unis[p]["deja_fait"] = False
 
     # Récupérer les valeurs uniques de la colonne 'Pays' après filtrage
     liste_pays_visites = sorted(
         gdf_visite.loc[gdf_visite["Visite"] == True, "Pays"].unique().tolist()
     )
 
-    # On gère la carte de fond des régions
-    gdf_fond_regions = gdf_fond_regions[
-        gdf_fond_regions["name_0"].isin(liste_pays_visites)
-    ]
-
     for i in range(len(liste_pays_visites)):
 
-        langue_i = pays_trad.get(liste_pays_visites[i], {}).get(
+        nom_i = pays_trad.get(liste_pays_visites[i], {}).get(
             langue, liste_pays_visites[i]
         )
 
         if blabla == True and (i + 1) % 5 == 0 and (i + 1) != len(liste_pays_visites):
-            print(f"{i+1}/{len(liste_pays_visites)} : {langue_i}", end=".\n")
+            print(f"{i+1}/{len(liste_pays_visites)} : {nom_i}", end=".\n")
         elif blabla == True:
-            print_i = f"{i+1}/{len(liste_pays_visites)} : {langue_i}. "
+            print_i = f"{i+1}/{len(liste_pays_visites)} : {nom_i}. "
             sys.stdout.write(print_i.ljust(25))
             sys.stdout.flush()
 
-        groupe_pays_res_i = tous_cas_pays_multiples(
-            dictionnaire_pays=dictionnaire_pays_unis,
+        groupe_pays_i = tous_cas_pays_multiples(
+            dict_pays=dict_pays_unis,
             pays=liste_pays_visites[i],
             df=gdf_visite,
             pays_trad=pays_trad,
             langue=langue,
         )
 
-        gdf_monde_i = gdf_fond.copy()
-        gdf_fond_regions_i = gdf_fond_regions.copy()
-
         if (
-            groupe_pays_res_i["deja_fait"] == True
-            and groupe_pays_res_i["dans_la_liste"] == True
+            groupe_pays_i["deja_fait"] == True
+            and groupe_pays_i["dans_la_liste"] == True
         ):
 
-            gdf_i = gdf_visite[gdf_visite["Pays"] == liste_pays_visites[i]]
             if (
                 sortir_cartes_granu_inf == True
-                or max(gdf_i.loc[gdf_i["Visite"] == 1, "Granu"]) >= granularite_objectif
+                or max(
+                    gdf_visite.loc[
+                        (gdf_visite["Visite"] == 1)
+                        & (gdf_visite["Pays"] == liste_pays_visites[i]),
+                        "Granu",
+                    ]
+                )
+                >= granularite_objectif
             ) and tracker:
-                tracker.notify(langue_i)
+                tracker.notify(nom_i)
 
             continue
 
         elif (
-            groupe_pays_res_i["deja_fait"] == False
-            and groupe_pays_res_i["dans_la_liste"] == True
+            groupe_pays_i["deja_fait"] == False
+            and groupe_pays_i["dans_la_liste"] == True
         ):
 
-            langue_i = groupe_pays_res_i["nom_langue"]
-            gdf_i = groupe_pays_res_i["gdf_reduit"]
+            nom_i = groupe_pays_i["nom_langue"]
+            gdf_i = groupe_pays_i["gdf_reduit"]
 
-            dictionnaire_pays_unis[groupe_pays_res_i["nom_groupe_pays"]][
-                "deja_fait"
-            ] = True
+            dict_pays_unis[groupe_pays_i["nom_groupe_pays"]]["deja_fait"] = True
 
         else:
 
-            gdf_i = gdf_visite.copy(deep=True)
-            gdf_i = gdf_i[gdf_i["Pays"] == liste_pays_visites[i]]
+            gdf_i = gdf_visite[gdf_visite["Pays"] == liste_pays_visites[i]].copy()
 
             if len(gdf_i) == 1:
                 continue
 
-        nom_pays_i = f"{(nom_indiv + ' – ') if nom_indiv else ''}{langue_i}.{format}"
+        nom_pays_i = f"{(nom_indiv + ' – ') if nom_indiv else ''}{nom_i}.{format}"
         if (
             sortir_cartes_granu_inf == True
             or max(gdf_i.loc[gdf_i["Visite"] == 1, "Granu"]) >= granularite_objectif
         ):
 
             if tracker:
-                tracker.notify(langue_i)
+                tracker.notify(nom_i)
 
             _1_2_creer_graphique.creer_image_carte(
                 gdf=gdf_i,
-                gdf_monde=gdf_monde_i,
+                gdf_monde=gdf_fond,
                 gdf_eau=gdf_eau,
-                gdf_regions=gdf_fond_regions_i,
+                gdf_regions=gdf_fond_regions,
                 theme=theme,
                 teintes_autorisees=teinte,
                 couleur_non_visites=couleur_non_visites,
                 couleur_de_fond=couleur_fond,
                 couleur_lacs=couleur_lacs,
                 couleur_pays_contours=couleur_pays_contours,
-                chemin_impression=os.path.join(direction_res, langue_i),
+                chemin_impression=os.path.join(direction_res, nom_i),
                 nom=nom_pays_i,
                 qualite=qualite,
                 blabla=False,
@@ -280,12 +275,9 @@ def creer_graphique_region(
     """Crée la carte d'une région"""
 
     gdf_visite = gdf_visite_ori.copy(deep=True)
-    gdf_fond = gdf_fond_ori.copy(deep=True)
 
     if nom_region == "World":
         nom_langue_region = pays_trad.get("World Map", {}).get(langue, "World Map")
-        gdf_region = gdf_visite.copy()
-
     else:
 
         if liste_pays_region is None:
@@ -307,12 +299,12 @@ def creer_graphique_region(
         ).get(langue, f"Map of the {nom_region}")
 
         # Bases de données
-        gdf_region = gdf_visite[gdf_visite["Pays"].isin(liste_pays_region)]
+        gdf_visite = gdf_visite[gdf_visite["Pays"].isin(liste_pays_region)]
 
-    if gdf_region["Visite"].any():
+    if gdf_visite["Visite"].any():
 
         if (
-            gdf_region.loc[gdf_region["Visite"], "Granu"].max() >= granularite_objectif
+            gdf_visite.loc[gdf_visite["Visite"], "Granu"].max() >= granularite_objectif
             or sortir_cartes_granu_inf == True
         ):
 
@@ -320,8 +312,8 @@ def creer_graphique_region(
                 print(nom_langue_region, end=". ")
 
             _1_2_creer_graphique.creer_image_carte(
-                gdf=gdf_region,
-                gdf_monde=gdf_fond,
+                gdf=gdf_visite,
+                gdf_monde=gdf_fond_ori,
                 gdf_regions=df_fond_granu_1,
                 gdf_eau=gdf_eau,
                 theme=theme,
@@ -338,7 +330,7 @@ def creer_graphique_region(
                 afficher_nom_lieu=afficher_nom_lieu,
             )
 
-    del gdf_region, gdf_fond
+    del gdf_visite
 
 
 # 6 -- Fonction créant et publiant l'ensemble des cartes souhaitées ------------
@@ -411,9 +403,7 @@ def cree_graphe_depuis_debut(
     else:
         return "Aucune base des pays visités n'existe ou ne peut être créée..."
 
-    if liste_regions is None:
-        liste_regions = {}
-
+    liste_regions = liste_regions or {}
     if carte_du_monde == True:
         liste_regions["World"] = ["Inutile"]
 
@@ -454,7 +444,7 @@ def cree_graphe_depuis_debut(
     if granularite_visite != 0 and pays_individuel == True:
 
         if blabla == True and len(liste_regions) > 0:
-            print("\n\n")
+            print("\n")
 
         creer_graphiques_pays(
             gdf_visite=df_visite,
@@ -474,7 +464,7 @@ def cree_graphe_depuis_debut(
             qualite=qualite,
             langue=langue,
             blabla=blabla,
-            dictionnaire_pays_unis=dictionnaire_pays_unis,
+            dict_pays_unis=dictionnaire_pays_unis,
             max_cartes_additionnelles=max_cartes_additionnelles,
             granularite_objectif=granularite_visite,
             sortir_cartes_granu_inf=sortir_cartes_granu_inf,

@@ -433,7 +433,9 @@ class OngletSelectionnerDestinations(QWidget):
                         | Qt.ItemFlag.ItemIsEnabled
                         | Qt.ItemFlag.ItemIsSelectable
                     )
-                    est_coche = dep in (self.dicts_granu.get("dep", {}).get(pays_i, []))
+                    est_coche = dep in (
+                        (self.dicts_granu.get("dep") or {}).get(pays_i, [])
+                    )
                     dep_item.setCheckState(
                         Qt.CheckState.Checked if est_coche else Qt.CheckState.Unchecked
                     )

@@ -679,10 +679,16 @@ class MesVoyagesApplication(QWidget):
             self.set_langue_interface()
 
         # Onglet 2
-        self.onglet_selection_destinations.liste_des_pays.setCurrentIndex(1)
         self.onglet_selection_destinations.liste_niveaux.setCurrentIndex(0)
+        self.onglet_selection_destinations.liste_des_pays.setCurrentIndex(1)
+        # self.onglet_selection_destinations.liste_des_pays.setCurrentIndex(0)
+        QTimer.singleShot(
+            0,
+            lambda: self.onglet_selection_destinations.liste_des_pays.setCurrentIndex(
+                0
+            ),
+        )
         ## Changement forcé de l'index
-        self.onglet_selection_destinations.liste_des_pays.setCurrentIndex(0)
 
         self.onglet_selection_destinations.reset_yaml()
 

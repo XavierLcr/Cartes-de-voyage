@@ -83,9 +83,7 @@ def selectionner_lieux(gdf, gdf_ref, extreme, marge):
     if gdf is None:
         return gdf
     elif extreme:
-        print(minmax_lon_wrap(gdf=gdf_ref, minimum=True))
-        print(minmax_lon_wrap(gdf=gdf_ref, minimum=False))
-        print(gdf.total_bounds)
+
         return gdf[
             (
                 gdf.intersects(
@@ -255,7 +253,7 @@ def reprojeter_gdf(gdf, type_proj="laea", centre=None):
         "mercator": f"+proj=merc +lon_0={lon} +datum=WGS84",
         "robinson": "+proj=robin +lon_0={lon} +datum=WGS84 +units=m +no_defs",
         "wgs84": "EPSG:4326",
-        "washington": f"+proj=eqearth +lon_0={lon} +datum=WGS84 +units=m +no_defs",
+        "washington": f"+proj=eqc +lat_ts=0 +lon_0={lon} +datum=WGS84 +units=m +no_defs",
     }
 
     # Mode automatique si invalide ou 'auto'
@@ -271,8 +269,9 @@ def reprojeter_gdf(gdf, type_proj="laea", centre=None):
 
     # Reprojeter et renvoyer
     return (
-        gdf.copy().to_crs(projections[type_proj])
-        # .assign(geometry=lambda df: df.geometry.buffer(0))
+        gdf.copy()
+        .to_crs(projections[type_proj])
+        .assign(geometry=lambda df: df.geometry.buffer(0))
     )
 
 
@@ -364,7 +363,6 @@ def creer_image_carte(
     gdf_eau = selectionner_lieux(
         gdf=gdf_eau, gdf_ref=gdf, extreme=extreme, marge=marge_carte
     )
-    print(gdf_monde[["name_0"]])
 
     # Reprojection des cartes si néessaire
     if extreme:

@@ -67,11 +67,20 @@ def creer_liste_pays_multilangue(
                 resultat[i][j] = i
                 continue
 
-            resultat[i][j] = modele.generate_content(
-                f"Traduis le nom du pays (ou du groupe de pays) qui va t'être donné en {j} : {i}. Ne donne que la traduction, rien d'autre. N'inclus en aucun cas la prononciation. Si tu n'es pas certain, renvoie le nom non traduit."
+            phrase = (
+                f"Traduis le nom du pays (ou du groupe de pays) qui va t'être donné en {j} : {i}."
                 if version == 0
-                else f"Traduis la phrase qui va t'être donnée en {j} : {i}. Ne donne que la traduction, rien d'autre. N'inclus en aucun cas la prononciation.Si tu n'es pas certain, renvoie la phrase non traduite."
-            ).text.strip("\n .'")
+                else f"Traduis la phrase qui va t'être donnée en {j} : {i}."
+            )
+            try:
+                resultat[i][j] = modele.generate_content(
+                    f"{phrase} "
+                    "Ne donne que la traduction, rien d'autre. "
+                    "N'inclus en aucun cas la prononciation. "
+                    "Si tu n'es pas certain, renvoie le nom non traduit. "
+                ).text.strip("\n .'")
+            except:
+                pass
 
             time.sleep(
                 max(
@@ -138,9 +147,15 @@ def creer_liste_parametres_multilangue(
                     resultat[i][j] = j
                     continue
 
-                resultat[i][j] = modele.generate_content(
-                    f"Traduis le mot ou l'expression suivante en {i} : '{j}'. Ne donne que la traduction, strictement rien d'autre - et aucune ponctuation. Le mot à traduire est à l'origine en français. N'oublie pas la majuscule en début d'expression quand c'est possible."
-                ).text.strip(" .'\n")
+                try:
+                    resultat[i][j] = modele.generate_content(
+                        f"Traduis le mot ou l'expression suivante en {i} : '{j}'. "
+                        "Ne donne que la traduction, strictement rien d'autre - et aucune ponctuation. "
+                        "Le mot à traduire est à l'origine en français. "
+                        "N'oublie pas la majuscule en début d'expression quand c'est possible."
+                    ).text.strip(" .'\n")
+                except:
+                    pass
 
                 time.sleep(
                     max(
@@ -155,7 +170,10 @@ def creer_liste_parametres_multilangue(
             elif j not in list(resultat[i].keys()):
                 continue
             else:
-                resultat[i][j] = resultat[i][j].strip(" .'\n")
+                try:
+                    resultat[i][j] = resultat[i][j].strip(" .'\n")
+                except:
+                    pass
 
         if blabla == 2:
             print("")
@@ -198,8 +216,12 @@ def creer_dictionnaire_langues(
             # Traduction
             try:
                 resultat[i] = modele.generate_content(
-                    f"""Le nom d'une langue va t'être donné en français. Donne le nom de cette langue dans sa version propre. Par exemple anglais donne English et allemand donne Deutsch. Mets une majuscule quand cela est possible. Ne renvoie rien d'autre et surtout pas de ponctuation ou de prononciation pour les langues exotiques.
-                \nLa langue est : '{i}'."""
+                    f"Le nom d'une langue va t'être donné en français. "
+                    "Donne le nom de cette langue dans sa version propre. "
+                    "Par exemple anglais donne English et allemand donne Deutsch. "
+                    "Mets une majuscule quand cela est possible. "
+                    "Ne renvoie rien d'autre et surtout pas de ponctuation ou de prononciation pour les langues exotiques. "
+                    f"\nLa langue est : '{i}'."
                 ).text.strip(" .'\n")
 
                 if blabla:

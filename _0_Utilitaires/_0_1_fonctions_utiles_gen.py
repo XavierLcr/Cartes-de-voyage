@@ -102,8 +102,12 @@ def separer_combinaisons(dico1, dico2):
 ## 2.1 -- Fonction de formatage de l'heure et de la date actuelles -------------
 
 
-def formater_temps_actuel():
-    return time.strftime("%d-%m-%Y %Hh%M", time.localtime())
+def formater_temps_actuel(n: int = 0):
+    tps = time.localtime()
+    if n == 0:
+        return time.strftime("%d-%m-%Y %Hh%M", tps)
+    elif n == 1:
+        return time.strftime("%Y-%m-%d %H:%M", tps)
 
 
 ## 2.2 -- Fonction de mise en forme du titre selon les événements --------------

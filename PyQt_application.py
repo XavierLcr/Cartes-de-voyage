@@ -401,8 +401,13 @@ class MesVoyagesApplication(QWidget):
 
         parametres = self.creer_liste_parametres()
         if parametres["nom"] is None or parametres["nom"] in [""]:
-            parametres["nom"] = _0_1_fonctions_utiles_gen.formater_temps_actuel()
-        sauvegarde[parametres["nom"]] = copy.deepcopy(parametres)
+            parametres["nom"] = _0_1_fonctions_utiles_gen.formater_temps_actuel(n=0)
+        sauvegarde[parametres["nom"]] = copy.deepcopy(parametres) | {
+            "date_publication": sauvegarde.get(parametres["nom"], {}).get(
+                "date_publication", []
+            )
+            + [_0_1_fonctions_utiles_gen.formater_temps_actuel(n=1)]
+        }
 
         # Ajout à la liste déroulante
         if parametres["nom"] not in [

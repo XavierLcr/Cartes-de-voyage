@@ -8,6 +8,7 @@
 import os, json, math, textwrap
 import matplotlib.pyplot as plt
 from shapely.geometry import box
+from PIL import Image
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import formater_temps_actuel
 from _0_Utilitaires._0_2_fonctions_graphiques import (
@@ -247,32 +248,14 @@ def reprojeter_gdf(gdf, type_proj="laea", centre=None):
 
     # Dictionnaire des projections statiques
     projections = {
-        "laea": f"+proj=laea +lat_0={lat} +lon_0={lon}",
-        "lcc": f"+proj=lcc +lat_1={lat-10} +lat_2={lat+10} +lat_0={lat} +lon_0={lon}",
-        # "mercator": "EPSG:3395",
-        "mercator": f"+proj=merc +lon_0={lon} +datum=WGS84",
-        "robinson": "+proj=robin +lon_0={lon} +datum=WGS84 +units=m +no_defs",
+        "mercator": "EPSG:3395",
         "wgs84": "EPSG:4326",
-        "washington": f"+proj=eqc +lat_ts=0 +lon_0={lon} +datum=WGS84 +units=m +no_defs",
+        "arctic_ps": f"EPSG:3995",
+        "antarctic_ps": f"EPSG:3786",
     }
 
-    # Mode automatique si invalide ou 'auto'
-    if type_proj not in projections:
-
-        return reprojeter_gdf(
-            gdf,
-            type_proj=(
-                "mercator" if abs(lat) < 30 else "lcc" if abs(lat) < 75 else "laea"
-            ),
-            centre=(lon, lat),
-        )
-
     # Reprojeter et renvoyer
-    return (
-        gdf.copy()
-        .to_crs(projections[type_proj])
-        .assign(geometry=lambda df: df.geometry.buffer(0))
-    )
+    return gdf.copy().to_crs(projections.get(type_proj, "wgs84"))
 
 
 # 6 -- Fonction de création de la carte ----------------------------------------
@@ -301,6 +284,7 @@ def creer_image_carte(
     limite_n_cartes: int | None = 10,
     afficher_nom_lieu: bool = True,
     marge_carte=0.03,
+    reprojeter: bool = True,
 ):
     r"""
     Crée une image de carte à partir d'un GeoDataFrame et l'exporte dans un fichier d'image.
@@ -354,27 +338,25 @@ def creer_image_carte(
     ax.margins(0)
     fig.patch.set_facecolor(couleur_de_fond)
 
-    extreme = len(set(liste_pays) & set(["Russia", "United States"])) > 0
-
+    # extreme = len(set(liste_pays) & set(["Russia", "United States"])) > 0
     # Limitation des tables complémentaires
     gdf_monde = selectionner_lieux(
-        gdf=gdf_monde, gdf_ref=gdf, extreme=extreme, marge=marge_carte
+        gdf=gdf_monde, gdf_ref=gdf, extreme=reprojeter, marge=marge_carte
     )
     gdf_eau = selectionner_lieux(
-        gdf=gdf_eau, gdf_ref=gdf, extreme=extreme, marge=marge_carte
+        gdf=gdf_eau, gdf_ref=gdf, extreme=reprojeter, marge=marge_carte
     )
 
     # Reprojection des cartes si néessaire
-    if extreme:
+    if reprojeter:
         centre = calculer_centre(gdf)
-        type_proj = "washington"
+        type_proj = "antarctic_ps" if centre[1] < 0 else "arctic_ps"
         gdf = reprojeter_gdf(gdf=gdf, type_proj=type_proj, centre=centre)
         gdf_eau = reprojeter_gdf(gdf=gdf_eau, type_proj=type_proj, centre=centre)
         gdf_monde = reprojeter_gdf(gdf=gdf_monde, type_proj=type_proj, centre=centre)
         gdf_regions = reprojeter_gdf(
             gdf=gdf_regions, type_proj=type_proj, centre=centre
         )
-        # gdf_monde = None
 
     # Sélection du périmètre – Ajout des pays aux alentours
     xmin, xmax, ymin, ymax = renvoyer_limites_carte(gdf=gdf, marge=marge_carte)
@@ -471,10 +453,11 @@ def creer_image_carte(
     if blabla:
         print(". Sauvegarde de l'image.", end=" ")
 
+    nom_fig = creer_nom_fichier(
+        chemin=chemin_impression, nom=nom, max_cartes=limite_n_cartes
+    )
     plt.savefig(
-        creer_nom_fichier(
-            chemin=chemin_impression, nom=nom, max_cartes=limite_n_cartes
-        ),
+        nom_fig,
         dpi=max(min(qualite, 4500), 100),
         bbox_inches="tight",
         metadata=renvoyer_metadonnees(
@@ -487,6 +470,11 @@ def creer_image_carte(
         pad_inches=0,
     )
     plt.close(fig)
+
+    if reprojeter:
+        image = Image.open(nom_fig)
+        image_rotated = image.rotate(90 * (2 * (centre[0] < 0) - 1), expand=True)
+        image_rotated.save(nom_fig)
 
     if blabla == True:
         print("Terminé.")

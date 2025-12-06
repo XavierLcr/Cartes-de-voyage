@@ -357,6 +357,7 @@ def creer_image_carte(
         gdf_regions = reprojeter_gdf(
             gdf=gdf_regions, type_proj=type_proj, centre=centre
         )
+        marge_carte = 0.75 * marge_carte
 
     # Sélection du périmètre – Ajout des pays aux alentours
     xmin, xmax, ymin, ymax = renvoyer_limites_carte(gdf=gdf, marge=marge_carte)
@@ -473,8 +474,8 @@ def creer_image_carte(
 
     if reprojeter:
         image = Image.open(nom_fig)
-        image_rotated = image.rotate(90 * (2 * (centre[0] < 0) - 1), expand=True)
-        image_rotated.save(nom_fig)
+        image = image.rotate(90 * (2 * (centre[0] < 0) - 1), expand=True)
+        image.save(nom_fig)
 
     if blabla == True:
         print("Terminé.")

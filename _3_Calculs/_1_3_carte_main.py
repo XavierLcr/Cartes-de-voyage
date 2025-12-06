@@ -232,6 +232,7 @@ def creer_graphiques_pays(
                 blabla=False,
                 limite_n_cartes=limite_n_cartes,
                 afficher_nom_lieu=afficher_nom_lieu,
+                reprojeter=liste_pays_visites[i] in ["Russia", "United States"],
             )
         del gdf_i
 
@@ -328,6 +329,7 @@ def creer_graphique_region(
                 blabla=False,
                 limite_n_cartes=limite_n_cartes,
                 afficher_nom_lieu=afficher_nom_lieu,
+                reprojeter=nom_region in ["Asia", "North America"],
             )
 
     del gdf_visite

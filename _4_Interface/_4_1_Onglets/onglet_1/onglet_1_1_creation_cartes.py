@@ -41,15 +41,17 @@ class CreerCartes(QObject):
             self.parametres.get("granularite"), -1
         )
 
+        dict_bouton_continent = {
+            "afrique": ["Africa"],
+            "amerique": ["South America", "North America"],
+            "asie": ["Asia"],
+            "europe": ["Europe"],
+            "moyen_orient": ["Middle East"],
+        }
+
         self.liste_regions_temp = {
             region: self.constantes.liste_regions_monde[region]
-            for cle_param, regions in {
-                "moyen_orient": ["Middle East"],
-                "europe": ["Europe"],
-                "amerique": ["South America", "North America"],
-                "afrique": ["Africa"],
-                "asie": ["Asia"],
-            }.items()
+            for cle_param, regions in dict_bouton_continent.items()
             if self.parametres.get(cle_param, False)
             for region in regions
         }
@@ -59,7 +61,12 @@ class CreerCartes(QObject):
                 {
                     k: v
                     for k, v in self.constantes.liste_regions_monde.items()
-                    if k not in set(self.liste_regions_temp.keys())
+                    if k
+                    not in [
+                        region
+                        for regions in dict_bouton_continent.values()
+                        for region in regions
+                    ]
                 }
             )
 

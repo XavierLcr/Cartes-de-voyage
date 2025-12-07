@@ -6,6 +6,7 @@
 
 
 import os, sys, unicodedata
+import numpy as np
 import pandas as pd
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
@@ -41,21 +42,26 @@ def remplacer_noms(df, colonne, mapping):
 
 # Dictionnaire de remplacement des noms de pays
 mapping = {
+    "Aland Islands": "Åland",
     # "Antigua And Barbuda": "Antigua and Barbuda",
     "Argentina urban": "Argentina",
     "Bahamas, The": "Bahamas",
+    "Bahamas, The ": "Bahamas",
     "The Bahamas": "Bahamas",
     "Bosnia-Herzegovina": "Bosnia and Herzegovina",
     "Brunei Darussalam": "Brunei",
     "Cape Verde": "Cabo Verde",
     "Central African Republic CAR": "Central African Republic",
     "Chili": "Chile",
+    "Cocos (Keeling) Islands": "Cocos Islands",
     "Congo, Dem. Rep.": "Democratic Republic of the Congo",
     "Dem. Rep. Congo": "Democratic Republic of the Congo",
     "Congo Democratic Republic": "Democratic Republic of the Congo",
-    "Congo, Rep.": "Republic of the Congo",
-    "Congo Brazzaville": "Republic of the Congo",
+    "Congo, Democratic Republic of the": "Democratic Republic of the Congo",
     "Congo": "Republic of the Congo",
+    "Congo Brazzaville": "Republic of the Congo",
+    "Congo, Rep.": "Republic of the Congo",
+    "Congo, Republic of the ": "Republic of the Congo",
     "Republic of Congo": "Republic of the Congo",
     "Cote d'Ivoire": "Côte d'Ivoire",
     "Ivory Coast": "Côte d'Ivoire",
@@ -71,15 +77,21 @@ mapping = {
     "Holy See": "Vatican City",
     "Hong Kong SAR, China": "Hong Kong",
     "Iran, Islamic Rep.": "Iran",
+    "Korea, North": "North Korea",
     "Korea, Dem. People's Rep.": "North Korea",
     "Korea, Rep.": "South Korea",
+    "Korea, South": "South Korea",
     "Kyrgyz Republic": "Kyrgyzstan",
     "Lao PDR": "Laos",
     "Lao": "Laos",
     "Macedonia": "North Macedonia",
     "Mexico": "México",
     "Micronesia, Fed. Sts.": "Micronesia",
+    "Micronesia, Federated States of ": "Micronesia",
     "Federated States of Micronesia": "Micronesia",
+    "Netherlands Antilles": "Bonaire, Sint Eustatius and Saba",
+    "Northern Marianas": "Northern Mariana Islands",
+    "Pitcairn": "Pitcairn Islands",
     "Puerto Rico (US)": "Puerto Rico",
     "Russian Federation": "Russia",
     "Reunion": "Réunion",
@@ -89,12 +101,14 @@ mapping = {
     "Sao Tome & Principe": "São Tomé and Príncipe",
     "Slovak Republic": "Slovakia",
     "Saint Barthelemy": "Saint-Barthélemy",
+    "Saint Helena, Ascension, and Tristan da Cunha": "Saint Helena, Ascension and Tris",
     "St. Kitts and Nevis": "Saint Kitts and Nevis",
     "St. Lucia": "Saint Lucia",
     "St. Vincent and the Grenadines": "Saint Vincent and the Grenadines",
     "Syrian Arab Republic": "Syria",
     # "Trinidad And Tobago": "Trinidad and Tobago",
     "Timor Leste": "Timor-Leste",
+    "East Timor": "Timor-Leste",
     "Turkiye": "Turkey",
     "Turks & Caicos Islands": "Turks and Caicos Islands",
     "United States of America": "United States",
@@ -205,6 +219,12 @@ df_justice = pd.read_csv(
     os.path.join(
         constantes.direction_donnees_brutes,
         "GDL-Comprehensive-Subnational-Corruption-Index-(SCI)-data.csv",
+    ),
+)
+df_langues = pd.read_csv(
+    os.path.join(
+        constantes.direction_donnees_brutes,
+        "DICL_v2.csv",
     ),
 )
 
@@ -461,6 +481,27 @@ df_alimentation.drop("iso3", axis=1, inplace=True)
 df_alimentation = remplacer_noms(df=df_alimentation, colonne="name_0", mapping=mapping)
 
 
+## 3.6 -- Données linguistiques ------------------------------------------------
+
+
+df_langues = (
+    df_langues[["country_i", "country_j", "csl"]]
+    .pipe(remplacer_noms, colonne="country_i", mapping=mapping)
+    .pipe(remplacer_noms, colonne="country_j", mapping=mapping)
+    .assign(
+        country_j=lambda x: x["country_j"]
+        .str.lower()
+        .str.strip()
+        .str.replace(r"[^a-zA-Z0-9_]", "", regex=True)
+    )
+    .pivot(index="country_i", columns="country_j", values="csl")
+    .add_prefix("langue_")
+    .dropna(axis=1, how="all", inplace=False)
+    .reset_index()
+    .rename(columns={"country_i": "name_0"}, inplace=False)
+)
+
+
 # 4 -- Jointures ---------------------------------------------------------------
 
 
@@ -578,6 +619,18 @@ assert (
 gdf_1 = gdf_1.merge(right=df_environnement, how="left", on="name_0")
 
 
+### Table des similarités linguistiques ----------------------------------------
+
+
+# Test de granularité
+assert df_langues.duplicated(subset=["name_0"], keep=False).sum() == 0, df_langues[
+    df_langues.duplicated(subset=["name_0"], keep=False)
+]
+
+# Jointure
+gdf_1 = gdf_1.merge(right=df_langues, how="left", on="name_0")
+
+
 ## 4.3 -- Ajout du nombre de NAs -----------------------------------------------
 
 
@@ -636,36 +689,36 @@ def imputation_geo_knn(
     ]
     df_impute = df.copy()
 
+    # Pré-calcul des coordonnées pour éviter les accès répétés
+    coords = df_impute[[col_lat, col_long]].values
+
     for col in colonnes_a_imputer:
-
         print(col)
-        # Masque des lignes où la colonne est manquante
         lignes_na = df_impute[col].isna()
+        if not lignes_na.any():
+            continue  # Aucune valeur manquante
 
-        def imputer_ligne(ligne):
-            # On récupère les autres lignes avec une valeur non manquante
-            autres = df_impute.loc[
-                ~df_impute[col].isna(), [col_lat, col_long, col]
-            ].copy()
+        # Indices des lignes avec des valeurs valides
+        indices_valides = df_impute[~lignes_na].index
+        valeurs_valides = df_impute.loc[indices_valides, col].values
 
-            # Calcul de la distance avec la ligne courante
-            autres["distance"] = autres.apply(
-                lambda r: distance_haversine(
-                    ligne[col_lat], ligne[col_long], r[col_lat], r[col_long]
-                ),
-                axis=1,
+        for idx in df_impute[lignes_na].index:
+            # Calcul des distances entre la ligne courante et toutes les lignes valides
+            lat1, lon1 = coords[idx]
+            distances = np.array(
+                [
+                    distance_haversine(lat1, lon1, lat2, lon2)
+                    for lat2, lon2 in coords[indices_valides]
+                ]
             )
 
-            # On garde les n voisins les plus proches et on calcule la moyenne
-            voisins = autres.nsmallest(n_voisins, "distance")
-            return (voisins[col] / voisins["distance"]).sum() / (
-                1 / voisins["distance"]
-            ).sum()
+            # Indices des n voisins les plus proches
+            voisins_idx = np.argsort(distances)[:n_voisins]
+            poids = 1 / (distances[voisins_idx] + 1e-10)  # Évite la division par zéro
+            valeurs_voisins = valeurs_valides[voisins_idx]
 
-        # Application de l’imputation aux lignes manquantes
-        df_impute.loc[lignes_na, col] = df_impute.loc[lignes_na].apply(
-            imputer_ligne, axis=1
-        )
+            # Imputation pondérée
+            df_impute.loc[idx, col] = np.sum(valeurs_voisins * poids) / np.sum(poids)
 
     return df_impute
 
@@ -697,9 +750,11 @@ for col in gdf_1.columns:
 
 
 for pattern, pondération in {
-    "alimentation": 2,
+    "alimentation": 2.25,
     "religion": 1,
-    "environnement": 1.5,
+    "temperature": 2,
+    "environnement": 1.6,
+    "langue": 1.2,
 }.items():
     colonnes_i = [col for col in gdf_1.columns if pattern in col.lower()]
     for col in colonnes_i:

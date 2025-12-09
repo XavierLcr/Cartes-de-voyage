@@ -26,6 +26,7 @@ from _4_Interface._4_1_Onglets.onglet_2 import onglet_2
 from _4_Interface._4_1_Onglets.onglet_4 import onglet_4
 from _4_Interface._4_1_Onglets import onglet_3, onglet_5
 from _4_Interface._4_2_Style._4_2_1_style_principal import style_dynamique_application
+from _4_Interface._4_2_Style._4_2_3_musique import MusicPlayer
 
 
 warnings.filterwarnings("ignore")
@@ -160,7 +161,7 @@ class MesVoyagesApplication(QWidget):
         )
         self.liste_onglets.addTab(self.onglet_description_application, "ℹ️")
 
-        # === Mise en forme ===
+        # === Mise en forme === #
 
         main_layout = QVBoxLayout()
         main_layout.addWidget(self.liste_onglets)
@@ -744,6 +745,22 @@ class MesVoyagesApplication(QWidget):
         self.onglet_selection_destinations.set_dossier(dossier=dossier)
         if onglet_parametres:
             self.onglet_parametres.set_dossier(dossier=dossier)
+
+    def jouer_musique(self, fichier):
+
+        self.musique = MusicPlayer(
+            path=fichier,
+            volume=0.8,
+            start_ms=0,
+            max_duration_ms=30000,
+            fade_out_ms=5000,
+        )
+        self.musique.play()
+
+    def closeEvent(self, event):
+        # Arrête la musique quand la fenêtre est fermée
+        self.musique.stop()
+        event.accept()
 
 
 # 3 -- Lancement de la classe principale ---------------------------------------

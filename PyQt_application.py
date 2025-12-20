@@ -58,10 +58,10 @@ class MesVoyagesApplication(QWidget):
 
         self.setWindowTitle("Cartes de voyage")
         self.setGeometry(
-            constantes.parametres_application["application_position_largeur"],
-            constantes.parametres_application["application_position_hauteur"],
-            constantes.parametres_application["application_largeur"],
-            constantes.parametres_application["application_hauteur"],
+            constantes.parametres_application.get("application_position_largeur", 100),
+            constantes.parametres_application.get("application_position_hauteur", 100),
+            constantes.parametres_application.get("application_largeur", 800),
+            constantes.parametres_application.get("application_hauteur", 600),
         )
         self.setWindowIcon(
             QIcon(
@@ -672,8 +672,8 @@ class MesVoyagesApplication(QWidget):
         self.onglet_parametres.curseur_qualite.setValue(
             int(
                 (
-                    constantes.parametres_application["qualite_min"]
-                    + constantes.parametres_application["qualite_max"]
+                    constantes.parametres_application.get("qualite_min", 100)
+                    + constantes.parametres_application.get("qualite_max", 4500)
                 )
                 / 2
             )

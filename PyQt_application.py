@@ -4,7 +4,7 @@
 ################################################################################
 
 
-import os, sys, warnings, copy, textwrap, threading
+import os, sys, warnings, copy, textwrap
 
 # PyQt6
 from PyQt6.QtWidgets import (
@@ -13,8 +13,9 @@ from PyQt6.QtWidgets import (
     QVBoxLayout,
     QMessageBox,
     QTabWidget,
+    QSplashScreen,
 )
-from PyQt6.QtGui import QIcon
+from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtCore import QTimer, Qt
 
 # Scripts et fonctions du projet
@@ -46,6 +47,34 @@ sauvegarde = _0_1_fonctions_utiles_gen.ouvrir_fichier(
     nom_fichier="sauvegarde_utilisateurs.yaml",
     defaut={},
 )
+
+
+## 1.2 -- Fonction d'import des geoDataFrames ----------------------------------
+
+
+# def charger_gdfs():
+#     g = globals()
+
+#     if "liste_gdfs" in g:
+#         return
+
+#     g["liste_gdfs"] = [None] * 3
+
+#     charger_gdfs(
+#         liste_gdfs=g["liste_gdfs"],
+#         direction_base=constantes.direction_donnees_geographiques,
+#         max_niveau=3,
+#     )
+
+# threading.Thread(
+#     target=_0_1_fonctions_utiles_gen.charger_gdfs,
+#     args=(
+#         g["liste_gdfs"],
+#         constantes.direction_donnees_geographiques,
+#         3,
+#     ),
+#     daemon=True,
+# ).start()
 
 
 # 2 -- Classe principale -------------------------------------------------------
@@ -781,22 +810,27 @@ class MesVoyagesApplication(QWidget):
 
 
 if __name__ == "__main__":
-
     app = QApplication(sys.argv)
 
-    # Création d'une liste vide pour stocker les GDF
-    liste_gdfs = [None] * 3
+    # 1️⃣ Affichage du logo en splash screen
+    logo_path = os.path.join(
+        constantes.direction_donnees_application, "icone_application.ico"
+    )
+    splash_pix = QPixmap(logo_path)
+    splash = QSplashScreen(splash_pix, Qt.WindowType.WindowStaysOnTopHint)
+    splash.show()
+    app.processEvents()  # force l'affichage du splash avant de charger les GDF
 
-    # Lancement du thread de chargement
-    threading.Thread(
-        target=_0_1_fonctions_utiles_gen.charger_gdfs,
-        args=(liste_gdfs, constantes.direction_donnees_geographiques, 3),
-        daemon=True,
-    ).start()
+    # 2️⃣ Chargement synchrone des GDF
+    liste_gdfs = _0_1_fonctions_utiles_gen.charger_gdfs(
+        direction_base=constantes.direction_donnees_geographiques, max_niveau=2
+    )
 
-    # Lancement de l'application
+    # 3️⃣ Lancement de la fenêtre principale
     window = MesVoyagesApplication()
-    window.setMaximumSize(1200, 800)
     window.show()
+
+    # 4️⃣ Fermeture du splash
+    splash.finish(window)
 
     sys.exit(app.exec())

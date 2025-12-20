@@ -213,17 +213,23 @@ def ouvrir_fichier(
 ## 3.2 -- Fonction de chargement des .pkl principaux ---------------------------
 
 
-def charger_gdfs(liste_gdfs, direction_base, max_niveau=3):
+def charger_gdfs(direction_base, max_niveau):
     """
     Charge les fichiers pickle et remplit la liste_gdfs.
     """
-    for i in range(max_niveau):
-        liste_gdfs[i] = ouvrir_fichier(
-            direction_fichier=direction_base,
-            nom_fichier=f"carte_monde_niveau_{i}.pkl",
-            defaut=None,
-            afficher_erreur=f"Base de granularité {i} introuvable.",
-        )  # mise à jour de la liste partagée
+
+    liste = []
+    for i in range(max_niveau + 1):
+        liste.append(
+            ouvrir_fichier(
+                direction_fichier=direction_base,
+                nom_fichier=f"carte_monde_niveau_{i}.pkl",
+                defaut=None,
+                afficher_erreur=f"Base de granularité {i} introuvable.",
+            )
+        )
+
+    return liste
 
 
 ## 3.3 -- Fonction d'export de .yaml et de .pkl --------------------------------

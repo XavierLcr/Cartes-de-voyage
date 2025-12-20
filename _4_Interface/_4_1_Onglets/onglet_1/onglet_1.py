@@ -26,10 +26,7 @@ from PyQt6.QtWidgets import (
 )
 from PyQt6.QtCore import Qt, QTimer, QThread, pyqtSignal
 
-from _0_Utilitaires._0_1_fonctions_utiles_gen import (
-    obtenir_clef_par_valeur,
-    periode_particuliere,
-)
+from _0_Utilitaires._0_1_fonctions_utiles_gen import obtenir_clef_par_valeur
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     reset_combo,
     creer_QLabel_centre,
@@ -400,7 +397,7 @@ class OngletParametres(QWidget):
         self.titre.setText(
             self.fonction_traduction(
                 clef="titre_application",
-                suffixe=periode_particuliere().get("emoji", ""),
+                suffixe=self.constantes.dict_themes_temporaires.get("emoji", ""),
             )
         )
 
@@ -672,8 +669,8 @@ class OngletParametres(QWidget):
     def set_style_titre(self, taille=24):
 
         self.titre.setStyleSheet(
-            f"font-size: {taille * periode_particuliere().get('titre_police_coeff', 1)}px;"
+            f"font-size: {taille * self.constantes.dict_themes_temporaires.get('titre_police_coeff', 1)}px;"
             f"font-weight: bold;"
             f"text-align: center;"
-            f"font-family: {periode_particuliere().get('titre_police', 'Vivaldi')}, sans-serif;"
+            f"font-family: {self.constantes.dict_themes_temporaires.get('titre_police', 'Vivaldi')}, sans-serif;"
         )

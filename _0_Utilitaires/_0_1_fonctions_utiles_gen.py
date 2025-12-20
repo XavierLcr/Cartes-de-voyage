@@ -113,62 +113,42 @@ def formater_temps_actuel(n: int = 0):
 ## 2.2 -- Fonction de mise en forme du titre selon les événements --------------
 
 
-def periode_particuliere() -> dict:
+def periode_particuliere(periodes: dict) -> dict:
 
-    mois = date.today().month
-    jour = date.today().day
+    aujourdhui = date.today()
+    mois_actuel = aujourdhui.month
+    jour_actuel = aujourdhui.day
 
-    # Halloween
-    if mois == 10 and jour >= 20:
-        return {"titre_police": "Chiller", "titre_police_coeff": 1.2, "emoji": " 🎃​"}
+    # Parcourir les périodes pour trouver la bonne
+    for nom, details in periodes.items():
+        if "dates" in details:
+            for plage in details["dates"]:
+                debut_jour = plage.get("debut", {}).get("jour", 1)
+                debut_mois = plage.get("debut", {}).get("mois", 1)
+                fin_jour = plage.get("fin", {}).get("jour", 31)
+                fin_mois = plage.get("fin", {}).get("mois", 12)
 
-    # Noël
-    elif mois == 12 and jour >= 15 and jour <= 28:
-        return {
-            "titre_police": "Edwardian Script ITC",
-            "titre_police_coeff": 1.8,
-            "emoji": " 🎄​​",
-        }
+                if (
+                    # Vérification que la date est supérieure à celle de début
+                    mois_actuel > debut_mois
+                    or (mois_actuel == debut_mois and jour_actuel >= debut_jour)
+                ) and (
+                    # Vérification que la date est inférieure à celle de fin
+                    mois_actuel < fin_mois
+                    or (mois_actuel == fin_mois and jour_actuel <= fin_jour)
+                ):
 
-    # Nouvel an
-    elif (mois == 12 and jour >= 29) or (mois == 1 and jour <= 2):
-        return {
-            "titre_police": "Monotype Corsiva",
-            "titre_police_coeff": 1.6,
-            "emoji": " 🎆​​​",
-        }
+                    return details["config"]
 
-    # Printemps
-    elif mois == 3 and jour in [19, 20, 21]:
-        return {
-            "titre_police": "Segoe Print",
-            "titre_police_coeff": 1.4,
-            "emoji": " 🌷​​​",
-        }
-
-    # Autômne
-    elif mois == 9 and jour in [21, 22, 23]:
-        return {
-            "titre_police": "Constantia",
-            "titre_police_coeff": 1,
-            "emoji": " 🍂​​​",
-        }
-
-    # Saint-Valentin
-    elif mois == 2 and jour in [12, 13, 14]:
-        return {
-            "titre_police": "French Script MT",
-            "titre_police_coeff": 1,
-            "emoji": " 💝​​​",
-        }
-
-    # Défaut
-    else:
-        return {
+    # Retourner la configuration par défaut
+    return periodes.get("Défaut", {}).get(
+        "config",
+        {
             "titre_police": "Vivaldi",
             "titre_police_coeff": 1,
             "emoji": "",
-        }
+        },
+    )
 
 
 ## 2.3 -- Fonction calculant la distance de Haversine --------------------------

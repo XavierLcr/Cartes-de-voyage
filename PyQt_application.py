@@ -752,15 +752,16 @@ class MesVoyagesApplication(QWidget):
             path=fichier,
             volume=0.8,
             start_ms=0,
-            max_duration_ms=30000,
+            max_duration_ms=15000,
             fade_out_ms=5000,
         )
         self.musique.play()
 
     def closeEvent(self, event):
         # Arrête la musique quand la fenêtre est fermée
-        self.musique.stop()
-        event.accept()
+        if hasattr(self, "musique"):
+            self.musique.stop()
+            event.accept()
 
 
 # 3 -- Lancement de la classe principale ---------------------------------------

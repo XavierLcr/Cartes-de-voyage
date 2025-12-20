@@ -4,7 +4,10 @@
 ################################################################################
 
 import os, sys
-from _0_Utilitaires._0_1_fonctions_utiles_gen import ouvrir_fichier
+from _0_Utilitaires._0_1_fonctions_utiles_gen import (
+    ouvrir_fichier,
+    periode_particuliere,
+)
 
 
 # 1 -- Gestion des directions --------------------------------------------------
@@ -157,6 +160,27 @@ df_caracteristiques_pays = ouvrir_fichier(
     nom_fichier="caracteristiques_des_regions.pkl",
     defaut=None,
     afficher_erreur="Données caractéristiques des pays introuvables.",
+)
+
+
+### Import des thèmes temporaires ----------------------------------------------
+
+
+dict_themes_temporaires = periode_particuliere(
+    ouvrir_fichier(
+        direction_fichier=direction_donnees_application,
+        nom_fichier="themes_temporaires.yaml",
+        defaut={
+            "Défaut": {
+                "config": {
+                    "titre_police": "Vivaldi",
+                    "titre_police_coeff": 1,
+                    "emoji": "",
+                },
+            }
+        },
+        afficher_erreur="Thèmes temporaires introuvables.",
+    )
 )
 
 

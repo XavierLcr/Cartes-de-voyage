@@ -26,14 +26,13 @@ from _4_Interface._4_1_Onglets.onglet_2 import onglet_2
 from _4_Interface._4_1_Onglets.onglet_4 import onglet_4
 from _4_Interface._4_1_Onglets import onglet_3, onglet_5
 from _4_Interface._4_2_Style._4_2_1_style_principal import style_dynamique_application
+from _4_Interface._4_2_Style._4_2_3_musique import MusicPlayer
+from _4_Interface._4_2_Style._4_2_4_pluie_emojis import VuePluieEmojis
 
 
 # Suppression d'alertes, d'avis et de messages additionnels
 warnings.filterwarnings("ignore")
 os.environ["QT_LOGGING_RULES"] = "qt.text.font.db=false"
-os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "1"
-
-from _4_Interface._4_2_Style._4_2_3_musique import MusicPlayer
 
 
 # 1 -- Import des données ------------------------------------------------------
@@ -173,6 +172,16 @@ class MesVoyagesApplication(QWidget):
         self.liste_onglets.setCurrentIndex(0 if sauvegarde else 4)
 
         self.reinitialisation_parametres(nom_aussi=True, set_interface=True)
+
+        if "pluie_emojis" in constantes.dict_themes_temporaires.keys():
+            self.vue_pluie = VuePluieEmojis(
+                constantes=constantes,
+                duree_ms=15000,
+                intervalle_timer_ms=30,
+                force_vent_globale=1.5,
+                parent=self,
+            )
+            self.vue_pluie.show()
 
     def set_langue_interface(self):
         """Met à jour les textes des widgets selon la langue sélectionnée."""

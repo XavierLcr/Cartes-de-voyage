@@ -5,7 +5,10 @@
 ################################################################################
 
 
-import pygame, threading, time
+import os, time, threading
+
+os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "1"
+import pygame
 
 
 class MusicPlayer:

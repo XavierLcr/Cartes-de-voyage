@@ -812,25 +812,28 @@ class MesVoyagesApplication(QWidget):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
 
-    # 1️⃣ Affichage du logo en splash screen
-    logo_path = os.path.join(
-        constantes.direction_donnees_application, "icone_application.ico"
+    # Affichage du logo en splash screen
+    splash = QSplashScreen(
+        QPixmap(
+            os.path.join(
+                constantes.direction_donnees_application, "icone_application.ico"
+            )
+        ),
+        Qt.WindowType.WindowStaysOnTopHint,
     )
-    splash_pix = QPixmap(logo_path)
-    splash = QSplashScreen(splash_pix, Qt.WindowType.WindowStaysOnTopHint)
     splash.show()
     app.processEvents()  # force l'affichage du splash avant de charger les GDF
 
-    # 2️⃣ Chargement synchrone des GDF
+    # Chargement des GDF
     liste_gdfs = _0_1_fonctions_utiles_gen.charger_gdfs(
         direction_base=constantes.direction_donnees_geographiques, max_niveau=2
     )
 
-    # 3️⃣ Lancement de la fenêtre principale
+    # Lancement de la fenêtre principale
     window = MesVoyagesApplication()
     window.show()
 
-    # 4️⃣ Fermeture du splash
+    # Fermeture du splash
     splash.finish(window)
 
     sys.exit(app.exec())

@@ -49,34 +49,6 @@ sauvegarde = _0_1_fonctions_utiles_gen.ouvrir_fichier(
 )
 
 
-## 1.2 -- Fonction d'import des geoDataFrames ----------------------------------
-
-
-# def charger_gdfs():
-#     g = globals()
-
-#     if "liste_gdfs" in g:
-#         return
-
-#     g["liste_gdfs"] = [None] * 3
-
-#     charger_gdfs(
-#         liste_gdfs=g["liste_gdfs"],
-#         direction_base=constantes.direction_donnees_geographiques,
-#         max_niveau=3,
-#     )
-
-# threading.Thread(
-#     target=_0_1_fonctions_utiles_gen.charger_gdfs,
-#     args=(
-#         g["liste_gdfs"],
-#         constantes.direction_donnees_geographiques,
-#         3,
-#     ),
-#     daemon=True,
-# ).start()
-
-
 # 2 -- Classe principale -------------------------------------------------------
 
 

@@ -46,20 +46,21 @@ setup(
                 "json",
                 "textwrap",
                 "numba",
+                "pygame",
             ],
             # Liste des fichiers/dossiers à inclure
             "include_files": (
-                # YAMLs des régions et départements
                 [
-                    os.path.join(direction_donnees_application, nom)
+                    os.path.join(direction_donnees_autres, nom)
                     for nom in [
+                        # YAMLs des régions et départements
                         "liste_pays_granularite_1.yaml",
                         "liste_pays_granularite_2.yaml",
+                        # Licence
+                        "LICENSE – MesVoyages.md",
                     ]
                 ]
                 + [
-                    # Licence
-                    os.path.join(direction_donnees_autres, "LICENSE – MesVoyages.md"),
                     # Paramètres, interface, ...
                     (
                         direction_donnees_application,

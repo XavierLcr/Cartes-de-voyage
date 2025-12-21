@@ -10,8 +10,13 @@ Nouvel an:
     - { debut: { mois: 1, jour: 1 }, fin: { mois: 1, jour: 2 } }
   config:
     titre_police: "Monotype Corsiva"
-    titre_police_coeff: 1.6
+    titre_police_coeff: 1.5
     emoji: " 🎆​​​"
+    pluie_emojis: 
+      - ✨
+      - 🎉
+      - 🥂
+      - 🍾
 
 Saint-Valentin:
   dates:
@@ -20,6 +25,12 @@ Saint-Valentin:
     titre_police: "French Script MT"
     titre_police_coeff: 1
     emoji: " 💝​​​"
+    pluie_emojis: 
+      - 💘
+      - 💖
+      - 💌
+      - 🌹
+      - 💐​
 
 Printemps:
   dates:
@@ -28,6 +39,13 @@ Printemps:
     titre_police: "Segoe Print"
     titre_police_coeff: 1.4
     emoji: " 🌷​​​"
+    pluie_emojis: 
+      - 🌼
+      - 🌼
+      - 🐝
+      - 🌸
+      - 🌱
+      - 🌿
 
 Automne:
   dates:
@@ -36,6 +54,13 @@ Automne:
     titre_police: "Constantia"
     titre_police_coeff: 1
     emoji: " 🍂​​​"
+    pluie_emojis: 
+      - 🍂
+      - 🍂
+      - 🍂
+      - 🌰
+      - ☕
+      - ☔
 
 Halloween:
   dates:
@@ -44,6 +69,13 @@ Halloween:
     titre_police: "Chiller"
     titre_police_coeff: 1.2
     emoji: " 🎃​"
+    pluie_emojis: 
+      - 👻
+      - 👻
+      - 👻
+      - 🍬​
+      - 🐈‍⬛​
+      - 🧟​
 
 Noël:
   dates:
@@ -52,7 +84,7 @@ Noël:
     titre_police: "Edwardian Script ITC"
     titre_police_coeff: 1.8
     emoji: " 🎄​​"
-    pluie_emojis : 
+    pluie_emojis: 
       - ❄️
       - ❄️
       - ❄️

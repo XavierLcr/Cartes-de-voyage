@@ -70,6 +70,21 @@ def tous_cas_pays_multiples(
     pays_trad: dict,
     langue: str = "français",
 ):
+    """
+    tous_cas_pays_multiples informe de si un pays doit être groupé et de si le
+    graphique a déjà été créé. Si le graphique avec plusieurs pays doit être créé,
+    renvoie la table à considérer, ainsi que le nom du pays et la langue.
+
+    :param dict_pays: Dictionnaire contenant les regroupements de pays.
+    :type dict_pays: dict
+    :param pays: Le pays à étudier.
+    :type pays: str
+    :param df: La table consolidée du monde à la granularité souhaitée.
+    :param pays_trad: Traduction du nom des pays et des groupes de pays.
+    :type pays_trad: dict
+    :param langue: Langue de la traduction.
+    :type langue: str
+    """
 
     resultat = {
         "nom_groupe_pays": None,
@@ -245,13 +260,13 @@ def creer_graphiques_pays(
 
 
 def creer_graphique_region(
-    gdf_visite_ori,
-    gdf_fond_ori,
-    df_fond_granu_1,
+    gdf,
+    gdf_0,
+    gdf_1,
+    gdf_eau,
     direction_resultat: str,
     pays_trad: dict,
     liste_pays_region: list,
-    gdf_eau=None,
     nom_indiv: str = "Xavier",
     format: str = "png",
     theme: dict = {
@@ -276,7 +291,7 @@ def creer_graphique_region(
 ):
     """Crée la carte d'une région"""
 
-    gdf_visite = gdf_visite_ori.copy(deep=True)
+    gdf_temp = gdf.copy(deep=True)
 
     if nom_region == "World":
         nom_langue_region = pays_trad.get("World Map", {}).get(langue, "World Map")
@@ -301,12 +316,12 @@ def creer_graphique_region(
         ).get(langue, f"Map of the {nom_region}")
 
         # Bases de données
-        gdf_visite = gdf_visite[gdf_visite["Pays"].isin(liste_pays_region)]
+        gdf_temp = gdf_temp[gdf_temp["Pays"].isin(liste_pays_region)]
 
-    if gdf_visite["Visite"].any():
+    if gdf_temp["Visite"].any():
 
         if (
-            gdf_visite.loc[gdf_visite["Visite"], "Granu"].max() >= granularite_objectif
+            gdf_temp.loc[gdf_temp["Visite"], "Granu"].max() >= granularite_objectif
             or sortir_cartes_granu_inf == True
         ):
 
@@ -314,9 +329,9 @@ def creer_graphique_region(
                 print(nom_langue_region, end=". ")
 
             _1_2_creer_graphique.creer_image_carte(
-                gdf=gdf_visite,
-                gdf_monde=gdf_fond_ori,
-                gdf_regions=df_fond_granu_1,
+                gdf=gdf_temp,
+                gdf_monde=gdf_0,
+                gdf_regions=gdf_1,
                 gdf_eau=gdf_eau,
                 theme=theme,
                 teintes_autorisees=teinte,
@@ -333,7 +348,7 @@ def creer_graphique_region(
                 reprojeter=nom_region in ["Asia", "North America"],
             )
 
-    del gdf_visite
+    del gdf_temp
 
 
 # 6 -- Fonction créant et publiant l'ensemble des cartes souhaitées ------------
@@ -398,7 +413,7 @@ def cree_graphe_depuis_debut(
     # Gestion de la création ou utilisation de la base utilisée
     if any(isinstance(element, dict) for element in liste_dicts):
 
-        df_visite = cree_gdf_depuis_dicts(
+        gdf_temp = cree_gdf_depuis_dicts(
             liste_dfs=liste_dfs,
             liste_dicts=liste_dicts,
             granularite_reste=granularite_reste,
@@ -418,8 +433,10 @@ def cree_graphe_depuis_debut(
             tracker.notify(noms_pays.get(r, {}).get(langue, r))
 
         creer_graphique_region(
-            gdf_visite_ori=df_visite,
-            gdf_fond_ori=liste_dfs[0],
+            gdf=gdf_temp,
+            gdf_0=liste_dfs[0],
+            gdf_1=liste_dfs[1],
+            gdf_eau=gdf_eau,
             direction_resultat=direction_resultat,
             pays_trad=noms_pays,
             nom_indiv=nom_indiv,
@@ -434,9 +451,7 @@ def cree_graphe_depuis_debut(
             liste_pays_region=liste_regions[r],
             nom_region=r,
             blabla=blabla,
-            gdf_eau=gdf_eau,
             limite_n_cartes=limite_n_cartes,
-            df_fond_granu_1=liste_dfs[1],
             granularite_objectif=granularite_visite,
             sortir_cartes_granu_inf=sortir_cartes_granu_inf,
             afficher_nom_lieu=afficher_nom_lieu,
@@ -451,7 +466,7 @@ def cree_graphe_depuis_debut(
             print("\n")
 
         creer_graphiques_pays(
-            gdf_visite=df_visite,
+            gdf_visite=gdf_temp,
             gdf_fond=liste_dfs[0],
             gdf_eau=gdf_eau,
             gdf_fond_regions=liste_dfs[1],

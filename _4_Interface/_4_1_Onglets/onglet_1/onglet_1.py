@@ -26,7 +26,9 @@ from PyQt6.QtWidgets import (
 )
 from PyQt6.QtCore import Qt, QTimer, QThread, pyqtSignal
 
-from _0_Utilitaires._0_1_fonctions_utiles_gen import obtenir_clef_par_valeur
+from _0_Utilitaires._0_1_fonctions_utiles_gen import (
+    obtenir_clef_par_valeur,
+)
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     reset_combo,
     creer_QLabel_centre,

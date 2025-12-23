@@ -15,7 +15,7 @@ import pandas as pd
 
 
 def creer_base_une_granularite(
-    df,
+    gdf,
     liste_destinations: dict,
     granularite: int = 1,
 ):
@@ -32,7 +32,7 @@ def creer_base_une_granularite(
 
     return (
         # Filtre sur les pays visités
-        df.loc[df["name_0"].isin(liste_destinations.keys())]
+        gdf.loc[gdf["name_0"].isin(liste_destinations.keys())]
         # Création de l'indicatrice des lieux visités
         .assign(
             Visite=lambda x: x.apply(
@@ -69,7 +69,7 @@ def creer_base_double_granularite(
     # Renvoi de la granularité maximale possible si la souhaitée n'est pas disponible
     if granularite_obj >= granularite_donnee:
         return creer_base_une_granularite(
-            df=df_donnee,
+            gdf=df_donnee,
             granularite=granularite_donnee,
             liste_destinations=liste_destinations,
         )
@@ -84,7 +84,7 @@ def creer_base_double_granularite(
     ]
 
     return creer_base_une_granularite(
-        df=df_obj,
+        gdf=df_obj,
         granularite=granularite_obj,
         liste_destinations=pd.DataFrame(
             # Création des paires Pays/Région visités

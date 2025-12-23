@@ -102,12 +102,12 @@ def separer_combinaisons(dico1, dico2):
 ## 2.1 -- Fonction de formatage de l'heure et de la date actuelles -------------
 
 
-def formater_temps_actuel(n: int = 0):
-    tps = time.localtime()
-    if n == 0:
-        return time.strftime("%d-%m-%Y %Hh%M", tps)
-    elif n == 1:
-        return time.strftime("%Y-%m-%d %H:%M", tps)
+def formater_temps_actuel(n: int = 0) -> str:
+    formats = {
+        0: "%d-%m-%Y %Hh%M",
+        1: "%Y-%m-%d %H:%M",
+    }
+    return time.strftime(formats.get(n, formats[0]), time.localtime())
 
 
 ## 2.2 -- Fonction de mise en forme du titre selon les événements --------------
@@ -218,18 +218,15 @@ def charger_gdfs(direction_base, max_niveau):
     Charge les fichiers pickle et remplit la liste_gdfs.
     """
 
-    liste = []
-    for i in range(max_niveau + 1):
-        liste.append(
-            ouvrir_fichier(
-                direction_fichier=direction_base,
-                nom_fichier=f"carte_monde_niveau_{i}.pkl",
-                defaut=None,
-                afficher_erreur=f"Base de granularité {i} introuvable.",
-            )
+    return [
+        ouvrir_fichier(
+            direction_fichier=direction_base,
+            nom_fichier=f"carte_monde_niveau_{i}.pkl",
+            defaut=None,
+            afficher_erreur=f"Base de granularité {i} introuvable.",
         )
-
-    return liste
+        for i in range(max_niveau + 1)
+    ]
 
 
 ## 3.3 -- Fonction d'export de .yaml et de .pkl --------------------------------

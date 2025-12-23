@@ -7,6 +7,7 @@
 
 import os, sys, gc
 from _3_Calculs import _1_1_creer_carte, _1_2_creer_graphique
+from _0_Utilitaires._0_1_fonctions_utiles_gen import ouvrir_dossier
 
 
 # 1 -- Création de la table complète -------------------------------------------
@@ -370,6 +371,7 @@ def cree_graphe_depuis_debut(
     sortir_cartes_granu_inf: bool = True,
     tracker=None,
     afficher_nom_lieu: bool = True,
+    ouvrir_direction_resultat: bool = True,
 ):
     r"""
     Cette fonction crée une carte géographique à partir de données mondiales en utilisant des dictionnaires définissant
@@ -473,6 +475,10 @@ def cree_graphe_depuis_debut(
             tracker=tracker,
             afficher_nom_lieu=afficher_nom_lieu,
         )
+
+    # Ouverture du dossier des résultats
+    if ouvrir_direction_resultat:
+        ouvrir_dossier(chemin=direction_resultat)
 
     if blabla == True:
         print("\n\n✅", end="\n\n")

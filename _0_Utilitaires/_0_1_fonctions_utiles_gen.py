@@ -5,7 +5,7 @@
 ################################################################################
 
 
-import os, pickle, yaml, time, numba
+import os, pickle, yaml, time, numba, subprocess, platform
 import pandas as pd
 import numpy as np
 from datetime import date
@@ -318,3 +318,15 @@ def cree_yaml_un_pays(
         nom_fichier=nom_fichier,
         sort_keys=True,
     )
+
+
+## 3.5 -- Ouverture d'un dossier -----------------------------------------------
+
+
+def ouvrir_dossier(chemin: str):
+    if platform.system() == "Windows":
+        os.startfile(chemin)
+    elif platform.system() == "Darwin":  # macOS
+        subprocess.run(["open", chemin])
+    else:  # Linux et autres
+        subprocess.run(["xdg-open", chemin])

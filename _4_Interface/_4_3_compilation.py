@@ -47,6 +47,8 @@ setup(
                 "textwrap",
                 "numba",
                 "pygame",
+                "subprocess",
+                "platform",
             ],
             # Liste des fichiers/dossiers à inclure
             "include_files": (

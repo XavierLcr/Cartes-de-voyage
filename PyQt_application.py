@@ -27,8 +27,9 @@ from _4_Interface._4_1_Onglets.onglet_2 import onglet_2
 from _4_Interface._4_1_Onglets.onglet_4 import onglet_4
 from _4_Interface._4_1_Onglets import onglet_3, onglet_5
 from _4_Interface._4_2_Style._4_2_1_style_principal import style_dynamique_application
-from _4_Interface._4_2_Style._4_2_3_musique import MusicPlayer
 from _4_Interface._4_2_Style._4_2_4_pluie_emojis import VuePluieEmojis
+
+# from _4_Interface._4_2_Style._4_2_3_musique import MusicPlayer
 
 
 # Suppression d'alertes, d'avis et de messages additionnels
@@ -760,22 +761,22 @@ class MesVoyagesApplication(QWidget):
         if onglet_parametres:
             self.onglet_parametres.set_dossier(dossier=dossier)
 
-    def jouer_musique(self, fichier):
+    # def jouer_musique(self, fichier):
 
-        self.musique = MusicPlayer(
-            path=fichier,
-            volume=0.8,
-            start_ms=0,
-            max_duration_ms=15000,
-            fade_out_ms=5000,
-        )
-        self.musique.play()
+    #     self.musique = MusicPlayer(
+    #         path=fichier,
+    #         volume=0.8,
+    #         start_ms=0,
+    #         max_duration_ms=15000,
+    #         fade_out_ms=5000,
+    #     )
+    #     self.musique.play()
 
-    def closeEvent(self, event):
-        # Arrête la musique quand la fenêtre est fermée
-        if hasattr(self, "musique"):
-            self.musique.stop()
-            event.accept()
+    # def closeEvent(self, event):
+    #     # Arrête la musique quand la fenêtre est fermée
+    #     if hasattr(self, "musique"):
+    #         self.musique.stop()
+    #         event.accept()
 
 
 # 3 -- Lancement de la classe principale ---------------------------------------

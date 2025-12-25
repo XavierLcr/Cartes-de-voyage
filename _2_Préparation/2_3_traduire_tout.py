@@ -35,7 +35,7 @@ def creer_liste_pays_multilangue(
     version=0,
 ):
 
-    modele = genai.GenerativeModel(modele_dict.get("modèle", "gemini-2.0-flash-lite"))
+    modele = genai.GenerativeModel(modele_dict.get("modèle", "gemini-2.5-flash-lite"))
     resultat = {} if liste_deja_existante is None else liste_deja_existante
     global appels_api_deja_faits
 
@@ -338,29 +338,14 @@ if __name__ == "__main__":
 
     for modele_utilise in [
         {
+            "modèle": "gemma-3-12b",
+            "limite_appels_minute": 29,
+            "limite_appels_jour": 14000,
+        },
+        {
             "modèle": "gemini-2.5-flash-lite",
-            "limite_appels_minute": 14,
-            "limite_appels_jour": 999,
-        },
-        {
-            "modèle": "gemini-2.0-flash-lite",
-            "limite_appels_minute": 28,
-            "limite_appels_jour": 199,
-        },
-        {
-            "modèle": "gemini-2.0-flash",
-            "limite_appels_minute": 14,
-            "limite_appels_jour": 199,
-        },
-        {
-            "modèle": "gemini-2.5-flash",
-            "limite_appels_minute": 9,
-            "limite_appels_jour": 249,
-        },
-        {
-            "modèle": "gemini-2.5-pro",
-            "limite_appels_minute": 4.5,
-            "limite_appels_jour": 99,
+            "limite_appels_minute": 9.9,
+            "limite_appels_jour": 20,
         },
     ]:
 

@@ -15,6 +15,7 @@ __pycache__/
 
 # Fichiers de données
 *.pkl
+*.parquet
 *.gpkg
 
 # Fichiers de sauvegarde individuel

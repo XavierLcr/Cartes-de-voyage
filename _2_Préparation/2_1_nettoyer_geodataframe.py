@@ -682,7 +682,7 @@ def agreger_lieux(gdf, direction_fichier, granularite=5):
             .reset_index()
         ),
         direction_fichier=direction_fichier,
-        nom_fichier=f"carte_monde_niveau_{granularite}.pkl",
+        nom_fichier=f"carte_monde_niveau_{granularite}.parquet",
     )
 
     print("Granularité", granularite, ": export effectué.")

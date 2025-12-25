@@ -150,8 +150,9 @@ class MesVoyagesApplication(QWidget):
             constantes=constantes,
             table_superficie=_0_1_fonctions_utiles_gen.ouvrir_fichier(
                 direction_fichier=constantes.direction_donnees_application,
-                nom_fichier="table_superficie.pkl",
+                nom_fichier="table_superficie.parquet",
                 defaut=None,
+                afficher_erreur="Problème avec la table de superficie.",
             ),
             parent=None,
             fct_traduction=self.traduire_depuis_id,

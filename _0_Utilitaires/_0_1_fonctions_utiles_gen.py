@@ -7,8 +7,10 @@
 
 import os, pickle, yaml, time, numba, subprocess, platform
 import pandas as pd
+import geopandas as gpd
 import numpy as np
 from datetime import date
+from shapely.wkb import loads
 
 
 # 1 -- Fonctions sur les dictionnaires -----------------------------------------
@@ -202,15 +204,29 @@ def ouvrir_fichier(
                 encoding="utf-8",
             ) as file:
                 return yaml.safe_load(file)
-    except:
+
+        elif extention == ".parquet":
+            df = pd.read_parquet(nom_fichier)
+
+            # Conversion en GeoDataFrame si colonne geometry présente
+            if "geometry" in df.columns:
+                df["geometry"] = df["geometry"].apply(
+                    lambda x: loads(x) if isinstance(x, bytes) and x else None
+                )
+                return gpd.GeoDataFrame(df, geometry="geometry")
+            else:
+                return df
+
+    except Exception as e:
 
         if afficher_erreur is not None:
             print(afficher_erreur)
+            print(f"Détail de l'erreur : {e}")
 
         return defaut
 
 
-## 3.2 -- Fonction de chargement des .pkl principaux ---------------------------
+## 3.2 -- Fonction de chargement des tables géographiques principales ----------
 
 
 def charger_gdfs(direction_base, max_niveau):
@@ -221,7 +237,7 @@ def charger_gdfs(direction_base, max_niveau):
     return [
         ouvrir_fichier(
             direction_fichier=direction_base,
-            nom_fichier=f"carte_monde_niveau_{i}.pkl",
+            nom_fichier=f"carte_monde_niveau_{i}.parquet",
             defaut=None,
             afficher_erreur=f"Base de granularité {i} introuvable.",
         )
@@ -263,6 +279,9 @@ def exporter_fichier(objet, direction_fichier, nom_fichier, sort_keys: bool = Tr
             "wb",
         ) as f:
             pickle.dump(objet, f)
+
+    elif extention in [".parquet"]:
+        objet.to_parquet(nom_fichier, index=False)
 
     else:
         print("Fichier non exportable.")

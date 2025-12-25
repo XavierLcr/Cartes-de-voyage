@@ -45,5 +45,5 @@ exporter_fichier(
         epsg=8857,
     ),
     direction_fichier=constantes.direction_donnees_application,
-    nom_fichier="table_superficie.pkl",
+    nom_fichier="table_superficie.parquet",
 )

@@ -29,7 +29,7 @@ from _0_Utilitaires._0_2_fonctions_graphiques import renvoyer_couleur_texte
 from _4_Interface._4_1_Onglets.onglet_1 import onglet_1
 from _4_Interface._4_1_Onglets.onglet_2 import onglet_2
 from _4_Interface._4_1_Onglets.onglet_4 import onglet_4
-from _4_Interface._4_1_Onglets import onglet_3, onglet_info
+from _4_Interface._4_1_Onglets import onglet_3, onglet_info, onglet_param_profil
 from _4_Interface._4_2_Style._4_2_1_style_principal import style_dynamique_application
 from _4_Interface._4_2_Style._4_2_4_pluie_emojis import VuePluieEmojis
 
@@ -121,10 +121,6 @@ class MesVoyagesApplication(QWidget):
             fct_pop_up=self.montrer_popup,
         )
         self.liste_onglets.addTab(self.onglet_parametres, "Paramètres")
-        # Langue
-        self.onglet_parametres.langue_utilisee.currentIndexChanged.connect(
-            self.set_langue_interface
-        )
         # Chargement d'un individu
         self.nom_individu.currentIndexChanged.connect(
             lambda: self.initialiser_sauvegarde(sauvegarde)
@@ -145,12 +141,6 @@ class MesVoyagesApplication(QWidget):
         self.onglet_parametres.utiliser_theme.stateChanged.connect(self.set_style)
         self.onglet_parametres.color_combo.currentTextChanged.connect(self.set_style)
         self.onglet_parametres.theme_combo.currentTextChanged.connect(self.set_style)
-        # Suppression d'un individu
-        self.onglet_parametres.suppression_profil.clicked.connect(
-            lambda: self.supprimer_clef(self.nom_individu.currentText())
-        )
-        # Dossier de stockage
-        self.onglet_parametres.envoi_dossier.connect(self.set_dossier)
 
         # === Deuxième onglet ===
 
@@ -194,6 +184,22 @@ class MesVoyagesApplication(QWidget):
 
         # === Cinquième onglet ===
 
+        self.onglet_param_profil = onglet_param_profil.OngletParametresProfil(
+            constantes=constantes, fct_traduction=self.traduire_depuis_id
+        )
+        self.liste_onglets.addTab(self.onglet_param_profil, "⚙️")
+
+        # Langue
+        self.onglet_param_profil.signal_langue.connect(self.set_langue_interface)
+
+        # Dossier de stockage
+        self.onglet_param_profil.signal_dossier.connect(self.set_dossier)
+
+        # Suppression d'un individu
+        self.onglet_param_profil.suppression_profil.clicked.connect(
+            lambda: self.supprimer_clef(self.nom_individu.currentText())
+        )
+
         # == Sixième onglet ===
 
         self.onglet_description_application = onglet_info.OngletInformations(
@@ -221,13 +227,11 @@ class MesVoyagesApplication(QWidget):
             )
             self.vue_pluie.show()
 
-    def set_langue_interface(self):
+    def set_langue_interface(self, langue: str | None = None):
         """Met à jour les textes des widgets selon la langue sélectionnée."""
 
-        self.langue = _0_1_fonctions_utiles_gen.obtenir_clef_par_valeur(
-            dictionnaire=constantes.dict_langues_dispo,
-            valeur=self.onglet_parametres.langue_utilisee.currentText(),
-        )
+        if langue is not None:
+            self.langue = langue
 
         # Titres généraux
         self.setWindowTitle(self.traduire_depuis_id("titre_windows"))
@@ -267,7 +271,7 @@ class MesVoyagesApplication(QWidget):
         )
         self.onglet_resume_destinations.set_langue(nouvelle_langue=self.langue)
 
-        # Onglet 4
+        # Onglet des statistiques
         self.liste_onglets.setTabText(
             self.liste_onglets.indexOf(self.onglet_statistiques),
             self.traduire_depuis_id(
@@ -277,7 +281,10 @@ class MesVoyagesApplication(QWidget):
         )
         self.onglet_statistiques.set_langue(nouvelle_langue=self.langue)
 
-        # Onglet 5
+        # Onglet des paramètres du profil
+        self.onglet_param_profil.set_langue()
+
+        # Onglet informationnel
         self.onglet_description_application.set_langue()
 
     def traduire_depuis_id(
@@ -304,22 +311,13 @@ class MesVoyagesApplication(QWidget):
             str: La traduction formatée.
         """
 
-        langue = (
-            _0_1_fonctions_utiles_gen.obtenir_clef_par_valeur(
-                dictionnaire=constantes.dict_langues_dispo,
-                valeur=self.onglet_parametres.langue_utilisee.currentText(),
-            )
-            if langue is None
-            else self.langue
-        )
-
         # Résolution de la clé si on part d'un ID
         clef = constantes.phrases_interface.get(clef, clef) if depuis_id else clef
 
         # Récupération de la traduction
         traduction = (
             prefixe
-            + constantes.outil_differentes_langues.get(clef, {}).get(langue, clef)
+            + constantes.outil_differentes_langues.get(clef, {}).get(self.langue, clef)
             + suffixe
         )
 
@@ -404,10 +402,7 @@ class MesVoyagesApplication(QWidget):
 
     def creer_liste_parametres(self):
 
-        langue = _0_1_fonctions_utiles_gen.obtenir_clef_par_valeur(
-            valeur=self.onglet_parametres.langue_utilisee.currentText(),
-            dictionnaire=constantes.dict_langues_dispo,
-        )
+        langue = self.langue
 
         return {
             "nom": self.nom_individu.currentText(),
@@ -431,7 +426,7 @@ class MesVoyagesApplication(QWidget):
             ),
             "qualite": self.onglet_parametres.curseur_qualite.value(),
             "format": self.onglet_parametres.format_cartes.currentText(),
-            "dossier_stockage": self.onglet_parametres.dossier_stockage,
+            "dossier_stockage": self.onglet_param_profil.get_dossier(),
             "carte_du_monde": self.onglet_parametres.carte_monde.isChecked(),
             "europe": self.onglet_parametres.europe.isChecked(),
             "asie": self.onglet_parametres.asie.isChecked(),
@@ -582,21 +577,11 @@ class MesVoyagesApplication(QWidget):
             # Nom
             self.onglet_selection_destinations.set_nom_individu(nom=sauv.get("nom"))
 
-            # Dossier de publication
-            if sauv.get("dossier_stockage") is not None:
-                self.set_dossier(
-                    dossier=sauv.get("dossier_stockage"), onglet_parametres=True
-                )
-
-            # Langue
-            if sauv.get("langue") is not None:
-                self.onglet_parametres.langue_utilisee.setCurrentIndex(
-                    self.onglet_parametres.langue_utilisee.findText(
-                        constantes.dict_langues_dispo.get(
-                            sauv.get("langue"), "Français"
-                        )
-                    )
-                )
+            # Onglet des paramètres du profil
+            self.onglet_param_profil.initialiser_param_profil(
+                langue=sauv.get("langue") or "français",
+                dossier=sauv.get("dossier_stockage", None),
+            )
 
             # Cartes à publier
             checkboxes = {
@@ -756,7 +741,6 @@ class MesVoyagesApplication(QWidget):
         self.onglet_selection_destinations.reset_yaml()
 
         if set_interface:
-            # self.set_langue_interface()
             self.set_style()
 
     def supprimer_clef(self, clef):
@@ -801,7 +785,7 @@ class MesVoyagesApplication(QWidget):
         self.dossier = dossier
         self.onglet_selection_destinations.set_dossier(dossier=dossier)
         if onglet_parametres:
-            self.onglet_parametres.set_dossier(dossier=dossier)
+            self.onglet_param_profil.set_dossier(dossier=dossier)
 
     def ajouter_profil(self):
 
@@ -915,6 +899,7 @@ if __name__ == "__main__":
     liste_gdfs = _0_1_fonctions_utiles_gen.charger_gdfs(
         direction_base=constantes.direction_donnees_geographiques, max_niveau=2
     )
+    # liste_gdfs = []
 
     # Lancement de la fenêtre principale
     window = MesVoyagesApplication()

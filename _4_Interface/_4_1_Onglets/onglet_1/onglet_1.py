@@ -46,8 +46,6 @@ from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
 
 class OngletParametres(QWidget):
 
-    envoi_dossier = pyqtSignal(str)
-
     def __init__(self, constantes, fct_traduction, fct_pop_up):
 
         super().__init__()
@@ -55,6 +53,7 @@ class OngletParametres(QWidget):
         self.constantes = constantes
         self.fonction_traduction = fct_traduction
         self.fonction_pop_up = fct_pop_up
+        self.langue = "français"
 
         layout = QVBoxLayout()
 
@@ -67,44 +66,7 @@ class OngletParametres(QWidget):
 
         self.setLayout(layout)
 
-        self.groupe_params_individu = QGroupBox()
-
-        # Layout horizontal pour organiser les éléments dans la boîte
-        layout_params_individu = QHBoxLayout()
-
-        # Bouton pour choisir le dossier de stockage
-        self.dossier_stockage = None
-        self.dossier_stockage_bouton = QPushButton()
-        self.dossier_stockage_bouton.clicked.connect(self.choisir_dossier)
-        layout_params_individu.addWidget(self.dossier_stockage_bouton, stretch=3)
-
-        # Choix de la langue
-        self.label_langue = creer_QLabel_centre()
-        self.langue_utilisee = QComboBox()
-        self.langue_utilisee.addItems(
-            ["Français", "English"]
-            + sorted(
-                langue
-                for langue in constantes.dict_langues_dispo.values()
-                if langue not in {"Français", "English"}
-            )
-        )
-        layout_params_individu.addWidget(self.label_langue, stretch=1)
-        layout_params_individu.addWidget(self.langue_utilisee, stretch=2)
-
-        # Ajout de la possibilité de supprimer un profil
-        layout_params_individu.addWidget(creer_ligne_verticale(), stretch=1)
-        self.suppression_profil = QPushButton()
-        self.suppression_profil.setStyleSheet(
-            style_bouton_de_suppression(
-                sombre=constantes.parametres_application["interface_foncee"]
-            )
-        )
-        layout_params_individu.addWidget(self.suppression_profil, stretch=2)
-
         # Ajouter le layout à la group box et la group box au layout général
-        self.groupe_params_individu.setLayout(layout_params_individu)
-        layout.addWidget(self.groupe_params_individu, stretch=3)
 
         # Créer un QGroupBox pour les choix de granularité
         self.groupe_granularite = QGroupBox()
@@ -397,23 +359,10 @@ class OngletParametres(QWidget):
         )
 
         # Récupération de la langue
-        langue_actuelle = obtenir_clef_par_valeur(
-            dictionnaire=self.constantes.dict_langues_dispo,
-            valeur=self.langue_utilisee.currentText(),
-        )
+        langue_actuelle = self.langue
 
         if langue_actuelle is None:
             return
-
-        # Paramètres de l'individu
-        self.groupe_params_individu.setTitle(
-            self.fonction_traduction("titre_params_individu")
-        )
-        self.set_dossier(dossier=self.dossier_stockage)
-        self.label_langue.setText(
-            self.fonction_traduction(clef="langue_individu", suffixe=" :")
-        )
-        self.suppression_profil.setText(self.fonction_traduction("supprimer_profil"))
 
         # Granularité des cartes
         self.groupe_granularite.setTitle(self.fonction_traduction("titre_granularite"))
@@ -543,24 +492,6 @@ class OngletParametres(QWidget):
                 .values()
             ),
         )
-
-    def set_dossier(self, dossier):
-
-        self.dossier_stockage = dossier
-        self.dossier_stockage_bouton.setText(
-            self.fonction_traduction("dossier_stockage_individu")
-            if self.dossier_stockage is None
-            else os.sep.join(os.path.normpath(self.dossier_stockage).split(os.sep)[-3:])
-        )
-        self.envoi_dossier.emit(self.dossier_stockage)
-
-    def choisir_dossier(self):
-        dossier = QFileDialog.getExistingDirectory(
-            self, self.fonction_traduction("dossier_stockage_pop_up")
-        )
-        if dossier:
-            self.set_dossier(dossier=dossier)
-            self.set_langue()
 
     def initialiser_progression(self, nb_cartes: int):
 

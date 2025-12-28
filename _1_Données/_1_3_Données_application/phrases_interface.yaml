@@ -17,9 +17,12 @@ nom_individu_pop_up_placeholder : Saisir le nom de profil souhaité
 nom_individu_pop_up_reussite : Nouveau profil ajouté avec succès
 
 # Paramètres individuels
-titre_params_individu : Vos paramètres
+titre_params_individu : Vos 
+dossier_stockage_titre : Dossier de stockage des cartes
 dossier_stockage_individu : Choisir le dossier de stockage des cartes
 dossier_stockage_pop_up : Sélectionner un dossier
+dossier_stockage_ouverture : Ouvrir le dossier
+dossier_stockage_ouverture_description : Ouvrir le dossier sélectionné après la publication de l'ensemble des cartes
 langue_individu : Langue
 supprimer_profil : Supprimer ce profil
 titre_pop_up_suppression : Suppression du profil

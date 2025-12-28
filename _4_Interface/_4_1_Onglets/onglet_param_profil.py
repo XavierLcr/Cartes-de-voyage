@@ -101,6 +101,14 @@ class OngletParametresProfil(QWidget):
         self.dossier_stockage_groupbox.setLayout(dossier_stockage_layout)
         layout.addWidget(self.dossier_stockage_groupbox)
 
+        # Préférences à propos des publications
+        self.preferences_cartes_groupbox = QGroupBox()
+        preferences_cartes_layout = QVBoxLayout()
+        self.sortir_cartes_granu_inf = QCheckBox()
+        preferences_cartes_layout.addWidget(self.sortir_cartes_granu_inf)
+        self.preferences_cartes_groupbox.setLayout(preferences_cartes_layout)
+        layout.addWidget(self.preferences_cartes_groupbox)
+
         # Suppression du profil
         self.suppression_profil = QPushButton()
         self.suppression_profil.setStyleSheet(
@@ -148,6 +156,22 @@ class OngletParametresProfil(QWidget):
             self.fonction_traduction("dossier_stockage_ouverture_description")
         )
 
+        # Préférences de cartes
+        self.preferences_cartes_groupbox.setTitle(
+            self.fonction_traduction("preferences_cartes_groupbox")
+        )
+
+        # Sorties des cartes avec une faible granularité
+        self.sortir_cartes_granu_inf.setText(
+            self.fonction_traduction("publier_cartes_faible_granularite_uniquement")
+        )
+        self.sortir_cartes_granu_inf.setToolTip(
+            self.fonction_traduction(
+                clef="description_publier_cartes_faible_granularite_uniquement",
+                largeur_max=None,
+            )
+        )
+
         # Bouton de suppression
         self.suppression_profil.setText(self.fonction_traduction("supprimer_profil"))
 
@@ -174,7 +198,15 @@ class OngletParametresProfil(QWidget):
     def set_ouvrir_dossier(self, ouvrir):
         self.dossier_stockage_ouverture.setChecked(ouvrir)
 
-    def initialiser_param_profil(self, langue, dossier, ouvrir_dossier):
+    def get_sortir_cartes_granu_inf(self):
+        return self.sortir_cartes_granu_inf.isChecked()
+
+    def set_sortir_cartes_granu_inf(self, sortir):
+        self.sortir_cartes_granu_inf.setChecked(sortir)
+
+    def initialiser_param_profil(
+        self, langue, dossier, ouvrir_dossier, sortir_cartes_granu_inf
+    ):
 
         # Langue
         self.langues_dispos.setCurrentIndex(
@@ -187,3 +219,6 @@ class OngletParametresProfil(QWidget):
         # Dossier
         self.set_dossier(dossier=dossier)
         self.set_ouvrir_dossier(ouvrir=ouvrir_dossier or False)
+
+        # Sortir les cartes à une granularité inférieure
+        self.set_sortir_cartes_granu_inf(sortir=sortir_cartes_granu_inf or False)

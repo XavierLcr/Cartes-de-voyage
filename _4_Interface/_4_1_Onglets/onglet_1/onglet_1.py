@@ -107,8 +107,6 @@ class OngletParametres(QWidget):
         self.moyen_orient = QCheckBox()
         self.autres_regions = QCheckBox()
 
-        self.sortir_cartes_granu_inf = QCheckBox()
-
         self.carte_pays.setChecked(True)
         self.europe.setChecked(True)
 
@@ -141,23 +139,6 @@ class OngletParametres(QWidget):
         layout_cartes_a_creer.addWidget(self.europe, ligne_regions_1, 0, 1, 2)
         layout_cartes_a_creer.addWidget(self.moyen_orient, ligne_regions_1, 2, 1, 2)
         layout_cartes_a_creer.addWidget(self.autres_regions, ligne_regions_1, 4, 1, 2)
-
-        layout_cartes_a_creer.addWidget(
-            creer_ligne_horizontale(lStretch=0, ligne_largeur=1, rStretch=0),
-            4,
-            0,
-            1,
-            6,
-        )
-
-        layout_cartes_a_creer.addWidget(
-            self.sortir_cartes_granu_inf,
-            5,
-            0,
-            1,
-            6,
-            alignment=Qt.AlignmentFlag.AlignCenter,
-        )
 
         widget_nb_copies_cartes = QWidget()
         radio_layout = QHBoxLayout()
@@ -385,15 +366,6 @@ class OngletParametres(QWidget):
         self.europe.setText(self.fonction_traduction("europe"))
         self.moyen_orient.setText(self.fonction_traduction("moyen_orient"))
         self.autres_regions.setText(self.fonction_traduction("autres_regions_monde"))
-        self.sortir_cartes_granu_inf.setText(
-            self.fonction_traduction("publier_cartes_faible_granularite_uniquement")
-        )
-        self.sortir_cartes_granu_inf.setToolTip(
-            self.fonction_traduction(
-                clef="description_publier_cartes_faible_granularite_uniquement",
-                largeur_max=None,
-            )
-        )
 
         # Paramètres visuels
         self.groupe_couleurs.setTitle(

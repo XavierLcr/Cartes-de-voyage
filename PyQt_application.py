@@ -437,7 +437,7 @@ class MesVoyagesApplication(QWidget):
             "afrique": self.onglet_parametres.afrique.isChecked(),
             "moyen_orient": self.onglet_parametres.moyen_orient.isChecked(),
             "autres_regions": self.onglet_parametres.autres_regions.isChecked(),
-            "sortir_cartes_granu_inf": self.onglet_parametres.sortir_cartes_granu_inf.isChecked(),
+            "sortir_cartes_granu_inf": self.onglet_param_profil.get_sortir_cartes_granu_inf(),
             "cartes_des_pays": self.onglet_parametres.carte_pays.isChecked(),
             "limite_n_cartes": {
                 self.onglet_parametres.radio_carte_1: 5,
@@ -585,6 +585,7 @@ class MesVoyagesApplication(QWidget):
                 langue=sauv.get("langue"),
                 dossier=sauv.get("dossier_stockage"),
                 ouvrir_dossier=sauv.get("ouvrir_dossier_stockage"),
+                sortir_cartes_granu_inf=sauv.get("sortir_cartes_granu_inf"),
             )
 
             # Cartes à publier
@@ -598,7 +599,6 @@ class MesVoyagesApplication(QWidget):
                 "europe": self.onglet_parametres.europe,
                 "moyen_orient": self.onglet_parametres.moyen_orient,
                 "autres_regions": self.onglet_parametres.autres_regions,
-                "sortir_cartes_granu_inf": self.onglet_parametres.sortir_cartes_granu_inf,
             }
             for nom_cle, checkbox in checkboxes.items():
                 if sauv.get(nom_cle) is not None:
@@ -724,7 +724,7 @@ class MesVoyagesApplication(QWidget):
         self.onglet_parametres.autres_regions.setChecked(False)
 
         # Autres paramètres
-        self.onglet_parametres.sortir_cartes_granu_inf.setChecked(False)
+        self.onglet_param_profil.set_sortir_cartes_granu_inf(sortir=False)
         self.onglet_parametres.utiliser_theme.setChecked(False)
 
         if set_interface:

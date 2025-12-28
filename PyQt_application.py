@@ -29,7 +29,7 @@ from _0_Utilitaires._0_2_fonctions_graphiques import renvoyer_couleur_texte
 from _4_Interface._4_1_Onglets.onglet_1 import onglet_1
 from _4_Interface._4_1_Onglets.onglet_2 import onglet_2
 from _4_Interface._4_1_Onglets.onglet_4 import onglet_4
-from _4_Interface._4_1_Onglets import onglet_3, onglet_5
+from _4_Interface._4_1_Onglets import onglet_3, onglet_info
 from _4_Interface._4_2_Style._4_2_1_style_principal import style_dynamique_application
 from _4_Interface._4_2_Style._4_2_4_pluie_emojis import VuePluieEmojis
 
@@ -195,7 +195,9 @@ class MesVoyagesApplication(QWidget):
 
         # === Cinquième onglet ===
 
-        self.onglet_description_application = onglet_5.OngletInformations(
+        # == Sixième onglet ===
+
+        self.onglet_description_application = onglet_info.OngletInformations(
             fct_traduire=self.traduire_depuis_id,
             version_logiciel=constantes.version_logiciel,
         )

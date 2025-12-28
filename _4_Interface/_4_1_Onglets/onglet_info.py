@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
 # _4_Interface/_4_1_Onglets/                                                   #
-# Onglet 5 – Informations générales (inspiré du README)                        #
+# Onglet d'informations générales (inspiré du README)                          #
 ################################################################################
 
 

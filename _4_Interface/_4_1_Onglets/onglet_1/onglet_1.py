@@ -48,7 +48,7 @@ class OngletParametres(QWidget):
 
     envoi_dossier = pyqtSignal(str)
 
-    def __init__(self, constantes, liste_individus, fct_traduction, fct_pop_up):
+    def __init__(self, constantes, fct_traduction, fct_pop_up):
 
         super().__init__()
 

@@ -106,6 +106,7 @@ class CreerCartes(QObject):
             dictionnaire_pays_unis=self.constantes.liste_pays_groupes,
             nom_indiv=self.parametres["nom"],
             direction_resultat=self.parametres["dossier_stockage"],
+            ouvrir_direction_resultat=self.parametres["ouvrir_dossier_stockage"],
             langue=self.parametres["langue"],
             granularite_visite=self.granularite,
             granularite_reste={"Pays": 0, "Région": 1}.get(

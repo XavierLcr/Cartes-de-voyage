@@ -429,6 +429,7 @@ class MesVoyagesApplication(QWidget):
             "qualite": self.onglet_parametres.curseur_qualite.value(),
             "format": self.onglet_parametres.format_cartes.currentText(),
             "dossier_stockage": self.onglet_param_profil.get_dossier(),
+            "ouvrir_dossier_stockage": self.onglet_param_profil.get_ouvrir_dossier(),
             "carte_du_monde": self.onglet_parametres.carte_monde.isChecked(),
             "europe": self.onglet_parametres.europe.isChecked(),
             "asie": self.onglet_parametres.asie.isChecked(),
@@ -581,8 +582,9 @@ class MesVoyagesApplication(QWidget):
 
             # Onglet des paramètres du profil
             self.onglet_param_profil.initialiser_param_profil(
-                langue=sauv.get("langue") or "français",
-                dossier=sauv.get("dossier_stockage", None),
+                langue=sauv.get("langue"),
+                dossier=sauv.get("dossier_stockage"),
+                ouvrir_dossier=sauv.get("ouvrir_dossier_stockage"),
             )
 
             # Cartes à publier

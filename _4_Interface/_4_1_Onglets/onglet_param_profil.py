@@ -168,15 +168,22 @@ class OngletParametresProfil(QWidget):
             self.set_dossier(dossier=dossier)
             self.set_langue()
 
-    def initialiser_param_profil(self, langue, dossier):
+    def get_ouvrir_dossier(self):
+        return self.dossier_stockage_ouverture.isChecked()
+
+    def set_ouvrir_dossier(self, ouvrir):
+        self.dossier_stockage_ouverture.setChecked(ouvrir)
+
+    def initialiser_param_profil(self, langue, dossier, ouvrir_dossier):
 
         # Langue
         self.langues_dispos.setCurrentIndex(
             self.langues_dispos.findText(
-                self.constantes.dict_langues_dispo.get(langue, "Français")
+                self.constantes.dict_langues_dispo.get(langue or "français", "Français")
             )
         )
         self.langue = self.get_langue()
 
         # Dossier
         self.set_dossier(dossier=dossier)
+        self.set_ouvrir_dossier(ouvrir=ouvrir_dossier or False)

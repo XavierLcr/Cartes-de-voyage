@@ -9,6 +9,13 @@ titre_onglet_3 : Liste des lieux visités
 titre_onglet_4 : Statistiques
 description_onglet_4 : En termes de pourcentage de la superficie visitée pour chaque pays
 
+# Gestion du profil
+nom_individu_label : Profil actuel
+nom_individu_pop_up_titre : Ajout d'un nouveau profil
+nom_individu_pop_up_texte : Nom de profil
+nom_individu_pop_up_placeholder : Saisir le nom de profil souhaité
+nom_individu_pop_up_reussite : Nouveau profil ajouté avec succès
+
 # Paramètres individuels
 titre_params_individu : Vos paramètres
 dossier_stockage_individu : Choisir le dossier de stockage des cartes
@@ -17,8 +24,6 @@ langue_individu : Langue
 supprimer_profil : Supprimer ce profil
 titre_pop_up_suppression : Suppression du profil
 contenu_pop_up_suppression : Soutaitez-vous vraiment supprimer ce profil ? Cette opération est définitive
-oui : Oui
-non : Non
 
 # Granularité des cartes
 titre_granularite : Granularité des cartes
@@ -119,4 +124,9 @@ pop_up_attention_titre : Attention !
 pop_up_aucun_lieu_coche : Aucun lieu n'a été coché. Essayez de cocher le lieu associé à votre emplacement actuel !
 pop_up_pas_de_dossier_de_stockage : Il est nécessaire de choisir un dossier de stockage des cartes
 pop_up_dossier_de_stockage_faux : Il est nécessaire de choisir un dossier de stockage des cartes valide
+
+# Mots clefs
+oui : Oui
+non : Non
+valider : Valider
 

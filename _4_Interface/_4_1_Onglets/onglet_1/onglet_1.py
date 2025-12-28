@@ -72,13 +72,6 @@ class OngletParametres(QWidget):
         # Layout horizontal pour organiser les éléments dans la boîte
         layout_params_individu = QHBoxLayout()
 
-        # Champ de texte pour le nom de l'individu
-        self.nom_individu = QComboBox(self)
-        self.nom_individu.setEditable(True)
-        self.nom_individu.setPlaceholderText(" ")
-        self.nom_individu.addItems(liste_individus)
-        layout_params_individu.addWidget(self.nom_individu, stretch=2)
-
         # Bouton pour choisir le dossier de stockage
         self.dossier_stockage = None
         self.dossier_stockage_bouton = QPushButton()

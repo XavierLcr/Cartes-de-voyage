@@ -10,10 +10,14 @@ import os, sys, warnings, copy, textwrap
 from PyQt6.QtWidgets import (
     QApplication,
     QWidget,
+    QHBoxLayout,
     QVBoxLayout,
     QMessageBox,
     QTabWidget,
     QSplashScreen,
+    QComboBox,
+    QPushButton,
+    QLineEdit,
 )
 from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtCore import QTimer, Qt
@@ -77,6 +81,38 @@ class MesVoyagesApplication(QWidget):
         # Variables globales
         self.langue = "français"
 
+        # === Profil sélectionné ===
+
+        profile_container = QWidget()
+        profile_layout = QHBoxLayout(profile_container)
+        profile_layout.setContentsMargins(8, 0, 8, 0)
+        self.nom_individu = QComboBox(self)
+        self.nom_individu.setEditable(False)
+        self.nom_individu.setPlaceholderText(" ")
+        self.nom_individu_label = _0_3_fonctions_utiles_pyqt6.creer_QLabel_centre()
+        profile_layout.addWidget(self.nom_individu_label)
+        self.nom_individu.addItems(list(sauvegarde.keys()))
+        profile_layout.addWidget(self.nom_individu)
+        self.liste_onglets.setCornerWidget(profile_container, Qt.Corner.TopRightCorner)
+        bouton_ajout = QPushButton()
+        bouton_ajout.setText("➕")
+        bouton_ajout.setStyleSheet(
+            """
+            QPushButton {
+                font-weight: bold;
+                background-color: transparent;
+                border: none;
+                font-size: 12px;
+            }
+            QPushButton:hover {
+                background-color:#D6F0EE
+            }
+        """
+        )
+        bouton_ajout.setFixedWidth(40)
+        bouton_ajout.clicked.connect(self.ajouter_profil)
+        profile_layout.addWidget(bouton_ajout)
+
         # === Premier onglet ===
 
         self.onglet_parametres = onglet_1.OngletParametres(
@@ -91,7 +127,7 @@ class MesVoyagesApplication(QWidget):
             self.set_langue_interface
         )
         # Chargement d'un individu
-        self.onglet_parametres.nom_individu.currentIndexChanged.connect(
+        self.nom_individu.currentIndexChanged.connect(
             lambda: self.initialiser_sauvegarde(sauvegarde)
         )
         # Réinitialisation
@@ -112,9 +148,7 @@ class MesVoyagesApplication(QWidget):
         self.onglet_parametres.theme_combo.currentTextChanged.connect(self.set_style)
         # Suppression d'un individu
         self.onglet_parametres.suppression_profil.clicked.connect(
-            lambda: self.supprimer_clef(
-                self.onglet_parametres.nom_individu.currentText()
-            )
+            lambda: self.supprimer_clef(self.nom_individu.currentText())
         )
         # Dossier de stockage
         self.onglet_parametres.envoi_dossier.connect(self.set_dossier)
@@ -196,6 +230,11 @@ class MesVoyagesApplication(QWidget):
 
         # Titres généraux
         self.setWindowTitle(self.traduire_depuis_id("titre_windows"))
+
+        # Profil sélectionné
+        self.nom_individu_label.setText(
+            self.traduire_depuis_id("nom_individu_label", prefixe="👤", suffixe=" :")
+        )
 
         # Onglet 1
         self.liste_onglets.setTabText(
@@ -370,7 +409,7 @@ class MesVoyagesApplication(QWidget):
         )
 
         return {
-            "nom": self.onglet_parametres.nom_individu.currentText(),
+            "nom": self.nom_individu.currentText(),
             "granularite": _0_1_fonctions_utiles_gen.obtenir_clef_par_valeur(
                 valeur=self.onglet_parametres.granularite_visite.currentText(),
                 dictionnaire=constantes.parametres_traduits["granularite"][langue],
@@ -428,18 +467,12 @@ class MesVoyagesApplication(QWidget):
 
         # Ajout à la liste déroulante
         if parametres["nom"] not in [
-            self.onglet_parametres.nom_individu.itemText(i)
-            for i in range(self.onglet_parametres.nom_individu.count())
+            self.nom_individu.itemText(i) for i in range(self.nom_individu.count())
         ]:
-            self.onglet_parametres.nom_individu.addItem(parametres["nom"])
+            self.nom_individu.addItem(parametres["nom"])
 
         # Export sous forme de YAML
-        _0_1_fonctions_utiles_gen.exporter_fichier(
-            objet=sauvegarde,
-            direction_fichier=constantes.direction_donnees_application,
-            nom_fichier="sauvegarde_utilisateurs.yaml",
-            sort_keys=True,
-        )
+        self.exporter_sauvegarde()
 
         # Gestion des autres onglets
         self.onglet_selection_destinations.set_nom_individu(nom=parametres["nom"])
@@ -447,6 +480,15 @@ class MesVoyagesApplication(QWidget):
         # Visualisation de la sauvegarde
         self.onglet_selection_destinations.set_emoji_sauvegarde()
         self.onglet_parametres.set_emoji_sauvegarde()
+
+    def exporter_sauvegarde(self):
+
+        _0_1_fonctions_utiles_gen.exporter_fichier(
+            objet=sauvegarde,
+            direction_fichier=constantes.direction_donnees_application,
+            nom_fichier="sauvegarde_utilisateurs.yaml",
+            sort_keys=True,
+        )
 
     def montrer_popup(
         self,
@@ -531,9 +573,7 @@ class MesVoyagesApplication(QWidget):
     def initialiser_sauvegarde(self, sauvegarde_complete):
 
         self.reinitialisation_parametres(nom_aussi=False, set_interface=False)
-        sauv = sauvegarde_complete.get(
-            self.onglet_parametres.nom_individu.currentText(), {}
-        )
+        sauv = sauvegarde_complete.get(self.nom_individu.currentText(), {})
 
         # Nom
         if sauv.get("nom") is not None:
@@ -585,8 +625,8 @@ class MesVoyagesApplication(QWidget):
             # Récupération des destinations
             self.set_dictionnaire_destinations(
                 dictionnaire={
-                    "region": (sauv.get("dictionnaire_regions", {})),
-                    "dep": sauv.get("dictionnaire_departements", {}),
+                    "region": sauv.get("dictionnaire_regions") or {},
+                    "dep": sauv.get("dictionnaire_departements") or {},
                 }
             )
 
@@ -656,10 +696,10 @@ class MesVoyagesApplication(QWidget):
 
         # Paramètres individuels
         if nom_aussi == True:
-            self.onglet_parametres.nom_individu.setCurrentText("")
-            self.onglet_parametres.nom_individu.blockSignals(True)
-            self.onglet_parametres.nom_individu.setCurrentIndex(-1)
-            self.onglet_parametres.nom_individu.blockSignals(False)
+            self.nom_individu.setCurrentText("")
+            self.nom_individu.blockSignals(True)
+            self.nom_individu.setCurrentIndex(-1)
+            self.nom_individu.blockSignals(False)
             self.onglet_selection_destinations.set_nom_individu(nom="")
 
         # Destinations
@@ -742,8 +782,8 @@ class MesVoyagesApplication(QWidget):
             del sauvegarde[clef]
 
             # Mise à jour de la liste déroulante
-            self.onglet_parametres.nom_individu.clear()
-            self.onglet_parametres.nom_individu.addItems(list(sauvegarde.keys()))
+            self.nom_individu.clear()
+            self.nom_individu.addItems(list(sauvegarde.keys()))
 
             # sauvegarde
             _0_1_fonctions_utiles_gen.exporter_fichier(
@@ -761,6 +801,78 @@ class MesVoyagesApplication(QWidget):
         self.onglet_selection_destinations.set_dossier(dossier=dossier)
         if onglet_parametres:
             self.onglet_parametres.set_dossier(dossier=dossier)
+
+    def ajouter_profil(self):
+
+        # création de la boîte
+        msg_box = QMessageBox(self)
+        msg_box.setMinimumWidth(300)
+        msg_box.setWindowTitle(self.traduire_depuis_id("nom_individu_pop_up_titre"))
+        msg_box.setText(
+            self.traduire_depuis_id("nom_individu_pop_up_texte", suffixe=" :")
+        )
+
+        # Ajout d'un champ de saisie
+        line_edit = QLineEdit()
+        line_edit.setPlaceholderText(
+            self.traduire_depuis_id("nom_individu_pop_up_placeholder", suffixe="...")
+        )
+        line_edit.setFixedWidth(250)
+        # layout = msg_box.layout()
+        # layout.addWidget(line_edit)  # Ajoute le champ de saisie
+
+        # # Boutons
+        # bouton_valider = msg_box.addButton("Valider", QMessageBox.ButtonRole.AcceptRole)
+        # msg_box.addButton("Annuler", QMessageBox.ButtonRole.RejectRole)
+
+        # # Ouverture du pop-up
+        # msg_box.exec()
+        widget = QWidget()
+        layout = QVBoxLayout()
+        layout.addWidget(line_edit)
+        widget.setLayout(layout)
+
+        # Ajout du widget dans le QMessageBox, sous le texte
+        msg_box.layout().addWidget(widget, 1, 0, 1, msg_box.layout().columnCount())
+
+        # Bouton "Valider"
+        bouton_valider = msg_box.addButton(
+            self.traduire_depuis_id("valider", suffixe=""),
+            QMessageBox.ButtonRole.AcceptRole,
+        )
+
+        # Affichage
+        msg_box.exec()
+
+        if msg_box.clickedButton() == bouton_valider:
+
+            # Récupération du nom
+            nouveau_profil = line_edit.text()
+
+            if nouveau_profil:
+
+                if nouveau_profil not in list(sauvegarde.keys()):
+
+                    # Ajout du nom à la liste existante
+                    parametres_actuels = self.creer_liste_parametres()
+                    parametres_actuels["nom"] = nouveau_profil
+                    self.nom_individu.addItem(nouveau_profil)
+                    sauvegarde[nouveau_profil] = parametres_actuels
+
+                    # Export sous forme de YAML
+                    self.exporter_sauvegarde()
+
+                    # Pop-up de fin
+                    self.montrer_popup(
+                        titre=self.traduire_depuis_id("nom_individu_pop_up_titre"),
+                        contenu=self.traduire_depuis_id(
+                            "nom_individu_pop_up_reussite", suffixe=" !"
+                        ),
+                        temps_max=8000,
+                        bouton_ok=True,
+                        boutons_oui_non=False,
+                        renvoyer_popup=False,
+                    )
 
     # def jouer_musique(self, fichier):
 

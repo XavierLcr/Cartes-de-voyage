@@ -18,6 +18,9 @@ from clefs_et_mots_de_passe import clef_api_gemini
 # 1 -- Fonctions ---------------------------------------------------------------
 
 
+## 1.1 -- Fonction de traductions des pays et de l'interface -------------------
+
+
 def creer_liste_pays_multilangue(
     liste_pays,
     modele_dict,
@@ -79,7 +82,8 @@ def creer_liste_pays_multilangue(
                     "N'inclus en aucun cas la prononciation. "
                     "Si tu n'es pas certain, renvoie le nom non traduit. "
                 ).text.strip("\n .'")
-            except:
+            except Exception as e:
+                print(f"Erreur : {e}")
                 pass
 
             time.sleep(
@@ -96,6 +100,9 @@ def creer_liste_pays_multilangue(
             print("")
 
     return resultat
+
+
+## 1.2 -- Fonction de traduction des paramètres --------------------------------
 
 
 def creer_liste_parametres_multilangue(
@@ -154,7 +161,8 @@ def creer_liste_parametres_multilangue(
                         "Le mot à traduire est à l'origine en français. "
                         "N'oublie pas la majuscule en début d'expression quand c'est possible."
                     ).text.strip(" .'\n")
-                except:
+                except Exception as e:
+                    print(f"Erreur : {e}")
                     pass
 
                 time.sleep(
@@ -183,6 +191,12 @@ def creer_liste_parametres_multilangue(
 
     liste_deja_existante[nom_bouton] = resultat
     return liste_deja_existante
+
+
+## 1.3 -- Fonction de traduction des langues -----------------------------------
+
+
+### Fonction générique ---------------------------------------------------------
 
 
 def creer_dictionnaire_langues(
@@ -226,7 +240,8 @@ def creer_dictionnaire_langues(
 
                 if blabla:
                     print(f"{i} : {resultat[i]}")
-            except:
+            except Exception as e:
+                print(f"Erreur : {e}")
                 continue
 
             time.sleep(
@@ -239,6 +254,28 @@ def creer_dictionnaire_langues(
             )
 
     return resultat
+
+
+### Fonction d'application -----------------------------------------------------
+
+
+def maj_langues_dispo(modele: dict):
+
+    print("Traduction des noms de langues...")
+    exporter_fichier(
+        objet=creer_dictionnaire_langues(
+            modele_dict=modele,
+            liste_deja_existante=constantes.dict_langues_dispo,
+            blabla=True,
+            liste_langues=liste_langues,
+        ),
+        direction_fichier=constantes.direction_donnees_traductions,
+        nom_fichier="noms_langues_traduction.yaml",
+        sort_keys=True,
+    )
+
+
+## 1.4 -- Fonction de vérification de l'existance de doublons de paramètres ----
 
 
 def verifier_doublons(data):
@@ -338,7 +375,7 @@ if __name__ == "__main__":
 
     for modele_utilise in [
         {
-            "modèle": "gemma-3-12b",
+            "modèle": "gemma-3-12b-it",
             "limite_appels_minute": 29,
             "limite_appels_jour": 14000,
         },
@@ -353,6 +390,8 @@ if __name__ == "__main__":
 
         # Clef API
         genai.configure(api_key=clef_api_gemini)
+        # for m in genai.list_models():
+        #     print(m.name)
 
         # Récupération du jour
         date_du_jour = time.localtime()
@@ -406,7 +445,7 @@ if __name__ == "__main__":
             nom_bouton="themes_cartes",
             modele_dict=modele_utilise,
             liste_langues=liste_langues,
-            blabla=1,
+            blabla=2,
         )
 
         # Teintes
@@ -416,7 +455,7 @@ if __name__ == "__main__":
             nom_bouton="teintes_couleurs",
             modele_dict=modele_utilise,
             liste_langues=liste_langues,
-            blabla=1,
+            blabla=2,
         )
 
         # Arrière-plans
@@ -442,19 +481,7 @@ if __name__ == "__main__":
 
         # === Traduction des noms de langues === #
 
-        print("\n\n Traduction des noms de langues : \n")
-        exporter_fichier(
-            objet=creer_dictionnaire_langues(
-                modele_dict=modele_utilise,
-                liste_deja_existante=constantes.dict_langues_dispo,
-                blabla=True,
-                liste_langues=liste_langues,
-            ),
-            direction_fichier=constantes.direction_donnees_traductions,
-            nom_fichier="noms_langues_traduction.yaml",
-            sort_keys=True,
-        )
-
+        maj_langues_dispo(modele=modele_utilise)
         time.sleep(1)
 
         # === Traduction de l'interface === #
@@ -472,7 +499,7 @@ if __name__ == "__main__":
                 ),
                 liste_langues=liste_langues,
                 version=1,
-                blabla=1,
+                blabla=2,
             ),
             direction_fichier=constantes.direction_donnees_traductions,
             nom_fichier="phrases_interface_traduction.yaml",
@@ -516,7 +543,7 @@ if __name__ == "__main__":
                     afficher_erreur="Fichiers YAML des traductions des noms de pays non trouvé.",
                 ),
                 liste_langues=liste_langues,
-                blabla=1,
+                blabla=2,
             ),
             direction_fichier=constantes.direction_donnees_traductions,
             nom_fichier="noms_pays_traduction.yaml",

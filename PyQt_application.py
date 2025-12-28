@@ -77,6 +77,7 @@ class MesVoyagesApplication(QWidget):
         )
 
         self.liste_onglets = QTabWidget()
+        self.liste_onglets.setUsesScrollButtons(True)
 
         # Variables globales
         self.langue = "français"
@@ -274,10 +275,11 @@ class MesVoyagesApplication(QWidget):
         # Onglet des statistiques
         self.liste_onglets.setTabText(
             self.liste_onglets.indexOf(self.onglet_statistiques),
-            self.traduire_depuis_id(
-                "titre_onglet_4",
-                suffixe=(" 📊"),
-            ),
+            "📊",
+        )
+        self.liste_onglets.setTabToolTip(
+            self.liste_onglets.indexOf(self.onglet_statistiques),
+            self.traduire_depuis_id("titre_onglet_4"),
         )
         self.onglet_statistiques.set_langue(nouvelle_langue=self.langue)
 

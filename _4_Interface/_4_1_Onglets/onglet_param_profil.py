@@ -97,7 +97,11 @@ class OngletParametresProfil(QWidget):
         dossier_stockage_layout.addWidget(self.dossier_stockage_bouton, stretch=2)
         # Ouverture du dossier après publication des cartes
         self.dossier_stockage_ouverture = QCheckBox()
-        dossier_stockage_layout.addWidget(self.dossier_stockage_ouverture, stretch=1)
+        dossier_stockage_layout.addWidget(
+            self.dossier_stockage_ouverture,
+            stretch=1,
+            alignment=Qt.AlignmentFlag.AlignHCenter,
+        )
         self.dossier_stockage_groupbox.setLayout(dossier_stockage_layout)
         # layout.addWidget(self.dossier_stockage_groupbox)
 
@@ -155,7 +159,7 @@ class OngletParametresProfil(QWidget):
         radio_layout.addWidget(self.radio_carte_sans_limite)
         preferences_cartes_layout.addWidget(widget_nb_copies_cartes)
 
-        layout.addSpacing(10)
+        layout.addStretch()
 
         # Suppression du profil
         self.suppression_profil = QPushButton()

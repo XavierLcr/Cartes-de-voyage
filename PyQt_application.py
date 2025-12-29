@@ -568,13 +568,14 @@ class MesVoyagesApplication(QWidget):
     def initialiser_sauvegarde(self, sauvegarde_complete):
 
         self.reinitialisation_parametres(nom_aussi=False, set_interface=False)
-        sauv = sauvegarde_complete.get(self.nom_individu.currentText(), {})
+        nom = self.nom_individu.currentText()
+        sauv = sauvegarde_complete.get(nom, {})
 
         # Nom
-        if sauv.get("nom") is not None:
+        if nom is not None:
 
-            # Nom
-            self.onglet_selection_destinations.set_nom_individu(nom=sauv.get("nom"))
+            # Onglet de sélection des destinations
+            self.onglet_selection_destinations.initialiser_onglet(nom=nom)
 
             # Onglet des paramètres du profil
             self.onglet_param_profil.initialiser_param_profil(
@@ -598,8 +599,6 @@ class MesVoyagesApplication(QWidget):
                 }
             )
 
-            self.onglet_selection_destinations.reset_yaml()
-
     def reinitialisation_parametres(
         self, nom_aussi: bool = True, set_interface: bool = True
     ):
@@ -610,7 +609,9 @@ class MesVoyagesApplication(QWidget):
             self.nom_individu.blockSignals(True)
             self.nom_individu.setCurrentIndex(-1)
             self.nom_individu.blockSignals(False)
-            self.onglet_selection_destinations.set_nom_individu(nom="")
+
+        # Onglet des destinations
+        self.onglet_selection_destinations.initialiser_onglet(nom="")
 
         # Destinations
         self.set_dictionnaire_destinations(dictionnaire={"region": {}, "dep": {}})
@@ -643,8 +644,6 @@ class MesVoyagesApplication(QWidget):
             ),
         )
         ## Changement forcé de l'index
-
-        self.onglet_selection_destinations.reset_yaml()
 
         if set_interface:
             self.set_style()

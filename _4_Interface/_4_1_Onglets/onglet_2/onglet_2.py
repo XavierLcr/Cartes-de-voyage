@@ -515,3 +515,12 @@ class OngletSelectionnerDestinations(QWidget):
         self.bouton_afficher_option_yaml.setStyleSheet(
             style_bouton_yaml(style=style, teinte=teinte, nuances=nuances)
         )
+
+    def initialiser_onglet(self, nom: str | None):
+
+        # Reset des YAMLs et masquage de la partie correspondante
+        self.reset_yaml()
+        self.groupe_chargement_yaml.hide()
+
+        # Mise à jour du nom
+        self.set_nom_individu(nom=nom or "")

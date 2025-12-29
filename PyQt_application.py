@@ -292,7 +292,6 @@ class MesVoyagesApplication(QWidget):
     def traduire_depuis_id(
         self,
         clef: str,
-        langue: str | None = None,
         prefixe: str = "",
         suffixe: str = "",
         depuis_id: bool = True,
@@ -303,7 +302,6 @@ class MesVoyagesApplication(QWidget):
 
         Args:
             clef: La clé ou l'ID de la phrase à traduire.
-            langue: La langue cible. Si None, utilise la langue courante.
             prefixe: Préfixe à ajouter avant la traduction.
             suffixe: Suffixe à ajouter après la traduction.
             depuis_id: Si True, traite `cle` comme un ID à chercher dans `constantes.phrases_interface`.

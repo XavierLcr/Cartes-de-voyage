@@ -585,29 +585,10 @@ class MesVoyagesApplication(QWidget):
                 n_limite_cartes=sauv.get("limite_n_cartes"),
             )
 
-            # Cartes à publier
-            checkboxes = {
-                # Onglet principal
-                "carte_du_monde": self.onglet_parametres.carte_monde,
-                "cartes_des_pays": self.onglet_parametres.carte_pays,
-                "asie": self.onglet_parametres.asie,
-                "amerique": self.onglet_parametres.amerique,
-                "afrique": self.onglet_parametres.afrique,
-                "europe": self.onglet_parametres.europe,
-                "moyen_orient": self.onglet_parametres.moyen_orient,
-                "autres_regions": self.onglet_parametres.autres_regions,
-            }
-            for nom_cle, checkbox in checkboxes.items():
-                if sauv.get(nom_cle) is not None:
-                    checkbox.setChecked(sauv.get(nom_cle))
-
-            # Qualité
-            if (val := sauv.get("qualite")) is not None:
-                self.onglet_parametres.curseur_qualite.setValue(val)
-
-            # Format
-            if (fmt := sauv.get("format")) is not None:
-                self.onglet_parametres.format_cartes.setCurrentText(fmt)
+            # Onglet des paramètres de cartes
+            self.onglet_parametres.initialiser_onglet(
+                **sauv,
+            )
 
             # Récupération des destinations
             self.set_dictionnaire_destinations(
@@ -615,51 +596,6 @@ class MesVoyagesApplication(QWidget):
                     "region": sauv.get("dictionnaire_regions") or {},
                     "dep": sauv.get("dictionnaire_departements") or {},
                 }
-            )
-
-            # Chargement de la granularité
-            _0_3_fonctions_utiles_pyqt6.restaurer_valeur_combo(
-                combo=self.onglet_parametres.granularite_visite,
-                dict_parent=constantes.parametres_traduits.get("granularite", {}),
-                langue=self.langue,
-                valeur=sauv.get("granularite"),
-                defaut_index=0,
-            )
-
-            # Chargement de la granularité de fond
-            _0_3_fonctions_utiles_pyqt6.restaurer_valeur_combo(
-                combo=self.onglet_parametres.granularite_fond,
-                dict_parent=constantes.parametres_traduits.get("granularite", {}),
-                langue=self.langue,
-                valeur=sauv.get("granularite_fond"),
-                defaut_index=0,
-            )
-
-            # Chargement du thème
-            _0_3_fonctions_utiles_pyqt6.restaurer_valeur_combo(
-                combo=self.onglet_parametres.theme_combo,
-                dict_parent=constantes.parametres_traduits.get("themes_cartes", {}),
-                langue=self.langue,
-                valeur=sauv.get("theme"),
-                defaut_index=0,
-            )
-
-            # Chargement de la teinte
-            _0_3_fonctions_utiles_pyqt6.restaurer_valeur_combo(
-                combo=self.onglet_parametres.color_combo,
-                dict_parent=constantes.parametres_traduits.get("teintes_couleurs", {}),
-                langue=self.langue,
-                valeur=sauv.get("couleur"),
-                defaut_index=0,
-            )
-
-            # Chargement de l'arrière plan
-            _0_3_fonctions_utiles_pyqt6.restaurer_valeur_combo(
-                combo=self.onglet_parametres.combo_couleur_fond,
-                dict_parent=constantes.parametres_traduits.get("arrière_plans", {}),
-                langue=self.langue,
-                valeur=sauv.get("couleur_fond_carte"),
-                defaut_index=0,
             )
 
             self.onglet_selection_destinations.reset_yaml()
@@ -690,31 +626,8 @@ class MesVoyagesApplication(QWidget):
         # Dossier
         self.set_dossier(dossier=None, onglet_parametres=True)
 
-        # Paramètres de publication
-        self.onglet_parametres.curseur_qualite.setValue(
-            int(
-                (
-                    constantes.parametres_application.get("qualite_min", 100)
-                    + constantes.parametres_application.get("qualite_max", 4500)
-                )
-                / 2
-            )
-        )
-        self.onglet_parametres.format_cartes.setCurrentText("png")
-        self.onglet_parametres.combo_couleur_fond.setCurrentIndex(0)
-
-        # Cartes à créer
-        self.onglet_parametres.carte_monde.setChecked(False)
-        self.onglet_parametres.carte_pays.setChecked(True)
-        self.onglet_parametres.asie.setChecked(False)
-        self.onglet_parametres.amerique.setChecked(False)
-        self.onglet_parametres.afrique.setChecked(False)
-        self.onglet_parametres.europe.setChecked(True)
-        self.onglet_parametres.moyen_orient.setChecked(False)
-        self.onglet_parametres.autres_regions.setChecked(False)
-
-        # Autres paramètres
-        self.onglet_parametres.utiliser_theme.setChecked(False)
+        # Paramètres de sauvegarde
+        self.onglet_parametres.initialiser_onglet()
 
         if set_interface:
             self.set_langue_interface()

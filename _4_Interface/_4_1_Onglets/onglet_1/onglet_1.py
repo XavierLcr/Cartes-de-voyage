@@ -31,6 +31,7 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     creer_QLabel_centre,
     creer_ligne_horizontale,
     creer_ligne_verticale,
+    restaurer_valeur_combo,
 )
 from _4_Interface._4_1_Onglets.onglet_1.onglet_1_1_creation_cartes import CreerCartes
 from _4_Interface._4_1_Onglets.onglet_1.onglet_1_2_combobox_coloree import (
@@ -212,20 +213,16 @@ class OngletParametres(QWidget):
         self.label_qualite_min = creer_QLabel_centre()
         self.label_qualite_max = creer_QLabel_centre()
         self.curseur_qualite = QSlider(Qt.Orientation.Horizontal)
-        self.curseur_qualite.setMinimum(
-            constantes.parametres_application["qualite_min"]
+        self.curseur_qualite_min = self.constantes.parametres_application.get(
+            "qualite_min", 100
         )
-        self.curseur_qualite.setMaximum(
-            constantes.parametres_application["qualite_max"]
+        self.curseur_qualite_max = self.constantes.parametres_application.get(
+            "qualite_max", 4500
         )
+        self.curseur_qualite.setMinimum(self.curseur_qualite_min)
+        self.curseur_qualite.setMaximum(self.curseur_qualite_max)
         self.curseur_qualite.setValue(
-            int(
-                (
-                    constantes.parametres_application["qualite_min"]
-                    + constantes.parametres_application["qualite_max"]
-                )
-                / 2
-            )
+            int((self.curseur_qualite_min + self.curseur_qualite_max) / 2)
         )
 
         # Choix du format d'image
@@ -521,4 +518,78 @@ class OngletParametres(QWidget):
             f"font-weight: bold;"
             f"text-align: center;"
             f"font-family: {self.constantes.dict_themes_temporaires.get('titre_police', 'Vivaldi')}, sans-serif;"
+        )
+
+    def initialiser_onglet(self, **kwargs):
+
+        # Indicatrices
+        checkboxes = {
+            # cartes à publier
+            "carte_du_monde": self.carte_monde,
+            "cartes_des_pays": self.carte_pays,
+            "asie": self.asie,
+            "amerique": self.amerique,
+            "afrique": self.afrique,
+            "europe": self.europe,
+            "moyen_orient": self.moyen_orient,
+            "autres_regions": self.autres_regions,
+            # Utilisation du thème
+            "utiliser_theme": self.utiliser_theme,
+        }
+        for nom_cle, checkbox in checkboxes.items():
+            checkbox.setChecked(
+                kwargs.get(nom_cle) or (nom_cle in ["europe", "carte_des_pays"])
+            )
+
+        # Paramètres de stockage
+        self.curseur_qualite.setValue(
+            # Valeur passée
+            kwargs.get("qualite")
+            or int((self.curseur_qualite_min + self.curseur_qualite_max) / 2)
+        )
+        self.format_cartes.setCurrentText(kwargs.get("format") or "png")
+
+        # Chargement de la granularité
+        restaurer_valeur_combo(
+            combo=self.granularite_visite,
+            dict_parent=self.constantes.parametres_traduits.get("granularite", {}),
+            langue=self.langue,
+            valeur=kwargs.get("granularite"),
+            defaut_index=0,
+        )
+
+        # Chargement de la granularité de fond
+        restaurer_valeur_combo(
+            combo=self.granularite_fond,
+            dict_parent=self.constantes.parametres_traduits.get("granularite", {}),
+            langue=self.langue,
+            valeur=kwargs.get("granularite_fond"),
+            defaut_index=0,
+        )
+
+        # Chargement du thème
+        restaurer_valeur_combo(
+            combo=self.theme_combo,
+            dict_parent=self.constantes.parametres_traduits.get("themes_cartes", {}),
+            langue=self.langue,
+            valeur=kwargs.get("theme"),
+            defaut_index=0,
+        )
+
+        # Chargement de la teinte
+        restaurer_valeur_combo(
+            combo=self.color_combo,
+            dict_parent=self.constantes.parametres_traduits.get("teintes_couleurs", {}),
+            langue=self.langue,
+            valeur=kwargs.get("couleur") or None,
+            defaut_index=0,
+        )
+
+        # Couleur de fond de cartes
+        restaurer_valeur_combo(
+            combo=self.combo_couleur_fond,
+            dict_parent=self.constantes.parametres_traduits.get("arrière_plans", {}),
+            langue=self.langue,
+            valeur=kwargs.get("couleur_fond_carte") or None,
+            defaut_index=0,
         )

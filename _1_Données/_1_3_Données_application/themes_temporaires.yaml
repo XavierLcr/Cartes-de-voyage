@@ -10,7 +10,7 @@ Nouvel an:
     - { debut: { mois: 1, jour: 1 }, fin: { mois: 1, jour: 2 } }
   config:
     titre_police: "Monotype Corsiva"
-    titre_police_coeff: 1.5
+    titre_police_coeff: 1.3
     emoji: " 🎆​​​"
     pluie_emojis: 
       - ✨

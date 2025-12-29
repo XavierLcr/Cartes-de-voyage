@@ -84,7 +84,7 @@ class OngletParametresProfil(QWidget):
         langues_layout = QHBoxLayout()
         langues_layout.addWidget(self.langues_dispos)
         self.langues_groupbox.setLayout(langues_layout)
-        layout.addWidget(self.langues_groupbox)
+        # layout.addWidget(self.langues_groupbox)
         self.langues_dispos.currentIndexChanged.connect(self.get_langue)
 
         # Dossier de stockage
@@ -99,7 +99,13 @@ class OngletParametresProfil(QWidget):
         self.dossier_stockage_ouverture = QCheckBox()
         dossier_stockage_layout.addWidget(self.dossier_stockage_ouverture, stretch=1)
         self.dossier_stockage_groupbox.setLayout(dossier_stockage_layout)
-        layout.addWidget(self.dossier_stockage_groupbox)
+        # layout.addWidget(self.dossier_stockage_groupbox)
+
+        # Ajout de la langue et du dossier au layout
+        layout_temp = QHBoxLayout()
+        layout_temp.addWidget(self.langues_groupbox)
+        layout_temp.addWidget(self.dossier_stockage_groupbox)
+        layout.addLayout(layout_temp)
 
         # Préférences à propos des publications
         self.preferences_cartes_groupbox = QGroupBox()

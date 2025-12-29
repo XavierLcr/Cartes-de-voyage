@@ -13,34 +13,22 @@ from PyQt6.QtWidgets import (
     QWidget,
     QHBoxLayout,
     QVBoxLayout,
-    QGridLayout,
-    QLabel,
     QPushButton,
     QComboBox,
     QCheckBox,
     QFileDialog,
-    QSlider,
     QGroupBox,
     QButtonGroup,
     QRadioButton,
-    QProgressBar,
-    QSpacerItem,
-    QSizePolicy,
 )
-from PyQt6.QtCore import Qt, QTimer, QThread, pyqtSignal
+from PyQt6.QtCore import Qt, pyqtSignal
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     obtenir_clef_par_valeur,
 )
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
-    reset_combo,
     creer_QLabel_centre,
     creer_ligne_horizontale,
-    creer_ligne_verticale,
-)
-from _4_Interface._4_1_Onglets.onglet_1.onglet_1_1_creation_cartes import CreerCartes
-from _4_Interface._4_1_Onglets.onglet_1.onglet_1_2_combobox_coloree import (
-    FondCarteCombo,
 )
 from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
     style_bouton_de_suppression,

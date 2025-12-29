@@ -17,8 +17,6 @@ from PyQt6.QtWidgets import (
     QCheckBox,
     QSlider,
     QGroupBox,
-    QButtonGroup,
-    QRadioButton,
     QProgressBar,
     QSpacerItem,
     QSizePolicy,

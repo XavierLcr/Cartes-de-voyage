@@ -77,7 +77,7 @@ class MesVoyagesApplication(QWidget):
         )
 
         self.liste_onglets = QTabWidget()
-        self.liste_onglets.setUsesScrollButtons(True)
+        self.liste_onglets.setUsesScrollButtons(False)
 
         # Variables globales
         self.langue = "français"
@@ -238,8 +238,9 @@ class MesVoyagesApplication(QWidget):
         self.setWindowTitle(self.traduire_depuis_id("titre_windows"))
 
         # Profil sélectionné
-        self.nom_individu_label.setText(
-            self.traduire_depuis_id("nom_individu_label", prefixe="👤", suffixe=" :")
+        self.nom_individu_label.setText("👤")
+        self.nom_individu.setPlaceholderText(
+            self.traduire_depuis_id("nom_individu_placeholder", suffixe="...")
         )
 
         # Onglet 1

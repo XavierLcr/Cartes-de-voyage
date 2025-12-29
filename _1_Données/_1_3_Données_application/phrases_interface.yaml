@@ -11,6 +11,7 @@ description_onglet_4 : En termes de pourcentage de la superficie visitée pour c
 
 # Gestion du profil
 nom_individu_label : Profil actuel
+nom_individu_placeholder : Choisir profil
 nom_individu_pop_up_titre : Ajout d'un nouveau profil
 nom_individu_pop_up_texte : Nom de profil
 nom_individu_pop_up_placeholder : Saisir le nom de profil souhaité

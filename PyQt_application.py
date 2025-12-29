@@ -89,7 +89,7 @@ class MesVoyagesApplication(QWidget):
         profile_layout.setContentsMargins(8, 0, 8, 0)
         self.nom_individu = QComboBox(self)
         self.nom_individu.setEditable(False)
-        self.nom_individu.setPlaceholderText(" ")
+        self.nom_individu.setPlaceholderText("")
         self.nom_individu_label = _0_3_fonctions_utiles_pyqt6.creer_QLabel_centre()
         profile_layout.addWidget(self.nom_individu_label)
         self.nom_individu.addItems(list(sauvegarde.keys()))
@@ -124,11 +124,11 @@ class MesVoyagesApplication(QWidget):
         self.liste_onglets.addTab(self.onglet_parametres, "Paramètres")
         # Chargement d'un individu
         self.nom_individu.currentIndexChanged.connect(
-            lambda: self.initialiser_sauvegarde(sauvegarde)
+            lambda: self.initialiser_sauvegarde(reinitialiser=False)
         )
         # Réinitialisation
         self.onglet_parametres.reinit_parametres.clicked.connect(
-            lambda: self.reinitialisation_parametres(True)
+            lambda: self.initialiser_sauvegarde(reinitialiser=True)
         )
         # Export
         self.onglet_parametres.bouton_sauvegarde.clicked.connect(
@@ -216,7 +216,7 @@ class MesVoyagesApplication(QWidget):
         self.setLayout(main_layout)
         self.liste_onglets.setCurrentIndex(0 if sauvegarde else 4)
 
-        self.reinitialisation_parametres(nom_aussi=True, set_interface=True)
+        self.initialiser_sauvegarde(reinitialiser=True)
 
         if "pluie_emojis" in constantes.dict_themes_temporaires.keys():
             self.vue_pluie = VuePluieEmojis(
@@ -563,88 +563,49 @@ class MesVoyagesApplication(QWidget):
             }
         )
 
-    def initialiser_sauvegarde(self, sauvegarde_complete):
+    def initialiser_sauvegarde(self, reinitialiser: bool):
 
-        self.reinitialisation_parametres(nom_aussi=False, set_interface=False)
-        nom = self.nom_individu.currentText()
-        sauv = sauvegarde_complete.get(nom, {})
-
-        # Nom
-        if nom is not None:
-
-            # Onglet de sélection des destinations
-            self.onglet_selection_destinations.initialiser_onglet(nom=nom)
-
-            # Onglet des paramètres du profil
-            self.onglet_param_profil.initialiser_param_profil(
-                langue=sauv.get("langue"),
-                dossier=sauv.get("dossier_stockage"),
-                ouvrir_dossier=sauv.get("ouvrir_dossier_stockage"),
-                sortir_cartes_granu_inf=sauv.get("sortir_cartes_granu_inf"),
-                n_limite_cartes=sauv.get("limite_n_cartes"),
-            )
-
-            # Onglet des paramètres de cartes
-            self.onglet_parametres.initialiser_onglet(
-                **sauv,
-            )
-
-            # Récupération des destinations
-            self.set_dictionnaire_destinations(
-                dictionnaire={
-                    "region": sauv.get("dictionnaire_regions") or {},
-                    "dep": sauv.get("dictionnaire_departements") or {},
-                }
-            )
-
-    def reinitialisation_parametres(
-        self, nom_aussi: bool = True, set_interface: bool = True
-    ):
-
-        # Paramètres individuels
-        if nom_aussi == True:
-            self.nom_individu.setCurrentText("")
+        if not reinitialiser:
+            nom = self.nom_individu.currentText()
+            sauv = sauvegarde.get(nom, {})
+        else:
+            nom = ""
+            self.nom_individu.setCurrentText(nom)
             self.nom_individu.blockSignals(True)
             self.nom_individu.setCurrentIndex(-1)
             self.nom_individu.blockSignals(False)
+            sauv = {}
 
-        # Onglet des destinations
-        self.onglet_selection_destinations.initialiser_onglet(nom="")
-
-        # Destinations
-        self.set_dictionnaire_destinations(dictionnaire={"region": {}, "dep": {}})
-
+        # Onglet des paramètres du profil
         self.onglet_param_profil.initialiser_param_profil(
-            langue=self.langue,
-            dossier=None,
-            ouvrir_dossier=False,
-            sortir_cartes_granu_inf=False,
-            n_limite_cartes=10,
+            langue=sauv.get("langue"),
+            dossier=sauv.get("dossier_stockage"),
+            ouvrir_dossier=sauv.get("ouvrir_dossier_stockage"),
+            sortir_cartes_granu_inf=sauv.get("sortir_cartes_granu_inf"),
+            n_limite_cartes=sauv.get("limite_n_cartes"),
         )
 
-        # Dossier
-        self.set_dossier(dossier=None, onglet_parametres=True)
+        self.set_langue_interface()
 
-        # Paramètres de sauvegarde
-        self.onglet_parametres.initialiser_onglet()
-
-        if set_interface:
-            self.set_langue_interface()
-
-        # Onglet 2
-        self.onglet_selection_destinations.liste_niveaux.setCurrentIndex(0)
-        self.onglet_selection_destinations.liste_des_pays.setCurrentIndex(1)
-        # self.onglet_selection_destinations.liste_des_pays.setCurrentIndex(0)
-        QTimer.singleShot(
-            0,
-            lambda: self.onglet_selection_destinations.liste_des_pays.setCurrentIndex(
-                0
-            ),
+        # Onglet des paramètres de cartes
+        self.onglet_parametres.initialiser_onglet(
+            **sauv,
         )
-        ## Changement forcé de l'index
 
-        if set_interface:
-            self.set_style()
+        # Onglet de sélection des destinations
+        self.onglet_selection_destinations.initialiser_onglet(
+            nom=nom, reinitialiser=reinitialiser
+        )
+
+        # Récupération des destinations
+        self.set_dictionnaire_destinations(
+            dictionnaire={
+                "region": sauv.get("dictionnaire_regions") or {},
+                "dep": sauv.get("dictionnaire_departements") or {},
+            }
+        )
+
+        self.set_style()
 
     def supprimer_clef(self, clef):
         global sauvegarde
@@ -682,13 +643,11 @@ class MesVoyagesApplication(QWidget):
             )
 
             # Réinitialisation des paramètres
-            self.reinitialisation_parametres(nom_aussi=True, set_interface=True)
+            self.initialiser_sauvegarde(reinitialiser=True)
 
-    def set_dossier(self, dossier, onglet_parametres=False):
+    def set_dossier(self, dossier):
         self.dossier = dossier
         self.onglet_selection_destinations.set_dossier(dossier=dossier)
-        if onglet_parametres:
-            self.onglet_param_profil.set_dossier(dossier=dossier)
 
     def ajouter_profil(self):
 

@@ -291,7 +291,9 @@ class OngletParametresProfil(QWidget):
         # Langue
         self.langues_dispos.setCurrentIndex(
             self.langues_dispos.findText(
-                self.constantes.dict_langues_dispo.get(langue or "français", "Français")
+                self.constantes.dict_langues_dispo.get(
+                    langue or self.langue, "Français"
+                )
             )
         )
         self.langue = self.get_langue()
@@ -304,4 +306,4 @@ class OngletParametresProfil(QWidget):
         self.set_sortir_cartes_granu_inf(sortir=sortir_cartes_granu_inf or False)
 
         # Limite de cartes
-        self.set_limite_de_cartes(n_limite=n_limite_cartes)
+        self.set_limite_de_cartes(n_limite=n_limite_cartes or 10)

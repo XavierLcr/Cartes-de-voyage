@@ -516,7 +516,7 @@ class OngletSelectionnerDestinations(QWidget):
             style_bouton_yaml(style=style, teinte=teinte, nuances=nuances)
         )
 
-    def initialiser_onglet(self, nom: str | None):
+    def initialiser_onglet(self, nom: str | None, reinitialiser: bool):
 
         # Reset des YAMLs et masquage de la partie correspondante
         self.reset_yaml()
@@ -524,3 +524,13 @@ class OngletSelectionnerDestinations(QWidget):
 
         # Mise à jour du nom
         self.set_nom_individu(nom=nom or "")
+
+        if reinitialiser:
+
+            # Mise à jour forcée de l'index
+            self.liste_niveaux.setCurrentIndex(0)
+            self.liste_des_pays.setCurrentIndex(1)
+            QTimer.singleShot(
+                0,
+                lambda: self.liste_des_pays.setCurrentIndex(0),
+            )

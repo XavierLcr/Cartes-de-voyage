@@ -439,11 +439,7 @@ class MesVoyagesApplication(QWidget):
             "autres_regions": self.onglet_parametres.autres_regions.isChecked(),
             "sortir_cartes_granu_inf": self.onglet_param_profil.get_sortir_cartes_granu_inf(),
             "cartes_des_pays": self.onglet_parametres.carte_pays.isChecked(),
-            "limite_n_cartes": {
-                self.onglet_parametres.radio_carte_1: 5,
-                self.onglet_parametres.radio_carte_2: 10,
-                self.onglet_parametres.radio_carte_3: 15,
-            }.get(self.onglet_parametres.groupe_radio_max_cartes.checkedButton(), None),
+            "limite_n_cartes": self.onglet_param_profil.get_limite_de_cartes(),
             "dictionnaire_regions": (
                 self.dicts_granu["region"] if self.dicts_granu["region"] != {} else None
             ),
@@ -586,6 +582,7 @@ class MesVoyagesApplication(QWidget):
                 dossier=sauv.get("dossier_stockage"),
                 ouvrir_dossier=sauv.get("ouvrir_dossier_stockage"),
                 sortir_cartes_granu_inf=sauv.get("sortir_cartes_granu_inf"),
+                n_limite_cartes=sauv.get("limite_n_cartes"),
             )
 
             # Cartes à publier
@@ -665,19 +662,6 @@ class MesVoyagesApplication(QWidget):
                 defaut_index=0,
             )
 
-            # Limite de cartes
-            if sauv.get("limite_n_cartes") is not None:
-                {
-                    5: self.onglet_parametres.radio_carte_1,
-                    10: self.onglet_parametres.radio_carte_2,
-                    15: self.onglet_parametres.radio_carte_3,
-                }.get(
-                    sauv.get("limite_n_cartes"),
-                    self.onglet_parametres.radio_carte_sans_limite,
-                ).setChecked(
-                    True
-                )
-
             self.onglet_selection_destinations.reset_yaml()
 
     def reinitialisation_parametres(
@@ -695,10 +679,16 @@ class MesVoyagesApplication(QWidget):
         # Destinations
         self.set_dictionnaire_destinations(dictionnaire={"region": {}, "dep": {}})
 
+        self.onglet_param_profil.initialiser_param_profil(
+            langue=self.langue,
+            dossier=None,
+            ouvrir_dossier=False,
+            sortir_cartes_granu_inf=False,
+            n_limite_cartes=10,
+        )
+
         # Dossier
         self.set_dossier(dossier=None, onglet_parametres=True)
-
-        self.onglet_parametres.radio_carte_2.setChecked(True)
 
         # Paramètres de publication
         self.onglet_parametres.curseur_qualite.setValue(
@@ -724,7 +714,6 @@ class MesVoyagesApplication(QWidget):
         self.onglet_parametres.autres_regions.setChecked(False)
 
         # Autres paramètres
-        self.onglet_param_profil.set_sortir_cartes_granu_inf(sortir=False)
         self.onglet_parametres.utiliser_theme.setChecked(False)
 
         if set_interface:

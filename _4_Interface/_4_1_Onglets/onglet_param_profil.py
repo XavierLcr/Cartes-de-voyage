@@ -104,10 +104,52 @@ class OngletParametresProfil(QWidget):
         # Préférences à propos des publications
         self.preferences_cartes_groupbox = QGroupBox()
         preferences_cartes_layout = QVBoxLayout()
-        self.sortir_cartes_granu_inf = QCheckBox()
-        preferences_cartes_layout.addWidget(self.sortir_cartes_granu_inf)
         self.preferences_cartes_groupbox.setLayout(preferences_cartes_layout)
         layout.addWidget(self.preferences_cartes_groupbox)
+
+        # Cartes à faible granularité
+        self.sortir_cartes_granu_inf = QCheckBox()
+        preferences_cartes_layout.addWidget(self.sortir_cartes_granu_inf)
+
+        # Ligne de séparation
+        preferences_cartes_layout.addWidget(creer_ligne_horizontale())
+
+        # Nombre limite de cartes
+        widget_nb_copies_cartes = QWidget()
+        radio_layout = QHBoxLayout()
+        # radio_layout.setAlignment(Qt.AlignmentFlag.AlignHCenter)
+        radio_layout.setContentsMargins(0, 0, 0, 0)
+        radio_layout.setSpacing(12)
+        widget_nb_copies_cartes.setLayout(radio_layout)
+
+        # Titre (centré verticalement)
+        self.label_nb_copies_cartes = creer_QLabel_centre()
+
+        # Création des boutons radio avec noms clairs
+        self.radio_carte_1 = QRadioButton()
+        self.radio_carte_2 = QRadioButton()
+        self.radio_carte_3 = QRadioButton()
+        self.radio_carte_sans_limite = QRadioButton()
+
+        # Option par défaut
+        self.radio_carte_2.setChecked(True)
+
+        # Groupe exclusif
+        self.groupe_radio_max_cartes = QButtonGroup(self)
+        self.groupe_radio_max_cartes.addButton(self.radio_carte_1, 1)
+        self.groupe_radio_max_cartes.addButton(self.radio_carte_2, 2)
+        self.groupe_radio_max_cartes.addButton(self.radio_carte_3, 3)
+        self.groupe_radio_max_cartes.addButton(self.radio_carte_sans_limite, -1)
+
+        # Ajout au layout horizontal
+        radio_layout.addWidget(self.label_nb_copies_cartes)
+        radio_layout.addWidget(self.radio_carte_1)
+        radio_layout.addWidget(self.radio_carte_2)
+        radio_layout.addWidget(self.radio_carte_3)
+        radio_layout.addWidget(self.radio_carte_sans_limite)
+        preferences_cartes_layout.addWidget(widget_nb_copies_cartes)
+
+        layout.addSpacing(10)
 
         # Suppression du profil
         self.suppression_profil = QPushButton()
@@ -172,6 +214,22 @@ class OngletParametresProfil(QWidget):
             )
         )
 
+        # Nombre limite de cartes
+        self.label_nb_copies_cartes.setText(
+            self.fonction_traduction("nombre_exemplaires_cartes", suffixe=" : ")
+        )
+        self.label_nb_copies_cartes.setToolTip(
+            self.fonction_traduction(
+                "description_nombre_exemplaires_cartes", suffixe="."
+            )
+        )
+        self.radio_carte_1.setText(self.fonction_traduction("cinq_cartes"))
+        self.radio_carte_2.setText(self.fonction_traduction("dix_cartes"))
+        self.radio_carte_3.setText(self.fonction_traduction("quinze_cartes"))
+        self.radio_carte_sans_limite.setText(
+            self.fonction_traduction("pas_de_limite_de_cartes")
+        )
+
         # Bouton de suppression
         self.suppression_profil.setText(self.fonction_traduction("supprimer_profil"))
 
@@ -204,8 +262,27 @@ class OngletParametresProfil(QWidget):
     def set_sortir_cartes_granu_inf(self, sortir):
         self.sortir_cartes_granu_inf.setChecked(sortir)
 
+    def get_limite_de_cartes(self):
+
+        return {
+            self.radio_carte_1: 5,
+            self.radio_carte_2: 10,
+            self.radio_carte_3: 15,
+        }.get(self.groupe_radio_max_cartes.checkedButton(), None)
+
+    def set_limite_de_cartes(self, n_limite: int | None):
+
+        {
+            5: self.radio_carte_1,
+            10: self.radio_carte_2,
+            15: self.radio_carte_3,
+        }.get(
+            n_limite,
+            self.radio_carte_sans_limite,
+        ).setChecked(True)
+
     def initialiser_param_profil(
-        self, langue, dossier, ouvrir_dossier, sortir_cartes_granu_inf
+        self, langue, dossier, ouvrir_dossier, sortir_cartes_granu_inf, n_limite_cartes
     ):
 
         # Langue
@@ -222,3 +299,6 @@ class OngletParametresProfil(QWidget):
 
         # Sortir les cartes à une granularité inférieure
         self.set_sortir_cartes_granu_inf(sortir=sortir_cartes_granu_inf or False)
+
+        # Limite de cartes
+        self.set_limite_de_cartes(n_limite=n_limite_cartes)

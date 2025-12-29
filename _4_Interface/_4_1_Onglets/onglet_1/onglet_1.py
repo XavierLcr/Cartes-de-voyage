@@ -15,7 +15,6 @@ from PyQt6.QtWidgets import (
     QPushButton,
     QComboBox,
     QCheckBox,
-    QFileDialog,
     QSlider,
     QGroupBox,
     QButtonGroup,
@@ -24,11 +23,9 @@ from PyQt6.QtWidgets import (
     QSpacerItem,
     QSizePolicy,
 )
-from PyQt6.QtCore import Qt, QTimer, QThread, pyqtSignal
+from PyQt6.QtCore import Qt, QTimer, QThread
 
-from _0_Utilitaires._0_1_fonctions_utiles_gen import (
-    obtenir_clef_par_valeur,
-)
+
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     reset_combo,
     creer_QLabel_centre,
@@ -139,39 +136,6 @@ class OngletParametres(QWidget):
         layout_cartes_a_creer.addWidget(self.europe, ligne_regions_1, 0, 1, 2)
         layout_cartes_a_creer.addWidget(self.moyen_orient, ligne_regions_1, 2, 1, 2)
         layout_cartes_a_creer.addWidget(self.autres_regions, ligne_regions_1, 4, 1, 2)
-
-        widget_nb_copies_cartes = QWidget()
-        radio_layout = QHBoxLayout()
-        radio_layout.setAlignment(Qt.AlignmentFlag.AlignHCenter)
-        radio_layout.setContentsMargins(0, 0, 0, 0)
-        radio_layout.setSpacing(12)
-        widget_nb_copies_cartes.setLayout(radio_layout)
-
-        # Titre (centré verticalement)
-        self.label_nb_copies_cartes = creer_QLabel_centre()
-
-        # Création des boutons radio avec noms clairs
-        self.radio_carte_1 = QRadioButton()
-        self.radio_carte_2 = QRadioButton()
-        self.radio_carte_3 = QRadioButton()
-        self.radio_carte_sans_limite = QRadioButton()
-
-        # Option par défaut
-        self.radio_carte_2.setChecked(True)
-
-        # Groupe exclusif
-        self.groupe_radio_max_cartes = QButtonGroup(self)
-        self.groupe_radio_max_cartes.addButton(self.radio_carte_1, 1)
-        self.groupe_radio_max_cartes.addButton(self.radio_carte_2, 2)
-        self.groupe_radio_max_cartes.addButton(self.radio_carte_3, 3)
-        self.groupe_radio_max_cartes.addButton(self.radio_carte_sans_limite, -1)
-
-        # Ajout au layout horizontal
-        radio_layout.addWidget(self.label_nb_copies_cartes)
-        radio_layout.addWidget(self.radio_carte_1)
-        radio_layout.addWidget(self.radio_carte_2)
-        radio_layout.addWidget(self.radio_carte_3)
-        radio_layout.addWidget(self.radio_carte_sans_limite)
 
         # Ajout du layout au QGroupBox puis ajout au layout principal
         self.groupe_cartes_a_creer.setLayout(layout_cartes_a_creer)
@@ -286,7 +250,6 @@ class OngletParametres(QWidget):
 
         # Ajouter le layout horizontal au layout principal
         layout_params_publication.addLayout(layout_format_qualite)
-        layout_params_publication.addWidget(widget_nb_copies_cartes)
         # Ajouter le layout principal à la group box
         self.groupe_params_publication.setLayout(layout_params_publication)
 
@@ -402,20 +365,6 @@ class OngletParametres(QWidget):
         )
         self.label_qualite_max.setText(self.fonction_traduction("qualite_elevee"))
         self.label_qualite_min.setText(self.fonction_traduction("qualite_faible"))
-        self.label_nb_copies_cartes.setText(
-            self.fonction_traduction("nombre_exemplaires_cartes", suffixe=" : ")
-        )
-        self.label_nb_copies_cartes.setToolTip(
-            self.fonction_traduction(
-                "description_nombre_exemplaires_cartes", suffixe="."
-            )
-        )
-        self.radio_carte_1.setText(self.fonction_traduction("cinq_cartes"))
-        self.radio_carte_2.setText(self.fonction_traduction("dix_cartes"))
-        self.radio_carte_3.setText(self.fonction_traduction("quinze_cartes"))
-        self.radio_carte_sans_limite.setText(
-            self.fonction_traduction("pas_de_limite_de_cartes")
-        )
 
         # Boutons en bas de l'onglet 1
         self.reinit_parametres.setText(

@@ -153,7 +153,7 @@ class MesVoyagesApplication(QWidget):
             fct_pop_up=self.montrer_popup,
         )
         self.liste_onglets.addTab(
-            self.onglet_selection_destinations, "Création de la liste des pays visités"
+            self.onglet_selection_destinations, "Sélection des pays visités"
         )
         self.onglet_selection_destinations.dict_modif.connect(
             self.set_dictionnaire_destinations
@@ -250,7 +250,7 @@ class MesVoyagesApplication(QWidget):
                 suffixe=(" 🎨"),
             ),
         )
-        self.onglet_parametres.set_langue()
+        self.onglet_parametres.set_langue(langue=self.langue)
 
         # Onglet 2
         self.liste_onglets.setTabText(

@@ -292,7 +292,10 @@ class OngletParametres(QWidget):
         layout.addLayout(layout_valid_reinit, stretch=1)
         self.setLayout(layout)
 
-    def set_langue(self):
+    def set_langue(self, langue: str | None):
+
+        # Récupération de la langue
+        self.langue = langue
 
         # Titre
         self.titre.setText(
@@ -302,10 +305,7 @@ class OngletParametres(QWidget):
             )
         )
 
-        # Récupération de la langue
-        langue_actuelle = self.langue
-
-        if langue_actuelle is None:
+        if self.langue is None:
             return
 
         # Granularité des cartes
@@ -351,7 +351,7 @@ class OngletParametres(QWidget):
         self.couleur_fond_label.setToolTip(
             self.fonction_traduction(clef="cartes_couleurs_fond_tool_tip", suffixe=".")
         )
-        self.combo_couleur_fond.set_langue(langue=langue_actuelle, taille=20)
+        self.combo_couleur_fond.set_langue(langue=self.langue, taille=20)
 
         # Paramètres de format et de qualité
         self.groupe_params_publication.setTitle(
@@ -388,9 +388,10 @@ class OngletParametres(QWidget):
 
         # Mise à jour des listes déroulantes
         liste_granularite = [
-            self.constantes.parametres_traduits["granularite"][langue_actuelle][k]
+            self.constantes.parametres_traduits["granularite"][self.langue][k]
             for k in ["Pays", "Région", "Département", "Amusant"]
         ]
+
         reset_combo(combo=self.granularite_visite, items=liste_granularite)
         reset_combo(combo=self.granularite_fond, items=liste_granularite[:-1])
 
@@ -399,7 +400,7 @@ class OngletParametres(QWidget):
             combo=self.color_combo,
             items=sorted(
                 self.constantes.parametres_traduits.get("teintes_couleurs", {})
-                .get(langue_actuelle, {})
+                .get(self.langue, {})
                 .values()
             ),
         )
@@ -409,7 +410,7 @@ class OngletParametres(QWidget):
             self.theme_combo,
             sorted(
                 self.constantes.parametres_traduits.get("themes_cartes", {})
-                .get(langue_actuelle, {})
+                .get(self.langue, {})
                 .values()
             ),
         )

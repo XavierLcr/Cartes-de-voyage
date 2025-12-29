@@ -183,12 +183,6 @@ class OngletParametresProfil(QWidget):
 
     def set_langue(self):
 
-        # Récupération de la langue
-        self.langue = obtenir_clef_par_valeur(
-            dictionnaire=self.constantes.dict_langues_dispo,
-            valeur=self.langues_dispos.currentText(),
-        )
-
         # Langue
         self.langues_groupbox.setTitle(self.fonction_traduction("langue_individu"))
 
@@ -258,7 +252,6 @@ class OngletParametresProfil(QWidget):
         )
         if dossier:
             self.set_dossier(dossier=dossier)
-            self.set_langue()
 
     def get_ouvrir_dossier(self):
         return self.dossier_stockage_ouverture.isChecked()

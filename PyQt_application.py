@@ -196,6 +196,11 @@ class MesVoyagesApplication(QWidget):
         # Dossier de stockage
         self.onglet_param_profil.signal_dossier.connect(self.set_dossier)
 
+        # Sauvegarde d'un individu
+        self.onglet_param_profil.bouton_sauvegarde.clicked.connect(
+            self.exporter_liste_parametres
+        )
+
         # Suppression d'un individu
         self.onglet_param_profil.suppression_profil.clicked.connect(
             lambda: self.supprimer_clef(self.nom_individu.currentText())
@@ -470,10 +475,6 @@ class MesVoyagesApplication(QWidget):
 
         # Gestion des autres onglets
         self.onglet_selection_destinations.set_nom_individu(nom=parametres["nom"])
-
-        # Visualisation de la sauvegarde
-        self.onglet_selection_destinations.set_emoji_sauvegarde()
-        self.onglet_parametres.set_emoji_sauvegarde()
 
     def exporter_sauvegarde(self):
 

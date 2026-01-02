@@ -31,8 +31,7 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     aplanir_dictionnaire,
     tronquer_dict,
 )
-from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import reset_combo
-
+from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import reset_combo, set_emoji_sauvegarde
 from _4_Interface._4_2_Style._4_2_2_styles_complementaires import style_bouton_yaml
 
 
@@ -73,8 +72,11 @@ class OngletSelectionnerDestinations(QWidget):
         self.liste_endroits.setGridSize(QSize(220, 22))
         self.telecharger_lieux_visites = QPushButton()
         self.telecharger_lieux_visites.clicked.connect(self.exporter_yamls_visites)
-        self.bouton_sauvegarde2 = QPushButton()
-        self.bouton_sauvegarde2.clicked.connect(fct_sauvegarde)
+        self.bouton_sauvegarde = QPushButton()
+        self.bouton_sauvegarde.clicked.connect(fct_sauvegarde)
+        self.bouton_sauvegarde.clicked.connect(
+            lambda: set_emoji_sauvegarde(self.bouton_sauvegarde, 3000)
+        )
 
         # Remplir les déroulés
         self.liste_des_pays.addItems(self.constantes.hierarchie_par_pays.keys())
@@ -86,7 +88,7 @@ class OngletSelectionnerDestinations(QWidget):
         layout_selection_params.addWidget(self.liste_des_pays)
         layout_selection_params.addWidget(self.liste_niveaux)
         layout_selection_params.addWidget(self.telecharger_lieux_visites)
-        layout_selection_params.addWidget(self.bouton_sauvegarde2)
+        layout_selection_params.addWidget(self.bouton_sauvegarde)
         layout_selection_params.setStretch(
             0, 3
         )  # Le premier widget prend plus de place
@@ -280,10 +282,6 @@ class OngletSelectionnerDestinations(QWidget):
     def set_dict_granu(self, dictionnaire: dict):
         self.dicts_granu = dictionnaire
 
-    def set_emoji_sauvegarde(self):
-        self.bouton_sauvegarde2.setText("💾✅")
-        QTimer.singleShot(3000, lambda: self.bouton_sauvegarde2.setText("💾"))
-
     def set_langue(self, langue):
 
         # Mise à jour de la langue
@@ -321,8 +319,8 @@ class OngletSelectionnerDestinations(QWidget):
         self.telecharger_lieux_visites.setToolTip(
             self.fonction_traduire("telecharger_lieux_visites", suffixe=".")
         )
-        self.bouton_sauvegarde2.setText("💾")
-        self.bouton_sauvegarde2.setToolTip(
+        self.bouton_sauvegarde.setText("💾")
+        self.bouton_sauvegarde.setToolTip(
             self.fonction_traduire("sauvegarder_profil", suffixe=".")
         )
         self.liste_des_pays.setToolTip(

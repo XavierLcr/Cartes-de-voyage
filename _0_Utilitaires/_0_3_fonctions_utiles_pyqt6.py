@@ -5,8 +5,8 @@
 ################################################################################
 
 
-from PyQt6.QtWidgets import QHBoxLayout, QFrame, QLabel, QWidget
-from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QHBoxLayout, QFrame, QLabel, QWidget, QPushButton
+from PyQt6.QtCore import Qt, QTimer
 
 
 # 1 -- Fonctions sur les combo -------------------------------------------------
@@ -138,3 +138,15 @@ def vider_layout(layout):
         child = layout.takeAt(0)
         if child.widget():
             child.widget().deleteLater()
+
+
+# 5 -- Fonction sur les QPushButton --------------------------------------------
+
+
+## 5.1 -- Fonction de validation visuelle de la sauvegarde ---------------------
+
+
+def set_emoji_sauvegarde(widget: QPushButton, temps_ms: int):
+
+    widget.setText("💾✅")
+    QTimer.singleShot(temps_ms, lambda: widget.setText("💾"))

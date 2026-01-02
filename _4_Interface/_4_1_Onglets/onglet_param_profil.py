@@ -29,6 +29,7 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     creer_QLabel_centre,
     creer_ligne_horizontale,
+    set_emoji_sauvegarde,
 )
 from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
     style_bouton_de_suppression,
@@ -147,6 +148,13 @@ class OngletParametresProfil(QWidget):
         radio_layout.addWidget(self.radio_carte_sans_limite)
         preferences_cartes_layout.addWidget(widget_nb_copies_cartes)
 
+        # Bouton de sauvegarde
+        self.bouton_sauvegarde = QPushButton()
+        self.bouton_sauvegarde.clicked.connect(
+            lambda: set_emoji_sauvegarde(self.bouton_sauvegarde, 3000)
+        )
+        layout.addWidget(self.bouton_sauvegarde)
+
         layout.addStretch()
 
         # Suppression du profil
@@ -220,6 +228,12 @@ class OngletParametresProfil(QWidget):
         self.radio_carte_3.setText(self.fonction_traduction("quinze_cartes"))
         self.radio_carte_sans_limite.setText(
             self.fonction_traduction("pas_de_limite_de_cartes")
+        )
+
+        # Bouton de sauvegarde
+        self.bouton_sauvegarde.setText("💾")
+        self.bouton_sauvegarde.setToolTip(
+            self.fonction_traduction("sauvegarder_profil", suffixe=".")
         )
 
         # Bouton de suppression

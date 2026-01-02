@@ -30,6 +30,7 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     creer_ligne_horizontale,
     creer_ligne_verticale,
     restaurer_valeur_combo,
+    set_emoji_sauvegarde,
 )
 from _4_Interface._4_1_Onglets.onglet_1.onglet_1_1_creation_cartes import CreerCartes
 from _4_Interface._4_1_Onglets.onglet_1.onglet_1_2_combobox_coloree import (
@@ -263,6 +264,9 @@ class OngletParametres(QWidget):
 
         # Bouton de sauvegarde
         self.bouton_sauvegarde = QPushButton()
+        self.bouton_sauvegarde.clicked.connect(
+            lambda: set_emoji_sauvegarde(self.bouton_sauvegarde, 3000)
+        )
 
         # Bouton de réinitialisation
         self.reinit_parametres = QPushButton()
@@ -445,10 +449,6 @@ class OngletParametres(QWidget):
             temps_max=5000 if debut else None,
             titre=self.fonction_traduction(clef="titre_pop_up_publication_cartes"),
         )
-
-    def set_emoji_sauvegarde(self):
-        self.bouton_sauvegarde.setText("💾✅")
-        QTimer.singleShot(3000, lambda: self.bouton_sauvegarde.setText("💾"))
 
     def fonction_principale(self, settings):
 

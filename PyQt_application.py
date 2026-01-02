@@ -667,15 +667,8 @@ class MesVoyagesApplication(QWidget):
             self.traduire_depuis_id("nom_individu_pop_up_placeholder", suffixe="...")
         )
         line_edit.setFixedWidth(250)
-        # layout = msg_box.layout()
-        # layout.addWidget(line_edit)  # Ajoute le champ de saisie
 
-        # # Boutons
-        # bouton_valider = msg_box.addButton("Valider", QMessageBox.ButtonRole.AcceptRole)
-        # msg_box.addButton("Annuler", QMessageBox.ButtonRole.RejectRole)
-
-        # # Ouverture du pop-up
-        # msg_box.exec()
+        # Ouverture du pop-up
         widget = QWidget()
         layout = QVBoxLayout()
         layout.addWidget(line_edit)
@@ -703,12 +696,12 @@ class MesVoyagesApplication(QWidget):
                 if nouveau_profil not in list(sauvegarde.keys()):
 
                     # Ajout du nom à la liste existante
-                    parametres_actuels = self.creer_liste_parametres()
-                    parametres_actuels["nom"] = nouveau_profil
                     self.nom_individu.addItem(nouveau_profil)
-                    sauvegarde[nouveau_profil] = parametres_actuels
 
                     # Export sous forme de YAML
+                    parametres_actuels = self.creer_liste_parametres()
+                    parametres_actuels["nom"] = nouveau_profil
+                    sauvegarde[nouveau_profil] = parametres_actuels
                     self.exporter_sauvegarde()
 
                     # Pop-up de fin
@@ -722,6 +715,10 @@ class MesVoyagesApplication(QWidget):
                         boutons_oui_non=False,
                         renvoyer_popup=False,
                     )
+
+                    # Utilisation du profil en question
+                    self.nom_individu.setCurrentText(nouveau_profil)
+                    self.initialiser_sauvegarde(reinitialiser=False)
 
     # def jouer_musique(self, fichier):
 

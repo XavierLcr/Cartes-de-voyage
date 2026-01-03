@@ -31,6 +31,9 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     creer_ligne_horizontale,
     set_emoji_sauvegarde,
 )
+from _4_Interface._4_1_Onglets.onglet_param_profil.onglet_param_profil_switch import (
+    BoutonSwitch,
+)
 from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
     style_bouton_de_suppression,
 )
@@ -44,6 +47,7 @@ class OngletParametresProfil(QWidget):
     # Signaux
     signal_dossier = pyqtSignal(str)
     signal_langue = pyqtSignal(str)
+    signal_theme_application = pyqtSignal(bool)
     signal_suppression_profil = pyqtSignal(str)
 
     def __init__(self, constantes, fct_traduction):
@@ -55,6 +59,7 @@ class OngletParametresProfil(QWidget):
         self.fonction_traduction = fct_traduction
         self.langue = "français"
         self.dossier_stockage = None
+        self.theme_application = True
 
         # Création du layout principal
         layout = QVBoxLayout()
@@ -94,10 +99,21 @@ class OngletParametresProfil(QWidget):
         self.dossier_stockage_groupbox.setLayout(dossier_stockage_layout)
         # layout.addWidget(self.dossier_stockage_groupbox)
 
+        # Thème de l'application
+        self.theme_application_groupbox = QGroupBox()
+        theme_application_layout = QHBoxLayout()
+        self.theme_application_bouton = BoutonSwitch()
+        theme_application_layout.addWidget(self.theme_application_bouton)
+        self.theme_application_groupbox.setLayout(theme_application_layout)
+        self.theme_application_bouton.stateChanged.connect(self.set_theme_application)
+        self.signal_theme_application.emit(self.theme_application)
+        self.theme_application_bouton.set_position(pos=1)
+
         # Ajout de la langue et du dossier au layout
         layout_temp = QHBoxLayout()
         layout_temp.addWidget(self.langues_groupbox)
         layout_temp.addWidget(self.dossier_stockage_groupbox)
+        layout_temp.addWidget(self.theme_application_groupbox)
         layout.addLayout(layout_temp)
 
         # Préférences à propos des publications
@@ -198,6 +214,11 @@ class OngletParametresProfil(QWidget):
             self.fonction_traduction("dossier_stockage_ouverture_description")
         )
 
+        # Thème de l'application
+        self.theme_application_groupbox.setTitle(
+            self.fonction_traduction("theme_application")
+        )
+
         # Préférences de cartes
         self.preferences_cartes_groupbox.setTitle(
             self.fonction_traduction("preferences_cartes_groupbox")
@@ -261,6 +282,13 @@ class OngletParametresProfil(QWidget):
     def set_ouvrir_dossier(self, ouvrir):
         self.dossier_stockage_ouverture.setChecked(ouvrir)
 
+    def get_theme_application(self):
+        return self.theme_application
+
+    def set_theme_application(self, theme: bool):
+        self.theme_application = theme
+        self.signal_theme_application.emit(self.theme_application)
+
     def get_sortir_cartes_granu_inf(self):
         return self.sortir_cartes_granu_inf.isChecked()
 
@@ -287,7 +315,13 @@ class OngletParametresProfil(QWidget):
         ).setChecked(True)
 
     def initialiser_param_profil(
-        self, langue, dossier, ouvrir_dossier, sortir_cartes_granu_inf, n_limite_cartes
+        self,
+        langue,
+        dossier,
+        ouvrir_dossier,
+        sortir_cartes_granu_inf,
+        n_limite_cartes,
+        theme_application,
     ):
 
         # Langue
@@ -303,6 +337,9 @@ class OngletParametresProfil(QWidget):
         # Dossier
         self.set_dossier(dossier=dossier)
         self.set_ouvrir_dossier(ouvrir=ouvrir_dossier or False)
+
+        # Thème de l'application
+        self.set_theme_application(theme=theme_application or True)
 
         # Sortir les cartes à une granularité inférieure
         self.set_sortir_cartes_granu_inf(sortir=sortir_cartes_granu_inf or False)

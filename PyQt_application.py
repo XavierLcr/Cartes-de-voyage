@@ -82,6 +82,7 @@ class MesVoyagesApplication(QWidget):
 
         # Variables globales
         self.langue = "français"
+        self.theme_application = True
 
         # === Profil sélectionné ===
 
@@ -292,6 +293,7 @@ class MesVoyagesApplication(QWidget):
 
         # Onglet des paramètres du profil
         self.onglet_param_profil.set_langue()
+        self.onglet_param_profil.signal_theme_application.connect(self.set_style)
 
         # Onglet informationnel
         self.onglet_description_application.set_langue()
@@ -340,7 +342,10 @@ class MesVoyagesApplication(QWidget):
             else traduction
         )
 
-    def set_style(self):
+    def set_style(self, theme_application: bool | None = None):
+
+        if theme_application is not None:
+            self.theme_application = theme_application
 
         try:
 
@@ -375,7 +380,7 @@ class MesVoyagesApplication(QWidget):
         style_temp = (
             0
             if self.onglet_parametres.utiliser_theme.isChecked()
-            else int(constantes.parametres_application["interface_foncee"] + 1)
+            else 1 if self.theme_application else 2
         )
 
         # Cas général
@@ -586,6 +591,7 @@ class MesVoyagesApplication(QWidget):
             ouvrir_dossier=sauv.get("ouvrir_dossier_stockage"),
             sortir_cartes_granu_inf=sauv.get("sortir_cartes_granu_inf"),
             n_limite_cartes=sauv.get("limite_n_cartes"),
+            theme_application=sauv.get("theme_application"),
         )
 
         self.set_langue_interface()

@@ -24,6 +24,7 @@ dossier_stockage_pop_up : Sélectionner un dossier
 dossier_stockage_ouverture : Ouvrir le dossier
 dossier_stockage_ouverture_description : Ouvrir le dossier sélectionné après la publication de l'ensemble des cartes
 langue_individu : Langue
+theme_application : Thème de l'application
 preferences_cartes_groupbox : Préférences – Publication des cartes
 
 supprimer_profil : Supprimer ce profil

@@ -5,7 +5,7 @@
 ################################################################################
 
 
-import math, copy
+import math, copy, textwrap
 from PyQt6.QtCore import QPointF
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtGui import QPainter, QPen, QColor, QBrush, QFont
@@ -26,7 +26,7 @@ def somme_filee(lignes, a, b):
     return total
 
 
-## 1.2 -- Fonction de suppression des pays présents dans plusieurs continents --
+## 1.2 -- Fonction de suppression des pays présents sur plusieurs continents ---
 
 
 def valeurs_dans_plusieurs_listes(dictionnaire):
@@ -289,12 +289,13 @@ class HemicycleWidget(QWidget):
 
         painter.setPen(QColor(self.couleur_texte))
         font = QFont()
-        font.setPointSize(int(8 + self.level_distance / 10))  # Taille en points
+        taille_police = int(8 + self.level_distance / 10)
+        font.setPointSize(taille_police)  # Taille en points
 
         painter.setFont(font)
         font_metrics = painter.fontMetrics()
 
-        rayon_texte = rayon_texte + 10 + self.diametre_point / 1.5
+        rayon_texte = int(rayon_texte + 9 + self.diametre_point / 1.5)
         for continent, points in continent_points.items():
             if not points:
                 continue

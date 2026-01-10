@@ -440,6 +440,7 @@ class MesVoyagesApplication(QWidget):
             "format": self.onglet_parametres.format_cartes.currentText(),
             "dossier_stockage": self.onglet_param_profil.get_dossier(),
             "ouvrir_dossier_stockage": self.onglet_param_profil.get_ouvrir_dossier(),
+            "theme_application": self.onglet_param_profil.get_theme_application(),
             "carte_du_monde": self.onglet_parametres.carte_monde.isChecked(),
             "europe": self.onglet_parametres.europe.isChecked(),
             "asie": self.onglet_parametres.asie.isChecked(),

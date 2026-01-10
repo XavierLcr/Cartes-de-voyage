@@ -18,55 +18,79 @@ class BoutonSwitch(QWidget):
     def __init__(self):
         super().__init__()
         self.setMinimumSize(QSize(120, 60))
-        self._position = 1  # 0 = gauche (nuit), 1 = droite (jour)
-        self.animation = QPropertyAnimation(self, b"position")
-        self.animation.setEasingCurve(QEasingCurve.Type.InOutQuad)
-        self.animation.setDuration(300)  # Durée de l'animation en ms
-        self.clicked = True
 
-    def get_position(self):
-        return self._position
+        self._checked = True  # ✅ état logique UNIQUE
+        self._anim_pos = 1.0  # détail graphique interne
 
-    def set_position(self, pos):
-        self._position = pos
-        self.update()  # Redessine le widget
+        self._animation = QPropertyAnimation(self, b"animPos")
+        self._animation.setDuration(300)
+        self._animation.setEasingCurve(QEasingCurve.Type.InOutQuad)
 
-    position = pyqtProperty(float, fget=get_position, fset=set_position)
+    # ========= API PUBLIQUE =========
+
+    def set_position(self, checked: bool, animated: bool = True):
+        if self._checked == checked:
+            return
+
+        self._checked = checked
+        target = 1.0 if checked else 0.0
+
+        if animated:
+            self._animation.stop()
+            self._animation.setStartValue(self._anim_pos)
+            self._animation.setEndValue(target)
+            self._animation.start()
+        else:
+            self.animPos = target
+
+        self.stateChanged.emit(checked)
+
+    def get_position(self) -> bool:
+        return self._checked
+
+    # ========= PROPRIÉTÉ ANIMÉE =========
+
+    def get_anim_pos(self):
+        return self._anim_pos
+
+    def set_anim_pos(self, value):
+        self._anim_pos = value
+        self.update()  # ✅ repaint garanti
+
+    animPos = pyqtProperty(float, fget=get_anim_pos, fset=set_anim_pos)
+
+    # ========= EVENTS =========
+
+    def mousePressEvent(self, event):
+        self.set_position(checked=not self._checked)
+
+    # ========= PAINT =========
 
     def paintEvent(self, event):
         painter = QPainter(self)
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
 
-        # Dessine le fond du switch (sans bordure visible)
+        # Fond
         painter.setBrush(
-            QColor(200, 200, 200) if not self.clicked else QColor(255, 200, 0)
+            QColor(255, 200, 0) if self._checked else QColor(200, 200, 200)
         )
-        painter.setPen(Qt.PenStyle.NoPen)  # Désactive le contour
+        painter.setPen(Qt.PenStyle.NoPen)
         painter.drawRoundedRect(
             0, 0, self.width(), self.height(), self.height() // 2, self.height() // 2
         )
 
-        # Dessine le cercle mobile
-        circle_diameter = self.height() - 10
-        x = 5 + (self.width() - circle_diameter - 10) * self._position
-        painter.setBrush(
-            QColor(50, 50, 50) if not self.clicked else QColor(255, 255, 255)
-        )
-        painter.setPen(Qt.PenStyle.NoPen)  # Désactive le contour du cercle
-        painter.drawEllipse(int(x), 5, circle_diameter, circle_diameter)
+        # Curseur
+        d = self.height() - 10
+        x = 5 + (self.width() - d - 10) * self._anim_pos
 
-        # Dessine l'emoji
+        painter.setBrush(QColor(255, 255, 255) if self._checked else QColor(50, 50, 50))
+        painter.drawEllipse(int(x), 5, d, d)
+
+        # Emoji
         painter.setFont(QFont("Arial", 20))
-        painter.setPen(Qt.GlobalColor.black if self.clicked else Qt.GlobalColor.white)
+        painter.setPen(Qt.GlobalColor.black if self._checked else Qt.GlobalColor.white)
         painter.drawText(
-            QRect(int(x), 5, circle_diameter, circle_diameter),
+            QRect(int(x), 5, d, d),
             Qt.AlignmentFlag.AlignCenter,
-            "☀️" if self.clicked else "🌙",
+            "☀️" if self._checked else "🌙",
         )
-
-    def mousePressEvent(self, event):
-        self.clicked = not self.clicked
-        self.animation.setStartValue(0 if self.clicked else 1)
-        self.animation.setEndValue(1 if self.clicked else 0)
-        self.animation.start()
-        self.stateChanged.emit(self.clicked)

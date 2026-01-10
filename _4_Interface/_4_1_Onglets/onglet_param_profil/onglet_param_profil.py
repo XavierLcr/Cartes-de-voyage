@@ -107,7 +107,6 @@ class OngletParametresProfil(QWidget):
         self.theme_application_groupbox.setLayout(theme_application_layout)
         self.theme_application_bouton.stateChanged.connect(self.set_theme_application)
         self.signal_theme_application.emit(self.theme_application)
-        self.theme_application_bouton.set_position(pos=1)
 
         # Ajout de la langue et du dossier au layout
         layout_temp = QHBoxLayout()

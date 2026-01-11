@@ -80,6 +80,14 @@ df_tourisme = df_tourisme[["name_0", "tourisme"]]
 df_tourisme.dropna(axis=0, subset=["tourisme"], inplace=True)
 
 
+# Remplacement des noms de pays
+df_tourisme = remplacer_valeurs_colonne(
+    df=df_tourisme,
+    colonne="name_0",
+    mapping=mapping_pays,
+)
+
+
 # Test
 valeurs_contenues(df1=df_tourisme, col1="name_0", df2=gdf_1, col2="name_0")
 

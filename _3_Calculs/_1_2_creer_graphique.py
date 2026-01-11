@@ -326,19 +326,9 @@ def creer_image_carte(
             else couleur_non_visites
         )
     )
-    # On gère la mère Caspienne
+    # Gestion de la mer Caspienne
     gdf.loc[gdf["Pays"] == "Caspian Sea", "Couleur"] = couleur_de_fond
 
-    # Cree le graphique
-    if blabla:
-        print("Création du graphique.", end=" ")
-
-    fig, ax = plt.subplots(figsize=(10, 6))
-    ax.set_axis_off()
-    ax.margins(0)
-    fig.patch.set_facecolor(couleur_de_fond)
-
-    # extreme = len(set(liste_pays) & set(["Russia", "United States"])) > 0
     # Limitation des tables complémentaires
     gdf_monde = selectionner_lieux(
         gdf=gdf_monde, gdf_ref=gdf, extreme=reprojeter, marge=marge_carte
@@ -359,10 +349,19 @@ def creer_image_carte(
         )
         marge_carte = 0.75 * marge_carte
 
+        # Cree le graphique
+    if blabla:
+        print("Création du graphique.", end=" ")
+
     # Sélection du périmètre – Ajout des pays aux alentours
     xmin, xmax, ymin, ymax = renvoyer_limites_carte(gdf=gdf, marge=marge_carte)
+    fig, ax = plt.subplots(figsize=(10, 10 / ((xmax - xmin) / (ymax - ymin))))
     ax.set_xlim(xmin, xmax)
     ax.set_ylim(ymin, ymax)
+
+    ax.set_axis_off()
+    ax.margins(0)
+    fig.patch.set_facecolor(couleur_de_fond)
 
     # Ajout de la carte principale
     gdf.plot(ax=ax, color=gdf["Couleur"], edgecolor="black", linewidth=0.008, zorder=1)

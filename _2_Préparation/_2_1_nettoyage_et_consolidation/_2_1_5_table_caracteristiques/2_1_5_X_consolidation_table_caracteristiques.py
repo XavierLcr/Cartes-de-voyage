@@ -13,6 +13,7 @@ from constantes import (
     direction_donnees_intermediaires,
     direction_donnees_brutes,
     direction_donnees_geographiques,
+    direction_donnees_application,
 )
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     ouvrir_fichier,
@@ -23,53 +24,15 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
 from _0_Utilitaires._0_4_fonctions_utiles_nettoyage import (
     mapping_pays,
     remplacer_valeurs_colonne,
+    nettoyer_nom_colonne,
+    derniere_valeur_valide_par_ligne,
 )
 
 
-# 1 -- Fonctions utiles --------------------------------------------------------
+# 1 -- Import des données ------------------------------------------------------
 
 
-## 1.1 -- Modifier les noms de colonnes avec des années ------------------------
-
-
-def nettoyer_nom_colonne(nom):
-    chiffres = "".join(filter(str.isdigit, nom))
-    return chiffres if chiffres else nom
-
-
-## 1.2 -- Fonction de sélection de la dernière valeur existante ---------------
-
-
-def derniere_valeur_valide_par_ligne(df: pd.DataFrame) -> pd.Series:
-    """
-    Retourne la dernière valeur valide pour chaque ligne,
-    en ne considérant que les colonnes dont le nom est un nombre entier.
-
-    Args:
-        df (pd.DataFrame): DataFrame d'entrée.
-
-    Returns:
-        pd.Series: Série contenant la dernière valeur valide pour chaque ligne.
-    """
-    # Filtrer les colonnes dont le nom est un nombre entier
-    colonnes_chiffrees = [col for col in df.columns if str(col).isdigit()]
-
-    # Extraire uniquement ces colonnes
-    df_chiffres = df[colonnes_chiffrees]
-
-    # Appliquer la logique pour obtenir la dernière valeur valide par ligne
-    return df_chiffres.apply(
-        lambda row: (
-            row[row.last_valid_index()] if row.last_valid_index() is not None else pd.NA
-        ),
-        axis=1,
-    )
-
-
-# 2 -- Import des données ------------------------------------------------------
-
-
-## 2.1 -- Données simples ------------------------------------------------------
+## 1.1 -- Données simples ------------------------------------------------------
 
 
 ### Table des données géographiques --------------------------------------------
@@ -159,7 +122,7 @@ df_tourisme = ouvrir_fichier(
 )
 
 
-## 2.2 -- Données alimentaires -------------------------------------------------
+## 1.2 -- Données alimentaires -------------------------------------------------
 
 
 ### Fonction générique ---------------------------------------------------------
@@ -219,7 +182,7 @@ for i in range(len(csv_alimentation)):
     )
 
 
-## 2.3 -- Données environnementales --------------------------------------------
+## 1.3 -- Données environnementales --------------------------------------------
 
 
 # Récupération des noms de fichiers
@@ -257,10 +220,10 @@ for i in range(len(csv_environnement)):
             right=df_temp, on="name_0", how="outer"
         )
 
-# 3 -- Nettoyage ---------------------------------------------------------------
+# 2 -- Nettoyage ---------------------------------------------------------------
 
 
-## 3.1 -- Données géographiques ------------------------------------------------
+## 2.1 -- Données géographiques ------------------------------------------------
 
 
 gdf_1["centroid"] = gdf_1["geometry"].centroid
@@ -271,7 +234,7 @@ gdf_1 = gdf_1.drop(columns=["centroid"])
 gdf_1 = gdf_1.drop(columns=["geometry"])
 
 
-## 3.2 -- Table des données religieuses ----------------------------------------
+## 2.2 -- Table des données religieuses ----------------------------------------
 
 
 df_religion = df_religion[df_religion["Level"] == 1]  # Sélection des pays
@@ -309,7 +272,7 @@ df_religion.rename(
 )
 
 
-## 3.3 -- Table des données alimentaires ---------------------------------------
+## 2.3 -- Table des données alimentaires ---------------------------------------
 
 
 df_alimentation.loc[df_alimentation["iso3"] == "SSD", "name_0"] = "South Sudan"
@@ -319,10 +282,10 @@ df_alimentation = remplacer_valeurs_colonne(
 )
 
 
-# 4 -- Jointures ---------------------------------------------------------------
+# 3 -- Jointures ---------------------------------------------------------------
 
 
-## 4.1 -- Avec les données GDL -------------------------------------------------
+## 3.1 -- Avec les données GDL -------------------------------------------------
 
 
 ### Fonction générique de jointure avec une table GDL --------------------------
@@ -385,7 +348,7 @@ gdf_1 = merge_with_match(gdf_1, df_urbanisme)
 gdf_1 = merge_with_match(gdf_1, df_justice)
 
 
-## 4.2 -- Jointures avec le reste des table ------------------------------------
+## 3.2 -- Jointures avec le reste des table ------------------------------------
 
 
 ### Table de tourisme ----------------------------------------------------------
@@ -448,7 +411,7 @@ assert df_langues.duplicated(subset=["name_0"], keep=False).sum() == 0, df_langu
 gdf_1 = gdf_1.merge(right=df_langues, how="left", on="name_0")
 
 
-## 4.3 -- Ajout du nombre de NAs -----------------------------------------------
+## 3.3 -- Ajout du nombre de NAs -----------------------------------------------
 
 
 colonnes_a_exclure = [
@@ -464,10 +427,10 @@ gdf_1["nombre_na"] = gdf_1.drop(columns=colonnes_a_exclure).isna().sum(axis=1) /
 )
 
 
-# 5 -- Imputation des valeurs manquantes et normalisation ----------------------
+# 4 -- Imputation des valeurs manquantes et normalisation ----------------------
 
 
-## 5.1 -- Imputation selon les régions les plus proches ------------------------
+## 4.1 -- Imputation selon les régions les plus proches ------------------------
 
 
 ### Fonction d'imputation ------------------------------------------------------
@@ -550,7 +513,7 @@ gdf_1 = imputation_geo_knn(
 )
 
 
-## 5.2 -- Normalisation des colonnes -------------------------------------------
+## 4.2 -- Normalisation des colonnes -------------------------------------------
 
 
 ### Normalisation entre le minimum (0) et le maximum (1) -----------------------
@@ -586,7 +549,7 @@ for col in gdf_1.select_dtypes(include="object").columns:
         gdf_1[col] = gdf_1[col].astype(float)
 
 
-# 6 -- Export ------------------------------------------------------------------
+# 5 -- Export ------------------------------------------------------------------
 
 
 exporter_fichier(

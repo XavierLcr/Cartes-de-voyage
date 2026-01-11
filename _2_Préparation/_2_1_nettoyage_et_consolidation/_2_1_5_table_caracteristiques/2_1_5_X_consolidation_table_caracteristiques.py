@@ -153,9 +153,10 @@ df_religion = pd.read_csv(
 ### Tourisme -------------------------------------------------------------------
 
 
-df_tourisme = pd.read_csv(
-    os.path.join(direction_donnees_brutes, "API_ST.INT.ARVL_DS2_en_csv_v2_697553.csv"),
-    skiprows=4,
+df_tourisme = ouvrir_fichier(
+    direction_fichier=direction_donnees_intermediaires,
+    nom_fichier="tourisme.pkl",
+    defaut=None,
 )
 
 
@@ -271,27 +272,7 @@ gdf_1 = gdf_1.drop(columns=["centroid"])
 gdf_1 = gdf_1.drop(columns=["geometry"])
 
 
-## 3.2 -- Table du tourisme ----------------------------------------------------
-
-
-df_tourisme = df_tourisme.loc[
-    :, df_tourisme.nunique(dropna=False) > 1
-]  # Suppression des colonnes constantes
-df_tourisme = df_tourisme.dropna(axis=1, how="all")  # Suppression des colonnes que NA
-# Valeur la plus récente
-df_tourisme["tourisme"] = df_tourisme[
-    [col for col in df_tourisme.columns if col.isdigit()]
-].apply(
-    lambda row: (
-        row[row.last_valid_index()] if row.last_valid_index() is not None else pd.NA
-    ),
-    axis=1,
-)
-df_tourisme = df_tourisme[["Country Name", "tourisme"]]
-df_tourisme.rename(columns={"Country Name": "name_0"}, inplace=True)
-
-
-## 3.3 -- Table des données religieuses ----------------------------------------
+## 3.2 -- Table des données religieuses ----------------------------------------
 
 
 df_religion = df_religion[df_religion["Level"] == 1]  # Sélection des pays
@@ -329,7 +310,7 @@ df_religion.rename(
 )
 
 
-## 3.4 -- Table des données alimentaires ---------------------------------------
+## 3.3 -- Table des données alimentaires ---------------------------------------
 
 
 df_alimentation.loc[df_alimentation["iso3"] == "SSD", "name_0"] = "South Sudan"
@@ -339,7 +320,7 @@ df_alimentation = remplacer_valeurs_colonne(
 )
 
 
-## 3.5 -- Données linguistiques ------------------------------------------------
+## 3.4 -- Données linguistiques ------------------------------------------------
 
 
 df_langues = (

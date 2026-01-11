@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
-# _2_Préparation/_2_1_nettoyage_et_considation                                 #
-# 2.1.5 – Script de consolidation des données propres aux pays                 #
+# _2_Préparation/_2_1_nettoyage_et_considation/_2_1_5_table_caracteristiques/  #
+# 2.1.5.1 – Script de consolidation des données propres aux pays               #
 ################################################################################
 
 

@@ -131,11 +131,10 @@ df_justice = ouvrir_fichier(
 ### Langues --------------------------------------------------------------------
 
 
-df_langues = pd.read_csv(
-    os.path.join(
-        direction_donnees_brutes,
-        "DICL_v2.csv",
-    ),
+df_langues = ouvrir_fichier(
+    direction_fichier=direction_donnees_intermediaires,
+    nom_fichier="langues.pkl",
+    defaut=None,
 )
 
 
@@ -317,27 +316,6 @@ df_alimentation.loc[df_alimentation["iso3"] == "SSD", "name_0"] = "South Sudan"
 df_alimentation.drop("iso3", axis=1, inplace=True)
 df_alimentation = remplacer_valeurs_colonne(
     df=df_alimentation, colonne="name_0", mapping=mapping_pays
-)
-
-
-## 3.4 -- Données linguistiques ------------------------------------------------
-
-
-df_langues = (
-    df_langues[["country_i", "country_j", "csl"]]
-    .pipe(remplacer_valeurs_colonne, colonne="country_i", mapping=mapping_pays)
-    .pipe(remplacer_valeurs_colonne, colonne="country_j", mapping=mapping_pays)
-    .assign(
-        country_j=lambda x: x["country_j"]
-        .str.lower()
-        .str.strip()
-        .str.replace(r"[^a-zA-Z0-9_]", "", regex=True)
-    )
-    .pivot(index="country_i", columns="country_j", values="csl")
-    .add_prefix("langue_")
-    .dropna(axis=1, how="all", inplace=False)
-    .reset_index()
-    .rename(columns={"country_i": "name_0"}, inplace=False)
 )
 
 

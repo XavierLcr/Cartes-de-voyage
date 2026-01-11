@@ -30,9 +30,6 @@ from _0_Utilitaires._0_5_isid import isid
 # 1 -- Import des données ------------------------------------------------------
 
 
-## 1.1 -- Données simples ------------------------------------------------------
-
-
 ### Table des données géographiques --------------------------------------------
 
 
@@ -127,96 +124,30 @@ df_environnement = ouvrir_fichier(
     nom_fichier="environnement.pkl",
     defaut=None,
 )
+### Données alimentaires -------------------------------------------------------
 
 
-## 1.2 -- Données alimentaires -------------------------------------------------
+df_alimentation = ouvrir_fichier(
+    direction_fichier=direction_donnees_intermediaires,
+    nom_fichier="alimentation.pkl",
+    defaut=None,
+)
 
 
-### Fonction générique ---------------------------------------------------------
-
-
-def ouvrir_gdd(direction, nom_fichier):
-
-    df_temp = pd.read_csv(os.path.join(direction, nom_fichier))
-    df_temp = df_temp[
-        (df_temp["year"] == 2018)
-        & (df_temp["edu"] == 999)
-        & (df_temp["age"] == 999)
-        & (df_temp["female"] == 999)
-        & (df_temp["urban"] == 999)
-    ]
-    df_temp = df_temp.rename(columns={"median": "alimentation"})
-
-    # Test de granularité
-    assert df_temp.duplicated(subset=["iso3"], keep=False).sum() == 0, df_temp[
-        df_temp.duplicated(subset=["iso3"], keep=False)
-    ]
-
-    return df_temp[["iso3", "alimentation"]]
-
-
-### Application ----------------------------------------------------------------
-
-
-# Récupération des noms de fichiers
-csv_alimentation = [
-    f
-    for f in os.listdir(os.path.join(direction_donnees_brutes, "Alimentation"))
-    if f.endswith(".csv")
-]
-
-df_alimentation = pd.read_excel(
-    os.path.join(
-        direction_donnees_brutes,
-        "Alimentation",
-        "GDD 2018 Codebook_Jan 10 2022.xlsx",
-    ),
-    sheet_name="Stratum-level characteristics",
-    skiprows=1,
-)[["Label", "Code"]]
-df_alimentation.rename(columns={"Label": "name_0", "Code": "iso3"}, inplace=True)
-
-for i in range(len(csv_alimentation)):
-
-    df_alimentation = df_alimentation.merge(
-        right=ouvrir_gdd(
-            direction=os.path.join(direction_donnees_brutes, "Alimentation"),
-            nom_fichier=csv_alimentation[i],
-        ),
-        how="outer",
-        on="iso3",
-        suffixes=("", f"_{i}"),
-    )
-
-
-# 2 -- Nettoyage ---------------------------------------------------------------
+# 2 -- Consolidation -----------------------------------------------------------
 
 
 ## 2.1 -- Données géographiques ------------------------------------------------
 
 
-gdf_1["centroid"] = gdf_1["geometry"].centroid
-gdf_1["superficie"] = gdf_1["geometry"].area
-gdf_1["latitude"] = gdf_1["centroid"].y
-gdf_1["longitude"] = gdf_1["centroid"].x
-gdf_1 = gdf_1.drop(columns=["centroid"])
-gdf_1 = gdf_1.drop(columns=["geometry"])
+gdf_1 = gdf_1.assign(
+    latitude=gdf_1["geometry"].centroid.y,
+    longitude=gdf_1["geometry"].centroid.x,
+    superficie=gdf_1["geometry"].area,
+).drop(columns=["geometry"])
 
 
-## 2.2 -- Table des données alimentaires ---------------------------------------
-
-
-df_alimentation.loc[df_alimentation["iso3"] == "SSD", "name_0"] = "South Sudan"
-df_alimentation.drop("iso3", axis=1, inplace=True)
-df_alimentation = remplacer_valeurs_colonne(
-    df=df_alimentation, colonne="name_0", mapping=mapping_pays
-)
-
-
-# 3 -- Jointures ---------------------------------------------------------------
-
-
-## 3.1 -- Avec les données GDL -------------------------------------------------
+## 2.2 -- Avec les données GDL -------------------------------------------------
 
 
 ### Fonction générique de jointure avec une table GDL --------------------------
@@ -279,7 +210,7 @@ gdf_1 = merge_with_match(gdf_1, df_urbanisme)
 gdf_1 = merge_with_match(gdf_1, df_justice)
 
 
-## 3.2 -- Jointures avec le reste des table ------------------------------------
+## 2.3 -- Jointures avec le reste des table ------------------------------------
 
 
 ### Table de tourisme ----------------------------------------------------------
@@ -332,7 +263,7 @@ assert isid(df=df_langues, colonnes="name_0", blabla=1)
 gdf_1 = gdf_1.merge(right=df_langues, how="left", on="name_0")
 
 
-## 3.3 -- Ajout du nombre de NAs -----------------------------------------------
+## 2.4 -- Ajout du nombre de NAs -----------------------------------------------
 
 
 colonnes_a_exclure = [
@@ -348,10 +279,10 @@ gdf_1["nombre_na"] = gdf_1.drop(columns=colonnes_a_exclure).isna().sum(axis=1) /
 )
 
 
-# 4 -- Imputation des valeurs manquantes et normalisation ----------------------
+# 3 -- Imputation des valeurs manquantes et normalisation ----------------------
 
 
-## 4.1 -- Imputation selon les régions les plus proches ------------------------
+## 3.1 -- Imputation selon les régions les plus proches ------------------------
 
 
 ### Fonction d'imputation ------------------------------------------------------
@@ -434,7 +365,7 @@ gdf_1 = imputation_geo_knn(
 )
 
 
-## 4.2 -- Normalisation des colonnes -------------------------------------------
+## 3.2 -- Normalisation des colonnes -------------------------------------------
 
 
 ### Normalisation entre le minimum (0) et le maximum (1) -----------------------
@@ -470,7 +401,7 @@ for col in gdf_1.select_dtypes(include="object").columns:
         gdf_1[col] = gdf_1[col].astype(float)
 
 
-# 5 -- Export ------------------------------------------------------------------
+# 4 -- Export ------------------------------------------------------------------
 
 
 exporter_fichier(

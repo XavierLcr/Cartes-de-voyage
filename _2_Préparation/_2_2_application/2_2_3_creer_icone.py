@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
-# _2_Préparation/                                                              #
-# 2.6 – Script de création du logo de l'application                            #
+# _2_Préparation/_2_2_application/                                             #
+# 2.2.3 – Script de création du logo de l'application                          #
 ################################################################################
 
 

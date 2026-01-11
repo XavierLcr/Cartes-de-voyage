@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
-# _2_Préparation/                                                              #
-# 2.3 – Fichier de traduction des différents paramètres et non de pays         #
+# _2_Préparation/_2_2_application/                                             #
+# 2.2.2 – Fichier de traduction des différents paramètres et non de pays       #
 ################################################################################
 
 

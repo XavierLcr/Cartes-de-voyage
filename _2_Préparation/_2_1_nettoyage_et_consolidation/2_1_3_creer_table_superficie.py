@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
-# _2_Préparation/                                                              #
-# 2.4 – Fichier de création de la table de superficie utile à l'onglet n°4     #
+# _2_Préparation/_2_1_nettoyage_et_considation                                 #
+# 2.1.3 – Fichier de création de la table de superficie utile à l'onglet n°4   #
 ################################################################################
 
 import os, sys

@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
-# _2_Préparation/                                                              #
-# 2.2 – Fichier de création des YAMLs des granularités par pays                #
+# _2_Préparation/_2_2_application/                                             #
+# 2.2.1 – Fichier de création des YAMLs des granularités par pays              #
 ################################################################################
 
 

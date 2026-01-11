@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
-# _2_Préparation/                                                              #
-# 2.1 – Fichier de nettoyage de la table des données géographiques             #
+# _2_Préparation/_2_1_nettoyage_et_considation                                 #
+# 2.1.1 – Fichier de nettoyage de la table des données géographiques           #
 ################################################################################
 
 

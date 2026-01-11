@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
 # _2_Préparation/_2_1_nettoyage_et_considation/_2_1_5_table_caracteristiques/  #
-# 2.1.5.1 – Script de consolidation des données propres aux pays               #
+# 2.1.5.X – Script de consolidation des données propres aux pays               #
 ################################################################################
 
 
@@ -9,122 +9,27 @@ import os, sys, unicodedata
 import numpy as np
 import pandas as pd
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-import constantes
+from constantes import (
+    direction_donnees_intermediaires,
+    direction_donnees_brutes,
+    direction_donnees_geographiques,
+)
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     ouvrir_fichier,
     exporter_fichier,
     distance_haversine,
 )
 
+from _0_Utilitaires._0_4_fonctions_utiles_nettoyage import (
+    mapping_pays,
+    remplacer_valeurs_colonne,
+)
+
 
 # 1 -- Fonctions utiles --------------------------------------------------------
 
 
-## 1.1 -- Fonction de remplacement de valeurs au sein d'une colonne ------------
-
-
-def remplacer_noms(df, colonne, mapping):
-    """
-    Remplace les valeurs d'une colonne selon un dictionnaire.
-
-    Args:
-        df (pd.DataFrame): ton DataFrame
-        colonne (str): nom de la colonne à modifier
-        mapping (dict): dictionnaire {ancien_nom: nouveau_nom}
-
-    Returns:
-        pd.DataFrame: le DataFrame modifié
-    """
-    df[colonne] = df[colonne].replace(mapping)
-    return df
-
-
-# Dictionnaire de remplacement des noms de pays
-mapping = {
-    "Aland Islands": "Åland",
-    # "Antigua And Barbuda": "Antigua and Barbuda",
-    "Argentina urban": "Argentina",
-    "Bahamas, The": "Bahamas",
-    "Bahamas, The ": "Bahamas",
-    "The Bahamas": "Bahamas",
-    "Bosnia-Herzegovina": "Bosnia and Herzegovina",
-    "Brunei Darussalam": "Brunei",
-    "Cape Verde": "Cabo Verde",
-    "Central African Republic CAR": "Central African Republic",
-    "Chili": "Chile",
-    "Cocos (Keeling) Islands": "Cocos Islands",
-    "Congo, Dem. Rep.": "Democratic Republic of the Congo",
-    "Dem. Rep. Congo": "Democratic Republic of the Congo",
-    "Congo Democratic Republic": "Democratic Republic of the Congo",
-    "Congo, Democratic Republic of the": "Democratic Republic of the Congo",
-    "Congo": "Republic of the Congo",
-    "Congo Brazzaville": "Republic of the Congo",
-    "Congo, Rep.": "Republic of the Congo",
-    "Congo, Republic of the ": "Republic of the Congo",
-    "Republic of Congo": "Republic of the Congo",
-    "Cote d'Ivoire": "Côte d'Ivoire",
-    "Ivory Coast": "Côte d'Ivoire",
-    "Curacao": "Curaçao",
-    "Czech Republic": "Czechia",
-    "Egypt, Arab Rep.": "Egypt",
-    "Eswatini": "Swaziland",
-    "Faeroe Islands": "Faroe Islands",
-    "FInland": "Finland",
-    "Gambia, The": "Gambia",
-    "The Gambia": "Gambia",
-    "Guinea Bissau": "Guinea-Bissau",
-    "Holy See": "Vatican City",
-    "Hong Kong SAR, China": "Hong Kong",
-    "Iran, Islamic Rep.": "Iran",
-    "Korea, North": "North Korea",
-    "Korea, Dem. People's Rep.": "North Korea",
-    "Korea, Rep.": "South Korea",
-    "Korea, South": "South Korea",
-    "Kyrgyz Republic": "Kyrgyzstan",
-    "Lao PDR": "Laos",
-    "Lao": "Laos",
-    "Macedonia": "North Macedonia",
-    "Mexico": "México",
-    "Micronesia, Fed. Sts.": "Micronesia",
-    "Micronesia, Federated States of ": "Micronesia",
-    "Federated States of Micronesia": "Micronesia",
-    "Netherlands Antilles": "Bonaire, Sint Eustatius and Saba",
-    "Northern Marianas": "Northern Mariana Islands",
-    "Pitcairn": "Pitcairn Islands",
-    "Puerto Rico (US)": "Puerto Rico",
-    "Russian Federation": "Russia",
-    "Reunion": "Réunion",
-    "St. Martin (French part)": "Saint-Martin",
-    "Sint Maarten (Dutch part)": "Sint Maarten",
-    "Sao Tome and Principe": "São Tomé and Príncipe",
-    "Sao Tome & Principe": "São Tomé and Príncipe",
-    "Slovak Republic": "Slovakia",
-    "Saint Barthelemy": "Saint-Barthélemy",
-    "Saint Helena, Ascension, and Tristan da Cunha": "Saint Helena, Ascension and Tris",
-    "St. Kitts and Nevis": "Saint Kitts and Nevis",
-    "St. Lucia": "Saint Lucia",
-    "St. Vincent and the Grenadines": "Saint Vincent and the Grenadines",
-    "Syrian Arab Republic": "Syria",
-    # "Trinidad And Tobago": "Trinidad and Tobago",
-    "Timor Leste": "Timor-Leste",
-    "East Timor": "Timor-Leste",
-    "Turkiye": "Turkey",
-    "Turks & Caicos Islands": "Turks and Caicos Islands",
-    "United States of America": "United States",
-    "Venezuela, RB": "Venezuela",
-    "Virgin Islands (U.S.)": "Virgin Islands, US",
-    "U.S. Virgin Islands": "Virgin Islands, US",
-    "Viet Nam": "Vietnam",
-    "Wallis and Futuna Islands": "Wallis and Futuna",
-    "West Bank and Gaza": "Palestine",
-    "Palestinian territories": "Palestine",
-    "State of Palestine": "Palestine",
-    "Yemen, Rep.": "Yemen",
-}
-
-
-## 1.2 -- Modifier les noms de colonnes avec des années ------------------------
+## 1.1 -- Modifier les noms de colonnes avec des années ------------------------
 
 
 def nettoyer_nom_colonne(nom):
@@ -132,7 +37,7 @@ def nettoyer_nom_colonne(nom):
     return chiffres if chiffres else nom
 
 
-## 1.3 -- Fonction de sélection de la dernière valeur existante ---------------
+## 1.2 -- Fonction de sélection de la dernière valeur existante ---------------
 
 
 def derniere_valeur_valide_par_ligne(df: pd.DataFrame) -> pd.Series:
@@ -167,65 +72,90 @@ def derniere_valeur_valide_par_ligne(df: pd.DataFrame) -> pd.Series:
 ## 2.1 -- Données simples ------------------------------------------------------
 
 
-# Table à compléter
+### Table des données géographiques --------------------------------------------
+
+
 gdf_1 = ouvrir_fichier(
-    direction_fichier=constantes.direction_donnees_geographiques,
+    direction_fichier=direction_donnees_geographiques,
     nom_fichier="carte_monde_niveau_1.pkl",
     defaut=None,
     afficher_erreur="Table non trouvée...",
 )
 
-# Tables à intégrer
-df_IDH = pd.read_csv(
-    os.path.join(constantes.direction_donnees_brutes, "GDL-Subnational-HDI-data.csv")
+
+### Table du Global Data Lab (GDL) ---------------------------------------------
+
+
+# IDH
+df_IDH = ouvrir_fichier(
+    direction_fichier=direction_donnees_intermediaires,
+    nom_fichier="IDH.pkl",
+    defaut=None,
 )
-df_temperature = pd.read_csv(
-    os.path.join(
-        constantes.direction_donnees_brutes,
-        "GDL-Yearly-Average-Surface-Temperature-(ºC)-data.csv",
-    )
+
+# Températures
+df_temperature = ouvrir_fichier(
+    direction_fichier=direction_donnees_intermediaires,
+    nom_fichier="temperature.pkl",
+    defaut=None,
 )
-df_pluie = pd.read_csv(
-    os.path.join(
-        constantes.direction_donnees_brutes,
-        "GDL-Total-Yearly-Precipitation-(m)-data.csv",
-    )
+
+# Pluies
+df_pluie = ouvrir_fichier(
+    direction_fichier=direction_donnees_intermediaires,
+    nom_fichier="pluie.pkl",
+    defaut=None,
 )
-df_humidite = pd.read_csv(
-    os.path.join(
-        constantes.direction_donnees_brutes,
-        "GDL-Yearly-Average-Relative-Humidity-(_)-data.csv",
-    )
+
+# Humidité
+df_humidite = ouvrir_fichier(
+    direction_fichier=direction_donnees_intermediaires,
+    nom_fichier="humidite.pkl",
+    defaut=None,
 )
-df_tourisme = pd.read_csv(
+
+# Urbanisme
+df_urbanisme = ouvrir_fichier(
+    direction_fichier=direction_donnees_intermediaires,
+    nom_fichier="urbanisme.pkl",
+    defaut=None,
+)
+
+# Justice
+df_justice = ouvrir_fichier(
+    direction_fichier=direction_donnees_intermediaires,
+    nom_fichier="justice.pkl",
+    defaut=None,
+)
+
+### Langues --------------------------------------------------------------------
+
+
+df_langues = pd.read_csv(
     os.path.join(
-        constantes.direction_donnees_brutes, "API_ST.INT.ARVL_DS2_en_csv_v2_697553.csv"
+        direction_donnees_brutes,
+        "DICL_v2.csv",
     ),
-    skiprows=4,
 )
+
+
+### Religions ------------------------------------------------------------------
+
+
 df_religion = pd.read_csv(
     os.path.join(
-        constantes.direction_donnees_brutes,
+        direction_donnees_brutes,
         "Religious Composition 2010-2020 (percentages).csv",
     ),
 )
-df_urbanisme = pd.read_csv(
-    os.path.join(
-        constantes.direction_donnees_brutes,
-        "GDL-_-population-in-urban-areas-data.csv",
-    ),
-)
-df_justice = pd.read_csv(
-    os.path.join(
-        constantes.direction_donnees_brutes,
-        "GDL-Comprehensive-Subnational-Corruption-Index-(SCI)-data.csv",
-    ),
-)
-df_langues = pd.read_csv(
-    os.path.join(
-        constantes.direction_donnees_brutes,
-        "DICL_v2.csv",
-    ),
+
+
+### Tourisme -------------------------------------------------------------------
+
+
+df_tourisme = pd.read_csv(
+    os.path.join(direction_donnees_brutes, "API_ST.INT.ARVL_DS2_en_csv_v2_697553.csv"),
+    skiprows=4,
 )
 
 
@@ -261,15 +191,13 @@ def ouvrir_gdd(direction, nom_fichier):
 # Récupération des noms de fichiers
 csv_alimentation = [
     f
-    for f in os.listdir(
-        os.path.join(constantes.direction_donnees_brutes, "Alimentation")
-    )
+    for f in os.listdir(os.path.join(direction_donnees_brutes, "Alimentation"))
     if f.endswith(".csv")
 ]
 
 df_alimentation = pd.read_excel(
     os.path.join(
-        constantes.direction_donnees_brutes,
+        direction_donnees_brutes,
         "Alimentation",
         "GDD 2018 Codebook_Jan 10 2022.xlsx",
     ),
@@ -282,7 +210,7 @@ for i in range(len(csv_alimentation)):
 
     df_alimentation = df_alimentation.merge(
         right=ouvrir_gdd(
-            direction=os.path.join(constantes.direction_donnees_brutes, "Alimentation"),
+            direction=os.path.join(direction_donnees_brutes, "Alimentation"),
             nom_fichier=csv_alimentation[i],
         ),
         how="outer",
@@ -297,9 +225,7 @@ for i in range(len(csv_alimentation)):
 # Récupération des noms de fichiers
 csv_environnement = [
     f
-    for f in os.listdir(
-        os.path.join(constantes.direction_donnees_brutes, "Environnement")
-    )
+    for f in os.listdir(os.path.join(direction_donnees_brutes, "Environnement"))
     if f.endswith(".csv")
     and any(prefix in f for prefix in ["RMS", "FCL", "WWR", "UWD", "PAR"])
 ]
@@ -307,16 +233,16 @@ csv_environnement = [
 
 for i in range(len(csv_environnement)):
 
-    df_temp = remplacer_noms(
+    df_temp = remplacer_valeurs_colonne(
         df=pd.read_csv(
             os.path.join(
-                constantes.direction_donnees_brutes,
+                direction_donnees_brutes,
                 "Environnement",
                 csv_environnement[i],
             )
         ),
         colonne="country",
-        mapping=mapping,
+        mapping=mapping_pays,
     )
 
     df_temp.columns = [nettoyer_nom_colonne(col) for col in df_temp.columns]
@@ -345,79 +271,7 @@ gdf_1 = gdf_1.drop(columns=["centroid"])
 gdf_1 = gdf_1.drop(columns=["geometry"])
 
 
-## 3.2 -- Données du Global Data Lab (GDL) -------------------------------------
-
-
-### Fonction de nettoyage générique --------------------------------------------
-
-
-def nettoyer_GDL(df: pd.DataFrame, gdf, mapping: dict, annee: str, nom_col: str):
-
-    df = remplacer_noms(df, "Country", mapping=mapping)
-    df["Country"] = df.apply(
-        lambda row: (
-            row["Region"]
-            if row["Region"]
-            in (set(df["Region"].unique()) & set(gdf["name_0"].unique()))
-            else row["Country"]
-        ),
-        axis=1,
-    )
-    df = df.rename(columns={"Country": "name_0", "Region": "name_1", annee: nom_col})
-    df = df.loc[df[nom_col].notna(), ["name_0", "name_1", nom_col]]
-
-    df = df.groupby(["name_0", "name_1"], as_index=False)[nom_col].mean()
-
-    # Test de granularité
-    assert df.duplicated(subset=["name_0", "name_1"], keep=False).sum() == 0, df[
-        df.duplicated(subset=["name_0", "name_1"], keep=False)
-    ]
-
-    return df
-
-
-### Application ----------------------------------------------------------------
-
-
-## IDH
-df_IDH = nettoyer_GDL(
-    df=df_IDH, gdf=gdf_1, mapping=mapping, annee="2022", nom_col="IDH"
-)
-
-## Températures
-df_temperature = nettoyer_GDL(
-    df=df_temperature, gdf=gdf_1, mapping=mapping, annee="2022", nom_col="temperature"
-)
-
-## Pluies
-df_pluie = nettoyer_GDL(
-    df=df_pluie, gdf=gdf_1, mapping=mapping, annee="2022", nom_col="pluie"
-)
-
-## Humidité
-df_humidite = nettoyer_GDL(
-    df=df_humidite, gdf=gdf_1, mapping=mapping, annee="2022", nom_col="humidite"
-)
-df_justice = nettoyer_GDL(
-    df=df_justice, gdf=gdf_1, mapping=mapping, annee="2022", nom_col="corruption"
-)
-
-## Urbanisme
-### Valeur la plus récente
-df_urbanisme["recent"] = df_urbanisme[
-    [col for col in df_urbanisme.columns if col.isdigit()]
-].apply(
-    lambda row: (
-        row[row.last_valid_index()] if row.last_valid_index() is not None else pd.NA
-    ),
-    axis=1,
-)
-df_urbanisme = nettoyer_GDL(
-    df=df_urbanisme, gdf=gdf_1, mapping=mapping, annee="recent", nom_col="urbanisation"
-)
-
-
-## 3.3 -- Table du tourisme ----------------------------------------------------
+## 3.2 -- Table du tourisme ----------------------------------------------------
 
 
 df_tourisme = df_tourisme.loc[
@@ -437,7 +291,7 @@ df_tourisme = df_tourisme[["Country Name", "tourisme"]]
 df_tourisme.rename(columns={"Country Name": "name_0"}, inplace=True)
 
 
-## 3.4 -- Table des données religieuses ----------------------------------------
+## 3.3 -- Table des données religieuses ----------------------------------------
 
 
 df_religion = df_religion[df_religion["Level"] == 1]  # Sélection des pays
@@ -447,7 +301,9 @@ df_religion.rename(columns={"Country": "name_0"}, inplace=True)
 df_religion.columns = df_religion.columns.str.lower()
 
 # Remplacement des noms de pays différents
-df_religion = remplacer_noms(df=df_religion, colonne="name_0", mapping=mapping)
+df_religion = remplacer_valeurs_colonne(
+    df=df_religion, colonne="name_0", mapping=mapping_pays
+)
 
 # Gestion des îles anglo-normandes
 mask = df_religion["name_0"] == "Channel Islands"
@@ -473,21 +329,23 @@ df_religion.rename(
 )
 
 
-## 3.5 -- Table des données alimentaires ---------------------------------------
+## 3.4 -- Table des données alimentaires ---------------------------------------
 
 
 df_alimentation.loc[df_alimentation["iso3"] == "SSD", "name_0"] = "South Sudan"
 df_alimentation.drop("iso3", axis=1, inplace=True)
-df_alimentation = remplacer_noms(df=df_alimentation, colonne="name_0", mapping=mapping)
+df_alimentation = remplacer_valeurs_colonne(
+    df=df_alimentation, colonne="name_0", mapping=mapping_pays
+)
 
 
-## 3.6 -- Données linguistiques ------------------------------------------------
+## 3.5 -- Données linguistiques ------------------------------------------------
 
 
 df_langues = (
     df_langues[["country_i", "country_j", "csl"]]
-    .pipe(remplacer_noms, colonne="country_i", mapping=mapping)
-    .pipe(remplacer_noms, colonne="country_j", mapping=mapping)
+    .pipe(remplacer_valeurs_colonne, colonne="country_i", mapping=mapping_pays)
+    .pipe(remplacer_valeurs_colonne, colonne="country_j", mapping=mapping_pays)
     .assign(
         country_j=lambda x: x["country_j"]
         .str.lower()
@@ -774,6 +632,6 @@ for col in gdf_1.select_dtypes(include="object").columns:
 
 exporter_fichier(
     objet=gdf_1,
-    direction_fichier=constantes.direction_donnees_application,
+    direction_fichier=direction_donnees_application,
     nom_fichier="caracteristiques_des_regions.pkl",
 )

@@ -24,8 +24,6 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
 from _0_Utilitaires._0_4_fonctions_utiles_nettoyage import (
     mapping_pays,
     remplacer_valeurs_colonne,
-    nettoyer_nom_colonne,
-    derniere_valeur_valide_par_ligne,
 )
 
 
@@ -104,11 +102,10 @@ df_langues = ouvrir_fichier(
 ### Religions ------------------------------------------------------------------
 
 
-df_religion = pd.read_csv(
-    os.path.join(
-        direction_donnees_brutes,
-        "Religious Composition 2010-2020 (percentages).csv",
-    ),
+df_religion = ouvrir_fichier(
+    direction_fichier=direction_donnees_intermediaires,
+    nom_fichier="religion.pkl",
+    defaut=None,
 )
 
 
@@ -206,45 +203,7 @@ gdf_1 = gdf_1.drop(columns=["centroid"])
 gdf_1 = gdf_1.drop(columns=["geometry"])
 
 
-## 2.2 -- Table des données religieuses ----------------------------------------
-
-
-df_religion = df_religion[df_religion["Level"] == 1]  # Sélection des pays
-df_religion = df_religion[df_religion["Year"] == 2020]  # Sélection de 2020
-df_religion.drop(columns=["Year", "Level", "Countrycode", "Region"], inplace=True)
-df_religion.rename(columns={"Country": "name_0"}, inplace=True)
-df_religion.columns = df_religion.columns.str.lower()
-
-# Remplacement des noms de pays différents
-df_religion = remplacer_valeurs_colonne(
-    df=df_religion, colonne="name_0", mapping=mapping_pays
-)
-
-# Gestion des îles anglo-normandes
-mask = df_religion["name_0"] == "Channel Islands"
-
-jersey = df_religion[mask].copy()
-jersey["name_0"] = "Jersey"
-jersey["population"] = 103_267
-
-guernsey = df_religion[mask].copy()
-guernsey["name_0"] = "Guernsey"
-guernsey["population"] = 67_334
-
-# On reconstruit le DataFrame
-df_religion = pd.concat([df_religion[~mask], jersey, guernsey], ignore_index=True)
-df_religion.drop("other_religions", axis=1, inplace=True)
-df_religion.rename(
-    columns={
-        col: f"religion_{col}"
-        for col in df_religion.columns
-        if col not in ["name_0", "population"]
-    },
-    inplace=True,
-)
-
-
-## 2.3 -- Table des données alimentaires ---------------------------------------
+## 2.2 -- Table des données alimentaires ---------------------------------------
 
 
 df_alimentation.loc[df_alimentation["iso3"] == "SSD", "name_0"] = "South Sudan"

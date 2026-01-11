@@ -122,6 +122,16 @@ df_tourisme = ouvrir_fichier(
 )
 
 
+### Données environnementales --------------------------------------------------
+
+
+df_environnement = ouvrir_fichier(
+    direction_fichier=direction_donnees_intermediaires,
+    nom_fichier="environnement.pkl",
+    defaut=None,
+)
+
+
 ## 1.2 -- Données alimentaires -------------------------------------------------
 
 
@@ -181,44 +191,6 @@ for i in range(len(csv_alimentation)):
         suffixes=("", f"_{i}"),
     )
 
-
-## 1.3 -- Données environnementales --------------------------------------------
-
-
-# Récupération des noms de fichiers
-csv_environnement = [
-    f
-    for f in os.listdir(os.path.join(direction_donnees_brutes, "Environnement"))
-    if f.endswith(".csv")
-    and any(prefix in f for prefix in ["RMS", "FCL", "WWR", "UWD", "PAR"])
-]
-
-
-for i in range(len(csv_environnement)):
-
-    df_temp = remplacer_valeurs_colonne(
-        df=pd.read_csv(
-            os.path.join(
-                direction_donnees_brutes,
-                "Environnement",
-                csv_environnement[i],
-            )
-        ),
-        colonne="country",
-        mapping=mapping_pays,
-    )
-
-    df_temp.columns = [nettoyer_nom_colonne(col) for col in df_temp.columns]
-    df_temp.rename(columns={"country": "name_0"}, inplace=True)
-    df_temp[f"environnement_{i}"] = derniere_valeur_valide_par_ligne(df_temp)
-    df_temp = df_temp[["name_0", f"environnement_{i}"]]
-
-    if i == 0:
-        df_environnement = df_temp.copy()
-    else:
-        df_environnement = df_environnement.merge(
-            right=df_temp, on="name_0", how="outer"
-        )
 
 # 2 -- Nettoyage ---------------------------------------------------------------
 

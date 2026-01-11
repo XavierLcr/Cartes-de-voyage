@@ -11,7 +11,11 @@
 import os
 import pandas as pd
 
-from constantes import direction_donnees_intermediaires, direction_donnees_brutes
+from constantes import (
+    direction_donnees_intermediaires,
+    direction_donnees_brutes,
+    direction_donnees_geographiques,
+)
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     ouvrir_fichier,
     exporter_fichier,
@@ -29,10 +33,24 @@ from _0_Utilitaires._0_5_isid import isid
 # 1 -- Import des données ------------------------------------------------------
 
 
+## 1.1 -- Table du tourisme ----------------------------------------------------
+
+
 df_tourisme = pd.read_csv(
     os.path.join(direction_donnees_brutes, "API_ST.INT.ARVL_DS2_en_csv_v2_697553.csv"),
     skiprows=4,
 )
+
+
+## 1.2 -- Table du GADM (Granularité 1) ----------------------------------------
+
+
+gdf_1 = ouvrir_fichier(
+    direction_fichier=direction_donnees_geographiques,
+    nom_fichier="carte_monde_niveau_1.pkl",
+    defaut=None,
+    afficher_erreur="Table non trouvée...",
+)[["name_0", "name_1"]]
 
 
 # 2 -- Nettoyage des données ---------------------------------------------------
@@ -52,7 +70,7 @@ df_tourisme.rename(
 )
 
 
-# récupération de la valeur la plus récente
+# Récupération de la valeur la plus récente
 df_tourisme["tourisme"] = derniere_valeur_valide_par_ligne(df=df_tourisme)
 
 # Sélection des variables
@@ -60,6 +78,10 @@ df_tourisme = df_tourisme[["name_0", "tourisme"]]
 
 # Suppression des lignes sans valeurs
 df_tourisme.dropna(axis=0, subset=["tourisme"], inplace=True)
+
+
+# Test
+valeurs_contenues(df1=df_tourisme, col1="name_0", df2=gdf_1, col2="name_0")
 
 
 # 3 -- Export ------------------------------------------------------------------

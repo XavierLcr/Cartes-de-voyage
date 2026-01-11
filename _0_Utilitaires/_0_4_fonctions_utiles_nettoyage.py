@@ -8,6 +8,9 @@
 # 0 -- Initialisation ----------------------------------------------------------
 
 
+import pandas as pd
+
+
 # 1 -- Remplacement des noms des pays dans une colonne -------------------------
 
 
@@ -112,3 +115,11 @@ def remplacer_valeurs_colonne(df, colonne, mapping):
     """
     df[colonne] = df[colonne].replace(mapping)
     return df
+
+
+# 2 -- Fonction vérifiant si des valeurs de df1[col1] sont absentes de df2[col2]
+
+
+def valeurs_contenues(df1: pd.DataFrame, col1: str, df2: pd.DataFrame, col2: str):
+
+    return df1[~df1[col1].isin(df2[col2])][col1].drop_duplicates().sort_values()

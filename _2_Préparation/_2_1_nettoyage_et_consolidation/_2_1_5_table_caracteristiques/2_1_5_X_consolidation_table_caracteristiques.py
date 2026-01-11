@@ -20,11 +20,11 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     exporter_fichier,
     distance_haversine,
 )
-
 from _0_Utilitaires._0_4_fonctions_utiles_nettoyage import (
     mapping_pays,
     remplacer_valeurs_colonne,
 )
+from _0_Utilitaires._0_5_isid import isid
 
 
 # 1 -- Import des données ------------------------------------------------------
@@ -286,9 +286,7 @@ gdf_1 = merge_with_match(gdf_1, df_justice)
 
 
 # Test de granularité
-assert df_tourisme.duplicated(subset=["name_0"], keep=False).sum() == 0, df_tourisme[
-    df_tourisme.duplicated(subset=["name_0"], keep=False)
-]
+assert isid(df=df_tourisme, colonnes="name_0", blabla=1)
 
 # Jointure
 gdf_1 = gdf_1.merge(right=df_tourisme, how="left", on="name_0")
@@ -298,9 +296,7 @@ gdf_1 = gdf_1.merge(right=df_tourisme, how="left", on="name_0")
 
 
 # Test de granularité
-assert df_religion.duplicated(subset=["name_0"], keep=False).sum() == 0, df_religion[
-    df_religion.duplicated(subset=["name_0"], keep=False)
-]
+assert isid(df=df_religion, colonnes="name_0", blabla=1)
 
 # Jointure
 gdf_1 = gdf_1.merge(right=df_religion, how="left", on="name_0")
@@ -310,9 +306,7 @@ gdf_1 = gdf_1.merge(right=df_religion, how="left", on="name_0")
 
 
 # Test de granularité
-assert (
-    df_alimentation.duplicated(subset=["name_0"], keep=False).sum() == 0
-), df_alimentation[df_alimentation.duplicated(subset=["name_0"], keep=False)]
+assert isid(df=df_alimentation, colonnes="name_0", blabla=1)
 
 # Jointure
 gdf_1 = gdf_1.merge(right=df_alimentation, how="left", on="name_0")
@@ -322,9 +316,7 @@ gdf_1 = gdf_1.merge(right=df_alimentation, how="left", on="name_0")
 
 
 # Test de granularité
-assert (
-    df_environnement.duplicated(subset=["name_0"], keep=False).sum() == 0
-), df_environnement[df_environnement.duplicated(subset=["name_0"], keep=False)]
+assert isid(df=df_environnement, colonnes="name_0", blabla=1)
 
 # Jointure
 gdf_1 = gdf_1.merge(right=df_environnement, how="left", on="name_0")
@@ -334,9 +326,7 @@ gdf_1 = gdf_1.merge(right=df_environnement, how="left", on="name_0")
 
 
 # Test de granularité
-assert df_langues.duplicated(subset=["name_0"], keep=False).sum() == 0, df_langues[
-    df_langues.duplicated(subset=["name_0"], keep=False)
-]
+assert isid(df=df_langues, colonnes="name_0", blabla=1)
 
 # Jointure
 gdf_1 = gdf_1.merge(right=df_langues, how="left", on="name_0")

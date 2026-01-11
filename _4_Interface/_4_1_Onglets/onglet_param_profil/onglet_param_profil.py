@@ -338,7 +338,8 @@ class OngletParametresProfil(QWidget):
         self.set_ouvrir_dossier(ouvrir=ouvrir_dossier or False)
 
         # Thème de l'application
-        self.set_theme_application(theme=theme_application or True)
+        # self.set_theme_application(theme=theme_application or True)
+        self.theme_application_bouton.set_position(checked=theme_application or True)
 
         # Sortir les cartes à une granularité inférieure
         self.set_sortir_cartes_granu_inf(sortir=sortir_cartes_granu_inf or False)

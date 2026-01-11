@@ -28,20 +28,17 @@ class BoutonSwitch(QWidget):
 
     # ========= API PUBLIQUE =========
 
-    def set_position(self, checked: bool, animated: bool = True):
+    def set_position(self, checked: bool):
         if self._checked == checked:
             return
 
         self._checked = checked
-        target = 1.0 if checked else 0.0
+        self.set_anim_pos(value=checked)
 
-        if animated:
-            self._animation.stop()
-            self._animation.setStartValue(self._anim_pos)
-            self._animation.setEndValue(target)
-            self._animation.start()
-        else:
-            self.animPos = target
+        self._animation.stop()
+        self._animation.setStartValue(self._anim_pos)
+        self._animation.setEndValue(1.0 if checked else 0.0)
+        self._animation.start()
 
         self.stateChanged.emit(checked)
 
@@ -55,7 +52,7 @@ class BoutonSwitch(QWidget):
 
     def set_anim_pos(self, value):
         self._anim_pos = value
-        self.update()  # ✅ repaint garanti
+        self.update()
 
     animPos = pyqtProperty(float, fget=get_anim_pos, fset=set_anim_pos)
 

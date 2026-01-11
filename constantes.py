@@ -29,13 +29,16 @@ else:
     direction_base = os.path.dirname(os.path.abspath(__file__))
     direction_donnees = os.path.join(direction_base, "_1_Données")
     direction_donnees_brutes = os.path.join(direction_donnees, "_1_1_Données_brutes")
+    direction_donnees_intermediaires = os.path.join(
+        direction_donnees, "_1_2_Données_intermediaires"
+    )
     direction_donnees_geographiques = os.path.join(
-        direction_donnees, "_1_2_Données_géographiques"
+        direction_donnees, "_1_3_Données_géographiques"
     )
     direction_donnees_application = os.path.join(
-        direction_donnees, "_1_3_Données_application"
+        direction_donnees, "_1_4_Données_application"
     )
-    direction_donnees_traductions = os.path.join(direction_donnees, "_1_4_Traductions")
+    direction_donnees_traductions = os.path.join(direction_donnees, "_1_5_Traductions")
     direction_donnees_autres = os.path.join(direction_donnees, "_1_X_Autres")
     compilation = False
 

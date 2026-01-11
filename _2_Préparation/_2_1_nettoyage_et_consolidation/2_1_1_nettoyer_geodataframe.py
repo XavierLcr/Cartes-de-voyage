@@ -5,7 +5,10 @@
 ################################################################################
 
 
-import os, sys, copy
+# 0 -- Initialisation ----------------------------------------------------------
+
+
+import os, sys
 import pandas as pd
 import geopandas as gpd
 
@@ -665,37 +668,12 @@ print("Concaténation des noms au niveau des doublons.")
 gdf = concatener_noms_si_dupliques(df=gdf)
 
 
-# 4 -- Agrégation, concaténation et export -------------------------------------
+# 4 -- Export ------------------------------------------------------------------
 
 
-## 4.1 -- Fonction d'agrégation, de concaténation et d'export de chaque table --
-
-
-def agreger_lieux(gdf, direction_fichier, granularite=5):
-
-    exporter_fichier(
-        objet=(
-            copy.deepcopy(gdf)[
-                [f"name_{i}" for i in range(granularite + 1)] + ["geometry"]
-            ]
-            .dissolve(by=[f"name_{i}" for i in range(granularite + 1)])
-            .reset_index()
-        ),
-        direction_fichier=direction_fichier,
-        nom_fichier=f"carte_monde_niveau_{granularite}.parquet",
-    )
-
-    print("Granularité", granularite, ": export effectué.")
-
-
-## 4.2 -- Application ----------------------------------------------------------
-
-
-print("Agrégation.")
-for granularite in range(6):
-
-    agreger_lieux(
-        gdf=gdf,
-        direction_fichier=constantes.direction_donnees_geographiques,
-        granularite=granularite,
-    )
+exporter_fichier(
+    objet=gdf,
+    direction_fichier=constantes.direction_donnees_intermediaires,
+    nom_fichier="geodataframe_propre.pkl",
+    sort_keys=True,
+)

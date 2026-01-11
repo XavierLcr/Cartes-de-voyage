@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
 # _2_Préparation/_2_1_nettoyage_et_considation                                 #
-# 2.1.2 – Fichier de création dela table des surfaces d'eau (lacs, ...)        #
+# 2.1.3 – Fichier de création dela table des surfaces d'eau (lacs, ...)        #
 ################################################################################
 
 

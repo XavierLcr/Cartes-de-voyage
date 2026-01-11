@@ -123,3 +123,40 @@ def remplacer_valeurs_colonne(df, colonne, mapping):
 def valeurs_contenues(df1: pd.DataFrame, col1: str, df2: pd.DataFrame, col2: str):
 
     return df1[~df1[col1].isin(df2[col2])][col1].drop_duplicates().sort_values()
+
+
+# 3 -- Modifier les noms de colonnes avec des années ---------------------------
+
+
+def nettoyer_nom_colonne(nom):
+    chiffres = "".join(filter(str.isdigit, nom))
+    return chiffres if chiffres else str.lower(nom)
+
+
+# 4 -- Fonction de sélection de la dernière valeur existante --------------------
+
+
+def derniere_valeur_valide_par_ligne(df: pd.DataFrame) -> pd.Series:
+    """
+    Retourne la dernière valeur valide pour chaque ligne,
+    en ne considérant que les colonnes dont le nom est un nombre entier.
+
+    Args:
+        df (pd.DataFrame): DataFrame d'entrée.
+
+    Returns:
+        pd.Series: Série contenant la dernière valeur valide pour chaque ligne.
+    """
+    # Filtrer les colonnes dont le nom est un nombre entier
+    colonnes_chiffrees = [col for col in df.columns if str(col).isdigit()]
+
+    # Extraire uniquement ces colonnes
+    df_chiffres = df[colonnes_chiffrees]
+
+    # Appliquer la logique pour obtenir la dernière valeur valide par ligne
+    return df_chiffres.apply(
+        lambda row: (
+            row[row.last_valid_index()] if row.last_valid_index() is not None else pd.NA
+        ),
+        axis=1,
+    )

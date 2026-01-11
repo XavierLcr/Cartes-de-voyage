@@ -237,7 +237,7 @@ def charger_gdfs(direction_base, max_niveau):
     return [
         ouvrir_fichier(
             direction_fichier=direction_base,
-            nom_fichier=f"carte_monde_niveau_{i}.parquet",
+            nom_fichier=f"carte_monde_niveau_{i}.pkl",
             defaut=None,
             afficher_erreur=f"Base de granularité {i} introuvable.",
         )

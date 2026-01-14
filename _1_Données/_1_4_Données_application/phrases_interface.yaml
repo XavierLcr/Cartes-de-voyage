@@ -26,6 +26,8 @@ dossier_stockage_ouverture_description : Ouvrir le dossier sélectionné après 
 langue_individu : Langue
 theme_application : Thème de l'application
 preferences_cartes_groupbox : Préférences – Publication des cartes
+email_groupbox : Adresse e-mail
+email_tooltip : Saisir son adresse e-mail permet de pouvoir recevoir, si cela est souhaité, les cartes par e-mail. Cela est pratique si vous souhaitez par exemple les partager
 
 supprimer_profil : Supprimer ce profil
 titre_pop_up_suppression : Suppression du profil

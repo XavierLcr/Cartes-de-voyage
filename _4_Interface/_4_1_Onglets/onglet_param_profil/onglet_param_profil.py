@@ -20,6 +20,7 @@ from PyQt6.QtWidgets import (
     QGroupBox,
     QButtonGroup,
     QRadioButton,
+    QLineEdit,
 )
 from PyQt6.QtCore import Qt, pyqtSignal
 
@@ -163,6 +164,16 @@ class OngletParametresProfil(QWidget):
         radio_layout.addWidget(self.radio_carte_sans_limite)
         preferences_cartes_layout.addWidget(widget_nb_copies_cartes)
 
+        # Groupbox - e-mails
+        self.email_groupbox = QGroupBox()
+        email_layout = QHBoxLayout()
+        self.email_groupbox.setLayout(email_layout)
+        self.email_input = QLineEdit()
+        self.email_input.setPlaceholderText("...")
+        email_layout.addWidget(creer_QLabel_centre(text="📧 "))
+        email_layout.addWidget(self.email_input)
+        layout.addWidget(self.email_groupbox)
+
         # Bouton de sauvegarde
         self.bouton_sauvegarde = QPushButton()
         self.bouton_sauvegarde.clicked.connect(
@@ -250,6 +261,14 @@ class OngletParametresProfil(QWidget):
             self.fonction_traduction("pas_de_limite_de_cartes")
         )
 
+        # E-mails
+        self.preferences_cartes_groupbox.setTitle(
+            self.fonction_traduction("email_groupbox")
+        )
+        self.email_input.setToolTip(
+            self.fonction_traduction("email_tooltip", suffixe=".")
+        )
+
         # Bouton de sauvegarde
         self.bouton_sauvegarde.setText("💾")
         self.bouton_sauvegarde.setToolTip(
@@ -313,15 +332,22 @@ class OngletParametresProfil(QWidget):
             self.radio_carte_sans_limite,
         ).setChecked(True)
 
-    def initialiser_param_profil(
-        self,
-        langue,
-        dossier,
-        ouvrir_dossier,
-        sortir_cartes_granu_inf,
-        n_limite_cartes,
-        theme_application,
-    ):
+    def get_email(self):
+        return self.email_input.text()
+
+    def set_email(self, email: str):
+        self.email_input.setText(email)
+
+    def initialiser_param_profil(self, **kwargs):
+
+        # Récupération des valeurs avec des valeurs par défaut
+        langue = kwargs.get("langue", None)
+        dossier = kwargs.get("dossier_stockage", None)
+        ouvrir_dossier = kwargs.get("ouvrir_dossier_stockage", False)
+        sortir_cartes_granu_inf = kwargs.get("sortir_cartes_granu_inf", False)
+        n_limite_cartes = kwargs.get("limite_n_cartes", 10)
+        theme_application = kwargs.get("theme_application", True)
+        adresse_email = kwargs.get("adresse_email", "")
 
         # Langue
         self.langues_dispos.setCurrentIndex(
@@ -335,14 +361,16 @@ class OngletParametresProfil(QWidget):
 
         # Dossier
         self.set_dossier(dossier=dossier)
-        self.set_ouvrir_dossier(ouvrir=ouvrir_dossier or False)
+        self.set_ouvrir_dossier(ouvrir=ouvrir_dossier)
 
         # Thème de l'application
-        # self.set_theme_application(theme=theme_application or True)
-        self.theme_application_bouton.set_position(checked=theme_application or True)
+        self.theme_application_bouton.set_position(checked=theme_application)
 
         # Sortir les cartes à une granularité inférieure
-        self.set_sortir_cartes_granu_inf(sortir=sortir_cartes_granu_inf or False)
+        self.set_sortir_cartes_granu_inf(sortir=sortir_cartes_granu_inf)
 
         # Limite de cartes
-        self.set_limite_de_cartes(n_limite=n_limite_cartes or 10)
+        self.set_limite_de_cartes(n_limite=n_limite_cartes)
+
+        # Adresse e-mail
+        self.set_email(email=adresse_email)

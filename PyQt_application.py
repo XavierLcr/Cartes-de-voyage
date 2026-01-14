@@ -417,6 +417,7 @@ class MesVoyagesApplication(QWidget):
         langue = self.langue
 
         return {
+            # Paramètres individuels
             "nom": self.nom_individu.currentText(),
             "granularite": _0_1_fonctions_utiles_gen.obtenir_clef_par_valeur(
                 valeur=self.onglet_parametres.granularite_visite.currentText(),
@@ -427,6 +428,7 @@ class MesVoyagesApplication(QWidget):
                 dictionnaire=constantes.parametres_traduits["granularite"][langue],
             ),
             "langue": langue,
+            "adresse_email": self.onglet_param_profil.get_email(),
             "couleur": _0_1_fonctions_utiles_gen.obtenir_clef_par_valeur(
                 valeur=self.onglet_parametres.color_combo.currentText(),
                 dictionnaire=constantes.parametres_traduits["teintes_couleurs"][langue],
@@ -451,6 +453,7 @@ class MesVoyagesApplication(QWidget):
             "sortir_cartes_granu_inf": self.onglet_param_profil.get_sortir_cartes_granu_inf(),
             "cartes_des_pays": self.onglet_parametres.carte_pays.isChecked(),
             "limite_n_cartes": self.onglet_param_profil.get_limite_de_cartes(),
+            # Lieux visités
             "dictionnaire_regions": (
                 self.dicts_granu["region"] if self.dicts_granu["region"] != {} else None
             ),
@@ -586,21 +589,12 @@ class MesVoyagesApplication(QWidget):
             sauv = {}
 
         # Onglet des paramètres du profil
-        self.onglet_param_profil.initialiser_param_profil(
-            langue=sauv.get("langue"),
-            dossier=sauv.get("dossier_stockage"),
-            ouvrir_dossier=sauv.get("ouvrir_dossier_stockage"),
-            sortir_cartes_granu_inf=sauv.get("sortir_cartes_granu_inf"),
-            n_limite_cartes=sauv.get("limite_n_cartes"),
-            theme_application=sauv.get("theme_application"),
-        )
+        self.onglet_param_profil.initialiser_param_profil(**sauv)
 
         self.set_langue_interface()
 
         # Onglet des paramètres de cartes
-        self.onglet_parametres.initialiser_onglet(
-            **sauv,
-        )
+        self.onglet_parametres.initialiser_onglet(**sauv)
 
         # Onglet de sélection des destinations
         self.onglet_selection_destinations.initialiser_onglet(

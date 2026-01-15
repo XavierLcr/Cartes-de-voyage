@@ -262,9 +262,7 @@ class OngletParametresProfil(QWidget):
         )
 
         # E-mails
-        self.preferences_cartes_groupbox.setTitle(
-            self.fonction_traduction("email_groupbox")
-        )
+        self.email_groupbox.setTitle(self.fonction_traduction("email_groupbox"))
         self.email_input.setToolTip(
             self.fonction_traduction("email_tooltip", suffixe=".")
         )

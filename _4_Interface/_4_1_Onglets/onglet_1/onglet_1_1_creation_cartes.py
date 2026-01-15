@@ -6,7 +6,7 @@
 
 
 from PyQt6.QtCore import pyqtSignal, QObject
-from _3_Calculs._1_3_carte_main import cree_graphe_depuis_debut
+from _3_Calculs._3_4_carte_main import cree_graphe_depuis_debut
 
 
 # 1 -- Classe de suivi de l'avancement de la publication des cartes ------------

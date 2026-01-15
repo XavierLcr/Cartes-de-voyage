@@ -231,6 +231,9 @@ class OngletParametres(QWidget):
             ["png", "jpg", "svg", "pdf", "tif", "webp", "raw", "ps"]
         )
 
+        # Possibilité d'envoi par e-mail
+        self.email_checkbox = QCheckBox()
+
         # Ajout des widgets au layout horizontal
         layout_format_qualite.addWidget(self.label_format)
         layout_format_qualite.addWidget(self.format_cartes)
@@ -243,6 +246,12 @@ class OngletParametres(QWidget):
         layout_format_qualite.addWidget(self.label_qualite_min)
         layout_format_qualite.addWidget(self.curseur_qualite)
         layout_format_qualite.addWidget(self.label_qualite_max)
+        layout_format_qualite.addItem(
+            QSpacerItem(
+                20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding
+            )
+        )
+        layout_format_qualite.addWidget(self.email_checkbox)
 
         # Ajouter le layout horizontal au layout principal
         layout_params_publication.addLayout(layout_format_qualite)
@@ -364,6 +373,12 @@ class OngletParametres(QWidget):
         )
         self.label_qualite_max.setText(self.fonction_traduction("qualite_elevee"))
         self.label_qualite_min.setText(self.fonction_traduction("qualite_faible"))
+
+        # Envoi par e-mail
+        self.email_checkbox.setText("✉️​")
+        self.email_checkbox.setToolTip(
+            self.fonction_traduction("email_checkbox_tooltip")
+        )
 
         # Boutons en bas de l'onglet 1
         self.reinit_parametres.setText(

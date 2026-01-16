@@ -152,6 +152,7 @@ def creer_graphiques_pays(
     granularite_objectif: int = 1,
     tracker=None,
     afficher_nom_lieu: bool = True,
+    adresse_email: str | None = None,
 ):
     """Crée les cartes de chaque pays"""
 
@@ -249,6 +250,7 @@ def creer_graphiques_pays(
                 limite_n_cartes=limite_n_cartes,
                 afficher_nom_lieu=afficher_nom_lieu,
                 reprojeter=liste_pays_visites[i] in ["Russia", "United States"],
+                adresse_email=adresse_email,
             )
         del gdf_i
 
@@ -288,6 +290,7 @@ def creer_graphique_region(
     sortir_cartes_granu_inf=True,
     granularite_objectif: int = 1,
     afficher_nom_lieu: bool = True,
+    adresse_email: str | None = None,
 ):
     """Crée la carte d'une région"""
 
@@ -346,6 +349,7 @@ def creer_graphique_region(
                 limite_n_cartes=limite_n_cartes,
                 afficher_nom_lieu=afficher_nom_lieu,
                 reprojeter=nom_region in ["Asia", "North America"],
+                adresse_email=adresse_email,
             )
 
     del gdf_temp
@@ -387,6 +391,7 @@ def cree_graphe_depuis_debut(
     tracker=None,
     afficher_nom_lieu: bool = True,
     ouvrir_direction_resultat: bool = True,
+    adresse_email: str | None = None,
 ):
     r"""
     Cette fonction crée une carte géographique à partir de données mondiales en utilisant des dictionnaires définissant
@@ -455,6 +460,7 @@ def cree_graphe_depuis_debut(
             granularite_objectif=granularite_visite,
             sortir_cartes_granu_inf=sortir_cartes_granu_inf,
             afficher_nom_lieu=afficher_nom_lieu,
+            adresse_email=adresse_email,
         )
 
     gc.collect()
@@ -489,6 +495,7 @@ def cree_graphe_depuis_debut(
             sortir_cartes_granu_inf=sortir_cartes_granu_inf,
             tracker=tracker,
             afficher_nom_lieu=afficher_nom_lieu,
+            adresse_email=adresse_email,
         )
 
     # Ouverture du dossier des résultats

@@ -548,6 +548,8 @@ class OngletParametres(QWidget):
             "autres_regions": self.autres_regions,
             # Utilisation du thème
             "utiliser_theme": self.utiliser_theme,
+            # Envoi par e-mail
+            "envoi_mail": self.email_checkbox,
         }
         for nom_cle, checkbox in checkboxes.items():
             checkbox.setChecked(

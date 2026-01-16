@@ -440,6 +440,7 @@ class MesVoyagesApplication(QWidget):
             ),
             "qualite": self.onglet_parametres.curseur_qualite.value(),
             "format": self.onglet_parametres.format_cartes.currentText(),
+            "envoi_mail": self.onglet_parametres.email_checkbox.isChecked(),
             "dossier_stockage": self.onglet_param_profil.get_dossier(),
             "ouvrir_dossier_stockage": self.onglet_param_profil.get_ouvrir_dossier(),
             "theme_application": self.onglet_param_profil.get_theme_application(),

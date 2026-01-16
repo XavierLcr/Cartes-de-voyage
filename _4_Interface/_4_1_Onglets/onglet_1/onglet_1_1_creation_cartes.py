@@ -94,6 +94,12 @@ class CreerCartes(QObject):
             )
         )
 
+        # Gestion de l'e-mail
+        if not self.parametres.get("adresse_email") or not self.parametres.get(
+            "envoi_email"
+        ):
+            self.parametres["adresse_mail"] = None
+
         # --- Partie calcul cartes ---
         tracker = TrackerPays()
         tracker.tracker_pays_en_cours.connect(self.tracker_signal.emit)
@@ -134,6 +140,7 @@ class CreerCartes(QObject):
             tracker=tracker,
             blabla=False,
             afficher_nom_lieu=False,
+            adresse_email=self.parametres.get("adresse_email"),
         )
 
         self.finished.emit()

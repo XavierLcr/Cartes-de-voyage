@@ -15,6 +15,7 @@ from _0_Utilitaires._0_2_fonctions_graphiques import (
     generer_couleur_aleatoire_hex,
     transformer_couleur_texte,
 )
+from _3_Calculs._3_3_envoyer_email import envoyer_email_avec_piece_jointe_smtp
 
 
 # 1 -- Renvoyer les marges les limites de la carte -----------------------------
@@ -285,6 +286,7 @@ def creer_image_carte(
     afficher_nom_lieu: bool = True,
     marge_carte=0.03,
     reprojeter: bool = True,
+    adresse_email: str | None = None,
 ):
     r"""
     Crée une image de carte à partir d'un GeoDataFrame et l'exporte dans un fichier d'image.
@@ -475,6 +477,19 @@ def creer_image_carte(
         image = Image.open(nom_fig)
         image = image.rotate(90 * (2 * (centre[0] < 0) - 1), expand=True)
         image.save(nom_fig)
+
+    if adresse_email is not None:
+
+        if blabla:
+            print("Envoi par e-mail.")
+
+        envoyer_email_avec_piece_jointe_smtp(
+            email_destinataire=adresse_email,
+            sujet=os.path.splitext(nom)[0],
+            contenu="",
+            chemin_fichier=chemin_impression,
+            nom_fichier_destinataire=os.path.basename(nom_fig),
+        )
 
     if blabla == True:
         print("Terminé.")

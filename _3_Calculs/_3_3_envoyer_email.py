@@ -8,17 +8,14 @@
 # 0 -- Initialisation ----------------------------------------------------------
 
 
-import smtplib
+import os, smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from email.mime.base import MIMEBase
 from email.mime.image import MIMEImage
-from email import encoders
-import os
 from clefs_et_mots_de_passe import mdp_google
 
 
-# 1 -- Fonction d'nevoi d'un e-mail --------------------------------------------
+# 1 -- Fonction d'envoi d'un e-mail --------------------------------------------
 
 
 def envoyer_email_avec_piece_jointe_smtp(

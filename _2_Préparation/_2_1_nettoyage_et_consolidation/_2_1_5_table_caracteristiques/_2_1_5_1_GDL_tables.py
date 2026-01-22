@@ -8,7 +8,7 @@
 # 0 -- Initialisation ----------------------------------------------------------
 
 
-import os
+import os, re
 import pandas as pd
 
 import constantes
@@ -87,7 +87,32 @@ gdf_1 = ouvrir_fichier(
 )[["name_0", "name_1"]]
 
 
-# 2 -- Fonction de nettoyage générique -----------------------------------------
+# 2 -- Fonctions ---------------------------------------------------------------
+
+
+## 2.1 -- Fonction de séparation des lignes avec des parenthèses ---------------
+
+
+def eclater_parentheses(texte):
+    correspondance = re.match(r"^(.*?)\s*\((.*?)\)\s*$", texte)
+
+    # S'il n'y a pas de parenthèses, on renvoie le texte tel quel
+    if not correspondance:
+        return [texte]
+
+    base = correspondance.group(1)
+    contenu = correspondance.group(2).strip()
+
+    # RÈGLE : s'il y a une virgule, on découpe uniquement sur les virgules
+    if "," in contenu:
+        elements = [e.strip() for e in contenu.split(",")]
+    else:
+        elements = contenu.split()
+
+    return [base] + elements
+
+
+## 2.2 -- Fonction de nettoyage ------------------------------------------------
 
 
 def nettoyer_GDL(df: pd.DataFrame, gdf, mapping: dict, annee: str, nom_col: str):
@@ -112,7 +137,11 @@ def nettoyer_GDL(df: pd.DataFrame, gdf, mapping: dict, annee: str, nom_col: str)
     # Suppression des colonnes sans valeur
     df = df.loc[df[nom_col].notna(), ["name_0", "name_1", nom_col]]
 
-    # Homogénéisation des valeurs si nécessaire (conservation de la moyenne)
+    # Séparation des régions regroupées entre parenthèses
+    df["name_1"] = df["name_1"].apply(eclater_parentheses)
+    df = df.explode("name_1")
+
+    # Homogénéisation des valeurs si nécessaire (conservation de la moyenne si doublons)
     df = df.groupby(["name_0", "name_1"], as_index=False)[nom_col].mean()
 
     # Pays non traduits
@@ -121,7 +150,7 @@ def nettoyer_GDL(df: pd.DataFrame, gdf, mapping: dict, annee: str, nom_col: str)
         print(pays_hors_gdf)
 
     # Test de granularité
-    assert isid(df=df, colonnes=["name_0", "name_1"], blabla=0)
+    assert isid(df=df, colonnes=["name_0", "name_1"], blabla=1)
 
     # Renvoi
     return df

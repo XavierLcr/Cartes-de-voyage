@@ -5,13 +5,12 @@
 ################################################################################
 
 
-import os, sys, unicodedata
+import unicodedata
 import numpy as np
 import pandas as pd
 
 from constantes import (
     direction_donnees_intermediaires,
-    direction_donnees_brutes,
     direction_donnees_geographiques,
     direction_donnees_application,
 )
@@ -19,10 +18,6 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     ouvrir_fichier,
     exporter_fichier,
     distance_haversine,
-)
-from _0_Utilitaires._0_4_fonctions_utiles_nettoyage import (
-    mapping_pays,
-    remplacer_valeurs_colonne,
 )
 from _0_Utilitaires._0_5_isid import isid
 
@@ -44,47 +39,20 @@ gdf_1 = ouvrir_fichier(
 ### Table du Global Data Lab (GDL) ---------------------------------------------
 
 
-# IDH
-df_IDH = ouvrir_fichier(
+# Données nationales
+df_gdl_nat = ouvrir_fichier(
     direction_fichier=direction_donnees_intermediaires,
-    nom_fichier="IDH.pkl",
+    nom_fichier="gdl_nationale.pkl",
     defaut=None,
 )
 
-# Températures
-df_temperature = ouvrir_fichier(
+# Données régionales
+df_gdl_reg = ouvrir_fichier(
     direction_fichier=direction_donnees_intermediaires,
-    nom_fichier="temperature.pkl",
+    nom_fichier="gdl_regionale.pkl",
     defaut=None,
 )
 
-# Pluies
-df_pluie = ouvrir_fichier(
-    direction_fichier=direction_donnees_intermediaires,
-    nom_fichier="pluie.pkl",
-    defaut=None,
-)
-
-# Humidité
-df_humidite = ouvrir_fichier(
-    direction_fichier=direction_donnees_intermediaires,
-    nom_fichier="humidite.pkl",
-    defaut=None,
-)
-
-# Urbanisme
-df_urbanisme = ouvrir_fichier(
-    direction_fichier=direction_donnees_intermediaires,
-    nom_fichier="urbanisme.pkl",
-    defaut=None,
-)
-
-# Justice
-df_justice = ouvrir_fichier(
-    direction_fichier=direction_donnees_intermediaires,
-    nom_fichier="justice.pkl",
-    defaut=None,
-)
 
 ### Langues --------------------------------------------------------------------
 
@@ -124,6 +92,8 @@ df_environnement = ouvrir_fichier(
     nom_fichier="environnement.pkl",
     defaut=None,
 )
+
+
 ### Données alimentaires -------------------------------------------------------
 
 
@@ -147,70 +117,37 @@ gdf_1 = gdf_1.assign(
 ).drop(columns=["geometry"])
 
 
-## 2.2 -- Avec les données GDL -------------------------------------------------
+## 2.2 -- Jointures avec les différentes tables --------------------------------
 
 
-### Fonction générique de jointure avec une table GDL --------------------------
+### Tables du Global Data Lab --------------------------------------------------
 
 
-def normalize_string(s):
-    if pd.isna(s):
-        return ""
-    s = "".join(
-        c for c in unicodedata.normalize("NFD", s) if unicodedata.category(c) != "Mn"
+# Tests de granularité
+assert isid(df=df_gdl_reg, colonnes=["name_0", "name_1"], blabla=1)
+assert isid(df=df_gdl_nat, colonnes="name_0", blabla=1)
+
+# Jointures
+gdf_1 = gdf_1.merge(right=df_gdl_reg, on=["name_0", "name_1"], how="left").merge(
+    right=df_gdl_nat, on=["name_0"], how="left", suffixes=("", "_nat")
+)
+
+# Remplacement des valeurs manquantes
+for a, b in [
+    ("IDH", "IDH_nat"),
+    ("temperature", "temperature_nat"),
+    ("humidite", "humidite_nat"),
+    ("pluie", "pluie_nat"),
+    ("urbanisme", "urbanisme_nat"),
+    ("corruption", "corruption_nat"),
+]:
+    gdf_1 = (
+        gdf_1
+        # Complétion des valeurs régionales manquantes avec les valeurs nationales
+        .assign(a=lambda df: df["a"].fillna(df["b"]))
+        # Suppression de la colonne nationale, devenue obsolète
+        .drop(columns=["b"])
     )
-    s = s.lower().replace(" ", "").replace("-", "").replace("'", "")
-    return s
-
-
-def merge_with_match(df1, df2):
-
-    # Fonction interne pour trouver la correspondance pour une ligne
-    def find_match_row(row):
-        candidates = df2[df2["name_0"] == row["name_0"]].copy()
-
-        name_1_row = normalize_string(row["name_1"])
-        candidates["name_1_norm"] = candidates["name_1"].apply(normalize_string)
-
-        match = candidates[candidates["name_1_norm"].str.contains(name_1_row, na=False)]
-
-        if not match.empty:
-            return match.iloc[0]
-        else:
-            total_match = candidates[candidates["name_1"].str.lower() == "total"]
-            if not total_match.empty:
-                return total_match.iloc[0]
-            else:
-                return pd.Series({col: pd.NA for col in df2.columns})
-
-    # Appliquer la fonction à df1
-    matched = df1.apply(find_match_row, axis=1)
-
-    # Ne garder que les colonnes de df2 à ajouter (sauf name_0 et name_1)
-    cols_to_add = [col for col in df2.columns if col not in ["name_0", "name_1"]]
-    matched_filtered = matched[cols_to_add]
-
-    # Combiner avec df1
-    result = pd.concat(
-        [df1.reset_index(drop=True), matched_filtered.reset_index(drop=True)], axis=1
-    )
-
-    return result
-
-
-### Application ----------------------------------------------------------------
-
-
-# Avec les tables GDL
-gdf_1 = merge_with_match(gdf_1, df_IDH)
-gdf_1 = merge_with_match(gdf_1, df_temperature)
-gdf_1 = merge_with_match(gdf_1, df_pluie)
-gdf_1 = merge_with_match(gdf_1, df_humidite)
-gdf_1 = merge_with_match(gdf_1, df_urbanisme)
-gdf_1 = merge_with_match(gdf_1, df_justice)
-
-
-## 2.3 -- Jointures avec le reste des table ------------------------------------
 
 
 ### Table de tourisme ----------------------------------------------------------

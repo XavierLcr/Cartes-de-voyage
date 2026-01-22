@@ -341,6 +341,10 @@ for col in gdf_1.select_dtypes(include="object").columns:
 # 4 -- Export ------------------------------------------------------------------
 
 
+# Test de granularité
+assert isid(df=gdf_1, colonnes=["name_0", "name_1"], blabla=1)
+
+
 exporter_fichier(
     objet=gdf_1,
     direction_fichier=direction_donnees_application,

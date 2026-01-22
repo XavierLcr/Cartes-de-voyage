@@ -20,6 +20,7 @@ from _0_Utilitaires._0_4_fonctions_utiles_nettoyage import (
     mapping_pays,
     remplacer_valeurs_colonne,
     valeurs_contenues,
+    derniere_valeur_valide_par_ligne,
 )
 from _0_Utilitaires._0_5_isid import isid
 
@@ -156,7 +157,7 @@ def nettoyer_GDL(df: pd.DataFrame, gdf, mapping: dict, annee: str, nom_col: str)
     return df
 
 
-# 3 -- Application et export  --------------------------------------------------
+# 3 -- Application -------------------------------------------------------------
 
 
 ## 3.1 -- IDH ------------------------------------------------------------------
@@ -164,12 +165,6 @@ def nettoyer_GDL(df: pd.DataFrame, gdf, mapping: dict, annee: str, nom_col: str)
 
 df_IDH = nettoyer_GDL(
     df=df_IDH, gdf=gdf_1, mapping=mapping_pays, annee="2022", nom_col="IDH"
-)
-
-exporter_fichier(
-    objet=df_IDH,
-    direction_fichier=constantes.direction_donnees_intermediaires,
-    nom_fichier="IDH.pkl",
 )
 
 
@@ -184,23 +179,11 @@ df_temperature = nettoyer_GDL(
     nom_col="temperature",
 )
 
-exporter_fichier(
-    objet=df_temperature,
-    direction_fichier=constantes.direction_donnees_intermediaires,
-    nom_fichier="temperature.pkl",
-)
-
 ## 3.3 -- Pluies ---------------------------------------------------------------
 
 
 df_pluie = nettoyer_GDL(
     df=df_pluie, gdf=gdf_1, mapping=mapping_pays, annee="2022", nom_col="pluie"
-)
-
-exporter_fichier(
-    objet=df_pluie,
-    direction_fichier=constantes.direction_donnees_intermediaires,
-    nom_fichier="pluie.pkl",
 )
 
 
@@ -211,24 +194,11 @@ df_humidite = nettoyer_GDL(
     df=df_humidite, gdf=gdf_1, mapping=mapping_pays, annee="2022", nom_col="humidite"
 )
 
-exporter_fichier(
-    objet=df_humidite,
-    direction_fichier=constantes.direction_donnees_intermediaires,
-    nom_fichier="humidite.pkl",
-)
-
 
 ## 3.5 -- Urbanisme ------------------------------------------------------------
 
 
-df_urbanisme["recent"] = df_urbanisme[
-    [col for col in df_urbanisme.columns if col.isdigit()]
-].apply(
-    lambda row: (
-        row[row.last_valid_index()] if row.last_valid_index() is not None else pd.NA
-    ),
-    axis=1,
-)
+df_urbanisme["recent"] = derniere_valeur_valide_par_ligne(df=df_urbanisme)
 
 df_urbanisme = nettoyer_GDL(
     df=df_urbanisme,
@@ -236,12 +206,6 @@ df_urbanisme = nettoyer_GDL(
     mapping=mapping_pays,
     annee="recent",
     nom_col="urbanisation",
-)
-
-exporter_fichier(
-    objet=df_urbanisme,
-    direction_fichier=constantes.direction_donnees_intermediaires,
-    nom_fichier="urbanisme.pkl",
 )
 
 
@@ -252,8 +216,65 @@ df_justice = nettoyer_GDL(
     df=df_justice, gdf=gdf_1, mapping=mapping_pays, annee="2022", nom_col="corruption"
 )
 
+
+# 4 -- Jointures des différentes tables ----------------------------------------
+
+
+# Tests de granularité
+assert isid(df=df_IDH, colonnes=["name_0", "name_1"], blabla=1)
+assert isid(df=df_temperature, colonnes=["name_0", "name_1"], blabla=1)
+assert isid(df=df_pluie, colonnes=["name_0", "name_1"], blabla=1)
+assert isid(df=df_humidite, colonnes=["name_0", "name_1"], blabla=1)
+assert isid(df=df_urbanisme, colonnes=["name_0", "name_1"], blabla=1)
+assert isid(df=df_justice, colonnes=["name_0", "name_1"], blabla=1)
+
+# Jointures
+df_gdl = (
+    df_IDH.merge(right=df_temperature, on=["name_0", "name_1"], how="outer")
+    .merge(right=df_pluie, on=["name_0", "name_1"], how="outer")
+    .merge(right=df_humidite, on=["name_0", "name_1"], how="outer")
+    .merge(right=df_urbanisme, on=["name_0", "name_1"], how="outer")
+    .merge(right=df_justice, on=["name_0", "name_1"], how="outer")
+)
+
+
+# 5 -- Séparation des tables nationale et locale -------------------------------
+
+
+df_gdl_nat = df_gdl[df_gdl["name_1"] == "Total"].drop(columns="name_1")
+df_gdl_reg = df_gdl[df_gdl["name_1"] != "Total"]
+
+
+# Test de longueur
+assert len(df_gdl_nat) + len(df_gdl_reg) == len(df_gdl)
+
+
+# 6 -- Export ------------------------------------------------------------------
+
+
+## 6.1 -- Table nationale ------------------------------------------------------
+
+
+# Test de granularité
+assert isid(df=df_gdl_nat, colonnes=["name_0"], blabla=1)
+
+# Export
 exporter_fichier(
-    objet=df_justice,
+    objet=df_gdl_nat,
     direction_fichier=constantes.direction_donnees_intermediaires,
-    nom_fichier="justice.pkl",
+    nom_fichier="gdl_nationale.pkl",
+)
+
+
+## 6.2 -- Table régionale ------------------------------------------------------
+
+
+# Test de granularité
+assert isid(df=df_gdl_reg, colonnes=["name_0", "name_1"], blabla=1)
+
+# Export
+exporter_fichier(
+    objet=df_gdl_reg,
+    direction_fichier=constantes.direction_donnees_intermediaires,
+    nom_fichier="gdl_regionale.pkl",
 )

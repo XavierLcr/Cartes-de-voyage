@@ -198,10 +198,10 @@ df_humidite = nettoyer_GDL(
 ## 3.5 -- Urbanisme ------------------------------------------------------------
 
 
-df_urbanisme["recent"] = derniere_valeur_valide_par_ligne(df=df_urbanisme)
-
-df_urbanisme = nettoyer_GDL(
-    df=df_urbanisme,
+df_urbanisme = df_urbanisme.assign(
+    recent=lambda df: derniere_valeur_valide_par_ligne(df=df)
+).pipe(
+    nettoyer_GDL,
     gdf=gdf_1,
     mapping=mapping_pays,
     annee="recent",

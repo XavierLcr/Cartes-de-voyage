@@ -551,7 +551,7 @@ class OngletParametres(QWidget):
         }
         for nom_cle, checkbox in checkboxes.items():
             checkbox.setChecked(
-                kwargs.get(nom_cle) or (nom_cle in ["europe", "carte_des_pays"])
+                kwargs.get(nom_cle) or (nom_cle in ["europe", "cartes_des_pays"])
             )
 
         # Paramètres de stockage

@@ -1,8 +1,8 @@
 # Paramètres généraux d'application
 application_position_largeur: 250
 application_position_hauteur: 40
-application_largeur: 800
-application_hauteur: 250
+application_largeur: 900
+application_hauteur: 300
 
 # Paramètres de l'onglet de paramètres
 ## Limite du slider

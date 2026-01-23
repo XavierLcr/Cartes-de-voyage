@@ -22,7 +22,10 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     creer_ligne_horizontale,
     vider_layout,
 )
-
+from _0_Utilitaires._0_2_fonctions_graphiques import (
+    renvoyer_couleur_widget,
+    renvoyer_couleur_texte,
+)
 
 # 1 -- Fonctions utiles --------------------------------------------------------
 
@@ -86,10 +89,7 @@ class OngletResumeDestinations(QWidget):
         self.constantes = constantes
         self.dicts_granu = {"region": {}, "dep": {}}
         self.langue_utilisee = "français"
-        self.couleurs = {
-            1: "#EDE5FF",
-            2: "#DCF5FF",
-        }
+        self.set_style(style=1, teinte=None, nuances={})
 
         self.layout_onglet_3 = QVBoxLayout()
         self.layout_resume_pays = QHBoxLayout()
@@ -133,6 +133,25 @@ class OngletResumeDestinations(QWidget):
         self.deplier.setText("📖​")
         self.replier.setText("📘​")
         self.maj_layout_resume()
+
+    def set_style(self, style, teinte, nuances):
+
+        self.couleurs = {
+            1: renvoyer_couleur_widget(
+                style=style,
+                teinte=teinte,
+                nuances=nuances,
+                clair="#EDE5FF",
+                sombre="#1221C1",
+            ),
+            2: renvoyer_couleur_widget(
+                style=style,
+                teinte=teinte,
+                nuances=nuances,
+                clair="#DCF5FF",
+                sombre="#7E0E5C",
+            ),
+        }
 
     def _creer_scroll(self, vbox):
         widget = QWidget()

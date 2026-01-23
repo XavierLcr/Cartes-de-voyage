@@ -176,7 +176,7 @@ def style_dynamique_application(
 
     # Scroll area
     couleur_scroll_area_fond = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#F3F4F8", sombre="#1A1F2B"
+        style=style, teinte=teinte, nuances=nuances, clair="#F3F4F8", sombre="#07215E"
     )
     couleur_scroll_area_texte = renvoyer_couleur_texte(
         style=style,

@@ -71,13 +71,13 @@ def style_bouton_yaml(style: int, teinte, nuances):
 def style_bouton_recommandation(style: int, teinte, nuances):
 
     bg_couleur = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#C8E6C9", sombre="#2B523B"
+        style=style, teinte=teinte, nuances=nuances, clair="#C8E6C9", sombre="#512B52"
     )
     bg_couleur_survol = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#B7E4C7", sombre="#0B9437"
+        style=style, teinte=teinte, nuances=nuances, clair="#B7E4C7", sombre="#A01C6E"
     )
     bg_couleur_click = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#77B0AD", sombre="#0D7344"
+        style=style, teinte=teinte, nuances=nuances, clair="#77B0AD", sombre="#000000"
     )
 
     return f"""
@@ -91,7 +91,7 @@ def style_bouton_recommandation(style: int, teinte, nuances):
             border:  none;   /* bord subtil légèrement plus clair */
         }}
         QPushButton:hover {{
-            background-color: #B7E4C7;   /* légèrement plus saturé au survol */
+            background-color: {bg_couleur_survol};   /* légèrement plus saturé au survol */
             color: {renvoyer_couleur_texte(style=style, couleur=bg_couleur_survol)};  
             border-color: none;
         }}
@@ -100,4 +100,34 @@ def style_bouton_recommandation(style: int, teinte, nuances):
             color: {renvoyer_couleur_texte(style=style, couleur=bg_couleur_click)};   
             border-color: none;
         }}
+    """
+
+
+# 4 -- Fonction du style du bouton d'ajout de profils --------------------------
+
+
+def style_bouton_ajout_profil(style: int, teinte, nuances):
+
+    bg_couleur = renvoyer_couleur_widget(
+        style=style,
+        teinte=teinte,
+        nuances=nuances,
+        clair="transparent",
+        sombre="#149C2B",
+    )
+
+    bg_couleur_survol = renvoyer_couleur_widget(
+        style=style, teinte=teinte, nuances=nuances, clair="#D6F0EE", sombre="#79E3DA"
+    )
+
+    f"""
+    QPushButton {{
+        font-weight: bold;
+        background-color: {bg_couleur};
+        border: none;
+        font-size: 12px;
+    }}
+    QPushButton:hover {{
+        background-color:{bg_couleur_survol}
+    }}
     """

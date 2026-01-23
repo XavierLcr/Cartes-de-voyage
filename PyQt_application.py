@@ -32,6 +32,9 @@ from _4_Interface._4_1_Onglets.onglet_4 import onglet_4
 from _4_Interface._4_1_Onglets import onglet_3, onglet_info
 from _4_Interface._4_1_Onglets.onglet_param_profil import onglet_param_profil
 from _4_Interface._4_2_Style._4_2_1_style_principal import style_dynamique_application
+from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
+    style_bouton_ajout_profil,
+)
 from _4_Interface._4_2_Style._4_2_4_pluie_emojis import VuePluieEmojis
 
 # from _4_Interface._4_2_Style._4_2_3_musique import MusicPlayer
@@ -97,24 +100,11 @@ class MesVoyagesApplication(QWidget):
         self.nom_individu.addItems(list(sauvegarde.keys()))
         profile_layout.addWidget(self.nom_individu)
         self.liste_onglets.setCornerWidget(profile_container, Qt.Corner.TopRightCorner)
-        bouton_ajout = QPushButton()
-        bouton_ajout.setText("➕")
-        bouton_ajout.setStyleSheet(
-            """
-            QPushButton {
-                font-weight: bold;
-                background-color: transparent;
-                border: none;
-                font-size: 12px;
-            }
-            QPushButton:hover {
-                background-color:#D6F0EE
-            }
-        """
-        )
-        bouton_ajout.setFixedWidth(40)
-        bouton_ajout.clicked.connect(self.ajouter_profil)
-        profile_layout.addWidget(bouton_ajout)
+        self.bouton_ajout = QPushButton()
+        self.bouton_ajout.setText("➕")
+        self.bouton_ajout.setFixedWidth(40)
+        self.bouton_ajout.clicked.connect(self.ajouter_profil)
+        profile_layout.addWidget(self.bouton_ajout)
 
         # === Premier onglet ===
 
@@ -394,8 +384,20 @@ class MesVoyagesApplication(QWidget):
             )
         )
 
+        # Sélection du profil
+        self.bouton_ajout.setStyleSheet(
+            style_bouton_ajout_profil(
+                style=style_temp, teinte=teinte_temp, nuances=theme_temp
+            )
+        )
+
         # Onglet 2
         self.onglet_selection_destinations.set_style(
+            style=style_temp, teinte=teinte_temp, nuances=theme_temp
+        )
+
+        # Onglet 3
+        self.onglet_resume_destinations.set_style(
             style=style_temp, teinte=teinte_temp, nuances=theme_temp
         )
 

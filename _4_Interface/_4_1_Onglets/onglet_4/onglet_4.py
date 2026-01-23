@@ -5,6 +5,9 @@
 ################################################################################
 
 
+# 0 -- Initialisation ----------------------------------------------------------
+
+
 import copy
 
 from PyQt6.QtWidgets import (
@@ -16,11 +19,15 @@ from PyQt6.QtWidgets import (
     QStackedWidget,
 )
 
+from _0_Utilitaires._0_2_fonctions_graphiques import renvoyer_couleur_texte
 from _4_Interface._4_1_Onglets.onglet_4 import (
     onglet_4_1_hemicycle,
     onglet_4_2_classement,
     onglet_4_3_recommendations,
 )
+
+
+# 1 -- Classe de l'onglet contenant les statistiques ---------------------------
 
 
 class OngletTopPays(QWidget):
@@ -33,13 +40,13 @@ class OngletTopPays(QWidget):
     ):
         super().__init__(parent)
 
-        self.mise_en_page = constantes.parametres_application["onglet_4_mise_en_page"]
+        self.mise_en_page = constantes.parametres_application.get(
+            "onglet_4_mise_en_page"
+        )
         self.fonction_traduction = fct_traduction
         self.constantes = constantes
 
-        # === Création des pages === #
-
-        ## === Onglet Hémicycle === ##
+        # Hémicycle
         self.hemicycle = onglet_4_1_hemicycle.HemicycleWidget(
             constantes=constantes,
         )
@@ -47,14 +54,14 @@ class OngletTopPays(QWidget):
         layout_hemicycle = QVBoxLayout(page_hemicycle)
         layout_hemicycle.addWidget(self.hemicycle)
 
-        ## === Onglet Classement === ##
+        # Pays les plus visités
         self.classement_widget = onglet_4_2_classement.ClassementPays(
             constantes=constantes,
             table_superficie=table_superficie,
             fct_traduction=self.fonction_traduction,
         )
 
-        ## === Pop-up de recommandations === ##
+        # Recommandations de voyage
         self.recommandations = onglet_4_3_recommendations.PaysAVisiter(
             constantes=constantes,
             table_superficie=table_superficie,
@@ -62,7 +69,7 @@ class OngletTopPays(QWidget):
             parent=None,
         )
 
-        # === Mise en page ===
+        # Mise en page des sous-onglets
         layout = QVBoxLayout(self)
 
         if self.mise_en_page == 0:
@@ -105,11 +112,6 @@ class OngletTopPays(QWidget):
             ## === Layout principal ===
             layout.addWidget(self.sous_onglets)
 
-    def set_dicts_granu(self, dict_nv):
-        self.hemicycle.set_pays_visites(pays_visites=copy.deepcopy(dict_nv))
-        self.classement_widget.set_dicts_granu(dict_nv=copy.deepcopy(dict_nv))
-        self.recommandations.set_dicts_granu(dict_nv=copy.deepcopy(dict_nv))
-
     def set_langue(self, nouvelle_langue):
         self.hemicycle.set_langue(langue=nouvelle_langue)
         self.classement_widget.set_langue(nouvelle_langue)
@@ -149,3 +151,23 @@ class OngletTopPays(QWidget):
             self.sous_onglets.setTabText(
                 self.sous_onglets.indexOf(self.recommandations), texte_onglet_3
             )
+
+    def set_style(self, style: int, teinte, nuances):
+
+        # Style de l'hémicycle
+        self.hemicycle.set_style(
+            couleur=renvoyer_couleur_texte(
+                style=style,
+                couleur=self.palette().color(self.backgroundRole()).name(),
+            )
+        )
+
+        # Onglet 4.3
+        self.recommandations.set_bouton_recommandation(
+            style=style, teinte=teinte, nuances=nuances
+        )
+
+    def set_dicts_granu(self, dict_nv):
+        self.hemicycle.set_pays_visites(pays_visites=copy.deepcopy(dict_nv))
+        self.classement_widget.set_dicts_granu(dict_nv=copy.deepcopy(dict_nv))
+        self.recommandations.set_dicts_granu(dict_nv=copy.deepcopy(dict_nv))

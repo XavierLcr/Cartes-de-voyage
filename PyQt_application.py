@@ -25,7 +25,6 @@ from PyQt6.QtCore import QTimer, Qt
 # Scripts et fonctions du projet
 import constantes
 from _0_Utilitaires import _0_1_fonctions_utiles_gen, _0_3_fonctions_utiles_pyqt6
-from _0_Utilitaires._0_2_fonctions_graphiques import renvoyer_couleur_texte
 from _4_Interface._4_1_Onglets.onglet_1 import onglet_1
 from _4_Interface._4_1_Onglets.onglet_2 import onglet_2
 from _4_Interface._4_1_Onglets.onglet_4 import onglet_4
@@ -404,16 +403,8 @@ class MesVoyagesApplication(QWidget):
             style=style_temp, teinte=teinte_temp, nuances=theme_temp
         )
 
-        # Onglet 4.1
-        self.onglet_statistiques.hemicycle.set_style(
-            couleur=renvoyer_couleur_texte(
-                style=style_temp,
-                couleur=self.palette().color(self.backgroundRole()).name(),
-            )
-        )
-
-        # Onglet 4.3
-        self.onglet_statistiques.recommandations.set_bouton_recommandation(
+        # Onglet de statistiques
+        self.onglet_statistiques.set_style(
             style=style_temp, teinte=teinte_temp, nuances=theme_temp
         )
 

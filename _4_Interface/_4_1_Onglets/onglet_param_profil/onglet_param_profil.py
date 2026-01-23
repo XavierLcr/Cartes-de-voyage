@@ -185,11 +185,6 @@ class OngletParametresProfil(QWidget):
 
         # Suppression du profil
         self.suppression_profil = QPushButton()
-        self.suppression_profil.setStyleSheet(
-            style_bouton_de_suppression(
-                sombre=constantes.parametres_application.get("interface_foncee", False)
-            )
-        )
         layout.addWidget(self.suppression_profil)
 
         # Layout principal
@@ -275,6 +270,9 @@ class OngletParametresProfil(QWidget):
 
         # Bouton de suppression
         self.suppression_profil.setText(self.fonction_traduction("supprimer_profil"))
+
+    def set_style(self, theme: bool):
+        self.suppression_profil.setStyleSheet(style_bouton_de_suppression(sombre=theme))
 
     def get_dossier(self):
         return self.dossier_stockage

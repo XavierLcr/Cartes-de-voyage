@@ -391,6 +391,9 @@ class MesVoyagesApplication(QWidget):
             )
         )
 
+        # Onglet 1
+        self.onglet_parametres.set_style(style=not self.theme_application)
+
         # Onglet 2
         self.onglet_selection_destinations.set_style(
             style=style_temp, teinte=teinte_temp, nuances=theme_temp
@@ -413,6 +416,9 @@ class MesVoyagesApplication(QWidget):
         self.onglet_statistiques.recommandations.set_bouton_recommandation(
             style=style_temp, teinte=teinte_temp, nuances=theme_temp
         )
+
+        # Onglet des paramètres de profil
+        self.onglet_param_profil.set_style(theme=not self.theme_application)
 
     def creer_liste_parametres(self):
 

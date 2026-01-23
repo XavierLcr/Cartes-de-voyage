@@ -62,8 +62,6 @@ parametres_application_defaut = {
     "application_position_hauteur": 40,
     "application_largeur": 750,
     "application_hauteur": 250,
-    # Paramètres d'interface
-    "interface_foncee": False,
     # Paramètres des cartes
     "qualite_min": 200,
     "qualite_max": 4000,

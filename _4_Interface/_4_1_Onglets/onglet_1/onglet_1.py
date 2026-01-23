@@ -279,11 +279,6 @@ class OngletParametres(QWidget):
 
         # Bouton de réinitialisation
         self.reinit_parametres = QPushButton()
-        self.reinit_parametres.setStyleSheet(
-            style_bouton_de_suppression(
-                sombre=constantes.parametres_application["interface_foncee"]
-            )
-        )
 
         # Ajouter les widgets dans la grille
         layout_valid_reinit.addWidget(self.reinit_parametres, 0, 0)
@@ -428,6 +423,9 @@ class OngletParametres(QWidget):
                 .values()
             ),
         )
+
+    def set_style(self, style: bool):
+        self.reinit_parametres.setStyleSheet(style_bouton_de_suppression(sombre=style))
 
     def initialiser_progression(self, nb_cartes: int):
 

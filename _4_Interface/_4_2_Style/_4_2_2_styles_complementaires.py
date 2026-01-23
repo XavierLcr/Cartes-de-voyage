@@ -14,19 +14,20 @@ from _0_Utilitaires._0_2_fonctions_graphiques import (
 # 1 -- Génération du style des boutons de suppression et de réinitialisation ---
 
 
-def style_bouton_de_suppression(sombre):
-    return f"""QPushButton {{
-                            background-color:{"#000000" if sombre else "#f8d7da"};
-                            color: {"#E6E6E6" if sombre else "#2C2C2C"};
-                            font-size: 12px;
-                            border: none;
-                            border-radius: 5px;
-                            padding: 8px;
-                            }}
-                QPushButton:hover {{
-                                    background-color: {"#85040d" if sombre else "#f5c6cb"};
-                                  }}
-            """
+def style_bouton_de_suppression(sombre: bool):
+    return f"""
+        QPushButton {{
+            background-color:{"#430404" if sombre else "#f8d7da"};
+            color: {"#E6E6E6" if sombre else "#2C2C2C"};
+            font-size: 12px;
+            border: none;
+            border-radius: 5px;
+            padding: 8px;
+        }}
+        QPushButton:hover {{
+            background-color: {"#85040d" if sombre else "#f5c6cb"};
+        }}
+    """
 
 
 # 2 -- Couleur du bouton montrant la posssibilité de télécharger des YAMLs -----
@@ -113,21 +114,21 @@ def style_bouton_ajout_profil(style: int, teinte, nuances):
         teinte=teinte,
         nuances=nuances,
         clair="transparent",
-        sombre="#149C2B",
+        sombre="#14689C",
     )
 
     bg_couleur_survol = renvoyer_couleur_widget(
         style=style, teinte=teinte, nuances=nuances, clair="#D6F0EE", sombre="#79E3DA"
     )
 
-    f"""
-    QPushButton {{
-        font-weight: bold;
-        background-color: {bg_couleur};
-        border: none;
-        font-size: 12px;
-    }}
-    QPushButton:hover {{
-        background-color:{bg_couleur_survol}
-    }}
-    """
+    return f"""
+        QPushButton {{
+            font-weight: bold;
+            background-color: {bg_couleur};
+            border: none;
+            font-size: 12px;
+        }}
+        QPushButton:hover {{
+            background-color:{bg_couleur_survol}
+        }}
+        """

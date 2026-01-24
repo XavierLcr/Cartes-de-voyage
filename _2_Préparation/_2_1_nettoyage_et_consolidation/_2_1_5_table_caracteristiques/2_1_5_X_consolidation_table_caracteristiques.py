@@ -110,7 +110,7 @@ df_alimentation = ouvrir_fichier(
 ## 2.1 -- Données géographiques ------------------------------------------------
 
 
-gdf_1 = gdf_1.assign(
+gdf_cons = gdf_1.assign(
     latitude=gdf_1["geometry"].centroid.y,
     longitude=gdf_1["geometry"].centroid.x,
     superficie=gdf_1["geometry"].area,
@@ -128,7 +128,7 @@ assert isid(df=df_gdl_reg, colonnes=["name_0", "name_1"], blabla=1)
 assert isid(df=df_gdl_nat, colonnes="name_0", blabla=1)
 
 # Jointures
-gdf_1 = gdf_1.merge(right=df_gdl_reg, on=["name_0", "name_1"], how="left").merge(
+gdf_cons = gdf_cons.merge(right=df_gdl_reg, on=["name_0", "name_1"], how="left").merge(
     right=df_gdl_nat, on=["name_0"], how="left", suffixes=("", "_nat")
 )
 
@@ -138,15 +138,15 @@ for a, b in [
     ("temperature", "temperature_nat"),
     ("humidite", "humidite_nat"),
     ("pluie", "pluie_nat"),
-    ("urbanisme", "urbanisme_nat"),
+    ("urbanisation", "urbanisation_nat"),
     ("corruption", "corruption_nat"),
 ]:
-    gdf_1 = (
-        gdf_1
+    gdf_cons = (
+        gdf_cons
         # Complétion des valeurs régionales manquantes avec les valeurs nationales
-        .assign(a=lambda df: df["a"].fillna(df["b"]))
+        .assign(temp=lambda df: df[a].fillna(df[b]))
         # Suppression de la colonne nationale, devenue obsolète
-        .drop(columns=["b"])
+        .drop(columns=[a, b]).rename(columns={"temp": a})
     )
 
 
@@ -157,7 +157,7 @@ for a, b in [
 assert isid(df=df_tourisme, colonnes="name_0", blabla=1)
 
 # Jointure
-gdf_1 = gdf_1.merge(right=df_tourisme, how="left", on="name_0")
+gdf_cons = gdf_cons.merge(right=df_tourisme, how="left", on="name_0")
 
 
 ### Table des données religieuses ----------------------------------------------
@@ -167,7 +167,7 @@ gdf_1 = gdf_1.merge(right=df_tourisme, how="left", on="name_0")
 assert isid(df=df_religion, colonnes="name_0", blabla=1)
 
 # Jointure
-gdf_1 = gdf_1.merge(right=df_religion, how="left", on="name_0")
+gdf_cons = gdf_cons.merge(right=df_religion, how="left", on="name_0")
 
 
 ### Table des données alimentaires ---------------------------------------------
@@ -177,7 +177,7 @@ gdf_1 = gdf_1.merge(right=df_religion, how="left", on="name_0")
 assert isid(df=df_alimentation, colonnes="name_0", blabla=1)
 
 # Jointure
-gdf_1 = gdf_1.merge(right=df_alimentation, how="left", on="name_0")
+gdf_cons = gdf_cons.merge(right=df_alimentation, how="left", on="name_0")
 
 
 ### Table des données environnementales ----------------------------------------
@@ -187,7 +187,7 @@ gdf_1 = gdf_1.merge(right=df_alimentation, how="left", on="name_0")
 assert isid(df=df_environnement, colonnes="name_0", blabla=1)
 
 # Jointure
-gdf_1 = gdf_1.merge(right=df_environnement, how="left", on="name_0")
+gdf_cons = gdf_cons.merge(right=df_environnement, how="left", on="name_0")
 
 
 ### Table des similarités linguistiques ----------------------------------------
@@ -197,7 +197,7 @@ gdf_1 = gdf_1.merge(right=df_environnement, how="left", on="name_0")
 assert isid(df=df_langues, colonnes="name_0", blabla=1)
 
 # Jointure
-gdf_1 = gdf_1.merge(right=df_langues, how="left", on="name_0")
+gdf_cons = gdf_cons.merge(right=df_langues, how="left", on="name_0")
 
 
 ## 2.4 -- Ajout du nombre de NAs -----------------------------------------------
@@ -211,12 +211,12 @@ colonnes_a_exclure = [
     "superficie",
     "population",
 ]
-gdf_1["nombre_na"] = gdf_1.drop(columns=colonnes_a_exclure).isna().sum(axis=1) / (
-    gdf_1.shape[1] - len(colonnes_a_exclure)
+gdf_cons["nombre_na"] = gdf_cons.drop(columns=colonnes_a_exclure).isna().sum(axis=1) / (
+    gdf_cons.shape[1] - len(colonnes_a_exclure)
 )
 
 
-# 3 -- Imputation des valeurs manquantes et normalisation ----------------------
+# 3 -- Imputation des valeurs manquantes, normalisation et pondération ---------
 
 
 ## 3.1 -- Imputation selon les régions les plus proches ------------------------
@@ -249,6 +249,7 @@ def imputation_geo_knn(
     ------
     pd.DataFrame : copie du DataFrame avec les valeurs imputées.
     """
+
     if colonnes_exclues is None:
         colonnes_exclues = []
 
@@ -295,8 +296,8 @@ def imputation_geo_knn(
 ### Application ----------------------------------------------------------------
 
 
-gdf_1 = imputation_geo_knn(
-    df=gdf_1,
+gdf_cons = imputation_geo_knn(
+    df=gdf_cons,
     n_voisins=10,
     colonnes_exclues=colonnes_a_exclure,
 )
@@ -305,17 +306,47 @@ gdf_1 = imputation_geo_knn(
 ## 3.2 -- Normalisation des colonnes -------------------------------------------
 
 
-### Normalisation entre le minimum (0) et le maximum (1) -----------------------
+### Fonction de normalisation entre 0 et 1 des valeurs -------------------------
 
 
-for col in gdf_1.columns:
-    if col not in colonnes_a_exclure:
-        gdf_1[col] = (gdf_1[col] - gdf_1[col].min()) / (
-            gdf_1[col].max() - gdf_1[col].min()
-        )
+def normaliser_min_max(df: pd.DataFrame, colonnes_a_exclure: list = []):
+    """
+    Normalise les colonnes d'un GeoDataFrame ou DataFrame avec la formule :
+    (valeur - min) / (max - min)
+    pour toutes les colonnes sauf celles dans `colonnes_a_exclure`.
+
+    Args:
+        gdf (gpd.GeoDataFrame ou pd.DataFrame) : DataFrame à normaliser.
+        colonnes_a_exclure (list) : Liste des noms de colonnes à exclure.
+
+    Returns:
+        gpd.GeoDataFrame ou pd.DataFrame : DataFrame normalisé.
+    """
+
+    df_temp = df.copy()
+
+    for col in df_temp.columns:
+        if col not in colonnes_a_exclure:
+            min_val = df_temp[col].min()
+            max_val = df_temp[col].max()
+
+            # Évite la division par zéro si max_val == min_val
+            if max_val != min_val:
+                df_temp[col] = (df_temp[col] - min_val) / (max_val - min_val)
+            else:
+                # Suppression de la colonne
+                df_temp.drop(columns=[col])
+
+    return df_temp
 
 
-### Pondération des colonnes ---------------------------------------------------
+### Application ----------------------------------------------------------------
+
+
+gdf_cons = normaliser_min_max(gdf_cons, colonnes_a_exclure)
+
+
+## 3.3 -- Pondération des colonnes ---------------------------------------------
 
 
 for pattern, pondération in {
@@ -325,28 +356,28 @@ for pattern, pondération in {
     "environnement": 1.6,
     "langue": 1.2,
 }.items():
-    colonnes_i = [col for col in gdf_1.columns if pattern in col.lower()]
+    colonnes_i = [col for col in gdf_cons.columns if pattern in col.lower()]
     for col in colonnes_i:
-        gdf_1[col] = pondération * gdf_1[col] / len(colonnes_i)
+        gdf_cons[col] = pondération * gdf_cons[col] / len(colonnes_i)
 
 
-### Assignation du type "float" aux colonnes -----------------------------------
+## 3.4 -- Assignation du type "float" aux colonnes -----------------------------
 
 
-for col in gdf_1.select_dtypes(include="object").columns:
+for col in gdf_cons.select_dtypes(include="object").columns:
     if col not in ["name_0", "name_1", "name_2"]:
-        gdf_1[col] = gdf_1[col].astype(float)
+        gdf_cons[col] = gdf_cons[col].astype(float)
 
 
 # 4 -- Export ------------------------------------------------------------------
 
 
 # Test de granularité
-assert isid(df=gdf_1, colonnes=["name_0", "name_1"], blabla=1)
+assert isid(df=gdf_cons, colonnes=["name_0", "name_1"], blabla=1)
 
-
+# Export
 exporter_fichier(
-    objet=gdf_1,
+    objet=gdf_cons,
     direction_fichier=direction_donnees_application,
     nom_fichier="caracteristiques_des_regions.pkl",
 )

@@ -372,7 +372,7 @@ class OngletParametres(QWidget):
         # Envoi par e-mail
         self.email_checkbox.setText("✉️​")
         self.email_checkbox.setToolTip(
-            self.fonction_traduction("email_checkbox_tooltip")
+            self.fonction_traduction("email_checkbox_tooltip", suffixe=".")
         )
 
         # Boutons en bas de l'onglet 1

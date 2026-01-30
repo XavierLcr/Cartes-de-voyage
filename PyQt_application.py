@@ -663,7 +663,6 @@ class MesVoyagesApplication(QWidget):
         self.onglet_selection_destinations.set_dossier(dossier=dossier)
 
     def set_hemicycle_position(self, val: int):
-        print(val)
         self.onglet_statistiques.set_hemicycle_position(val=val)
 
     def ajouter_profil(self):

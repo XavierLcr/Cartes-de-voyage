@@ -348,13 +348,13 @@ class OngletParametresProfil(QWidget):
 
     def get_hemicycle_position(self, defaut: int = -1):
 
-        val = {
-            self.hemicycle_position_gauche: -1,
-            self.hemicycle_position_alea: 0,
-            self.hemicycle_position_droite: 1,
-        }.get(self.hemicycle_position.checkedButton(), defaut)
-        print(val)
-        self.signal_hemicyle_position.emit(val)
+        self.signal_hemicyle_position.emit(
+            {
+                self.hemicycle_position_gauche: -1,
+                self.hemicycle_position_alea: 0,
+                self.hemicycle_position_droite: 1,
+            }.get(self.hemicycle_position.checkedButton(), defaut)
+        )
 
     def set_hemicycle_position(self, val: int):
         {

@@ -49,7 +49,6 @@ class OngletParametresProfil(QWidget):
     signal_dossier = pyqtSignal(str)
     signal_langue = pyqtSignal(str)
     signal_theme_application = pyqtSignal(bool)
-    signal_suppression_profil = pyqtSignal(str)
     signal_hemicyle_position = pyqtSignal(int)
 
     def __init__(self, constantes, fct_traduction):

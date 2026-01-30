@@ -148,7 +148,7 @@ class HemicycleWidget(QWidget):
             "South America",
         ]
         self.couleur_texte = "#2C2C2C"
-        self.points_visites_aleatoire = True
+        self.points_visites_position = 1
 
         # Ajustement du nombre de points par ligne
         self.decalage = len(
@@ -190,6 +190,9 @@ class HemicycleWidget(QWidget):
     def center_y(self):
         return self.height() * 0.9
 
+    def set_points_visites_position(self, position):
+        self.points_visites_position = position
+
     def creer_coordonnées(self):
 
         coords_angles = []
@@ -225,7 +228,7 @@ class HemicycleWidget(QWidget):
         ), f"{len(coords_angles)} ≠ {len(list(self.constantes.hierarchie_par_pays.keys()))}"
         return coords_angles
 
-    def relier_coordonnees_continent(self, coord: list, aleatoire: bool):
+    def relier_coordonnees_continent(self, coord: list, position: int):
 
         # Tri
         coord = sorted(coord, key=lambda t: (-t[2], -t[3]))
@@ -237,11 +240,12 @@ class HemicycleWidget(QWidget):
             total_i = self.resume.get(cont)["total"]
             visite_i = self.resume.get(cont)["visites"]
 
-            visites_i = (
-                random.sample(range(0, total_i), visite_i)
-                if aleatoire
-                else [val for val in range(0, visite_i)]
-            )
+            if position == -1:
+                visites_i = [val for val in range(0, visite_i)]
+            elif position == 0:
+                visites_i = random.sample(range(0, total_i), visite_i)
+            else:
+                visites_i = [val for val in range(total_i - visite_i, total_i)]
 
             coord_temp = coord[len(resultat) : (len(resultat) + total_i)]
             for i in range(len(coord_temp)):
@@ -274,7 +278,7 @@ class HemicycleWidget(QWidget):
         self.diametre_point = int(min(self.width(), self.height()) * 0.023 - 2)
 
         coords_angles = self.relier_coordonnees_continent(
-            coord=self.creer_coordonnées(), aleatoire=self.points_visites_aleatoire
+            coord=self.creer_coordonnées(), position=self.points_visites_position
         )
         continent_points = {}  # continent: list of (x, y)
 

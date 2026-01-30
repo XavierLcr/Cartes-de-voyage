@@ -5,11 +5,21 @@
 ################################################################################
 
 
-import os, sys, time, textwrap
+import sys, time, textwrap
 import google.generativeai as genai
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-import constantes
+from constantes import (
+    direction_donnees_traductions,
+    direction_donnees_autres,
+    dict_langues_dispo,
+    dictionnaire_arriere_plans,
+    liste_ambiances,
+    liste_couleurs,
+    phrases_interface,
+    liste_regions_monde,
+    hierarchie_par_pays,
+    liste_pays_groupes,
+)
 from _0_Utilitaires._0_1_fonctions_utiles_gen import ouvrir_fichier, exporter_fichier
 
 from clefs_et_mots_de_passe import clef_api_gemini
@@ -265,11 +275,11 @@ def maj_langues_dispo(modele: dict):
     exporter_fichier(
         objet=creer_dictionnaire_langues(
             modele_dict=modele,
-            liste_deja_existante=constantes.dict_langues_dispo,
+            liste_deja_existante=dict_langues_dispo,
             blabla=True,
             liste_langues=liste_langues,
         ),
-        direction_fichier=constantes.direction_donnees_traductions,
+        direction_fichier=direction_donnees_traductions,
         nom_fichier="noms_langues_traduction.yaml",
         sort_keys=True,
     )
@@ -401,7 +411,7 @@ if __name__ == "__main__":
 
         # Gestion de la limite d'appels API quotidienne
         liste_appels_api_deja_faits = ouvrir_fichier(
-            direction_fichier=constantes.direction_donnees_autres,
+            direction_fichier=direction_donnees_autres,
             nom_fichier="appels_api_par_jour.yaml",
             defaut={},
             afficher_erreur="Fichier YAML des appels API non trouvé.",
@@ -427,7 +437,7 @@ if __name__ == "__main__":
             ],
             ## Traduction déjà existante des paramètres
             liste_deja_existante=ouvrir_fichier(
-                direction_fichier=constantes.direction_donnees_traductions,
+                direction_fichier=direction_donnees_traductions,
                 nom_fichier="parametres_cartes_traduction.yaml",
                 defaut=None,
                 afficher_erreur="Fichier YAML des traductions des paramètres non trouvé.",
@@ -440,7 +450,7 @@ if __name__ == "__main__":
 
         # Ambiances
         parametres_traduits = creer_liste_parametres_multilangue(
-            liste_parametres=list(constantes.liste_ambiances.keys()),
+            liste_parametres=list(liste_ambiances.keys()),
             liste_deja_existante=parametres_traduits,
             nom_bouton="themes_cartes",
             modele_dict=modele_utilise,
@@ -450,7 +460,7 @@ if __name__ == "__main__":
 
         # Teintes
         parametres_traduits = creer_liste_parametres_multilangue(
-            liste_parametres=list(constantes.liste_couleurs.keys()),
+            liste_parametres=list(liste_couleurs.keys()),
             liste_deja_existante=parametres_traduits,
             nom_bouton="teintes_couleurs",
             modele_dict=modele_utilise,
@@ -460,7 +470,7 @@ if __name__ == "__main__":
 
         # Arrière-plans
         parametres_traduits = creer_liste_parametres_multilangue(
-            liste_parametres=list(constantes.dictionnaire_arriere_plans.keys()),
+            liste_parametres=list(dictionnaire_arriere_plans.keys()),
             liste_deja_existante=parametres_traduits,
             nom_bouton="arrière_plans",
             modele_dict=modele_utilise,
@@ -472,7 +482,7 @@ if __name__ == "__main__":
         verifier_doublons(parametres_traduits)  # Vérification des doublons
         exporter_fichier(
             objet=parametres_traduits,
-            direction_fichier=constantes.direction_donnees_traductions,
+            direction_fichier=direction_donnees_traductions,
             nom_fichier="parametres_cartes_traduction.yaml",
             sort_keys=True,
         )
@@ -489,10 +499,10 @@ if __name__ == "__main__":
         print("\n\n Traduction de l'interface graphique : \n")
         exporter_fichier(
             objet=creer_liste_pays_multilangue(
-                liste_pays=list(constantes.phrases_interface.values()),
+                liste_pays=list(phrases_interface.values()),
                 modele_dict=modele_utilise,
                 liste_deja_existante=ouvrir_fichier(  # Traduction déjà existante
-                    direction_fichier=constantes.direction_donnees_traductions,
+                    direction_fichier=direction_donnees_traductions,
                     nom_fichier="phrases_interface_traduction.yaml",
                     defaut=None,
                     afficher_erreur="Fichiers YAML des traductions des phrases de l'interface non trouvé.",
@@ -501,7 +511,7 @@ if __name__ == "__main__":
                 version=1,
                 blabla=2,
             ),
-            direction_fichier=constantes.direction_donnees_traductions,
+            direction_fichier=direction_donnees_traductions,
             nom_fichier="phrases_interface_traduction.yaml",
             sort_keys=True,
         )
@@ -515,7 +525,7 @@ if __name__ == "__main__":
         ## Liste des continents
         liste_pays = ["World Map", "World"]
 
-        for continent in constantes.liste_regions_monde.keys():
+        for continent in liste_regions_monde.keys():
             liste_pays.append(continent)
             if continent == "Middle East":
                 liste_pays.append(f"Map of the {continent}")
@@ -523,12 +533,10 @@ if __name__ == "__main__":
                 liste_pays.append(f"Map of {continent}")
 
         ## Liste des pays regroupés
-        liste_pays.extend(
-            gr["categorie"] for gr in constantes.liste_pays_groupes.values()
-        )
+        liste_pays.extend(gr["categorie"] for gr in liste_pays_groupes.values())
 
         ## Liste des pays individuels
-        liste_pays.extend(list(constantes.hierarchie_par_pays.keys()))
+        liste_pays.extend(list(hierarchie_par_pays.keys()))
 
         # Traduction et export
         print("\n\n Traduction des noms de pays et régions : \n")
@@ -537,7 +545,7 @@ if __name__ == "__main__":
                 liste_pays=liste_pays,
                 modele_dict=modele_utilise,
                 liste_deja_existante=ouvrir_fichier(
-                    direction_fichier=constantes.direction_donnees_traductions,
+                    direction_fichier=direction_donnees_traductions,
                     nom_fichier="noms_pays_traduction.yaml",
                     defaut=None,
                     afficher_erreur="Fichiers YAML des traductions des noms de pays non trouvé.",
@@ -545,7 +553,7 @@ if __name__ == "__main__":
                 liste_langues=liste_langues,
                 blabla=2,
             ),
-            direction_fichier=constantes.direction_donnees_traductions,
+            direction_fichier=direction_donnees_traductions,
             nom_fichier="noms_pays_traduction.yaml",
             sort_keys=True,
         )
@@ -564,7 +572,7 @@ if __name__ == "__main__":
         # Export
         exporter_fichier(
             objet=liste_appels_api_deja_faits,
-            direction_fichier=constantes.direction_donnees_autres,
+            direction_fichier=direction_donnees_autres,
             nom_fichier="appels_api_par_jour.yaml",
             sort_keys=True,
         )

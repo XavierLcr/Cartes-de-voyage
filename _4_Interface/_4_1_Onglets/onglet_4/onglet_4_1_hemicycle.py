@@ -5,7 +5,7 @@
 ################################################################################
 
 
-import math, copy, textwrap
+import math, copy, textwrap, random, time
 from PyQt6.QtCore import QPointF
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtGui import QPainter, QPen, QColor, QBrush, QFont
@@ -148,6 +148,7 @@ class HemicycleWidget(QWidget):
             "South America",
         ]
         self.couleur_texte = "#2C2C2C"
+        self.points_visites_aleatoire = True
 
         # Ajustement du nombre de points par ligne
         self.decalage = len(
@@ -190,6 +191,7 @@ class HemicycleWidget(QWidget):
         return self.height() * 0.9
 
     def creer_coordonnées(self):
+
         coords_angles = []
 
         for level in range(self.num_levels):
@@ -223,25 +225,39 @@ class HemicycleWidget(QWidget):
         ), f"{len(coords_angles)} ≠ {len(list(self.constantes.hierarchie_par_pays.keys()))}"
         return coords_angles
 
-    def renvoyer_couleur(self, i: int, lighter_value: int):
+    def relier_coordonnees_continent(self, coord: list, aleatoire: bool):
 
-        total = 0
+        # Tri
+        coord = sorted(coord, key=lambda t: (-t[2], -t[3]))
+
+        resultat = []
+
         for cont in list(self.resume.keys()):
 
-            # Choix du continent
-            if i >= total and i < total + self.resume[cont]["total"]:
-                couleur = self.continent_colors[cont]
+            total_i = self.resume.get(cont)["total"]
+            visite_i = self.resume.get(cont)["visites"]
 
-                # Visité ?
-                if i - total > self.resume[cont]["visites"] - 1:
-                    couleur = couleur.lighter(lighter_value)
+            visites_i = (
+                random.sample(range(0, total_i), visite_i)
+                if aleatoire
+                else [val for val in range(0, visite_i)]
+            )
 
-                return couleur, self.continent_colors[cont], cont
+            coord_temp = coord[len(resultat) : (len(resultat) + total_i)]
+            for i in range(len(coord_temp)):
+                x, y, angle, level = coord_temp[i]
+                resultat.append((x, y, angle, level, cont, i in visites_i))
 
-            else:
-                total = total + self.resume[cont]["total"]
+        return resultat
 
-        return QColor(255, 255, 255), QColor(0, 0, 0), "Problème"
+    def renvoyer_couleur(self, visite: bool, continent: str, lighter_value: int):
+
+        col = self.continent_colors.get(continent, None)
+
+        if col is None:
+            return QColor(255, 255, 255), QColor(0, 0, 0)
+        else:
+            return col if visite else col.lighter(lighter_value), col
 
     def paintEvent(self, event):
 
@@ -257,15 +273,16 @@ class HemicycleWidget(QWidget):
         self.level_distance = max(1, int(min(self.width(), self.height()) * 0.09) - 10)
         self.diametre_point = int(min(self.width(), self.height()) * 0.023 - 2)
 
-        coords_angles = self.creer_coordonnées()
+        coords_angles = self.relier_coordonnees_continent(
+            coord=self.creer_coordonnées(), aleatoire=self.points_visites_aleatoire
+        )
         continent_points = {}  # continent: list of (x, y)
 
-        i = 0
         for coord in coords_angles:
-            x, y, angle, level = coord
+            x, y, angle, level, continent, visite = coord
             rayon_texte = max(rayon_texte, abs(y - center_y))
-            couleur, couleur_originale, continent = self.renvoyer_couleur(
-                i=i, lighter_value=self.lighter_value
+            couleur, couleur_originale = self.renvoyer_couleur(
+                continent=continent, visite=visite, lighter_value=self.lighter_value
             )
 
             # Ajoute le point au bon groupe
@@ -281,9 +298,6 @@ class HemicycleWidget(QWidget):
                 self.diametre_point,
                 self.diametre_point,
             )
-
-            # Incrément
-            i = i + 1
 
         # === Légendes : centrées sur le centroïde === #
 
@@ -332,6 +346,7 @@ class HemicycleWidget(QWidget):
     def set_pays_visites(self, pays_visites):
         """Met à jour la liste des pays visités."""
         self.pays_visites = pays_visites
+        random.seed(int(time.time()))
         self.creer_hemicycle()
 
     def set_langue(self, langue):

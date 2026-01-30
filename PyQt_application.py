@@ -197,6 +197,11 @@ class MesVoyagesApplication(QWidget):
             lambda: self.supprimer_clef(self.nom_individu.currentText())
         )
 
+        # Position des points de l'hémicycle
+        self.onglet_param_profil.signal_hemicyle_position.connect(
+            self.set_hemicycle_position
+        )
+
         # == Sixième onglet ===
 
         self.onglet_description_application = onglet_info.OngletInformations(
@@ -418,6 +423,14 @@ class MesVoyagesApplication(QWidget):
         return {
             # Paramètres individuels
             "nom": self.nom_individu.currentText(),
+            "langue": langue,
+            "adresse_email": self.onglet_param_profil.get_email(),
+            "dossier_stockage": self.onglet_param_profil.get_dossier(),
+            "ouvrir_dossier_stockage": self.onglet_param_profil.get_ouvrir_dossier(),
+            "theme_application": self.onglet_param_profil.get_theme_application(),
+            # Paramètres des cartes
+            "sortir_cartes_granu_inf": self.onglet_param_profil.get_sortir_cartes_granu_inf(),
+            "limite_n_cartes": self.onglet_param_profil.get_limite_de_cartes(),
             "granularite": _0_1_fonctions_utiles_gen.obtenir_clef_par_valeur(
                 valeur=self.onglet_parametres.granularite_visite.currentText(),
                 dictionnaire=constantes.parametres_traduits["granularite"][langue],
@@ -426,8 +439,6 @@ class MesVoyagesApplication(QWidget):
                 valeur=self.onglet_parametres.granularite_fond.currentText(),
                 dictionnaire=constantes.parametres_traduits["granularite"][langue],
             ),
-            "langue": langue,
-            "adresse_email": self.onglet_param_profil.get_email(),
             "couleur": _0_1_fonctions_utiles_gen.obtenir_clef_par_valeur(
                 valeur=self.onglet_parametres.color_combo.currentText(),
                 dictionnaire=constantes.parametres_traduits["teintes_couleurs"][langue],
@@ -440,9 +451,7 @@ class MesVoyagesApplication(QWidget):
             "qualite": self.onglet_parametres.curseur_qualite.value(),
             "format": self.onglet_parametres.format_cartes.currentText(),
             "envoi_mail": self.onglet_parametres.email_checkbox.isChecked(),
-            "dossier_stockage": self.onglet_param_profil.get_dossier(),
-            "ouvrir_dossier_stockage": self.onglet_param_profil.get_ouvrir_dossier(),
-            "theme_application": self.onglet_param_profil.get_theme_application(),
+            # Cartes à publier
             "carte_du_monde": self.onglet_parametres.carte_monde.isChecked(),
             "europe": self.onglet_parametres.europe.isChecked(),
             "asie": self.onglet_parametres.asie.isChecked(),
@@ -450,9 +459,7 @@ class MesVoyagesApplication(QWidget):
             "afrique": self.onglet_parametres.afrique.isChecked(),
             "moyen_orient": self.onglet_parametres.moyen_orient.isChecked(),
             "autres_regions": self.onglet_parametres.autres_regions.isChecked(),
-            "sortir_cartes_granu_inf": self.onglet_param_profil.get_sortir_cartes_granu_inf(),
             "cartes_des_pays": self.onglet_parametres.carte_pays.isChecked(),
-            "limite_n_cartes": self.onglet_param_profil.get_limite_de_cartes(),
             # Lieux visités
             "dictionnaire_regions": (
                 self.dicts_granu["region"] if self.dicts_granu["region"] != {} else None
@@ -460,6 +467,8 @@ class MesVoyagesApplication(QWidget):
             "dictionnaire_departements": (
                 self.dicts_granu["dep"] if self.dicts_granu["dep"] != {} else None
             ),
+            # Statistiques
+            "hemicycle_position": self.onglet_statistiques.get_hemicycle_position(),
         }
 
     def exporter_liste_parametres(self):
@@ -652,6 +661,10 @@ class MesVoyagesApplication(QWidget):
     def set_dossier(self, dossier):
         self.dossier = dossier
         self.onglet_selection_destinations.set_dossier(dossier=dossier)
+
+    def set_hemicycle_position(self, val: int):
+        print(val)
+        self.onglet_statistiques.set_hemicycle_position(val=val)
 
     def ajouter_profil(self):
 

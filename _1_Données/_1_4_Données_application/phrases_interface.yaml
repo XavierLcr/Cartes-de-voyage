@@ -28,6 +28,11 @@ theme_application : Thème de l'application
 preferences_cartes_groupbox : Préférences – Publication des cartes
 email_groupbox : Adresse e-mail
 email_tooltip : Saisir son adresse e-mail permet de pouvoir recevoir, si cela est souhaité, les cartes par e-mail. Cela est pratique si vous souhaitez par exemple les partager
+statistiques_groupbox : Statistiques
+hemicycle_position_label : Alignement des pays visités dans l'hémicycle
+hemicycle_position_gauche : Gauche
+hemicycle_position_alea : Aléatoire
+hemicycle_position_droite : Droite
 
 supprimer_profil : Supprimer ce profil
 titre_pop_up_suppression : Suppression du profil

@@ -148,7 +148,7 @@ class HemicycleWidget(QWidget):
             "South America",
         ]
         self.couleur_texte = "#2C2C2C"
-        self.points_visites_position = 1
+        self.points_visites_position = -1
 
         # Ajustement du nombre de points par ligne
         self.decalage = len(
@@ -192,6 +192,9 @@ class HemicycleWidget(QWidget):
 
     def set_points_visites_position(self, position):
         self.points_visites_position = position
+
+    def get_points_visites_position(self):
+        return self.points_visites_position
 
     def creer_coordonnées(self):
 

@@ -50,6 +50,7 @@ class OngletParametresProfil(QWidget):
     signal_langue = pyqtSignal(str)
     signal_theme_application = pyqtSignal(bool)
     signal_suppression_profil = pyqtSignal(str)
+    signal_hemicyle_position = pyqtSignal(int)
 
     def __init__(self, constantes, fct_traduction):
 
@@ -164,7 +165,7 @@ class OngletParametresProfil(QWidget):
         radio_layout.addWidget(self.radio_carte_sans_limite)
         preferences_cartes_layout.addWidget(widget_nb_copies_cartes)
 
-        # Groupbox - e-mails
+        # Groupbox – e-mails
         self.email_groupbox = QGroupBox()
         email_layout = QHBoxLayout()
         self.email_groupbox.setLayout(email_layout)
@@ -173,6 +174,28 @@ class OngletParametresProfil(QWidget):
         email_layout.addWidget(creer_QLabel_centre(text="📧 "))
         email_layout.addWidget(self.email_input)
         layout.addWidget(self.email_groupbox)
+
+        # Groupbox – Statistiques
+        self.statistiques_groupbox = QGroupBox()
+        statistiques_layout = QVBoxLayout()
+        hemicycle_position_layout = QHBoxLayout()
+        self.hemicycle_position_label = creer_QLabel_centre()
+        self.hemicycle_position_gauche = QRadioButton()
+        self.hemicycle_position_alea = QRadioButton()
+        self.hemicycle_position_droite = QRadioButton()
+        self.hemicycle_position = QButtonGroup(self)
+        self.hemicycle_position.addButton(self.hemicycle_position_gauche, -1)
+        self.hemicycle_position.addButton(self.hemicycle_position_alea, 0)
+        self.hemicycle_position.addButton(self.hemicycle_position_droite, 1)
+        self.hemicycle_position.buttonClicked.connect(self.get_hemicycle_position)
+        hemicycle_position_layout.addWidget(self.hemicycle_position_label)
+        hemicycle_position_layout.addWidget(self.hemicycle_position_gauche)
+        hemicycle_position_layout.addWidget(self.hemicycle_position_alea)
+        hemicycle_position_layout.addWidget(self.hemicycle_position_droite)
+        statistiques_layout.addLayout(hemicycle_position_layout)
+        self.statistiques_groupbox.setLayout(statistiques_layout)
+        layout.addWidget(self.statistiques_groupbox)
+        self.hemicycle_position_gauche.setChecked(True)
 
         # Bouton de sauvegarde
         self.bouton_sauvegarde = QPushButton()
@@ -262,6 +285,23 @@ class OngletParametresProfil(QWidget):
             self.fonction_traduction("email_tooltip", suffixe=".")
         )
 
+        # Statistiques
+        self.statistiques_groupbox.setTitle(
+            self.fonction_traduction("statistiques_groupbox")
+        )
+        self.hemicycle_position_label.setText(
+            self.fonction_traduction("hemicycle_position_label", suffixe=" :")
+        )
+        self.hemicycle_position_gauche.setText(
+            self.fonction_traduction("hemicycle_position_gauche")
+        )
+        self.hemicycle_position_alea.setText(
+            self.fonction_traduction("hemicycle_position_alea")
+        )
+        self.hemicycle_position_droite.setText(
+            self.fonction_traduction("hemicycle_position_droite")
+        )
+
         # Bouton de sauvegarde
         self.bouton_sauvegarde.setText("💾")
         self.bouton_sauvegarde.setToolTip(
@@ -306,6 +346,26 @@ class OngletParametresProfil(QWidget):
     def get_sortir_cartes_granu_inf(self):
         return self.sortir_cartes_granu_inf.isChecked()
 
+    def get_hemicycle_position(self, defaut: int = -1):
+
+        val = {
+            self.hemicycle_position_gauche: -1,
+            self.hemicycle_position_alea: 0,
+            self.hemicycle_position_droite: 1,
+        }.get(self.hemicycle_position.checkedButton(), defaut)
+        print(val)
+        self.signal_hemicyle_position.emit(val)
+
+    def set_hemicycle_position(self, val: int):
+        {
+            0: self.hemicycle_position_alea,
+            1: self.hemicycle_position_droite,
+        }.get(
+            val,
+            self.hemicycle_position_gauche,
+        ).setChecked(True)
+        self.signal_hemicyle_position.emit(val)
+
     def set_sortir_cartes_granu_inf(self, sortir):
         self.sortir_cartes_granu_inf.setChecked(sortir)
 
@@ -344,6 +404,7 @@ class OngletParametresProfil(QWidget):
         n_limite_cartes = kwargs.get("limite_n_cartes", 10)
         theme_application = kwargs.get("theme_application", True)
         adresse_email = kwargs.get("adresse_email", "")
+        hemicycle_position = kwargs.get("hemicycle_position", -1)
 
         # Langue
         self.langues_dispos.setCurrentIndex(
@@ -370,3 +431,6 @@ class OngletParametresProfil(QWidget):
 
         # Adresse e-mail
         self.set_email(email=adresse_email)
+
+        # Alignement des pays dans l'hémicycle
+        self.set_hemicycle_position(val=hemicycle_position)

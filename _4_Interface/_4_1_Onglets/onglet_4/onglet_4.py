@@ -171,3 +171,9 @@ class OngletTopPays(QWidget):
         self.hemicycle.set_pays_visites(pays_visites=copy.deepcopy(dict_nv))
         self.classement_widget.set_dicts_granu(dict_nv=copy.deepcopy(dict_nv))
         self.recommandations.set_dicts_granu(dict_nv=copy.deepcopy(dict_nv))
+
+    def set_hemicycle_position(self, val: int):
+        self.hemicycle.set_points_visites_position(position=val)
+
+    def get_hemicycle_position(self):
+        return self.hemicycle.get_points_visites_position()

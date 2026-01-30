@@ -343,17 +343,6 @@ class HemicycleWidget(QWidget):
             )
             painter.restore()
 
-    def set_pays_visites(self, pays_visites):
-        """Met à jour la liste des pays visités."""
-        self.pays_visites = pays_visites
-        random.seed(int(time.time()))
-        self.creer_hemicycle()
-
-    def set_langue(self, langue):
-        """Met à jour la langue."""
-        self.langue = langue
-        self.creer_hemicycle()
-
     def creer_hemicycle(self):
         self.resume = reordonner_dict(
             nb_pays_visites(
@@ -364,6 +353,17 @@ class HemicycleWidget(QWidget):
         )
 
         self.update()
+
+    def set_pays_visites(self, pays_visites):
+        """Met à jour la liste des pays visités."""
+        self.pays_visites = pays_visites
+        random.seed(int(time.time()))
+        self.creer_hemicycle()
+
+    def set_langue(self, langue):
+        """Met à jour la langue."""
+        self.langue = langue
+        self.creer_hemicycle()
 
     def set_style(self, couleur):
 

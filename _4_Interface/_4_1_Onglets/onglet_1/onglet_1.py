@@ -140,8 +140,8 @@ class OngletParametres(QWidget):
         # Ajout du layout au QGroupBox puis ajout au layout principal
         self.groupe_cartes_a_creer.setLayout(layout_cartes_a_creer)
         layout_granu_cartes_a_creer = QVBoxLayout()
-        layout_granu_cartes_a_creer.addWidget(self.groupe_granularite)
-        layout_granu_cartes_a_creer.addWidget(self.groupe_cartes_a_creer)
+        layout_granu_cartes_a_creer.addWidget(self.groupe_granularite, stretch=3)
+        layout_granu_cartes_a_creer.addWidget(self.groupe_cartes_a_creer, stretch=5)
         # layout.addWidget(self.groupe_cartes_a_creer)
 
         # Boîte des couleurs
@@ -259,7 +259,7 @@ class OngletParametres(QWidget):
         self.groupe_params_publication.setLayout(layout_params_publication)
 
         # Ajouter le QGroupBox au layout principal
-        layout.addWidget(self.groupe_params_publication, stretch=6)
+        layout.addWidget(self.groupe_params_publication, stretch=3)
 
         # Bouton de validation
         layout_valid_reinit = QGridLayout()

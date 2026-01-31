@@ -90,9 +90,6 @@ def calculer_recommandation(
     dict_visite,
     top_n=10,
     alpha=1 / 3,
-    par_pays=True,
-    lignes_extra_par_pays=5,
-    max_par_pays=5,
 ):
 
     # Séparer les colonnes
@@ -124,7 +121,7 @@ def calculer_recommandation(
         ]
     ]
 
-    df_reste = (
+    return (
         # Calcul des scores
         df_reste.assign(
             score_region=calculer_score_region(
@@ -140,35 +137,11 @@ def calculer_recommandation(
                 alpha=alpha,
             )
         )
-        # Calcul du score du pays
-        .assign(
-            score_pays=lambda x: x.groupby("name_0")["score_region"].transform("sum")
-        )
         # Tri
         .sort_values("score_region", ascending=False)
+        # Sélection des premières recommandations
+        .head(top_n)
     )
-
-    if not par_pays:
-        return df_reste.head(top_n)
-    else:
-
-        top_pays = []
-        for idx, pays in enumerate(df_reste["name_0"]):
-            if pays not in top_pays:
-                top_pays.append(pays)
-                if len(top_pays) == top_n + 1:
-                    limite = idx
-                    break
-
-        df_reste = df_reste.head(limite + lignes_extra_par_pays)
-
-        return (
-            df_reste[df_reste["name_0"].isin(top_pays[:-1])]
-            .groupby("name_0", group_keys=False)
-            .apply(lambda g: g.nlargest(max_par_pays, "score_region"))
-            .reset_index(drop=True)
-            .sort_values(["score_pays", "score_region"], ascending=[False, False])
-        )
 
 
 # 2 -- Classe de calcul du tableau de recommandations --------------------------
@@ -191,15 +164,8 @@ class WorkerRecommandation(QObject):
                 top_n=self.constantes.parametres_application.get(
                     "n_recommandations", 10
                 ),
-                par_pays=self.constantes.parametres_application.get("par_pays", True),
-                lignes_extra_par_pays=self.constantes.parametres_application.get(
-                    "lignes_supp_apres_dernier_pays", 5
-                ),
                 alpha=self.constantes.parametres_application.get(
                     "coeff_distance", 0.05
-                ),
-                max_par_pays=self.constantes.parametres_application.get(
-                    "max_regions_par_pays", 5
                 ),
             ).reset_index()
             if self.dict_visite != {}

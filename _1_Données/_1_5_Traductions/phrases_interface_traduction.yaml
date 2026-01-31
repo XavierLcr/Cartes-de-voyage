@@ -2911,6 +2911,77 @@
     <hr />
 
     <strong>Siyabonga ngokukhetha i-My Trips!</strong>'
+Adresse e-mail:
+  afrikaans: E-posadres
+  albanais: Adresa e-mail
+  allemand: E-Mail-Adresse
+  anglais: Email address
+  arabe: عنوان البريد الإلكتروني
+  arménien: Էլեկտրոնային փոստի հասցե
+  basque: Helbide elektronikoa
+  bengali: ইমেল ঠিকানা।
+  birman: အီးမေးလ်လိပ်စာ
+  breton: adres postel elektronel
+  bulgare: Електронна поща
+  catalan: Adreça de correu electrònic
+  corse: Indirizzu di posta elettronica
+  coréen: 이메일 주소
+  danois: E-mailadresse
+  espagnol: Dirección de correo electrónico
+  esperanto: Retpoŝta adreso
+  estonien: Meiliaadress
+  finnois: Sähköpostiosoite
+  français: Adresse e-mail
+  gallois: Cyfeiriad e-bost
+  grec: Διεύθυνση ηλεκτρονικού ταχυδρομείου
+  grec ancien: Διεύθυνσις ἠλεκτρονικῆς ἀλληλογραφίας
+  géorgien: ელექტრონული ფოსტის მისამართი
+  hindi: ईमेल पता
+  hongrois: E-mail cím
+  indonésien: Alamat email
+  irlandais: Seoladh ríomhphoist
+  islandais: Netfangstöð
+  italien: Indirizzo email
+  japonais: メールアドレス
+  kazakh: Электрондық пошта мекенжайы
+  kirghize: Электрондук почта дареги
+  kurde: Nivîsa e-mailê
+  latin: Inscriptio electronica epistolaris
+  letton: E-pasta adrese
+  lituanien: El. pašto adresas
+  luxembourgeois: E-Mail-Adress
+  macédonien: Е-маил адреса
+  malais: Alamat e-mel
+  malgache: Adiresy mailaka
+  maltais: Indirizz tal-email
+  mandarin standard: 电子邮件地址
+  mongol: Имэйлийн хаяг
+  norvégien: E-postadresse
+  néerlandais: E-mailadres
+  népalais: इमेल ठेगाना (Imel thegana)
+  ourdou: ای میل ایڈریس
+  ouzbek: Elektron pochta manzili
+  pachto: ایمیل پته (Email pata)
+  persan: آدرس ایمیل
+  polonais: Adres e-mail
+  portugais: Endereço de e-mail
+  roumain: Adresă de e-mail
+  russe: Адрес электронной почты
+  serbo-croate: Adresa e-pošte
+  slovaque: E-mailová adresa
+  slovène: Elektronski naslov
+  suédois: E-postadress
+  swahili: Anwani ya barua pepe
+  tadjik: Нишони электронӣ
+  tamoul: மின்னஞ்சல் முகவரி
+  tchèque: E-mailová adresa
+  thaï: ที่อยู่อีเมล
+  tibétain: ཁ་པར་གྱི་འདྲེས་སྟོན།
+  turc: E-posta adresi
+  turkmène: E-poçta salgyсы
+  ukrainien: Адреса електронної пошти
+  vietnamien: Địa chỉ email
+  zoulou: Ikheli le-imbulayi
 Affichage regroupé:
   afrikaans: Gegroepeerde vertoon
   albanais: Shikim i grupuar
@@ -3124,6 +3195,148 @@ Ajout d'un nouveau profil:
   ukrainien: Додавання нового профілю
   vietnamien: Thêm hồ sơ mới
   zoulou: Ukukwethulwa kweprofile entsha
+Alignement des pays visités dans l'hémicycle:
+  afrikaans: Lining up of countries visited in the semicircle
+  albanais: Rreshtimi i vendeve të vizituara në gjysmërrethin
+  allemand: Ausrichtung der besuchten Länder im Halbkreis
+  anglais: Alignment of visited countries in the hemicycle
+  arabe: محاذاة الدول التي تمت زيارتها في الهيميسيكل
+  arménien: Այցելած երկրների համախմբում կիսաշրջանում։
+  basque: Bisitatutako herrialdeen lerrokadura hemizikloan
+  bengali: সന്ദర్శিত দেশগুলির অর্ধবৃত্তে সারিবদ্ধকরণ।
+  birman: လည်ပတ်ခဲ့သောနိုင်ငံများအားလုံးကို 半圓ပုံစံတွင်စီစဉ်ထားသည်။
+  breton: Diskweredadur ar broioù bet gouezet en hevelep lec'h
+  bulgare: Подреждане на посетените държави в полукръг
+  catalan: Alineació dels països visitats a l'hemocicle
+  corse: Allineamentu di i paesi visitati in l'emiciclu
+  coréen: 방문 국가들의 반원형 정렬
+  danois: Opstilling af besøgte lande i salen
+  espagnol: Alineación de los países visitados en el hemiciclo
+  esperanto: Vicaj landoj en duonrondo viciĝas
+  estonien: Külastatud riikide rivi poolringis
+  finnois: Vierailemien maiden kohdistaminen puolijärjestelmään
+  français: Alignement des pays visités dans l'hémicycle
+  gallois: Llinellu o'r gwledydd ymweldwyd â nhw yn yr hemicycle
+  grec: Ευθυγράμμιση των επισκεφθέντων χωρών στο ημικύκλιο
+  grec ancien: εὐθυγραμμία τῶν ἐπισκεφθέντων χωρῶν ἐν τῷ ἡμικυκλίῳ
+  géorgien: გაყრილი ქვეყნების განლაგება ჰემიციკლში
+  hindi: यात्रा किए गए देशों का अर्धवृत्त में संरेखण।
+  hongrois: Látogatott országok elrendezése a félkörben
+  indonésien: Penjajaran negara-negara yang dikunjungi di hemisfer
+  irlandais: Comhthéacs na ndtíortha arna dtaisteal san óstán
+  islandais: Röð landa sem heimsótt eru í hálfhringnum
+  italien: Allineamento dei paesi visitati nell'emiciclo
+  japonais: 訪問国を半円形に並べる。
+  kazakh: Сапар еткен елдердің жарты шеңберде орналасуы
+  kirghize: Сапар кылган өлкөлөрдүн жарым айга жайгашуусу
+  kurde: Serdanên dîplomatîk ên ku hatine dîsanîn li hemîsferê
+  latin: Ordo terrarum visitarum in hemicyclo
+  letton: Apmeklēto valstu izvietojums puslokā
+  lituanien: Apsilankytų šalių išdėstymas puslankiu
+  luxembourgeois: Ausriichtung vun de besichte Länner am Hemicycle
+  macédonien: Поравнување на посетените земји во полукругот
+  malais: Penjajaran negara yang dilawati dalam hemisfera
+  malgache: Fahamarinan'ny firenena navotsotra tao amin'ny hémicycle
+  maltais: Allinjament tal-pajjiżi żjara fil-hemisiklu
+  mandarin standard: 访问国家在半圆内的排列。
+  mongol: Зорьсон улс орны эрэмбэлэх
+  norvégien: Justering av besøkte land i halvringen
+  néerlandais: Lijnopstelling van de bezochte landen in de halfcirkel
+  népalais: घूमिएका देशहरूको अर्धगोलाकार रेखामा पङ्क्तिबद्धता।
+  ourdou: سفر کی گئی ممالک کی نیم دائرے میں قطار بندی۔
+  ouzbek: Tashrif etilgan mamlakatlarning yarim doirada joylashtirilishi
+  pachto: د لیدلو شویو هیوادونو سمبولیک ترتیب
+  persan: تراز کردن کشورهای بازدید شده در نیم‌دایره
+  polonais: Ułożenie krajów odwiedzonych w półokręgu
+  portugais: Alinhamento dos países visitados no hemiciclo
+  roumain: Alinierea țărilor vizitate în hemiciclu
+  russe: Выравнивание стран, посещенных в полукруге
+  serbo-croate: Poravnanje posjećenih zemalja u polukrugu
+  slovaque: Zarovnanie navštívených krajín v hemicycle
+  slovène: Poravnava držav, ki so bile obiskane, v hemiciklu
+  suédois: Anpassning av besökta länder i halvcykeln
+  swahili: Mpangilio wa nchi zilizotembelewa katika ukumbi wa mzunguko
+  tadjik: Сафкадании кишварҳои дидашуда дар нимдоира
+  tamoul: பயணித்த நாடுகளின் அரைவட்ட வரிசை
+  tchèque: Seřazení navštívených zemí v hemicyklu
+  thaï: การเรียงลำดับประเทศที่เดินทางมาในรัฐสภา
+  tibétain: ཕྱོགས་མཚུངས་གནས་བཅོས་སྐོར་གྱི་རྒྱལ་ཁབ་རྣམས་ཁྱེར་རིམ་དུ་བསྡེབས།
+  turc: Ziyaret edilen ülkelerin yarım daire içinde hizalanması
+  turkmène: Sapalyklaryň gezelen ýurtlarynyň ýarym dairede düzülişi
+  ukrainien: Вирівнювання країн, які відвідано, у півколі
+  vietnamien: Sắp xếp các quốc gia đã ghé thăm trong hình bán nguyệt
+  zoulou: Ukuqondaniswa kwamazwe avakashile esiteji
+Aléatoire:
+  afrikaans: Lukraak
+  albanais: I rastësishëm
+  allemand: Zufällig
+  anglais: Random
+  arabe: عشوائي
+  arménien: Պատահական
+  basque: Ausaz
+  bengali: অ্যাক্র্যান্ডম।
+  birman: သေချာမရေတွက်နိုင်သော
+  breton: Darempred
+  bulgare: Случаен
+  catalan: Aleatori
+  corse: Casuale
+  coréen: 임의의
+  danois: Tilfældig
+  espagnol: Aleatorio
+  esperanto: hazarda
+  estonien: Juhuslik
+  finnois: Satunnainen
+  français: Aléatoire
+  gallois: Arbennig
+  grec: Τυχαίος
+  grec ancien: Τυχαῖος
+  géorgien: შემთხვევითი
+  hindi: यादृच्छिक
+  hongrois: Véletlenszerű
+  indonésien: Acak
+  irlandais: randamach
+  islandais: Tilviljunakennd
+  italien: Casuale
+  japonais: ランダム
+  kazakh: Кездейсоқ
+  kirghize: Кокустуу
+  kurde: Tesadufî
+  latin: Fortuitus
+  letton: Izlases veids
+  lituanien: Atsitiktinis
+  luxembourgeois: Zoufälleg
+  macédonien: Случаен
+  malais: Rawak
+  malgache: Tsy voatendry
+  maltais: Aleatorju
+  mandarin standard: 随机
+  mongol: Санамж
+  norvégien: Tilfeldig
+  néerlandais: Willekeurig
+  népalais: यादृच्छिक
+  ourdou: عشوائی
+  ouzbek: Tasodifiy
+  pachto: تصادفي
+  persan: تصادفی
+  polonais: Losowy
+  portugais: Aleatório
+  roumain: Aleatoriu
+  russe: Случайный
+  serbo-croate: Slučajno
+  slovaque: Náhodný
+  slovène: Naključno
+  suédois: Slumpmässig
+  swahili: Nasibu
+  tadjik: Тасодифӣ
+  tamoul: சீரற்ற
+  tchèque: Náhodný
+  thaï: สุ่ม
+  tibétain: རང་བྱུང་།
+  turc: Rastgele
+  turkmène: taslama
+  ukrainien: Випадковий
+  vietnamien: Ngẫu nhiên
+  zoulou: Ongahleki
 Amérique:
   afrikaans: Amerika
   albanais: Amerika
@@ -4389,6 +4602,77 @@ Choisir le dossier de stockage des cartes:
   ukrainien: Виберіть папку для зберігання карт
   vietnamien: Chọn thư mục lưu trữ thẻ
   zoulou: Ukhetha ifolda yokugcina amamephu
+Choisir profil:
+  afrikaans: Profiel kies
+  albanais: Zgjidh profil
+  allemand: Profil auswählen
+  anglais: Choose profile
+  arabe: اختيار ملف شخصي
+  arménien: Ընտրել պրոֆիլ։
+  basque: Profila hautatu
+  bengali: প্রোফাইল নির্বাচন করুন।
+  birman: အမည်ရွေးပါ။
+  breton: Dibab profiler
+  bulgare: Избор на профил
+  catalan: Seleccionar perfil
+  corse: Sceglie u profilo
+  coréen: 프로필 선택
+  danois: Vælg profil
+  espagnol: Seleccionar perfil
+  esperanto: Elekti profilojn
+  estonien: Profiili valimine
+  finnois: Profiilin valinta
+  français: Choisir profil
+  gallois: Dewiswch proffil
+  grec: Επιλογή προφίλ
+  grec ancien: προφίλ αἱρεῖσθαι
+  géorgien: პროფილის არჩევა
+  hindi: प्रोफ़ाइल चुनें।
+  hongrois: Profil kiválasztása
+  indonésien: Pilih profil
+  irlandais: Roghnaigh próifíl
+  islandais: Velja prófíl
+  italien: Scegli profilo
+  japonais: プロフィールを選択する。
+  kazakh: Профиль таңдау
+  kirghize: Профиль тандаңыз
+  kurde: Profil hilbijêre
+  latin: Profilum elige
+  letton: Izvēlēties profilu
+  lituanien: Pasirinkti profilį
+  luxembourgeois: Profil auswielen
+  macédonien: Изберете профил
+  malais: Pilih profil
+  malgache: Misafidy profily
+  maltais: Agħżel profil
+  mandarin standard: 选择资料
+  mongol: Профайл сонгох
+  norvégien: Velg profil
+  néerlandais: Profiel kiezen
+  népalais: प्रोफाइल छान्नुहोस्।
+  ourdou: پروفائل منتخب کریں۔
+  ouzbek: Profilni tanlash
+  pachto: پروفایل وټاکئ
+  persan: انتخاب پروفایل
+  polonais: Wybierz profil
+  portugais: Escolher perfil
+  roumain: Alege profil
+  russe: Выбрать профиль
+  serbo-croate: Izaberi profil
+  slovaque: Vybrať profil
+  slovène: Izberi profil
+  suédois: Välj profil
+  swahili: Chagua wasifu
+  tadjik: Профилро интихоб кунед
+  tamoul: சுயவிவரத்தைத் தேர்ந்தெடுக்கவும்
+  tchèque: Vybrat profil
+  thaï: เลือกโปรไฟล์
+  tibétain: ངོས་འཛིན་གྱི་མིང་སྒྲིལ།
+  turc: Profil seç
+  turkmène: Profil saýlaň
+  ukrainien: Обрати профіль
+  vietnamien: Chọn hồ sơ
+  zoulou: Khetha iphrofayili
 Cinq cartes:
   afrikaans: Vyf kaarte
   albanais: Pesë letra
@@ -5279,6 +5563,151 @@ Dix cartes:
   ukrainien: Десять карток
   vietnamien: Mười thẻ
   zoulou: Amakhadi ayishumi
+Dossier de stockage des cartes:
+  afrikaans: Kaartstoorslêer
+  albanais: Dosja e ruajtjes së kartave
+  allemand: Kartenlagermappe
+  anglais: Card storage case
+  arabe: ملف تخزين البطاقات
+  arménien: Քարտերի պահեստման գործիք
+  basque: Txartak gordetzeko karpeta
+  bengali: মানচিত্র সংরক্ষণের ফোল্ডার।
+  birman: မြေပုံ lưu trữ ဖိုင်။
+  breton: Teuliadur kartoù
+  bulgare: Папка за съхранение на карти
+  catalan: Carpeta d'emmagatzematge de targetes
+  corse: Cartella di almacenamentu di e carte
+  coréen: 카드 보관 파일
+  danois: Kortopbevaringsmappe
+  espagnol: Carpeta para guardar tarjetas
+  esperanto: Mapkartoteko
+  estonien: Kaardihoidja
+  finnois: Korttien säilytyskotelo
+  français: Dossier de stockage des cartes
+  gallois: Ffeil storio cardiau
+  grec: Φάκελος αποθήκευσης καρτών
+  grec ancien: θηκοῦς ἀποθήκη τῶν χαρτῶν
+  géorgien: ქარტების შესანახი საქაღალდე
+  hindi: कार्ड भंडारण फ़ाइल
+  hongrois: Kártyatároló mappa
+  indonésien: Berkas penyimpanan kartu
+  irlandais: Fianán caorthach
+  islandais: Kortageymsla
+  italien: Cartella per schede
+  japonais: カード収納ファイル
+  kazakh: Карта сақтау папкасы
+  kirghize: Карта сактоо папкасы
+  kurde: Karta hildanîn dosya
+  latin: Theca chartarum repositoria
+  letton: Kartu uzglabāšanas mape
+  lituanien: Kortelių saugojimo byla
+  luxembourgeois: Dossier fir Späichere vu Kaarten
+  macédonien: Досие за чување карти
+  malais: Fail penyimpanan kad
+  malgache: Tahirin-drakitra
+  maltais: Kartiera tal-karti
+  mandarin standard: 卡片收纳盒
+  mongol: Картын хадгалах хавтас
+  norvégien: Kortholder
+  néerlandais: Kaarthouder
+  népalais: मानचित्र भण्डारण फाइल।
+  ourdou: کارڈ اسٹوریج فولڈر۔
+  ouzbek: Xarita saqlash fayli
+  pachto: د کارټونو د زیرمه کولو فولډر
+  persan: پوشه نگهداری کارت‌ها
+  polonais: Teczka do przechowywania kart
+  portugais: Pasta de armazenamento de cartões
+  roumain: Dosar pentru păstrarea cărților
+  russe: Папка для хранения карт
+  serbo-croate: Dosje za čuvanje karata
+  slovaque: Zložka na ukladanie kariet
+  slovène: Mapa za shranjevanje kartic
+  suédois: Korthållararkiv
+  swahili: Fasta ya kuhifadhi kadi
+  tadjik: Ҷузномаи нигаҳдории кортҳо
+  tamoul: அட்டை சேமிப்பு கோப்பு
+  tchèque: Držák na karty
+  thaï: แฟ้มเก็บการ์ด
+  tibétain: ཁྲི་ཕུག་བཅོས་སྒྲིག།
+  turc: Kart saklama dosyası
+  turkmène: Kartalaryň saklanýan ýeri
+  ukrainien: Сховище карт
+  vietnamien: Hồ sơ lưu trữ bản đồ
+  zoulou: Ifolda lokugcina amakhadi
+Droite:
+  afrikaans: Regs
+  albanais: Djathë
+  allemand: Rechts
+  anglais: Right
+  arabe: يمين
+  arménien: Որո՞ղ (Orogh?)
+  basque: Eskuina
+  bengali: ডান।
+  birman: ညာဘက်
+  breton: Dehoù
+  bulgare: дясно
+  catalan: Dreta
+  corse: Dritta
+  coréen: 직진
+  danois: Højre
+  espagnol: Derecha
+  esperanto: Dekstre
+  estonien: Paremal
+  finnois: Oikea
+  français: Droite
+  gallois: 'Droite.
+
+
+    dechreuis'
+  grec: Ευθεία
+  grec ancien: ὀρθός
+  géorgien: მარჯვენა
+  hindi: सीधा
+  hongrois: Jobbra
+  indonésien: Kanan
+  irlandais: Deas
+  islandais: Hægri
+  italien: Destra
+  japonais: 右
+  kazakh: Оң
+  kirghize: Оң
+  kurde: Rast
+  latin: Recta
+  letton: Taisni
+  lituanien: Dešinė
+  luxembourgeois: Riets
+  macédonien: Десно
+  malais: Kanan
+  malgache: Mianja
+  maltais: Lejn
+  mandarin standard: 右
+  mongol: Баруун
+  norvégien: Høyre
+  néerlandais: Rechts
+  népalais: दायाँ।
+  ourdou: سیدھے
+  ouzbek: Toʻgʻri
+  pachto: سمه راست (smah rast)
+  persan: راست
+  polonais: Prawo
+  portugais: Direita
+  roumain: Dreapta
+  russe: Прямо
+  serbo-croate: Desno
+  slovaque: Vpravo
+  slovène: Desna
+  suédois: Höger
+  swahili: Kulia
+  tadjik: Рост
+  tamoul: வலது
+  tchèque: Vpravo
+  thaï: ขวา
+  tibétain: མཐོ་གཡོག
+  turc: Sağ
+  turkmène: Sag
+  ukrainien: Право
+  vietnamien: Phải
+  zoulou: Qondile
 Début de l'opération:
   afrikaans: Begin van die operasie
   albanais: Fillimi i operacionit
@@ -5492,6 +5921,78 @@ En termes de pourcentage de la superficie visitée pour chaque pays:
   ukrainien: З точки зору відсотка відвіданої площі для кожної країни
   vietnamien: Xét về tỷ lệ phần trăm diện tích đã tham quan của mỗi quốc gia
   zoulou: Ngokweminyaka-mvelo ekhonjiswe ngamazwe ngamanye
+Envoi complémentaire des cartes à l'adresse e-mail renseignée:
+  afrikaans: Verdere stuur van die kaarte na die verskafde e-posadres
+  albanais: Dërgim plotësues i kartave në adresën e postës elektronike të dhënë
+  allemand: Zusätzlicher Versand der Karten an die angegebene E-Mail-Adresse
+  anglais: Further sending of the cards to the provided email address
+  arabe: إرسال إضافي للبطاقات إلى عنوان البريد الإلكتروني المُدخل
+  arménien: Հետագծային ուղարկում էլեկտրոնային փոստի հասցեով, որը նշված է։
+  basque: Helbide elektronikoan emandako helbidera txartelen bidalketa osagarria
+  bengali: অনুগ্রহ করে প্রদত্ত ইমেল ঠিকানায় অতিরিক্ত কার্ড পাঠান।
+  birman: ပေးပို့ထားသော အီးမေးလ်လိပ်စာသို့ ကတ်များ နောက်ထပ် ပေးပို့ပါမည်။
+  breton: Envaj suplennel ar carteoù d'ar chomlec'h postel embannet
+  bulgare: Допълнително изпращане на картите на посочения имейл адрес
+  catalan: Enviament addicional de les targetes a l'adreça electrònica indicada
+  corse: Invio supplementare di e carte à l'indirizzu e-mail indicatu
+  coréen: 입력된 이메일 주소로 카드 추가 발송
+  danois: Yderligere afsendelse af kort til den angivne e-mailadresse
+  espagnol: Envío adicional de las tarjetas a la dirección de correo electrónico proporcionada
+  esperanto: Aldona sendo de la kartoj al la informita retpoŝtadreso
+  estonien: Lisakartide saatmine e-posti aadressile, mis on märgitud
+  finnois: Lisätietoja korteista lähetetään annettuun sähköpostiosoitteeseen
+  français: Envoi complémentaire des cartes à l'adresse e-mail renseignée
+  gallois: Anfonwch goprwy o'r cardiau i'r cyfeiriad e-bost a roddwyd
+  grec: Αποστολή συμπληρωματικών καρτών στη διεύθυνση email που έχει καταχωρηθεί
+  grec ancien: Ἀποστολὴ πλείονος τῶν καρτῶν εἰς τὴν διάθεσιν τεθεικυῖαν διάφρασιν
+  géorgien: გა補ული ბარათების გაგზავნა მითითებულ ელფოსტის მისამართზე
+  hindi: दर्ज ईमेल पते पर कार्ड का अतिरिक्त प्रेषण।
+  hongrois: A megadott e-mail címre további kártyák küldése
+  indonésien: Pengiriman tambahan kartu ke alamat email yang telah diisi
+  irlandais: Seolfaidh muid na cártaí breise chuig an seoladh ríomhphoist a shonraíodh
+  islandais: Sendingar afkortana kortanna á netfangið sem uppgefið var
+  italien: Invio supplementare delle carte all'indirizzo e-mail indicato
+  japonais: 登録されたメールアドレスへの追加のカード送信。
+  kazakh: Берілген электрондық пошта мекенжайына қосымша карталар жіберіледі
+  kirghize: Берилген электрондук почта дарегине кошумча карта жөнөтүү
+  kurde: E-nameyê hatî de, kartên din jî bişîne
+  latin: Missio chartarum supplementaria ad inscriptum electronico dato
+  letton: Papildus kartīšu nosūtīšana norādītajā e-pasta adresē
+  lituanien: Papildomas atvirukų siuntimas nurodytu el. pašto adresu
+  luxembourgeois: Weiderzending vun de Kaarten un déi ugewinn E-Mail-Adress
+  macédonien: Дополнително испраќање на картите на наведената е-маил адреса
+  malais: Hantaran tambahan kad ke alamat emel yang diberikan
+  malgache: Fanitarana karatra fanampiny amin'ny adiresy mailaka nomena
+  maltais: Ibgħat karti addizzjonali fuq l-indirizz elettroniku pprovdut
+  mandarin standard: 将卡片额外发送到您提供的电子邮件地址。
+  mongol: Илгээсэн имэйлийн хаягт нэмж карт илгэе
+  norvégien: Ytterligere sending av kort til oppgitt e-postadresse
+  néerlandais: Aanvullende verzending van de kaarten naar het opgegeven e-mailadres
+  népalais: दर्ता गरिएको इमेल ठेगानामा कार्डहरूको थप पठाउनुहोस्।
+  ourdou: درج کردہ ای میل ایڈریس پر کارڈز کی اضافی روانگی۔
+  ouzbek: Ko'rsatilgan elektron pochta manziliga kartalarni qo'shimcha yuborish
+  pachto: د ثبت شوي بريد ليک ته د کارتونو دويم لېږل
+  persan: ارسال تکمیلی کارت‌ها به آدرس ایمیل وارد شده
+  polonais: Dodatkowe wysłanie kart na podany adres e-mail
+  portugais: Envio adicional dos cartões para o endereço de e-mail fornecido
+  roumain: Trimitere suplimentară a cărților la adresa de e-mail furnizată
+  russe: Дополнительная отправка карт на указанный адрес электронной почты
+  serbo-croate: Dopunska pošiljka karata na navedenu e-mail adresu
+  slovaque: Ďalšie zaslanie kariet na uvedenú e-mailovú adresu
+  slovène: Dodatno pošiljanje kartic na vneseni e-poštni naslov
+  suédois: Ytterligare sändning av korten till den angivna e-postadressen
+  swahili: Tuma kadi za ziada kwa anwani ya barua pepe iliyoingizwa
+  tadjik: Фиристодани иловагии кортҳо ба нишонии почтаи электронӣ, ки ворид карда
+    шудааст
+  tamoul: தெரிவிக்கப்பட்ட மின்னஞ்சல் முகவரிக்கு அட்டைகளின் கூடுதல் அனுப்பல்
+  tchèque: Další zaslání karet na zadanou e-mailovou adresu
+  thaï: ส่งบัตรเพิ่มเติมไปยังที่อยู่อีเมลที่ให้ไว้
+  tibétain: ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་ཁྱབ་ཁོངས་སུ་གཏོགས་པའི་འཁོར་ལོ་ཁག་གི་ཁ་པར་རྣམས་
+  turc: Girilen e-posta adresine kartların ek gönderimi
+  turkmène: Berlen salgylan adres e-poçta goşmaça kartlaryň ugratylmagy
+  ukrainien: Додаткова відправка карток на вказану електронну адресу
+  vietnamien: Gửi thêm thẻ đến địa chỉ email đã cung cấp
+  zoulou: Thumela amakhadi angeziwe ku-imeyili enikezwe
 Europe:
   afrikaans: Europa
   albanais: Evropë
@@ -5705,6 +6206,77 @@ Format:
   ukrainien: Формат
   vietnamien: Định dạng
   zoulou: Ngiyabonga
+Gauche:
+  afrikaans: Links
+  albanais: E majtë
+  allemand: Links
+  anglais: Left
+  arabe: يسار
+  arménien: Ձախ
+  basque: Ezkerra
+  bengali: বাম
+  birman: ညာဘက်
+  breton: Gauche
+  bulgare: ляво
+  catalan: Esquerra
+  corse: Sinistra
+  coréen: 왼쪽
+  danois: Venstre
+  espagnol: Izquierda
+  esperanto: Maldekstro
+  estonien: Vasak
+  finnois: Vasen
+  français: Gauche
+  gallois: Chwith
+  grec: Αριστερά
+  grec ancien: ἀριστερά
+  géorgien: მარცხნივ
+  hindi: बायाँ
+  hongrois: Balra
+  indonésien: Kiri
+  irlandais: Clé
+  islandais: Vinstri
+  italien: Sinistra
+  japonais: 左
+  kazakh: Сол жақ
+  kirghize: Сол
+  kurde: Çep
+  latin: Sinistra
+  letton: Kreisi
+  lituanien: Kairė
+  luxembourgeois: Lénks
+  macédonien: Лево
+  malais: Kiri
+  malgache: Havia
+  maltais: Xellug tax-xellug
+  mandarin standard: 左边
+  mongol: Зүүн
+  norvégien: Venstre
+  néerlandais: Links
+  népalais: बायाँ
+  ourdou: بائیں
+  ouzbek: Chap
+  pachto: کېښته
+  persan: چپ
+  polonais: Lewa
+  portugais: Esquerda
+  roumain: Stânga
+  russe: Левая
+  serbo-croate: Lijevo
+  slovaque: Ľavá
+  slovène: Leva
+  suédois: Vänster
+  swahili: Kushoto
+  tadjik: Чап
+  tamoul: இடது
+  tchèque: Levá
+  thaï: ซ้าย
+  tibétain: སེར་
+  turc: Sol
+  turkmène: Sol
+  ukrainien: Ліворуч
+  vietnamien: Trái
+  zoulou: Ngakwesobunxele
 Granularité des cartes:
   afrikaans: Kaartkorreligheid
   albanais: Gjërësi e hartave
@@ -9652,6 +10224,151 @@ Outil de création de cartes:
   ukrainien: Інструмент для створення карт
   vietnamien: Công cụ tạo bản đồ
   zoulou: Ithuluzi lokwenza amamephu
+Ouvrir le dossier:
+  afrikaans: Maak die lêer oop
+  albanais: Hapni dosjen
+  allemand: Öffne die Datei
+  anglais: Open the folder
+  arabe: افتح الملف
+  arménien: Բացել ֆայլը։
+  basque: Karpetoa ireki
+  bengali: ফোল্ডারটি খুলুন।
+  birman: ဖိုင်ဖွင့်ပါ။
+  breton: Diger ar restr
+  bulgare: Отвори папката
+  catalan: Obrir la carpeta
+  corse: Apre a cartella
+  coréen: 폴더를 열어
+  danois: Åbn mappen
+  espagnol: Abrir el archivo
+  esperanto: Malfermu la dosieron
+  estonien: Ava fail
+  finnois: Avaa kansio
+  français: Ouvrir le dossier
+  gallois: Agor y ffeil
+  grec: Άνοιξε το φάκελο
+  grec ancien: τοὺς φακέλους ἀνοῖξαι
+  géorgien: ფოლდერის გახსნა
+  hindi: फ़ाइल खोलें।
+  hongrois: Nyissa meg a mappát
+  indonésien: Buka berkasnya
+  irlandais: Oscail an fhaicil
+  islandais: Opna skjalann
+  italien: Aprire la cartella
+  japonais: フォルダを開く。
+  kazakh: Қосымшаны ашу
+  kirghize: Папканы ач
+  kurde: Dosyê veke
+  latin: Aperire fasciculum
+  letton: Atvērt lietotni
+  lituanien: Atidaryti bylą
+  luxembourgeois: De Dossier opmaachen
+  macédonien: Отворете го фајлот
+  malais: Buka fail
+  malgache: Misokatra ny rakitra
+  maltais: Iftaħ il-fajl
+  mandarin standard: 打开文件夹。
+  mongol: Хайрцаг нээх
+  norvégien: Åpne mappen
+  néerlandais: Open de map
+  népalais: फोल्डर खोल्नुहोस्।
+  ourdou: فائل کھولیں۔
+  ouzbek: Papkani oching
+  pachto: دوسی خلاصه کړئ
+  persan: باز کردن پرونده
+  polonais: Otwórz folder
+  portugais: Abrir a pasta
+  roumain: Deschide dosarul
+  russe: Открыть папку
+  serbo-croate: Otvoriti fasciklu
+  slovaque: Otvorte priečinok
+  slovène: Odprite mapo
+  suédois: Öppna mappen
+  swahili: Fungua folda
+  tadjik: Паромад кунед
+  tamoul: கோப்பைத் திறக்கவும்
+  tchèque: Otevřít složku
+  thaï: เปิดแฟ้ม
+  tibétain: དོན་དེ་འབྱེད་།
+  turc: Dosyayı aç
+  turkmène: Paýy aç
+  ukrainien: Відкрити справу
+  vietnamien: Mở tập tin
+  zoulou: Vula ifayela
+Ouvrir le dossier sélectionné après la publication de l'ensemble des cartes:
+  afrikaans: Maak die gekose lêer oop ná die publikasie van al die kaarte
+  albanais: Hapni dosjen e zgjedhur pasi të publikohen të gjitha kartat
+  allemand: Den ausgewählten Ordner öffnen, nachdem alle Karten veröffentlicht wurden
+  anglais: Open the selected folder after the publication of all the maps
+  arabe: فتح الملف المحدد بعد نشر جميع الخرائط
+  arménien: Ընդարձակել ընտրված ֆայլը բոլոր քարտեզների հրապարակումից հետո։
+  basque: Argitaratu ondoren mapa guztiak ireki hautatutako karpeta
+  bengali: সমস্ত ম্যাপ প্রকাশিত হওয়ার পরে নির্বাচিত ফোল্ডারটি খুলুন।
+  birman: မြေပုံအားလုံးထုတ်ပြန်ပြီးနောက် ရွေးချယ်ထားသောဖိုင်ကိုဖွင့်ပါ။
+  breton: Digeriñ ar restr selekret goude embann an holl kartenn
+  bulgare: Отворете папката след публикуването на всички карти
+  catalan: Obrir el directori seleccionat després de la publicació de totes les targetes
+  corse: Aperturà u dossieru selezziunatu dopu à a publicazione di tutte e carte
+  coréen: 모든 카드가 게시된 후 선택한 폴더를 엽니다
+  danois: Åbn mappen efter offentliggørelsen af alle kortene
+  espagnol: Abrir el archivo seleccionado después de la publicación de todas las tarjetas
+  esperanto: Malfermu la dosieron elektitan post la publikigo de ĉiuj mapoj
+  estonien: Vali valitud kaust pärast kõigi kaartide avaldamist
+  finnois: Avaa valittu kansio kaikkien karttojen julkaisun jälkeen
+  français: Ouvrir le dossier sélectionné après la publication de l'ensemble des cartes
+  gallois: Agor y ffeil detholwyd ar ôl cyhoeddi’r holl gartrefi
+  grec: Άνοιγμα του επιλεγμένου φακέλου μετά τη δημοσίευση όλων των χαρτών
+  grec ancien: Ἀνοῖξαι τὸν ἐκλελεγμένον φάκελον μετὰ τὴν δημοσίευσιν πασῶν τῶν χαρτῶν
+  géorgien: გაიხსნას არჩეული საქაღალდე ყველა რუქის გამოქვეყნების შემდეგ
+  hindi: सभी मानचित्र प्रकाशित होने के बाद चयनित फ़ोल्डर खोलें।
+  hongrois: A kiválasztott mappát nyissa meg az összes térkép közzététele után
+  indonésien: Buka folder yang dipilih setelah semua peta diterbitkan
+  irlandais: Oscail an comhad roghnaithe tar éis foilsithe na gcártaí uile
+  islandais: Opnaðu valda skrá eftir að öllum kortum hefur verið birt
+  italien: Aprire la cartella selezionata dopo la pubblicazione di tutte le mappe
+  japonais: 全てのカードが公開された後に、選択されたフォルダを開く。
+  kazakh: Барлық карталар жарияланғаннан кейін таңдалған қалтаны ашу
+  kirghize: Бардык карталар жарыялангандан кийин тандалган папканы ач
+  kurde: Pêşî li ser weşandina hemû nexşeyan, pelîka hilbijartî veke
+  latin: Aperire fasciculum selectum post editionem omnium tabularum
+  letton: Atvērt atlasīto mapi pēc visu karšu publicēšanas
+  lituanien: Atidaryti pasirinktą aplanką po visų žemėlapių paskelbimo
+  luxembourgeois: De selektionéiert Dossier nodeems all Kaarten publizéiert goufen,
+    opmaachen
+  macédonien: Отворете го избраниот директориум откако ќе бидат објавени сите карти
+  malais: Buka folder yang dipilih selepas semua peta diterbitkan
+  malgache: Mihidy ny rakitra voafidy rehefa navoaka ny sarintany rehetra
+  maltais: Iftaħ il-fajl magħżul wara l-pubblikazzjoni tal-mapep kollha
+  mandarin standard: 在所有地图发布完毕后打开选定的文件夹。
+  mongol: Бүх газрын зургууд хэвлэгдсэн дараа сонгосон хавтас нээгдэнэ
+  norvégien: Åpne mappen som er valgt etter at alle kartene er publisert
+  néerlandais: Open de geselecteerde map nadat alle kaarten zijn gepubliceerd
+  népalais: सम्पूर्ण नक्सा प्रकाशित भएपछि चयन गरिएको फोल्डर खोल्नुहोस्।
+  ourdou: تمام کارڈز شائع ہونے کے بعد منتخب فولڈر کھولیں۔
+  ouzbek: Barcha xaritalar e'lon qilingandan so'ng tanlangan papkani oching
+  pachto: د ټولو نقشو خپرولو وروسته غوره شوی فولډر خلاص کړئ
+  persan: باز کردن پوشه انتخاب‌شده پس از انتشار تمام نقشه‌ها
+  polonais: Otwórz folder wybrany po opublikowaniu wszystkich map
+  portugais: Abrir o dossier selecionado após a publicação de todos os mapas
+  roumain: Deschideți folderul selectat după publicarea tuturor hărților
+  russe: Открыть выбранную папку после публикации всех карт
+  serbo-croate: Otvoriti odabrani fajl nakon objavljivanja svih karata
+  slovaque: Otvoriť vybraný priečinok po publikovaní všetkých máp
+  slovène: Odprite izbrano mapo po objavi vseh kart
+  suédois: Öppna den valda mappen efter att alla kartor har publicerats
+  swahili: Fungua folda iliyochaguliwa baada ya kuchapishwa kwa ramani zote
+  tadjik: Баъд аз нашри ҳамаи нақшаҳо, парвандаи интихобшударо кушоед
+  tamoul: அனைத்து வரைபடங்களும் வெளியிடப்பட்ட பிறகு தேர்ந்தெடுக்கப்பட்ட கோப்புறையைத்
+    திறக்கவும்
+  tchèque: Otevřít vybranou složku po publikaci všech map
+  thaï: เปิดโฟลเดอร์ที่เลือกหลังจากเผยแพร่แผนที่ทั้งหมด
+  tibétain: རིས་མཐོ་ཚང་གི་མཛུབ་སྟོན་མཇུག་རྫོགས་རྗེས་སུ་ འོས་བཅོས་བྱས་པའི་དོན་ཚན་དེ་
+    གློག་པར་བྱ།
+  turc: Tüm haritalar yayınlandıktan sonra seçilen dosyayı aç
+  turkmène: Bütin kartalar çapdan soň saýlanan faily aç
+  ukrainien: Відкрити вибрану справу після публікації всіх карт
+  vietnamien: Mở thư mục đã chọn sau khi tất cả các bản đồ đã được xuất bản
+  zoulou: Vula ifayela elikhethiwe ngemuva kokushicilelwa kwemaphu wonke
 Paramètres:
   afrikaans: Parameters
   albanais: Parametra
@@ -11413,6 +12130,77 @@ Profil actuel:
   ukrainien: Поточний профіль
   vietnamien: Hồ sơ hiện tại
   zoulou: Ikhasi lamanje
+Préférences – Publication des cartes:
+  afrikaans: Voorkeure – Kaartpublikasie
+  albanais: Preferenca – Publikimi i hartave
+  allemand: Präferenzen – Kartenveröffentlichung
+  anglais: Preferences – Map publishing
+  arabe: تفضيلات – نشر الخرائط
+  arménien: Ընտրություններ – քարտեզների հրապարակում
+  basque: Lehentasunak – Mapak argitaratzea
+  bengali: পছন্দ – মানচিত্র প্রকাশ।
+  birman: ကြိုက်နှစ်မှုများ – မြေပုံထုတ်ဝေခြင်း။
+  breton: Pennadoù – Embannadur ar gartennoù
+  bulgare: Предпочитания – Публикуване на карти
+  catalan: Preferències – Publicació de mapes
+  corse: Preferenze – Publicazione di e carte
+  coréen: 선호도 – 지도 게시
+  danois: Præferencer – Kortpublicering
+  espagnol: Preferencias – Publicación de mapas
+  esperanto: Preferoj – Mapeldonado
+  estonien: Eelistused – kaartide avaldamine
+  finnois: Asetukset – Karttojen julkaisu
+  français: Préférences – Publication des cartes
+  gallois: Deallusion – Cyhoeddi mapiau
+  grec: Προτιμήσεις – Δημοσίευση χαρτών
+  grec ancien: Προτιμήσεις – Ἀποτύπωσις τῶν χαρτῶν
+  géorgien: პრეფერენსები – რუკების გამოქვეყნება
+  hindi: प्राथमिकताएँ – मानचित्र प्रकाशन।
+  hongrois: Előnyök – Térképek közzététele
+  indonésien: Preferensi – Publikasi peta
+  irlandais: Réaltaíocht – Foilsiú na gcaard
+  islandais: Óskir – Birting korta
+  italien: Preferenze – Pubblicazione delle mappe
+  japonais: 設定 – マップの公開
+  kazakh: Басылымдар – карталарды жариялау
+  kirghize: Артыкчылыктар – Карталарды жарыялоо
+  kurde: Tercih – Nîşana neşriyê
+  latin: Praefentia – Cartarum publicatio
+  letton: Preferences – Kartu publicēšana
+  lituanien: Nuostatos – žemėlapių paskelbimas
+  luxembourgeois: Preferenzen – Kaarten ze weisen
+  macédonien: Преференции – Објавување на мапи
+  malais: Keutamaan – Penerbitan peta
+  malgache: Tiana – Famaparan'ny sary
+  maltais: Preferenzi – Pubblikazzjoni tal-mapep
+  mandarin standard: 偏好 – 地图发布
+  mongol: Сонголтууд – газрын зураг нийтлэх
+  norvégien: Preferanser – Publisering av kart
+  néerlandais: Voorkeuren – Kaarten publiceren
+  népalais: प्राथमिकता – नक्सा प्रकाशन।
+  ourdou: ترجیحات – کارڈز کی اشاعت
+  ouzbek: Afzalliklar – Xaritalarni e'lon qilish
+  pachto: انتخابونه - د نقشو خپرول
+  persan: تنظیمات - انتشار نقشه‌ها
+  polonais: Preferencje – Publikacja map
+  portugais: Preferências – Publicação de mapas
+  roumain: Preferințe – Publicarea hărților
+  russe: Предпочтения – Публикация карт
+  serbo-croate: Postavke – Objavljivanje karata
+  slovaque: Preferencie – Publikovanie máp
+  slovène: Prednosti – Objava kart
+  suédois: Inställningar – Publicera kartor
+  swahili: Mapendekezo – Kuchapisha ramani
+  tadjik: Афзалиятҳо – Нашри харитаҳо
+  tamoul: விருப்பத்தேர்வுகள் – வரைபடங்களை வெளியிடுதல்
+  tchèque: Předvolby – Publikování map
+  thaï: การตั้งค่า – การเผยแพร่แผนที่
+  tibétain: དགོས་འདེམས། - གནམ་བགེགས་ཁག་གི་བསྒྲིག།
+  turc: Tercihler – Haritaların yayınlanması
+  turkmène: Saýlananlar – kartalaryň çap edilmegi
+  ukrainien: Налаштування – Публікація карт
+  vietnamien: Sở thích – Phát hành bản đồ
+  zoulou: Izintandokazi – Ukushicilela amabalazimu
 Publier les cartes !:
   afrikaans: Publiseer die kaarte!
   albanais: Publikoni hartat!
@@ -12199,6 +12987,162 @@ Saisir le nom de profil souhaité:
   ukrainien: Введіть бажане ім'я профілю
   vietnamien: Nhập tên hồ sơ mong muốn
   zoulou: Faka igama lomsebenzisi olutakiyo
+? Saisir son adresse e-mail permet de pouvoir recevoir, si cela est souhaité, les
+  cartes par e-mail. Cela est pratique si vous souhaitez par exemple les partager
+: afrikaans: Om jou e-posadres te verskaf, kan jy die kaarte per e-pos ontvang, indien
+    jy dit verlang. Dit is gerieflik as jy dit byvoorbeeld wil deel
+  albanais: Futja e adresës së emailit lejon marrjen e kartave me email, nëse dëshirohet.
+    Është praktike nëse doni, për shembull, t'i ndani ato
+  allemand: Das Eingeben der E-Mail-Adresse ermöglicht es, die Karten, falls gewünscht,
+    per E-Mail zu erhalten. Dies ist praktisch, wenn Sie sie beispielsweise teilen
+    möchten
+  anglais: Entering your email address allows you to receive cards by email, if you
+    wish. This is convenient if you want to share them, for example
+  arabe: إدخال عنوان بريده الإلكتروني يسمح باستقبال البطاقات عبر البريد الإلكتروني
+    إذا رغب في ذلك. وهذا عملي إذا كنت ترغب في مشاركتها، على سبيل المثال
+  arménien: Էլեկտրոնային փոստի հասցեն մուտքագրելը թույլ է տալիս, ըստ ցանկության, քարտերը
+    ստանալ էլեկտրոնային փոստով։ Դա հարմար է, եթե ցանկանում եք, օրինակ, դրանք կիսվել։
+  basque: Helbide elektronikoa sartzeak posta elektronikoz txartelak jasotzeko aukera
+    ematen du, nahi izanez gero. Horrek erraztasuna ematen du, adibidez, partekatu
+    nahi badituzu
+  bengali: ইমেল ঠিকানা প্রদান করলে, আপনি চাইলে ইমেলের মাধ্যমে কার্ড গ্রহণ করতে পারবেন।
+    উদাহরণস্বরূপ, আপনি যদি সেগুলি শেয়ার করতে চান তবে এটি সুবিধাজনক।
+  birman: အီးမေးလ်လိပ်စာကို မှတ်သားထားခြင်းဖြင့်၊ လိုအပ်လျှင် အီးမေးလ်ဖြင့်လည်း ကတ်များကို
+    လက်ခံနိုင်ပါသည်။ ဥပမာအားဖြင့်၊ ပြန်လည်မျှဝေလိုပါက အဆင်ပြေပါသည်။
+  breton: En emeur hec'h adress postel a lakaat da receviñ ar c'hartennoù dre bostel,
+    ma c'hoñvez ket. Praktik eo evit gallout skouer ar re-mañ, da skouer
+  bulgare: Въвеждането на имейл адреса ви позволява да получавате картите по имейл,
+    ако желаете. Това е удобно, например, ако искате да ги споделите
+  catalan: Introduir la seva adreça electrònica permet rebre, si ho desitja, les targetes
+    per correu electrònic. Això és pràctic si voleu, per exemple, compartir-les
+  corse: Inserisce u vostru indirizzu email permette di riceve, se vulete, e carte
+    par email. Hè praticu se vulete, per esempiu, spartele
+  coréen: 이메일 주소를 입력하면 원하시는 경우 이메일로 카드를 받을 수 있습니다. 예를 들어 공유하고 싶을 때 편리합니다
+  danois: At indtaste sin e-mailadresse giver mulighed for at modtage kort via e-mail,
+    hvis det ønskes. Det er praktisk, hvis du f.eks. vil dele dem
+  espagnol: Proporcionar su dirección de correo electrónico permite recibir las tarjetas
+    por correo electrónico, si así lo desea. Esto es práctico si, por ejemplo, desea
+    compartirlas
+  esperanto: Enspezi sian retpoŝtadreson ebligas ricevi, se deziratas, la kartojn
+    per retpoŝto. Ĝi estas praktika se vi volas, ekzemple, dividi ilin
+  estonien: Meiliadressi sisestamine võimaldab saada kaarte e-posti teel, kui seda
+    soovite. See on mugav, kui soovite neid näiteks jagada
+  finnois: Sähköpostiosoitteen antaminen mahdollistaa korttien vastaanottamisen sähköpostitse,
+    jos niin haluat. Tämä on kätevää, jos esimerkiksi haluat jakaa niitä
+  français: Saisir son adresse e-mail permet de pouvoir recevoir, si cela est souhaité,
+    les cartes par e-mail. Cela est pratique si vous souhaitez par exemple les partager
+  gallois: Nodyn eich cyfeiriad e-bost yn caniatáu ichi dderbyn y cardiau trwy e-bost,
+    os dymunwch. Mae hyn yn hyderus os hoffech eu rhannu, er enghraifft
+  grec: Η καταχώρηση της διεύθυνσης ηλεκτρονικού ταχυδρομείου επιτρέπει τη λήψη των
+    καρτών μέσω email, εφόσον το επιθυμείτε. Αυτό είναι πρακτικό αν θέλετε, για παράδειγμα,
+    να τις μοιραστείτε
+  grec ancien: Λαμβάνων τὴν διεύθυνσιν τοῦ ἐπιτυχημένου ἀλληλογραφείου, δύναται λαμβάνειν,
+    ἐὰν βούληται, τὰς κάρτας δι' ἀλληλογραφίας. Ἔστιν ἄρα βολικόν, ἐὰν θέλῃς αὐτὰς,
+    κατὰ παράδειγμα, μεμεῖσθαι
+  géorgien: ელექტრონული ფოსტის მისამართის შეყვანა საშუალებას გაძლევს, თუ გსურს, მიიღო
+    ბარათები ელექტრონული ფოსტით. ეს მოსახერხებელია, მაგალითად, თუ გსურს მათ გაზიარება
+  hindi: अपना ईमेल पता दर्ज करने से, यदि चाहें तो आपको ईमेल द्वारा कार्ड प्राप्त करने
+    की अनुमति मिलती है। यह सुविधाजनक है यदि आप उन्हें साझा करना चाहते हैं, उदाहरण
+    के लिए।
+  hongrois: Az e-mail cím megadása lehetővé teszi, hogy a kártyákat e-mailben is megkapja,
+    ha szeretné. Ez praktikus lehet például, ha meg szeretné osztani őket
+  indonésien: Memasukkan alamat email memungkinkan Anda menerima kartu melalui email,
+    jika diinginkan. Ini praktis jika Anda ingin membagikannya, misalnya
+  irlandais: Cuireann an t-adres ríomhphoist a chur isteach ar chumas an duine, má
+    tá sé ag iarraidh, na caidrimh a fháil trí ríomhphost. Tá sé áisiúil sin má tá
+    tú ag iarraidh iad a roinnt, mar shampla
+  islandais: Netföng tölvupóstsins gerir þér kleift að fá kortin á tölvupóst, ef þú
+    vilt. Það er handhægt ef þú vilt deila þeim til dæmis
+  italien: Inserire il proprio indirizzo e-mail permette di ricevere, se lo si desidera,
+    le carte via e-mail. È utile, ad esempio, se si desidera condividerle
+  japonais: メールアドレスを登録することで、希望に応じてメールでカードを受け取ることができます。例えば、共有したい場合に便利です。
+  kazakh: Электрондық пошта мекенжайын енгізу, қалауынша электрондық пошта арқылы
+    карталарды алуға мүмкіндік береді. Мысалы, оларды бөліскім келсе, бұл ыңғайлы
+  kirghize: Электрондук почта дарегин киргизүү, кааласаңыз, карталарды электрондук
+    почта аркылуу алууга мүмкүндүк берет. Мисалы, аларды бөлүшүүнү кааласаңыз, бул
+    ыңгайлуу
+  kurde: E-nameya weşînê qebûl kirin, heke hewsa we be, dikare kartan bi e-nameyê
+    werbigirin. Ev pratîk e ger hûn bi hewsa dabeşkirina wan re hebin
+  latin: Captio electronicae epistulae directionis permittit, si id optatur, chartas
+    per electronicas epistulas accipere. Hoc utile est, si velis eas, exempli gratia,
+    communicare
+  letton: Ievadot savu e-pasta adresi, ir iespējams saņemt kartītes pa e-pastu, ja
+    vēlas. Tas ir ērti, ja vēlaties, piemēram, dalīties ar tām
+  lituanien: Įvedus el. pašto adresą, galima gauti atvirukus el. paštu, jei to norite.
+    Tai patogu, pavyzdžiui, jei norite jais pasidalyti
+  luxembourgeois: Eng e-Mail-Adress anzeginn, erlaabt et, wann ech gewënscht gëtt,
+    d'Kaarte per E-Mail ze kréien. Dat ass praktesch, wann Dir se zum Beispill deelen
+    wëllt
+  macédonien: Внесувањето на нивната е-маил адреса овозможува да ги добиете картите
+    преку е-пошта, доколку сакате. Ова е практично ако сакате да ги споделите, на
+    пример
+  malais: Menerima alamat e-mel membolehkan anda menerima kad melalui e-mel, jika
+    diingini. Ini memudahkan untuk berkongsi kad tersebut, contohnya
+  malgache: Ny famantarana ny adiresy mailaka dia ahafahanao mahazo, raha sitrakao,
+    ny karatra amin'ny alalan'ny mailaka. Tsara izany raha te hizarazara azy ireo
+    ianao, ohatra
+  maltais: Id-daħla tal-indirizz elettroniku tagħhom tippermettilhom li jirċievu,
+    jekk jixxiequ, il-karti permezz tal-email. Dan huwa prattiku jekk iridu, per eżempju,
+    jaqsmuhom
+  mandarin standard: 输入您的电子邮件地址可以方便地通过电子邮件接收卡片，如果您愿意的话。这对于您想要分享它们的情况非常实用。
+  mongol: Имэйлийн хаягаа оруулах нь хүсвэл цахим шуудангаар карт хүлээн авахад тусална.
+    Жишээлбэл, та тэдгээрийг хуваалцахыг хүсвэл энэ нь тохиромжтой
+  norvégien: Å oppgi e-postadressen din lar deg motta kortene på e-post, hvis du ønsker
+    det. Dette er praktisk hvis du for eksempel vil dele dem
+  néerlandais: Het invoeren van uw e-mailadres stelt u in staat om, indien gewenst,
+    de kaarten per e-mail te ontvangen. Dit is handig als u ze bijvoorbeeld wilt delen
+  népalais: इमेल ठेगाना प्रविष्ट गर्नाले, यदि चाहनुहुन्छ भने, इमेल मार्फत कार्डहरू
+    प्राप्त गर्न सकिन्छ। यो कार्डहरू साझा गर्न चाहनुहुन्छ भने उपयोगी हुन्छ।
+  ourdou: اپنا ای میل ایڈریس درج کرنے سے آپ کو ای میل کے ذریعے کارڈز وصول کرنے کا
+    امکان ملے گا، اگر آپ چاہیں۔ یہ خاص طور پر مفید ہے اگر آپ انہیں شیئر کرنا چاہتے
+    ہوں۔
+  ouzbek: Elektron pochta manzilingizni kiritish orqali, agar xohlasangiz, kartalarni
+    elektron pochta orqali olishingiz mumkin. Bu ularni, masalan, o'rtoqlashmoqchi
+    bo'lsangiz, qulaydir
+  pachto: د خپلې ایمیل پته منلو سره، که غواړئ، کارتونه برېښنالیک ته هم ترلاسه کولای
+    شئ. دا که تاسو غواړئ، د شریکولو لپاره هم ګټور دی
+  persan: دریافت آدرس ایمیل امکان دریافت کارت‌ها را از طریق ایمیل در صورت تمایل فراهم
+    می‌کند. این کار در صورتی که بخواهید آن‌ها را به اشتراک بگذارید، مفید است
+  polonais: Podanie adresu e-mail umożliwia otrzymywanie kart pocztą elektroniczną,
+    jeśli sobie tego życzysz. Jest to wygodne, na przykład jeśli chcesz się nimi podzielić
+  portugais: Inserir o seu endereço de e-mail permite receber os cartões por e-mail,
+    se desejar. Isto é prático, por exemplo, se quiser partilhá-los
+  roumain: Introducerea adresei de e-mail permite primirea, dacă se dorește, a cărților
+    prin e-mail. Este util dacă doriți, de exemplu, să le distribuiți
+  russe: Ввод своего адреса электронной почты позволяет получать карты по электронной
+    почте, если это желается. Это удобно, например, если вы хотите поделиться ими
+  serbo-croate: Unosom adresu e-pošte omogućava da, ako želite, primate karte putem
+    e-pošte. To je praktično ako želite da ih, na primer, podelite
+  slovaque: Zadanie svojej e-mailovej adresy umožňuje prijímať karty e-mailom, ak
+    si to želáte. Je to praktické, ak ich chcete napríklad zdieľať
+  slovène: Vnos e-poštnega naslova omogoča prejem kartic po e-pošti, če to želite.
+    To je priročno, če jih želite na primer deliti
+  suédois: Att ange sin e-postadress gör det möjligt att ta emot kort via e-post,
+    om så önskas. Det är praktiskt om du till exempel vill dela dem
+  swahili: Kuingiza anwani yake ya barua pepe huruhusu kupokea, ikiwa unataka, kadi
+    kupitia barua pepe. Hii ni rahisi ikiwa unataka, kwa mfano, kuzishiriki
+  tadjik: Ворид кардани нишонии электронии шумо имкон медиҳад, агар хоҳед, картотекаҳоро
+    тавассути почтаи электронӣ гирифтанро. Ин роҳ барои мубодилаи онҳо, масалан, қулай
+    аст
+  tamoul: அவரது மின்னஞ்சல் முகவரியைப் பதிவு செய்வது, விரும்பினால் மின்னஞ்சல் மூலம்
+    அட்டைகளைப் பெற அனுமதிக்கும். உதாரணமாக, அவற்றை நீங்கள் பகிர விரும்பினால் இது வசதியானது
+  tchèque: Zadání své e-mailové adresy umožňuje přijímat karty e-mailem, pokud si
+    to přejete. To je praktické, pokud je chcete například sdílet
+  thaï: การใส่ที่อยู่อีเมลจะช่วยให้คุณสามารถรับการ์ดทางอีเมลได้ หากคุณต้องการ และสะดวกหากคุณต้องการแชร์การ์ดเหล่านั้น
+  tibétain: ཁྱིམ་གྱི་འགྲོ་བ་རྩ་བ་འདྲེས་སའི་སྟ་གསོའི་སྦྲུམ་རྟགས་བཀོད་པའི་ཐོག་ནས་ཁྱེད་རང་གི་ཁ་པར་གྱི་འདྲེས་སྟ་གསོ་བཀོད་ན་、དེ་ནས་ཁྱེད་རང་གིས་དགོས་པའི་དུས་སུ་ཁ་པར་གྱིས་འགྲོ་བ་རྩ་བ་འདྲེས་སའི་སྦྲུམ་རྟགས་ཐོབ་ཐུབ།
+    དེ་དག་གི་ཁ་པར་གྱིས་གཞན་ལ་སྤྲོད་པར་ཕན་པའོ།
+  turc: E-posta adresinizi girmek, isterseniz kartları e-posta ile alabilmenizi sağlar.
+    Örneğin, bunları paylaşmak isterseniz bu pratiktir
+  turkmène: E-poçta salgysyny girizmek, isleýän halatyňyzda kartalary e-poçta arkaly
+    alyp bilmäge mümkinçilik berer. Mysal üçin, olary paýlaşmak isleýän bolsaňyz,
+    bu amatlydyr
+  ukrainien: Введення своєї електронної адреси дозволяє отримувати карти електронною
+    поштою, якщо ви цього бажаєте. Це зручно, якщо ви хочете, наприклад, поділитися
+    ними
+  vietnamien: Nhập địa chỉ email cho phép bạn nhận thẻ qua email nếu muốn. Điều này
+    tiện lợi nếu bạn muốn chia sẻ chúng, ví dụ
+  zoulou: Ukuthola ikheli le-imeyili lakho kuvumela ukuthi uthole amakhadi nge-imeyili,
+    uma ufisa. Kusezwakalisa uma ufuna ukwabelana ngawo, isibonelo
 Sauvegarder mes paramètres:
   afrikaans: Stoor my instellings
   albanais: Ruaj parametrat e mi
@@ -13056,6 +14000,77 @@ Thème:
   ukrainien: Тема
   vietnamien: Chủ đề
   zoulou: Isihloko
+Thème de l'application:
+  afrikaans: App-tema
+  albanais: Tema i aplikacionit
+  allemand: App-Thema
+  anglais: Application theme
+  arabe: موضوع التطبيق
+  arménien: Հավելվածի թեմա։
+  basque: Aplikazioaren gaia
+  bengali: অ্যাপের বিষয়।
+  birman: အက်ပလီကေးရှင်း၏ အကြောင်းအရာ။
+  breton: Tema ar raktapp
+  bulgare: Тема на приложението
+  catalan: Tema de l'aplicació
+  corse: Tema di l'applicazione
+  coréen: 앱 테마
+  danois: Appens tema
+  espagnol: Tema de la aplicación
+  esperanto: Temo de la aplikaĵo
+  estonien: Rakenduse teema
+  finnois: Sovelluksen teema
+  français: Thème de l'application
+  gallois: Tema'r app
+  grec: Θέμα της εφαρμογής
+  grec ancien: Θέμα τῆς ἐφαρμογῆς
+  géorgien: აპლიკაციის თემა
+  hindi: ऐप का विषय।
+  hongrois: Alkalmazás témája
+  indonésien: Tema aplikasi
+  irlandais: Topic na bhfeidhmchlár
+  islandais: Appaþema
+  italien: Tema dell'applicazione
+  japonais: アプリのテーマ
+  kazakh: Қолданба тақырыбы
+  kirghize: Колдонмонун темасы
+  kurde: Serîlêda sepanê
+  latin: Thema applicationis
+  letton: Lietotnes tēma
+  lituanien: Programėlės tema
+  luxembourgeois: Thema vun der App
+  macédonien: Тема на апликацијата
+  malais: Tema aplikasi
+  malgache: Lohatenin'ny fampiharana
+  maltais: Tema tal-applikazzjoni
+  mandarin standard: 应用主题
+  mongol: Аппликацийн сэдэв
+  norvégien: App-tema
+  néerlandais: Thema van de app
+  népalais: एप्लिकेशनको विषयवस्तु
+  ourdou: ایپ کا موضوع
+  ouzbek: Ilova mavzusi
+  pachto: د اپلیکیشن موضوع
+  persan: موضوع برنامه
+  polonais: Temat aplikacji
+  portugais: Tema do aplicativo
+  roumain: Tema aplicației
+  russe: Тема приложения
+  serbo-croate: Tema aplikacije
+  slovaque: Téma aplikácie
+  slovène: Tema aplikacije
+  suédois: Appens tema
+  swahili: Mada ya programu
+  tadjik: Мавзӯи барнома
+  tamoul: செயலியின் கருப்பொருள்
+  tchèque: Téma aplikace
+  thaï: หัวข้อแอปพลิเคชัน
+  tibétain: འཕྲད་སྟོན།
+  turc: Uygulama teması
+  turkmène: Programmanyň temasy
+  ukrainien: Тема застосунку
+  vietnamien: Chủ đề ứng dụng
+  zoulou: Isihloko sohlelo lokusebenza
 Télécharger les fichiers YAML des lieux visités:
   afrikaans: Laai die YAML-lêers van besoekte plekke af
   albanais: Shkarkoni skedarët YAML të vendeve të vizituara

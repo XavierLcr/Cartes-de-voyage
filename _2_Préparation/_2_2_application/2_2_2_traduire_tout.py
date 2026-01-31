@@ -5,8 +5,10 @@
 ################################################################################
 
 
-import sys, time, textwrap
-import google.generativeai as genai
+import os, sys, time, textwrap
+import google.genai
+
+sys.path.append(os.getcwd())
 
 from constantes import (
     direction_donnees_traductions,
@@ -48,7 +50,9 @@ def creer_liste_pays_multilangue(
     version=0,
 ):
 
-    modele = genai.GenerativeModel(modele_dict.get("modèle", "gemini-2.5-flash-lite"))
+    modele = modele_dict.get("modèle", "gemini-2.5-flash-lite")
+    client = google.genai.Client(vertexai=False, api_key=clef_api_gemini)
+
     resultat = {} if liste_deja_existante is None else liste_deja_existante
     global appels_api_deja_faits
 
@@ -86,11 +90,12 @@ def creer_liste_pays_multilangue(
                 else f"Traduis la phrase qui va t'être donnée en {j} : {i}."
             )
             try:
-                resultat[i][j] = modele.generate_content(
-                    f"{phrase} "
+                resultat[i][j] = client.models.generate_content(
+                    model=modele,
+                    contents=f"{phrase} "
                     "Ne donne que la traduction, rien d'autre. "
                     "N'inclus en aucun cas la prononciation. "
-                    "Si tu n'es pas certain, renvoie le nom non traduit. "
+                    "Si tu n'es pas certain, renvoie le nom non traduit. ",
                 ).text.strip("\n .'")
             except Exception as e:
                 print(f"Erreur : {e}")
@@ -129,6 +134,7 @@ def creer_liste_parametres_multilangue(
 ):
 
     global appels_api_deja_faits
+    modele = modele_dict.get("modèle", "gemini-2.5-flash-lite")
 
     if liste_deja_existante is None:
         resultat = {}
@@ -138,9 +144,7 @@ def creer_liste_parametres_multilangue(
 
     for i in sorted(liste_langues):
 
-        modele = genai.GenerativeModel(
-            modele_dict.get("modèle", "gemini-2.0-flash-lite")
-        )
+        client = google.genai.Client(vertexai=False, api_key=clef_api_gemini)
 
         if blabla == 2:
             print(i, end=" : ")
@@ -165,11 +169,12 @@ def creer_liste_parametres_multilangue(
                     continue
 
                 try:
-                    resultat[i][j] = modele.generate_content(
-                        f"Traduis le mot ou l'expression suivante en {i} : '{j}'. "
+                    resultat[i][j] = client.models.generate_content(
+                        model=modele,
+                        contents=f"Traduis le mot ou l'expression suivante en {i} : '{j}'. "
                         "Ne donne que la traduction, strictement rien d'autre - et aucune ponctuation. "
                         "Le mot à traduire est à l'origine en français. "
-                        "N'oublie pas la majuscule en début d'expression quand c'est possible."
+                        "N'oublie pas la majuscule en début d'expression quand c'est possible.",
                     ).text.strip(" .'\n")
                 except Exception as e:
                     print(f"Erreur : {e}")
@@ -224,7 +229,8 @@ def creer_dictionnaire_langues(
     blabla=True,
 ):
 
-    modele = genai.GenerativeModel(modele_dict.get("modèle", "gemini-2.0-flash-lite"))
+    modele = modele_dict.get("modèle", "gemini-2.5-flash-lite")
+    client = google.genai.Client(vertexai=False, api_key=clef_api_gemini)
     resultat = {} if liste_deja_existante is None else liste_deja_existante
     global appels_api_deja_faits
 
@@ -239,13 +245,14 @@ def creer_dictionnaire_langues(
 
             # Traduction
             try:
-                resultat[i] = modele.generate_content(
-                    f"Le nom d'une langue va t'être donné en français. "
+                resultat[i] = client.models.generate_content(
+                    model=modele,
+                    contents=f"Le nom d'une langue va t'être donné en français. "
                     "Donne le nom de cette langue dans sa version propre. "
                     "Par exemple anglais donne English et allemand donne Deutsch. "
                     "Mets une majuscule quand cela est possible. "
                     "Ne renvoie rien d'autre et surtout pas de ponctuation ou de prononciation pour les langues exotiques. "
-                    f"\nLa langue est : '{i}'."
+                    f"\nLa langue est : '{i}'.",
                 ).text.strip(" .'\n")
 
                 if blabla:
@@ -385,6 +392,11 @@ if __name__ == "__main__":
 
     for modele_utilise in [
         {
+            "modèle": "gemma-3-27b-it",
+            "limite_appels_minute": 29,
+            "limite_appels_jour": 14000,
+        },
+        {
             "modèle": "gemma-3-12b-it",
             "limite_appels_minute": 29,
             "limite_appels_jour": 14000,
@@ -398,8 +410,6 @@ if __name__ == "__main__":
 
         # === Variables générales au script === #
 
-        # Clef API
-        genai.configure(api_key=clef_api_gemini)
         # for m in genai.list_models():
         #     print(m.name)
 

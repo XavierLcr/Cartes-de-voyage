@@ -21,6 +21,7 @@ from PyQt6.QtWidgets import (
     QButtonGroup,
     QRadioButton,
     QLineEdit,
+    QSpinBox,
 )
 from PyQt6.QtCore import Qt, pyqtSignal
 
@@ -172,11 +173,10 @@ class OngletParametresProfil(QWidget):
         self.email_input.setPlaceholderText("...")
         email_layout.addWidget(creer_QLabel_centre(text="📧 "))
         email_layout.addWidget(self.email_input)
-        layout.addWidget(self.email_groupbox)
 
-        # Groupbox – Statistiques
-        self.statistiques_groupbox = QGroupBox()
-        statistiques_layout = QVBoxLayout()
+        # Groupbox – Hemicycle
+        self.hemicycle_groupbox = QGroupBox()
+        hemicycle_layout = QVBoxLayout()
         hemicycle_position_layout = QHBoxLayout()
         self.hemicycle_position_label = creer_QLabel_centre()
         self.hemicycle_position_gauche = QRadioButton()
@@ -191,10 +191,34 @@ class OngletParametresProfil(QWidget):
         hemicycle_position_layout.addWidget(self.hemicycle_position_gauche)
         hemicycle_position_layout.addWidget(self.hemicycle_position_alea)
         hemicycle_position_layout.addWidget(self.hemicycle_position_droite)
-        statistiques_layout.addLayout(hemicycle_position_layout)
-        self.statistiques_groupbox.setLayout(statistiques_layout)
-        layout.addWidget(self.statistiques_groupbox)
+        hemicycle_layout.addLayout(hemicycle_position_layout)
+        self.hemicycle_groupbox.setLayout(hemicycle_layout)
         self.hemicycle_position_gauche.setChecked(True)
+
+        # Recommandations
+        self.recommandations_groupbox = QGroupBox()
+        recommandations_layout = QVBoxLayout()
+        self.recommandations_groupbox.setLayout(recommandations_layout)
+        # Par pays
+        self.recommandations_par_pays = QCheckBox()
+        recommandations_layout.addWidget(self.recommandations_par_pays)
+        # Nombre de recommandations
+        self.recommandations_nb = QSpinBox()
+        self.recommandations_nb.setMinimum(5)
+        self.recommandations_nb.setMaximum(100)
+        self.recommandations_nb.setSingleStep(1)
+        recommandations_layout.addWidget(self.recommandations_nb)
+
+        # Layout avec e-mails et l'hémicycle
+        layout_email_hemicycle = QVBoxLayout()
+        layout_email_hemicycle.addWidget(self.email_groupbox)
+        layout_email_hemicycle.addWidget(self.hemicycle_groupbox)
+
+        # Layout avec e-mails, l'émicycle et les recommandations
+        layout_email_hemicycle_reco = QHBoxLayout()
+        layout_email_hemicycle_reco.addLayout(layout_email_hemicycle)
+        layout_email_hemicycle_reco.addWidget(self.recommandations_groupbox)
+        layout.addLayout(layout_email_hemicycle_reco)
 
         # Bouton de sauvegarde
         self.bouton_sauvegarde = QPushButton()
@@ -284,9 +308,9 @@ class OngletParametresProfil(QWidget):
             self.fonction_traduction("email_tooltip", suffixe=".")
         )
 
-        # Statistiques
-        self.statistiques_groupbox.setTitle(
-            self.fonction_traduction("statistiques_groupbox")
+        # Hémicycle
+        self.hemicycle_groupbox.setTitle(
+            self.fonction_traduction("titre_sous_onglet_4_1")
         )
         self.hemicycle_position_label.setText(
             self.fonction_traduction("hemicycle_position_label", suffixe=" :")
@@ -299,6 +323,21 @@ class OngletParametresProfil(QWidget):
         )
         self.hemicycle_position_droite.setText(
             self.fonction_traduction("hemicycle_position_droite")
+        )
+
+        # Recommandations
+        self.recommandations_groupbox.setTitle(
+            self.fonction_traduction("titre_sous_onglet_4_3")
+        )
+
+        self.recommandations_par_pays.setText(
+            self.fonction_traduction("recommandations_par_pays")
+        )
+        self.recommandations_par_pays.setToolTip(
+            self.fonction_traduction("recommandations_par_pays_tooltip", suffixe=".")
+        )
+        self.recommandations_nb.setSuffix(
+            self.fonction_traduction("recommandations_nb", prefixe=" ")
         )
 
         # Bouton de sauvegarde

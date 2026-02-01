@@ -12485,6 +12485,77 @@ Quinze cartes:
   ukrainien: П'ятнадцять карток
   vietnamien: Mười lăm lá bài
   zoulou: Amashumi amahlanu nanhlanu amakhadi
+Regrouper par pays:
+  afrikaans: Groepeer per land
+  albanais: Grupo sipas vendit
+  allemand: Nach Ländern gruppieren
+  anglais: Group by country
+  arabe: تجميع حسب البلد
+  arménien: Երկրներով խմբավորել։
+  basque: Herrialdeka sailkatu
+  bengali: দেশ অনুযায়ী সাজানো।
+  birman: နိုင်ငံအလိုက်စုစည်းပါ။
+  breton: Kelennadur dre vro
+  bulgare: Групиране по държава
+  catalan: Agrupar per país
+  corse: Raggruppà per paese
+  coréen: 국가별로 묶기
+  danois: Gruppér efter land
+  espagnol: Agrupar por país
+  esperanto: Grupigite laŭ lando
+  estonien: Riigiti järgi rühmita
+  finnois: Ryhmittele maan mukaan
+  français: Regrouper par pays
+  gallois: Grwpio trwy wlad
+  grec: Ομαδοποίηση ανά χώρα
+  grec ancien: συγκεντροῦν κατὰ χώραν
+  géorgien: ქვეყნების მიხედვით შეკრებე
+  hindi: देश के अनुसार समूहित करें।
+  hongrois: Országonként csoportosítani
+  indonésien: Kelompokkan berdasarkan negara
+  irlandais: Grúpaigh de réir tíre
+  islandais: Flokka eftir landi
+  italien: Raggruppare per paese
+  japonais: 国別にする
+  kazakh: Елдер бойынша топтастыру
+  kirghize: Өлкө боюнча топтогон
+  kurde: Welat bi rêz bike
+  latin: Per nationes colligere
+  letton: Grupēt pēc valsts
+  lituanien: Grupuoti pagal šalį
+  luxembourgeois: Lännernoen gruppéieren
+  macédonien: Групирај по земја
+  malais: Kumpulkan mengikut negara
+  malgache: Vonona araka ny firenena
+  maltais: Ġbir skont il-pajjiż
+  mandarin standard: 按国家/地区分组。
+  mongol: Улс орондоо нэгтгэх
+  norvégien: Grupper etter land
+  néerlandais: Groepeer per land
+  népalais: देश अनुसार समूह बनाउनुहोस्।
+  ourdou: ملک کے لحاظ سے گروپ کریں۔
+  ouzbek: Mamlakat bo'yicha guruhlang
+  pachto: هېوادونو ته ترتيبول
+  persan: بر اساس کشور گروه‌بندی کنید
+  polonais: Pogrupuj według kraju
+  portugais: Agrupar por país
+  roumain: Grupați pe țară
+  russe: Сгруппировать по странам
+  serbo-croate: Grupirati po zemljama
+  slovaque: Zoskupovať podľa krajiny
+  slovène: Združite po državah
+  suédois: Gruppera efter land
+  swahili: Panga kwa nchi
+  tadjik: Гурӯҳбандӣ кунед аз рӯи кишвар
+  tamoul: நாடு வாரியாக தொகுக்கவும்
+  tchèque: Seskupit podle zemí
+  thaï: จัดกลุ่มตามประเทศ
+  tibétain: རྒྱལ་ཁབ་ཁག་གིས་ཁྱེར་བསྡོམས།
+  turc: Ülkeye göre gruplandır
+  turkmène: Ýurt boýunça toplaň
+  ukrainien: Згрупувати за країною
+  vietnamien: Nhóm theo quốc gia
+  zoulou: Hlunga ngokuya ngelizwe
 Régions visitées:
   afrikaans: Besoekte streke
   albanais: Rajone të vizituara
@@ -13356,6 +13427,142 @@ Selon les régions visitées:
   ukrainien: Залежно від відвіданих регіонів
   vietnamien: Tùy thuộc vào các khu vực đã ghé thăm
   zoulou: Ngokwezifunda ezihanjelwe
+Si cochée, les recommandations sont groupées par pays. Sinon, elles sont triées par pertinence:
+  afrikaans: Indien gemerk, word aanbevelings per land gegroepeer. Anders word hulle
+    volgens relevansie gesorteer
+  albanais: Nëse shënohet, rekomandimet grupohen sipas vendit. Përndryshe, ato renditen
+    sipas rëndësisë
+  allemand: Wenn angekreuzt, werden die Empfehlungen nach Ländern gruppiert. Andernfalls
+    werden sie nach Relevanz sortiert
+  anglais: If checked, recommendations are grouped by country. Otherwise, they are
+    sorted by relevance
+  arabe: إذا تم تحديد هذا الخيار، فسيتم تجميع التوصيات حسب البلد. وإلا، فسيتم ترتيبها
+    حسب الصلة
+  arménien: Եթե նշված է, առաջարկները խմբավորված են երկրների հիման վրա։ Հակառակ դեպքում,
+    դրանք կարգավորված են համապատասխանության աստիճանով։
+  basque: Egiaztatzen bada, gomendioak herrialdearen arabera taldekatuko dira. Bestela,
+    garrantziaren arabera ordenatuko dira
+  bengali: যদি টিক করা হয়, তাহলে সুপারিশগুলি দেশ অনুযায়ী গ্রুপিং করা হবে। অন্যথায়,
+    সেগুলি প্রাসঙ্গিকতা অনুসারে সাজানো হবে।
+  birman: အမှန်ခြစ်ကိစ္စပါက၊ အကြံပြုချက်များကို နိုင်ငံအလိုက်စုစည်းထားသည်။ မဟုတ်ပါက၊
+    သက်ဆိုင်မှုအလိုက်စီစစ်ထားသည်။
+  breton: Mao d'ar glask, ar restradurioù a zo rannet hervez ar vro. E-giz-se, oñlet
+    int hervez ar relevance
+  bulgare: Ако е отметнато, препоръките са групирани по държави. В противен случай,
+    те са сортирани по релевантност
+  catalan: Si està marcada, les recomanacions es mostren agrupades per país. Si no,
+    es mostren ordenades per rellevància
+  corse: Si spuntata, i ricumandamenti sò raggruppati per paese. Altrimenti, sò urdinati
+    per pertinenza
+  coréen: 체크하면 추천이 국가별로 그룹화됩니다. 그렇지 않으면 관련성에 따라 정렬됩니다
+  danois: Hvis afkrydset, grupperes anbefalingerne efter land. Ellers sorteres de
+    efter relevans
+  espagnol: Si está marcada, las recomendaciones se agrupan por país. Si no, se ordenan
+    por relevancia
+  esperanto: Se markita, la rekomendoj estas grupigitaj laŭ lando. Alie, ili estas
+    ordigitaj laŭ pertineco
+  estonien: Kui märgitud, on soovitused riigi järgi rühmitatud. Muul juhul on need
+    sorteeritud asjakohasuse järgi
+  finnois: Jos valittu, suositukset ryhmitellään maan mukaan. Muuten ne lajitellaan
+    merkityksen mukaan
+  français: Si cochée, les recommandations sont groupées par pays. Sinon, elles sont
+    triées par pertinence
+  gallois: Os yw'r blwch wedi'i marcio, mae'r argymrebiadau yn cael eu grwpio gan
+    wlad. Os nad yw, maent yn cael eu trefnu gan berthnasrwydd
+  grec: Εάν είναι επιλεγμένο, οι προτάσεις ομαδοποιούνται ανά χώρα. Διαφορετικά, ταξινομούνται
+    κατά συνάφεια
+  grec ancien: Ἐὰν σημειωθῇ, αἱ συστάσεις κατὰ χώραν συνάγονται. Ἐὰν δὲ μή, κατὰ συνάφειαν
+    τακτοῦνται
+  géorgien: თუ მონიშნულია, რეკომენდაციები ქვეყნების მიხედვით არის შეკრული. წინააღმდეგ
+    შემთხვევაში, ისინი შესაბამისობის მიხედვით არის დალაგებული
+  hindi: यदि जाँच की गई है, तो अनुशंसाएँ देश के अनुसार समूहीकृत की जाती हैं। अन्यथा,
+    वे प्रासंगिकता के अनुसार क्रमबद्ध की जाती हैं।
+  hongrois: Ha bejelölve, az ajánlások országonként csoportosítva jelennek meg. Ha
+    nem, akkor relevanciás sorrendben vannak rendezve
+  indonésien: Jika dicentang, rekomendasi dikelompokkan berdasarkan negara. Jika tidak,
+    rekomendasi diurutkan berdasarkan relevansi
+  irlandais: Má tá an bosca seo marcáilte, bíodh na moltaí grúpaíthe ag tír. Seachsin,
+    bíodh na moltaí sórtáilte de réir ábharthachta
+  islandais: Ef hakuð er í kassi, eru tillögurnar flokkaðar eftir landi. Ef ekki,
+    eru þær raðaðar eftir tengslum
+  italien: Se selezionata, le raccomandazioni sono raggruppate per paese. Altrimenti,
+    sono ordinate per rilevanza
+  japonais: チェックを入れると、おすすめは国別にグループ化されます。そうでない場合は、関連性で並べ替えられます。
+  kazakh: Егер белгіленген болса, ұсыныстар ел бойынша топтастырылады. Әйтпесе, олар
+    маңыздылығы бойынша сұрыпталады
+  kirghize: Эгер белгиленсе, сунуштар өлкө боюнча топтолгон. Белгиленбесе, мааниси
+    боюнча тартиптелет
+  kurde: Heke hatikê, pêşniyar bi welatî têne komkirin. Dîsa, bi girîngîyê têne rêz
+    kirin
+  latin: Si electa, commendationes per nationes congregantur. Alioquin, secundum pertinentiam
+    ordinantur
+  letton: Ja atzīmēts, ieteikumi ir grupēti pēc valsts. Citādi tie ir kārtoti pēc
+    atbilstības
+  lituanien: Je suis prêt. Donne-moi la phrase
+  luxembourgeois: Wa beigecheckt, ginn d'Recommandatioune no lännerno gebéiert. Soss
+    ginn se no Pertinenz sortéiert
+  macédonien: Ако е означено, препораките се групираат по земја. Инаку, тие се подредени
+    според релевантност
+  malais: Jika ditandakan, cadangan dikelompokkan mengikut negara. Jika tidak, ia
+    diisih mengikut relevansi
+  malgache: Raha voatendry, ny soso-kevitra dia miara-misakafo amin'ny firenena. Raha
+    tsy voatendry, dia karakarain'ny fifandraisana izy ireo
+  maltais: Jekk immarkata, ir-rakkomandazzjonijiet jingħaqdu skont il-pajjiż. Inkella,
+    huma msortija skont ir-rilevanza
+  mandarin standard: 如果勾选，推荐会按国家/地区分组。否则，它们会按相关性排序。
+  mongol: Хэрэв тэмдэглэгдсэн бол санал зөвлөмжүүдийг улс орноор бүлэглэнэ. Үгүй бол,
+    хамааралтай байдлаар нь эрэмбэлнэ
+  norvégien: Hvis avkrysset, grupperes anbefalingene etter land. Ellers sorteres de
+    etter relevans
+  néerlandais: Als aangevinkt, worden de aanbevelingen gegroepeerd per land. Anders
+    worden ze gesorteerd op relevantie
+  népalais: यदि चिन्हित गरिएको छ भने, सिफारिसहरू देश अनुसार समूहीकृत हुन्छन्। अन्यथा,
+    तिनीहरू प्रासंगिकता अनुसार क्रमबद्ध हुन्छन्।
+  ourdou: اگر چیک کیا گیا ہے، تو سفارشات ملک کے لحاظ سے گروپ کی جائیں گی۔ ورنہ، وہ
+    متعلقہ پن کے لحاظ سے ترتیب دی جائیں گی۔
+  ouzbek: Agar belgilangan bo'lsa, tavsiyalar mamlakat bo'yicha guruhlanadi. Aks holda,
+    ular relevanslik bo'yicha tartiblanadi
+  pachto: که که څښتن شي، سپارښتنې د هیوادونو له مخې ډلبنديږي. که نه، د اړتیا له مخې
+    ترتیبوي
+  persan: اگر علامت زده شود، توصیه‌ها بر اساس کشور گروه‌بندی می‌شوند. در غیر این صورت،
+    بر اساس ارتباط مرتب می‌شوند
+  polonais: Jeśli zaznaczone, rekomendacje są grupowane według kraju. W przeciwnym
+    razie są sortowane według trafności
+  portugais: Se marcada, as recomendações são agrupadas por país. Caso contrário,
+    são ordenadas por relevância
+  roumain: Dacă este bifată, recomandările sunt grupate pe țări. Altfel, sunt sortate
+    după relevanță
+  russe: Если отмечено, рекомендации группируются по странам. В противном случае они
+    сортируются по релевантности
+  serbo-croate: Ako je označeno, preporuke su grupisane po zemljama. U suprotnom,
+    sortirane su po relevantnosti
+  slovaque: Ak je začiarknuté, odporúčania sú zoskupené podľa krajiny. Inak sú zoradené
+    podľa relevantnosti
+  slovène: Če je označeno, so priporočila združena po državah. V nasprotnem primeru
+    so razvrščena po pomembnosti
+  suédois: Om den är ikryssad grupperas rekommendationerna efter land. Annars sorteras
+    de efter relevans
+  swahili: Ikiwa imeangaliwa, mapendekezo yanakusanywa kwa nchi. Vinginevyo, yanapangwa
+    kwa umuhimu
+  tadjik: Агар нишон гузошта шуда боша, тавсияҳо оид ба кишвар гурӯҳбандӣ мешаванд.
+    Дар акси ҳол, онҳо оид ба дараҷаи муҳиммият тартиб дода мешаванд
+  tamoul: சரிபார்க்கப்பட்டால், பரிந்துரைகள் நாடு வாரியாக தொகுக்கப்படும். இல்லையெனில்,
+    அவை பொருத்தத்தின் அடிப்படையில் வரிசைப்படுத்தப்படும்
+  tchèque: Pokud je zaškrtnuto, doporučení jsou seskupena podle země. Jinak jsou seřazena
+    podle relevance
+  thaï: หากเลือกรายการนี้ คำแนะนำจะถูกจัดกลุ่มตามประเทศ หากไม่เลือก จะเรียงตามความเกี่ยวข้อง
+  tibétain: ཁྱབ་བརྡ་བཀོད་ན་ རྒྱལ་ཁབ་ཁག་གི་ནང་དུ་དགོངས་པའི་དགེ་འདུས་ཚོགས་པར་བྱེད་དོ།
+    དེ་མིན་ མི་འདུག་པའི་མཐའ་བཞིན་བཀོད་པར་བྱེད་དོ།
+  turc: İşaretliyse, öneriler ülkeye göre gruplandırılır. Aksi takdirde, alaka düzeyine
+    göre sıralanır
+  turkmène: Bellenilse, maslahatlar ýurt boýunça toplanar. Ýöne, olaryň ählisi degişlilik
+    boýunça tertip beriler
+  ukrainien: Якщо встановлено, рекомендації групуються за країною. Інакше вони сортуються
+    за релевантністю
+  vietnamien: Nếu được chọn, các đề xuất sẽ được nhóm theo quốc gia. Nếu không, chúng
+    sẽ được sắp xếp theo mức độ liên quan
+  zoulou: Uma kuhloliwe, izincomo ziqondiswa ngokuya ngelizwe. Ungahloliwe, zihlelwa
+    ngokuthinta
 Soutaitez-vous vraiment supprimer ce profil ? Cette opération est définitive:
   afrikaans: Wil jy regtig hierdie profiel uitvee? Hierdie aksie is permanent
   albanais: A dëshironi vërtet të fshini këtë profil? Ky veprim është i përhershëm
@@ -14592,6 +14799,77 @@ ou charger manuellement un fichier YAML contenant la liste des lieux visités:
   ukrainien: або вручну завантажити файл YAML зі списком відвіданих місць
   vietnamien: hoặc tải thủ công tệp YAML chứa danh sách các địa điểm đã ghé thăm
   zoulou: Noma ukulayisha ngesandla ifayela le-YAML elinohlu lwezindawo ezivakashelwe
+recommandations:
+  afrikaans: aanbevelings
+  albanais: Rekomandime
+  allemand: Empfehlungen
+  anglais: recommendations
+  arabe: توصيات
+  arménien: համագործակցություն
+  basque: gomendioak
+  bengali: সুপারিশসমূহ
+  birman: ကြော်ငြာချက်များ
+  breton: argadennoù
+  bulgare: препоръки
+  catalan: recomanacions
+  corse: recommandations
+  coréen: 추천
+  danois: anbefalinger
+  espagnol: recomendaciones
+  esperanto: rekomendaĵoj
+  estonien: soovitused
+  finnois: suositukset
+  français: recommandations
+  gallois: argymhellion
+  grec: Συστάσεις
+  grec ancien: συμβουλές
+  géorgien: რეკომენდაციები
+  hindi: सिफारिशें
+  hongrois: ajánlások
+  indonésien: rekomendasi
+  irlandais: moltaí
+  islandais: Ráðleggingar
+  italien: raccomandazioni
+  japonais: おすすめ
+  kazakh: ұсыныстар
+  kirghize: сунуштар
+  kurde: Pêşniyar
+  latin: recommmendationes
+  letton: ieteikumi
+  lituanien: rekomendacijos
+  luxembourgeois: Recommandatiounen
+  macédonien: Препораки
+  malais: cadangan
+  malgache: tolo-tsara
+  maltais: rakkomandazzjonijiet
+  mandarin standard: 建议
+  mongol: зөвлөмж
+  norvégien: anbefalinger
+  néerlandais: aanbevelingen
+  népalais: सिफारिसहरू
+  ourdou: توصیے
+  ouzbek: Tavsiyalar
+  pachto: سپارښتنې
+  persan: توصیه‌ها
+  polonais: rekomendacje
+  portugais: recomendações
+  roumain: recomandări
+  russe: рекомендации
+  serbo-croate: preporuke
+  slovaque: odporúčania
+  slovène: priporočila
+  suédois: rekommendationer
+  swahili: mapendekezo
+  tadjik: Тавсияҳо
+  tamoul: பரிந்துரைகள்
+  tchèque: doporučení
+  thaï: คำแนะนำ
+  tibétain: སྤྲོ་སྣང་།
+  turc: öneriler
+  turkmène: maslahatlar
+  ukrainien: рекомендації
+  vietnamien: khuyến nghị
+  zoulou: izincomo
 À vos passeports, prêts, voyagez !:
   afrikaans: Paspoorte gereed, begin!
   albanais: Tek pasaportat, gati, udhëtoni!

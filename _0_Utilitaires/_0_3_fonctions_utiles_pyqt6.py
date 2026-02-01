@@ -5,7 +5,14 @@
 ################################################################################
 
 
-from PyQt6.QtWidgets import QHBoxLayout, QFrame, QLabel, QWidget, QPushButton
+from PyQt6.QtWidgets import (
+    QHBoxLayout,
+    QFrame,
+    QLabel,
+    QWidget,
+    QPushButton,
+    QApplication,
+)
 from PyQt6.QtCore import Qt, QTimer
 
 
@@ -133,11 +140,23 @@ def creer_ligne_verticale():
 
 
 def vider_layout(layout):
-    """Supprime tous les widgets d'un QLayout."""
+
+    if layout is None:
+        return
+
     while layout.count():
-        child = layout.takeAt(0)
-        if child.widget():
-            child.widget().deleteLater()
+        item = layout.takeAt(0)
+
+        widget = item.widget()
+        if widget:
+            widget.setParent(None)
+            widget.deleteLater()
+
+        sublayout = item.layout()
+        if sublayout:
+            vider_layout(sublayout)
+
+    QApplication.processEvents()
 
 
 # 5 -- Fonction sur les QPushButton --------------------------------------------

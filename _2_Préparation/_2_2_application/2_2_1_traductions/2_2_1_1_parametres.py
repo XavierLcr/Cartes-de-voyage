@@ -159,7 +159,7 @@ for modele in modeles_google:
     api_jour_modele = int(api_dict.get(date_jour, {}).get(modele["modèle"], 0))
 
     # Granularité
-    parametres_traduits = creer_liste_parametres_multilangue(
+    param_traduits = creer_liste_parametres_multilangue(
         liste_parametres=[
             "Pays",
             "Région",
@@ -177,9 +177,9 @@ for modele in modeles_google:
     )
 
     # Ambiances
-    parametres_traduits = creer_liste_parametres_multilangue(
+    param_traduits = creer_liste_parametres_multilangue(
         liste_parametres=list(liste_ambiances.keys()),
-        liste_deja_existante=parametres_traduits,
+        liste_deja_existante=param_traduits,
         nom_bouton="themes_cartes",
         modele_dict=modele,
         liste_langues=liste_langues,
@@ -187,9 +187,9 @@ for modele in modeles_google:
     )
 
     # Teintes
-    parametres_traduits = creer_liste_parametres_multilangue(
+    param_traduits = creer_liste_parametres_multilangue(
         liste_parametres=list(liste_couleurs.keys()),
-        liste_deja_existante=parametres_traduits,
+        liste_deja_existante=param_traduits,
         nom_bouton="teintes_couleurs",
         modele_dict=modele,
         liste_langues=liste_langues,
@@ -197,9 +197,9 @@ for modele in modeles_google:
     )
 
     # Arrière-plans
-    parametres_traduits = creer_liste_parametres_multilangue(
+    param_traduits = creer_liste_parametres_multilangue(
         liste_parametres=list(dictionnaire_arriere_plans.keys()),
-        liste_deja_existante=parametres_traduits,
+        liste_deja_existante=param_traduits,
         nom_bouton="arrière_plans",
         modele_dict=modele,
         liste_langues=liste_langues,

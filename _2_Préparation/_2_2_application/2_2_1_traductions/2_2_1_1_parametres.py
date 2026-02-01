@@ -218,11 +218,11 @@ for modele in modeles_google:
 ## 4.1 -- Traductions ----------------------------------------------------------
 
 # Vérification des doublons
-verifier_doublons(parametres_traduits)
+verifier_doublons(param_traduits)
 
 # Export
 exporter_fichier(
-    objet=parametres_traduits,
+    objet=param_traduits,
     direction_fichier=direction_donnees_traductions,
     nom_fichier="parametres_cartes_traduction.yaml",
     sort_keys=True,

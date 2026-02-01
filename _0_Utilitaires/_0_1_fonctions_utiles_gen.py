@@ -108,11 +108,30 @@ def formater_temps_actuel(n: int = 0) -> str:
     formats = {
         0: "%d-%m-%Y %Hh%M",
         1: "%Y-%m-%d %H:%M",
+        2: "%Y-%m-%d",
     }
     return time.strftime(formats.get(n, formats[0]), time.localtime())
 
 
-## 2.2 -- Fonction de mise en forme du titre selon les événements --------------
+## 2.2 -- Fonction faisant n pauses par minute ---------------------------------
+
+
+def sleep_n_fois(n: float, time_ref: float | None):
+
+    # Si pas de temps de référence, on prend l'instant actuel
+    if time_ref is None:
+        time_ref = time.time()
+
+    # Attente
+    time.sleep(
+        max(
+            0,
+            60 / n - (time.time() - time_ref),
+        )
+    )
+
+
+## 2.3 -- Fonction de mise en forme du titre selon les événements --------------
 
 
 def periode_particuliere(periodes: dict) -> dict:
@@ -153,7 +172,7 @@ def periode_particuliere(periodes: dict) -> dict:
     )
 
 
-## 2.3 -- Fonction calculant la distance de Haversine --------------------------
+## 2.4 -- Fonction calculant la distance de Haversine --------------------------
 
 
 @numba.njit

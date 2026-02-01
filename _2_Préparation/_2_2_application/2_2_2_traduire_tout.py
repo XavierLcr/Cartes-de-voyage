@@ -14,17 +14,18 @@ from constantes import (
     direction_donnees_traductions,
     direction_donnees_autres,
     dict_langues_dispo,
-    dictionnaire_arriere_plans,
-    liste_ambiances,
-    liste_couleurs,
     phrases_interface,
     liste_regions_monde,
     hierarchie_par_pays,
     liste_pays_groupes,
 )
-from _0_Utilitaires._0_1_fonctions_utiles_gen import ouvrir_fichier, exporter_fichier
+from _0_Utilitaires._0_1_fonctions_utiles_gen import (
+    ouvrir_fichier,
+    exporter_fichier,
+    formater_temps_actuel,
+)
 
-from clefs_et_mots_de_passe import clef_api_gemini
+from clefs_et_mots_de_passe import clef_api_gemini, liste_langues, modeles_google
 
 
 # 1 -- Fonctions ---------------------------------------------------------------
@@ -117,98 +118,7 @@ def creer_liste_pays_multilangue(
     return resultat
 
 
-## 1.2 -- Fonction de traduction des paramètres --------------------------------
-
-
-def creer_liste_parametres_multilangue(
-    liste_parametres,
-    nom_bouton,
-    modele_dict,
-    liste_deja_existante=None,
-    liste_langues=[
-        "français",
-        "anglais",
-        "allemand",
-    ],
-    blabla=1,  # 0 = Non, 1 = Pays, 2 = Pays x langues
-):
-
-    global appels_api_deja_faits
-    modele = modele_dict.get("modèle", "gemini-2.5-flash-lite")
-
-    if liste_deja_existante is None:
-        resultat = {}
-        liste_deja_existante = {}
-    else:
-        resultat = liste_deja_existante.get(nom_bouton, {})
-
-    for i in sorted(liste_langues):
-
-        client = google.genai.Client(vertexai=False, api_key=clef_api_gemini)
-
-        if blabla == 2:
-            print(i, end=" : ")
-        if blabla == 1:
-            print(i, end=" – ")
-        sys.stdout.flush()
-
-        resultat[i] = resultat.get(i, {})
-        for j in liste_parametres:
-
-            temps_debut = time.time()
-            if j not in list(
-                resultat[i].keys()
-            ) and appels_api_deja_faits < modele_dict.get("limite_appels_jour", 200):
-
-                if blabla == 2:
-                    print(j, end=" ")
-                    sys.stdout.flush()
-
-                if i == "français":
-                    resultat[i][j] = j
-                    continue
-
-                try:
-                    resultat[i][j] = client.models.generate_content(
-                        model=modele,
-                        contents=f"Traduis le mot ou l'expression suivante en {i} : '{j}'. "
-                        "Ne donne que la traduction, strictement rien d'autre - et aucune ponctuation. "
-                        "Le mot à traduire est à l'origine en français. "
-                        "N'oublie pas la majuscule en début d'expression quand c'est possible.",
-                    ).text.strip(" .'\n")
-                except Exception as e:
-                    print(f"Erreur : {e}")
-                    pass
-
-                time.sleep(
-                    max(
-                        0,
-                        60 / modele_dict.get("limite_appels_minute", 30)
-                        - time.time()
-                        + temps_debut,
-                    )
-                )
-                appels_api_deja_faits = appels_api_deja_faits + 1
-
-            elif j not in list(resultat[i].keys()):
-                continue
-            else:
-                try:
-                    resultat[i][j] = resultat[i][j].strip(" .'\n")
-                except:
-                    pass
-
-        if blabla == 2:
-            print("")
-
-    if blabla == 1:
-        print("")
-
-    liste_deja_existante[nom_bouton] = resultat
-    return liste_deja_existante
-
-
-## 1.3 -- Fonction de traduction des langues -----------------------------------
+## 1.2 -- Fonction de traduction des langues -----------------------------------
 
 
 ### Fonction générique ---------------------------------------------------------
@@ -292,121 +202,12 @@ def maj_langues_dispo(modele: dict):
     )
 
 
-## 1.4 -- Fonction de vérification de l'existance de doublons de paramètres ----
-
-
-def verifier_doublons(data):
-    for parametre, sous_dico in data.items():
-        for pays, valeurs in sous_dico.items():
-            seen = set()
-            doublons = set()
-            for cle, val in valeurs.items():
-                doublons.add(val) if val in seen else seen.add(val)
-            if doublons:
-                print(
-                    f"❌ Doublons détectés dans '{parametre}' > '{pays}' : {doublons}"
-                )
-
-
-# 2 -- Liste des langues -------------------------------------------------------
-
-
-liste_langues = [
-    "afrikaans",
-    "albanais",
-    "allemand",
-    "anglais",
-    "arabe",
-    "arménien",
-    "basque",
-    "bengali",
-    "birman",
-    "breton",
-    "bulgare",
-    "catalan",
-    "coréen",
-    "corse",
-    "danois",
-    "espagnol",
-    "esperanto",
-    "estonien",
-    "finnois",
-    "français",
-    "gallois",
-    "géorgien",
-    "grec",
-    "grec ancien",
-    "hindi",
-    "hongrois",
-    "indonésien",
-    "irlandais",
-    "islandais",
-    "italien",
-    "japonais",
-    "kazakh",
-    "kirghize",
-    "kurde",
-    "latin",
-    "letton",
-    "lituanien",
-    "luxembourgeois",
-    "macédonien",
-    "malais",
-    "malgache",
-    "maltais",
-    "mandarin standard",
-    "mongol",
-    "népalais",
-    "norvégien",
-    "néerlandais",
-    "ourdou",
-    "ouzbek",
-    "pachto",
-    "persan",
-    "polonais",
-    "portugais",
-    "roumain",
-    "russe",
-    "serbo-croate",
-    "slovaque",
-    "slovène",
-    "suédois",
-    "swahili",
-    "tadjik",
-    "tamoul",
-    "thaï",
-    "tibétain",
-    "tchèque",
-    "turc",
-    "turkmène",
-    "vietnamien",
-    "ukrainien",
-    "zoulou",
-]
-
-
-# 3 -- Application -------------------------------------------------------------
+# 2 -- Application -------------------------------------------------------------
 
 
 if __name__ == "__main__":
 
-    for modele_utilise in [
-        {
-            "modèle": "gemma-3-27b-it",
-            "limite_appels_minute": 29,
-            "limite_appels_jour": 14000,
-        },
-        {
-            "modèle": "gemma-3-12b-it",
-            "limite_appels_minute": 29,
-            "limite_appels_jour": 14000,
-        },
-        {
-            "modèle": "gemini-2.5-flash-lite",
-            "limite_appels_minute": 9.9,
-            "limite_appels_jour": 20,
-        },
-    ]:
+    for modele_utilise in modeles_google:
 
         # === Variables générales au script === #
 
@@ -431,73 +232,6 @@ if __name__ == "__main__":
                 modele_utilise["modèle"], 0
             )
         )
-
-        # === Traduction des paramètres === #
-
-        # Granularité
-        print("\n\n Traduction des paramètres : \n")
-        parametres_traduits = creer_liste_parametres_multilangue(
-            liste_parametres=[
-                "Pays",
-                "Région",
-                "Département",
-                "Amusant",
-                "Régions",
-                "Départements",
-            ],
-            ## Traduction déjà existante des paramètres
-            liste_deja_existante=ouvrir_fichier(
-                direction_fichier=direction_donnees_traductions,
-                nom_fichier="parametres_cartes_traduction.yaml",
-                defaut=None,
-                afficher_erreur="Fichier YAML des traductions des paramètres non trouvé.",
-            ),
-            nom_bouton="granularite",
-            modele_dict=modele_utilise,
-            liste_langues=liste_langues,
-            blabla=1,
-        )
-
-        # Ambiances
-        parametres_traduits = creer_liste_parametres_multilangue(
-            liste_parametres=list(liste_ambiances.keys()),
-            liste_deja_existante=parametres_traduits,
-            nom_bouton="themes_cartes",
-            modele_dict=modele_utilise,
-            liste_langues=liste_langues,
-            blabla=2,
-        )
-
-        # Teintes
-        parametres_traduits = creer_liste_parametres_multilangue(
-            liste_parametres=list(liste_couleurs.keys()),
-            liste_deja_existante=parametres_traduits,
-            nom_bouton="teintes_couleurs",
-            modele_dict=modele_utilise,
-            liste_langues=liste_langues,
-            blabla=2,
-        )
-
-        # Arrière-plans
-        parametres_traduits = creer_liste_parametres_multilangue(
-            liste_parametres=list(dictionnaire_arriere_plans.keys()),
-            liste_deja_existante=parametres_traduits,
-            nom_bouton="arrière_plans",
-            modele_dict=modele_utilise,
-            liste_langues=liste_langues,
-            blabla=2,
-        )
-
-        # Export
-        verifier_doublons(parametres_traduits)  # Vérification des doublons
-        exporter_fichier(
-            objet=parametres_traduits,
-            direction_fichier=direction_donnees_traductions,
-            nom_fichier="parametres_cartes_traduction.yaml",
-            sort_keys=True,
-        )
-
-        time.sleep(1)
 
         # === Traduction des noms de langues === #
 

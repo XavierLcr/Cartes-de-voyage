@@ -51,6 +51,8 @@ class OngletParametresProfil(QWidget):
     signal_langue = pyqtSignal(str)
     signal_theme_application = pyqtSignal(bool)
     signal_hemicyle_position = pyqtSignal(int)
+    signal_reco_par_pays = pyqtSignal(bool)
+    signal_reco_nb = pyqtSignal(int)
 
     def __init__(self, constantes, fct_traduction):
 
@@ -202,11 +204,13 @@ class OngletParametresProfil(QWidget):
         # Par pays
         self.recommandations_par_pays = QCheckBox()
         recommandations_layout.addWidget(self.recommandations_par_pays)
+        self.recommandations_par_pays.clicked.connect(self.get_recommandations_par_pays)
         # Nombre de recommandations
         self.recommandations_nb = QSpinBox()
         self.recommandations_nb.setMinimum(5)
         self.recommandations_nb.setMaximum(100)
         self.recommandations_nb.setSingleStep(1)
+        self.recommandations_nb.valueChanged.connect(self.get_recommandations_nb)
         recommandations_layout.addWidget(self.recommandations_nb)
 
         # Layout avec e-mails et l'hémicycle
@@ -432,6 +436,18 @@ class OngletParametresProfil(QWidget):
     def set_email(self, email: str):
         self.email_input.setText(email)
 
+    def get_recommandations_par_pays(self):
+        self.signal_reco_par_pays.emit(self.recommandations_par_pays.isChecked())
+
+    def set_recommandations_par_pays(self, val: bool):
+        self.recommandations_par_pays.setChecked(val)
+
+    def get_recommandations_nb(self):
+        self.signal_reco_nb.emit(self.recommandations_nb.value())
+
+    def set_recommandations_nb(self, val: int):
+        self.recommandations_nb.setValue(val)
+
     def initialiser_param_profil(self, **kwargs):
 
         # Récupération des valeurs avec des valeurs par défaut
@@ -443,6 +459,8 @@ class OngletParametresProfil(QWidget):
         theme_application = kwargs.get("theme_application", True)
         adresse_email = kwargs.get("adresse_email", "")
         hemicycle_position = kwargs.get("hemicycle_position", -1)
+        recommandations_par_pays = kwargs.get("recommandations_par_pays", False)
+        recommandations_nb = kwargs.get("recommandations_nb", 20)
 
         # Langue
         self.langues_dispos.setCurrentIndex(
@@ -472,3 +490,7 @@ class OngletParametresProfil(QWidget):
 
         # Alignement des pays dans l'hémicycle
         self.set_hemicycle_position(val=hemicycle_position)
+
+        # Recommandations
+        self.set_recommandations_par_pays(val=recommandations_par_pays)
+        self.set_recommandations_nb(val=recommandations_nb)

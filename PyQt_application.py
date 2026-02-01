@@ -202,6 +202,12 @@ class MesVoyagesApplication(QWidget):
             self.set_hemicycle_position
         )
 
+        # Recommandations
+        self.onglet_param_profil.signal_reco_par_pays.connect(
+            self.set_recommandations_par_pays
+        )
+        self.onglet_param_profil.signal_reco_nb.connect(self.set_recommandations_nb)
+
         # == Sixième onglet ===
 
         self.onglet_description_application = onglet_info.OngletInformations(
@@ -467,8 +473,11 @@ class MesVoyagesApplication(QWidget):
             "dictionnaire_departements": (
                 self.dicts_granu["dep"] if self.dicts_granu["dep"] != {} else None
             ),
-            # Statistiques
+            # Hémicycle
             "hemicycle_position": self.onglet_statistiques.get_hemicycle_position(),
+            # Recommandations
+            "recommandations_par_pays": self.onglet_statistiques.get_recommandations_par_pays(),
+            "recommandations_nb": self.onglet_statistiques.get_recommandations_nb(),
         }
 
     def exporter_liste_parametres(self):
@@ -610,6 +619,9 @@ class MesVoyagesApplication(QWidget):
             nom=nom, reinitialiser=reinitialiser
         )
 
+        # Onglet de statistiques
+        self.onglet_statistiques.initialiser_onglet()
+
         # Récupération des destinations
         self.set_dictionnaire_destinations(
             dictionnaire={
@@ -664,6 +676,12 @@ class MesVoyagesApplication(QWidget):
 
     def set_hemicycle_position(self, val: int):
         self.onglet_statistiques.set_hemicycle_position(val=val)
+
+    def set_recommandations_par_pays(self, val: bool):
+        self.onglet_statistiques.set_recommandations_par_pays(val=val)
+
+    def set_recommandations_nb(self, val: int):
+        self.onglet_statistiques.set_recommandations_nb(val=val)
 
     def ajouter_profil(self):
 

@@ -86,10 +86,7 @@ def calculer_score_region(
 
 
 def calculer_recommandation(
-    df,
-    dict_visite,
-    top_n=10,
-    alpha=1 / 3,
+    df, dict_visite, top_n=10, alpha=1 / 3, par_pays: bool = False, n_par_pays: int = 3
 ):
 
     # Séparer les colonnes
@@ -121,9 +118,9 @@ def calculer_recommandation(
         ]
     ]
 
-    return (
-        # Calcul des scores
+    df_reste = (
         df_reste.assign(
+            # Calcul des scores
             score_region=calculer_score_region(
                 lats_visite=df_visite["latitude"].to_numpy(),
                 lons_visite=df_visite["longitude"].to_numpy(),
@@ -139,9 +136,25 @@ def calculer_recommandation(
         )
         # Tri
         .sort_values("score_region", ascending=False)
-        # Sélection des premières recommandations
-        .head(top_n)
     )
+
+    # Limitation aux top pays (si souhaité)
+    if par_pays:
+        df_reste = df_reste.groupby("name_0").apply(
+            lambda x: x.nlargest(n_par_pays, columns="score_region")
+        )
+
+    df_reste = (
+        df_reste
+        # Sélection du top des recommandations
+        .nlargest(top_n, columns="score_region")
+        # Sélection des colonnes
+        .reset_index(drop=True)[
+            ["name_0", "name_1", "latitude", "longitude", "superficie", "score_region"]
+        ]
+    )
+
+    return df_reste
 
 
 # 2 -- Classe de calcul du tableau de recommandations --------------------------
@@ -150,24 +163,36 @@ def calculer_recommandation(
 class WorkerRecommandation(QObject):
     finished = pyqtSignal(object)  # Signal pour retourner le résultat
 
-    def __init__(self, constantes, dict_visite):
+    def __init__(
+        self,
+        top_n: int,
+        alpha: float,
+        df,
+        dict_visite,
+        par_pays: bool,
+        n_par_pays: int,
+    ):
         super().__init__()
-        self.constantes = constantes
+        self.df = df
         self.dict_visite = dict_visite
+
+        self.top_n = top_n
+        self.alpha = alpha
+        self.par_pays = par_pays
+        self.n_par_pays = n_par_pays
 
     def calculer(self):
         """Méthode exécutée dans le thread."""
+
         df = (
             calculer_recommandation(
-                df=self.constantes.df_caracteristiques_pays,
+                df=self.df,
                 dict_visite=self.dict_visite,
-                top_n=self.constantes.parametres_application.get(
-                    "n_recommandations", 10
-                ),
-                alpha=self.constantes.parametres_application.get(
-                    "coeff_distance", 0.05
-                ),
-            ).reset_index()
+                top_n=self.top_n,
+                alpha=self.alpha,
+                par_pays=self.par_pays,
+                n_par_pays=self.n_par_pays,
+            )
             if self.dict_visite != {}
             else None
         )
@@ -194,6 +219,11 @@ class PaysAVisiter(QWidget):
         self.dict_granu = {"region": {}, "dep": {}}
         self.df = None
         self.table_superficie = table_superficie
+        self.recommandations_nb = 20
+        self.recommandations_par_pays = False
+        self.n_par_pays = 3
+        self.recommandations_par_ligne = 3
+        self.alpha = self.constantes.parametres_application.get("coeff_distance", 0.05)
 
         layout = QVBoxLayout()
         # Bouton de lancement
@@ -245,10 +275,14 @@ class PaysAVisiter(QWidget):
 
         self.thread_temp = QThread()
         self.worker_temp = WorkerRecommandation(
-            constantes=self.constantes,
+            df=self.constantes.df_caracteristiques_pays,
+            alpha=self.alpha,
+            top_n=self.get_recommandations_nb(),
+            par_pays=self.get_recommandations_par_pays(),
             dict_visite={
                 k: list(dict.fromkeys(v)) for k, v in dict_temp.items() if v is not None
             },
+            n_par_pays=self.n_par_pays,
         )
         self.worker_temp.moveToThread(self.thread_temp)
         self.thread_temp.started.connect(self.worker_temp.calculer)
@@ -266,7 +300,7 @@ class PaysAVisiter(QWidget):
     def afficher_recommandation(self):
 
         # Affichage
-        vider_layout(self.corps_recommandations)
+        self.vider_recommandations()
         if self.df is None:
             return
         self.corps_recommandations.addWidget(
@@ -284,9 +318,9 @@ class PaysAVisiter(QWidget):
         if self.df is not None:
             if len(self.df) > 0:
 
-                if not self.constantes.parametres_application.get("par_pays", True):
+                if not self.get_recommandations_par_pays():
 
-                    modulo = 4
+                    modulo = self.recommandations_par_ligne
                     for i, ligne in self.df.iterrows():
 
                         if i % modulo == 0:
@@ -340,9 +374,7 @@ class PaysAVisiter(QWidget):
                         )
                         for i, region in enumerate(region_temp):
                             layout_temp.addWidget(creer_QLabel_centre(text=region))
-                            if (
-                                i < len(region_temp) - 1
-                            ):  # pas de séparateur après le dernier
+                            if i < len(region_temp) - 1:
                                 layout_temp.addWidget(QLabel("–"))
 
                         conteneur = QWidget()
@@ -372,3 +404,22 @@ class PaysAVisiter(QWidget):
         self.bouton_recommandations.setStyleSheet(
             style_bouton_recommandation(style=style, teinte=teinte, nuances=nuances)
         )
+
+    def get_recommandations_par_pays(self):
+        return self.recommandations_par_pays
+
+    def set_recommandations_par_pays(self, val: bool):
+        self.recommandations_par_pays = val
+
+    def get_recommandations_nb(self):
+        return self.recommandations_nb
+
+    def set_recommandations_nb(self, val: int):
+        self.recommandations_nb = val
+
+    def vider_recommandations(self):
+        vider_layout(self.corps_recommandations)
+        self.corps_recommandations.update()
+
+    def initialiser_onglet(self):
+        self.vider_recommandations()

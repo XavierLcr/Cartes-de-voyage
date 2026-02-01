@@ -88,6 +88,8 @@ def creer_liste_parametres_multilangue(
 
                 # Attente si nécessaire
                 sleep_n_fois(n=limite_api_minute, time_ref=temps_debut)
+
+                # Mise à jour du nombre d'appels
                 api_jour_modele = api_jour_modele + 1
 
             elif j not in list(resultat[i].keys()):

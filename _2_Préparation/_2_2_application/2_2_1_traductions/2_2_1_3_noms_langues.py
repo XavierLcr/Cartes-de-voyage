@@ -16,7 +16,6 @@ sys.path.append(os.getcwd())
 from constantes import (
     direction_donnees_traductions,
     direction_donnees_autres,
-    dict_langues_dispo,
 )
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     ouvrir_fichier,

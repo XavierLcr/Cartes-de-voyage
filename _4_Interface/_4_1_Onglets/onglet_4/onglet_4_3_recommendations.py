@@ -344,7 +344,15 @@ class PaysAVisiter(QWidget):
                             i % modulo,
                         )
 
-                        if (i + 1) % modulo == 0:
+                        if (i + 1) % modulo == 0 or len(self.df) == (i + 1):
+
+                            if len(self.df) == (i + 1):
+                                if i % modulo == 0:
+                                    layout_temp.addWidget(QLabel(), 0, 1)
+                                    layout_temp.addWidget(QLabel(), 0, 2)
+                                if i % modulo == 1:
+                                    layout_temp.addWidget(QLabel(), 0, 2)
+
                             self.corps_recommandations.addLayout(layout_temp)
                             self.corps_recommandations.addWidget(QLabel())
 

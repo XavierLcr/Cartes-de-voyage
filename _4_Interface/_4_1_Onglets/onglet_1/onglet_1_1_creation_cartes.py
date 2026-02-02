@@ -98,7 +98,7 @@ class CreerCartes(QObject):
         if not self.parametres.get("adresse_email") or not self.parametres.get(
             "envoi_email"
         ):
-            self.parametres["adresse_mail"] = None
+            self.parametres["adresse_email"] = None
 
         # --- Partie calcul cartes ---
         tracker = TrackerPays()

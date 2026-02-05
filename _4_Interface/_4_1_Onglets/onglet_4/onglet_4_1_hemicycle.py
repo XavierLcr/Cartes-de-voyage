@@ -310,7 +310,7 @@ class HemicycleWidget(QWidget):
 
         painter.setPen(QColor(self.couleur_texte))
         font = QFont()
-        taille_police = int(8 + self.level_distance / 10)
+        taille_police = max(int(8 + self.level_distance / 10), 1)
         font.setPointSize(taille_police)  # Taille en points
 
         painter.setFont(font)

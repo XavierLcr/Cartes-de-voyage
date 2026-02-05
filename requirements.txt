@@ -1,8 +1,32 @@
-PyQt6
-numpy
-pandas
-geopandas
-PyYAML
-matplotlib
-numba
-scipy
+# Core Data Science & Numerical Computing
+numpy>=1.24.0
+pandas>=2.0.0
+scipy>=1.10.0
+numba>=0.57.0
+
+# Geospatial Data
+geopandas>=0.13.0
+shapely>=2.0.0  # Dépendance pour geopandas
+
+# Visualisation
+matplotlib>=3.7.0
+seaborn>=0.12.0  # Pour des visualisations avancées
+
+# GUI (Interface Graphique)
+PyQt6>=6.4.0
+PyQt6-Qt6>=6.4.0
+PyQt6-sip>=13.5.0
+
+# Configuration & Sérialisation
+PyYAML>=6.0
+
+# Outils utiles
+tqdm>=4.65.0  # Barres de progression
+requests>=2.31.0  # Requêtes HTTP
+openpyxl>=3.1.0  # Support Excel pour pandas
+xlrd>=2.0.1  # Support des anciens fichiers Excel
+python-dotenv>=1.0.0  # Gestion des variables d'environnement
+
+# Tests (optionnel)
+pytest>=7.4.0
+pytest-qt>=4.2.0  # Pour tester les applications PyQt6

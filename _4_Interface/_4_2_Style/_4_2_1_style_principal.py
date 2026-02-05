@@ -303,6 +303,13 @@ def style_dynamique_application(
                 height: 20px;  /* Hauteur de chaque élément de la liste */
             }}
 
+
+            /* Personnalise la flèche elle-même */
+            QComboBox::down-arrow {{
+                width: 10px;
+                height: 10px;
+            }}
+
             QScrollArea {{
                 background-color: transparent;
                 border: 2px solid {couleur_scroll_area_bord};

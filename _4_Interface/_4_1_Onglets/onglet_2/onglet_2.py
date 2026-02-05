@@ -69,7 +69,7 @@ class OngletSelectionnerDestinations(QWidget):
         self.liste_endroits = QListWidget()
         self.liste_endroits.setWrapping(True)
         self.liste_endroits.setResizeMode(QListWidget.ResizeMode.Adjust)
-        self.liste_endroits.setGridSize(QSize(220, 22))
+        self.liste_endroits.setGridSize(QSize(220, 27))
         self.telecharger_lieux_visites = QPushButton()
         self.telecharger_lieux_visites.clicked.connect(self.exporter_yamls_visites)
         self.bouton_sauvegarde = QPushButton()

@@ -300,7 +300,9 @@ def style_dynamique_application(
             }}
             QComboBox QAbstractItemView::item {{
                 padding: 5px;
+                height: 20px;  /* Hauteur de chaque élément de la liste */
             }}
+
             QScrollArea {{
                 background-color: transparent;
                 border: 2px solid {couleur_scroll_area_bord};

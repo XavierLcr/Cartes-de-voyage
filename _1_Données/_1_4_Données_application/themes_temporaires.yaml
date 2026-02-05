@@ -18,6 +18,15 @@ Nouvel an:
       - 🥂
       - 🍾
 
+Chandeleur:
+  dates:
+    - { debut: { mois: 2, jour: 2 }, fin: { mois: 2, jour: 3 } }
+  config:
+    titre_police: "Monotype Corsiva"
+    titre_police_coeff: 1.3
+    pluie_emojis: 
+      - 🥞​
+
 Saint-Valentin:
   dates:
     - { debut: { mois: 2, jour: 12 }, fin: { mois: 2, jour: 14 } }

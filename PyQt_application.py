@@ -130,9 +130,9 @@ class MesVoyagesApplication(QWidget):
             self.publier_cartes
         )
         # Mise à jour du style
-        self.onglet_parametres.utiliser_theme.stateChanged.connect(self.set_style)
-        self.onglet_parametres.color_combo.currentTextChanged.connect(self.set_style)
-        self.onglet_parametres.theme_combo.currentTextChanged.connect(self.set_style)
+        self.onglet_parametres.utiliser_theme.stateChanged.connect(lambda: self.set_style(theme_application=None))
+        self.onglet_parametres.color_combo.currentTextChanged.connect(lambda: self.set_style(theme_application=None))
+        self.onglet_parametres.theme_combo.currentTextChanged.connect(lambda: self.set_style(theme_application=None))
 
         # === Deuxième onglet ===
 

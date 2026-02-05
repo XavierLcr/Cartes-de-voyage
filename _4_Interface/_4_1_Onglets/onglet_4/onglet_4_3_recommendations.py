@@ -142,7 +142,7 @@ def calculer_recommandation(
     if par_pays:
         df_reste = df_reste.groupby("name_0").apply(
             lambda x: x.nlargest(n_par_pays, columns="score_region")
-        )
+        ).reset_index(drop=False)
 
     df_reste = (
         df_reste

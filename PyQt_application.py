@@ -456,7 +456,7 @@ class MesVoyagesApplication(QWidget):
             ),
             "qualite": self.onglet_parametres.curseur_qualite.value(),
             "format": self.onglet_parametres.format_cartes.currentText(),
-            "envoi_mail": self.onglet_parametres.email_checkbox.isChecked(),
+            "envoi_email": self.onglet_parametres.email_checkbox.isChecked(),
             # Cartes à publier
             "carte_du_monde": self.onglet_parametres.carte_monde.isChecked(),
             "europe": self.onglet_parametres.europe.isChecked(),

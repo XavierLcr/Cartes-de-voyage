@@ -99,7 +99,7 @@ class CreerCartes(QObject):
             "envoi_email"
         ):
             self.parametres["adresse_email"] = None
-
+            
         # --- Partie calcul cartes ---
         tracker = TrackerPays()
         tracker.tracker_pays_en_cours.connect(self.tracker_signal.emit)

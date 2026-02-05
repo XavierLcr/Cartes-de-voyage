@@ -547,7 +547,7 @@ class OngletParametres(QWidget):
             # Utilisation du thème
             "utiliser_theme": self.utiliser_theme,
             # Envoi par e-mail
-            "envoi_mail": self.email_checkbox,
+            "envoi_email": self.email_checkbox,
         }
         for nom_cle, checkbox in checkboxes.items():
             checkbox.setChecked(

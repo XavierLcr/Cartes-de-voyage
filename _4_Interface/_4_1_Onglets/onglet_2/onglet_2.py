@@ -21,6 +21,7 @@ from PyQt6.QtWidgets import (
     QListWidget,
     QListWidgetItem,
     QSizePolicy,
+    QApplication
 )
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
@@ -401,14 +402,6 @@ class OngletSelectionnerDestinations(QWidget):
             # Afficher régions (non cochables) puis départements cochables
             for i, region in enumerate(sorted(data.keys())):
 
-                # deps = sorted(data[region])
-                # nb_total = len(deps)
-                # nb_checked = sum(
-                #     dep in (self.dicts_granu.get("dep", {}).get(pays_i, []) or [])
-                #     for dep in deps
-                # )
-
-                # region_item = QListWidgetItem(f"{region} ({nb_checked}/{nb_total})")
                 region_item = QListWidgetItem(region)
 
                 # Item région
@@ -514,7 +507,7 @@ class OngletSelectionnerDestinations(QWidget):
             style_bouton_yaml(style=style, teinte=teinte, nuances=nuances)
         )
 
-    def initialiser_onglet(self, nom: str | None, reinitialiser: bool):
+    def initialiser_onglet(self, nom: str | None):
 
         # Reset des YAMLs et masquage de la partie correspondante
         self.reset_yaml()
@@ -523,12 +516,10 @@ class OngletSelectionnerDestinations(QWidget):
         # Mise à jour du nom
         self.set_nom_individu(nom=nom or "")
 
-        if reinitialiser:
-
-            # Mise à jour forcée de l'index
-            self.liste_niveaux.setCurrentIndex(0)
-            self.liste_des_pays.setCurrentIndex(1)
-            QTimer.singleShot(
-                0,
+        # Mise à jour forcée de l'index
+        self.liste_niveaux.setCurrentIndex(0)
+        self.liste_des_pays.setCurrentIndex(1)
+        QTimer.singleShot(
+                5,
                 lambda: self.liste_des_pays.setCurrentIndex(0),
             )

@@ -615,9 +615,7 @@ class MesVoyagesApplication(QWidget):
         self.onglet_parametres.initialiser_onglet(**sauv)
 
         # Onglet de sélection des destinations
-        self.onglet_selection_destinations.initialiser_onglet(
-            nom=nom, reinitialiser=reinitialiser
-        )
+        self.onglet_selection_destinations.initialiser_onglet(nom=nom)
 
         # Onglet de statistiques
         self.onglet_statistiques.initialiser_onglet()

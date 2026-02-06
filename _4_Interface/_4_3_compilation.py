@@ -6,7 +6,7 @@
 
 
 from cx_Freeze import setup, Executable
-import os, sys
+import os, sys, traceback
 
 sys.path.append(os.getcwd())
 
@@ -49,7 +49,7 @@ try:
                     "json",
                     "textwrap",
                     "numba",
-                    "pygame",
+                    # "pygame",
                     "subprocess",
                     "platform",
                 ],
@@ -96,10 +96,13 @@ try:
                     direction_donnees_application, "icone_application.ico"
                 ),
                 target_name="Mes Voyages.exe",
-                base="Win32GUI",
+                base="gui",
             )
         ],
     )
 
 except Exception as e:
     print(e)
+    with open("erreur_complete.txt", "w", encoding="utf-8") as f:
+        f.write("Exception attrapée !\n")
+        traceback.print_exc(file=f)

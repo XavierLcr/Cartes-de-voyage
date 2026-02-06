@@ -20,8 +20,7 @@ from PyQt6.QtWidgets import (
     QFileDialog,
     QListWidget,
     QListWidgetItem,
-    QSizePolicy,
-    QApplication
+    QSizePolicy
 )
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (

@@ -5,6 +5,9 @@
 ################################################################################
 
 
+# 0 -- Initialisation ----------------------------------------------------------
+
+
 import os, yaml
 import worldmap as wm
 from translate import Translator

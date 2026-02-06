@@ -5,9 +5,13 @@
 ################################################################################
 
 
+# 0 -- Initialisation ----------------------------------------------------------
+
+
 import os, sys
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+sys.path.append(os.getcwd())
+
 import constantes
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     ouvrir_fichier,

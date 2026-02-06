@@ -5,6 +5,9 @@
 ################################################################################
 
 
+# 0 -- Initialisation ----------------------------------------------------------
+
+
 import os, json, math, textwrap
 import matplotlib.pyplot as plt
 from shapely.geometry import box

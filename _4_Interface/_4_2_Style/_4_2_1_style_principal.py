@@ -5,6 +5,9 @@
 ################################################################################
 
 
+# 0 -- Initialisation ----------------------------------------------------------
+
+
 from _0_Utilitaires._0_2_fonctions_graphiques import (
     renvoyer_couleur_widget,
     renvoyer_couleur_texte,

@@ -5,6 +5,9 @@
 ################################################################################
 
 
+# 0 -- Initialisation ----------------------------------------------------------
+
+
 import os, sys, gc
 from _3_Calculs import _1_1_creer_carte, _1_2_creer_graphique
 from _0_Utilitaires._0_1_fonctions_utiles_gen import ouvrir_dossier

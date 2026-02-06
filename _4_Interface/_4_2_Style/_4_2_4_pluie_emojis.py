@@ -1,3 +1,13 @@
+################################################################################
+# Projet de cartes de voyage                                                   #
+# _4_Interface/_4_2_Style                                                      #
+# 4.2.4 – Script de création de la classe de pluie d'émojis                    #
+################################################################################
+
+
+# 0 -- Initialisation ----------------------------------------------------------
+
+
 import sys
 import random
 from PyQt6.QtWidgets import QGraphicsView, QGraphicsScene, QGraphicsTextItem
@@ -5,6 +15,9 @@ from PyQt6.QtCore import QTimer
 from PyQt6.QtGui import QFont
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QBrush, QColor
+
+
+# 1 -- Création de la classe ---------------------------------------------------
 
 
 class EmojiTombant(QGraphicsTextItem):

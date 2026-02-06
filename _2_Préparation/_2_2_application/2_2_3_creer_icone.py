@@ -5,10 +5,14 @@
 ################################################################################
 
 
-import os, sys
-from PIL import Image
+# 0 -- Initialisation ----------------------------------------------------------
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
+import os, sys
+
+sys.path.append(os.getcwd())
+
+from PIL import Image
 from constantes import direction_donnees_application
 from clefs_et_mots_de_passe import png_pour_icone
 

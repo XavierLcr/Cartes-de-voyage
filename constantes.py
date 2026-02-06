@@ -3,6 +3,10 @@
 # Fichier contenant les constantes et les données secondaires                  #
 ################################################################################
 
+
+# 0 -- Initialisation ----------------------------------------------------------
+
+
 import os, sys
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     ouvrir_fichier,

@@ -5,6 +5,9 @@
 ################################################################################
 
 
+# 0 -- Initialisation ----------------------------------------------------------
+
+
 from cx_Freeze import setup, Executable
 import os, sys, traceback
 
@@ -17,6 +20,9 @@ from constantes import (
     direction_donnees_autres,
     version_logiciel,
 )
+
+
+# 1 -- Création du .exe --------------------------------------------------------
 
 
 try:

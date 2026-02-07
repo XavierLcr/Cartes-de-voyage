@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
 # _0_Utilitaires/                                                              #
-# 0.5 – Fonctiontestant si une table est isid                                  #
+# 0.5 – Fonction testant si une table est isid                                 #
 ################################################################################
 
 

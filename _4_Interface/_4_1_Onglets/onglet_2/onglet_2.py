@@ -9,6 +9,8 @@ import os, yaml
 
 # PyQt6
 from PyQt6.QtCore import Qt, QTimer, QSize, pyqtSignal
+from PyQt6 import QtGui
+
 from PyQt6.QtWidgets import (
     QWidget,
     QVBoxLayout,
@@ -23,6 +25,8 @@ from PyQt6.QtWidgets import (
     QSizePolicy,
     QDialog,
     QScrollArea,
+    QTreeWidgetItem,
+    QTreeWidget,
 )
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
@@ -33,7 +37,17 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     aplanir_dictionnaire,
     tronquer_dict,
 )
-from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import reset_combo, set_emoji_sauvegarde
+from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
+    reset_combo,
+    set_emoji_sauvegarde,
+    creer_QLabel_centre,
+    creer_ligne_horizontale,
+    vider_layout,
+)
+from _0_Utilitaires._0_2_fonctions_graphiques import (
+    renvoyer_couleur_widget,
+    renvoyer_couleur_texte,
+)
 from _4_Interface._4_1_Onglets.onglet_2.onglet_2_ajout_voyage import CreerVoyage
 from _4_Interface._4_2_Style._4_2_2_styles_complementaires import style_bouton_yaml
 
@@ -87,10 +101,11 @@ class OngletSelectionnerDestinations(QWidget):
 
         # Voyages effectués
         self.liste_voyage_groupbox = QGroupBox()
-        liste_voyage_layout = QVBoxLayout()
-        self.liste_voyage_groupbox.setLayout(liste_voyage_layout)
+        self.liste_voyage_layout = QVBoxLayout()
+        self.liste_voyage_groupbox.setLayout(self.liste_voyage_layout)
 
-        self.liste_voyage = self._creer_scroll(liste_voyage_layout)
+        self.liste_voyage = self._creer_scroll()
+        self.liste_voyage_layout.addWidget(self.liste_voyage)
 
         # Téléchargement des YAMLs
 
@@ -347,6 +362,37 @@ class OngletSelectionnerDestinations(QWidget):
             style_bouton_yaml(style=style, teinte=teinte, nuances=nuances)
         )
 
+        self.couleurs = {
+            1: renvoyer_couleur_widget(
+                style=style,
+                teinte=teinte,
+                nuances=nuances,
+                clair="#C8E6C9",
+                sombre="#512B52",
+            ),
+            2: renvoyer_couleur_widget(
+                style=style,
+                teinte=teinte,
+                nuances=nuances,
+                clair="#f2f0a5",
+                sombre="#856039",
+            ),
+            3: renvoyer_couleur_widget(
+                style=style,
+                teinte=teinte,
+                nuances=nuances,
+                clair="#EDE5FF",
+                sombre="#1221C1",
+            ),
+            4: renvoyer_couleur_widget(
+                style=style,
+                teinte=teinte,
+                nuances=nuances,
+                clair="#DCF5FF",
+                sombre="#7E0E5C",
+            ),
+        }
+
     def initialiser_onglet(self, nom: str | None):
 
         # Reset des YAMLs et masquage de la partie correspondante
@@ -368,13 +414,80 @@ class OngletSelectionnerDestinations(QWidget):
 
         if objet.exec() == QDialog.DialogCode.Accepted:
             clef, voyage = objet.resultat
-            print("Voyage créé :", clef, voyage)
             self.voyages[clef] = voyage
+        print(self.voyages)
+        self.afficher_voyages(vbox=self.liste_voyage_layout)
 
-    def _creer_scroll(self, vbox):
-        widget = QWidget()
-        widget.setLayout(vbox)
+    def _creer_scroll(self):
         scroll = QScrollArea()
         scroll.setWidgetResizable(True)
-        scroll.setWidget(widget)
+
+        # Layout interne propre pour le scroll
+        container = QWidget()
+        container_layout = QVBoxLayout(
+            container
+        )  # ⚡ différent de self.liste_voyage_layout
+        scroll.setWidget(container)
+
+        # On garde une référence vers container si besoin pour ajouter dynamiquement
+        scroll.container_layout = container_layout
+        scroll.container_widget = container
+
         return scroll
+
+    def afficher_voyages(self, vbox):
+        """Affiche self.voyages dans un QTreeWidget."""
+
+        def ajouter_voyage_elements(parent_item, data, niveau=1):
+            """Ajoute récursivement les éléments de self.voyages à l'arbre."""
+            if isinstance(data, dict):
+                for cle, valeur in data.items():
+                    # Crée un item pour la clé (ex: "Voyage 1", "Destination", etc.)
+                    child = QTreeWidgetItem(parent_item, [str(cle)])
+                    # Applique une couleur de fond selon le niveau
+                    child.setBackground(
+                        0,
+                        QtGui.QBrush(
+                            QtGui.QColor(self.couleurs.get(niveau, "#FFFFFF"))
+                        ),
+                    )
+                    # Récursion pour les sous-niveaux
+                    ajouter_voyage_elements(child, valeur, niveau + 1)
+            elif isinstance(data, list):
+                # Pour les listes (ex: ["Alice", "Bob"])
+                for item in data:
+                    child = QTreeWidgetItem(parent_item, [f"• {str(item)}"])
+                    child.setBackground(
+                        0, QtGui.QBrush(QtGui.QColor(Qt.GlobalColor.transparent))
+                    )
+            else:
+                # Pour les valeurs simples (ex: "Paris", "01/01/2026")
+                child = QTreeWidgetItem(parent_item, [str(data)])
+                child.setBackground(
+                    0, QtGui.QBrush(QtGui.QColor(Qt.GlobalColor.transparent))
+                )
+
+        # Nettoie le layout
+        vider_layout(vbox)
+
+        # Titre de section
+        vbox.addWidget(creer_QLabel_centre(text="<b>Liste des Voyages</b>"))
+        vbox.addWidget(creer_ligne_horizontale())
+
+        # Création de l'arbre
+        if self.voyages:
+            tree = QTreeWidget()
+            tree.setHeaderHidden(True)
+            tree.setColumnCount(1)
+            tree.setIndentation(20)
+            tree.setExpandsOnDoubleClick(True)
+
+            # Remplit l'arbre avec les données
+            ajouter_voyage_elements(tree.invisibleRootItem(), self.voyages, niveau=1)
+
+            # Affiche tout replié ou déployé
+            tree.collapseAll()  # ou tree.expandAll()
+
+            vbox.addWidget(tree)
+        else:
+            vbox.addWidget(creer_QLabel_centre(text="Aucun voyage disponible"))

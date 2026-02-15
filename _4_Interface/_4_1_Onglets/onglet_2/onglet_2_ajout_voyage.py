@@ -181,8 +181,12 @@ class CreerVoyage(QDialog):
         # Groupbox des infos générales
         self.general_groupbox.setTitle(self.fct_traduction("general_voyage_groupbox"))
         self.nom_voyage.setPlaceholderText(self.fct_traduction("general_voyage_nom"))
-        self.debut_voyage_label.setText(self.fct_traduction("general_voyage_debut"))
-        self.fin_voyage_label.setText(self.fct_traduction("general_voyage_fin"))
+        self.debut_voyage_label.setText(
+            self.fct_traduction("general_voyage_debut", suffixe=" :")
+        )
+        self.fin_voyage_label.setText(
+            self.fct_traduction("general_voyage_fin", suffixe=" :")
+        )
         self.groupe_selection_lieux.setTitle(
             self.fct_traduction("titre_choix_destinations_visitees")
         )

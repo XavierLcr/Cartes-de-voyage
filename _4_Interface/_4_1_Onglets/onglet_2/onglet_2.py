@@ -20,7 +20,8 @@ from PyQt6.QtWidgets import (
     QFileDialog,
     QListWidget,
     QListWidgetItem,
-    QSizePolicy
+    QSizePolicy,
+    QDialog,
 )
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
@@ -32,6 +33,7 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     tronquer_dict,
 )
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import reset_combo, set_emoji_sauvegarde
+from _4_Interface._4_1_Onglets.onglet_2.onglet_2_ajout_voyage import CreerVoyage
 from _4_Interface._4_2_Style._4_2_2_styles_complementaires import style_bouton_yaml
 
 
@@ -61,6 +63,10 @@ class OngletSelectionnerDestinations(QWidget):
         layout = QVBoxLayout()
         self.groupe_selection_lieux = QGroupBox()
         layout_selection_lieux = QVBoxLayout()
+
+        self.ajouter_voyage_bouton = QPushButton()
+        self.ajouter_voyage_bouton.clicked.connect(self.ajouter_voyage)
+        layout_selection_lieux.addWidget(self.ajouter_voyage_bouton)
 
         self.liste_des_pays = QComboBox()
         self.liste_niveaux = QComboBox()
@@ -519,6 +525,20 @@ class OngletSelectionnerDestinations(QWidget):
         self.liste_niveaux.setCurrentIndex(0)
         self.liste_des_pays.setCurrentIndex(1)
         QTimer.singleShot(
-                5,
-                lambda: self.liste_des_pays.setCurrentIndex(0),
-            )
+            5,
+            lambda: self.liste_des_pays.setCurrentIndex(0),
+        )
+
+    def ajouter_voyage(self):
+
+        objet = CreerVoyage(
+            visites={},
+            clef=None,
+            constantes=self.constantes,
+            fct_traduction=self.fonction_traduire,
+            parent=self,
+        )
+
+        if objet.exec() == QDialog.DialogCode.Accepted:
+            clef, voyage = objet.resultat
+            print("Voyage créé :", clef, voyage)

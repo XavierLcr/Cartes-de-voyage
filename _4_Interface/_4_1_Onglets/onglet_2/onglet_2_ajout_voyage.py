@@ -191,6 +191,9 @@ class CreerVoyage(QDialog):
             self.fct_traduction("titre_choix_destinations_visitees")
         )
         self.utiliser_date.setText(self.fct_traduction("general_voyage_utiliser_date"))
+        self.liste_des_pays.setToolTip(
+            self.fct_traduction("precision_diplomatique_onglet_2", suffixe=".")
+        )
 
         reset_combo(
             self.liste_niveaux,

@@ -22,6 +22,7 @@ from PyQt6.QtWidgets import (
     QListWidgetItem,
     QSizePolicy,
     QDialog,
+    QScrollArea,
 )
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
@@ -49,6 +50,7 @@ class OngletSelectionnerDestinations(QWidget):
         super().__init__()
 
         # Variables globales de la classe
+        self.voyages = {}
         self.dicts_granu = {"region": {}, "dep": {}}
         self.dossier_stockage = None
         self.langue = "français"
@@ -59,59 +61,36 @@ class OngletSelectionnerDestinations(QWidget):
         self.fonction_traduire = fct_traduire
         self.fonction_pop_up = fct_pop_up
 
-        # Ajouter un layout et un label au deuxième onglet
+        # Layout de l'onglet
         layout = QVBoxLayout()
-        self.groupe_selection_lieux = QGroupBox()
-        layout_selection_lieux = QVBoxLayout()
 
-        self.ajouter_voyage_bouton = QPushButton()
-        self.ajouter_voyage_bouton.clicked.connect(self.ajouter_voyage)
-        layout_selection_lieux.addWidget(self.ajouter_voyage_bouton)
-
-        self.liste_des_pays = QComboBox()
-        self.liste_niveaux = QComboBox()
+        # Avertissement
         self.avertissement_prio = QLabel()
         self.avertissement_prio.setWordWrap(True)
-        self.liste_endroits = QListWidget()
-        self.liste_endroits.setWrapping(True)
-        self.liste_endroits.setResizeMode(QListWidget.ResizeMode.Adjust)
-        self.liste_endroits.setGridSize(QSize(220, 27))
+        layout.addWidget(self.avertissement_prio)
+
+        # Boutons
+        layout_boutons = QHBoxLayout()
+        self.ajouter_voyage_bouton = QPushButton()
+        self.ajouter_voyage_bouton.clicked.connect(self.ajouter_voyage)
+        layout_boutons.addWidget(self.ajouter_voyage_bouton, stretch=5)
+
         self.telecharger_lieux_visites = QPushButton()
         self.telecharger_lieux_visites.clicked.connect(self.exporter_yamls_visites)
+        layout_boutons.addWidget(self.telecharger_lieux_visites, stretch=1)
         self.bouton_sauvegarde = QPushButton()
         self.bouton_sauvegarde.clicked.connect(fct_sauvegarde)
         self.bouton_sauvegarde.clicked.connect(
             lambda: set_emoji_sauvegarde(self.bouton_sauvegarde, 3000)
         )
+        layout_boutons.addWidget(self.bouton_sauvegarde, stretch=1)
 
-        # Remplir les déroulés
-        self.liste_des_pays.addItems(self.constantes.hierarchie_par_pays.keys())
-        self.liste_des_pays.currentIndexChanged.connect(self.maj_liste_reg_dep_pays)
-        self.liste_niveaux.currentIndexChanged.connect(self.maj_liste_reg_dep_pays)
-        self.liste_endroits.itemChanged.connect(self.changer_item_liste_pays)
+        # Voyages effectués
+        self.liste_voyage_groupbox = QGroupBox()
+        liste_voyage_layout = QVBoxLayout()
+        self.liste_voyage_groupbox.setLayout(liste_voyage_layout)
 
-        layout_selection_params = QHBoxLayout()
-        layout_selection_params.addWidget(self.liste_des_pays)
-        layout_selection_params.addWidget(self.liste_niveaux)
-        layout_selection_params.addWidget(self.telecharger_lieux_visites)
-        layout_selection_params.addWidget(self.bouton_sauvegarde)
-        layout_selection_params.setStretch(
-            0, 3
-        )  # Le premier widget prend plus de place
-        layout_selection_params.setStretch(
-            1, 3
-        )  # Le deuxième widget prend plus de place
-        layout_selection_params.setStretch(
-            2, 1
-        )  # Le troisième widget prend moins de place
-        layout_selection_params.setStretch(
-            3, 1
-        )  # Le troisième widget prend moins de place
-
-        layout_selection_lieux.addLayout(layout_selection_params)
-        layout_selection_lieux.addWidget(self.avertissement_prio)
-        layout_selection_lieux.addWidget(self.liste_endroits)
-        self.groupe_selection_lieux.setLayout(layout_selection_lieux)
+        self.liste_voyage = self._creer_scroll(liste_voyage_layout)
 
         # Téléchargement des YAMLs
 
@@ -148,7 +127,9 @@ class OngletSelectionnerDestinations(QWidget):
         )
         layout_yaml.addWidget(self.groupe_chargement_yaml)
 
-        layout.addWidget(self.groupe_selection_lieux)
+        layout.addLayout(layout_boutons)
+        layout.addWidget(self.liste_voyage_groupbox)
+        layout.addStretch()
         layout.addLayout(layout_yaml)
 
         self.setLayout(layout)
@@ -295,11 +276,15 @@ class OngletSelectionnerDestinations(QWidget):
             self.langue = langue
 
         # Mise à jour de l'interface
-        self.groupe_selection_lieux.setTitle(
+        self.liste_voyage_groupbox.setTitle(
             self.fonction_traduire("titre_choix_destinations_visitees")
         )
         self.avertissement_prio.setText(
             self.fonction_traduire("avertissement_onglet_2", prefixe="⚠️ ", suffixe=".")
+        )
+
+        self.ajouter_voyage_bouton.setText(
+            self.fonction_traduire("bouton_ajouter_voyage")
         )
 
         if self.groupe_chargement_yaml.isVisible():
@@ -314,13 +299,6 @@ class OngletSelectionnerDestinations(QWidget):
                 self.fonction_traduire("montrer_option_yaml", prefixe="", suffixe="")
             )
 
-        reset_combo(
-            self.liste_niveaux,
-            [
-                self.constantes.parametres_traduits["granularite"][self.langue][k]
-                for k in ["Régions", "Départements"]
-            ],
-        )
         self.telecharger_lieux_visites.setText("📥")
         self.telecharger_lieux_visites.setToolTip(
             self.fonction_traduire("telecharger_lieux_visites", suffixe=".")
@@ -328,9 +306,6 @@ class OngletSelectionnerDestinations(QWidget):
         self.bouton_sauvegarde.setText("💾")
         self.bouton_sauvegarde.setToolTip(
             self.fonction_traduire("sauvegarder_profil", suffixe=".")
-        )
-        self.liste_des_pays.setToolTip(
-            self.fonction_traduire("precision_diplomatique_onglet_2", suffixe=".")
         )
 
         # Chargement des YAMLs
@@ -350,146 +325,6 @@ class OngletSelectionnerDestinations(QWidget):
             if self.fichier_yaml_2 is None
             else os.path.basename(self.chemin_fichier_yaml_2)
         )
-
-    def maj_liste_reg_dep_pays(self):
-        """
-        Remplit self.liste_endroits (QListWidget) selon la granularité choisie.
-        - Si niveau == "Régions" : on affiche une liste de régions cochables.
-        - Si niveau == "Départements" : on affiche les régions (non cochables) puis
-        les départements (cochables) sous chaque région.
-        """
-
-        pays_i = self.liste_des_pays.currentText()
-        niveau_i = obtenir_clef_par_valeur(
-            valeur=self.liste_niveaux.currentText(),
-            dictionnaire=self.constantes.parametres_traduits["granularite"][
-                self.langue
-            ],
-        )
-
-        self.liste_endroits.blockSignals(True)
-        self.liste_endroits.clear()
-
-        data = self.constantes.hierarchie_par_pays.get(pays_i, {})
-
-        if not data:
-            self.liste_endroits.blockSignals(False)
-            return
-
-        if niveau_i == "Régions":
-
-            # liste plate de régions cochables
-            for region in sorted(data.keys()):
-
-                item = QListWidgetItem(region)
-                # cochable + sélectionnable
-                item.setFlags(
-                    item.flags()
-                    | Qt.ItemFlag.ItemIsUserCheckable
-                    | Qt.ItemFlag.ItemIsSelectable
-                    | Qt.ItemFlag.ItemIsEnabled
-                )
-                est_coche = region in (
-                    self.dicts_granu.get("region", {}).get(pays_i, [])
-                )
-                item.setCheckState(
-                    Qt.CheckState.Checked if est_coche else Qt.CheckState.Unchecked
-                )
-
-                # style visuel pour distinguer
-                font = item.font()
-                font.setBold(False)
-                item.setFont(font)
-                self.liste_endroits.addItem(item)
-
-        else:  # niveau_i == "Départements"
-
-            # Afficher régions (non cochables) puis départements cochables
-            for i, region in enumerate(sorted(data.keys())):
-
-                region_item = QListWidgetItem(region)
-
-                # Item région
-                region_item.setFlags(
-                    Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsSelectable
-                )
-                font = region_item.font()
-                font.setBold(True)
-                font.setUnderline(True)
-                font.setKerning(False)
-                region_item.setFont(font)
-                region_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
-                self.liste_endroits.addItem(region_item)
-
-                for dep in sorted(data[region]):
-                    dep_item = QListWidgetItem(dep)  # indentation visuelle
-                    dep_item.setFlags(
-                        dep_item.flags()
-                        | Qt.ItemFlag.ItemIsUserCheckable
-                        | Qt.ItemFlag.ItemIsEnabled
-                        | Qt.ItemFlag.ItemIsSelectable
-                    )
-                    est_coche = dep in (
-                        (self.dicts_granu.get("dep") or {}).get(pays_i, [])
-                    )
-                    dep_item.setCheckState(
-                        Qt.CheckState.Checked if est_coche else Qt.CheckState.Unchecked
-                    )
-                    self.liste_endroits.addItem(dep_item)
-
-                # optionnel : ligne vide pour lisibilité
-                spacer = QListWidgetItem("")
-                spacer.setFlags(Qt.ItemFlag.NoItemFlags)
-                spacer.setSizeHint(QSize(0, 4))
-                self.liste_endroits.addItem(spacer)
-
-        self.liste_endroits.blockSignals(False)
-
-        # reconnecte proprement le signal itemChanged
-        try:
-            self.liste_endroits.itemChanged.disconnect()
-        except TypeError:
-            pass
-        self.liste_endroits.itemChanged.connect(self.changer_item_liste_pays)
-
-    def changer_item_liste_pays(self, item):
-
-        pays_i = self.liste_des_pays.currentText()
-        texte = item.text()
-
-        # Détermine la clé du dictionnaire selon le niveau
-        clef = (
-            "region"
-            if obtenir_clef_par_valeur(
-                valeur=self.liste_niveaux.currentText(),
-                dictionnaire=self.constantes.parametres_traduits["granularite"][
-                    self.langue
-                ],
-            )
-            == "Régions"
-            else "dep"
-        )
-
-        # Initialise le dictionnaire pour le pays s’il n’existe pas
-        self.dicts_granu[clef] = self.dicts_granu.get(clef) or {}
-        self.dicts_granu[clef][pays_i] = self.dicts_granu[clef].get(pays_i) or []
-
-        # Ajoute ou retire l’élément selon son état
-        if item.checkState() == Qt.CheckState.Checked:
-            if texte not in self.dicts_granu[clef][pays_i]:
-                self.dicts_granu[clef][pays_i].append(texte)
-                self.dicts_granu[clef][pays_i].sort()
-                self.dicts_granu[clef] = {
-                    pays: self.dicts_granu[clef][pays]
-                    for pays in sorted(self.dicts_granu[clef])
-                }
-        else:
-            if texte in self.dicts_granu[clef][pays_i]:
-                self.dicts_granu[clef][pays_i].remove(texte)
-                if self.dicts_granu[clef][pays_i] == []:
-                    del self.dicts_granu[clef][pays_i]
-
-        self.dict_modif.emit(self.dicts_granu)
 
     def reset_yaml(self):
         self.fichier_yaml_1 = None
@@ -521,14 +356,6 @@ class OngletSelectionnerDestinations(QWidget):
         # Mise à jour du nom
         self.set_nom_individu(nom=nom or "")
 
-        # Mise à jour forcée de l'index
-        self.liste_niveaux.setCurrentIndex(0)
-        self.liste_des_pays.setCurrentIndex(1)
-        QTimer.singleShot(
-            5,
-            lambda: self.liste_des_pays.setCurrentIndex(0),
-        )
-
     def ajouter_voyage(self):
 
         objet = CreerVoyage(
@@ -542,3 +369,12 @@ class OngletSelectionnerDestinations(QWidget):
         if objet.exec() == QDialog.DialogCode.Accepted:
             clef, voyage = objet.resultat
             print("Voyage créé :", clef, voyage)
+            self.voyages[clef] = voyage
+
+    def _creer_scroll(self, vbox):
+        widget = QWidget()
+        widget.setLayout(vbox)
+        scroll = QScrollArea()
+        scroll.setWidgetResizable(True)
+        scroll.setWidget(widget)
+        return scroll

@@ -67,6 +67,7 @@ class CreerVoyage(QDialog):
 
         self.constantes = constantes
         self.clef = clef
+        self.visites = visites
         self.langue = "français"
         self.fct_traduction = fct_traduction
         self.resultat = None
@@ -346,7 +347,7 @@ class CreerVoyage(QDialog):
         if self.clef is not None:
             return self.clef
         else:
-            clefs_actu = sorted(list(self.visite_temp.keys()))
+            clefs_actu = sorted(list(self.visites.keys()))
 
             if len(clefs_actu) == 0:
                 return identifiant_voyage(n=1, longueur=longueur)

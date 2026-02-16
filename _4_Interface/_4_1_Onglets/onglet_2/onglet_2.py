@@ -436,23 +436,53 @@ class OngletSelectionnerDestinations(QWidget):
         return scroll
 
     def afficher_voyages(self, vbox):
-        """Affiche self.voyages dans un QTreeWidget."""
+        """Affiche self.voyages dans un QTreeWidget avec un affichage simplifié."""
 
         def ajouter_voyage_elements(parent_item, data, niveau=1):
             """Ajoute récursivement les éléments de self.voyages à l'arbre."""
             if isinstance(data, dict):
                 for cle, valeur in data.items():
-                    # Crée un item pour la clé (ex: "Voyage 1", "Destination", etc.)
-                    child = QTreeWidgetItem(parent_item, [str(cle)])
-                    # Applique une couleur de fond selon le niveau
-                    child.setBackground(
-                        0,
-                        QtGui.QBrush(
-                            QtGui.QColor(self.couleurs.get(niveau, "#FFFFFF"))
-                        ),
-                    )
-                    # Récursion pour les sous-niveaux
-                    ajouter_voyage_elements(child, valeur, niveau + 1)
+
+                    if cle in ["nom"]:
+                        pass
+                    # Ne pas afficher la clé pour les champs simples (nom, date_debut, date_fin)
+                    elif cle in ["date_debut", "date_fin"]:
+                        child = QTreeWidgetItem(
+                            parent_item,
+                            [
+                                f"{self.fonction_traduire(f'voyage_{cle}')} : {str(valeur)}"
+                            ],
+                        )
+                        child.setBackground(
+                            0,
+                            QtGui.QBrush(
+                                QtGui.QColor(self.couleurs.get(niveau, "#FFFFFF"))
+                            ),
+                        )
+                    # Pour "region" et "dep", garder le comportement complexe
+                    elif cle in ["region", "dep"]:
+                        if valeur:
+                            child = QTreeWidgetItem(
+                                parent_item,
+                                [self.fonction_traduire(f"voyage_{str(cle)}")],
+                            )
+                            child.setBackground(
+                                0,
+                                QtGui.QBrush(
+                                    QtGui.QColor(self.couleurs.get(niveau, "#FFFFFF"))
+                                ),
+                            )
+                            ajouter_voyage_elements(child, valeur, niveau + 1)
+                    else:
+                        # Pour les autres clés (si jamais il y en a)
+                        child = QTreeWidgetItem(parent_item, [str(cle)])
+                        child.setBackground(
+                            0,
+                            QtGui.QBrush(
+                                QtGui.QColor(self.couleurs.get(niveau, "#FFFFFF"))
+                            ),
+                        )
+                        ajouter_voyage_elements(child, valeur, niveau + 1)
             elif isinstance(data, list):
                 # Pour les listes (ex: ["Alice", "Bob"])
                 for item in data:
@@ -483,11 +513,18 @@ class OngletSelectionnerDestinations(QWidget):
             tree.setExpandsOnDoubleClick(True)
 
             # Remplit l'arbre avec les données
-            ajouter_voyage_elements(tree.invisibleRootItem(), self.voyages, niveau=1)
+            for voyage_id, voyage_data in self.voyages.items():
+                # Crée un item pour chaque voyage (ex: "Voyage 1")
+                voyage_item = QTreeWidgetItem(
+                    tree.invisibleRootItem(),
+                    [voyage_data.get("nom") or voyage_id],
+                )
+                voyage_item.setBackground(
+                    0, QtGui.QBrush(QtGui.QColor(self.couleurs.get(1, "#FFFFFF")))
+                )
+                ajouter_voyage_elements(voyage_item, voyage_data, niveau=2)
 
-            # Affiche tout replié ou déployé
-            tree.collapseAll()  # ou tree.expandAll()
+            # Affiche tout replié
+            tree.collapseAll()
 
             vbox.addWidget(tree)
-        else:
-            vbox.addWidget(creer_QLabel_centre(text="Aucun voyage disponible"))

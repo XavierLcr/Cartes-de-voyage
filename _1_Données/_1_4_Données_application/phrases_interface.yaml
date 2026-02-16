@@ -95,6 +95,8 @@ bouton_ajouter_voyage : Ajouter un voyage
 export_pas_fonctionnel : L'export n'a pas fonctionné. Veuillez réessayer plus tard
 avertissement_onglet_2 : Pour un pays donné, si des départements sont cochés, ils sont prioritaires sur les régions cochées. Dans ce cas, la liste des régions visitées est automatiquement reconstituée à partir de la liste des départements. Il n'est donc plus nécessaire de cocher les régions visitées (les régions peuvent rester cochées mais ne seront pas prises en compte)
 lieux_sans_correspondance : Certains lieux provenant de votre fichier n'ont pas de correspondance
+voyage_date_debut : Date de début
+voyage_date_fin : Date de fin
 
 # Création des voyages de l'onlget 2
 general_voyage_groupbox : Contexte du voyage

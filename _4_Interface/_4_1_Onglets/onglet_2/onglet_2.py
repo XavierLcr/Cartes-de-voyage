@@ -17,16 +17,14 @@ from PyQt6.QtWidgets import (
     QHBoxLayout,
     QLabel,
     QGroupBox,
-    QComboBox,
     QPushButton,
     QFileDialog,
-    QListWidget,
-    QListWidgetItem,
     QSizePolicy,
     QDialog,
     QScrollArea,
     QTreeWidgetItem,
     QTreeWidget,
+    QAbstractItemView,
 )
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
@@ -86,7 +84,9 @@ class OngletSelectionnerDestinations(QWidget):
         # Boutons
         layout_boutons = QHBoxLayout()
         self.ajouter_voyage_bouton = QPushButton()
-        self.ajouter_voyage_bouton.clicked.connect(self.ajouter_voyage)
+        self.ajouter_voyage_bouton.clicked.connect(
+            lambda x: self.ajouter_voyage(clef=None)
+        )
         layout_boutons.addWidget(self.ajouter_voyage_bouton, stretch=5)
 
         self.telecharger_lieux_visites = QPushButton()
@@ -402,11 +402,11 @@ class OngletSelectionnerDestinations(QWidget):
         # Mise à jour du nom
         self.set_nom_individu(nom=nom or "")
 
-    def ajouter_voyage(self):
+    def ajouter_voyage(self, clef):
 
         objet = CreerVoyage(
-            visites={},
-            clef=None,
+            visites=self.voyages,
+            clef=clef,
             constantes=self.constantes,
             fct_traduction=self.fonction_traduire,
             parent=self,
@@ -464,7 +464,17 @@ class OngletSelectionnerDestinations(QWidget):
                         if valeur:
                             child = QTreeWidgetItem(
                                 parent_item,
-                                [self.fonction_traduire(f"voyage_{str(cle)}")],
+                                [
+                                    self.constantes.parametres_traduits.get(
+                                        "granularite", {}
+                                    )
+                                    .get(self.langue, {})
+                                    .get(
+                                        "Départements"
+                                        if str(cle) == "dep"
+                                        else "Régions"
+                                    )
+                                ],
                             )
                             child.setBackground(
                                 0,
@@ -511,6 +521,9 @@ class OngletSelectionnerDestinations(QWidget):
             tree.setColumnCount(1)
             tree.setIndentation(20)
             tree.setExpandsOnDoubleClick(True)
+
+            # Connecte le signal de double-clic
+            tree.itemDoubleClicked.connect(self.ajouter_voyage)
 
             # Remplit l'arbre avec les données
             for voyage_id, voyage_data in self.voyages.items():

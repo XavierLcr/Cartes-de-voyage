@@ -98,6 +98,38 @@ def separer_combinaisons(dico1, dico2):
     return result
 
 
+## 1.6 -- Fonction simplifiant un ensemble de voyages --------------------------
+
+
+### Fonction pour une granularité donnée ---------------------------------------
+
+
+def voyages_vers_destinations_une_granu(dict_voyages: dict, clef: str):
+
+    resultat = {}
+
+    for clef in list(dict_voyages.keys()):
+        visites_clef = dict_voyages.get(clef, {})
+
+        for pays in list(visites_clef.keys()):
+            resultat[pays] = list(set(resultat.get(pays, []) + visites_clef[pays]))
+
+    return resultat
+
+
+### Fonction générale ----------------------------------------------------------
+
+
+def voyages_vers_destinations(dict_voyages: dict):
+
+    return {
+        granu: voyages_vers_destinations_une_granu(
+            dict_voyages=dict_voyages, clef=granu
+        )
+        for granu in ["region", "dep"]
+    }
+
+
 # 2 -- Fonctions spacio-temporelles --------------------------------------------
 
 

@@ -376,6 +376,21 @@ class CreerVoyage(QDialog):
             "dep": self.dicts_granu.get("dep", {}),
         }
 
+        if not voyage.get("nom"):
+            nom_temp = list((voyage.get("region", {})).keys()) + list(
+                (voyage.get("dep", {})).keys()
+            )
+            nom_temp = list(set(nom_temp))
+
+            voyage["nom"] = ", ".join(
+                [
+                    self.constantes.pays_differentes_langues.get(pays, {}).get(
+                        self.langue, pays
+                    )
+                    for pays in nom_temp
+                ]
+            )
+
         return (clef, voyage)
 
     def valider(self):

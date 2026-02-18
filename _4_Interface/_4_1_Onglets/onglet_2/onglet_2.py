@@ -292,7 +292,7 @@ class OngletSelectionnerDestinations(QWidget):
 
         # Mise à jour de l'interface
         self.liste_voyage_groupbox.setTitle(
-            self.fonction_traduire("titre_choix_destinations_visitees")
+            self.fonction_traduire("titre_liste_voyages")
         )
         self.avertissement_prio.setText(
             self.fonction_traduire("avertissement_onglet_2", prefixe="⚠️ ", suffixe=".")
@@ -445,20 +445,20 @@ class OngletSelectionnerDestinations(QWidget):
 
                     if cle in ["nom"]:
                         pass
-                    # Ne pas afficher la clé pour les champs simples (nom, date_debut, date_fin)
                     elif cle in ["date_debut", "date_fin"]:
-                        child = QTreeWidgetItem(
-                            parent_item,
-                            [
-                                f"{self.fonction_traduire(f'voyage_{cle}')} : {str(valeur)}"
-                            ],
-                        )
-                        child.setBackground(
-                            0,
-                            QtGui.QBrush(
-                                QtGui.QColor(self.couleurs.get(niveau, "#FFFFFF"))
-                            ),
-                        )
+                        if valeur:
+                            child = QTreeWidgetItem(
+                                parent_item,
+                                [
+                                    f"{self.fonction_traduire(f'voyage_{cle}')} : {str(valeur)}"
+                                ],
+                            )
+                            child.setBackground(
+                                0,
+                                QtGui.QBrush(
+                                    QtGui.QColor(self.couleurs.get(niveau, "#FFFFFF"))
+                                ),
+                            )
                     # Pour "region" et "dep", garder le comportement complexe
                     elif cle in ["region", "dep"]:
                         if valeur:
@@ -509,10 +509,6 @@ class OngletSelectionnerDestinations(QWidget):
 
         # Nettoie le layout
         vider_layout(vbox)
-
-        # Titre de section
-        vbox.addWidget(creer_QLabel_centre(text="<b>Liste des Voyages</b>"))
-        vbox.addWidget(creer_ligne_horizontale())
 
         # Création de l'arbre
         if self.voyages:

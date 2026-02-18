@@ -108,11 +108,15 @@ def voyages_vers_destinations_une_granu(dict_voyages: dict, clef: str):
 
     resultat = {}
 
-    for clef in list(dict_voyages.keys()):
-        visites_clef = dict_voyages.get(clef, {})
+    for voyage in list(dict_voyages.keys()):
+        visites_clef = dict_voyages.get(voyage, {}).get(clef, {})
 
-        for pays in list(visites_clef.keys()):
-            resultat[pays] = list(set(resultat.get(pays, []) + visites_clef[pays]))
+        if visites_clef:
+
+            for pays in list(visites_clef.keys()):
+                resultat[pays] = list(
+                    set(resultat.get(pays, []) + visites_clef.get(pays))
+                )
 
     return resultat
 

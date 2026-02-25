@@ -30,6 +30,7 @@ from _4_Interface._4_1_Onglets.onglet_2.onglet_2_date import SelecteurMoisAnnee
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import obtenir_clef_par_valeur
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import reset_combo
+from _0_Utilitaires._0_6_fonctions_utiles_traductions import traduire_pays
 from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
     style_bouton_de_suppression,
 )
@@ -391,14 +392,11 @@ class CreerVoyage(QDialog):
             nom_temp = list((voyage.get("region", {})).keys()) + list(
                 (voyage.get("dep", {})).keys()
             )
-            nom_temp = list(set(nom_temp))
 
             voyage["nom"] = ", ".join(
                 [
-                    self.constantes.pays_differentes_langues.get(pays, {}).get(
-                        self.langue, pays
-                    )
-                    for pays in nom_temp
+                    traduire_pays(langue=self.langue, pays=pays)
+                    for pays in list(set(nom_temp))
                 ]
             )
 

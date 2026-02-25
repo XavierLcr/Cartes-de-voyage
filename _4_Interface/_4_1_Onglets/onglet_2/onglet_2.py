@@ -426,9 +426,7 @@ class OngletSelectionnerDestinations(QWidget):
 
         # Layout interne propre pour le scroll
         container = QWidget()
-        container_layout = QVBoxLayout(
-            container
-        )  # ⚡ différent de self.liste_voyage_layout
+        container_layout = QVBoxLayout(container)
         scroll.setWidget(container)
 
         # On garde une référence vers container si besoin pour ajouter dynamiquement

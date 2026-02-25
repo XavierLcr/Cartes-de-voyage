@@ -519,7 +519,7 @@ class OngletSelectionnerDestinations(QWidget):
             tree.setExpandsOnDoubleClick(True)
 
             # Connecte le signal de double-clic
-            tree.itemDoubleClicked.connect(self.ajouter_voyage)
+            tree.itemDoubleClicked.connect(self.voyage_double_clique)
 
             # Remplit l'arbre avec les données
             for voyage_id, voyage_data in self.voyages.items():
@@ -531,9 +531,18 @@ class OngletSelectionnerDestinations(QWidget):
                 voyage_item.setBackground(
                     0, QtGui.QBrush(QtGui.QColor(self.couleurs.get(1, "#FFFFFF")))
                 )
+                voyage_item.setData(0, Qt.ItemDataRole.UserRole, voyage_id)
                 ajouter_voyage_elements(voyage_item, voyage_data, niveau=2)
 
             # Affiche tout replié
             tree.collapseAll()
 
             vbox.addWidget(tree)
+
+    def voyage_double_clique(self, item, column):
+        """Gère le double-clic sur un voyage."""
+        # Récupère la clé du voyage stockée dans UserRole
+        voyage_id = item.data(column, Qt.ItemDataRole.UserRole)
+        if voyage_id:
+            # Appelle ajouter_voyage avec la clé du voyage
+            self.ajouter_voyage(voyage_id)

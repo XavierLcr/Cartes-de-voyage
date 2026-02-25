@@ -8,7 +8,7 @@
 import os, yaml
 
 # PyQt6
-from PyQt6.QtCore import Qt, QTimer, QSize, pyqtSignal
+from PyQt6.QtCore import Qt, QTimer, pyqtSignal
 from PyQt6 import QtGui
 
 from PyQt6.QtWidgets import (
@@ -24,11 +24,9 @@ from PyQt6.QtWidgets import (
     QScrollArea,
     QTreeWidgetItem,
     QTreeWidget,
-    QAbstractItemView,
 )
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
-    obtenir_clef_par_valeur,
     exporter_fichier,
     formater_temps_actuel,
     separer_combinaisons,
@@ -36,15 +34,11 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     tronquer_dict,
 )
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
-    reset_combo,
     set_emoji_sauvegarde,
-    creer_QLabel_centre,
-    creer_ligne_horizontale,
     vider_layout,
 )
 from _0_Utilitaires._0_2_fonctions_graphiques import (
     renvoyer_couleur_widget,
-    renvoyer_couleur_texte,
 )
 from _4_Interface._4_1_Onglets.onglet_2.onglet_2_ajout_voyage import CreerVoyage
 from _4_Interface._4_2_Style._4_2_2_styles_complementaires import style_bouton_yaml

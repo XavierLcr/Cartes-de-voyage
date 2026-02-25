@@ -13,36 +13,24 @@ import re
 
 from PyQt6.QtWidgets import (
     QDialog,
-    QWidget,
     QVBoxLayout,
     QHBoxLayout,
     QLabel,
     QGroupBox,
     QComboBox,
     QPushButton,
-    QFileDialog,
     QListWidget,
     QListWidgetItem,
     QLineEdit,
-    QSizePolicy,
-    QMessageBox,
     QCheckBox,
 )
-from PyQt6.QtCore import QDate, Qt, QSize
+from PyQt6.QtCore import Qt, QSize
 
 from _4_Interface._4_1_Onglets.onglet_2.onglet_2_date import SelecteurMoisAnnee
 
-from _0_Utilitaires._0_1_fonctions_utiles_gen import (
-    obtenir_clef_par_valeur,
-    exporter_fichier,
-    formater_temps_actuel,
-    separer_combinaisons,
-    aplanir_dictionnaire,
-    tronquer_dict,
-)
-from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import reset_combo, set_emoji_sauvegarde
+from _0_Utilitaires._0_1_fonctions_utiles_gen import obtenir_clef_par_valeur
+from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import reset_combo
 from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
-    style_bouton_yaml,
     style_bouton_de_suppression,
 )
 

@@ -14,5 +14,5 @@ from constantes import pays_differentes_langues
 # 1 -- Fonction de récupération du nom d'un pays -------------------------------
 
 
-def traduire_pays(dictionnaire: dict, pays: str, langue: str):
-    return dictionnaire.get(pays, {}).get(langue, pays)
+def traduire_pays(pays: str, langue: str):
+    return pays_differentes_langues.get(pays, {}).get(langue, pays)

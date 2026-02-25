@@ -5,6 +5,9 @@
 ################################################################################
 
 
+# 0 -- Initialisation ----------------------------------------------------------
+
+
 import os, pickle, yaml, time, numba, subprocess, platform
 import pandas as pd
 import geopandas as gpd

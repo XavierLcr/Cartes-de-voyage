@@ -41,7 +41,10 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     tronquer_dict,
 )
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import reset_combo, set_emoji_sauvegarde
-from _4_Interface._4_2_Style._4_2_2_styles_complementaires import style_bouton_yaml
+from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
+    style_bouton_yaml,
+    style_bouton_de_suppression,
+)
 
 
 # 1 -- Fonctions utiles --------------------------------------------------------
@@ -61,7 +64,13 @@ def identifiant_voyage(n: int, longueur: int):
 class CreerVoyage(QDialog):
 
     def __init__(
-        self, visites: dict, clef: str | None, constantes, fct_traduction, parent=None
+        self,
+        visites: dict,
+        clef: str | None,
+        constantes,
+        fct_traduction,
+        parent=None,
+        style: int = 1,
     ):
         super().__init__(parent)
 
@@ -164,9 +173,22 @@ class CreerVoyage(QDialog):
         self.groupe_selection_lieux.setLayout(layout_selection_lieux)
         layout.addWidget(self.groupe_selection_lieux)
 
+        # Bouton de validation
         bouton_valider = QPushButton(self.fct_traduction("valider", suffixe=""))
         bouton_valider.clicked.connect(self.valider)
         layout.addWidget(bouton_valider)
+
+        # Bouton de suppression
+        self.bouton_supprimer = QPushButton(
+            self.fct_traduction("supprimer", suffixe="")
+        )
+        self.bouton_supprimer.clicked.connect(self.supprimer_voyage)
+        self.bouton_supprimer.setStyleSheet(
+            style_bouton_de_suppression(sombre=style > 1)
+        )
+        if clef is None:
+            self.bouton_supprimer.hide()
+        layout.addWidget(self.bouton_supprimer)
 
         self.setLayout(layout)
 
@@ -395,5 +417,10 @@ class CreerVoyage(QDialog):
         return (clef, voyage)
 
     def valider(self):
+        self.ajouter = True
         self.resultat = self.get_voyage()
+        self.accept()
+
+    def supprimer_voyage(self):
+        self.ajouter = False
         self.accept()

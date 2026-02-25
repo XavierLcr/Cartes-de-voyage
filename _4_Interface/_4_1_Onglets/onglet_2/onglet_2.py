@@ -67,6 +67,7 @@ class OngletSelectionnerDestinations(QWidget):
         self.dossier_stockage = None
         self.langue = "français"
         self.nom_individu = ""
+        self.style = 0
 
         # Fonctions et constantes
         self.constantes = constantes
@@ -358,6 +359,8 @@ class OngletSelectionnerDestinations(QWidget):
 
     def set_style(self, style, teinte, nuances):
 
+        self.style = style
+
         self.bouton_afficher_option_yaml.setStyleSheet(
             style_bouton_yaml(style=style, teinte=teinte, nuances=nuances)
         )
@@ -413,9 +416,14 @@ class OngletSelectionnerDestinations(QWidget):
         )
 
         if objet.exec() == QDialog.DialogCode.Accepted:
-            clef, voyage = objet.resultat
-            self.voyages[clef] = voyage
-        print(self.voyages)
+            if objet.ajouter:
+                clef, voyage = objet.resultat
+                self.voyages[clef] = voyage
+            else:
+                clef = objet.clef
+                if clef in self.voyages:
+                    del self.voyages[clef]
+
         self.afficher_voyages(vbox=self.liste_voyage_layout)
 
     def _creer_scroll(self):

@@ -118,10 +118,10 @@ class OngletSelectionnerDestinations(QWidget):
         self.chemin_fichier_yaml_1 = None
         self.chemin_fichier_yaml_2 = None
         self.fichier_yaml_1_bouton = QPushButton()
-        self.fichier_yaml_1_bouton.clicked.connect(lambda: self.charger_yaml(1))
+        self.fichier_yaml_1_bouton.clicked.connect(self.charger_yaml)
 
         self.fichier_yaml_2_bouton = QPushButton()
-        self.fichier_yaml_2_bouton.clicked.connect(lambda: self.charger_yaml(2))
+        self.fichier_yaml_2_bouton.clicked.connect(self.charger_yaml)
 
         ## Layout et Groupbox
         self.bouton_afficher_option_yaml = QPushButton()
@@ -150,7 +150,7 @@ class OngletSelectionnerDestinations(QWidget):
 
         self.setLayout(layout)
 
-    def charger_yaml(self, num):
+    def charger_yaml(self):
 
         chemin_yaml, _ = QFileDialog.getOpenFileName(
             self,
@@ -168,7 +168,7 @@ class OngletSelectionnerDestinations(QWidget):
             # Ce sont des voyages
             if not type:
                 for clef in data.keys():
-                    self.ajouter_voyage(voyage=data.get(clef))
+                    self.ajouter_voyage(voyage=data.get(clef), clef=None)
 
             else:
                 for clef in data.keys():
@@ -177,56 +177,44 @@ class OngletSelectionnerDestinations(QWidget):
                             nom=None,
                             date_deb=None,
                             date_fin=None,
-                            regions=data if type == "region" else {},
-                            departements=data if type == "dep" else {},
-                        )
+                            regions={clef: data.get(clef)} if type == "region" else {},
+                            departements=(
+                                {clef: data.get(clef)} if type == "dep" else {}
+                            ),
+                            langue=self.langue,
+                        ),
+                        clef=None,
                     )
 
-            if num == 1:
+            # separer_combinaisons(
+            #         dico1=data,
+            #         dico2=tronquer_dict(d=self.constantes.hierarchie_par_pays, n=2),
+            #     )
 
-                self.chemin_fichier_yaml_1 = chemin_yaml
-                # Séparation des lieux existants ou non
-                dict_sep = separer_combinaisons(
-                    dico1=data,
-                    dico2=tronquer_dict(d=self.constantes.hierarchie_par_pays, n=2),
-                )
-                self.fichier_yaml_1 = dict_sep[True]  # Stocke les données du YAML 1
-                self.dicts_granu["region"] = dict_sep[True]
+            # if dict_sep[False]:
 
-            else:
+            #     for pays in dict_sep[False]:
 
-                self.chemin_fichier_yaml_2 = chemin_yaml
-                dict_sep = separer_combinaisons(
-                    dico1=data,
-                    dico2=aplanir_dictionnaire(self.constantes.hierarchie_par_pays),
-                )
-                self.fichier_yaml_2 = dict_sep[True]  # Stocke les données du YAML 2
-                self.dicts_granu["dep"] = dict_sep[True]
+            #         temp = (
+            #             ", ".join(dict_sep[False][pays])
+            #             if dict_sep[False][pays]
+            #             else ""
+            #         )
+            #         dict_sep[False][
+            #             pays
+            #         ] = f"– <b>{pays}</b>{(f' ({temp})' if temp else '')}"
 
-            if dict_sep[False]:
-
-                for pays in dict_sep[False]:
-
-                    temp = (
-                        ", ".join(dict_sep[False][pays])
-                        if dict_sep[False][pays]
-                        else ""
-                    )
-                    dict_sep[False][
-                        pays
-                    ] = f"– <b>{pays}</b>{(f' ({temp})' if temp else '')}"
-
-                self.fonction_pop_up(
-                    titre=self.fonction_traduire("pop_up_attention_titre"),
-                    contenu=self.fonction_traduire(
-                        "lieux_sans_correspondance",
-                        suffixe=f" :<br>{f' ; <br>'.join(list(dict_sep[False].values()))}.",
-                    ),
-                    temps_max=None,
-                    bouton_ok=True,
-                    boutons_oui_non=False,
-                    renvoyer_popup=False,
-                )
+            #     self.fonction_pop_up(
+            #         titre=self.fonction_traduire("pop_up_attention_titre"),
+            #         contenu=self.fonction_traduire(
+            #             "lieux_sans_correspondance",
+            #             suffixe=f" :<br>{f' ; <br>'.join(list(dict_sep[False].values()))}.",
+            #         ),
+            #         temps_max=None,
+            #         bouton_ok=True,
+            #         boutons_oui_non=False,
+            #         renvoyer_popup=False,
+            #     )
 
             self.dict_modif.emit(self.dicts_granu)
             self.set_langue(langue=None)
@@ -346,6 +334,8 @@ class OngletSelectionnerDestinations(QWidget):
             if self.fichier_yaml_2 is None
             else os.path.basename(self.chemin_fichier_yaml_2)
         )
+
+        self.afficher_voyages(vbox=self.liste_voyage_layout)
 
     def reset_yaml(self):
         self.fichier_yaml_1 = None

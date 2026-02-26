@@ -40,6 +40,11 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
 from _0_Utilitaires._0_2_fonctions_graphiques import (
     renvoyer_couleur_widget,
 )
+from _0_Utilitaires._0_7_fonctions_voyages import (
+    detecter_type_yaml,
+    voyage_id,
+    creer_voyage,
+)
 from _4_Interface._4_1_Onglets.onglet_2.onglet_2_ajout_voyage import CreerVoyage
 from _4_Interface._4_2_Style._4_2_2_styles_complementaires import style_bouton_yaml
 
@@ -62,6 +67,7 @@ class OngletSelectionnerDestinations(QWidget):
         self.langue = "français"
         self.nom_individu = ""
         self.style = 0
+        self.longueur: int = 10
 
         # Fonctions et constantes
         self.constantes = constantes
@@ -80,7 +86,7 @@ class OngletSelectionnerDestinations(QWidget):
         layout_boutons = QHBoxLayout()
         self.ajouter_voyage_bouton = QPushButton()
         self.ajouter_voyage_bouton.clicked.connect(
-            lambda x: self.ajouter_voyage(clef=None)
+            lambda x: self.creer_voyage_ui(clef=None)
         )
         layout_boutons.addWidget(self.ajouter_voyage_bouton, stretch=5)
 
@@ -152,10 +158,29 @@ class OngletSelectionnerDestinations(QWidget):
             "",
             "YAML Files (*.yaml *.yml)",
         )
+
         if chemin_yaml:
 
             with open(chemin_yaml, "r", encoding="utf-8") as file:
                 data = yaml.safe_load(file)
+
+            type = detecter_type_yaml(dictionnaire=data)
+            # Ce sont des voyages
+            if not type:
+                for clef in data.keys():
+                    self.ajouter_voyage(voyage=data.get(clef))
+
+            else:
+                for clef in data.keys():
+                    self.ajouter_voyage(
+                        voyage=creer_voyage(
+                            nom=None,
+                            date_deb=None,
+                            date_fin=None,
+                            regions=data if type == "region" else {},
+                            departements=data if type == "dep" else {},
+                        )
+                    )
 
             if num == 1:
 
@@ -204,7 +229,6 @@ class OngletSelectionnerDestinations(QWidget):
                 )
 
             self.dict_modif.emit(self.dicts_granu)
-            self.maj_liste_reg_dep_pays()
             self.set_langue(langue=None)
 
     def exporter_yamls_visites(self):
@@ -226,31 +250,18 @@ class OngletSelectionnerDestinations(QWidget):
             if nom is None or nom in [""]:
                 nom = formater_temps_actuel()
 
-            gran = self.constantes.parametres_traduits["granularite"][self.langue]
             nom = (
-                f"{nom}{' – '}{self.fonction_traduire(clef='granularite_pays_visites')}"
+                f"{nom}{' – '}{self.fonction_traduire(clef='titre_liste_voyages')}.yaml"
             )
-
-            nom_yaml_regions = f"{nom} – {gran['Régions']}.yaml"
-            nom_yaml_departements = f"{nom} – {gran['Départements']}.yaml"
 
             try:
 
                 # Export des régions
-                if self.dicts_granu["region"] != {}:
+                if self.voyages:
                     exporter_fichier(
-                        objet=self.dicts_granu["region"],
+                        objet=self.voyages,
                         direction_fichier=self.dossier_stockage,
-                        nom_fichier=nom_yaml_regions,
-                        sort_keys=True,
-                    )
-
-                # Export des départements
-                if self.dicts_granu["dep"] != {}:
-                    exporter_fichier(
-                        objet=self.dicts_granu["dep"],
-                        direction_fichier=self.dossier_stockage,
-                        nom_fichier=nom_yaml_departements,
+                        nom_fichier=nom,
                         sort_keys=True,
                     )
 
@@ -399,7 +410,13 @@ class OngletSelectionnerDestinations(QWidget):
         # Mise à jour du nom
         self.set_nom_individu(nom=nom or "")
 
-    def ajouter_voyage(self, clef):
+    def ajouter_voyage(self, voyage: dict, clef: str | None):
+
+        clef = voyage_id(voyages=self.voyages, clef=clef, longueur=self.longueur)
+
+        self.voyages[clef] = voyage
+
+    def creer_voyage_ui(self, clef):
 
         objet = CreerVoyage(
             visites=self.voyages,
@@ -407,12 +424,13 @@ class OngletSelectionnerDestinations(QWidget):
             constantes=self.constantes,
             fct_traduction=self.fonction_traduire,
             parent=self,
+            longueur=self.longueur,
         )
 
         if objet.exec() == QDialog.DialogCode.Accepted:
             if objet.ajouter:
                 clef, voyage = objet.resultat
-                self.voyages[clef] = voyage
+                self.ajouter_voyage(voyage=voyage, clef=clef)
             else:
                 clef = objet.clef
                 if clef in self.voyages:
@@ -522,16 +540,16 @@ class OngletSelectionnerDestinations(QWidget):
             tree.itemDoubleClicked.connect(self.voyage_double_clique)
 
             # Remplit l'arbre avec les données
-            for voyage_id, voyage_data in self.voyages.items():
+            for voyage_ident, voyage_data in self.voyages.items():
                 # Crée un item pour chaque voyage (ex: "Voyage 1")
                 voyage_item = QTreeWidgetItem(
                     tree.invisibleRootItem(),
-                    [voyage_data.get("nom") or voyage_id],
+                    [voyage_data.get("nom") or voyage_ident],
                 )
                 voyage_item.setBackground(
                     0, QtGui.QBrush(QtGui.QColor(self.couleurs.get(1, "#FFFFFF")))
                 )
-                voyage_item.setData(0, Qt.ItemDataRole.UserRole, voyage_id)
+                voyage_item.setData(0, Qt.ItemDataRole.UserRole, voyage_ident)
                 ajouter_voyage_elements(voyage_item, voyage_data, niveau=2)
 
             # Affiche tout replié
@@ -542,7 +560,7 @@ class OngletSelectionnerDestinations(QWidget):
     def voyage_double_clique(self, item, column):
         """Gère le double-clic sur un voyage."""
         # Récupère la clé du voyage stockée dans UserRole
-        voyage_id = item.data(column, Qt.ItemDataRole.UserRole)
-        if voyage_id:
-            # Appelle ajouter_voyage avec la clé du voyage
-            self.ajouter_voyage(voyage_id)
+        voyage_identifiant = item.data(column, Qt.ItemDataRole.UserRole)
+        if voyage_identifiant:
+            # Appelle creer_voyage_ui avec la clé du voyage
+            self.creer_voyage_ui(voyage_identifiant)

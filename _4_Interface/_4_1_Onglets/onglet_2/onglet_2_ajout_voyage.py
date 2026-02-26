@@ -8,9 +8,6 @@
 # 0 -- Initialisation ----------------------------------------------------------
 
 
-import re
-
-
 from PyQt6.QtWidgets import (
     QDialog,
     QVBoxLayout,
@@ -30,24 +27,13 @@ from _4_Interface._4_1_Onglets.onglet_2.onglet_2_date import SelecteurMoisAnnee
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import obtenir_clef_par_valeur
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import reset_combo
-from _0_Utilitaires._0_7_fonctions_voyages import creer_voyage
+from _0_Utilitaires._0_7_fonctions_voyages import creer_voyage, voyage_id
 from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
     style_bouton_de_suppression,
 )
 
 
-# 1 -- Fonctions utiles --------------------------------------------------------
-
-
-## 1.1 -- Fonction de renvoi de l'identifiant formaté du voyage ----------------
-
-
-def identifiant_voyage(n: int, longueur: int):
-
-    return f"voyage_{n:0{longueur}d}"
-
-
-# 2 -- Pop-up d'ajout d'un voyage ----------------------------------------------
+# 1 -- Pop-up d'ajout d'un voyage ----------------------------------------------
 
 
 class CreerVoyage(QDialog):
@@ -60,6 +46,7 @@ class CreerVoyage(QDialog):
         fct_traduction,
         parent=None,
         style: int = 1,
+        longueur: int = 10,
     ):
         super().__init__(parent)
 
@@ -69,7 +56,7 @@ class CreerVoyage(QDialog):
         self.langue = "français"
         self.fct_traduction = fct_traduction
         self.resultat = None
-        self.id_longueur = 10
+        self.id_longueur = longueur
 
         layout = QVBoxLayout(self)
 
@@ -353,26 +340,12 @@ class CreerVoyage(QDialog):
                 if self.dicts_granu[clef][pays_i] == []:
                     del self.dicts_granu[clef][pays_i]
 
-    def voyage_id(self, longueur: int):
-
-        if self.clef is not None:
-            return self.clef
-        else:
-            clefs_actu = sorted(list(self.visites.keys()))
-
-            if len(clefs_actu) == 0:
-                return identifiant_voyage(n=1, longueur=longueur)
-            else:
-
-                return identifiant_voyage(
-                    n=int(re.search(r"\d+$", clefs_actu[-1]).group()) + 1,
-                    longueur=longueur,
-                )
-
     def get_voyage(self):
 
         # Création de l'identifiant
-        clef = self.voyage_id(longueur=self.id_longueur)
+        clef = voyage_id(
+            voyages=self.visites, clef=self.clef, longueur=self.id_longueur
+        )
 
         # Récupération de la date si utilisée
         if self.utiliser_date.isChecked():

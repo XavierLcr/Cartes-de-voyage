@@ -111,17 +111,11 @@ class OngletSelectionnerDestinations(QWidget):
         # Téléchargement des YAMLs
 
         ## Stockage des données YAML
-        self.fichier_yaml_1 = None
-        self.fichier_yaml_2 = None
-
+        self.fichier_yaml_voyages = None
         ## Création des boutons pour charger les YAML
-        self.chemin_fichier_yaml_1 = None
-        self.chemin_fichier_yaml_2 = None
+        self.chemin_fichier_yaml_voyages = None
         self.fichier_yaml_1_bouton = QPushButton()
         self.fichier_yaml_1_bouton.clicked.connect(self.charger_yaml)
-
-        self.fichier_yaml_2_bouton = QPushButton()
-        self.fichier_yaml_2_bouton.clicked.connect(self.charger_yaml)
 
         ## Layout et Groupbox
         self.bouton_afficher_option_yaml = QPushButton()
@@ -134,7 +128,6 @@ class OngletSelectionnerDestinations(QWidget):
         )
         layout_groupe_chargement_yaml = QHBoxLayout()
         layout_groupe_chargement_yaml.addWidget(self.fichier_yaml_1_bouton)
-        layout_groupe_chargement_yaml.addWidget(self.fichier_yaml_2_bouton)
         self.groupe_chargement_yaml.setLayout(layout_groupe_chargement_yaml)
         self.groupe_chargement_yaml.setVisible(False)
         layout_yaml = QHBoxLayout()
@@ -161,6 +154,7 @@ class OngletSelectionnerDestinations(QWidget):
 
         if chemin_yaml:
 
+            self.chemin_fichier_yaml_voyages = chemin_yaml
             with open(chemin_yaml, "r", encoding="utf-8") as file:
                 data = yaml.safe_load(file)
 
@@ -319,27 +313,21 @@ class OngletSelectionnerDestinations(QWidget):
 
         # Chargement des YAMLs
         self.groupe_chargement_yaml.setTitle(
-            self.fonction_traduire("titre_chargement_yamls")
+            self.fonction_traduire("titre_chargement_yaml")
         )
         self.groupe_chargement_yaml.setToolTip(
-            self.fonction_traduire("description_titre_chargement_yamls", suffixe=".")
+            self.fonction_traduire("description_titre_chargement_yaml", suffixe=".")
         )
         self.fichier_yaml_1_bouton.setText(
             self.fonction_traduire("yaml_regions")
-            if self.fichier_yaml_1 is None
-            else os.path.basename(self.chemin_fichier_yaml_1)
-        )
-        self.fichier_yaml_2_bouton.setText(
-            self.fonction_traduire("yaml_departements")
-            if self.fichier_yaml_2 is None
-            else os.path.basename(self.chemin_fichier_yaml_2)
+            if self.fichier_yaml_voyages is None
+            else os.path.basename(self.chemin_fichier_yaml_voyages)
         )
 
         self.afficher_voyages(vbox=self.liste_voyage_layout)
 
     def reset_yaml(self):
-        self.fichier_yaml_1 = None
-        self.fichier_yaml_2 = None
+        self.fichier_yaml_voyages = None
         self.set_langue(langue=None)
 
     def afficher_option_alternative(self):

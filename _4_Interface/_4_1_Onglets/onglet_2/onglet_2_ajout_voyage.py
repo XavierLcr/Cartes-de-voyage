@@ -30,7 +30,7 @@ from _4_Interface._4_1_Onglets.onglet_2.onglet_2_date import SelecteurMoisAnnee
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import obtenir_clef_par_valeur
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import reset_combo
-from _0_Utilitaires._0_6_fonctions_utiles_traductions import traduire_pays
+from _0_Utilitaires._0_7_fonctions_voyages import creer_voyage
 from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
     style_bouton_de_suppression,
 )
@@ -371,8 +371,10 @@ class CreerVoyage(QDialog):
 
     def get_voyage(self):
 
+        # Création de l'identifiant
         clef = self.voyage_id(longueur=self.id_longueur)
 
+        # Récupération de la date si utilisée
         if self.utiliser_date.isChecked():
             date_debut = self.debut_voyage.obtenir_premier_jour_mois()
             date_fin = max(date_debut, self.fin_voyage.obtenir_premier_jour_mois())
@@ -380,26 +382,17 @@ class CreerVoyage(QDialog):
             date_debut = None
             date_fin = None
 
-        voyage = {
-            "nom": self.nom_voyage.text(),
-            "date_debut": date_debut,
-            "date_fin": date_fin,
-            "region": self.dicts_granu.get("region", {}),
-            "dep": self.dicts_granu.get("dep", {}),
-        }
+        # Création du voyage
+        voyage = creer_voyage(
+            nom=self.nom_voyage.text(),
+            date_deb=date_debut,
+            date_fin=date_fin,
+            regions=self.dicts_granu.get("region", {}),
+            departements=self.dicts_granu.get("dep", {}),
+            langue=self.langue,
+        )
 
-        if not voyage.get("nom"):
-            nom_temp = list((voyage.get("region", {})).keys()) + list(
-                (voyage.get("dep", {})).keys()
-            )
-
-            voyage["nom"] = ", ".join(
-                [
-                    traduire_pays(langue=self.langue, pays=pays)
-                    for pays in list(set(nom_temp))
-                ]
-            )
-
+        # Renvoi
         return (clef, voyage)
 
     def valider(self):

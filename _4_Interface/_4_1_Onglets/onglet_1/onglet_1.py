@@ -21,7 +21,7 @@ from PyQt6.QtWidgets import (
     QSpacerItem,
     QSizePolicy,
 )
-from PyQt6.QtCore import Qt, QTimer, QThread
+from PyQt6.QtCore import Qt, QThread
 
 
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (

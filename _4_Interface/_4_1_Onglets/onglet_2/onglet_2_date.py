@@ -9,7 +9,7 @@
 
 
 from PyQt6.QtWidgets import QDateEdit, QCalendarWidget
-from PyQt6.QtCore import QDate, QLocale
+from PyQt6.QtCore import QDate
 
 
 # 1 -- Classe de sélection du mois et de l'année -------------------------------

@@ -57,17 +57,18 @@ class OngletSelectionnerDestinations(QWidget):
     # Signal de modification des lieux visités
     dict_modif = pyqtSignal(dict)
 
-    def __init__(self, constantes, fct_sauvegarde, fct_traduire, fct_pop_up):
+    def __init__(
+        self, constantes, fct_sauvegarde, fct_traduire, fct_pop_up, longueur=10
+    ):
         super().__init__()
 
         # Variables globales de la classe
         self.voyages = {}
-        self.dicts_granu = {"region": {}, "dep": {}}
         self.dossier_stockage = None
         self.langue = "français"
         self.nom_individu = ""
         self.style = 0
-        self.longueur: int = 10
+        self.longueur = longueur
 
         # Fonctions et constantes
         self.constantes = constantes
@@ -210,7 +211,7 @@ class OngletSelectionnerDestinations(QWidget):
             #         renvoyer_popup=False,
             #     )
 
-            self.dict_modif.emit(self.dicts_granu)
+            self.dict_modif.emit(self.voyages)
             self.set_langue(langue=None)
 
     def exporter_yamls_visites(self):
@@ -269,8 +270,8 @@ class OngletSelectionnerDestinations(QWidget):
     def set_nom_individu(self, nom):
         self.nom_individu = nom
 
-    def set_dict_granu(self, dictionnaire: dict):
-        self.dicts_granu = dictionnaire
+    def set_voyages(self, dictionnaire: dict):
+        self.voyages = dictionnaire
 
     def set_langue(self, langue):
 
@@ -413,6 +414,8 @@ class OngletSelectionnerDestinations(QWidget):
                 clef = objet.clef
                 if clef in self.voyages:
                     del self.voyages[clef]
+
+            self.dict_modif.emit(self.voyages)
 
         self.afficher_voyages(vbox=self.liste_voyage_layout)
 

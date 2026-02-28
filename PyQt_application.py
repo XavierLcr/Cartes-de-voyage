@@ -28,6 +28,7 @@ from PyQt6.QtCore import QTimer, Qt
 # Scripts et fonctions du projet
 import constantes
 from _0_Utilitaires import _0_1_fonctions_utiles_gen, _0_3_fonctions_utiles_pyqt6
+from _0_Utilitaires._0_7_fonctions_voyages import voyage_id, creer_voyage
 from _4_Interface._4_1_Onglets.onglet_1 import onglet_1
 from _4_Interface._4_1_Onglets.onglet_2 import onglet_2
 from _4_Interface._4_1_Onglets.onglet_4 import onglet_4
@@ -88,6 +89,8 @@ class MesVoyagesApplication(QWidget):
         # Variables globales
         self.langue = "français"
         self.theme_application = True
+        self.voyages = {}
+        self.longueur_id_voyage = 10
 
         # === Profil sélectionné ===
 
@@ -145,12 +148,12 @@ class MesVoyagesApplication(QWidget):
 
         # === Deuxième onglet ===
 
-        self.dicts_granu = {"region": {}, "dep": {}}
         self.onglet_selection_destinations = onglet_2.OngletSelectionnerDestinations(
             constantes=constantes,
             fct_traduire=self.traduire_depuis_id,
             fct_sauvegarde=self.exporter_liste_parametres,
             fct_pop_up=self.montrer_popup,
+            longueur=self.longueur_id_voyage,
         )
         self.liste_onglets.addTab(
             self.onglet_selection_destinations, "Sélection des pays visités"
@@ -476,12 +479,7 @@ class MesVoyagesApplication(QWidget):
             "autres_regions": self.onglet_parametres.autres_regions.isChecked(),
             "cartes_des_pays": self.onglet_parametres.carte_pays.isChecked(),
             # Lieux visités
-            "dictionnaire_regions": (
-                self.dicts_granu["region"] if self.dicts_granu["region"] != {} else None
-            ),
-            "dictionnaire_departements": (
-                self.dicts_granu["dep"] if self.dicts_granu["dep"] != {} else None
-            ),
+            "dictionnaire_voyages": self.voyages,
             # Hémicycle
             "hemicycle_position": self.onglet_statistiques.get_hemicycle_position(),
             # Recommandations
@@ -565,24 +563,27 @@ class MesVoyagesApplication(QWidget):
             return msg
 
     def set_dictionnaire_destinations(self, dictionnaire: dict):
-        self.dicts_granu = dictionnaire
-        self.onglet_selection_destinations.set_dict_granu(dictionnaire=self.dicts_granu)
+        self.voyages = dictionnaire
+        self.onglet_selection_destinations.set_voyages(dictionnaire=self.voyages)
+
+        dict_temp = _0_1_fonctions_utiles_gen.voyages_vers_destinations(
+            dict_voyages=self.voyages
+        )
+        bool_temp = dict_temp != {"region": {}, "dep": {}}
 
         self.liste_onglets.setTabVisible(
             self.liste_onglets.indexOf(self.onglet_resume_destinations),
-            self.dicts_granu != {"region": {}, "dep": {}},
+            bool_temp,
         )
         self.liste_onglets.setTabVisible(
             self.liste_onglets.indexOf(self.onglet_statistiques),
-            self.dicts_granu != {"region": {}, "dep": {}},
+            bool_temp,
         )
 
         self.onglet_resume_destinations.set_dicts_granu(
-            dict_nv=copy.deepcopy(self.dicts_granu)
+            dict_nv=copy.deepcopy(dict_temp)
         )
-        self.onglet_statistiques.set_dicts_granu(
-            dict_nv=copy.deepcopy(self.dicts_granu)
-        )
+        self.onglet_statistiques.set_dicts_granu(dict_nv=copy.deepcopy(dict_temp))
 
     def publier_cartes(self):
 
@@ -630,14 +631,53 @@ class MesVoyagesApplication(QWidget):
         self.onglet_statistiques.initialiser_onglet()
 
         # Récupération des destinations
-        self.set_dictionnaire_destinations(
-            dictionnaire={
-                "region": sauv.get("dictionnaire_regions") or {},
-                "dep": sauv.get("dictionnaire_departements") or {},
-            }
-        )
+        if "dictionnaire_voyages" in list(sauv.keys()):
+
+            self.set_dictionnaire_destinations(
+                dictionnaire=sauv.get("dictionnaire_voyages", {})
+            )
+
+        else:
+
+            voyages_temp = {}
+            reg_dict_temp = sauv.get("dictionnaire_regions") or {}
+            dep_dict_temp = sauv.get("dictionnaire_departements") or {}
+
+            for pays in list(reg_dict_temp.keys()):
+                voyages_temp[
+                    voyage_id(
+                        voyages=voyages_temp,
+                        clef=None,
+                        longueur=self.longueur_id_voyage,
+                    )
+                ] = creer_voyage(
+                    nom=None,
+                    date_deb=None,
+                    date_fin=None,
+                    regions={pays: reg_dict_temp.get(pays)},
+                    departements={},
+                    langue=self.langue,
+                )
+            for pays in list(dep_dict_temp.keys()):
+                voyages_temp[
+                    voyage_id(
+                        voyages=voyages_temp,
+                        clef=None,
+                        longueur=self.longueur_id_voyage,
+                    )
+                ] = creer_voyage(
+                    nom=None,
+                    date_deb=None,
+                    date_fin=None,
+                    regions={},
+                    departements={pays: dep_dict_temp.get(pays)},
+                    langue=self.langue,
+                )
+
+            self.set_dictionnaire_destinations(dictionnaire=voyages_temp)
 
         self.set_style()
+        self.set_langue_interface()
 
     def supprimer_clef(self, clef):
         global sauvegarde

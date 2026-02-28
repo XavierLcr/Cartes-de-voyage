@@ -7,6 +7,7 @@
 
 from PyQt6.QtCore import pyqtSignal, QObject
 from _3_Calculs._3_4_carte_main import cree_graphe_depuis_debut
+from _0_Utilitaires._0_1_fonctions_utiles_gen import voyages_vers_destinations_une_granu
 
 
 # 1 -- Classe de suivi de l'avancement de la publication des cartes ------------
@@ -70,27 +71,28 @@ class CreerCartes(QObject):
                 }
             )
 
-        dict_regions = self.parametres["dictionnaire_regions"]
-        if self.parametres["dictionnaire_departements"] is not None:
-            if (
-                self.parametres["dictionnaire_departements"] != {}
-                and dict_regions is not None
-            ):
+        dict_regions = voyages_vers_destinations_une_granu(
+            dict_voyages=self.parametres.get("dictionnaire_voyages", {}), clef="region"
+        )
+        dict_deps = voyages_vers_destinations_une_granu(
+            dict_voyages=self.parametres.get("dictionnaire_voyages", {}), clef="dep"
+        )
+
+        if dict_deps is not None:
+            if dict_deps != {} and dict_regions is not None:
                 dict_regions = {
-                    k: v
-                    for k, v in self.parametres["dictionnaire_regions"].items()
-                    if k not in self.parametres["dictionnaire_departements"]
+                    k: v for k, v in dict_regions.items() if k not in dict_deps
                 }
 
-        if self.parametres["dictionnaire_departements"] == {}:
-            self.parametres["dictionnaire_departements"] = None
+        if dict_deps == {}:
+            dict_deps = None
         if dict_regions == {}:
             dict_regions = None
 
         self.nb_graphes.emit(
             self.calculer_nb_total_graphes(
                 dict_regions=dict_regions,
-                dict_departement=self.parametres["dictionnaire_departements"],
+                dict_departement=dict_deps,
             )
         )
 
@@ -99,14 +101,14 @@ class CreerCartes(QObject):
             "envoi_email"
         ):
             self.parametres["adresse_email"] = None
-            
+
         # --- Partie calcul cartes ---
         tracker = TrackerPays()
         tracker.tracker_pays_en_cours.connect(self.tracker_signal.emit)
 
         cree_graphe_depuis_debut(
             liste_dfs=self.parametres["liste_dfs"],
-            liste_dicts=[dict_regions, self.parametres["dictionnaire_departements"]],
+            liste_dicts=[dict_regions, dict_deps],
             gdf_eau=self.parametres["gdf_eau"],
             noms_pays=self.constantes.pays_differentes_langues,
             dictionnaire_pays_unis=self.constantes.liste_pays_groupes,

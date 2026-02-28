@@ -465,10 +465,7 @@ class OngletParametres(QWidget):
 
     def fonction_principale(self, settings):
 
-        if (
-            settings["dictionnaire_regions"] is None
-            and settings["dictionnaire_departements"] is None
-        ):
+        if not settings["dictionnaire_voyages"]:
 
             self.fonction_pop_up(
                 contenu=self.fonction_traduction(
@@ -551,7 +548,9 @@ class OngletParametres(QWidget):
         }
         for nom_cle, checkbox in checkboxes.items():
             checkbox.setChecked(
-                kwargs.get(nom_cle) if kwargs.get(nom_cle) is not None else (nom_cle in ["europe", "cartes_des_pays"])
+                kwargs.get(nom_cle)
+                if kwargs.get(nom_cle) is not None
+                else (nom_cle in ["europe", "cartes_des_pays"])
             )
 
         # Paramètres de stockage

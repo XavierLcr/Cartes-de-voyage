@@ -272,6 +272,7 @@ class OngletSelectionnerDestinations(QWidget):
 
     def set_voyages(self, dictionnaire: dict):
         self.voyages = dictionnaire
+        self.afficher_voyages(vbox=self.liste_voyage_layout)
 
     def set_langue(self, langue):
 
@@ -392,7 +393,6 @@ class OngletSelectionnerDestinations(QWidget):
     def ajouter_voyage(self, voyage: dict, clef: str | None):
 
         clef = voyage_id(voyages=self.voyages, clef=clef, longueur=self.longueur)
-
         self.voyages[clef] = voyage
 
     def creer_voyage_ui(self, clef):

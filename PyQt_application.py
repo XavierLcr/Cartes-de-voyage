@@ -677,7 +677,6 @@ class MesVoyagesApplication(QWidget):
             self.set_dictionnaire_destinations(dictionnaire=voyages_temp)
 
         self.set_style()
-        self.set_langue_interface()
 
     def supprimer_clef(self, clef):
         global sauvegarde

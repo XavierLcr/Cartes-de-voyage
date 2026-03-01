@@ -98,6 +98,9 @@ avertissement_onglet_2 : Pour un pays donné, si des départements sont cochés,
 lieux_sans_correspondance : Certains lieux provenant de votre fichier n'ont pas de correspondance
 voyage_date_debut : Date de début
 voyage_date_fin : Date de fin
+tri_ordre_creation_voyages : Trier par ordre de création des voyages
+tri_nom_voyages : Trier par nom des voyages
+tri_dates_debut_voyages : Trier par date de début des voyages
 
 # Création des voyages de l'onlget 2
 general_voyage_groupbox : Contexte du voyage

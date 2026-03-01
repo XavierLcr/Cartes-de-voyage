@@ -24,6 +24,7 @@ from PyQt6.QtWidgets import (
     QScrollArea,
     QTreeWidgetItem,
     QTreeWidget,
+    QComboBox,
 )
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
@@ -33,6 +34,7 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     set_emoji_sauvegarde,
     vider_layout,
+    reset_combo,
 )
 from _0_Utilitaires._0_2_fonctions_graphiques import (
     renvoyer_couleur_widget,
@@ -80,17 +82,26 @@ class OngletSelectionnerDestinations(QWidget):
         self.avertissement_prio.setWordWrap(True)
         layout.addWidget(self.avertissement_prio)
 
-        # Boutons
+        # Ligne de gestion des voyages
         layout_boutons = QHBoxLayout()
+
+        # Bouton d'ajout de voyages
         self.ajouter_voyage_bouton = QPushButton()
         self.ajouter_voyage_bouton.clicked.connect(
             lambda x: self.creer_voyage_ui(clef=None)
         )
         layout_boutons.addWidget(self.ajouter_voyage_bouton, stretch=5)
 
+        # Liste des options de tri
+        self.options_tri = QComboBox()
+        layout_boutons.addWidget(self.options_tri, stretch=3)
+
+        # Bouton d'export des YAML
         self.telecharger_lieux_visites = QPushButton()
         self.telecharger_lieux_visites.clicked.connect(self.exporter_yamls_visites)
         layout_boutons.addWidget(self.telecharger_lieux_visites, stretch=1)
+
+        # Bouton de sauvegarde
         self.bouton_sauvegarde = QPushButton()
         self.bouton_sauvegarde.clicked.connect(fct_sauvegarde)
         self.bouton_sauvegarde.clicked.connect(
@@ -281,14 +292,18 @@ class OngletSelectionnerDestinations(QWidget):
         self.liste_voyage_groupbox.setTitle(
             self.fonction_traduire("titre_liste_voyages")
         )
+
+        # Avertissement
         self.avertissement_prio.setText(
             self.fonction_traduire("avertissement_onglet_2", prefixe="⚠️ ", suffixe=".")
         )
 
+        # Boutons
         self.ajouter_voyage_bouton.setText(
             self.fonction_traduire("bouton_ajouter_voyage")
         )
 
+        # YAML
         if self.groupe_chargement_yaml.isVisible():
 
             self.bouton_afficher_option_yaml.setText(
@@ -321,6 +336,19 @@ class OngletSelectionnerDestinations(QWidget):
             self.fonction_traduire("yaml_regions")
             if self.fichier_yaml_voyages is None
             else os.path.basename(self.chemin_fichier_yaml_voyages)
+        )
+
+        # Options de tri
+        reset_combo(
+            self.options_tri,
+            [
+                self.fonction_traduire(clef)
+                for clef in [
+                    "tri_ordre_creation_voyages",
+                    "tri_nom_voyages",
+                    "tri_dates_debut_voyages",
+                ]
+            ],
         )
 
         self.afficher_voyages(vbox=self.liste_voyage_layout)

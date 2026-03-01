@@ -385,15 +385,15 @@ class OngletSelectionnerDestinations(QWidget):
                 style=style,
                 teinte=teinte,
                 nuances=nuances,
-                clair="#C8E6C9",
-                sombre="#512B52",
+                clair="#EEEEEE",
+                sombre="#6B6B6B",
             ),
             2: renvoyer_couleur_widget(
                 style=style,
                 teinte=teinte,
                 nuances=nuances,
-                clair="#f2f0a5",
-                sombre="#856039",
+                clair="#DCF5FF",
+                sombre="#7E0E5C",
             ),
             3: renvoyer_couleur_widget(
                 style=style,
@@ -401,13 +401,6 @@ class OngletSelectionnerDestinations(QWidget):
                 nuances=nuances,
                 clair="#EDE5FF",
                 sombre="#1221C1",
-            ),
-            4: renvoyer_couleur_widget(
-                style=style,
-                teinte=teinte,
-                nuances=nuances,
-                clair="#DCF5FF",
-                sombre="#7E0E5C",
             ),
         }
 

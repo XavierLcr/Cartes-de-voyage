@@ -82,11 +82,15 @@ class CreerVoyage(QDialog):
 
         # Début du voyage
         self.debut_voyage_label = QLabel()
-        self.debut_voyage = SelecteurMoisAnnee(parent=self)
+        self.debut_voyage = SelecteurMoisAnnee(
+            parent=self, date=self.visite_temp.get("date_debut")
+        )
 
         # Fin du voyage
         self.fin_voyage_label = QLabel()
-        self.fin_voyage = SelecteurMoisAnnee(parent=self)
+        self.fin_voyage = SelecteurMoisAnnee(
+            parent=self, date=self.visite_temp.get("date_fin")
+        )
 
         # Ne pas utiliser de dates
         self.utiliser_date = QCheckBox()

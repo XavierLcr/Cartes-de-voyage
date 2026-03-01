@@ -17,7 +17,7 @@ from PyQt6.QtCore import QDate
 
 class SelecteurMoisAnnee(QDateEdit):
 
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, date=None):
         super().__init__(parent)
 
         # Configurer la locale en français
@@ -41,7 +41,14 @@ class SelecteurMoisAnnee(QDateEdit):
         self.setCalendarPopup(False)
 
         # Définir la date actuelle par défaut
-        self.setDate(QDate.currentDate())
+        if date is not None:
+            year, month, day = map(int, date.split("-"))
+            qdate = QDate(year, month, day)
+        else:
+            qdate = QDate.currentDate()
+
+        # Exemple d'utilisation dans une méthode PyQt6
+        self.setDate(qdate)
 
     def obtenir_mois_annee(self):
         """Retourne un tuple (mois, année) sélectionné."""

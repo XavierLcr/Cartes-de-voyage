@@ -151,7 +151,7 @@ class OngletSelectionnerDestinations(QWidget):
 
         layout.addLayout(layout_boutons)
         layout.addWidget(self.liste_voyage_groupbox)
-        layout.addStretch()
+        # layout.addStretch()
         layout.addLayout(layout_yaml)
 
         self.setLayout(layout)

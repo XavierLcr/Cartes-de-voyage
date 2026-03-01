@@ -9,6 +9,8 @@
 
 
 import re
+from datetime import datetime, date
+from typing import Literal, List
 
 from _0_Utilitaires._0_6_fonctions_utiles_traductions import traduire_pays
 from constantes import hierarchie_par_pays
@@ -94,3 +96,45 @@ def voyage_id(voyages: dict, clef: str | None, longueur: int):
                 n=int(re.search(r"\d+$", clefs_actu[-1]).group()) + 1,
                 longueur=longueur,
             )
+
+
+# 4 -- Tri de l'ordre des voyages ----------------------------------------------
+
+
+def trier_voyages(dictionnaire: dict, tri: Literal["nom", "date", "clef"]) -> List[str]:
+
+    # Copie du dictionnaire
+    dict_temp = dictionnaire.copy()
+
+    # Définir l'ordre des critères de tri
+    if tri == "nom":
+        criteres_tri = ["nom", "date_debut", "date_fin", "clef"]
+    elif tri == "date":
+        criteres_tri = ["date_debut", "date_fin", "nom", "clef"]
+    else:  # tri == "clef"
+        criteres_tri = ["clef"]
+
+    # Préparer les données : remplacer None par date.max et ajouter la clé
+    voyages_prepares = []
+    for id_voyage, infos in dict_temp.items():
+        infos = infos.copy()  # Éviter de modifier l'original
+        infos["date_debut"] = infos.get("date_debut") or date.max
+        infos["date_fin"] = infos.get("date_fin") or date.max
+        infos["clef"] = id_voyage
+        voyages_prepares.append((id_voyage, infos))
+
+    # Fonction de clé de tri
+    def cle_tri(item):
+        id_voyage, infos = item
+        return tuple(
+            (
+                datetime.strptime(infos[criteres], "%Y-%m-%d").date()
+                if criteres in ["date_debut", "date_fin"]
+                and infos[criteres] != date.max
+                else infos[criteres]
+            )
+            for criteres in criteres_tri
+        )
+
+    # Renvoi des clefs triées
+    return [id_voyage for id_voyage, _ in sorted(voyages_prepares, key=cle_tri)]

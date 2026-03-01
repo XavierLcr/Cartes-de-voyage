@@ -43,6 +43,7 @@ from _0_Utilitaires._0_7_fonctions_voyages import (
     detecter_type_yaml,
     voyage_id,
     creer_voyage,
+    trier_voyages,
 )
 from _4_Interface._4_1_Onglets.onglet_2.onglet_2_ajout_voyage import CreerVoyage
 from _4_Interface._4_2_Style._4_2_2_styles_complementaires import style_bouton_yaml
@@ -94,6 +95,9 @@ class OngletSelectionnerDestinations(QWidget):
 
         # Liste des options de tri
         self.options_tri = QComboBox()
+        self.options_tri.currentTextChanged.connect(
+            lambda x: self.afficher_voyages(vbox=self.liste_voyage_layout)
+        )
         layout_boutons.addWidget(self.options_tri, stretch=3)
 
         # Bouton d'export des YAML
@@ -339,16 +343,17 @@ class OngletSelectionnerDestinations(QWidget):
         )
 
         # Options de tri
+        self.dict_correspondances_tri = {
+            self.fonction_traduire(clef): corresp
+            for clef, corresp in {
+                "tri_ordre_creation_voyages": "clef",
+                "tri_nom_voyages": "nom",
+                "tri_dates_debut_voyages": "date",
+            }.items()
+        }
         reset_combo(
             self.options_tri,
-            [
-                self.fonction_traduire(clef)
-                for clef in [
-                    "tri_ordre_creation_voyages",
-                    "tri_nom_voyages",
-                    "tri_dates_debut_voyages",
-                ]
-            ],
+            list(self.dict_correspondances_tri.keys()),
         )
 
         self.afficher_voyages(vbox=self.liste_voyage_layout)
@@ -546,18 +551,25 @@ class OngletSelectionnerDestinations(QWidget):
             # Connecte le signal de double-clic
             tree.itemDoubleClicked.connect(self.voyage_double_clique)
 
+            clefs_temp = trier_voyages(
+                dictionnaire=self.voyages,
+                tri=self.dict_correspondances_tri.get(self.options_tri.currentText()),
+            )
+
             # Remplit l'arbre avec les données
-            for voyage_ident, voyage_data in self.voyages.items():
+            for voyage_ident in clefs_temp:
+
+                voyage_temp = self.voyages.get(voyage_ident, {})
                 # Crée un item pour chaque voyage (ex: "Voyage 1")
                 voyage_item = QTreeWidgetItem(
                     tree.invisibleRootItem(),
-                    [voyage_data.get("nom") or voyage_ident],
+                    [voyage_temp.get("nom") or voyage_ident],
                 )
                 voyage_item.setBackground(
                     0, QtGui.QBrush(QtGui.QColor(self.couleurs.get(1, "#FFFFFF")))
                 )
                 voyage_item.setData(0, Qt.ItemDataRole.UserRole, voyage_ident)
-                ajouter_voyage_elements(voyage_item, voyage_data, niveau=2)
+                ajouter_voyage_elements(voyage_item, voyage_temp, niveau=2)
 
             # Affiche tout replié
             tree.collapseAll()

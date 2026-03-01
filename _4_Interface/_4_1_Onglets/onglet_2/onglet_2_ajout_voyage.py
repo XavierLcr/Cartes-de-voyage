@@ -25,7 +25,10 @@ from PyQt6.QtCore import Qt, QSize
 
 from _4_Interface._4_1_Onglets.onglet_2.onglet_2_date import SelecteurMoisAnnee
 
-from _0_Utilitaires._0_1_fonctions_utiles_gen import obtenir_clef_par_valeur
+from _0_Utilitaires._0_1_fonctions_utiles_gen import (
+    obtenir_clef_par_valeur,
+    voyages_vers_destinations_une_granu,
+)
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import reset_combo
 from _0_Utilitaires._0_7_fonctions_voyages import creer_voyage, voyage_id
 from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
@@ -44,6 +47,7 @@ class CreerVoyage(QDialog):
         clef: str | None,
         constantes,
         fct_traduction,
+        fct_popup,
         parent=None,
         style: int = 1,
         longueur: int = 10,
@@ -55,6 +59,7 @@ class CreerVoyage(QDialog):
         self.visites = visites
         self.langue = "français"
         self.fct_traduction = fct_traduction
+        self.fct_popup = fct_popup
         self.resultat = None
         self.id_longueur = longueur
 
@@ -369,9 +374,20 @@ class CreerVoyage(QDialog):
         return (clef, voyage)
 
     def valider(self):
-        self.ajouter = True
-        self.resultat = self.get_voyage()
-        self.accept()
+
+        clef, voyage = self.get_voyage()
+        if voyage.get("region", {}) or voyage.get("dep", {}):
+
+            self.ajouter = True
+            self.resultat = (clef, voyage)
+            self.accept()
+
+        else:
+            self.fct_popup(
+                titre=self.fct_traduction("pop_up_probleme_titre"),
+                contenu=self.fct_traduction("pop_up_aucun_lieu_coche_2", suffixe=" !"),
+                temps_max=10000,
+            )
 
     def supprimer_voyage(self):
         self.ajouter = False

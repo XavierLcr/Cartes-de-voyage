@@ -6,6 +6,7 @@
 
 
 import os, yaml
+from datetime import datetime
 
 # PyQt6
 from PyQt6.QtCore import Qt, QTimer, pyqtSignal
@@ -473,7 +474,8 @@ class OngletSelectionnerDestinations(QWidget):
                             child = QTreeWidgetItem(
                                 parent_item,
                                 [
-                                    f"{self.fonction_traduire(f'voyage_{cle}')} : {str(valeur)}"
+                                    f"{self.fonction_traduire(f'voyage_{cle}')} : "
+                                    f"{datetime.strptime(str(valeur), '%Y-%m-%d').strftime('%m/%Y')}"
                                 ],
                             )
                             child.setBackground(

@@ -54,6 +54,8 @@ class CreerVoyage(QDialog):
     ):
         super().__init__(parent)
 
+        self.resize(900, 500)
+
         self.constantes = constantes
         self.clef = clef
         self.visites = visites

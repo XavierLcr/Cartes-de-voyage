@@ -19,6 +19,7 @@ from PyQt6.QtWidgets import (
     QStackedWidget,
 )
 
+from _0_Utilitaires._0_1_fonctions_utiles_gen import voyages_vers_destinations
 from _0_Utilitaires._0_2_fonctions_graphiques import renvoyer_couleur_texte
 from _4_Interface._4_1_Onglets.onglet_4 import (
     onglet_4_1_hemicycle,
@@ -168,9 +169,10 @@ class OngletTopPays(QWidget):
         )
 
     def set_dicts_granu(self, dict_nv):
-        self.hemicycle.set_pays_visites(pays_visites=copy.deepcopy(dict_nv))
-        self.classement_widget.set_dicts_granu(dict_nv=copy.deepcopy(dict_nv))
-        self.recommandations.set_dicts_granu(dict_nv=copy.deepcopy(dict_nv))
+        dict_temp = voyages_vers_destinations(copy.deepcopy(dict_nv))
+        self.hemicycle.set_pays_visites(pays_visites=dict_temp)
+        self.classement_widget.set_dicts_granu(dict_nv=dict_temp)
+        self.recommandations.set_dicts_granu(dict_nv=dict_temp)
 
     def initialiser_onglet(self):
         self.recommandations.initialiser_onglet()

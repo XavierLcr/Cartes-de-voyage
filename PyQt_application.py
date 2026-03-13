@@ -583,7 +583,7 @@ class MesVoyagesApplication(QWidget):
         self.onglet_resume_destinations.set_dicts_granu(
             dict_nv=copy.deepcopy(dict_temp)
         )
-        self.onglet_statistiques.set_dicts_granu(dict_nv=copy.deepcopy(dict_temp))
+        self.onglet_statistiques.set_dicts_granu(dict_nv=copy.deepcopy(dictionnaire))
 
     def publier_cartes(self):
 

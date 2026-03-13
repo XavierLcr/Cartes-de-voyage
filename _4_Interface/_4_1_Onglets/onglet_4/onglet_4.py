@@ -25,6 +25,7 @@ from _4_Interface._4_1_Onglets.onglet_4 import (
     onglet_4_1_hemicycle,
     onglet_4_2_classement,
     onglet_4_3_recommendations,
+    onglet_4_4_n_visites,
 )
 
 
@@ -70,6 +71,11 @@ class OngletTopPays(QWidget):
             parent=None,
         )
 
+        # Pays visités les plus de fois
+        self.pays_souvent_visites = onglet_4_4_n_visites.PaysLesPlusVisites(
+            constantes=self.constantes, fct_traduction=fct_traduction, parent=None
+        )
+
         # Mise en page des sous-onglets
         layout = QVBoxLayout(self)
 
@@ -77,18 +83,21 @@ class OngletTopPays(QWidget):
 
             ## === Stack (remplace QTabWidget) ===
             self.pages = QStackedWidget()
-            self.pages.addWidget(page_hemicycle)  # index 0
-            self.pages.addWidget(self.classement_widget)  # index 1
-            self.pages.addWidget(self.recommandations)  # index 2
+            self.pages.addWidget(page_hemicycle)
+            self.pages.addWidget(self.classement_widget)
+            self.pages.addWidget(self.recommandations)
+            self.pages.addWidget(self.pays_souvent_visites)
 
             # === Barre de boutons (navigation) ===
             btn_layout = QHBoxLayout()
             self.btn_hemicycle = QPushButton("Hémicycle")
             self.btn_top_pays = QPushButton("Top Pays")
             self.btn_recommandations = QPushButton("Suggestions")
+            self.btn_pays_souvent_visites = QPushButton("Pays fréquents")
             btn_layout.addWidget(self.btn_hemicycle)
             btn_layout.addWidget(self.btn_top_pays)
             btn_layout.addWidget(self.btn_recommandations)
+            btn_layout.addWidget(self.btn_pays_souvent_visites)
 
             # Connexions
             self.btn_hemicycle.clicked.connect(lambda: self.pages.setCurrentIndex(0))
@@ -96,7 +105,9 @@ class OngletTopPays(QWidget):
             self.btn_recommandations.clicked.connect(
                 lambda: self.pages.setCurrentIndex(2)
             )
-            # self.btn_recommandations.clicked.connect(self.pop_up_recommandations)
+            self.btn_pays_souvent_visites.clicked.connect(
+                lambda: self.pages.setCurrentIndex(3)
+            )
 
             # Layout principal
             layout.addLayout(btn_layout)
@@ -173,6 +184,7 @@ class OngletTopPays(QWidget):
         self.hemicycle.set_pays_visites(pays_visites=dict_temp)
         self.classement_widget.set_dicts_granu(dict_nv=dict_temp)
         self.recommandations.set_dicts_granu(dict_nv=dict_temp)
+        self.pays_souvent_visites.set_voyages(voyages=copy.deepcopy(dict_nv))
 
     def initialiser_onglet(self):
         self.recommandations.initialiser_onglet()

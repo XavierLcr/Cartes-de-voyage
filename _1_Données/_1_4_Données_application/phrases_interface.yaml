@@ -136,6 +136,10 @@ titre_sous_onglet_4_3 : Suggestions de destinations
 bouton_recommandations : Cliquez ici afin de trouver votre prochaine destination !
 titre_recommandations : Nos suggestions rien que pour vous
 recommandation_passeport : À vos passeports, prêts, voyagez !
+# Pays où l'on va le plus souvent
+titre_sous_onglet_4_4 : Vos pays de prédilection
+titre_graphique_n_voyages : Pays visités le plus grand nombre de fois
+y_label_n_voyages : Nombre de visites
 
 # Onglet 5
 sous_titre_description_application : Création de cartes de voyages

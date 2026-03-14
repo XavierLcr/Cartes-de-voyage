@@ -104,9 +104,13 @@ class PaysLesPlusVisites(QWidget):
                 var_y="voyages",
                 var_color=None,
                 var_wrap=None,
-                titre="Pays ayant été le plus visités",
+                titre=self.fct_traduction(
+                    "titre_graphique_n_voyages",
+                ),
                 x_label="",
-                y_label="Nombre de visites",
+                y_label=self.fct_traduction(
+                    "y_label_n_voyages",
+                ),
                 color_label="",
                 palette=[
                     "#7DC8E8",
@@ -120,7 +124,7 @@ class PaysLesPlusVisites(QWidget):
                     "#9C755F",
                     "#BAB0AC",
                 ],
-                figsize=(6, 4),
+                figsize=(6, 3),
                 wrap_ncol=3,
                 y_decimales=0,
             )

@@ -141,6 +141,10 @@ class OngletTopPays(QWidget):
             "titre_sous_onglet_4_3",
             suffixe=(" 🚂​"),
         )
+        texte_onglet_4 = self.fonction_traduction(
+            "titre_sous_onglet_4_4",
+            suffixe=(" ⚓​​"),
+        )
 
         if self.mise_en_page == 0:
             self.btn_hemicycle.setText(texte_onglet_1)
@@ -149,6 +153,7 @@ class OngletTopPays(QWidget):
                 self.fonction_traduction("description_onglet_4", suffixe=".")
             )
             self.btn_recommandations.setText(texte_onglet_3)
+            self.btn_pays_souvent_visites.setText(texte_onglet_4)
         elif self.mise_en_page == 1:
             self.sous_onglets.setTabText(
                 self.sous_onglets.indexOf(self.hemicycle.parentWidget()), texte_onglet_1
@@ -162,6 +167,9 @@ class OngletTopPays(QWidget):
             )
             self.sous_onglets.setTabText(
                 self.sous_onglets.indexOf(self.recommandations), texte_onglet_3
+            )
+            self.sous_onglets.setTabText(
+                self.sous_onglets.indexOf(self.pays_souvent_visites), texte_onglet_4
             )
 
     def set_style(self, style: int, teinte, nuances):

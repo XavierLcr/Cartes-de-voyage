@@ -388,7 +388,7 @@ class OngletSelectionnerDestinations(QWidget):
                 style=style,
                 teinte=teinte,
                 nuances=nuances,
-                clair="#EEEEEE",
+                clair="#CFFFCA",
                 sombre="#6B6B6B",
             ),
             2: renvoyer_couleur_widget(

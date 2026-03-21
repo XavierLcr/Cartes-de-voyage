@@ -90,7 +90,7 @@ def plot_diagramme_barre(
     y_max += y_margin
 
     # Détermine l'ordre global des catégories de var_x
-    global_x_order = sorted(df_temp[var_x].unique())
+    global_x_order = df_temp[var_x].unique()
 
     # Liste pour stocker les axes
     axes = []
@@ -124,15 +124,17 @@ def plot_diagramme_barre(
                 width=bar_width,
                 label=color_val,
                 color=palette[j % len(palette)],
+                zorder=1,
             )
 
         # Formater les y-ticks
         ax.yaxis.set_major_formatter(FuncFormatter(creer_formateur(y_decimales)))
+        ax.grid(axis="y", linestyle="--", alpha=0.7, color="#F2F2F2", zorder=0)
 
         # Labels et titre
         ax.set_xticks(x_pos + (len(val_color) - 1) * bar_width / 2)
         ax.set_xticklabels(global_x_order)
-        ax.set_title(f"{wrap_val}")
+        ax.set_title(f"{wrap_val}" if len(val_wrap) > 1 else "")
         if x_label:
             ax.set_xlabel(x_label)
         if y_label:
@@ -150,5 +152,5 @@ def plot_diagramme_barre(
     if titre:
         fig.suptitle(titre, y=1.02)
 
-    plt.tight_layout()
+    fig.tight_layout()
     return fig

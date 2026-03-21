@@ -150,7 +150,7 @@ def plot_diagramme_barre(
 
     # Titre global
     if titre:
-        fig.suptitle(titre, y=1.02)
+        fig.suptitle(titre)
 
     fig.tight_layout()
     return fig

@@ -118,6 +118,9 @@ class OngletSelectionnerDestinations(QWidget):
         self.liste_voyage_groupbox = QGroupBox()
         self.liste_voyage_layout = QVBoxLayout()
         self.liste_voyage_groupbox.setLayout(self.liste_voyage_layout)
+        self.liste_voyage_groupbox.setSizePolicy(
+            QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding
+        )
 
         self.liste_voyage = self._creer_scroll()
         self.liste_voyage_layout.addWidget(self.liste_voyage)
@@ -152,7 +155,6 @@ class OngletSelectionnerDestinations(QWidget):
 
         layout.addLayout(layout_boutons)
         layout.addWidget(self.liste_voyage_groupbox)
-        # layout.addStretch()
         layout.addLayout(layout_yaml)
 
         self.setLayout(layout)

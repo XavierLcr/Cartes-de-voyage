@@ -8,33 +8,15 @@
 # 0 -- Initialisation ----------------------------------------------------------
 
 
-import copy
-import numpy as np
 import pandas as pd
 from collections import defaultdict
-from PyQt6.QtCore import Qt, QThread, pyqtSignal, QObject
-from PyQt6.QtWidgets import (
-    QWidget,
-    QPushButton,
-    QHBoxLayout,
-    QVBoxLayout,
-    QGridLayout,
-    QLabel,
-    QScrollArea,
-)
+from PyQt6.QtWidgets import QWidget, QVBoxLayout
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 
-from _0_Utilitaires._0_1_fonctions_utiles_gen import distance_haversine
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
-    creer_QLabel_centre,
-    creer_ligne_horizontale,
     vider_layout,
 )
 from _0_Utilitaires._0_8_plot_diagramme_barres import plot_diagramme_barre
-
-from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
-    style_bouton_recommandation,
-)
 
 
 # 1 -- Fonction de comptage par pays -------------------------------------------

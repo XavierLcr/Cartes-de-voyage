@@ -53,16 +53,21 @@ def creer_classement_pays(
         .sort_values(
             by=["pct_superficie_dans_pays", "superficie"], ascending=[False, False]
         )
+        # Mise en forme
+        .assign(
+            pct_superficie_dans_pays_label=lambda x: x[
+                "pct_superficie_dans_pays"
+            ].apply(
+                lambda x: f"{round(100 * (x or 0), ndigits=ndigits)} %".replace(
+                    ".", ","
+                )
+            )
+        )
     )
 
     # Sélection du top pays si souhaité
     if top_n is not None:
         gdf_visite = gdf_visite.head(top_n)
-
-    # Mise en forme
-    gdf_visite["pct_superficie_dans_pays_label"] = gdf_visite[
-        "pct_superficie_dans_pays"
-    ].apply(lambda x: f"{round(100 * (x or 0), ndigits=ndigits)} %".replace(".", ","))
 
     return (
         gdf_visite,

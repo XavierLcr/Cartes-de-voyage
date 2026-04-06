@@ -45,17 +45,18 @@ def creer_classement_pays(
         .merge(
             table_superficie,
             how="left",
-            left_on=["Pays", "Region"],
+            left_on=["pays", "subdivision"],
             right_on=["name_0", f"name_{granularite}"],
         )
         # Somme par pays des superficies visitées
-        .groupby("Pays")[["pct_superficie_dans_pays", "superficie"]]
+        .groupby("pays")[["pct_superficie_dans_pays", "superficie"]]
         .sum()
         .reset_index()
         # Tri des valeurs par ordre décroissant
         .sort_values(
             by=["pct_superficie_dans_pays", "superficie"], ascending=[False, False]
         )
+        # Arrondi de la valeur
         .assign(
             pct_superficie_dans_pays=lambda x: x["pct_superficie_dans_pays"].apply(
                 lambda x: round(100 * (x or 0), ndigits=ndigits)
@@ -67,7 +68,7 @@ def creer_classement_pays(
                 "pct_superficie_dans_pays"
             ].apply(lambda x: f"{x} %".replace(".", ",")),
             # Récupération du nom du pays dans la langue utilisée
-            nom_pays=lambda x: x["Pays"].apply(
+            nom_pays=lambda x: x["pays"].apply(
                 lambda y: pays_traductions.get(y, {}).get(langue, y)
             ),
         )
@@ -277,7 +278,7 @@ class ClassementPays(QWidget):
                         )
                         for v in (lst or [])
                     ],
-                    columns=["Pays", "Region"],
+                    columns=["pays", "subdivision"],
                 ),
                 table_superficie=self.table_superficie,
                 pays_traductions=self.constantes.pays_differentes_langues,

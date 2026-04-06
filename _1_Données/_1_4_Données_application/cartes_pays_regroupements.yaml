@@ -109,8 +109,9 @@ mascareignes:
   - Mauritius
   - Réunion
 pays_iberiques:
-  categorie: Spain and Gibraltar
+  categorie: Spain, Andorra and Gibraltar
   liste:
+  - Andorra
   - Gibraltar
   - Spain
 pays_italiens:

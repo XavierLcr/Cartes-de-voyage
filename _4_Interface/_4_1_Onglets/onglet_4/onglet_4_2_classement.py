@@ -39,9 +39,10 @@ def creer_classement_pays(
     ndigits: int | None = None,
 ):
 
-    gdf_visite = (
+    df_temp = (
         # Ajout des superficies
-        gdf_visite.merge(
+        gdf_visite.copy()
+        .merge(
             table_superficie,
             how="left",
             left_on=["Pays", "Region"],
@@ -69,15 +70,21 @@ def creer_classement_pays(
                 lambda y: pays_traductions.get(y, {}).get(langue, y)
             ),
         )
+        .reset_index()
+    )
+
+    # Ajout du classement
+    df_temp["classement"] = df_temp.index.to_series().apply(
+        lambda i: ["🥇", "🥈", "🥉"][i] if i < 3 else f"{i+1}."
     )
 
     # Sélection du top pays si souhaité
     if top_n is not None:
-        gdf_visite = gdf_visite.head(top_n)
+        df_temp = df_temp.head(top_n)
 
     return (
-        gdf_visite,
-        gdf_visite[gdf_visite["pct_superficie_dans_pays"] == 1].shape[0],
+        df_temp,
+        df_temp[df_temp["pct_superficie_dans_pays"] == 1].shape[0],
     )
 
 
@@ -210,7 +217,7 @@ class ClassementPays(QWidget):
                 vbox.addWidget(
                     creer_QLabel_centre(
                         text=(
-                            ["🥇", "🥈", "🥉"][i]
+                            classement["classement"].iloc[i]
                             + f"<br><b>{nom_pays}</b><br>"
                             + str(classement["pct_superficie_dans_pays_label"].iloc[i])
                         ).replace(".", ",")
@@ -227,7 +234,7 @@ class ClassementPays(QWidget):
                     creer_QLabel_centre(
                         text=(
                             # Classement
-                            (f"<b>{taille_top_100 + i + 1}.</b>")
+                            (f"<b>{row['classement']}</b>")
                             # Nom du pays
                             + f"<br>{row['nom_pays']}<br>"
                             # Part de la superficie visitée
@@ -275,7 +282,7 @@ class ClassementPays(QWidget):
                     columns=["Pays", "Region"],
                 ),
                 table_superficie=self.table_superficie,
-                pays_traductions=self.constantes.pays_differentes_langues.get(pays, {}),
+                pays_traductions=self.constantes.pays_differentes_langues,
                 langue=self.langue_utilisee,
                 granularite=granularite,
                 top_n=self.top_n,

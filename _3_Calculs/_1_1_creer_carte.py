@@ -51,7 +51,7 @@ def creer_base_une_granularite(
         # Renommage
         .rename(columns={"name_0": "Pays"})
         # Sélection des colonnes
-        .loc[:, ["Pays", "Region", "Visite", "geometry", "Granu"]]
+        .loc[:, ["Pays", "subdivision", "Visite", "geometry", "Granu"]]
     )
 
 
@@ -137,19 +137,19 @@ def remplacer_lieux_constants(
                 Pays=lambda x: x["name_0"],
                 Region=lambda x: x[f"name_{granularite}"],
                 region_temp=lambda x: x[f"name_{granularite-1}"],
-            )[["Pays", "Region", "region_temp"]]
+            )[["Pays", "subdivision", "region_temp"]]
         )
         assert not df_monde_granu.duplicated(
-            subset=["Pays", "Region"]
+            subset=["Pays", "subdivision"]
         ).any(), f"Le couple (Pays, Region) n'est pas une clé unique pour le passage de la granularité {granularite} à la granularité {granularite-1}."
 
         # Ajout de la granularité inférieure à la table
         df_a_modifier = (
-            df_a_modifier[["Pays", "Region", "Granu", "geometry", "Visite"]]
+            df_a_modifier[["Pays", "subdivision", "Granu", "geometry", "Visite"]]
             .merge(
                 df_monde_granu,
                 how="left",
-                on=["Pays", "Region"],
+                on=["Pays", "subdivision"],
             )
             .reset_index()
         )
@@ -177,7 +177,7 @@ def remplacer_lieux_constants(
                     # Sélection des variables
                     [
                         "Pays",
-                        "Region",
+                        "subdivision",
                         "Granu",
                         "geometry",
                         "Visite",
@@ -211,7 +211,7 @@ def remplacer_lieux_constants(
                 # Sélection des colonnes
             )[["Pays", "region_temp", "Visite", "geometry"]]
             # Mise à jour des noms de colonnes
-            .rename(columns={"region_temp": "Region"})
+            .rename(columns={"region_temp": "subdivision"})
             # Ajout de la granularité
             .assign(Granu=granularite - 1)
         )
@@ -289,7 +289,7 @@ def cree_base_toutes_granularites(
                         Region=lambda x: x["name_0"] * 1,
                         Granu=0,
                         Visite=1,
-                    )[["Pays", "Region", "Visite", "geometry", "Granu"]],
+                    )[["Pays", "subdivision", "Visite", "geometry", "Granu"]],
                 ],
                 ignore_index=True,
             )
@@ -325,7 +325,7 @@ def ajouter_indicatrice_visite(gdf_monde, gdf_visite, granularite=1):
     – gdf_monde (GeoDataFrame) : Un GeoDataFrame contenant les informations mondiales, incluant des colonnes comme `name_0` pour les pays
       et `name_{granularite}` pour les régions (selon le niveau de granularité).
     – gdf_visite (GeoDataFrame) : Un GeoDataFrame contenant les informations des pays ou régions visités, avec une colonne "Pays" ou
-      "Region" correspondante.
+      "subdivision" correspondante.
     – granularite (int, optionnel) : Le niveau de granularité pour la région (par défaut, 1 représente la région, mais cela peut être
       modifié pour les granularités supérieures). Par exemple, 0 représente les pays, et des valeurs plus grandes pour des
       niveaux plus fins (comme des départements ou des villes).
@@ -353,7 +353,7 @@ def ajouter_indicatrice_visite(gdf_monde, gdf_visite, granularite=1):
                 # Ajout de l'indicatrice de visite
                 .assign(Visite=False)
                 # Sélection des colonnes
-                [["Pays", "Region", "Visite", "geometry", "Granu"]]
+                [["Pays", "subdivision", "Visite", "geometry", "Granu"]]
             ),
         ],
         ignore_index=True,

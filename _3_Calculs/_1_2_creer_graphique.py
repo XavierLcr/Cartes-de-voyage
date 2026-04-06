@@ -321,7 +321,7 @@ def creer_image_carte(
     liste_pays = list(gdf["Pays"].unique())
 
     # On ajoute la couleur de chaque ligne
-    gdf["Couleur"] = gdf["Visite"].apply(
+    gdf["couleur"] = gdf["Visite"].apply(
         lambda x: (
             generer_couleur_aleatoire_hex(
                 preset=theme,
@@ -332,7 +332,7 @@ def creer_image_carte(
         )
     )
     # Gestion de la mer Caspienne
-    gdf.loc[gdf["Pays"] == "Caspian Sea", "Couleur"] = couleur_de_fond
+    gdf.loc[gdf["Pays"] == "Caspian Sea", "couleur"] = couleur_de_fond
 
     # Limitation des tables complémentaires
     gdf_monde = selectionner_lieux(
@@ -369,7 +369,7 @@ def creer_image_carte(
     fig.patch.set_facecolor(couleur_de_fond)
 
     # Ajout de la carte principale
-    gdf.plot(ax=ax, color=gdf["Couleur"], edgecolor="black", linewidth=0.008, zorder=1)
+    gdf.plot(ax=ax, color=gdf["couleur"], edgecolor="black", linewidth=0.008, zorder=1)
 
     if gdf_monde is not None:
 
@@ -433,8 +433,8 @@ def creer_image_carte(
         for x, y, label, couleur, taille, largeur in zip(
             gdf.geometry.centroid.x,
             gdf.geometry.centroid.y,
-            gdf["Region"],
-            gdf["Couleur"],
+            gdf["subdivision"],
+            gdf["couleur"],
             gdf["taille_texte"],
             gdf["largeur"],
         ):

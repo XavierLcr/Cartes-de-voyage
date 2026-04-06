@@ -169,8 +169,7 @@ class ClassementPays(QWidget):
         self,
         df: pd.DataFrame,
         vbox: QGridLayout,
-        taille_top_100: int,
-        adapter: bool,
+        top_n_lignes: int,
     ):
         """
         Affiche le classement des pays dans un QGridLayout (vbox).
@@ -180,6 +179,12 @@ class ClassementPays(QWidget):
 
         if df is None or df.empty:
             return
+
+        if (
+            top_n_lignes < self.min_changement_mise_en_forme
+            or not self.adapter_mise_en_forme
+        ):
+            top_n_lignes = None
 
         df_temp = df.copy()
 
@@ -200,11 +205,11 @@ class ClassementPays(QWidget):
             )
 
         # Gestion des premières lignes
-        if adapter:
+        if top_n_lignes is not None:
 
             vbox.addWidget(
                 creer_QLabel_centre(
-                    text=f"🥇<br>{', '.join(f'<b>{x}</b>' for x in df_temp['nom_pays'].head(taille_top_100))}<br>100 %",
+                    text=f"🥇<br>{', '.join(f'<b>{x}</b>' for x in df_temp['nom_pays'].head(top_n_lignes))}<br>100 %",
                     wordWrap=True,
                 ),
                 0,
@@ -212,12 +217,12 @@ class ClassementPays(QWidget):
             )
 
             # Suppression des lignes déjà gérées
-            df_temp = df_temp.iloc[taille_top_100:]
+            df_temp = df_temp.iloc[top_n_lignes:]
 
         # Complétion du reste des cases
         for i, (_, row) in enumerate(df_temp.iterrows()):
 
-            if adapter or i >= 3:
+            if top_n_lignes is not None or i >= 3:
                 ligne = 1 + (i // 3)
                 col = i % 3
             elif i == 0:
@@ -240,9 +245,7 @@ class ClassementPays(QWidget):
                 col,
             )
 
-    def lancer_classement_pays(
-        self, granularite: int, vbox: QGridLayout, adapter_mise_en_forme=True
-    ):
+    def lancer_classement_pays(self, granularite: int, vbox: QGridLayout):
 
         # Complétion des régions à partir des départements
         dict_regions = self.dicts_granu.get("region") or {}
@@ -262,7 +265,7 @@ class ClassementPays(QWidget):
         try:
 
             # Classement des pays
-            df_temp, taille_top_100 = creer_classement_pays(
+            df_temp, top_n_lignes = creer_classement_pays(
                 # transformation du dictionnaire en Data.frame
                 gdf_visite=pd.DataFrame(
                     [
@@ -286,9 +289,7 @@ class ClassementPays(QWidget):
             self.classement_standard(
                 df=df_temp,
                 vbox=vbox,
-                taille_top_100=taille_top_100,
-                adapter=(taille_top_100 >= self.min_changement_mise_en_forme)
-                and adapter_mise_en_forme,
+                top_n_lignes=top_n_lignes,
             )
 
         except Exception as e:
@@ -298,12 +299,10 @@ class ClassementPays(QWidget):
         self.lancer_classement_pays(
             vbox=self.layout_top_pays_regions,
             granularite=1,
-            adapter_mise_en_forme=self.adapter_mise_en_forme,
         )
         self.lancer_classement_pays(
             vbox=self.layout_top_pays_deps,
             granularite=2,
-            adapter_mise_en_forme=self.adapter_mise_en_forme,
         )
 
     def set_dicts_granu(self, dict_nv):

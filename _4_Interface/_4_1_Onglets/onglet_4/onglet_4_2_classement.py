@@ -167,28 +167,24 @@ class ClassementPays(QWidget):
         - vbox : QGridLayout où ajouter les QLabel
         """
 
-        if classement is not None:
-            if len(classement) > 0:
+        if classement is None or classement.empty:
+            return
 
-                # Ajout des couronnes
-                vbox.addWidget(
-                    creer_QLabel_centre(
-                        text="👑",
-                        alignement=Qt.AlignmentFlag.AlignRight
-                        | Qt.AlignmentFlag.AlignVCenter,
-                    ),
-                    0,
-                    0,
-                )
-                vbox.addWidget(
-                    creer_QLabel_centre(
-                        text="👑",
-                        alignement=Qt.AlignmentFlag.AlignLeft
-                        | Qt.AlignmentFlag.AlignVCenter,
-                    ),
-                    0,
-                    2,
-                )
+        # Ajout des couronnes
+        for couronne in [0, 2]:
+            vbox.addWidget(
+                creer_QLabel_centre(
+                    text="👑",
+                    alignement=(
+                        Qt.AlignmentFlag.AlignRight
+                        if couronne == 0
+                        else Qt.AlignmentFlag.AlignLeft
+                    )
+                    | Qt.AlignmentFlag.AlignVCenter,
+                ),
+                0,
+                couronne,
+            )
 
         # Gestion des premières lignes
         if adapter:

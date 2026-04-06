@@ -57,14 +57,15 @@ def creer_classement_pays(
             by=["pct_superficie_dans_pays", "superficie"], ascending=[False, False]
         )
         .assign(
+            pct_superficie_dans_pays=lambda x: x["pct_superficie_dans_pays"].apply(
+                lambda x: round(100 * (x or 0), ndigits=ndigits)
+            )
+        )
+        .assign(
             # Mise en forme du pourcentage
             pct_superficie_dans_pays_label=lambda x: x[
                 "pct_superficie_dans_pays"
-            ].apply(
-                lambda x: f"{round(100 * (x or 0), ndigits=ndigits)} %".replace(
-                    ".", ","
-                )
-            ),
+            ].apply(lambda x: f"{x} %".replace(".", ",")),
             # Récupération du nom du pays dans la langue utilisée
             nom_pays=lambda x: x["Pays"].apply(
                 lambda y: pays_traductions.get(y, {}).get(langue, y)
@@ -82,9 +83,12 @@ def creer_classement_pays(
     if top_n is not None:
         df_temp = df_temp.head(top_n)
 
+    # Pays avec un pourcentage arrondi non nul ou dans les trois premières lignes
+    df_temp = df_temp[(df_temp["pct_superficie_dans_pays"] > 0) | (df_temp.index < 3)]
+
     return (
         df_temp,
-        df_temp[df_temp["pct_superficie_dans_pays"] == 1].shape[0],
+        df_temp[df_temp["pct_superficie_dans_pays"] == 100].shape[0],
     )
 
 
@@ -163,19 +167,21 @@ class ClassementPays(QWidget):
 
     def classement_standard(
         self,
-        classement: pd.DataFrame,
+        df: pd.DataFrame,
         vbox: QGridLayout,
         taille_top_100: int,
         adapter: bool,
     ):
         """
         Affiche le classement des pays dans un QGridLayout (vbox).
-        - classement : DataFrame contenant 'Pays' et 'pct_superficie_dans_pays'
+        - df : DataFrame contenant 'Pays' et 'pct_superficie_dans_pays'
         - vbox : QGridLayout où ajouter les QLabel
         """
 
-        if classement is None or classement.empty:
+        if df is None or df.empty:
             return
+
+        df_temp = df.copy()
 
         # Ajout des couronnes
         for couronne in [0, 2]:
@@ -196,7 +202,7 @@ class ClassementPays(QWidget):
         # Gestion des premières lignes
         if adapter:
 
-            liste_pays = classement["nom_pays"].head(taille_top_100)
+            liste_pays = df_temp["nom_pays"].head(taille_top_100)
 
             vbox.addWidget(
                 creer_QLabel_centre(
@@ -207,43 +213,39 @@ class ClassementPays(QWidget):
                 1,
             )
 
-        else:
+            # Suppression des lignes déjà gérées
+            df_temp = df_temp.iloc[taille_top_100:]
 
-            taille_top_100 = min(3, classement.shape[0])
-            for i in range(taille_top_100):
+        # Complétion du reste des cases
+        for i, (_, row) in enumerate(df_temp.iterrows()):
 
-                nom_pays = classement["nom_pays"].iloc[i]
+            if adapter:
+                ligne = 1 + (i // 3)
+                col = i % 3
+            elif i == 0:
+                ligne = 0
+                col = 1
+            elif i in [1, 2]:
+                ligne = 1
+                col = 2 * i - 2
+            else:
+                ligne = 1 + (i // 3)
+                col = i % 3
 
-                vbox.addWidget(
-                    creer_QLabel_centre(
-                        text=(
-                            classement["classement"].iloc[i]
-                            + f"<br><b>{nom_pays}</b><br>"
-                            + str(classement["pct_superficie_dans_pays_label"].iloc[i])
-                        ).replace(".", ",")
-                    ),
-                    int(i != 0),
-                    {0: 1, 1: 0}.get(i, i),
-                )
-
-        for i, (_, row) in enumerate(classement.iloc[taille_top_100:].iterrows()):
-
-            if round(100 * row["pct_superficie_dans_pays"], ndigits=self.ndigits) > 0:
-
-                vbox.addWidget(
-                    creer_QLabel_centre(
-                        text=(
-                            # Classement
-                            (f"<b>{row['classement']}</b>")
-                            # Nom du pays
-                            + f"<br>{row['nom_pays']}<br>"
-                            # Part de la superficie visitée
-                            + f"{row['pct_superficie_dans_pays_label']}"
-                        )
-                    ),
-                    2 + (i // 3) - int(adapter),
-                    i % 3,
-                )
+            vbox.addWidget(
+                creer_QLabel_centre(
+                    text=(
+                        # Classement
+                        (f"<b>{row['classement']}</b>")
+                        # Nom du pays
+                        + f"<br>{'b>' if ligne == 0 else ''}{row['nom_pays']}{'</b>' if ligne == 0 else ''}<br>"
+                        # Part de la superficie visitée
+                        + f"{row['pct_superficie_dans_pays_label']}"
+                    )
+                ),
+                ligne,
+                col,
+            )
 
     def lancer_classement_pays(
         self, granularite: int, vbox: QGridLayout, adapter_mise_en_forme=True
@@ -267,7 +269,7 @@ class ClassementPays(QWidget):
         try:
 
             # Classement des pays
-            classement, taille_top_100 = creer_classement_pays(
+            df_temp, taille_top_100 = creer_classement_pays(
                 # transformation du dictionnaire en Data.frame
                 gdf_visite=pd.DataFrame(
                     [
@@ -288,9 +290,9 @@ class ClassementPays(QWidget):
                 top_n=self.top_n,
                 ndigits=self.ndigits,
             )
-
+            print(taille_top_100)
             self.classement_standard(
-                classement=classement,
+                df=df_temp,
                 vbox=vbox,
                 taille_top_100=taille_top_100,
                 adapter=(taille_top_100 >= self.min_changement_mise_en_forme)

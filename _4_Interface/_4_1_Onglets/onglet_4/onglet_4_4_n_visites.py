@@ -27,18 +27,16 @@ def compter_voyages_par_pays(dictionnaire_voyages):
     comptage_pays = defaultdict(int)
 
     for voyage_id, voyage in dictionnaire_voyages.items():
+
         # Ensemble pour éviter les doublons dans un même voyage
         pays_visites = set()
 
-        # Ajouter les pays de 'region'
-        regions = voyage.get("region", {})
-        for pays in regions.keys():
-            pays_visites.add(pays)
+        # Boucle sur region/dep
+        for granu in ["dep", "region"]:
 
-        # Ajouter les pays de 'dep'
-        dep = voyage.get("dep", {})
-        for pays in dep.keys():
-            pays_visites.add(pays)
+            # Ajouter les pays présents
+            for pays in voyage.get(granu, {}).keys():
+                pays_visites.add(pays)
 
         # Incrémenter le compteur pour chaque pays unique du voyage
         for pays in pays_visites:
@@ -46,9 +44,8 @@ def compter_voyages_par_pays(dictionnaire_voyages):
 
     # Trier par ordre décroissant de voyages
     return pd.DataFrame(
-        sorted(comptage_pays.items(), key=lambda item: item[1], reverse=True),
-        columns=["pays", "voyages"],
-    )
+        list(comptage_pays.items()), columns=["pays", "voyages"]
+    ).sort_values(by="voyages", ascending=False, inplace=False)
 
 
 # 2 -- Classe du graphique -----------------------------------------------------

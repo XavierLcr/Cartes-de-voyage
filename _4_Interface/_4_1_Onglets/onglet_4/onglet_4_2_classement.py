@@ -219,18 +219,13 @@ class ClassementPays(QWidget):
         # Complétion du reste des cases
         for i, (_, row) in enumerate(df_temp.iterrows()):
 
-            if adapter:
+            if adapter or i >= 3:
                 ligne = 1 + (i // 3)
                 col = i % 3
             elif i == 0:
-                ligne = 0
-                col = 1
-            elif i in [1, 2]:
-                ligne = 1
-                col = 2 * i - 2
-            else:
-                ligne = 1 + (i // 3)
-                col = i % 3
+                ligne, col = 0, 1
+            else:  # i == 1 ou 2
+                ligne, col = 1, 2 * i - 2
 
             vbox.addWidget(
                 creer_QLabel_centre(
@@ -238,7 +233,7 @@ class ClassementPays(QWidget):
                         # Classement
                         (f"<b>{row['classement']}</b>")
                         # Nom du pays
-                        + f"<br>{'b>' if ligne == 0 else ''}{row['nom_pays']}{'</b>' if ligne == 0 else ''}<br>"
+                        + f"<br>{'<b>' if ligne == 0 else ''}{row['nom_pays']}{'</b>' if ligne == 0 else ''}<br>"
                         # Part de la superficie visitée
                         + f"{row['pct_superficie_dans_pays_label']}"
                     )
@@ -290,7 +285,6 @@ class ClassementPays(QWidget):
                 top_n=self.top_n,
                 ndigits=self.ndigits,
             )
-            print(taille_top_100)
             self.classement_standard(
                 df=df_temp,
                 vbox=vbox,

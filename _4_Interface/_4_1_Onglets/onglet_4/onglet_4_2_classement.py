@@ -32,6 +32,8 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
 def creer_classement_pays(
     gdf_visite,
     table_superficie,
+    pays_traductions: dict,
+    langue: str,
     granularite: int = 1,
     top_n: int | None = None,
     ndigits: int | None = None,
@@ -53,15 +55,19 @@ def creer_classement_pays(
         .sort_values(
             by=["pct_superficie_dans_pays", "superficie"], ascending=[False, False]
         )
-        # Mise en forme
         .assign(
+            # Mise en forme du pourcentage
             pct_superficie_dans_pays_label=lambda x: x[
                 "pct_superficie_dans_pays"
             ].apply(
                 lambda x: f"{round(100 * (x or 0), ndigits=ndigits)} %".replace(
                     ".", ","
                 )
-            )
+            ),
+            # Récupération du nom du pays dans la langue utilisée
+            nom_pays=lambda x: x["Pays"].apply(
+                lambda y: pays_traductions.get(y, {}).get(langue, y)
+            ),
         )
     )
 
@@ -187,12 +193,7 @@ class ClassementPays(QWidget):
         # Gestion des premières lignes
         if adapter:
 
-            liste_pays = [
-                self.constantes.pays_differentes_langues.get(p, {}).get(
-                    self.langue_utilisee, p
-                )
-                for p in classement["Pays"].head(taille_top_100)
-            ]
+            liste_pays = classement["nom_pays"].head(taille_top_100)
 
             vbox.addWidget(
                 creer_QLabel_centre(
@@ -208,11 +209,7 @@ class ClassementPays(QWidget):
             taille_top_100 = min(3, classement.shape[0])
             for i in range(taille_top_100):
 
-                pays = classement["Pays"].iloc[i]
-
-                nom_pays = self.constantes.pays_differentes_langues.get(pays, {}).get(
-                    self.langue_utilisee, pays
-                )
+                nom_pays = classement["nom_pays"].iloc[i]
 
                 vbox.addWidget(
                     creer_QLabel_centre(
@@ -228,13 +225,7 @@ class ClassementPays(QWidget):
 
         for i, (_, row) in enumerate(classement.iloc[taille_top_100:].iterrows()):
 
-            pays = row["Pays"]
-
             if round(100 * row["pct_superficie_dans_pays"], ndigits=self.ndigits) > 0:
-                nom_pays = self.constantes.pays_differentes_langues.get(pays, {}).get(
-                    self.langue_utilisee,
-                    pays,
-                )
 
                 vbox.addWidget(
                     creer_QLabel_centre(
@@ -242,7 +233,7 @@ class ClassementPays(QWidget):
                             # Classement
                             (f"<b>{taille_top_100 + i + 1}.</b>")
                             # Nom du pays
-                            + f"<br>{nom_pays}<br>"
+                            + f"<br>{row['nom_pays']}<br>"
                             # Part de la superficie visitée
                             + f"{row['pct_superficie_dans_pays_label']}"
                         )
@@ -288,6 +279,8 @@ class ClassementPays(QWidget):
                     columns=["Pays", "Region"],
                 ),
                 table_superficie=self.table_superficie,
+                pays_traductions=self.constantes.pays_differentes_langues.get(pays, {}),
+                langue=self.langue_utilisee,
                 granularite=granularite,
                 top_n=self.top_n,
                 ndigits=self.ndigits,

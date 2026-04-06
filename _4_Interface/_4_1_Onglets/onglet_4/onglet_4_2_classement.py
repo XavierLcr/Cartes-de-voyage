@@ -202,11 +202,9 @@ class ClassementPays(QWidget):
         # Gestion des premières lignes
         if adapter:
 
-            liste_pays = df_temp["nom_pays"].head(taille_top_100)
-
             vbox.addWidget(
                 creer_QLabel_centre(
-                    text=f"🥇<br>{', '.join(f'<b>{x}</b>' for x in liste_pays)}<br>100 %",
+                    text=f"🥇<br>{', '.join(f'<b>{x}</b>' for x in df_temp['nom_pays'].head(taille_top_100))}<br>100 %",
                     wordWrap=True,
                 ),
                 0,

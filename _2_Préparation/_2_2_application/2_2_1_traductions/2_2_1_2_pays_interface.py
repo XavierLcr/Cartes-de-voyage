@@ -53,7 +53,7 @@ def creer_liste_pays_multilangue(
     resultat = liste_deja_existante or {}
     global api_jour_modele
 
-    for i in list(set(liste_pays)):
+    for i in sorted(set(liste_pays)):
 
         if blabla >= 1:
             print(textwrap.shorten(i.strip(" \n-="), width=50, placeholder="..."))

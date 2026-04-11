@@ -3195,6 +3195,69 @@ Ajout d'un nouveau profil:
   ukrainien: Додавання нового профілю
   vietnamien: Thêm hồ sơ mới
   zoulou: Ukukwethulwa kweprofile entsha
+Ajouter un voyage:
+  afrikaans: n Reis byvoeg
+  albanais: Shto një udhëtim
+  allemand: Eine Reise hinzufügen
+  anglais: Add a trip
+  arabe: إضافة رحلة
+  arménien: Մի ճամփորդություն ավելացնել։
+  basque: Bidaia bat gehitu
+  bengali: একটি ভ্রমণ যোগ করুন।
+  birman: ခရီးစဉ်တစ်ခု ထပ်ရန်
+  breton: Moullañ un enez-vor
+  bulgare: Добавяне на пътуване
+  catalan: Afegir un viatge
+  corse: Aghjunghje un viaghju
+  coréen: 여행 추가하기
+  danois: Tilføj en rejse
+  espagnol: Añadir un viaje
+  esperanto: Aldoni vojaĝon
+  estonien: Reisi lisamine
+  français: Ajouter un voyage
+  gallois: Ychwanegu taith
+  grec ancien: προσθῆκε ταξίδιον
+  géorgien: მოგზაურობის დამატება
+  hindi: यात्रा जोड़ें।
+  hongrois: Utazás hozzáadása
+  irlandais: Cuir turas le chéile
+  islandais: Bæta við ferð
+  italien: Aggiungere un viaggio
+  japonais: 旅行を追加する。
+  kazakh: Саяхат қосу
+  kirghize: Саякат кошуу
+  kurde: Reîyekê zêde bike
+  latin: Itineri addere
+  letton: Pievienot ceļojumu
+  lituanien: Pridėti kelionę
+  luxembourgeois: E Rees ergänzen
+  macédonien: Додај патување
+  maltais: Żid vjaġġ
+  mandarin standard: 添加行程
+  mongol: Аялал нэмэх
+  norvégien: Legge til en tur
+  néerlandais: Een reis toevoegen
+  népalais: यात्रा थप्नुहोस्
+  ourdou: سفر شامل کریں
+  ouzbek: Sayohat qo'shish
+  pachto: سفر اضافه کړئ
+  persan: سفر اضافه کن
+  polonais: Dodaj podróż
+  portugais: Adicionar uma viagem
+  roumain: Adaugă o călătorie
+  russe: Добавить поездку
+  serbo-croate: Dodati put
+  slovaque: Pridať cestu
+  slovène: Dodaj potovanje
+  swahili: Ongeza safari
+  tadjik: Сафар илова кардан
+  tchèque: Přidat cestu
+  tibétain: ལམ་འགྲུབ་གསོ་བརྩི།
+  turc: Seyahat ekle
+  turkmène: Safar goşmak
+  ukrainien: Додати подорож
+  vietnamien: Thêm một chuyến đi
+  zoulou: Faka uhambo oluthe
 Alignement des pays visités dans l'hémicycle:
   afrikaans: Lining up of countries visited in the semicircle
   albanais: Rreshtimi i vendeve të vizituara në gjysmërrethin
@@ -3812,6 +3875,208 @@ Aucun lieu n'a été coché. Essayez de cocher le lieu associé à votre emplace
     vị trí hiện tại của bạn!
   zoulou: Akukho ndawo ebekiwe. Zama ukumaka indawo ehambelana nendawo okhona kuyo
     njengamanje!
+Aucun lieu n'a été coché. Veuillez cocher au minimum une destination afin que votre voyage puisse être enregistré:
+  afrikaans: Geen plek is gekies nie. Kies asseblief ten minste een bestemming sodat
+    jou reis geregistreer kan word
+  albanais: Asnjë vend nuk është shënuar. Ju lutem shënojini të paktën një destinacion
+    që udhëtimi juaj të mund të regjistrohet
+  allemand: Es wurde kein Ort ausgewählt. Bitte wählen Sie mindestens ein Ziel, damit
+    Ihre Reise gespeichert werden kann
+  anglais: No locations have been checked. Please check at least one destination so
+    your trip can be saved
+  arabe: لم يتم تحديد أي موقع. يرجى تحديد وجهة واحدة على الأقل لتسجيل رحلتك
+  arménien: 'Ոչ մի վայր չի ընտրվել: Խնդրում ենք ընտրել առնվազն մեկ ուղղություն, որպեսզի
+    ձեր ճամփորդությունը կարողանա գրանցվել:'
+  basque: Lekurik ez dago markatuta. Mesedez, markatu gutxienez helmuga bat zure bidaia
+    gorde ahal izateko
+  bengali: কোনো স্থান নির্বাচন করা হয়নি। আপনার যাত্রা নথিভুক্ত করতে অনুগ্রহ করে কমপক্ষে
+    একটি গন্তব্য নির্বাচন করুন।
+  birman: နေရာတစ်ခုမှမေရွေးထားပါ။ ခရီးသွားနိုင်ရန်အတွက် ítမစုစုရွေးချယ်ပါ။
+  breton: Ken lec'h na c'has bet isklêriet. Klipit outañ un destennenn bemui, da c'hellaat
+    da enroliñ ho teod
+  bulgare: Не е отметнато нито едно място. Моля, отбележете поне една дестинация,
+    за да може вашето пътуване да бъде запазено
+  corse: Nisun locu ùn hè statu spuntatu. Viprite spuntà almenu una destinazione per
+    pudè salvà u vostru viaghju
+  coréen: 장소가 선택되지 않았습니다. 여행을 기록하려면 최소 한 곳 이상의 목적지를 선택해주세요
+  danois: Ingen steder er blevet markeret. Vælg venligst mindst én destination, så
+    din rejse kan gemmes
+  espagnol: No se ha marcado ningún lugar. Por favor, marque al menos un destino para
+    que su viaje pueda ser guardado
+  esperanto: Neniu loko estis markita. Bonvolu marki almenaŭ unu celon por ke via
+    vojaĝo povu esti registrita
+  estonien: Ühtegi kohta pole valitud. Palun valige vähemalt üks sihtkoht, et teie
+    reis saaks registreeritud
+  finnois: Yhtään kohdetta ei ole valittu. Valitse vähintään yksi kohde, jotta matkasi
+    voidaan tallentaa
+  français: Aucun lieu n'a été coché. Veuillez cocher au minimum une destination afin
+    que votre voyage puisse être enregistré
+  gallois: Ddim caewyd llefydd. Cofiwch sicrhawn o leiaf un destynio er mwyn y gall
+    eich teithiau gael eu cofnodi
+  grec: Δεν έχει επιλεγεί καμία τοποθεσία. Παρακαλώ επιλέξτε τουλάχιστον έναν προορισμό
+    για να καταχωρηθεί το ταξίδι σας
+  grec ancien: Οὐδὲν τόπος ἐσημειώθη. Τὸν μὲν ἕνα τουλάχιστον προορισμὸν σημειώσατε,
+    ἵνα τὸ ταξίδιον ὑμῶν καταγραφῇ
+  géorgien: ადგილი არცერთი არ არის მონიშნული. გთხოვთ, მინიმუმ ერთი მიმართულება აირჩიოთ,
+    რათა თქვენი მოგზაურობა იყოს დაფიქსირებული
+  hindi: कोई स्थान चिह्नित नहीं किया गया है। कृपया अपनी यात्रा को सहेजने के लिए कम
+    से कम एक गंतव्य चिह्नित करें।
+  indonésien: Tidak ada lokasi yang dicentang. Harap centang setidaknya satu tujuan
+    agar perjalanan Anda dapat disimpan
+  irlandais: Ní roghnaíodh aon áit. Roghnaigh áit ar a laghad chun do thuras a shábháil
+  islandais: Engin staður hefur verið merktur. Vinsamlegast merktu að lágmarki eina
+    áfangastað svo ferðin þín geti verið skráð
+  italien: Nessun luogo è stato selezionato. Si prega di selezionare almeno una destinazione
+    per poter salvare il viaggio
+  japonais: 場所は何も選択されていません。少なくとも1つの目的地を選択して、旅行を登録してください。
+  kazakh: Ешқандай да орын таңдалмаған. Саяхатыңызды тіркеу үшін кемінде бір бағытты
+    таңдаңыз
+  kirghize: Эч бир жер белгиленген эмес. Сапарыңыз каттоодон өтүшү үчүн, жок дегенде
+    бир багытты белгилеңиз
+  kurde: Hêlek nehatin nîşan kirin. Ji keremê herî kêm pergezêk hilbijêrin da ku rêwîtiya
+    we were tomarkirin
+  letton: Neviens punkts nav atlasīts. Lūdzu, atlasiet vismaz vienu galamērķi, lai
+    jūsu ceļojums varētu tikt reģistrēts
+  lituanien: Nėra pažymėta nė viena vieta. Prašome pažymėti bent vieną tikslinę vietą,
+    kad jūsų kelionė būtų įrašyta
+  luxembourgeois: Keen Plaz gouf ugekréizt. Bitte kréizt mindestens e Destinatioun,
+    soss kann Äre Voyage net enregistréiert ginn
+  macédonien: Ниту една локација не е одбележана. Ве молиме, одбележете барем една
+    дестинација за да може вашето патување да биде зачувано
+  malais: Tiada lokasi telah dicok. Sila tandakan sekurang-kurangnya satu destinasi
+    supaya perjalanan anda dapat didaftarkan
+  maltais: Ma ġie mmarkat l-ebda post. Jekk jogħġbok immarka mill-inqas destinazzjoni
+    waħda biex il-vjaġġ tiegħek ikun jista’ jiġi rreġistrat
+  mandarin standard: 没有选择任何地点。请至少选择一个目的地以便记录您的行程。
+  mongol: Енэ нь аль ч газар тэмдэгтээгүй байна. Аялал таныг бүртгэхээр арав дахин
+    хамгийн багадаа нэг газар тэмдэгтээхийг шаардлагатай байна
+  néerlandais: Er is geen locatie aangevinkt. Vink minstens één bestemming aan zodat
+    uw reis kan worden opgeslagen
+  ourdou: کوئی بھی جگہ منتخب نہیں کی گئی۔ اپنی سفر کو ریکارڈ کرنے کے لیے کم سے کم
+    ایک منزل منتخب کریں۔
+  ouzbek: Hech bir joy chekilmagan. Sayohatingizni saqlash uchun iltimos, kamida bitta
+    yo'nalishni belgilang
+  pachto: هيڅ ځای نه دی ټیک کړی. خپل سفر ثبتولو لپاره لږ تر لږه یو ځای ټیک کړئ
+  persan: هیچ مکانی انتخاب نشده است. لطفاً حداقل یک مقصد را انتخاب کنید تا سفر شما
+    ثبت شود
+  polonais: Żadne miejsce nie zostało zaznaczone. Zaznacz co najmniej jeden cel, aby
+    zapisać podróż
+  portugais: Nenhum local foi marcado. Por favor, marque pelo menos um destino para
+    que a sua viagem possa ser registada
+  roumain: Niciun loc nu a fost bifat. Vă rugăm să bifați cel puțin o destinație pentru
+    ca călătoria dumneavoastră să poată fi înregistrată
+  russe: Ни один пункт не выбран. Пожалуйста, выберите хотя бы одно направление, чтобы
+    ваша поездка была зарегистрирована
+  serbo-croate: Nijedna lokacija nije označena. Molimo označite barem jednu destinaciju
+    kako biste mogli sačuvati svoje putovanje
+  slovaque: Neboli začiarknuté žiadne miesto. Prosím, začiarknite aspoň jednu destináciu,
+    aby sa vaša cesta mohla zaregistrovať
+  swahili: Hakuna mahali yaliyochaguliwa. Tafadhali chagua angalau mahali moja ili
+    safari yako iweze kusajiliwa
+  turkmène: Hiç bir ýer saýlanylmady. Sapargalyňyzy hasaba almak üçin azyndan bir
+    ugur saýlaň
+  ukrainien: Не було вибрано жодного місця. Будь ласка, виберіть щонайменше один пункт
+    призначення, щоб вашу подорож було збережено
+  vietnamien: Không có địa điểm nào được chọn. Vui lòng chọn ít nhất một điểm đến
+    để lưu lại hành trình của bạn
+  zoulou: Akukho kwenda kwaphawulwa. Sicela uphawule okungenani indawo eyodwa ukuze
+    uhambo lwakho lungarekhodwe
+Aucun voyage n'a été enregistré. Essayez de créer un voyage associé à votre emplacement actuel !:
+  afrikaans: Geen reis is geregistreer nie. Probeer 'n reis te skep wat met jou huidige
+    ligging verband hou!
+  albanais: Asnjë udhëtim nuk është regjistruar. Provoni të krijoni një udhëtim të
+    lidhur me vendndodhjen tuaj aktuale!
+  allemand: Keine Reise wurde erfasst. Versuchen Sie, eine Reise mit Ihrem aktuellen
+    Standort zu erstellen!
+  arabe: لم يتم تسجيل أي رحلة. حاول إنشاء رحلة مرتبطة بموقعك الحالي!
+  basque: Bidaia bat ere ez da erregistratu. Saiatu zure uneko kokapenarekin lotutako
+    bidaia bat sortzen!
+  bengali: কোনো ভ্রমণ রেকর্ড করা হয়নি। আপনার বর্তমান অবস্থানের সাথে একটি ভ্রমণ তৈরি
+    করার চেষ্টা করুন!
+  birman: ခရီးသွားမှတ်တမ်း မရှိပါ။ လက်ရှိတည်နေရာနှင့် သက်ဆိုင်သော ခရီးတစ်ခုကို ဖန်တီးကြည့်ပါ။
+  breton: N'eo bet sonet kenstroll ebar. Klip arver d'ober kenstroll gwan gant ho
+    lec'h aktual !
+  bulgare: Не са регистрирани пътувания. Опитайте да създадете пътуване, свързано
+    с текущото ви местоположение!
+  corse: Nisunu viaghju ùn hè statu registratu. Pruvate à crià un viaghju ligatu à
+    a vostra pusizione attuale !
+  danois: Ingen rejser er blevet registreret. Prøv at oprette en rejse, der er knyttet
+    til din aktuelle placering!
+  espagnol: No se ha registrado ningún viaje. ¡Intenta crear un viaje asociado a tu
+    ubicación actual!
+  estonien: Ühtegi reisi ei ole registreeritud. Proovige luua reis seotud teie praeguse
+    asukohaga!
+  français: Aucun voyage n'a été enregistré. Essayez de créer un voyage associé à
+    votre emplacement actuel !
+  gallois: Nid cofwyd unrhyw daith. Ceisiwch greu daith sy'n gysylltiedig â'ch lleoliad
+    cyfredol!
+  grec: Δεν έχει καταγραφεί κανένα ταξίδι. Δοκιμάστε να δημιουργήσετε ένα ταξίδι που
+    σχετίζεται με την τρέχουσα τοποθεσία σας!
+  grec ancien: Οὐδὲν πλῆρωμα κατεγράφη
+  géorgien: მგზავრობა არცერთი არ დარეგისტრირდა. სცადეთ თქვენი მიმდინარე ადგილმდებარეობისთვის
+    მოგზავრობის შექმნა!
+  hindi: कोई यात्रा दर्ज नहीं की गई। अपनी वर्तमान स्थान से जुड़ी यात्रा बनाने का प्रयास
+    करें!
+  indonésien: Tidak ada perjalanan yang tercatat. Cobalah untuk membuat perjalanan
+    yang terkait dengan lokasi Anda saat ini!
+  irlandais: Ní tá séanadh ar bith taifeadta. Bain triail as turas a chruthú a bhaineann
+    le do shuíomh reatha!
+  japonais: 旅行は記録されていません。現在の場所に関連付けられた旅行を作成してみてください！
+  kazakh: Ешқандай саяхат тіркелмеген. Қазіргі орналасқан жеріңізге байланысты саяхат
+    жасауға тырысыңыз!
+  kirghize: Эч бир саякат катталган жок. Учурдагы жайгашкан жериңизге байланыштуу
+    саякатты түзүп көрүңүз!
+  kurde: Hêvîyek hatî tomar kirin. Ji bo cîhê we yê niha serdanek çêbikin!
+  latin: Nullum iter descriptum est. Conare iter ad locum tuum currentem creare!
+  letton: Nav ceļojumu nav reģistrēts. Izmēģiniet izveidot ceļojumu, kas saistīts
+    ar jūsu pašreizējo atrašanās vietu!
+  lituanien: Nėra įrašytų kelionių. Pabandykite sukurti kelionę, susietą su jūsų dabartine
+    vieta!
+  luxembourgeois: Keen Reesen goufen enregistréiert. Probéiert eng Rees mat Ärem aktuellen
+    Standuert ze kreéieren!
+  macédonien: Не е забележано никакво патување. Обидете се да креирате патување поврзано
+    со вашата моментална локација!
+  malais: Tiada perjalanan direkodkan. Cuba cipta perjalanan yang berkaitan dengan
+    lokasi semasa anda!
+  mandarin standard: 没有记录任何行程。 尝试创建一个与您当前位置相关的行程！
+  mongol: Ямар ч аялал бүртгэгдээгүй байна. Одоогийн байршилаасаа холбогдох аялал
+    бий болгохыг туршиж үзээрэй!
+  norvégien: Ingen reiser er registrert. Prøv å opprette en reise knyttet til din
+    nåværende posisjon!
+  néerlandais: Geen enkele reis is geregistreerd. Probeer een reis te maken die is
+    gekoppeld aan uw huidige locatie!
+  népalais: कुनै यात्रा रेकर्ड गरिएको छैन। कृपया तपाईंको हालको स्थानसँग सम्बन्धित
+    यात्रा बनाउनुहोस्!
+  ourdou: کوئی سفر ریکارڈ نہیں کیا گیا۔ اپنے موجودہ مقام سے وابستہ سفر بنانے کی کوشش
+    کریں!
+  ouzbek: Sayohot yozilmagan. Hozirgi joyingizga bog'liq sayohat yaratib ko'ring!
+  pachto: هيڅ سفر ثبت شوی نه دی. خپل اوسنی ځای ته اړوند سفر جوړولو هڅه وکړئ!
+  persan: هیچ سفری ثبت نشده است. سعی کنید یک سفر مرتبط با موقعیت مکانی فعلی خود ایجاد
+    کنید!
+  roumain: Nici o călătorie nu a fost înregistrată. Încearcă să creezi o călătorie
+    asociată cu locația ta actuală!
+  russe: Никаких поездок не зарегистрировано. Попробуйте создать поездку, связанную
+    с вашим текущим местоположением!
+  serbo-croate: Nijedno putovanje nije zabeleženo. Pokušajte da kreirate putovanje
+    povezano sa vašom trenutnom lokacijom!
+  slovaque: Neboli zaznamenaný žiadny výlet. Skúste vytvoriť výlet spojený s vašou
+    aktuálnou polohou!
+  suédois: Ingen resa har registrerats. Försök skapa en resa kopplad till din nuvarande
+    plats!
+  swahili: Hakuna safari iliyosajiliwa. Jaribu kuunda safari inayohusiana na eneo
+    lako la sasa!
+  tamoul: பயணங்கள் எதுவும் பதிவு செய்யப்படவில்லை. உங்கள் தற்போதைய இருப்பிடத்துடன்
+    ஒரு பயணத்தை உருவாக்க முயற்சிக்கவும்!
+  tchèque: Nebyl zaznamenán žádný výlet. Zkuste vytvořit výlet spojený s vaší aktuální
+    polohou!
+  thaï: ไม่มีการบันทึกการเดินทางใดๆ ลองสร้างการเดินทางที่เกี่ยวข้องกับตำแหน่งปัจจุบันของคุณ!
+  turc: Seyahat kaydedilmedi. Mevcut konumunuzla ilgili bir seyahat oluşturmayı deneyin!
+  ukrainien: Немає зареєстрованих подорожей. Спробуйте створити подорож, пов’язану
+    з вашим поточним місцезнаходженням!
+  vietnamien: Không có chuyến đi nào được ghi lại. Hãy thử tạo một chuyến đi liên
+    kết với vị trí hiện tại của bạn!
+  zoulou: Ayikho uhambo olubhalisiwe. Zama ukudala uhambo oluhambisana nendawo yakho
+    yamanje!
 Autres régions du monde:
   afrikaans: Ander streke in die wêreld
   albanais: Rajone të tjera të botës
@@ -4167,6 +4432,120 @@ Cartes à publier:
   ukrainien: Картки для публікації
   vietnamien: Thẻ bài để đăng tải
   zoulou: Amakhadi okuzothunyelwa
+? Cela permet de charger la liste des voyages effectués. L'ancien format avec les
+  listes de régions ou départements par pays est également supporté.
+: afrikaans: Dit maak dit moontlik om die lys van uitgevoerde reise te laai. Die ou
+    formaat met die lys van streke of departemente per land word ook ondersteun
+  albanais: Kjo lejon ngarkimin e listës së udhëtimeve të kryera. Mbështetet edhe
+    formatimi i vjetër me lista rajonesh ose departamete për vend
+  anglais: This allows loading the list of trips taken. The old format with region
+    or department lists by country is also supported
+  arabe: يُمكِّن هذا من تحميل قائمة الرحلات التي تم إجراؤها. كما يدعم التنسيق القديم
+    مع قوائم المناطق أو الأقسام حسب البلد
+  arménien: Սա թույլ է տալիս բեռնել կատարված ճանապարհորդությունների ցուցակը։ Հնագույն
+    ձևաչափը՝ երկրներով բաժանված տարածաշրջանների կամ դեպարտամենտների ցուցակներով, նույնպես
+    աջակցվում է։
+  basque: Honek bidaien egindako zerrenden karga ahalbidetzen du. Herrialdeko eskualde
+    edo departamenduen zerrendak zituen formatu zaharra ere onartzen da
+  bengali: এটি সম্পন্ন হলে করা ভ্রমণগুলোর তালিকা লোড করা যাবে। দেশ অনুযায়ী অঞ্চল বা
+    বিভাগগুলোর পুরোনো ফরম্যাটও সমর্থন করা হয়।
+  breton: Hemañ a lakaat da lakaat al listenn eus an treujioù graet. Skignet eo ivez
+    ar furmad kozh gant al listoù rannvroioù pe departamantoù dre vro
+  bulgare: Това позволява зареждане на списък с извършени пътувания. Поддържа се и
+    старият формат със списъци на региони или департаменти по държави
+  catalan: Això permet de carregar la llista dels viatges realitzats. El format anterior
+    amb les llistes de regions o departaments per país també és compatible
+  corse: Quellu permette di carricà a lista di i viaghji fatti. L'anticu formatu cù
+    e liste di regioni o dipartimenti per paesi hè ancu sustinutu
+  coréen: 이를 통해 수행된 여행 목록을 불러올 수 있습니다. 국가별 지역 또는 부서 목록을 사용한 이전 형식도 지원됩니다
+  danois: Dette giver mulighed for at indlæse listen over foretagne rejser. Det gamle
+    format med lister over regioner eller departementer pr. land understøttes også
+  espagnol: Esto permite cargar la lista de viajes realizados. El formato antiguo
+    con las listas de regiones o departamentos por país también es compatible
+  esperanto: Tio ebligas ŝargi la liston de faritaj vojaĝoj. La malnova formato kun
+    listoj de regionoj aŭ departementoj laŭ lando ankaŭ estas subtenata
+  estonien: See võimaldab laadida tehtud reiside loendi. Vana formaat, kus on piirkondade
+    või departemangude loendid riigi kaupa, on samuti toetatud
+  finnois: Tämä mahdollistaa tehtyjen matkojen listan lataamisen. Vanha muoto, jossa
+    on luetteloita alueista tai departementeista maittain, on myös tuettu
+  français: Cela permet de charger la liste des voyages effectués. L'ancien format
+    avec les listes de régions ou départements par pays est également supporté
+  gallois: Mae hyn yn caniatáu i lwythau rhestr y teithiau a gyflawnwyd. Mae'r fformat
+    hen gyda rhestrau rhanbarthau neu adrannau trwy wlad yn cael ei gefnogi hefyd
+  grec: Αυτό επιτρέπει τη φόρτωση της λίστας των ταξιδιών που έχουν πραγματοποιηθεί.
+    Η παλιά μορφή με λίστες περιοχών ή νομών ανά χώρα υποστηρίζεται επίσης
+  géorgien: ეს საშუალებას აძლევს განხორციელებული მოგზაურობების სიაში ჩატვირთვას. ასევე
+    მხარდაჭერილია ძველი ფორმატი, ქვეყნების მიხედვით რეგიონების ან დეპარტამენტების
+    სიაებით
+  hindi: यह यात्राओं की सूची लोड करने की अनुमति देता है। देशों के अनुसार क्षेत्रों
+    या विभागों की पुरानी प्रारूप भी समर्थित है।
+  hongrois: Ez lehetővé teszi az eddigi utazások listájának betöltését. A régi formátum
+    is támogatott, amely országonként régiók vagy megyék listáját tartalmaz
+  indonésien: Ini memungkinkan untuk memuat daftar perjalanan yang telah dilakukan.
+    Format lama dengan daftar wilayah atau departemen per negara juga didukung
+  islandais: Þetta gerir kleift að hlaða inn lista yfir ferðalög sem hafa verið gerðar.
+    Gamla sniðið með listum yfir svæði eða sýslur eftir landi er einnig studd
+  italien: Questo permette di caricare la lista dei viaggi effettuati. Il vecchio
+    formato con le liste di regioni o dipartimenti per paese è supportato anch'esso
+  japonais: これにより、過去の旅行リストを読み込むことができます。以前の形式で、国ごとの地域や県の一覧もサポートされています。
+  kazakh: Бұл жасалған саяхаттар тізімін жүктеуге мүмкіндік береді. Ескі формат, елдер
+    бойынша аймақтар немесе департаменттер тізімімен де қолдау көрсетіледі
+  kirghize: Бул саякаттар тизмесин жүктөөгө мүмкүндүк берет. Эски формат, өлкө боюнча
+    аймактар же бөлүмдөрдүн тизмеси менен да колдоого алынат
+  kurde: Ev vê rêya barkirina lîsteya seferên hatine kirin pê ve dihê. Formata kevn
+    ku lîsteyên herêm an departmanan li gor welatan e, tê piştgirî kirin
+  letton: Tas ļauj ielādēt veikto ceļojumu sarakstu. Atbalstīts ir arī vecais formāts
+    ar reģionu vai departamentu sarakstiem pēc valsts
+  lituanien: Tai leidžia įkelti atliktų kelionių sąrašą. Taip pat palaikomas senesnis
+    formatas su regionų ar departamentų sąrašais pagal šalį
+  macédonien: Ова овозможува вчитување на листата на извршени патувања. Стариот формат
+    со листи на региони или оддели по земја е исто така поддржан
+  malais: Ini membolehkan untuk memuatkan senarai perjalanan yang telah dibuat. Format
+    lama dengan senarai wilayah atau jabatan mengikut negara juga disokong
+  malgache: Izany no ahafahana mamoaka ny lisitry ny dia vita. Tohanana ihany koa
+    ny endrika taloha miaraka amin'ny lisitry ny faritra na departemanta isam-pirenena
+  mongol: Энэ нь хийсэн аяллын жагсаалтыг уншихад тусалдаг. Өмнөх формат, улс бүрээр
+    бүс нутгууд болон департаментын жагсаалттай нь мөн дэмжлэгтэй
+  norvégien: Dette gjør det mulig å laste inn listen over utførte reiser. Det gamle
+    formatet med lister over regioner eller departementer per land støttes også
+  néerlandais: Hierdoor kan de lijst met uitgevoerde reizen worden geladen. Het oude
+    formaat met lijsten van regio's of departementen per land wordt ook ondersteund
+  ourdou: اس سے کیے گئے سفر کی فہرست لوڈ کرنے کی اجازت ملتی ہے۔ ملک کے لحاظ سے خطوں
+    یا محکموں کی پرانی فہرستوں کے ساتھ فارمیٹ بھی سپورٹ کیا جاتا ہے۔
+  ouzbek: Bu, amalga oshirilgan sayohatlar ro'yxatini yuklash imkonini beradi. Avvalgi
+    format, mamlakatlar bo'yicha mintaqalar yoki bo'limlar ro'yxati bilan ham qo'llab-quvvatlanadi
+  persan: این امکان را فراهم می‌کند تا لیست سفرهای انجام شده بارگذاری شود. فرمت قدیمی
+    با لیست مناطق یا استان‌ها بر اساس کشور نیز پشتیبانی می‌شود
+  portugais: Isto permite carregar a lista de viagens efetuadas. O formato antigo
+    com as listas de regiões ou departamentos por país também é suportado
+  russe: Это позволяет загрузить список совершенных поездок. Также поддерживается
+    старый формат со списками регионов или департаментов по странам
+  serbo-croate: Ovo omogućava učitavanje liste izvršenih putovanja. Stari format sa
+    listama regija ili departmana po zemljama je takođe podržan
+  slovaque: Toto umožňuje načítať zoznam vykonaných ciest. Podporovaný je tiež starší
+    formát so zoznamami regiónov alebo oddelení podľa krajín
+  slovène: To omogoča nalaganje seznama opravljenih potovanj. Podprt je tudi stari
+    format s seznami regij ali departmajev po državah
+  suédois: Detta möjliggör att ladda listan över genomförda resor. Det äldre formatet
+    med listor över regioner eller departement per land stöds också
+  swahili: Hii inawezesha kupakia orodha ya safari zilizofanywa. Umbo la zamani na
+    orodha za mikoa au idara kwa nchi pia linaungwa mkono
+  tamoul: இது மேற்கொள்ளப்பட்ட பயணங்களின் பட்டியலை ஏற்ற அனுமதிக்கிறது. பழைய வடிவம்,
+    நாடுகளின் பிராந்தியங்கள் அல்லது துறைகளின் பட்டியல்களுடன், ஆதரிக்கப்படுகிறது
+  tchèque: Umožňuje načíst seznam provedených cest. Podporovaný je i starší formát
+    se seznamy regionů nebo krajů podle zemí
+  thaï: สิ่งนี้ช่วยให้สามารถโหลดรายการการเดินทางที่ทำไปแล้วได้ รูปแบบเก่าที่มีรายการภูมิภาคหรือจังหวัดตามประเทศก็ยังรองรับเช่นกัน
+  tibétain: འདི་འོས་བསྡུ་བྱེད་ལུགས་ཀྱི་འགྲིམ་འགྲུབ་ཀྱི་ཐོ་ཚོགས་བཀོད་པར་བྱེད་དགོས།
+    རྒྱལ་ཁབ་དེ་དག་གི་ཁུལ་དང་ཡུལ་སྐོར་གྱི་ཐོ་ཚོགས་རྙོག་པའི་རྣམ་པའང་བསྐྱར་གྱིས་འགྲུབ་པའོ།
+  turkmène: Bu, amal edilen syýahatleriň sanawyny ýüklemäge mümkinçilik berýär. Ilki
+    bilenki format, ýurt boýunça seýilgehler ýa-da departamentleriň sanawlary bilen
+    hem goldanylýar
+  ukrainien: Це дозволяє завантажити список здійснених подорожей. Також підтримується
+    старий формат зі списками регіонів або департаментів за країнами
+  vietnamien: Điều này cho phép tải danh sách các chuyến đi đã thực hiện. Định dạng
+    cũ với danh sách các vùng hoặc tỉnh theo quốc gia cũng được hỗ trợ
+  zoulou: Lokhu kuvumela ukulayisha uhlu lwezihambo ezenziwe. Ifomethi endala enezinhlu
+    zezifunda noma amaphrovinzi ngomunye umbuso nayo iyasekelwa
 Certains lieux provenant de votre fichier n'ont pas de correspondance:
   afrikaans: Sommige plekke uit jou lêer het geen wedstryd nie
   albanais: Disa vende nga skedari juaj nuk kanë përputhje
@@ -4238,6 +4617,127 @@ Certains lieux provenant de votre fichier n'ont pas de correspondance:
   ukrainien: Деякі місця з вашого файлу не мають відповідності
   vietnamien: Một số địa điểm từ tệp của bạn không có kết quả khớp
   zoulou: Amanye amakheli avela kufayela lakho awahambelani
+Chargement manuel d'un fichier YAML:
+  afrikaans: Handmatige laai van 'n YAML-lêer
+  albanais: Ngarkim manual i një skedari YAML
+  allemand: Manuelles Laden einer YAML-Datei
+  arabe: تحميل يدوي لملف YAML
+  arménien: Ուղիղ ֆայլի բեռնում YAML ձևաչափով։
+  basque: YAML fitxategi biltzea eskuz
+  bengali: ম্যানুয়ালি YAML ফাইল আপলোড করা।
+  birman: YAML ဖိုင်ကို လက်ဖြင့် တင်သွင်းခြင်း။
+  breton: Kargañ gwezhioù YAML dreist-arm
+  bulgare: Ръчно зареждане на YAML файл
+  catalan: Càrrega manual d'un fitxer YAML
+  corse: Caricamentu manuale di un scheddu YAML
+  coréen: YAML 파일 수동 로드
+  danois: Manuel indlæsning af en YAML-fil
+  espagnol: Carga manual de un archivo YAML
+  esperanto: Manuala ŝarĝado de YAML-dosiero
+  estonien: YAML-faili käsitsi laadimine
+  finnois: YAML-tiedoston manuaalinen lataus
+  français: Chargement manuel d'un fichier YAML
+  gallois: Llofruddio ffeil YAML â llaw
+  grec: Φόρτωση αρχείου YAML με μη αυτόματο τρόπο
+  grec ancien: Χειροκίνητος ἄνοδος ἀρχείου YAML
+  géorgien: YAML ფაილის ხელით დატვირთვა
+  hongrois: YAML fájl manuális betöltése
+  indonésien: Pemuatan manual file YAML
+  irlandais: Ualacháil láimhe le doiciméad YAML
+  islandais: Handvirkt innlesning af YAML skrá
+  japonais: YAMLファイルの手動読み込み
+  kazakh: YAML файлының қолмен жүктелуі
+  kirghize: YAML файлдын аларды кол менен жүктөөсү
+  kurde: YAML pelê hilgirtina destî
+  latin: Onus manualis documenti YAML
+  letton: YAML faila manuāla ielāde
+  lituanien: Rankinis YAML failo įkėlimas
+  luxembourgeois: Manuell Luede vun enger YAML-Datei
+  macédonien: Мануелно вчитување на YAML датотека
+  malais: Pemuatan manual fail YAML
+  malgache: Fampidirana tanana rakitra YAML
+  maltais: Tagħbija manwali ta' fajl YAML
+  mandarin standard: 手动加载YAML文件
+  mongol: YAML файлын гарын авлагаар унших
+  norvégien: Manuell lasting av en YAML-fil
+  néerlandais: Handmatig laden van een YAML-bestand
+  népalais: YAML फाइलको म्यानुअल लोडिङ।
+  ourdou: YAML فائل کو دستی طور پر لوڈ کرنا۔
+  ouzbek: YAML faylni qo'lda yuklash
+  pachto: د YAML فایل لاسي دستي بارولو
+  persan: بارگذاری دستی یک فایل YAML
+  polonais: Ręczne ładowanie pliku YAML
+  portugais: Carregamento manual de um arquivo YAML
+  serbo-croate: Ručno učitavanje YAML datoteke
+  slovaque: Ručné načítanie YAML súboru
+  slovène: Ročno nalaganje datoteke YAML
+  suédois: Manuell inläsning av en YAML-fil
+  tadjik: Бороварди дастӣ файлаи YAML
+  thaï: การโหลดไฟล์ YAML ด้วยตนเอง
+  tibétain: YAML དེ་སྒྲིག་གི་འབྲི་འདེབས་ལག་བསྟེན།
+  ukrainien: Ручне завантаження YAML-файлу
+  vietnamien: Tải tệp YAML thủ công
+  zoulou: Ukulayisha ngesandla kwefayela le-YAML
+Charger le fichier de sauvegarde des voyages:
+  albanais: Ngarkoni skedarin e ruajtjes së udhëtimeve
+  allemand: Die Reisensicherungsdatei laden
+  anglais: Load the travel save file
+  arabe: تحميل ملف حفظ الرحلات
+  arménien: Ուղևորությունների պահպանման ֆայլը բեռնել։
+  basque: Bidaia-fitxategia kargatu
+  bengali: ভ্রমণের সেভ ফাইল লোড করুন।
+  birman: ခရီးသွားမှတ်ချက်များကို သိမ်းထားသောဖိုင်ကို တင်ပါ။
+  bulgare: Зареждане на файла за запазени пътувания
+  catalan: Carregar el fitxer de guardat de viatges
+  corse: Caricà u schedariu di salvatoghju di i viaghji
+  coréen: 여행 저장 파일 불러오기
+  danois: Indlæs rejsesparingsfilen
+  espagnol: Cargar el archivo de guardado de viajes
+  esperanto: Ŝarĝi la dosieron de konservado de la vojaĝoj
+  estonien: Reiside salvestusfaili laadimine
+  finnois: Matkatallennustiedoston lataaminen
+  français: Charger le fichier de sauvegarde des voyages
+  gallois: Llyfrdiwch ffeil cadw teithiau
+  grec ancien: Φορτίζω τὸ ἀποθηκευμένον ἀρχεῖον τῶν πλῶν
+  géorgien: მოგზაურობის შენახვის ფაილის ჩატვირთვა
+  hindi: यात्रा बचत फ़ाइल लोड करें।
+  hongrois: Az utazási mentési fájl betöltése
+  indonésien: Muat berkas simpan perjalanan
+  irlandais: Lódáil an comhaid sábháilte taistil
+  islandais: Hlaða inn vistunarskrá ferðanna
+  italien: Caricare il file di salvataggio dei viaggi
+  kirghize: Саякаттарды сактоо файлын жүктөө
+  kurde: Reşê hilgîrkirina pelê parastina rêwiyan
+  latin: Onus fasciculi servationis itinerum imponere
+  letton: Ielādēt ceļojumu saglabāšanas failu
+  lituanien: Įkelti kelionių išsaugojimo failą
+  luxembourgeois: D'Reesspäicherdatei vun de Reesen laden
+  macédonien: Вчитај го датотеката за зачувување на патувањата
+  malais: Muatkan fail simpanan perjalanan
+  malgache: Mamorona ny rakitra fitahirizana ny dia
+  maltais: Tagħbija l-fajl tal-backup tal-vjaġġi
+  mandarin standard: 加载旅行存档文件。
+  mongol: Аялын хураасан файлаа уншуулах
+  norvégien: Last inn reisefilen
+  néerlandais: Laad het reisopslagbestand
+  népalais: यात्रा बचत फाइल लोड गर्नुहोस्।
+  ourdou: سفر کی بچت فائل لوڈ کریں۔
+  pachto: د سفرونو د خوندي فایل بار کړئ
+  persan: بارگیری فایل ذخیره سفرها
+  polonais: Załaduj plik zapisu podróży
+  roumain: Încărcați fișierul de salvare a călătoriilor
+  russe: Загрузить файл сохранения путешествий
+  slovaque: Načítať súbor s uloženými cestami
+  slovène: Naloži datoteko s shranjenimi potovanji
+  suédois: Ladda resesparfilen
+  swahili: Pakia faili la kuhifadhi safari
+  tadjik: Фарои файли нигаҳдории сафарҳо
+  tamoul: பயண சேமிப்பு கோப்பை ஏற்று
+  tchèque: Načíst soubor s uloženými cestami
+  thaï: โหลดไฟล์บันทึกการเดินทาง
+  tibétain: ལམ་སོང་གི་བསྐྱར་གསོ་འདེབས་ཡིག་འདུས་འཇུག་བྱེད་།
+  turc: Seyahat kayıt dosyasını yükle
+  ukrainien: Завантажити файл збереження подорожей
 Charger un fichier YAML:
   afrikaans: Laai 'n YAML-lêer
   albanais: Ngarko një skedar YAML
@@ -4593,6 +5093,61 @@ Cliquez ici afin de trouver votre prochaine destination !:
   ukrainien: Натисніть тут, щоб знайти наступне місце призначення!
   vietnamien: Nhấp vào đây để tìm điểm đến tiếp theo của bạn!
   zoulou: Cofa lapha ukuze uthole indawo oya kuyo elandelayo!
+Contexte du voyage:
+  afrikaans: Reis konteks
+  albanais: Konteksti i udhëtimit
+  allemand: Reisekontext
+  anglais: Travel context
+  basque: Bidaiaren testuingurua
+  bengali: ভ্রমণের প্রেক্ষাপট।
+  birman: ခရီးသွားခြင်းဆိုင်ရာအကြောင်းအရာ။
+  breton: Konten ar veaj
+  bulgare: Контекст на пътуването
+  catalan: Context del viatge
+  coréen: 여행 배경
+  danois: Rejsekontekst
+  espagnol: Contexto del viaje
+  esperanto: Vojaĝa kunteksto
+  estonien: Reisikontekst
+  finnois: Matkan konteksti
+  français: Contexte du voyage
+  gallois: Cyd-destun y daith
+  grec: Πλαίσιο ταξιδιού
+  grec ancien: περιπετείας ὕλη
+  géorgien: მოგზაურობის კონტექსტი
+  hindi: यात्रा का संदर्भ
+  irlandais: Contexta an taistil
+  italien: Contesto del viaggio
+  japonais: 旅行のコンテキスト
+  kirghize: Саякат контексти
+  kurde: Çavkaniyê
+  latin: Iter contextus
+  letton: Ceļojuma konteksts
+  luxembourgeois: Reesekontext
+  malais: Kontek perjalanan
+  maltais: Kuntest tal-vjaġġ
+  mandarin standard: 旅行背景
+  mongol: Аяллын контекст
+  norvégien: Reisekontekst
+  népalais: यात्राको सन्दर्भ।
+  ourdou: سفر کی kontekst
+  pachto: د سفر لپاره اړتیا
+  persan: زمینه سفر
+  polonais: Kontekst podróży
+  portugais: Contexto da viagem
+  russe: Контекст поездки
+  serbo-croate: Kontekst putovanja
+  slovène: Kontekst potovanja
+  swahili: Mukhtadha wa safari
+  tadjik: Контексти сафар
+  tamoul: பயணத்தின் சூழல்
+  tchèque: Kontext cesty
+  tibétain: ལམ་འགྲུབ་ཀྱི་གནས་ཚུལ།
+  turc: Seyahat bağlamı
+  turkmène: Sähetçilik konteksti
+  ukrainien: Контекст подорожі
+  vietnamien: Bối cảnh chuyến đi
+  zoulou: Umkhankaso wohambo
 Couleur de l'arrière plan:
   afrikaans: Agtergrondkleur
   albanais: Ngjyra e sfondit
@@ -5270,6 +5825,116 @@ Création des cartes:
     Lo mbono uhlose kuphela ukwenza lula ukuhlelwa nokusetshenziswa kwamabalazwe.
     Akubonisani nesimo sezombusazwe, sezokuxhumana, noma sezomthetho mayelana nesimo
     sezindawo ezikhonjisiwe
+Date de début:
+  afrikaans: Begin datum
+  albanais: Data fillimi
+  allemand: Startdatum
+  anglais: Start date
+  arabe: تاريخ البدء
+  arménien: Մեկնարկի թիվ
+  basque: Hasiera data
+  bengali: শুরুর তারিখ।
+  birman: စတင်ရက်။
+  bulgare: Начална дата
+  catalan: Data d'inici
+  corse: Data d'iniziu
+  coréen: 시작일
+  espagnol: Fecha de inicio
+  esperanto: Komenca dato
+  estonien: Alguskuupäev
+  finnois: Aloituspäivämäärä
+  français: Date de début
+  gallois: Dyddiad dechrau
+  grec: Ημερομηνία έναρξης
+  grec ancien: D'accord. Je suis prêt. Donne-moi la phrase
+  géorgien: დასაწყისი თარიღი
+  hongrois: Kezdeti dátum
+  indonésien: Tanggal mulai
+  japonais: 開始日
+  kazakh: Бастау күні
+  kurde: Destpêka dîrokê
+  latin: Dies initium
+  lituanien: Pradėimo data
+  luxembourgeois: Startdatum
+  macédonien: Дата на почеток
+  malais: Tarikh mula
+  maltais: Data tal-bidu
+  mandarin standard: 开始日期
+  néerlandais: Startdatum
+  népalais: सुरुवातको मिति
+  ourdou: شروع کی تاریخ
+  ouzbek: Boshlanish sanasi
+  persan: تاریخ شروع
+  polonais: Data rozpoczęcia
+  portugais: Data de início
+  roumain: Data de început
+  russe: Дата начала
+  slovaque: Dátum začatia
+  slovène: Datum začetka
+  tadjik: Санаи оғоз
+  tamoul: துவக்க தேதி
+  tchèque: Datum zahájení
+  thaï: วันที่เริ่มต้น
+  tibétain: འགོ་ཚོགས་པའི་དུས་ཚེད།
+  turc: Başlangıç tarihi
+  turkmène: Başlangyç senesi
+  ukrainien: Дата початку
+  vietnamien: Ngày bắt đầu
+  zoulou: Usuku lokuvula
+Date de fin:
+  afrikaans: Sluitingsdatum
+  albanais: Data e përfundimit
+  allemand: Enddatum
+  arabe: تاريخ الانتهاء
+  arménien: Վերջի ամսաթիվ։
+  basque: Buka data
+  bengali: শেষ তারিখ।
+  birman: ပြီးဆုံးရက်။
+  breton: Deiz-serenn
+  catalan: Data de finalització
+  corse: Data di fine
+  danois: Slutdato
+  espagnol: Fecha de finalización
+  esperanto: Fina dato
+  finnois: Päivämäärä
+  français: Date de fin
+  gallois: Dydd terfyn
+  grec: Ημερομηνία λήξης
+  grec ancien: Τέλος χρονοῦ
+  géorgien: დასრულების თარიღი
+  hindi: अंतिम तिथि
+  hongrois: Lejárati dátum
+  indonésien: Tanggal berakhir
+  irlandais: Dáta deireadh
+  japonais: 終了日
+  kazakh: Аяқталу күні
+  kirghize: Аяктоо күнү
+  kurde: Dîroka dawîn
+  latin: Finis dies
+  letton: Beigu datums
+  luxembourgeois: Enn Datum
+  macédonien: Краен рок
+  malais: Tarikh tamat
+  maltais: Data tat-tmiem
+  mandarin standard: 截止日期
+  mongol: Дуусах өдрийн
+  norvégien: Sluttdato
+  néerlandais: Einddatum
+  népalais: समाप्ति मिति
+  ouzbek: Yakunlanish sanasi
+  pachto: د پای ته نیټه
+  persan: تاریخ پایان
+  polonais: Data zakończenia
+  serbo-croate: Datum završetka
+  slovaque: Dátum ukončenia
+  slovène: Datum konca
+  tadjik: Ниҳояи мӯҳлат
+  tamoul: முடிவுத் தேதி
+  tibétain: དུས་ཚ 끝
+  turc: Bitiş tarihi
+  turkmène: Bitirňyň senasy
+  ukrainien: Дата закінчення
+  zoulou: Usuku lokugcina
 Dix cartes:
   afrikaans: Tien kaarte
   albanais: Dhjetë letra
@@ -8999,6 +9664,125 @@ Les cartes ont été créées avec succès !:
   tibétain: ལག་འདེབས་དེ་དག་ལེགས་པར་བཟོས་སོང་།
   turc: Kartlar başarıyla oluşturuldu!
   turkmène: Kartalar üstünlikli döredildi!
+  ukrainien: Карти було успішно створено!
+  zoulou: Izibalo zenziwe ngempumelelo!
+Liste des lieux visités:
+  afrikaans: Lys van plekke besoek
+  albanais: Lista vendveve të vizituara
+  allemand: Besuchte Orte
+  anglais: List of places visited
+  arabe: قائمة الأماكن التي تمت زيارتها
+  arménien: Այցելած վայրերի ցանկ։
+  basque: Bisitatutako lekuen zerrenda
+  bengali: ভিজিট করা স্থানগুলোর তালিকা।
+  breton: Roll al lec'hioù bet gweladennet
+  bulgare: Списък на посетените места
+  catalan: Llista de llocs visitats
+  corse: Lista di i lochi visitati
+  coréen: 방문 장소 목록
+  danois: Besøgte steder
+  espagnol: Lista de lugares visitados
+  esperanto: Vizititaj lokoj
+  estonien: Külastatud kohtade nimekiri
+  français: Liste des lieux visités
+  grec ancien: Τόπων ἐπισκοπηθέντων κατάλογος
+  géorgien: გაყრილი ადგილების სია
+  hindi: घूमी गई जगहों की सूची।
+  hongrois: Látogatott helyek listája
+  indonésien: Daftar tempat yang dikunjungi
+  irlandais: Liosta na n-áiteanna ar cuireadh cuairt orthu
+  islandais: Staðir sem heimsóttu
+  japonais: 訪問した場所リスト
+  kazakh: Сапарда барған жерлер тізімі
+  kirghize: Саякаттаган жерлердин тизмеси
+  kurde: Serdanên hatine dîtin
+  latin: Loci visiti
+  lituanien: Apsilankytų vietų sąrašas
+  luxembourgeois: Lëscht vun de besichte Plazen
+  malais: Senarai tempat yang dilawati
+  malgache: Lisitra ny toerana navitika
+  mongol: Зорьсон газруудын жагсаалт
+  norvégien: Steder besøkt
+  néerlandais: Lijst van bezochte plaatsen
+  népalais: घूमिएका स्थानहरूको सूची
+  ourdou: سفر کردہ مقامات کی فہرست۔
+  ouzbek: Tashrif etilgan joylar ro'yxati
+  pachto: د لیدلو لست
+  persan: فهرست مکان‌های بازدید شده
+  polonais: Lista miejsc odwiedzonych
+  portugais: Lista de lugares visitados
+  serbo-croate: Popis posjećenih mjesta
+  slovène: Seznam obiskanih krajev
+  swahili: Orodha ya maeneo yaliyotembelewa
+  tadjik: Ҷойҳои дидашуда
+  tamoul: பயணிக்கப்பட்ட இடங்களின் பட்டியல்
+  tchèque: Seznam navštívených míst
+  thaï: รายการสถานที่ที่ไปมา
+  tibétain: བསྐྱར་མྱོང་གི་ས་ཁོངས་ཀྱི་མིང་དཔེ་།
+  turc: Ziyaret edilen yerlerin listesi
+  turkmène: Sapalyklaryň sanawy
+  ukrainien: Список відвіданих місць
+  vietnamien: Danh sách các địa điểm đã tham quan
+Liste des voyages effectués:
+  afrikaans: Lys van reise wat onderneem is
+  albanais: Lista e udhëtimeve të kryera
+  allemand: Reiseliste
+  arménien: Կատարված ճամփորդությունների ցուցակ
+  basque: Egindako bidaien zerrenda
+  bengali: ভ্রমণের তালিকা।
+  birman: ခရီးစဉ်စာရင်း
+  breton: Roll ar voyageoù bet graet
+  bulgare: Списък на извършените пътувания
+  corse: Lista di i viaggi fatti
+  coréen: 여행 목록
+  danois: Rejserliste
+  espagnol: Lista de viajes realizados
+  esperanto: Vojaĝlisto
+  estonien: Reiside nimekiri
+  finnois: Tehdyt matkat
+  français: Liste des voyages effectués
+  gallois: Rhestr o deithiau a gyflawnwyd
+  grec: Κατάλογος ταξιδιών που πραγματοποιήθηκαν
+  grec ancien: Λίστα τῶν πλοῶν γεγονότων
+  géorgien: გადაйдеული მოგზაურობების სია
+  hindi: यात्राओं की सूची।
+  hongrois: Elvégzett utazások listája
+  irlandais: Liosta na dturais a rinneadh
+  islandais: Ferðalistar
+  italien: Elenco dei viaggi effettuati
+  kazakh: Сапарлар тізімі
+  kirghize: Жүргөн саякаттардын тизмеси
+  kurde: Reîstên seferan
+  latin: Iterum confectum indicia
+  letton: Veikto ceļojumu saraksts
+  lituanien: Atliktų kelionių sąrašas
+  luxembourgeois: Lëscht vun de gemaachen Reesen
+  macédonien: Список на патувања
+  malais: Senarai perjalanan yang telah dibuat
+  malgache: Lisitra ny dia nanao
+  maltais: Lista tal-vjaġġi magħmula
+  mandarin standard: 已进行的旅行清单
+  mongol: Хийсэн аяллуудын жагсаалт
+  norvégien: Reiser utført
+  néerlandais: Lijst van gemaakte reizen
+  népalais: यात्राको सूची।
+  ourdou: سفروں کی فہرست۔
+  ouzbek: Safarler ro'yxati
+  persan: فهرست سفر‌های انجام‌شده
+  roumain: Lista călătoriilor efectuate
+  russe: Список совершенных поездок
+  slovaque: Zoznam vykonaných ciest
+  slovène: Seznam opravljenih potovanj
+  suédois: Resorlista
+  swahili: Orodha ya safari zilizofanyika
+  tadjik: Сафариҳои гузаронидашуда
+  tamoul: பயணங்களின் பட்டியல்
+  tchèque: Seznam cest
+  thaï: รายการการเดินทางที่ผ่านมา
+  tibétain: ལམ་འགྲུབ་ཀྱི་མཛུབ་སྒྲིག
+  turkmène: Səyahət sanawy
+  vietnamien: Danh sách các chuyến đi
+  zoulou: Uhlu lwazo zihambile
 Masquer la méthode alternative:
   afrikaans: Verberg die alternatiewe metode
   albanais: Fshih metodën alternative
@@ -9283,6 +10067,61 @@ Nom de profil:
   ukrainien: Назва профілю
   vietnamien: Tên hồ sơ
   zoulou: Igama lomsebenzisi
+Nom du voyage:
+  afrikaans: Naam van die reis
+  albanais: Emri udhëtimit
+  anglais: Trip name
+  basque: Bidaiaren izena
+  bengali: ভ্রমণের নাম
+  birman: ခရီးနာမည်။
+  breton: Anv ar veaj
+  bulgare: Име на пътуването
+  catalan: Nom del viatge
+  corse: Nome di u viagiu
+  danois: Rejse Navn
+  espagnol: Nombre del viaje
+  esperanto: Vojaĝonomo
+  français: Nom du voyage
+  gallois: Enw'r daith
+  grec: Όνομα του ταξιδιού
+  grec ancien: Τὸ ὄνομα τοῦ πλους
+  géorgien: მოგზაურობის სახელი
+  hindi: यात्रा का नाम।
+  hongrois: Utazás neve
+  indonésien: Nama perjalanan
+  islandais: Ferðarheiti
+  italien: Nome del viaggio
+  japonais: 旅行名
+  kazakh: Саяхаттың аты
+  kirghize: Саякаттын аты
+  letton: Ceļa nosaukums
+  lituanien: Kelionės pavadinimas
+  macédonien: Име на патување
+  malais: Nama perjalanan
+  malgache: Anaran'ny dia
+  maltais: Isem il-vjaġġ
+  mandarin standard: 旅行名称
+  mongol: Аяллын нэр
+  norvégien: Reisenavn
+  néerlandais: Naam van de reis
+  népalais: यात्राको नाम
+  ourdou: سفر کا نام
+  ouzbek: Sayohat nomi
+  pachto: د سفر نوم
+  portugais: Nome da viagem
+  slovaque: Názov cesty
+  suédois: Resans namn
+  swahili: Jina la safari
+  tadjik: Номи сафар
+  tamoul: பயணத்தின் பெயர்
+  tchèque: Název cesty
+  thaï: ชื่อการเดินทาง
+  tibétain: ལམ་གྱི་མིང་།
+  turc: Seyahat adı
+  turkmène: Salyňyň ady
+  ukrainien: Назва подорожі
+  vietnamien: Tên chuyến đi
+  zoulou: Igama lohambo
 Nombre de versions conservées pour chaque carte:
   afrikaans: Aantal weergawes behou vir elke kaart
   albanais: Numri i versioneve të ruajtura për çdo kartë
@@ -9354,6 +10193,68 @@ Nombre de versions conservées pour chaque carte:
   ukrainien: Кількість збережених версій для кожної картки
   vietnamien: Số lượng phiên bản được lưu giữ cho mỗi thẻ
   zoulou: Inani lezinguqulo ezigcinwe ebalazweni ngalinye
+Nombre de visites:
+  afrikaans: Besoeders
+  albanais: Numri i vizitave
+  allemand: Besucherzahl
+  anglais: Number of visits
+  arabe: عدد الزيارات
+  arménien: Այցելությունների թիվ
+  basque: Bisitarien kopurua
+  bengali: ভিজিটের সংখ্যা।
+  birman: လည်ပတ်လာသူအရေအတွက်
+  breton: Niver a ziaradennoù
+  catalan: 'Nombre de visites.
+
+
+    Nombre de visites'
+  corse: Numaru di visite
+  coréen: 방문자 수
+  danois: Besøgstal
+  espagnol: Número de visitas
+  estonien: Külastuste arv
+  français: Nombre de visites
+  gallois: Nifer o ymweliadau
+  grec: Αριθμός επισκέψεων
+  grec ancien: ἀριθμὸς ἐπισκέψεων
+  géorgien: ვიზიტების რაოდენობა
+  hindi: आगंतुकों की संख्या
+  hongrois: Látogatók száma
+  indonésien: Jumlah kunjungan
+  irlandais: Líon na dturas
+  islandais: Heimsóknatal
+  italien: Numero di visite
+  japonais: 訪問者数
+  kirghize: Көрсөтүүлөрдүн саны
+  kurde: Sergerî
+  latin: Numerus visitationum
+  letton: Apmeklējumu skaits
+  lituanien: Apsilankymų skaičius
+  luxembourgeois: Visite-Zuel
+  macédonien: Број на посети
+  malais: Bilangan lawatan
+  malgache: Isan'ny fitsidihana
+  maltais: Numru ta' viżiti
+  mandarin standard: 访问次数
+  mongol: Зорилтын тоо
+  norvégien: Antall besøk
+  néerlandais: Aantal bezoekers
+  népalais: भिडको संख्या
+  ourdou: معاہدات کی تعداد
+  persan: تعداد بازدیدها
+  russe: Количество посещений
+  serbo-croate: Broj poseta
+  slovaque: Počet návštev
+  slovène: Število obiskov
+  suédois: Antal besök
+  swahili: Idadi ya ziara
+  tadjik: Шумораи диданҳо
+  tamoul: வருகை எண்ணிக்கை
+  tchèque: Počet návštěv
+  thaï: จำนวนผู้เข้าชม
+  turc: Ziyaret sayısı
+  turkmène: Sapalyklaryň sany
+  zoulou: Izivakashi
 Non:
   afrikaans: Nee
   albanais: Jo
@@ -10416,6 +11317,70 @@ Pays visités:
   ukrainien: Відвідані країни
   vietnamien: Các nước đã ghé thăm
   zoulou: Amazwe avakashelwe
+Pays visités le plus grand nombre de fois:
+  afrikaans: Meeste besoekte lande
+  albanais: Vendet më së shpeshti të vizituara
+  allemand: Am häufigsten besuchte Länder
+  anglais: Most visited countries
+  arabe: الدول الأكثر زيارة
+  arménien: Այցելված երկրների առավելագույն թիվը։
+  basque: Bisitatutako herrialde gehien
+  bengali: সবচেয়ে বেশি পরিদর্শন করা দেশগুলো।
+  birman: အများဆုံး သွားရောက်ခဲ့သော နိုင်ငံများ
+  breton: Broioù bet gweladennet ar muiañ a wech
+  bulgare: Посетени страни най-много пъти
+  catalan: Països visitats més vegades
+  corse: Paesi visitati u più grande numaru di volte
+  coréen: 가장 많이 방문한 나라들
+  danois: De mest besøgte lande
+  espagnol: Países visitados más veces
+  esperanto: Plej ofte vizititaj landoj
+  finnois: Useimmin vierailut maat
+  français: Pays visités le plus grand nombre de fois
+  gallois: Ymsefydlogedig y nifer mwyaf o grefydd
+  grec: Χώρες με τις περισσότερες επισκέψεις
+  grec ancien: τὰ πλεῖστα ἐπισκεπτόμενα μέρη
+  géorgien: საკვანძო επισκεπτόμενοι ქვეყნები
+  hindi: सबसे अधिक बार देखे गए देश।
+  hongrois: A legtöbbször meglátogatott országok
+  islandais: Land mest heimsótt
+  italien: Paesi visitati più volte
+  japonais: 最も訪問した国々
+  kazakh: Ең көп сапарлаған елдер
+  kirghize: Көп жолу барган өлкөлөр
+  kurde: Herîmên herî zêde hatine dîsan
+  latin: Nationes saepissime visitatae
+  letton: Visītākās valstis
+  lituanien: Labiausiam apsilankytų šalių skaičius
+  luxembourgeois: Länner, déi am meeschte besicht goufen
+  macédonien: Најпосетени земји
+  malais: Negara yang paling banyak dikunjungi
+  malgache: Firenena indostra be mpitsidika indrindra
+  maltais: Il-pajjiż żarru l-aktar drabi
+  norvégien: Land besøkt flest ganger
+  néerlandais: Meest bezochte landen
+  népalais: सबभन्दा बढी भ्रमण गरिएका देशहरू
+  ourdou: سب سے زیادہ دورے کیے جانے والے ممالک
+  ouzbek: Eng ko'p tashrif buyurilgan mamlakatlar
+  pachto: ډېر ليدل شوي هېوادونه
+  persan: کشورهایی که بیشترین تعداد بازدید را داشته‌اند
+  polonais: Kraje najczęściej odwiedzane
+  portugais: Países mais visitados
+  roumain: Țări vizitate de cele mai multe ori
+  russe: Наиболее посещаемые страны
+  serbo-croate: Najposjećenije zemlje
+  slovaque: Najčastejšie navštívené krajiny
+  suédois: Mest besökta länder
+  swahili: Nchi zilizotembelewa zaidi
+  tadjik: Сафарҳое, ки бештар аз ҳама дида шудаанд
+  tamoul: அதிக முறை விஜயம் செய்த நாடுகள்
+  tchèque: Nejčastěji navštívené země
+  thaï: ประเทศที่ไปเยือนมากที่สุด
+  tibétain: རྒྱལ་ཁབ་ཇེ་མང་བསྐྱོད་པ།
+  turc: En çok ziyaret edilen ülkeler
+  turkmène: Gözegilen ýurdlar
+  ukrainien: Країни, які відвідували найбільше разів
+  vietnamien: Các quốc gia đã ghé thăm nhiều nhất
 Pays visités par continent:
   afrikaans: Lande besoek per vasteland
   albanais: Vende të vizituara sipas kontinenteve
@@ -13337,6 +14302,64 @@ Suppression du profil:
   ukrainien: Видалити профіль
   vietnamien: Xóa hồ sơ
   zoulou: Ukukhishwa kwephrofayela
+Supprimer:
+  albanais: Fshirje
+  allemand: Löschen
+  anglais: Delete
+  arabe: حذف
+  arménien: Ջնջել
+  basque: Ezabatu
+  bengali: মুছে ফেলা।
+  breton: Dilemel
+  bulgare: Изтрий
+  catalan: Eliminar
+  corse: Cancellà
+  coréen: 삭제하다
+  danois: Slet
+  espagnol: Eliminar
+  esperanto: Forigi
+  estonien: Kustutada
+  finnois: Poista
+  français: Supprimer
+  gallois: Dileu
+  grec: Διαγραφή
+  géorgien: ამოიღე
+  hindi: हटाना
+  hongrois: Törölni
+  indonésien: Hapus
+  irlandais: Scrios
+  islandais: Eyða
+  italien: Eliminare
+  japonais: 削除する
+  kazakh: Жою
+  kirghize: Өчүрүү
+  letton: Dzēst
+  lituanien: Šalinti
+  malgache: tsy hery
+  maltais: Ħassra
+  mandarin standard: 删除
+  norvégien: Slette
+  néerlandais: Verwijderen
+  népalais: मनाउनुहोस्।
+  ouzbek: O'chirish
+  pachto: حذف کړئ
+  persan: حذف کردن
+  polonais: Usuń
+  russe: Удалить
+  serbo-croate: Obriši
+  slovaque: Vymazať
+  slovène: Izbriši
+  suédois: Radera
+  tadjik: Нест кардан
+  tamoul: நீக்கு
+  tchèque: smazat
+  thaï: ลบ
+  tibétain: བྲིས་སྤངས།
+  turc: Sil
+  turkmène: Pozmak
+  ukrainien: Видалити
+  vietnamien: Xóa
+  zoulou: Susa
 Supprimer ce profil:
   afrikaans: Verwyder hierdie profiel
   albanais: Fshije këtë profil
@@ -13763,6 +14786,183 @@ Thème de l'application:
   ukrainien: Тема застосунку
   vietnamien: Chủ đề ứng dụng
   zoulou: Isihloko sohlelo lokusebenza
+Trier par date des voyages:
+  afrikaans: Sorteer reis volgens datum
+  albanais: Renditni udhëtimet sipas datës
+  allemand: Reise nach Datum sortieren
+  anglais: Sort trips by date
+  arabe: فرز الرحلات حسب التاريخ
+  arménien: Մեկնումների ամսաթվով դասավորել։
+  basque: Bidaia datoen arabera ordenatu
+  coréen: 여행 날짜별로 정렬하기
+  danois: Sorter rejser efter dato
+  espagnol: Ordenar viajes por fecha
+  esperanto: Tri ordone je vojaĝoj laŭ dato
+  français: Trier par date des voyages
+  gallois: Trefnu drwy ddyddiad o deithiau
+  géorgien: მოგზაურობების თარიღით დალაგება
+  hindi: yātrāoṅkā tīthī ānusār
+  hongrois: Utazások dátum szerint rendezése
+  indonésien: Urutkan berdasarkan tanggal perjalanan
+  irlandais: Sórtáil ar dáta na dturais
+  islandais: Flokka ferðalög eftir dagsetningu
+  italien: Ordinare i viaggi per data
+  japonais: 旅行を日付で並べ替える。
+  kazakh: Саяхаттарды күні бойынша сұрыптау
+  kirghize: Салган саякаттарды датасы боюнча сорттоо
+  kurde: Reîşa sepanîn li gor dîrokê
+  letton: Kārtot ceļojumus pēc datuma
+  lituanien: Rūšiuoti keliones pagal datą
+  luxembourgeois: Reesen no Datum sortéieren
+  macédonien: Сортирај патувања по датум
+  malais: Isih perjalanan mengikut tarikh
+  malgache: Tandremo ny dia lavitra araka daty
+  maltais: Ordna skont id-data tal-vjaġġi
+  mandarin standard: 按日期排序旅行
+  mongol: Усны аялалын хугацаагаар жагсаах
+  norvégien: Sorter reiser etter dato
+  néerlandais: Sorteer reizen op datum
+  népalais: यात्राहरू मिति अनुसार क्रमबद्ध गर्नुहोस्।
+  ourdou: سفروں کو تاریخ کے حساب سے ترتیب دیں۔
+  ouzbek: Sayyohlarni sanaga bo'yicha tartiblash
+  pachto: سفرونو په تاریخ ترتيب کړئ
+  portugais: Ordenar viagens por data
+  roumain: Sortare călătorii după dată
+  serbo-croate: Sortirati putovanja po datumu
+  slovaque: Zobraziť podľa dátumov ciest
+  suédois: Sortera resor efter datum
+  swahili: Panga safari kulingana na tarehe
+  tadjik: Сафарҳоро аз рӯи сана ҷудо кардан
+  tamoul: பயணங்களை தேதியிட்டுக் क्रमப்படுத்து
+  thaï: เรียงตามวันที่เดินทาง
+  tibétain: ལོའི་དུས་ཆུས་བསྒྲིག།
+  turkmène: Säheriň boýunça syýahatlara tertip salmak
+  zoulou: Hlunga uhambo ngosuku
+Trier par nom des voyages:
+  afrikaans: Sorteer reis volgens naam
+  albanais: Renditni sipas emrit të udëtimeve
+  allemand: Nach Reise-Namen sortieren
+  anglais: Sort trips by name
+  arabe: فرز الرحلات حسب الاسم
+  basque: Bidaiaren izenez ordenatu
+  bengali: ভ্রমণের নাম অনুসারে সাজানো।
+  birman: ခရီးစဉ်များကို အမည်ဖြင့် စီမံပါ။
+  breton: Sortañ dre anv an treujioù
+  bulgare: Сортиране по име на пътуванията
+  catalan: Ordenar per nom de viatges
+  corse: Ordinà per nome i viaggi
+  coréen: 여행을 이름으로 정렬하기
+  danois: Sorter efter rejse navne
+  espagnol: Ordenar por nombre los viajes
+  esperanto: Ordigu laŭ nomoj la vojaĝojn
+  estonien: Reiside nimede sorteerimine
+  finnois: Matkojen lajittelu nimen mukaan
+  français: Trier par nom des voyages
+  gallois: Trefnu drwy enw teithiau
+  grec: Ταξινόμηση ταξιδιών κατά όνομα
+  grec ancien: Ταξιδεύειν κατ' ὄνομα
+  géorgien: მოგზაურობების სახელის მიხედვით გაფილტრვა
+  hindi: यात्राओं को नाम से क्रमबद्ध करें।
+  hongrois: Utazások név szerint rendezése
+  indonésien: Urutkan berdasarkan nama perjalanan
+  irlandais: Sórtáil de réir ainm na dturais
+  islandais: Flokka ferðalög eftir nafni
+  italien: Ordinare per nome i viaggi
+  japonais: 旅行者を名前でソートする。
+  kazakh: Саяхаттарды атау бойынша сұрыптау
+  kirghize: Сейилмөлөрдү аты боюнча сыңартуу
+  kurde: Rehên navnîşê geştiyan li gorî navê wan
+  latin: Ordina per nomina iterum
+  letton: Jārzēdēt pēc nosaukuma ceļojumus
+  lituanien: Rūšiuoti keliones pagal pavadinimą
+  luxembourgeois: Reesen no Numm sortéieren
+  malais: Susun mengikut nama perjalanan
+  malgache: Saritra amin'ny anarana ny tsipahalemana momba ny dia
+  maltais: Ikkategorizza l-ivjaġġi skont l-isem
+  mandarin standard: 按旅行名称排序。
+  mongol: Аяллын нэрээр эрэмбэлэх
+  norvégien: Sorter reiser etter navn
+  néerlandais: Sorteer op naam van reizen
+  népalais: यात्राको नाम अनुसार क्रमबद्ध गर्नुहोस्।
+  ourdou: سفر کو نام کے لحاظ سے ترتیب دیں۔
+  ouzbek: Sayyohlarni nomiga qarab tartiblash
+  polonais: Sortuj według nazw podróży
+  portugais: Ordenar por nome das viagens
+  roumain: Sortați după nume călătoriile
+  russe: Сортировать по имени поездки
+  serbo-croate: Sortirati putovanja po imenu
+  slovaque: Zobraziť podľa mena ciest
+  suédois: Sortera efter resornas namn
+  tadjik: Сафарҳоро аз рӯи ном тартиб дода шаванд
+  tamoul: பயணங்களின் பெயரை வைத்து வரிசைப்படுத்து
+  tchèque: Řadit podle názvu zájezdů
+  thaï: เรียงลำดับตามชื่อทริป
+  tibétain: ལྗོགས་གཏོར་གྱི་མིང་ལ་བསྒྲིག།
+  turc: Seyahatleri ada göre sırala
+  turkmène: Safar atlary boýunça tertiplemek
+  ukrainien: Сортувати за назвою подорожей
+  vietnamien: Sắp xếp theo tên chuyến đi
+  zoulou: Hlunga amagama ezihambela
+Trier par ordre de création des voyages:
+  albanais: Renditni sipas datës së krijimit të udhëtimeve
+  allemand: Nach Erstellungsdatum der Reisen sortieren
+  anglais: Sort by travel creation date
+  arabe: فرز حسب تاريخ إنشاء الرحلات
+  arménien: Որոշումը՝ ստեղծման ժամանակով։
+  basque: Bidaiaren sorkuntza-ordena arabera sailkatu
+  bengali: ভ্রমণ তৈরির তারিখ অনুসারে সাজানো।
+  breton: Troidigezh hervez deiziad krouidigezh an treujioù
+  bulgare: Сортиране по дата на създаване на пътуванията
+  catalan: Ordenar per data de creació dels viatges
+  coréen: 여행 생성일 순으로 정렬
+  danois: Sorter efter rejseoprettelsesdato
+  espagnol: Ordenar por fecha de creación de los viajes
+  esperanto: Vikendi laŭ kreado
+  estonien: Sõidu loomise järjekorras sorteerimine
+  finnois: Järjestä matkat luontijärjestyksessä
+  français: Trier par ordre de création des voyages
+  géorgien: მოგზაურობების შექმნის თარიღით დალაგება
+  hindi: yātrāoṃ ko banne ke krame se daraj kar
+  irlandais: Sórtáil de réir chruthaithe na dturais
+  islandais: Flokka ferðalög eftir stofndegi
+  italien: Ordina per data di creazione dei viaggi
+  japonais: 作成日順に旅行を並べ替える。
+  kirghize: Сейилтер саякаттарды уюштуруу тартибинде тизмек
+  kurde: Reîz kirin li gorî çêkirina rêwiyan
+  latin: Ordina itinera secundum tempus creationis
+  letton: Kārtot ceļojumus pēc izveidošanas datuma
+  lituanien: Rūšiuoti keliones sukūrimo tvarka
+  luxembourgeois: Reien d'Reesefromme no vum Geschafensdatum sortéieren
+  macédonien: Сортирај ги патувањата по датум на креирање
+  malais: Susun mengikut tertib penciptaan perjalanan
+  malgache: Tandremo ny dia ara-potoana namboarina
+  maltais: Ordna l-vjaġġi skont id-data tal-ħolqien
+  mandarin standard: 按创建时间排序旅行。
+  mongol: Уявчныг үүсгэх хугацааны дарааллаар жагсаах
+  norvégien: Sorter etter opprettelsesdato for reiser
+  néerlandais: Sorteren op aanmaakdatum van reizen
+  népalais: यात्रा निर्माणको मिति अनुसार क्रमबद्ध गर्नुहोस्।
+  ourdou: سفر کی تخلیق کے ترتیب سے ترتیب دیں۔
+  ouzbek: Sayohatlarni yaratilgan tartibda saralash
+  pachto: د سفرونو د جوړولو د وخت له مخې ترتیب کړئ
+  persan: سفرها را بر اساس تاریخ ایجاد مرتب کنید
+  portugais: Ordenar por data de criação das viagens
+  roumain: Sortați călătoriile în ordinea creării
+  russe: Сортировать по дате создания поездок
+  serbo-croate: Sortiraj putovanja po datumu kreiranja
+  slovaque: Triediť cestovné zájazdy podľa dátumu vytvorenia
+  slovène: Razvrsti po datumu ustvarjanja potovanj
+  suédois: Sortera efter skapandedatum för resor
+  swahili: Panga safari kulingana na tarehe ya uundaji
+  tadjik: Сафарҳоро аз рӯи вақти офаридани онҳо ҷудо кардан
+  tamoul: பயணங்களை உருவாக்கப்பட்ட வரிசையில் வரிசைப்படுத்து
+  thaï: เรียงตามลำดับการสร้างทริป
+  tibétain: ལོའོག་གི་གྲུ་འཁོར་སྐྲུན་ཐོག་གི་འགྲིམ་འགྲུ།
+  turc: Seyahatleri oluşturulma tarihine göre sırala
+  turkmène: Sähetleri döredilýän tertibi boýunça sortlamak
+  ukrainien: Сортувати подорожі за датою створення
+  vietnamien: Sắp xếp theo thứ tự tạo chuyến đi
+  zoulou: Hlunga uhambo ngokwezinsuku lokudala kwazo
 Télécharger les fichiers YAML des lieux visités:
   afrikaans: Laai die YAML-lêers van besoekte plekke af
   albanais: Shkarkoni skedarët YAML të vendeve të vizituara
@@ -13834,6 +15034,71 @@ Télécharger les fichiers YAML des lieux visités:
   ukrainien: Завантажити файли YAML відвіданих місць
   vietnamien: Tải xuống các tệp YAML của những địa điểm đã đến
   zoulou: Landa amafayela e-YAML ezindawo ezihanjelwe
+Utiliser la date pour ce voyage:
+  afrikaans: Gebruik die datum vir hierdie reis
+  albanais: Përdorni datën për këtë udhëtim
+  allemand: Das Datum für diese Reise verwenden
+  anglais: Use the date for this trip
+  arabe: استخدم التاريخ لهذه الرحلة
+  arménien: Այս ճամփորդության համար օգտագործեք ամսաթիվը։
+  basque: Data erabiltzea bidaia honetarako
+  bengali: এই ভ্রমণের জন্য তারিখ ব্যবহার করুন।
+  birman: ဒီခရီးအတွက် ရက်စွဲကိုအသုံးပြုပါ။
+  breton: Implijout an deiz evit ar veaj-mañ
+  bulgare: Използвайте датата за това пътуване
+  corse: Utilizà a data per stu viagiu
+  coréen: 여행 날짜를 사용하세요
+  danois: Brug datoen til denne rejse
+  espagnol: Usar la fecha para este viaje
+  esperanto: Uzi la daton por ĉi tiu vojaĝo
+  estonien: Kasuta kuupäeva selle reisi jaoks
+  finnois: Käytä päivämäärää tälle matkalle
+  français: Utiliser la date pour ce voyage
+  gallois: Defnyddio'r dyddiad ar gyfer y daith hon
+  grec: Χρησιμοποιήστε την ημερομηνία για αυτό το ταξίδι
+  grec ancien: Χρήσασθε τῇ ἡμερομηνίᾳ εἰς τὸ ταξίδιον
+  géorgien: ამ მოგზაურობისთვის გამოიყენეთ თარიღი
+  hindi: इस यात्रा के लिए तारीख का उपयोग करें।
+  hongrois: Használd az utazás dátumát
+  indonésien: Gunakan tanggal untuk perjalanan ini
+  irlandais: Úsáid an dáta don turas seo
+  islandais: Notaðu dagsetninguna fyrir þessa ferð
+  italien: Utilizzare la data per questo viaggio
+  japonais: この旅行に日付を使って。
+  kazakh: Бұл саяхат үшін күнді пайдаланыңыз
+  kirghize: Бул сапарга датаны колдонуңуз
+  kurde: Vêja dîrokê ji bo vê rêwiyê bikar bîne
+  latin: Datem pro itinere utere
+  letton: Izmantot datumu šim ceļojumam
+  lituanien: Naudokite datą šiai kelionei
+  luxembourgeois: D'Datum fir dës Rees benotzen
+  macédonien: Користете дату за ова патување
+  malais: Gunakan tarikh untuk perjalanan ini
+  malgache: Mampiasa ny daty ho an'ity dia ity
+  maltais: Uża d-data għal dan il-vjaġġ
+  mandarin standard: 使用日期进行这次旅行。
+  mongol: Энэ аяллын хувьд огноог ашиглаарай
+  norvégien: Bruk datoen for denne reisen
+  népalais: यो यात्राको लागि मिति प्रयोग गर्नुहोस्।
+  ourdou: اس سفر کے لیے تاریخ استعمال کریں۔
+  pachto: د سفر لپاره نېټه وکاروئ
+  persan: از این تاریخ برای سفر استفاده کنید
+  polonais: Użyj daty do tej podróży
+  portugais: Usar a data para esta viagem
+  roumain: Folosește data pentru această călătorie
+  russe: Использовать дату для этой поездки
+  serbo-croate: Koristiti datum za ovo putovanje
+  slovène: Uporabite datum za to potovanje
+  swahili: Tumia tarehe kwa safari hii
+  tadjik: Санаро барои ин сафар истифора кунед
+  tamoul: பயணத்திற்கு தேதியை பயன்படுத்துங்கள்
+  tchèque: Použijte datum pro tuto cestu
+  thaï: ใช้ข้อมูลวันที่สำหรับการเดินทางนี้
+  tibétain: འགྲིམ་འཁོར་འདི་ལ་པོག་ལོ་བེད་སྤྱོད།
+  turkmène: Bu sapar üçin senäni ulanýň
+  ukrainien: Використовуйте дату для цієї подорожі
+  vietnamien: Sử dụng ngày cho chuyến đi này
+  zoulou: Sebenzisa usuku lolu hambo
 Utiliser le style dans l'application:
   afrikaans: Gebruik die styl in die toepassing
   albanais: Përdore stilin në aplikacion
@@ -14189,6 +15454,69 @@ Vos paramètres ont bien été sauvegardés:
   ukrainien: Ваші налаштування збережено
   vietnamien: Các thiết lập của bạn đã được lưu
   zoulou: Izilungiselelo zakho zigciniwe
+Vos pays de prédilection:
+  afrikaans: Jou voorkeur lande
+  albanais: Vend vendet e preferuara
+  allemand: Ihre Lieblingsländer
+  anglais: Your favorite countries
+  arménien: Ձեր սիրած երկրները։
+  basque: Zure gustuko herrialdeak
+  bengali: tomader lokpriyo desh
+  birman: သင်တို့နှစ်သက်သောနိုင်ငံများ။
+  breton: Ho broioù a fell deoc'h
+  bulgare: Вашите любими страни
+  catalan: Els teus països preferits
+  corse: E paesi preferiti vostri
+  coréen: 가장 좋아하는 나라들
+  danois: Jeres yndlingslande
+  espagnol: Sus países de predilección
+  esperanto: Viaj plej ŝatataj landoj
+  estonien: Te lemmikriigid
+  finnois: Suosikkimaanne
+  français: Vos pays de prédilection
+  gallois: Eich gwladwriaethau ffafriol
+  géorgien: ძვირფასი ქვეყნები
+  hindi: आपके पसंदीदा देश।
+  irlandais: Tíortha is fearr leat
+  islandais: Ykisföggur þínir
+  italien: I vostri paesi prediletti
+  japonais: お好みの国々
+  kazakh: Сіздің сүйікті елдеріңіз
+  kirghize: Сүйүктүү өлкөлөрүңүз
+  kurde: Welatên tercîhê yên we
+  latin: Vestri fines praelecti
+  letton: Tavas iecienītās valstis
+  lituanien: Jūsų mėgstamos šalys
+  luxembourgeois: Ären léifsten Länner
+  macédonien: Ваши омилени земји
+  malais: Negara pilihan anda
+  malgache: Firenena tianao anao
+  maltais: Pajjiżi favoriti tiegħek
+  mandarin standard: 您最喜欢的国家们。
+  mongol: Танай дуртай улс орнууд
+  norvégien: Dine favorittland
+  népalais: तपाईँको मनपर्ने देशहरू।
+  ourdou: آپ کے پسندیدہ ممالک۔
+  ouzbek: Sizning afzal ko'rgan mamlakatlaringiz
+  pachto: Zêr stane walsê
+  persan: کشورهای مورد علاقه شما
+  polonais: Wasze ulubione kraje
+  portugais: Seus países de preferência
+  roumain: Țările voastre preferate
+  russe: Ваши любимые страны
+  serbo-croate: Vaše omiljene zemlje
+  slovaque: Vaše obľúbené krajiny
+  slovène: Vaše najljubše države
+  suédois: Era favoritländer
+  swahili: Nchi zenu mnazozipenda
+  tadjik: Кишварҳои дӯстдоштаи шумо
+  tamoul: உங்களுக்குப் பிடித்த நாடுகள்
+  tibétain: ཁྱེད་ཀྱི་དགའ་པོའི་རྒྱལ་ཁབ་།
+  turc: Favori ülkeleriniz
+  turkmène: Seýran etmek niýet bildirmek
+  ukrainien: Ваші улюблені країни
+  vietnamien: Các quốc gia yêu thích của bạn
+  zoulou: Izwe labathandayo
 ou charger manuellement un fichier YAML contenant la liste des lieux visités:
   afrikaans: of laai handmatig 'n YAML-lêer op wat die lys van besoekte plekke bevat
   albanais: ose kodoni manualisht një skedar YAML që përmban listën e vendeve të vizituara

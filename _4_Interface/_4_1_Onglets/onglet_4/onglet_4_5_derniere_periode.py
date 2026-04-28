@@ -85,3 +85,65 @@ def creer_table_derniers_voyages(
 
 
 # 2 -- Classe PyQt6 ------------------------------------------------------------
+
+
+class CalendrierVisite(QWidget):
+
+    def __init__(self, constantes, fct_traduction, parent=None):
+        super().__init__(parent=None)
+
+        self.langue = "français"
+        self.constantes = constantes
+        self.fct_traduction = fct_traduction
+        self.voyages = {}
+
+        # Dates du graphique
+        self.date_min = "2024-05"
+        self.date_max = None
+
+        self.layout = QVBoxLayout(self)
+
+    def set_langue(self, langue: str):
+        self.langue = langue
+        self.creer_graphique()
+
+    def set_voyages(self, voyages: dict):
+        self.voyages = voyages
+        self.creer_graphique()
+
+    def creer_graphique(self):
+
+        vider_layout(layout=self.layout)
+
+        if self.voyages:
+
+            fig = plot_diagramme_barre(
+                # Création de la table
+                df=creer_table_derniers_voyages(
+                    dictionnaire=self.voyages,
+                    date_min=self.date_min,
+                    date_max=self.date_max,
+                )[["mois", "nom"]]
+                .drop_duplicates(inplace=False)
+                .assign(indicatrice=1),
+                var_x="mois",
+                var_y="indicatrice",
+                var_color="nom",
+                var_wrap=None,
+                titre=self.fct_traduction(
+                    "titre_graphique_calendrier_voyages",
+                ),
+                x_label="",
+                y_label=self.fct_traduction(
+                    "y_label_calendrier_voyages",
+                ),
+                color_label="",
+                # palette=[
+                #     "#ADCEDB",
+                # ],
+                figsize=(6, 3),
+                wrap_ncol=3,
+                y_decimales=0,
+            )
+
+            self.layout.addWidget(FigureCanvas(fig))

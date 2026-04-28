@@ -26,6 +26,7 @@ from _4_Interface._4_1_Onglets.onglet_4 import (
     onglet_4_2_classement,
     onglet_4_3_recommendations,
     onglet_4_4_n_visites,
+    onglet_4_5_derniere_periode,
 )
 
 
@@ -76,6 +77,11 @@ class OngletTopPays(QWidget):
             constantes=self.constantes, fct_traduction=fct_traduction, parent=None
         )
 
+        # Calendrier des visites
+        self.calendrier_visites = onglet_4_5_derniere_periode.CalendrierVisite(
+            constantes=self.constantes, fct_traduction=fct_traduction, parent=None
+        )
+
         # Mise en page des sous-onglets
         layout = QVBoxLayout(self)
 
@@ -87,6 +93,7 @@ class OngletTopPays(QWidget):
             self.pages.addWidget(self.classement_widget)
             self.pages.addWidget(self.recommandations)
             self.pages.addWidget(self.pays_souvent_visites)
+            self.pages.addWidget(self.calendrier_visites)
 
             # === Barre de boutons (navigation) ===
             btn_layout = QHBoxLayout()
@@ -94,10 +101,12 @@ class OngletTopPays(QWidget):
             self.btn_top_pays = QPushButton("Top Pays")
             self.btn_recommandations = QPushButton("Suggestions")
             self.btn_pays_souvent_visites = QPushButton("Pays fréquents")
+            self.btn_calendrier = QPushButton("Dernières destinations")
             btn_layout.addWidget(self.btn_hemicycle)
             btn_layout.addWidget(self.btn_top_pays)
             btn_layout.addWidget(self.btn_recommandations)
             btn_layout.addWidget(self.btn_pays_souvent_visites)
+            btn_layout.addWidget(self.btn_calendrier)
 
             # Connexions
             self.btn_hemicycle.clicked.connect(lambda: self.pages.setCurrentIndex(0))
@@ -108,6 +117,7 @@ class OngletTopPays(QWidget):
             self.btn_pays_souvent_visites.clicked.connect(
                 lambda: self.pages.setCurrentIndex(3)
             )
+            self.btn_calendrier.clicked.connect(lambda: self.pages.setCurrentIndex(4))
 
             # Layout principal
             layout.addLayout(btn_layout)
@@ -119,7 +129,7 @@ class OngletTopPays(QWidget):
             self.sous_onglets = QTabWidget()
             self.sous_onglets.addTab(page_hemicycle, "Hémicycle")
             self.sous_onglets.addTab(self.classement_widget, "Top Pays")
-            self.sous_onglets.addTab(self.recommandations, "Top Pays")
+            self.sous_onglets.addTab(self.recommandations, "Suggestions")
 
             ## === Layout principal ===
             layout.addWidget(self.sous_onglets)
@@ -144,6 +154,10 @@ class OngletTopPays(QWidget):
         texte_onglet_4 = self.fonction_traduction(
             "titre_sous_onglet_4_4",
             suffixe=(" ⚓​​"),
+        )
+        texte_onglet_5 = self.fonction_traduction(
+            "titre_sous_onglet_4_5",
+            suffixe=(" 📅"),
         )
 
         if self.mise_en_page == 0:
@@ -171,6 +185,9 @@ class OngletTopPays(QWidget):
             self.sous_onglets.setTabText(
                 self.sous_onglets.indexOf(self.pays_souvent_visites), texte_onglet_4
             )
+            self.sous_onglets.setTabText(
+                self.sous_onglets.indexOf(self.calendrier_visites), texte_onglet_5
+            )
 
     def set_style(self, style: int, teinte, nuances):
 
@@ -193,6 +210,7 @@ class OngletTopPays(QWidget):
         self.classement_widget.set_dicts_granu(dict_nv=dict_temp)
         self.recommandations.set_dicts_granu(dict_nv=dict_temp)
         self.pays_souvent_visites.set_voyages(voyages=copy.deepcopy(dict_nv))
+        self.calendrier_visites.set_voyages(voyages=copy.deepcopy(dict_nv))
 
     def initialiser_onglet(self):
         self.recommandations.initialiser_onglet()

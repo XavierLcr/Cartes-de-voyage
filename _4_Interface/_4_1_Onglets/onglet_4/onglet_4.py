@@ -130,6 +130,8 @@ class OngletTopPays(QWidget):
             self.sous_onglets.addTab(page_hemicycle, "Hémicycle")
             self.sous_onglets.addTab(self.classement_widget, "Top Pays")
             self.sous_onglets.addTab(self.recommandations, "Suggestions")
+            self.sous_onglets.addTab(self.pays_souvent_visites, "Pays fréquents")
+            self.sous_onglets.addTab(self.calendrier_visites, "Calendrier")
 
             ## === Layout principal ===
             layout.addWidget(self.sous_onglets)
@@ -168,6 +170,7 @@ class OngletTopPays(QWidget):
             )
             self.btn_recommandations.setText(texte_onglet_3)
             self.btn_pays_souvent_visites.setText(texte_onglet_4)
+            self.btn_calendrier.setText(texte_onglet_5)
         elif self.mise_en_page == 1:
             self.sous_onglets.setTabText(
                 self.sous_onglets.indexOf(self.hemicycle.parentWidget()), texte_onglet_1

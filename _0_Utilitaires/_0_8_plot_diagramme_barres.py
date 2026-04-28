@@ -56,6 +56,7 @@ def plot_diagramme_barre(
     ],
     figsize: tuple = (6, 4),
     wrap_ncol: int = 3,
+    stack_vals: bool = False,
     y_decimales: int = 0,
 ):
 
@@ -111,6 +112,39 @@ def plot_diagramme_barre(
         x_pos = np.arange(len(global_x_order))
 
         # Tracé des barres pour chaque catégorie globale
+        if stack_vals:
+
+            bottom = np.zeros(len(global_x_order))
+            for j, color_val in enumerate(val_color):
+                print("wrap:", wrap_val, "color:", color_val)
+                y_values = []
+
+                for x_val in global_x_order:
+
+                    color_data = subset[
+                        (subset[var_color] == color_val) & (subset[var_x] == x_val)
+                    ]
+
+                    y_values.append(
+                        color_data[var_y].mean() if not color_data.empty else 0
+                    )
+
+                y_values = np.array(y_values)
+
+                ax.bar(
+                    x_pos,
+                    y_values,
+                    bottom=bottom,  # 👈 clé du stacked
+                    label=color_val,
+                    color=palette[j % len(palette)],
+                    zorder=1,
+                )
+
+                # Mmise à jour du cumul
+                bottom += y_values
+
+    else:
+
         for j, color_val in enumerate(val_color):
             y_values = []
             for x_val in global_x_order:
@@ -140,10 +174,6 @@ def plot_diagramme_barre(
         if y_label:
             ax.set_ylabel(y_label)
 
-        # Légende
-        if len(val_color) > 1:
-            ax.legend(title=color_label if color_label is not None else var_color)
-
     # Aligner les axes y
     for ax in axes:
         ax.set_ylim(y_min, y_max)
@@ -151,6 +181,19 @@ def plot_diagramme_barre(
     # Titre global
     if titre:
         fig.suptitle(titre)
+
+        # Légende
+        if len(val_color) > 1:
+            handles, labels = axes[0].get_legend_handles_labels()
+            by_label = dict(zip(labels, handles))
+
+            fig.legend(
+                by_label.values(),
+                by_label.keys(),
+                # loc="upper center",
+                # ncol=len(by_label),
+                frameon=False,
+            )
 
     fig.tight_layout()
     return fig

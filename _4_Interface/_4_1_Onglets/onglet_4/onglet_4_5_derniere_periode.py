@@ -98,7 +98,7 @@ class CalendrierVisite(QWidget):
         self.voyages = {}
 
         # Dates du graphique
-        self.date_min = "2024-05"
+        self.date_min = "2025-05"
         self.date_max = None
 
         self.layout = QVBoxLayout(self)
@@ -125,8 +125,10 @@ class CalendrierVisite(QWidget):
                     date_max=self.date_max,
                 )[["mois", "nom"]]
                 .drop_duplicates(inplace=False)
-                .assign(indicatrice=1),
-                var_x="mois",
+                .assign(
+                    indicatrice=1, mois_str=lambda x: x["mois"].dt.strftime("%Y-%m")
+                ),
+                var_x="mois_str",
                 var_y="indicatrice",
                 var_color="nom",
                 var_wrap=None,
@@ -134,9 +136,7 @@ class CalendrierVisite(QWidget):
                     "titre_graphique_calendrier_voyages",
                 ),
                 x_label="",
-                y_label=self.fct_traduction(
-                    "y_label_calendrier_voyages",
-                ),
+                y_label="",
                 color_label="",
                 # palette=[
                 #     "#ADCEDB",

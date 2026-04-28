@@ -140,6 +140,8 @@ class OngletTopPays(QWidget):
         self.hemicycle.set_langue(langue=nouvelle_langue)
         self.classement_widget.set_langue(nouvelle_langue)
         self.recommandations.set_langue(langue=nouvelle_langue)
+        self.pays_souvent_visites.set_langue(langue=nouvelle_langue)
+        self.calendrier_visites.set_langue(langue=nouvelle_langue)
 
         texte_onglet_1 = self.fonction_traduction(
             "titre_sous_onglet_4_1",

@@ -140,6 +140,9 @@ recommandation_passeport : À vos passeports, prêts, voyagez !
 titre_sous_onglet_4_4 : Vos pays de prédilection
 titre_graphique_n_voyages : Pays visités le plus grand nombre de fois
 y_label_n_voyages : Nombre de visites
+# Calendrier des visites
+titre_sous_onglet_4_5 : Calendrier des visites
+titre_graphique_calendrier_voyages : Visites effectuées au cours des 12 derniers mois
 
 # Onglet 5
 sous_titre_description_application : Création de cartes de voyages

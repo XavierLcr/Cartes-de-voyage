@@ -41,7 +41,7 @@ def plot_diagramme_barre(
     titre: str = "",
     x_label: str = "",
     y_label: str = "",
-    color_label: str = "",
+    color_label: str | None = "",
     palette: list = [
         "#7DC8E8",
         "#F5E474",
@@ -142,7 +142,7 @@ def plot_diagramme_barre(
 
         # Légende
         if len(val_color) > 1:
-            ax.legend(title=color_label if color_label else var_color)
+            ax.legend(title=color_label if color_label is not None else var_color)
 
     # Aligner les axes y
     for ax in axes:

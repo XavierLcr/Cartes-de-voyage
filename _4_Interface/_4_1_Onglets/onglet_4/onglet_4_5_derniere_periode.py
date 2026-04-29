@@ -9,7 +9,6 @@
 
 
 import pandas as pd
-from collections import defaultdict
 from PyQt6.QtWidgets import QWidget, QVBoxLayout
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 
@@ -81,6 +80,7 @@ def creer_table_derniers_voyages(
     if date_max is not None:
         df_temp = df_temp[df_temp["mois"] <= pd.to_datetime(date_max)]
 
+    # Renvoi
     return df_temp
 
 
@@ -98,7 +98,7 @@ class CalendrierVisite(QWidget):
         self.voyages = {}
 
         # Dates du graphique
-        self.date_min = "2025-05"
+        self.date_min = "2025-05-01"
         self.date_max = None
 
         self.layout = QVBoxLayout(self)
@@ -117,9 +117,8 @@ class CalendrierVisite(QWidget):
 
         if self.voyages:
 
-            fig = plot_diagramme_barre(
-                # Création de la table
-                df=creer_table_derniers_voyages(
+            df_temp = (
+                creer_table_derniers_voyages(
                     dictionnaire=self.voyages,
                     date_min=self.date_min,
                     date_max=self.date_max,
@@ -127,7 +126,13 @@ class CalendrierVisite(QWidget):
                 .drop_duplicates(inplace=False)
                 .assign(
                     indicatrice=1, mois_str=lambda x: x["mois"].dt.strftime("%Y-%m")
-                ),
+                )
+                .reset_index(drop=True, inplace=False)
+            )
+
+            fig = plot_diagramme_barre(
+                # Création de la table
+                df=df_temp,
                 var_x="mois_str",
                 var_y="indicatrice",
                 var_color="nom",
@@ -144,6 +149,7 @@ class CalendrierVisite(QWidget):
                 figsize=(6, 3),
                 wrap_ncol=3,
                 y_decimales=0,
+                stack_vals=True,
             )
 
             self.layout.addWidget(FigureCanvas(fig))

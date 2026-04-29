@@ -116,7 +116,6 @@ def plot_diagramme_barre(
 
             bottom = np.zeros(len(global_x_order))
             for j, color_val in enumerate(val_color):
-                print("wrap:", wrap_val, "color:", color_val)
                 y_values = []
 
                 for x_val in global_x_order:

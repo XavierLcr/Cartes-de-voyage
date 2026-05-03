@@ -10,7 +10,6 @@
 
 import pandas as pd
 
-
 # 1 -- Fonctions ---------------------------------------------------------------
 
 
@@ -38,20 +37,19 @@ def creer_base_une_granularite(
         gdf.loc[gdf["name_0"].isin(liste_destinations.keys())]
         # Création de l'indicatrice des lieux visités
         .assign(
+            # Indicatrice de visite
             Visite=lambda x: x.apply(
                 lambda row: row[f"name_{granularite}"]
                 in liste_destinations.get(row["name_0"], []),
                 axis=1,
             ),
-            # Récupération de la région
-            Region=lambda x: x[f"name_{granularite}"],
             # Ajout de la granularité
+            Pays=lambda x: x["name_0"],
+            subdivision=lambda x: x[f"name_{granularite}"],
             Granu=granularite,
         )
-        # Renommage
-        .rename(columns={"name_0": "Pays"})
         # Sélection des colonnes
-        .loc[:, ["Pays", "subdivision", "Visite", "geometry", "Granu"]]
+        [["Pays", "subdivision", "Visite", "geometry", "Granu"]]
     )
 
 
@@ -135,7 +133,7 @@ def remplacer_lieux_constants(
             .reset_index(drop=True)
             .assign(
                 Pays=lambda x: x["name_0"],
-                Region=lambda x: x[f"name_{granularite}"],
+                subdivision=lambda x: x[f"name_{granularite}"],
                 region_temp=lambda x: x[f"name_{granularite-1}"],
             )[["Pays", "subdivision", "region_temp"]]
         )
@@ -344,7 +342,7 @@ def ajouter_indicatrice_visite(gdf_monde, gdf_visite, granularite=1):
                 # Suppression des pays visités
                 gdf_monde[gdf_monde["name_0"].isin(gdf_visite["Pays"]) == False].assign(
                     # Création de la région
-                    Region=lambda x: x[f"name_{granularite}"]
+                    subdivision=lambda x: x[f"name_{granularite}"]
                 )
                 # Renommage
                 .rename(columns={"name_0": "Pays"})

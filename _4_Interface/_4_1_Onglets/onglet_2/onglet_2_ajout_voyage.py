@@ -23,7 +23,7 @@ from PyQt6.QtWidgets import (
 )
 from PyQt6.QtCore import Qt, QSize
 
-from _4_Interface._4_1_Onglets.onglet_2.onglet_2_date import SelecteurMoisAnnee
+from _4_Interface._4_1_Onglets.onglet_2.onglet_2_date import SelecteurDate
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     obtenir_clef_par_valeur,
@@ -34,7 +34,6 @@ from _0_Utilitaires._0_7_fonctions_voyages import creer_voyage, voyage_id
 from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
     style_bouton_de_suppression,
 )
-
 
 # 1 -- Pop-up d'ajout d'un voyage ----------------------------------------------
 
@@ -84,13 +83,13 @@ class CreerVoyage(QDialog):
 
         # Début du voyage
         self.debut_voyage_label = QLabel()
-        self.debut_voyage = SelecteurMoisAnnee(
+        self.debut_voyage = SelecteurDate(
             parent=self, date=self.visite_temp.get("date_debut")
         )
 
         # Fin du voyage
         self.fin_voyage_label = QLabel()
-        self.fin_voyage = SelecteurMoisAnnee(
+        self.fin_voyage = SelecteurDate(
             parent=self, date=self.visite_temp.get("date_fin")
         )
 
@@ -360,8 +359,8 @@ class CreerVoyage(QDialog):
 
         # Récupération de la date si utilisée
         if self.utiliser_date.isChecked():
-            date_debut = self.debut_voyage.obtenir_premier_jour_mois()
-            date_fin = max(date_debut, self.fin_voyage.obtenir_premier_jour_mois())
+            date_debut = self.debut_voyage.obtenir_date_str()
+            date_fin = max(date_debut, self.fin_voyage.obtenir_date_str())
         else:
             date_debut = None
             date_fin = None

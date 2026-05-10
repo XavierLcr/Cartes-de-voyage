@@ -62,7 +62,10 @@ def plot_diagramme_grantt(
     for i, item in enumerate(liste_temp):
         ax.barh(
             y=i,
-            width=(item["fin_temp"] - item["deb_temp"]),  # 👈 FIX IMPORTANT
+            width=max(
+                item["fin_temp"] - item["deb_temp"],
+                pd.Timedelta(days=0.8),
+            ),
             left=item["deb_temp"],
             height=0.4,
             align="center",

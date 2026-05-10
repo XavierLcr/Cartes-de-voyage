@@ -31,8 +31,8 @@ class CalendrierVisite(QWidget):
         self.voyages = {}
 
         # Dates du graphique
-        self.date_min = "2025-05-01"
-        self.date_max = None
+        self.date_max = pd.Timestamp.today().normalize()
+        self.date_min = self.date_max - pd.DateOffset(years=1)
 
         self.layout = QVBoxLayout(self)
 

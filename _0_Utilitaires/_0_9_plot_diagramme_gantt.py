@@ -55,10 +55,10 @@ def plot_diagramme_grantt(
             {"label_temp": label_temp, "deb_temp": deb_temp, "fin_temp": fin_temp}
         )
 
-    # tri correct
+    # Tri
     liste_temp.sort(key=lambda x: (x["deb_temp"], x["fin_temp"], x["label_temp"]))
 
-    # affichage
+    # Ajout des barres
     for i, item in enumerate(liste_temp):
         ax.barh(
             y=i,
@@ -76,9 +76,19 @@ def plot_diagramme_grantt(
     ax.set_yticks(range(len(liste_temp)))
     ax.set_yticklabels([d["label_temp"] for d in liste_temp])
 
+    if date_min is not None:
+        ax.set_xlim(left=pd.to_datetime(date_min))
+
+    if date_max is not None:
+        ax.set_xlim(right=pd.to_datetime(date_max))
+
     # X axis plus propre
     ax.xaxis.set_major_locator(mdates.AutoDateLocator())
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
+
+    # Suppression des bords droit et supérieur
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
 
     ax.set_title(titre)
 

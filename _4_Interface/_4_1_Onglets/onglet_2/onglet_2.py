@@ -49,7 +49,6 @@ from _0_Utilitaires._0_7_fonctions_voyages import (
 from _4_Interface._4_1_Onglets.onglet_2.onglet_2_ajout_voyage import CreerVoyage
 from _4_Interface._4_2_Style._4_2_2_styles_complementaires import style_bouton_yaml
 
-
 # 1 -- Classe de sélection des destinations ------------------------------------
 
 
@@ -477,7 +476,7 @@ class OngletSelectionnerDestinations(QWidget):
                                 parent_item,
                                 [
                                     f"{self.fonction_traduire(f'voyage_{cle}')} : "
-                                    f"{datetime.strptime(str(valeur), '%Y-%m-%d').strftime('%m/%Y')}"
+                                    f"{datetime.strptime(str(valeur), '%Y-%m-%d').strftime('%d/%m/%Y')}"
                                 ],
                             )
                             child.setBackground(

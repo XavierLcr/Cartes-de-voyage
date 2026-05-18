@@ -22,7 +22,6 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     vider_layout,
 )
 
-
 # 1 -- Fonctions ---------------------------------------------------------------
 
 
@@ -110,7 +109,7 @@ class ClassementPays(QWidget):
         super().__init__(parent)
 
         # Variables passées en paramètre
-        self.constantes = constantes
+        self.pays_traductions = constantes.pays_differentes_langues
         self.table_superficie = table_superficie
         self.top_n = constantes.parametres_application["top_n_pays"]
         self.ndigits = constantes.parametres_application["pct_ndigits"]
@@ -281,7 +280,7 @@ class ClassementPays(QWidget):
                     columns=["pays", "subdivision"],
                 ),
                 table_superficie=self.table_superficie,
-                pays_traductions=self.constantes.pays_differentes_langues,
+                pays_traductions=self.pays_traductions,
                 langue=self.langue_utilisee,
                 granularite=granularite,
                 top_n=self.top_n,

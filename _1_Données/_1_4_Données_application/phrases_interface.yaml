@@ -106,6 +106,7 @@ tri_dates_debut_voyages : Trier par date des voyages
 general_voyage_groupbox : Contexte du voyage
 general_voyage_nom : Nom du voyage
 general_voyage_debut : Date de début
+onglet_2_filtre_pattern : Filtrer selon un lieu
 precision_diplomatique_onglet_2 : Dans ce logiciel, le terme « pays » est employé par commodité pour regrouper des ensembles géographiques. Il peut ainsi désigner non seulement un État souverain, mais aussi un territoire, une île éloignée ou une subdivision administrative particulière. Cette approche vise uniquement à simplifier l’organisation et l’utilisation des cartes. Elle ne reflète aucune prise de position politique, diplomatique ou juridique concernant le statut des lieux représentés.
 general_voyage_fin : Date de fin
 general_voyage_utiliser_date : Utiliser la date pour ce voyage

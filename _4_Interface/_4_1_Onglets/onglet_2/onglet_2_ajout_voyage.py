@@ -27,7 +27,6 @@ from _4_Interface._4_1_Onglets.onglet_2.onglet_2_date import SelecteurDate
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     obtenir_clef_par_valeur,
-    voyages_vers_destinations_une_granu,
 )
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import reset_combo
 from _0_Utilitaires._0_7_fonctions_voyages import creer_voyage, voyage_id
@@ -93,7 +92,7 @@ class CreerVoyage(QDialog):
             parent=self, date=self.visite_temp.get("date_fin")
         )
 
-        # Ne pas utiliser de dates
+        # Utilisation des dates
         self.utiliser_date = QCheckBox()
         self.utiliser_date.setChecked(True)
 
@@ -135,16 +134,19 @@ class CreerVoyage(QDialog):
         self.groupe_selection_lieux = QGroupBox()
         layout_selection_lieux = QVBoxLayout()
 
-        # Menus déroulants
+        # Périmètre de sélection
         self.liste_des_pays = QComboBox()
         self.liste_des_pays.addItems(self.constantes.hierarchie_par_pays.keys())
         self.liste_des_pays.currentIndexChanged.connect(self.maj_liste_reg_dep_pays)
         self.liste_niveaux = QComboBox()
         self.liste_niveaux.currentIndexChanged.connect(self.maj_liste_reg_dep_pays)
+        self.filtre_pattern = QLineEdit()
+        self.filtre_pattern.setPlaceholderText("...")
 
         layout_selection_params = QHBoxLayout()
         layout_selection_params.addWidget(self.liste_des_pays)
         layout_selection_params.addWidget(self.liste_niveaux)
+        layout_selection_params.addWidget(self.filtre_pattern)
         layout.addLayout(layout_selection_params)
 
         # Liste des lieux
@@ -199,6 +201,10 @@ class CreerVoyage(QDialog):
         self.groupe_selection_lieux.setTitle(
             self.fct_traduction("titre_choix_destinations_visitees")
         )
+        self.filtre_pattern.setPlaceholderText(
+            self.fct_traduction("onglet_2_filtre_pattern", suffixe="...")
+        )
+
         self.utiliser_date.setText(self.fct_traduction("general_voyage_utiliser_date"))
         self.liste_des_pays.setToolTip(
             self.fct_traduction("precision_diplomatique_onglet_2", suffixe=".")

@@ -18,7 +18,6 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
 )
 from _0_Utilitaires._0_8_plot_diagramme_barres import plot_diagramme_barre
 
-
 # 1 -- Fonction de comptage par pays -------------------------------------------
 
 
@@ -53,11 +52,10 @@ def compter_voyages_par_pays(dictionnaire_voyages):
 
 class PaysLesPlusVisites(QWidget):
 
-    def __init__(self, constantes, fct_traduction, parent=None):
+    def __init__(self, fct_traduction, parent=None):
         super().__init__(parent=None)
 
         self.langue = "français"
-        self.constantes = constantes
         self.fct_traduction = fct_traduction
         self.voyages = {}
 

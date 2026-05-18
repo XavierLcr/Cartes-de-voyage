@@ -22,11 +22,10 @@ from _0_Utilitaires._0_9_plot_diagramme_gantt import plot_diagramme_grantt
 
 class CalendrierVisite(QWidget):
 
-    def __init__(self, constantes, fct_traduction, parent=None):
+    def __init__(self, fct_traduction, parent=None):
         super().__init__(parent=None)
 
         self.langue = "français"
-        self.constantes = constantes
         self.fct_traduction = fct_traduction
         self.voyages = {}
 

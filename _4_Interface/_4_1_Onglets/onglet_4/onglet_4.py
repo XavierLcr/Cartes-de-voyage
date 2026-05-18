@@ -29,7 +29,6 @@ from _4_Interface._4_1_Onglets.onglet_4 import (
     onglet_4_5_derniere_periode,
 )
 
-
 # 1 -- Classe de l'onglet contenant les statistiques ---------------------------
 
 
@@ -74,12 +73,12 @@ class OngletTopPays(QWidget):
 
         # Pays visités les plus de fois
         self.pays_souvent_visites = onglet_4_4_n_visites.PaysLesPlusVisites(
-            constantes=self.constantes, fct_traduction=fct_traduction, parent=None
+            fct_traduction=fct_traduction, parent=None
         )
 
         # Calendrier des visites
         self.calendrier_visites = onglet_4_5_derniere_periode.CalendrierVisite(
-            constantes=self.constantes, fct_traduction=fct_traduction, parent=None
+            fct_traduction=fct_traduction, parent=None
         )
 
         # Mise en page des sous-onglets

@@ -29,7 +29,6 @@ from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
     style_bouton_recommandation,
 )
 
-
 # 1 -- Fonctions ---------------------------------------------------------------
 
 
@@ -140,9 +139,11 @@ def calculer_recommandation(
 
     # Limitation aux top pays (si souhaité)
     if par_pays:
-        df_reste = df_reste.groupby("name_0").apply(
-            lambda x: x.nlargest(n_par_pays, columns="score_region")
-        ).reset_index(drop=False)
+        df_reste = (
+            df_reste.groupby("name_0")
+            .apply(lambda x: x.nlargest(n_par_pays, columns="score_region"))
+            .reset_index(drop=False)
+        )
 
     df_reste = (
         df_reste
@@ -213,17 +214,22 @@ class PaysAVisiter(QWidget):
     ):
         super().__init__(parent)
 
-        self.langue = "français"
-        self.constantes = constantes
-        self.fonction_traduire = fct_traduire
-        self.dict_granu = {"region": {}, "dep": {}}
-        self.df = None
+        # Données
+        self.df_caracteristiques = constantes.df_caracteristiques_pays
         self.table_superficie = table_superficie
-        self.recommandations_nb = 20
-        self.recommandations_par_pays = False
         self.n_par_pays = 3
         self.recommandations_par_ligne = 3
-        self.alpha = self.constantes.parametres_application.get("coeff_distance", 0.05)
+        self.alpha = constantes.parametres_application.get("coeff_distance", 0.05)
+        self.pays_traductions = constantes.pays_differentes_langues
+        self.emojis_pays = constantes.emojis_pays
+        self.fonction_traduire = fct_traduire
+
+        # Paramètres utilisateur
+        self.langue = "français"
+        self.dict_granu = {"region": {}, "dep": {}}
+        self.recommandations_par_pays = False
+        self.recommandations_nb = 20
+        self.df = None
 
         layout = QVBoxLayout()
         # Bouton de lancement
@@ -275,7 +281,7 @@ class PaysAVisiter(QWidget):
 
         self.thread_temp = QThread()
         self.worker_temp = WorkerRecommandation(
-            df=self.constantes.df_caracteristiques_pays,
+            df=self.df_caracteristiques,
             alpha=self.alpha,
             top_n=self.get_recommandations_nb(),
             par_pays=self.get_recommandations_par_pays(),
@@ -326,7 +332,7 @@ class PaysAVisiter(QWidget):
                         if i % modulo == 0:
                             layout_temp = QGridLayout()
 
-                        pays_traduit = self.constantes.pays_differentes_langues.get(
+                        pays_traduit = self.pays_traductions.get(
                             ligne["name_0"], {}
                         ).get(self.langue, ligne["name_0"])
 
@@ -335,7 +341,7 @@ class PaysAVisiter(QWidget):
                                 # Numéro
                                 f"{i + 1}. "
                                 # Pays avec emoji
-                                f"<b>{pays_traduit}</b> {self.constantes.emojis_pays.get(ligne['name_0'], '')}: "
+                                f"<b>{pays_traduit}</b> {self.emojis_pays.get(ligne['name_0'], '')}: "
                                 # Régions si affichage regroupé
                                 f"{ligne['name_1']}",
                                 wordWrap=True,
@@ -366,9 +372,9 @@ class PaysAVisiter(QWidget):
                             creer_QLabel_centre(
                                 text=(
                                     # Pays avec emoji
-                                    f"{self.constantes.emojis_pays.get(pays, '')} "
-                                    f"<b>{self.constantes.pays_differentes_langues.get(pays, {}).get(self.langue, pays)}</b>"
-                                    f" {self.constantes.emojis_pays.get(pays, '')}"
+                                    f"{self.emojis_pays.get(pays, '')} "
+                                    f"<b>{self.pays_traductions.get(pays, {}).get(self.langue, pays)}</b>"
+                                    f" {self.emojis_pays.get(pays, '')}"
                                 )
                             )
                         )

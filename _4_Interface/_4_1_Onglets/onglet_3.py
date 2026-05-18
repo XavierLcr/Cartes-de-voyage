@@ -24,7 +24,6 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
 )
 from _0_Utilitaires._0_2_fonctions_graphiques import (
     renvoyer_couleur_widget,
-    renvoyer_couleur_texte,
 )
 
 # 1 -- Fonctions utiles --------------------------------------------------------
@@ -86,7 +85,7 @@ class OngletResumeDestinations(QWidget):
         self.traduire_depuis_id = traduire_depuis_id
         self.emojis_pays = constantes.emojis_pays
         self.noms_pays = constantes.pays_differentes_langues
-        self.constantes = constantes
+        self.liste_pays = constantes.hierarchie_par_pays
         self.dicts_granu = {"region": {}, "dep": {}}
         self.langue_utilisee = "français"
         self.set_style(style=1, teinte=None, nuances={})
@@ -272,7 +271,7 @@ class OngletResumeDestinations(QWidget):
             granu="titre_departements_visites",
             pays_donnees=filtrer_hierarchie(
                 dico_plat=self.dicts_granu.get("dep", {}),
-                dico_hier=self.constantes.hierarchie_par_pays,
+                dico_hier=self.liste_pays,
             ),
             vbox=self.layout_resume_departements,
             affichage_groupe=self.arbre_groupe,

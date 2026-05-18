@@ -54,7 +54,10 @@ class CreerVoyage(QDialog):
 
         self.resize(900, 500)
 
-        self.constantes = constantes
+        self.granularite_traductions = constantes.parametres_traduits.get(
+            "granularite", {}
+        )
+        self.hierarchie_par_pays = constantes.hierarchie_par_pays
         self.clef = clef
         self.visites = visites
         self.langue = "français"
@@ -136,7 +139,7 @@ class CreerVoyage(QDialog):
 
         # Périmètre de sélection
         self.liste_des_pays = QComboBox()
-        self.liste_des_pays.addItems(self.constantes.hierarchie_par_pays.keys())
+        self.liste_des_pays.addItems(self.hierarchie_par_pays.keys())
         self.liste_des_pays.currentIndexChanged.connect(self.maj_liste_reg_dep_pays)
         self.liste_niveaux = QComboBox()
         self.liste_niveaux.currentIndexChanged.connect(self.maj_liste_reg_dep_pays)
@@ -213,7 +216,7 @@ class CreerVoyage(QDialog):
         reset_combo(
             self.liste_niveaux,
             [
-                self.constantes.parametres_traduits["granularite"][self.langue][k]
+                self.granularite_traductions[self.langue][k]
                 for k in ["Régions", "Départements"]
             ],
         )
@@ -229,15 +232,13 @@ class CreerVoyage(QDialog):
         pays_i = self.liste_des_pays.currentText()
         niveau_i = obtenir_clef_par_valeur(
             valeur=self.liste_niveaux.currentText(),
-            dictionnaire=self.constantes.parametres_traduits["granularite"][
-                self.langue
-            ],
+            dictionnaire=self.granularite_traductions[self.langue],
         )
 
         self.liste_endroits.blockSignals(True)
         self.liste_endroits.clear()
 
-        data = self.constantes.hierarchie_par_pays.get(pays_i, {})
+        data = self.hierarchie_par_pays.get(pays_i, {})
 
         if not data:
             self.liste_endroits.blockSignals(False)
@@ -329,9 +330,7 @@ class CreerVoyage(QDialog):
             "region"
             if obtenir_clef_par_valeur(
                 valeur=self.liste_niveaux.currentText(),
-                dictionnaire=self.constantes.parametres_traduits["granularite"][
-                    self.langue
-                ],
+                dictionnaire=self.granularite_traductions[self.langue],
             )
             == "Régions"
             else "dep"

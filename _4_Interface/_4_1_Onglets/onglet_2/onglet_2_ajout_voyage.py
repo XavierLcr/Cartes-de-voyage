@@ -234,6 +234,7 @@ class CreerVoyage(QDialog):
             valeur=self.liste_niveaux.currentText(),
             dictionnaire=self.granularite_traductions[self.langue],
         )
+        self.filtre_pattern.setText("")
 
         self.liste_endroits.blockSignals(True)
         self.liste_endroits.clear()

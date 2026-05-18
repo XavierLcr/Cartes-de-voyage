@@ -13,7 +13,6 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     periode_particuliere,
 )
 
-
 # 1 -- Gestion des directions --------------------------------------------------
 
 
@@ -217,10 +216,20 @@ outil_differentes_langues = ouvrir_fichier(
 ### Import de la liste globale des lieux ---------------------------------------
 
 
+# Version simplifiée
 hierarchie_par_pays = ouvrir_fichier(
     direction_fichier=direction_donnees_application,
     nom_fichier="hierarchie_granularite_pays.pkl",
     defaut={},
+    afficher_erreur="Hiérarchie des pays introuvables",
+)
+
+
+# Version complète
+hierarchie_complete_par_pays = ouvrir_fichier(
+    direction_fichier=direction_donnees_application,
+    nom_fichier="hierarchie_complete_granularite_pays_df.pkl",
+    defaut=None,
     afficher_erreur="Hiérarchie des pays introuvables",
 )
 

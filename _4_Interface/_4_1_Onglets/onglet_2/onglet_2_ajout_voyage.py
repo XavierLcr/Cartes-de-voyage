@@ -8,6 +8,8 @@
 # 0 -- Initialisation ----------------------------------------------------------
 
 
+import pandas as pd
+
 from PyQt6.QtWidgets import (
     QDialog,
     QVBoxLayout,
@@ -27,6 +29,8 @@ from _4_Interface._4_1_Onglets.onglet_2.onglet_2_date import SelecteurDate
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     obtenir_clef_par_valeur,
+    construire_dictionnaire_imbrique,
+    tronquer_dict,
 )
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import reset_combo
 from _0_Utilitaires._0_7_fonctions_voyages import creer_voyage, voyage_id
@@ -34,7 +38,55 @@ from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
     style_bouton_de_suppression,
 )
 
-# 1 -- Pop-up d'ajout d'un voyage ----------------------------------------------
+# 1 -- Fonctions utiles --------------------------------------------------------
+
+
+## 1.1 -- Fonction de filtrage de la table -------------------------------------
+
+
+def filtrer_df(df: pd.DataFrame, pays: str, pattern: str | None):
+
+    # Filtre sur le pays
+    df_temp = df.copy()[df["name_0"] == pays]
+
+    # Filtre sur la valeur (si souhaité)
+    if pattern:
+
+        # masque initial à False
+        mask_global = False
+
+        for i in range(1, 6):
+
+            mask = df_temp[f"name_{i}"].str.contains(
+                pat=pattern, case=False, regex=False, na=False
+            )
+
+            # OU logique
+            mask_global |= mask
+
+        df_temp = df_temp[mask_global]
+
+    return df_temp
+
+
+## 1.2 -- Fonction de création du dictionnaire de destinations -----------------
+
+
+def creer_dictionnaire(
+    df: pd.DataFrame, pays: str, pattern: str | None, niveau_tronc: int
+):
+
+    return tronquer_dict(
+        d=construire_dictionnaire_imbrique(
+            df=filtrer_df(df=df, pays=pays, pattern=pattern),
+            niveaux=[f"name_{i}" for i in range(5)],
+            colonne_valeur="name_5",
+        ),
+        n=niveau_tronc,
+    )
+
+
+# 2 -- Pop-up d'ajout d'un voyage ----------------------------------------------
 
 
 class CreerVoyage(QDialog):
@@ -57,7 +109,8 @@ class CreerVoyage(QDialog):
         self.granularite_traductions = constantes.parametres_traduits.get(
             "granularite", {}
         )
-        self.hierarchie_par_pays = constantes.hierarchie_par_pays
+        self.liste_pays = list(constantes.hierarchie_par_pays.keys())
+        self.df_hierarchie = constantes.hierarchie_complete_par_pays
         self.clef = clef
         self.visites = visites
         self.langue = "français"
@@ -139,17 +192,20 @@ class CreerVoyage(QDialog):
 
         # Périmètre de sélection
         self.liste_des_pays = QComboBox()
-        self.liste_des_pays.addItems(self.hierarchie_par_pays.keys())
+        self.liste_des_pays.addItems(self.liste_pays)
+        self.liste_des_pays.currentIndexChanged.connect(self.supprimer_filtre_pattern)
         self.liste_des_pays.currentIndexChanged.connect(self.maj_liste_reg_dep_pays)
         self.liste_niveaux = QComboBox()
+        self.liste_niveaux.currentIndexChanged.connect(self.supprimer_filtre_pattern)
         self.liste_niveaux.currentIndexChanged.connect(self.maj_liste_reg_dep_pays)
         self.filtre_pattern = QLineEdit()
         self.filtre_pattern.setPlaceholderText("...")
+        self.filtre_pattern.textChanged.connect(self.maj_liste_reg_dep_pays)
 
         layout_selection_params = QHBoxLayout()
-        layout_selection_params.addWidget(self.liste_des_pays)
-        layout_selection_params.addWidget(self.liste_niveaux)
-        layout_selection_params.addWidget(self.filtre_pattern)
+        layout_selection_params.addWidget(self.liste_des_pays, stretch=3)
+        layout_selection_params.addWidget(self.liste_niveaux, stretch=3)
+        layout_selection_params.addWidget(self.filtre_pattern, stretch=4)
         layout.addLayout(layout_selection_params)
 
         # Liste des lieux
@@ -234,12 +290,16 @@ class CreerVoyage(QDialog):
             valeur=self.liste_niveaux.currentText(),
             dictionnaire=self.granularite_traductions[self.langue],
         )
-        self.filtre_pattern.setText("")
 
         self.liste_endroits.blockSignals(True)
         self.liste_endroits.clear()
 
-        data = self.hierarchie_par_pays.get(pays_i, {})
+        data = creer_dictionnaire(
+            df=self.df_hierarchie,
+            pays=pays_i,
+            pattern=self.filtre_pattern.text(),
+            niveau_tronc=3,
+        ).get(pays_i, {})
 
         if not data:
             self.liste_endroits.blockSignals(False)
@@ -403,3 +463,6 @@ class CreerVoyage(QDialog):
     def supprimer_voyage(self):
         self.ajouter = False
         self.accept()
+
+    def supprimer_filtre_pattern(self):
+        self.filtre_pattern.setText("")

@@ -20,7 +20,6 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     tronquer_dict,
 )
 
-
 # 1 -- YAML sans hiérarchie ----------------------------------------------------
 
 
@@ -98,5 +97,21 @@ exporter_fichier(
     objet=tronquer_dict(d=dictception, n=3),
     direction_fichier=constantes.direction_donnees_application,
     nom_fichier="hierarchie_granularite_pays.pkl",
+    sort_keys=True,
+)
+
+
+# 3 -- Export de la table sans les coordonnées ---------------------------------
+
+
+exporter_fichier(
+    objet=ouvrir_fichier(
+        direction_fichier=constantes.direction_donnees_geographiques,
+        nom_fichier=f"carte_monde_niveau_{5}.pkl",
+        defaut=None,
+        afficher_erreur="Base non trouvée.",
+    )[["name_0", "name_1", "name_2", "name_3", "name_4", "name_5"]],
+    direction_fichier=constantes.direction_donnees_application,
+    nom_fichier="hierarchie_complete_granularite_pays_df.pkl",
     sort_keys=True,
 )

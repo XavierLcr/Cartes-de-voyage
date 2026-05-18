@@ -15,7 +15,6 @@ import numpy as np
 from datetime import date
 from shapely.wkb import loads
 
-
 # 1 -- Fonctions sur les dictionnaires -----------------------------------------
 
 
@@ -101,7 +100,35 @@ def separer_combinaisons(dico1, dico2):
     return result
 
 
-## 1.6 -- Fonction simplifiant un ensemble de voyages --------------------------
+## 1.6 -- Créer un dictionnaire imbriqué ---------------------------------------
+
+
+def construire_dictionnaire_imbrique(df, niveaux, colonne_valeur):
+    resultat = {}
+
+    for _, ligne in df.iterrows():
+
+        niveau_courant = resultat
+
+        # Parcours des niveaux intermédiaires
+        for niveau in niveaux[:-1]:
+
+            cle = ligne[niveau]
+
+            if cle not in niveau_courant:
+                niveau_courant[cle] = {}
+
+            niveau_courant = niveau_courant[cle]
+
+        # Dernier niveau : stockage des valeurs dans une liste
+        derniere_cle = ligne[niveaux[-1]]
+
+        if derniere_cle not in niveau_courant:
+            niveau_courant[derniere_cle] = []
+
+        niveau_courant[derniere_cle].append(ligne[colonne_valeur])
+
+    return resultat
 
 
 ### Fonction pour une granularité donnée ---------------------------------------

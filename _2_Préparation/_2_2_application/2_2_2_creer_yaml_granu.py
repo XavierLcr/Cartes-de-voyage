@@ -18,6 +18,7 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     cree_yaml_un_pays,
     exporter_fichier,
     tronquer_dict,
+    construire_dictionnaire_imbrique,
 )
 
 # 1 -- YAML sans hiérarchie ----------------------------------------------------
@@ -45,34 +46,8 @@ for granularite in range(1, 6):
 # 2 -- YAMLs avec hiérarchie -----------------------------------------------
 
 
-## 2.1 -- Fonctions utiles -------------------------------------------------
-
-
-### Transformer un df en dictionniares de dictionnaires --------------------
-
-
-def build_nested_dict(df, levels, value_col):
-    result = {}
-    for _, row in df.iterrows():
-        current_level = result
-        for level in levels[:-1]:
-            key = row[level]
-            if key not in current_level:
-                current_level[key] = {}
-            current_level = current_level[key]
-        # Dernier niveau : liste de valeurs
-        last_key = row[levels[-1]]
-        if last_key not in current_level:
-            current_level[last_key] = []
-        current_level[last_key].append(row[value_col])
-    return result
-
-
-## 2.2 -- Application ----------------------------------------------------------
-
-
 print("Dictionnaire hiérarchique.")
-dictception = build_nested_dict(
+dictception = construire_dictionnaire_imbrique(
     df=ouvrir_fichier(
         direction_fichier=constantes.direction_donnees_geographiques,
         nom_fichier=f"carte_monde_niveau_{5}.pkl",

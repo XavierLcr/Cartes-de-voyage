@@ -78,8 +78,8 @@ def creer_dictionnaire(
 
     return tronquer_dict(
         d=construire_dictionnaire_imbrique(
-            df=filtrer_df(df=df, pays=pays, pattern=pattern),
-            niveaux=[f"name_{i}" for i in range(5)],
+            df=filtrer_df(df=df, pays=pays, pattern=pattern).drop(columns=["name_0"]),
+            niveaux=[f"name_{i}" for i in range(1, 5)],
             colonne_valeur="name_5",
         ),
         n=niveau_tronc,
@@ -298,8 +298,8 @@ class CreerVoyage(QDialog):
             df=self.df_hierarchie,
             pays=pays_i,
             pattern=self.filtre_pattern.text(),
-            niveau_tronc=3,
-        ).get(pays_i, {})
+            niveau_tronc=2 - (niveau_i == "Régions"),
+        )
 
         if not data:
             self.liste_endroits.blockSignals(False)
@@ -308,7 +308,7 @@ class CreerVoyage(QDialog):
         if niveau_i == "Régions":
 
             # liste plate de régions cochables
-            for region in sorted(data.keys()):
+            for region in data:
 
                 item = QListWidgetItem(region)
                 # cochable + sélectionnable

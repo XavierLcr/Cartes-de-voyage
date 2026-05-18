@@ -12,7 +12,6 @@ from PyQt6.QtGui import QPainter, QPen, QColor, QBrush, QFont
 from collections import defaultdict
 from _0_Utilitaires._0_1_fonctions_utiles_gen import reordonner_dict
 
-
 # 1 -- Fonctions ---------------------------------------------------------------
 
 
@@ -126,7 +125,8 @@ class HemicycleWidget(QWidget):
         super().__init__()
         self.pays_visites = {"region": {}, "dep": {}}
         self.continents = constantes.liste_regions_monde
-        self.constantes = constantes
+        self.traductions_pays = constantes.pays_differentes_langues
+        self.liste_pays = constantes.hierarchie_par_pays.keys()
         self.langue = "français"
         self.num_levels = max(
             min(constantes.parametres_application["n_rangees"], 20), 4
@@ -151,18 +151,14 @@ class HemicycleWidget(QWidget):
         self.points_visites_position = -1
 
         # Ajustement du nombre de points par ligne
-        self.decalage = len(
-            list(self.constantes.hierarchie_par_pays.keys())
-        ) - somme_filee(
+        self.decalage = len(list(self.liste_pays)) - somme_filee(
             lignes=self.num_levels, a=self.base_points, b=self.points_increment
         )
         ## Si le total est trop haut
         while self.decalage < 0:
             self.base_points = max(self.base_points - 1, 10)
             self.points_increment = max(self.points_increment, 4)
-            self.decalage = len(
-                list(self.constantes.hierarchie_par_pays.keys())
-            ) - somme_filee(
+            self.decalage = len(list(self.liste_pays)) - somme_filee(
                 lignes=self.num_levels, a=self.base_points, b=self.points_increment
             )
 
@@ -226,8 +222,8 @@ class HemicycleWidget(QWidget):
 
         coords_angles = sorted(coords_angles, key=lambda t: (-t[2], -t[3]))
         assert len(coords_angles) == len(
-            list(self.constantes.hierarchie_par_pays.keys())
-        ), f"{len(coords_angles)} ≠ {len(list(self.constantes.hierarchie_par_pays.keys()))}"
+            list(self.liste_pays)
+        ), f"{len(coords_angles)} ≠ {len(list(self.liste_pays))}"
         return coords_angles
 
     def relier_coordonnees_continent(self, coord: list, position: int):
@@ -321,9 +317,9 @@ class HemicycleWidget(QWidget):
                 continue
 
             # Nom dans la bonne langue
-            nom_affiche = self.constantes.pays_differentes_langues.get(
-                continent, {}
-            ).get(self.langue, continent)
+            nom_affiche = self.traductions_pays.get(continent, {}).get(
+                self.langue, continent
+            )
 
             # Calcul de l'angle du point par rapport au centre
             theta = math.atan2(
@@ -353,7 +349,7 @@ class HemicycleWidget(QWidget):
         self.resume = reordonner_dict(
             nb_pays_visites(
                 dict_granu=self.pays_visites,
-                continents=copy.copy(self.constantes.liste_regions_monde),
+                continents=copy.copy(self.continents),
             ),
             clefs=self.ordre_clefs,
         )

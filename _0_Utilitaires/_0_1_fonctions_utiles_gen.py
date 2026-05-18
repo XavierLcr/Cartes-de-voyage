@@ -131,6 +131,9 @@ def construire_dictionnaire_imbrique(df, niveaux, colonne_valeur):
     return resultat
 
 
+## 1.7 -- Simplifier un voyage -------------------------------------------------
+
+
 ### Fonction pour une granularité donnée ---------------------------------------
 
 

@@ -52,12 +52,13 @@ def compter_voyages_par_pays(dictionnaire_voyages):
 
 class PaysLesPlusVisites(QWidget):
 
-    def __init__(self, fct_traduction, parent=None):
+    def __init__(self, constantes, fct_traduction, parent=None):
         super().__init__(parent=None)
 
         self.langue = "français"
         self.fct_traduction = fct_traduction
         self.voyages = {}
+        self.pays_trad = constantes.pays_differentes_langues
 
         self.layout = QVBoxLayout(self)
 
@@ -76,8 +77,14 @@ class PaysLesPlusVisites(QWidget):
         if self.voyages:
 
             fig = plot_diagramme_barre(
-                df=compter_voyages_par_pays(self.voyages).head(n=5),
-                var_x="pays",
+                df=compter_voyages_par_pays(self.voyages)
+                .head(n=5)
+                .assign(
+                    pays_traduction=lambda x: x["pays"].apply(
+                        lambda y: self.pays_trad.get(y, {}).get(self.langue, y)
+                    )
+                ),
+                var_x="pays_traduction",
                 var_y="voyages",
                 var_color=None,
                 var_wrap=None,

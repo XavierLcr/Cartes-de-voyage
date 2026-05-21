@@ -73,7 +73,7 @@ class OngletTopPays(QWidget):
 
         # Pays visités les plus de fois
         self.pays_souvent_visites = onglet_4_4_n_visites.PaysLesPlusVisites(
-            fct_traduction=fct_traduction, parent=None
+            constantes=constantes, fct_traduction=fct_traduction, parent=None
         )
 
         # Calendrier des visites

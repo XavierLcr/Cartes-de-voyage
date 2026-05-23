@@ -64,7 +64,10 @@ def aplanir_dictionnaire(d):
 ## 1.4 -- Fonction réordonnant un dictionnaire ---------------------------------
 
 
-def reordonner_dict(dictionnaire: dict, clefs: list):
+def reordonner_dict(dictionnaire: dict, clefs: list | None):
+
+    if clefs is None:
+        clefs = sorted(list(dictionnaire.keys()))
     return {k: dictionnaire[k] for k in clefs if k in dictionnaire}
 
 

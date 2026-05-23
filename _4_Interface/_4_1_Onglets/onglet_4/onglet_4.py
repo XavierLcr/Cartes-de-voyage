@@ -46,7 +46,6 @@ class OngletTopPays(QWidget):
             "onglet_4_mise_en_page"
         )
         self.fonction_traduction = fct_traduction
-        self.constantes = constantes
 
         # Hémicycle
         self.hemicycle = onglet_4_1_hemicycle.HemicycleWidget(

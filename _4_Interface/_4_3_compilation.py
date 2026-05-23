@@ -21,7 +21,6 @@ from constantes import (
     version_logiciel,
 )
 
-
 # 1 -- Création du .exe --------------------------------------------------------
 
 
@@ -64,9 +63,6 @@ try:
                     [
                         os.path.join(direction_donnees_autres, nom)
                         for nom in [
-                            # YAMLs des régions et départements
-                            "liste_pays_granularite_1.yaml",
-                            "liste_pays_granularite_2.yaml",
                             # Licence
                             "LICENSE – MesVoyages.md",
                         ]

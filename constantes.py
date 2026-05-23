@@ -188,6 +188,17 @@ dict_themes_temporaires = periode_particuliere(
 )
 
 
+### Import de la granularité maximale d'un pays --------------------------------
+
+
+granularite_max_pays = phrases_interface = ouvrir_fichier(
+    direction_fichier=direction_donnees_application,
+    nom_fichier="niveau_maximal_par_pays.yaml",
+    defaut={},
+    afficher_erreur="Granularité maximale introuvable.",
+)
+
+
 ## 3.3 -- Import des paramètres accessibles à l'utilisateur –––––––––––––-------
 
 

@@ -111,6 +111,7 @@ class CreerVoyage(QDialog):
         )
         self.liste_pays = list(constantes.hierarchie_par_pays.keys())
         self.df_hierarchie = constantes.hierarchie_complete_par_pays
+        self.granularite_max_pays = constantes.granularite_max_pays
         self.clef = clef
         self.visites = visites
         self.langue = "français"
@@ -285,7 +286,19 @@ class CreerVoyage(QDialog):
         les départements (cochables) sous chaque région.
         """
 
+        # Récupération du pays
         pays_i = self.liste_des_pays.currentText()
+
+        # Si le pays a moins de deux niveaux de granularité, mise automatique sur la Région
+        if self.granularite_max_pays.get(pays_i, 2) < 2:
+            self.liste_niveaux.blockSignals(True)
+            self.liste_niveaux.setCurrentIndex(0)
+            self.liste_niveaux.setEnabled(False)
+            self.liste_niveaux.blockSignals(False)
+        else:
+            self.liste_niveaux.setEnabled(True)
+
+        # Récupération du niveau de granularité
         niveau_i = obtenir_clef_par_valeur(
             valeur=self.liste_niveaux.currentText(),
             dictionnaire=self.granularite_traductions[self.langue],

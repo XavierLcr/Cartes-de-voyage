@@ -208,13 +208,12 @@ class CreerVoyage(QDialog):
         layout_selection_params.addWidget(self.liste_des_pays, stretch=3)
         layout_selection_params.addWidget(self.liste_niveaux, stretch=3)
         layout_selection_params.addWidget(self.filtre_pattern, stretch=4)
-        layout.addLayout(layout_selection_params)
 
         # Liste des lieux
         self.liste_endroits = QListWidget()
         self.liste_endroits.setWrapping(True)
         self.liste_endroits.setResizeMode(QListWidget.ResizeMode.Adjust)
-        self.liste_endroits.setGridSize(QSize(220, 27))
+        self.liste_endroits.setGridSize(QSize(200, 25))
         self.liste_endroits.itemChanged.connect(self.changer_item_liste_pays)
 
         layout_selection_lieux.addLayout(layout_selection_params)
@@ -320,9 +319,11 @@ class CreerVoyage(QDialog):
             dictionnaire=self.granularite_traductions[self.langue],
         )
 
+        # Liste vidée
         self.liste_endroits.blockSignals(True)
         self.liste_endroits.clear()
 
+        # Création des données à utiliser
         data = creer_dictionnaire(
             df=self.df_hierarchie,
             pays=pays_i,
@@ -336,11 +337,11 @@ class CreerVoyage(QDialog):
 
         if niveau_i == "Régions":
 
-            # liste plate de régions cochables
+            # Liste plate de régions cochables
             for region in data:
 
                 item = QListWidgetItem(region)
-                # cochable + sélectionnable
+                # Cochable + sélectionnable
                 item.setFlags(
                     item.flags()
                     | Qt.ItemFlag.ItemIsUserCheckable
@@ -354,13 +355,9 @@ class CreerVoyage(QDialog):
                     Qt.CheckState.Checked if est_coche else Qt.CheckState.Unchecked
                 )
 
-                # style visuel pour distinguer
-                font = item.font()
-                font.setBold(False)
-                item.setFont(font)
                 self.liste_endroits.addItem(item)
 
-        else:  # niveau_i == "Départements"
+        else:
 
             # Afficher régions (non cochables) puis départements cochables
             for i, region in enumerate(sorted(data.keys())):
@@ -395,10 +392,10 @@ class CreerVoyage(QDialog):
                     )
                     self.liste_endroits.addItem(dep_item)
 
-                # optionnel : ligne vide pour lisibilité
+                # Optionnel : ligne vide pour lisibilité
                 spacer = QListWidgetItem("")
                 spacer.setFlags(Qt.ItemFlag.NoItemFlags)
-                spacer.setSizeHint(QSize(0, 4))
+                spacer.setSizeHint(QSize(0, 3))
                 self.liste_endroits.addItem(spacer)
 
         self.liste_endroits.blockSignals(False)

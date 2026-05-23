@@ -304,9 +304,9 @@ class HemicycleWidget(QWidget):
         # === Légendes : centrées sur le centroïde === #
 
         painter.setPen(QColor(self.couleur_texte))
-        font = QFont()
+        font = painter.font()
         taille_police = max(int(8 + self.level_distance / 10), 1)
-        font.setPointSize(taille_police)  # Taille en points
+        font.setPointSize(taille_police)
 
         painter.setFont(font)
         font_metrics = painter.fontMetrics()

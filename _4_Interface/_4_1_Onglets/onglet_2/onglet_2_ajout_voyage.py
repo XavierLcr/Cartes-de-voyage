@@ -293,6 +293,49 @@ class CreerVoyage(QDialog):
             ],
         )
 
+    def creer_item(
+        self,
+        texte: str,
+        coche: bool | None = None,
+        gras: bool = False,
+        souligne: bool = False,
+        selectable: bool = True,
+        enabled: bool = True,
+    ):
+        item = QListWidgetItem(texte)
+
+        flags = item.flags()
+
+        if selectable:
+            flags |= Qt.ItemFlag.ItemIsSelectable
+
+        if enabled:
+            flags |= Qt.ItemFlag.ItemIsEnabled
+
+        if coche is not None:
+            flags |= Qt.ItemFlag.ItemIsUserCheckable
+
+        item.setFlags(flags)
+
+        if coche is not None:
+            item.setCheckState(
+                Qt.CheckState.Checked if coche else Qt.CheckState.Unchecked
+            )
+
+        if gras or souligne:
+
+            font = item.font()
+
+            if font.pointSize() <= 0:
+                font.setPointSize(9)
+
+            font.setBold(gras)
+            font.setUnderline(souligne)
+
+            item.setFont(font)
+
+        return item
+
     def maj_liste_reg_dep_pays(self):
         """
         Remplit self.liste_endroits (QListWidget) selon la granularité choisie.
@@ -340,57 +383,49 @@ class CreerVoyage(QDialog):
             # Liste plate de régions cochables
             for region in data:
 
-                item = QListWidgetItem(region)
-                # Cochable + sélectionnable
-                item.setFlags(
-                    item.flags()
-                    | Qt.ItemFlag.ItemIsUserCheckable
-                    | Qt.ItemFlag.ItemIsSelectable
-                    | Qt.ItemFlag.ItemIsEnabled
+                self.liste_endroits.addItem(
+                    self.creer_item(
+                        texte=region,
+                        coche=region
+                        in (self.dicts_granu.get("region", {}).get(pays_i, [])),
+                        gras=False,
+                        souligne=False,
+                        selectable=True,
+                        enabled=True,
+                    )
                 )
-                est_coche = region in (
-                    self.dicts_granu.get("region", {}).get(pays_i, [])
-                )
-                item.setCheckState(
-                    Qt.CheckState.Checked if est_coche else Qt.CheckState.Unchecked
-                )
-
-                self.liste_endroits.addItem(item)
 
         else:
 
             # Afficher régions (non cochables) puis départements cochables
             for i, region in enumerate(sorted(data.keys())):
 
-                region_item = QListWidgetItem(region)
-
-                # Item région
-                region_item.setFlags(
-                    Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsSelectable
+                self.liste_endroits.addItem(
+                    self.liste_endroits.addItem(
+                        self.creer_item(
+                            texte=region,
+                            coche=None,
+                            gras=True,
+                            souligne=True,
+                            selectable=False,
+                            enabled=True,
+                        )
+                    )
                 )
-                font = region_item.font()
-                font.setBold(True)
-                font.setUnderline(True)
-                font.setKerning(False)
-                region_item.setFont(font)
-                region_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
-                self.liste_endroits.addItem(region_item)
 
                 for dep in sorted(data[region]):
-                    dep_item = QListWidgetItem(dep)
-                    dep_item.setFlags(
-                        dep_item.flags()
-                        | Qt.ItemFlag.ItemIsUserCheckable
-                        | Qt.ItemFlag.ItemIsEnabled
-                        | Qt.ItemFlag.ItemIsSelectable
+
+                    self.liste_endroits.addItem(
+                        self.creer_item(
+                            texte=dep,
+                            coche=dep
+                            in (self.dicts_granu.get("dep", {}).get(pays_i, [])),
+                            gras=False,
+                            souligne=False,
+                            selectable=True,
+                            enabled=True,
+                        )
                     )
-                    est_coche = dep in (
-                        (self.dicts_granu.get("dep") or {}).get(pays_i, [])
-                    )
-                    dep_item.setCheckState(
-                        Qt.CheckState.Checked if est_coche else Qt.CheckState.Unchecked
-                    )
-                    self.liste_endroits.addItem(dep_item)
 
                 # Optionnel : ligne vide pour lisibilité
                 spacer = QListWidgetItem("")

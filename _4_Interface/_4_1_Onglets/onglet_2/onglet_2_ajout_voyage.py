@@ -242,6 +242,21 @@ class CreerVoyage(QDialog):
         self.setLayout(layout)
 
         self.set_langue(langue=None)
+
+        self.liste_des_pays.setCurrentIndex(
+            self.liste_pays.index(
+                (
+                    sorted(
+                        [
+                            cle
+                            for granu in ["region", "dep"]
+                            for cle in self.visite_temp.get(granu, {}).keys()
+                        ]
+                    )
+                    + [self.liste_pays[0]]
+                )[0]
+            )
+        )
         self.maj_liste_reg_dep_pays()
 
     def set_langue(self, langue: str | None):

@@ -101,6 +101,7 @@ class CreerVoyage(QDialog):
         parent=None,
         style: int = 1,
         longueur: int = 10,
+        langue: str = "français",
     ):
         super().__init__(parent)
 
@@ -114,7 +115,7 @@ class CreerVoyage(QDialog):
         self.granularite_max_pays = constantes.granularite_max_pays
         self.clef = clef
         self.visites = visites
-        self.langue = "français"
+        self.langue = langue
         self.fct_traduction = fct_traduction
         self.fct_popup = fct_popup
         self.resultat = None

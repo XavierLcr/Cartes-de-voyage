@@ -430,6 +430,7 @@ class OngletSelectionnerDestinations(QWidget):
             parent=self,
             longueur=self.longueur,
             fct_popup=self.fonction_pop_up,
+            langue=self.langue,
         )
 
         if objet.exec() == QDialog.DialogCode.Accepted:

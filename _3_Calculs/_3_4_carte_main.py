@@ -10,8 +10,8 @@
 
 import os, sys, gc
 from _3_Calculs import _1_1_creer_carte, _1_2_creer_graphique
-from _0_Utilitaires._0_1_fonctions_utiles_gen import ouvrir_dossier
-
+from _0_Utilitaires._0_1_fonctions_utiles_gen import ouvrir_dossier, reordonner_dict
+from _0_Utilitaires._0_6_fonctions_utiles_traductions import traduire_pays
 
 # 1 -- Création de la table complète -------------------------------------------
 
@@ -49,6 +49,84 @@ def cree_gdf_depuis_dicts(
         ),
         granularite=granularite_reste,
     )
+
+
+# 2 -- Fonction de création d'un dictionnaire des cartes à sortir --------------
+
+
+def lister_cartes_a_publier(
+    regroupements_pays_ref: dict,
+    continents_ref: dict,
+    traductions_ref: dict,
+    langue: str,
+    pays: bool,
+    monde: bool,
+    continents: list | None,
+    pays_visites: list,
+):
+
+    # Initialisation du résultat
+    dict_temp = {}
+
+    # Ajout de la carte du monde
+    if monde:
+        dict_temp[
+            traduire_pays(referentiel=traductions_ref, pays="World Map", langue=langue)
+        ] = None
+
+    # Ajout des continents (si souhaité)
+    if continents:
+
+        dict_cont = {
+            traduire_pays(
+                referentiel=traductions_ref, pays=cont, langue=langue
+            ): cont_pays
+            for cont, cont_pays in continents_ref.items()
+            # Continent sélectionné et visité
+            if (cont in continents) and (len(set(pays_visites) & set(cont_pays)) > 1)
+        }
+        dict_temp = dict_temp | reordonner_dict(dictionnaire=dict_cont, clefs=None)
+
+    # Ajout des pays ou regroupements de pays (si souhaité)
+    if pays and len(pays_visites) > 0:
+
+        dict_pays = {}
+        for pays_temp in pays_visites:
+
+            inclus = False
+
+            # Le pays est présent dans un regroupement
+            for clef, val in regroupements_pays_ref.items():
+
+                pays_regroup = val.get("liste")
+                nom_regroup = traduire_pays(
+                    referentiel=traductions_ref,
+                    pays=val.get("categorie"),
+                    langue=langue,
+                )
+
+                # Pays/Regroupement de pays visité
+                if pays_temp in val.get("liste"):
+                    dict_pays[nom_regroup] = pays_regroup
+                    inclus = True
+                    continue
+
+            # Le pays est isolé
+            if not inclus:
+                nom_pays = traduire_pays(
+                    referentiel=traductions_ref,
+                    pays=pays_temp,
+                    langue=langue,
+                )
+                dict_pays[nom_pays] = [pays_temp]
+
+        dict_temp = dict_temp | reordonner_dict(dictionnaire=dict_pays, clefs=None)
+
+    # Renvoi
+    return dict_temp
+
+
+# 3 -- Créer une carte ---------------------------------------------------------
 
 
 # 2 -- Fonction renvoyant la table et le nom des groupes de pays ---------------

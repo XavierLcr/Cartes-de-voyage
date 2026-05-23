@@ -5,10 +5,15 @@
 ################################################################################
 
 
+# 0 -- Initialisation ----------------------------------------------------------
+
+
 from PyQt6.QtWidgets import QComboBox, QListView
 from PyQt6.QtGui import QPixmap, QPainter, QColor, QIcon
 from PyQt6.QtCore import Qt
 from _0_Utilitaires._0_1_fonctions_utiles_gen import obtenir_clef_par_valeur
+
+# 1 -- Fonction de création de l'icône -----------------------------------------
 
 
 def creer_icone_cercle(couleur: QColor, taille=24, transparent=False) -> QIcon:
@@ -45,14 +50,20 @@ def creer_icone_cercle(couleur: QColor, taille=24, transparent=False) -> QIcon:
     return QIcon(pixmap)
 
 
+# 2 -- Création de la classe ---------------------------------------------------
+
+
 class FondCarteCombo(QComboBox):
     """Un QComboBox spécialisé pour choisir le fond de carte."""
 
     def __init__(self, constantes, parent=None):
         super().__init__(parent)
 
-        self.constantes = constantes
         self.langue = "français"
+        self.arriere_plans = constantes.dictionnaire_arriere_plans
+        self.arriere_plans_trad = constantes.parametres_traduits.get(
+            "arrière_plans", {}
+        )
 
         # Vue personnalisée (liste déroulante plus flexible)
         self.setView(QListView())
@@ -61,10 +72,6 @@ class FondCarteCombo(QComboBox):
         # Ajouter les choix
         self.addItem(creer_icone_cercle(QColor("white")), "Blanc")
         self.addItem(creer_icone_cercle(QColor("blue")), "Bleu")
-        self.addItem(
-            creer_icone_cercle(QColor(255, 255, 255, 0), transparent=True),
-            "Transparent",
-        )
 
     def valeur(self) -> str:
         """Retourne le texte du choix courant."""
@@ -74,9 +81,7 @@ class FondCarteCombo(QComboBox):
         """Retourne le choix courant en français."""
 
         return obtenir_clef_par_valeur(
-            dictionnaire=self.constantes.parametres_traduits["arrière_plans"].get(
-                self.langue, {}
-            ),
+            dictionnaire=self.arriere_plans_trad.get(self.langue, {}),
             valeur=self.valeur(),
         )
 
@@ -88,7 +93,7 @@ class FondCarteCombo(QComboBox):
         self.blockSignals(True)
         self.clear()
 
-        for clef, valeur in self.constantes.dictionnaire_arriere_plans.items():
+        for clef, valeur in self.arriere_plans.items():
 
             self.addItem(
                 creer_icone_cercle(
@@ -98,9 +103,7 @@ class FondCarteCombo(QComboBox):
                     taille=taille,
                     transparent=(clef == "Transparent"),
                 ),
-                self.constantes.parametres_traduits.get("arrière_plans", {})
-                .get(self.langue, {})
-                .get(clef, clef),
+                self.arriere_plans_trad.get(self.langue, {}).get(clef, clef),
             )
 
         self.blockSignals(False)

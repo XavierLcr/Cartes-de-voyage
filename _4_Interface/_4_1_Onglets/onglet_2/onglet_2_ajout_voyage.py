@@ -427,11 +427,12 @@ class CreerVoyage(QDialog):
                         )
                     )
 
-                # Optionnel : ligne vide pour lisibilité
-                spacer = QListWidgetItem("")
-                spacer.setFlags(Qt.ItemFlag.NoItemFlags)
-                spacer.setSizeHint(QSize(0, 3))
-                self.liste_endroits.addItem(spacer)
+                # Ligne vide pour lisibilité
+                if i < len(data.keys()) - 1:
+                    spacer = QListWidgetItem()
+                    spacer.setFlags(Qt.ItemFlag.NoItemFlags)
+                    spacer.setSizeHint(QSize(0, 3))
+                    self.liste_endroits.addItem(spacer)
 
         self.liste_endroits.blockSignals(False)
 

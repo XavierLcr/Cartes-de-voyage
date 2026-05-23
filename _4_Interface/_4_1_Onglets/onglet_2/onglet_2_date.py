@@ -8,8 +8,8 @@
 # 0 -- Introduction ------------------------------------------------------------
 
 
-from PyQt6.QtWidgets import QDateEdit, QCalendarWidget
-from PyQt6.QtCore import QDate, Qt
+from PyQt6.QtWidgets import QDateEdit
+from PyQt6.QtCore import QDate
 
 # 1 -- Classe de sélection du mois et de l'année -------------------------------
 

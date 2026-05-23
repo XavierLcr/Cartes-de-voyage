@@ -29,22 +29,7 @@ def somme_filee(lignes, a, b):
     return total
 
 
-## 1.2 -- Fonction de suppression des pays présents sur plusieurs continents ---
-
-
-def valeurs_dans_plusieurs_listes(dictionnaire):
-    valeur_cles = defaultdict(list)
-
-    # On parcourt le dictionnaire et on enregistre pour chaque valeur les clés où elle apparaît
-    for cle, liste in dictionnaire.items():
-        for val in liste:
-            valeur_cles[val].append(cle)
-
-    # Ne garder que les valeurs qui apparaissent dans plusieurs listes
-    return {val: cles for val, cles in valeur_cles.items() if len(cles) > 1}
-
-
-## 1.3 -- Fonction de calcul du nombre de pays visités par continent -----------
+## 1.2 -- Fonction de calcul du nombre de pays visités par continent -----------
 
 
 def table_pays_visites(
@@ -138,7 +123,7 @@ def table_pays_visites(
     return df_temp
 
 
-## 1.4 -- Fonction d'ajout des coordonnées -------------------------------------
+## 1.3 -- Fonction d'ajout des coordonnées -------------------------------------
 
 
 def ajouter_coordonnees(df: pd.DataFrame, coordonnees: list, alignement: int):
@@ -204,25 +189,22 @@ class HemicycleWidget(QWidget):
         self.traductions_pays = constantes.pays_differentes_langues
         self.liste_pays = list(constantes.hierarchie_par_pays.keys())
         self.langue = "français"
+
+        # Nombre de niveaux dans l'hémicycle
         self.num_levels = max(
             min(constantes.parametres_application["n_rangees"], 20), 4
-        )  # Nombre de niveaux dans l'hémicycle
-        self.base_points = max(
-            constantes.parametres_application["points_base"], 5
-        )  # Nombre de points de base pour le premier niveau
+        )
+
+        # Nombre de points de base pour le premier niveau
+        self.base_points = max(constantes.parametres_application["points_base"], 5)
+
+        # Incrément du nombre de points par niveau
         self.points_increment = max(
             constantes.parametres_application["points_increment"], 1
-        )  # Incrément du nombre de points par niveau
+        )
+
+        # Paramètres esthétiques
         self.lighter_value = constantes.parametres_application.get("lighter_value")
-        self.ordre_clefs = [
-            "Antarctica",
-            "Africa",
-            "Europe",
-            "Asia",
-            "Oceania",
-            "North America",
-            "South America",
-        ]
         self.couleur_texte = "#2C2C2C"
         self.points_visites_position = -1
 
@@ -239,7 +221,9 @@ class HemicycleWidget(QWidget):
             )
 
         # Couleurs pour chaque continent
-        self.continent_colors = constantes.parametres_application["couleurs_continents"]
+        self.continent_colors = constantes.parametres_application.get(
+            "couleurs_continents"
+        )
         self.continent_colors = {
             continent: QColor(self.continent_colors.get(continent, col))
             for continent, col in {
@@ -272,7 +256,7 @@ class HemicycleWidget(QWidget):
         coords_angles = []
 
         for level in range(self.num_levels):
-            radius = self.base_radius + level * self.level_distance
+
             num_points = (
                 # Points de base
                 self.base_points
@@ -291,6 +275,7 @@ class HemicycleWidget(QWidget):
                 angle = (180.0 / (num_points - 1)) * i if num_points > 1 else 90
                 angle_rad = math.radians(angle)
 
+                radius = self.base_radius + level * self.level_distance
                 x = self.center_x() + radius * math.cos(angle_rad)
                 y = self.center_y() - radius * math.sin(angle_rad)
 

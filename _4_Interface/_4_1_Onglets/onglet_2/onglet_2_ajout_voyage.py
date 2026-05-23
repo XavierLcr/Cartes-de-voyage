@@ -47,7 +47,7 @@ from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
 def filtrer_df(df: pd.DataFrame, pays: str, pattern: str | None):
 
     # Filtre sur le pays
-    df_temp = df.copy()[df["name_0"] == pays]
+    df_temp = df[df["name_0"] == pays].copy()
 
     # Filtre sur la valeur (si souhaité)
     if pattern:

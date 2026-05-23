@@ -20,7 +20,6 @@ from _0_Utilitaires._0_2_fonctions_graphiques import (
 )
 from _3_Calculs._3_3_envoyer_email import envoyer_email_avec_piece_jointe_smtp
 
-
 # 1 -- Renvoyer les marges les limites de la carte -----------------------------
 
 

@@ -40,7 +40,6 @@ from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
     style_bouton_de_suppression,
 )
 
-
 # 1 -- Classe des paramètres individuels ---------------------------------------
 
 
@@ -59,9 +58,9 @@ class OngletParametresProfil(QWidget):
         super().__init__()
 
         # Initialisation des variables
-        self.constantes = constantes
-        self.fonction_traduction = fct_traduction
         self.langue = "français"
+        self.fonction_traduction = fct_traduction
+        self.dict_langues = constantes.dict_langues_dispo
         self.dossier_stockage = None
         self.theme_application = True
 
@@ -243,7 +242,7 @@ class OngletParametresProfil(QWidget):
     def get_langue(self):
 
         self.langue = obtenir_clef_par_valeur(
-            dictionnaire=self.constantes.dict_langues_dispo,
+            dictionnaire=self.dict_langues,
             valeur=self.langues_dispos.currentText(),
         )
         self.signal_langue.emit(self.langue)
@@ -465,9 +464,7 @@ class OngletParametresProfil(QWidget):
         # Langue
         self.langues_dispos.setCurrentIndex(
             self.langues_dispos.findText(
-                self.constantes.dict_langues_dispo.get(
-                    langue or self.langue, "Français"
-                )
+                self.dict_langues.get(langue or self.langue, "Français")
             )
         )
         self.langue = self.get_langue()

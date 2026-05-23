@@ -23,7 +23,9 @@ from PyQt6.QtWidgets import (
 )
 from PyQt6.QtCore import Qt, QThread
 
-
+from _0_Utilitaires._0_1_fonctions_utiles_gen import (
+    charger_gdfs,
+)
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     reset_combo,
     creer_QLabel_centre,
@@ -51,6 +53,7 @@ class OngletParametres(QWidget):
         self.fonction_traduction = fct_traduction
         self.fonction_pop_up = fct_pop_up
         self.langue = "français"
+        self.liste_gdfs = []
 
         layout = QVBoxLayout()
 
@@ -498,6 +501,15 @@ class OngletParametres(QWidget):
             )
 
         else:
+
+            if not self.liste_gdfs:
+                self.liste_gdfs = charger_gdfs(
+                    direction_base=self.constantes.direction_donnees_geographiques,
+                    max_niveau=2,
+                )
+
+            # Ajout des tables géographiques
+            settings["liste_dfs"] = self.liste_gdfs
 
             # Initialisation de l'objet et de la barre de progression
             self.creation_cartes = CreerCartes(

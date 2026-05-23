@@ -65,7 +65,9 @@ sauvegarde = _0_1_fonctions_utiles_gen.ouvrir_fichier(
 
 
 class MesVoyagesApplication(QWidget):
+
     def __init__(self):
+
         super().__init__()
 
         self.setWindowTitle("Cartes de voyage")
@@ -594,7 +596,6 @@ class MesVoyagesApplication(QWidget):
         self.onglet_parametres.fonction_principale(
             settings=self.creer_liste_parametres()
             | {
-                "liste_dfs": liste_gdfs,
                 "gdf_eau": _0_1_fonctions_utiles_gen.ouvrir_fichier(
                     direction_fichier=constantes.direction_donnees_geographiques,
                     nom_fichier="carte_monde_lacs.pkl",
@@ -820,6 +821,7 @@ class MesVoyagesApplication(QWidget):
 
 
 if __name__ == "__main__":
+
     app = QApplication(sys.argv)
 
     # Affichage du logo en splash screen
@@ -832,13 +834,7 @@ if __name__ == "__main__":
         Qt.WindowType.WindowStaysOnTopHint,
     )
     splash.show()
-    app.processEvents()  # force l'affichage du splash avant de charger les GDF
-
-    # Chargement des GDF
-    liste_gdfs = _0_1_fonctions_utiles_gen.charger_gdfs(
-        direction_base=constantes.direction_donnees_geographiques, max_niveau=2
-    )
-    # liste_gdfs = []
+    app.processEvents()  # Force l'affichage
 
     # Lancement de la fenêtre principale
     window = MesVoyagesApplication()

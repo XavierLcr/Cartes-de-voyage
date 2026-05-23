@@ -7,8 +7,10 @@
 
 from PyQt6.QtCore import pyqtSignal, QObject
 from _3_Calculs._3_4_carte_main import cree_graphe_depuis_debut
-from _0_Utilitaires._0_1_fonctions_utiles_gen import voyages_vers_destinations_une_granu
-
+from _0_Utilitaires._0_1_fonctions_utiles_gen import (
+    voyages_vers_destinations_une_granu,
+    charger_gdfs,
+)
 
 # 1 -- Classe de suivi de l'avancement de la publication des cartes ------------
 
@@ -24,6 +26,7 @@ class TrackerPays(QObject):
 
 
 class CreerCartes(QObject):
+
     finished = pyqtSignal()
     tracker_signal = pyqtSignal(str)
     nb_graphes = pyqtSignal(int)

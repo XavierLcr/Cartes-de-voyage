@@ -7,7 +7,6 @@
 
 from PyQt6.QtCore import pyqtSignal, QObject
 from _3_Calculs._3_4_carte_main import (
-    cree_graphe_depuis_debut,
     creer_multiples_cartes,
     lister_cartes_a_publier,
 )
@@ -134,18 +133,26 @@ class CreerCartes(QObject):
         tracker = TrackerPays()
         tracker.tracker_pays_en_cours.connect(self.tracker_signal.emit)
 
-        cree_graphe_depuis_debut(
+        creer_multiples_cartes(
+            # Données de création de la table
             liste_dfs=self.parametres["liste_dfs"],
-            liste_dicts=[dict_regions, dict_deps],
             gdf_eau=self.parametres["gdf_eau"],
-            noms_pays=self.constantes.pays_differentes_langues,
-            dictionnaire_pays_unis=self.constantes.liste_pays_groupes,
-            nom_indiv=self.parametres["nom"],
-            direction_resultat=self.parametres["dossier_stockage"],
-            ouvrir_direction_resultat=self.parametres["ouvrir_dossier_stockage"],
-            langue=self.parametres["langue"],
+            liste_dicts=[dict_regions, dict_deps],
+            # Granularités
             granularite_visite=self.recuperer_granularite(clef="granularite"),
             granularite_reste=self.recuperer_granularite(clef="granularite_fond"),
+            # Cartes à sortir
+            dict_cartes=self.liste_cartes,
+            # Format et taille
+            qualite=self.parametres["qualite"],
+            format=self.parametres["format"],
+            # Informations liées à l'utilisateur
+            individu_nom=self.parametres["nom"],
+            adresse_email=self.parametres.get("adresse_email"),
+            direction_dossier=self.parametres["dossier_stockage"],
+            ouvrir_dossier_stockage=self.parametres["ouvrir_dossier_stockage"],
+            limite_n_cartes=self.parametres["limite_n_cartes"],
+            # Choix esthétiques de la carte
             theme=self.constantes.liste_ambiances[
                 self.parametres.get("theme", "Pastel")
             ],
@@ -158,17 +165,10 @@ class CreerCartes(QObject):
             couleur_non_visites="#DFDFDF",
             couleur_pays_contours="#EBEBEB",
             couleur_lacs="#CDEAF7",
-            format=self.parametres["format"],
-            qualite=self.parametres["qualite"],
-            carte_du_monde=self.parametres["carte_du_monde"],
-            liste_regions=self.recuperer_continents(),
-            pays_individuel=self.parametres["cartes_des_pays"],
-            limite_n_cartes=self.parametres["limite_n_cartes"],
-            sortir_cartes_granu_inf=self.parametres["sortir_cartes_granu_inf"],
-            tracker=tracker,
-            blabla=False,
+            # Inclure le nom
             afficher_nom_lieu=False,
-            adresse_email=self.parametres.get("adresse_email"),
+            # Tracker
+            tracker=tracker,
         )
 
         self.finished.emit()

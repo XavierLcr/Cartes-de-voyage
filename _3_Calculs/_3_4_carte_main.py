@@ -13,45 +13,7 @@ from _3_Calculs import _1_1_creer_carte, _1_2_creer_graphique
 from _0_Utilitaires._0_1_fonctions_utiles_gen import ouvrir_dossier, reordonner_dict
 from _0_Utilitaires._0_6_fonctions_utiles_traductions import traduire_pays
 
-# 1 -- Création de la table complète -------------------------------------------
-
-
-def cree_gdf_depuis_dicts(
-    liste_dfs: list,
-    liste_dicts: list,
-    granularite_visite=1,
-    granularite_reste=1,
-):
-    r"""
-    Cette fonction crée un graphique à partir des données mondiales en combinant plusieurs niveaux de granularité.
-    Elle génère un GeoDataFrame contenant les informations sur les lieux visités et non visités, avec une indicatrice de visite.
-    Ces informations sont ensuite utilisées pour créer une carte avec les lieux marqués comme visités ou non.
-
-    Paramètres :
-    – df_monde (DataFrame) : DataFrame contenant les informations géographiques mondiales, incluant des colonnes comme `name_0` pour les pays
-      et `name_{granularite}` pour les régions.
-    – df_monde_granu (GeoDataFrame) : Un GeoDataFrame avec les informations géographiques globales (pays, régions, etc.)
-      et la géométrie associée.
-    – dict1 (dict, optionnel) : Dictionnaire représentant les informations pour le deuxième niveau de granularité (par exemple, régions).
-    – dict2 (dict, optionnel) : Dictionnaire représentant les informations pour le troisième niveau de granularité.
-    – dict3 (dict, optionnel) : Dictionnaire représentant les informations pour le quatrième niveau de granularité.
-    – dict4 (dict, optionnel) : Dictionnaire représentant les informations pour le cinquième niveau de granularité.
-    – dict5 (dict, optionnel) : Dictionnaire représentant les informations pour le sixième niveau de granularité.
-    – granularite (int, optionnel) : Le niveau de granularité pour lequel vous souhaitez créer le graphique. Par défaut, la granularité est de 1 (région).
-    """
-
-    return _1_1_creer_carte.ajouter_indicatrice_visite(
-        gdf_monde=liste_dfs[granularite_reste],
-        gdf_visite=_1_1_creer_carte.cree_base_toutes_granularites(
-            liste_dfs=liste_dfs,
-            liste_dicts=liste_dicts,
-            granularite_objectif=granularite_visite,
-        ),
-        granularite=granularite_reste,
-    )
-
-
-# 2 -- Fonction de création d'un dictionnaire des cartes à sortir --------------
+# 1 -- Fonction de création d'un dictionnaire des cartes à sortir --------------
 
 
 def lister_cartes_a_publier(
@@ -124,9 +86,6 @@ def lister_cartes_a_publier(
 
     # Renvoi
     return dict_temp
-
-
-# 3 -- Créer une carte ---------------------------------------------------------
 
 
 # 2 -- Fonction renvoyant la table et le nom des groupes de pays ---------------
@@ -499,7 +458,7 @@ def cree_graphe_depuis_debut(
     # Gestion de la création ou utilisation de la base utilisée
     if any(isinstance(element, dict) for element in liste_dicts):
 
-        gdf_temp = cree_gdf_depuis_dicts(
+        gdf_temp = _1_1_creer_carte.cree_gdf_depuis_dicts(
             liste_dfs=liste_dfs,
             liste_dicts=liste_dicts,
             granularite_reste=granularite_reste,

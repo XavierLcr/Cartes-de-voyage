@@ -356,3 +356,33 @@ def ajouter_indicatrice_visite(gdf_monde, gdf_visite, granularite=1):
         ],
         ignore_index=True,
     )
+
+
+## 1.6 -- Création de la table complète ----------------------------------------
+
+
+def cree_gdf_depuis_dicts(
+    liste_dfs: list,
+    liste_dicts: list,
+    granularite_visite=1,
+    granularite_reste=1,
+):
+    r"""
+    Cette fonction crée la table complète d'un individu aux granularités souhaitées.
+
+    Paramètres :
+    – liste_dfs : liste des GeoDataFrames.
+    – liste_dicts: liste des lieux visités pour chaque niveau de granularité.
+    – granularite_visite (int, optionnel) : Le niveau de granularité des pays visités.
+    – granularite_reste (int, optionnel) : Le niveau de granularité des pays non visités.
+    """
+
+    return ajouter_indicatrice_visite(
+        gdf_monde=liste_dfs[granularite_reste],
+        gdf_visite=cree_base_toutes_granularites(
+            liste_dfs=liste_dfs,
+            liste_dicts=liste_dicts,
+            granularite_objectif=granularite_visite,
+        ),
+        granularite=granularite_reste,
+    )

@@ -5,6 +5,9 @@
 ################################################################################
 
 
+# 0 -- Initialisation ----------------------------------------------------------
+
+
 from PyQt6.QtCore import pyqtSignal, QObject
 from _3_Calculs._3_4_carte_main import (
     creer_multiples_cartes,

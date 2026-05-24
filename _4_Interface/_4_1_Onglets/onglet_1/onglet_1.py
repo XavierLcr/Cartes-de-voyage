@@ -461,9 +461,13 @@ class OngletParametres(QWidget):
             titre=self.fonction_traduction(clef="titre_pop_up_publication_cartes"),
         )
 
-    def fonction_principale(self, settings):
+    def soulever_probleme(self, dict_voyages: dict, dossier_stockage: str):
 
-        if not settings["dictionnaire_voyages"]:
+        # Pas de problème au départ
+        probleme = False
+
+        # Pas de voyages effectués
+        if not dict_voyages:
 
             self.fonction_pop_up(
                 contenu=self.fonction_traduction(
@@ -472,8 +476,10 @@ class OngletParametres(QWidget):
                 titre=self.fonction_traduction("pop_up_probleme_titre", suffixe="."),
                 temps_max=10000,
             )
+            probleme = True
 
-        elif settings["dossier_stockage"] is None:
+        # Dossier de stockage inexistant
+        elif dossier_stockage is None:
 
             self.fonction_pop_up(
                 titre=self.fonction_traduction("pop_up_probleme_titre", suffixe="."),
@@ -483,8 +489,10 @@ class OngletParametres(QWidget):
                 ),
                 temps_max=10000,
             )
+            probleme = True
 
-        elif not os.path.exists(settings["dossier_stockage"]):
+        # Dossier de stockage invalide
+        elif not os.path.exists(dossier_stockage):
 
             self.fonction_pop_up(
                 titre=self.fonction_traduction("pop_up_probleme_titre", suffixe="."),
@@ -494,37 +502,50 @@ class OngletParametres(QWidget):
                 ),
                 temps_max=10000,
             )
+            probleme = True
 
-        else:
+        # Renvoi
+        return probleme
 
-            if not self.liste_gdfs:
-                self.liste_gdfs = charger_gdfs(
-                    direction_base=self.constantes.direction_donnees_geographiques,
-                    max_niveau=2,
-                )
+    def fonction_principale(self, settings):
 
-            # Ajout des tables géographiques
-            settings["liste_dfs"] = self.liste_gdfs
-
-            # Initialisation de l'objet et de la barre de progression
-            self.creation_cartes = CreerCartes(
-                params=settings, constantes=self.constantes
+        # Vérification de potentiels problèmes
+        if (
+            self.soulever_probleme(
+                dict_voyages=settings["dictionnaire_voyages"],
+                dossier_stockage=settings["dossier_stockage"],
             )
-            self.creation_cartes.nb_graphes.connect(self.initialiser_progression)
-            self.creation_cartes.tracker_signal.connect(self.afficher_avancement)
+            == True
+        ):
+            return
 
-            self.thread_temp = QThread()
-            self.creation_cartes.moveToThread(self.thread_temp)
-
-            self.creation_cartes.finished.connect(self.thread_temp.quit)
-            self.creation_cartes.finished.connect(self.creation_cartes.deleteLater)
-            self.thread_temp.finished.connect(self.thread_temp.deleteLater)
-            self.thread_temp.finished.connect(
-                lambda: self.debut_fin_creation_cartes(debut=False)
+        # Chargement des tables (si nécessaire)
+        if not self.liste_gdfs:
+            self.liste_gdfs = charger_gdfs(
+                direction_base=self.constantes.direction_donnees_geographiques,
+                max_niveau=2,
             )
 
-            self.thread_temp.started.connect(self.creation_cartes.run)
-            self.thread_temp.start()
+        # Ajout des tables géographiques
+        settings["liste_dfs"] = self.liste_gdfs
+
+        # Initialisation de l'objet et de la barre de progression
+        self.creation_cartes = CreerCartes(params=settings, constantes=self.constantes)
+        self.creation_cartes.nb_graphes.connect(self.initialiser_progression)
+        self.creation_cartes.tracker_signal.connect(self.afficher_avancement)
+
+        self.thread_temp = QThread()
+        self.creation_cartes.moveToThread(self.thread_temp)
+
+        self.creation_cartes.finished.connect(self.thread_temp.quit)
+        self.creation_cartes.finished.connect(self.creation_cartes.deleteLater)
+        self.thread_temp.finished.connect(self.thread_temp.deleteLater)
+        self.thread_temp.finished.connect(
+            lambda: self.debut_fin_creation_cartes(debut=False)
+        )
+
+        self.thread_temp.started.connect(self.creation_cartes.run)
+        self.thread_temp.start()
 
     def set_style_titre(self, taille=24):
 

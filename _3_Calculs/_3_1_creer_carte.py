@@ -9,6 +9,7 @@
 
 
 import pandas as pd
+from _0_Utilitaires._0_5_isid import isid
 
 # 1 -- Fonctions ---------------------------------------------------------------
 
@@ -98,6 +99,111 @@ def creer_base_double_granularite(
 
 
 ## 1.3 -- Création du mode 'Amusant' -------------------------------------------
+
+
+### Fonction unissant les territoires pour un niveau de granularité ------------
+
+
+def remplacer_lieux_constants_une_granu(
+    liste_dfs: list, df_visite: pd.DataFrame, granularite: int = 1
+):
+
+    # Tests de cohérence
+    assert (
+        len(liste_dfs) > granularite
+    ), "Tables non disponibles à la granularité souhaitée"
+    assert granularite >= 0, "granularite doit être positive"
+
+    # Récupération des tables
+    df_visite = df_visite[df_visite["Granu"] == granularite][
+        ["Pays", "subdivision", "visite"]
+    ].copy()
+    df_granu = liste_dfs[granularite].filter(regex="^name_").copy()
+    cols_df_granu = [col for col in df_granu.columns if col.startswith("name_")]
+    df_granu = df_granu[df_granu["name_0"].isin(set(df_visite["Pays"]))].assign(
+        Pays=lambda x: x["name_0"], subdivision=lambda x: x[max(cols_df_granu)]
+    )
+
+    # Tests de granularité
+    assert isid(df=df_visite, colonnes=["Pays", "subdivision"], blabla=0)
+    assert isid(df=df_granu, colonnes=["Pays", "subdivision"], blabla=0)
+
+    # Jointure
+    df_visite = df_visite.merge(right=df_granu, how="left", on=["Pays", "subdivision"])
+
+    # Tentatives d'agrégation
+    for granu in range(granularite):
+
+        # Indicatrice d'agrégation
+        df_visite["joindre"] = (
+            df_visite.groupby(cols_df_granu[: (granu + 1)])["visite"].transform(
+                "nunique"
+            )
+            == 1
+        )
+
+        df_agregee = df_visite[df_visite["joindre"] == True][
+            cols_df_granu[: (granu + 1)] + ["visite"]
+        ].drop_duplicates()
+
+        # Tests de granularité
+        assert isid(df=df_agregee, colonnes=cols_df_granu[: (granu + 1)], blabla=0)
+        assert isid(
+            df=liste_dfs[granu], colonnes=cols_df_granu[: (granu + 1)], blabla=0
+        )
+
+        # Jointure
+        df_agregee = df_agregee.merge(
+            right=liste_dfs[granu], how="left", on=cols_df_granu[: (granu + 1)]
+        ).assign(
+            Pays=lambda x: x["name_0"],
+            subdivision=lambda x: x[cols_df_granu[granu]],
+            Granu=granu,
+        )[
+            ["Pays", "subdivision", "visite", "geometry", "Granu"]
+        ]
+
+        # Concaténation
+        if granu == 0:
+            df_resultat = df_agregee.copy()
+        else:
+            df_resultat = pd.concat([df_resultat, df_agregee], ignore_index=True)
+
+        # Parties non agrégées à tester à une granularité plus fine
+        df_visite = df_visite[df_visite["joindre"] == False].drop(
+            columns=["joindre"], inplace=False
+        )
+
+    # Normalisation de df_visite
+    if len(df_visite) > 0:
+        df_visite = df_visite.assign(Granu=granularite)[
+            ["Pays", "subdivision", "visite", "Granu"]
+        ]
+
+        # Tests de granularité
+        assert isid(df=df_visite, colonnes=["Pays", "subdivision"], blabla=0)
+        assert isid(
+            df=liste_dfs[granularite],
+            colonnes=["name_0", f"name_{granularite}"],
+            blabla=0,
+        )
+
+        # Jointure
+        df_visite = df_visite.merge(
+            right=liste_dfs[granularite].assign(
+                Pays=lambda x: x["name_0"],
+                subdivision=lambda x: x[f"name_{granularite}"],
+            )[["Pays", "subdivision", "geometry"]],
+        )
+
+        # Concaténation
+        df_resultat = pd.concat([df_resultat, df_visite], ignore_index=True)
+
+    # Renvoi
+    return df_resultat
+
+
+### Version acctuelle ----------------------------------------------------------
 
 
 def remplacer_lieux_constants(

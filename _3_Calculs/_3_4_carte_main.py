@@ -9,8 +9,13 @@
 
 
 import os, sys, gc
+import pandas as pd
 from _3_Calculs import _1_1_creer_carte, _1_2_creer_graphique
-from _0_Utilitaires._0_1_fonctions_utiles_gen import ouvrir_dossier, reordonner_dict
+from _0_Utilitaires._0_1_fonctions_utiles_gen import (
+    ouvrir_dossier,
+    reordonner_dict,
+    voyages_vers_destinations_une_granu,
+)
 from _0_Utilitaires._0_6_fonctions_utiles_traductions import traduire_pays
 
 # 1 -- Fonction de création d'un dictionnaire des cartes à sortir --------------
@@ -24,8 +29,19 @@ def lister_cartes_a_publier(
     pays: bool,
     monde: bool,
     continents: list | None,
-    pays_visites: list,
+    voyages: dict,
+    sortir_cartes_granu_inf: bool,
+    granularite_objectif: int,
 ):
+
+    # Pays visités
+    pays_visites_regions = list(
+        voyages_vers_destinations_une_granu(dict_voyages=voyages, clef="region").keys()
+    )
+    pays_visites_departements = list(
+        voyages_vers_destinations_une_granu(dict_voyages=voyages, clef="dep").keys()
+    )
+    pays_visites = list(set(pays_visites_regions + pays_visites_departements))
 
     # Initialisation du résultat
     dict_temp = {}
@@ -39,17 +55,31 @@ def lister_cartes_a_publier(
     # Ajout des continents (si souhaité)
     if continents:
 
-        dict_cont = {
-            traduire_pays(
+        dict_cont = {}
+        for cont, cont_pays in continents_ref.items():
+
+            # Nom traduit du continent
+            nom_temp = traduire_pays(
                 referentiel=traductions_ref, pays=cont, langue=langue
-            ): cont_pays
-            for cont, cont_pays in continents_ref.items()
-            # Continent sélectionné et visité
-            if (cont in continents) and (len(set(pays_visites) & set(cont_pays)) > 1)
-        }
+            )
+
+            # Continent souhaité
+            if cont in continents:
+                # Pays visité
+                if len(set(pays_visites) & set(cont_pays)) > 1:
+                    # Pays à la bonne granularité
+                    if (
+                        sortir_cartes_granu_inf
+                        or granularite_objectif <= 1
+                        or len(set(pays_visites_departements) & set(cont_pays)) > 1
+                    ):
+                        dict_cont[nom_temp] = cont_pays
+
         dict_temp = dict_temp | reordonner_dict(dictionnaire=dict_cont, clefs=None)
 
     # Ajout des pays ou regroupements de pays (si souhaité)
+    if granularite_objectif >= 2 & sortir_cartes_granu_inf == False:
+        pays_visites = pays_visites_departements.copy()
     if pays and len(pays_visites) > 0:
 
         dict_pays = {}

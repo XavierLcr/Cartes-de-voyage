@@ -118,6 +118,112 @@ def lister_cartes_a_publier(
     return dict_temp
 
 
+# 2 -- Fonction créant une carte -----------------------------------------------
+
+
+def creer_une_carte(
+    gdf: pd.DataFrame,
+    gdf_0: pd.DataFrame | None,
+    gdf_1: pd.DataFrame | None,
+    gdf_eau: pd.DataFrame | None,
+    direction_dossier: str,
+    **kwargs,
+):
+
+    # Périmètre de la carte
+    carte_nom = kwargs.get("carte_nom", None)
+    carte_liste_pays = kwargs.get("carte_liste_pays")
+
+    # Préférences techniques de l'individu
+    individu_nom = kwargs.get("individu_nom", "")
+    format = kwargs.get("format", "png")
+    qualite = kwargs.get("qualite", 200)
+    langue = kwargs.get("langue", "français")
+    reprojeter = kwargs.get("reprojeter", False)
+    limite_n_cartes = kwargs.get(
+        "limite_n_cartes",
+        10,
+    )
+    afficher_nom_lieu = kwargs.get(
+        "afficher_nom_lieu",
+        False,
+    )
+
+    # Style de la carte
+    theme = kwargs.get(
+        "theme",
+        {
+            "min_luminosite": 0.8,
+            "max_luminosite": 0.95,
+            "min_saturation": 0.2,
+            "max_saturation": 0.4,
+        },
+    )
+    teinte = kwargs.get("teinte", None)
+    couleur_non_visites = kwargs.get(
+        "couleur_non_visites",
+        "#ECEBED",
+    )
+    couleur_pays_contours = kwargs.get(
+        "couleur_pays_contours",
+        "#ECEBED",
+    )
+    couleur_fond = kwargs.get(
+        "couleur_fond",
+        "#FFFFFF",
+    )
+    couleur_lacs = kwargs.get(
+        "couleur_lacs",
+        "#CEE3F5",
+    )
+
+    # Suivi des cartes
+    tracker = kwargs.get("tracker", None)
+    adresse_email = kwargs.get(
+        "adresse_email",
+        None,
+    )
+
+    if carte_liste_pays:
+        gdf = gdf[gdf["Pays"].isin(carte_liste_pays)].copy()
+        gdf_1 = gdf_1[gdf_1["name_0"].isin(carte_liste_pays)].copy()
+
+    # Création du nom de la carte
+    if not carte_nom:
+        carte_nom = "Temp"
+
+    if tracker:
+        tracker.notify(carte_nom)
+
+    if individu_nom:
+        carte_nom = f"{carte_nom} – {individu_nom}"
+
+    carte_nom = f"{carte_nom}.{format}"
+
+    # Création du graphique
+    _1_2_creer_graphique.creer_image_carte(
+        gdf=gdf,
+        gdf_monde=gdf_0,
+        gdf_regions=gdf_1,
+        gdf_eau=gdf_eau,
+        theme=theme,
+        teintes_autorisees=teinte,
+        couleur_non_visites=couleur_non_visites,
+        couleur_pays_contours=couleur_pays_contours,
+        couleur_de_fond=couleur_fond,
+        couleur_lacs=couleur_lacs,
+        chemin_impression=direction_dossier,
+        nom=carte_nom,
+        qualite=qualite,
+        blabla=False,
+        limite_n_cartes=limite_n_cartes,
+        afficher_nom_lieu=afficher_nom_lieu,
+        marge_carte=0.03,
+        reprojeter=reprojeter,
+        adresse_email=adresse_email,
+    )
+
+
 # 2 -- Fonction renvoyant la table et le nom des groupes de pays ---------------
 
 

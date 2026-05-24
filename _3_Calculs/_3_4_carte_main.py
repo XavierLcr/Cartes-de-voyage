@@ -250,10 +250,10 @@ def creer_multiples_cartes(
     pays_reprojection = ["Russia", "United States"]
 
     # Itération sur les cartes à publier
-    for nom, liste_pays in dict_cartes.items():
+    for i, (nom, liste_pays) in enumerate(dict_cartes.items(), start=1):
 
         if tracker:
-            tracker.notify(nom)
+            tracker.notify(f"{i}/{len(dict_cartes.keys())} : {nom}")
 
         creer_une_carte(
             gdf=df_temp,

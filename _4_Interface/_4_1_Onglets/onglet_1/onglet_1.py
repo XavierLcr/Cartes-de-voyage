@@ -435,18 +435,13 @@ class OngletParametres(QWidget):
         # Initialisation de la barre de progression
         self.barre_progression.setMaximum(nb_cartes)
         self.barre_progression.setValue(0)
-        self.nb_total_graphes = nb_cartes
-        self.graphique_i = 0
 
         # Affichage de la barre de progression
         self.debut_fin_creation_cartes(debut=True)
 
     def afficher_avancement(self, libelle_pays):
-        self.graphique_i = self.graphique_i + 1
-        self.barre_progression.setValue(self.graphique_i)
-        self.barre_progression.setFormat(
-            f"{self.graphique_i}/{self.nb_total_graphes} : {libelle_pays}"
-        )
+        self.barre_progression.setValue(self.barre_progression.value() + 1)
+        self.barre_progression.setFormat(libelle_pays)
 
     def debut_fin_creation_cartes(self, debut):
 

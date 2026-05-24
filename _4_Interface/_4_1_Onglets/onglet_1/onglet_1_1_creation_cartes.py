@@ -121,7 +121,7 @@ class CreerCartes(QObject):
         if dict_regions == {}:
             dict_regions = None
 
-        self.nb_graphes.emit(self.calculer_nb_total_graphes())
+        self.nb_graphes.emit(len(self.liste_cartes.keys()))
 
         # Gestion de l'e-mail
         if not self.parametres.get("adresse_email") or not self.parametres.get(
@@ -172,6 +172,3 @@ class CreerCartes(QObject):
         )
 
         self.finished.emit()
-
-    def calculer_nb_total_graphes(self):
-        return len(self.liste_cartes.keys())

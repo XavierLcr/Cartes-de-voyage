@@ -38,7 +38,7 @@ def creer_base_une_granularite(
         # Création de l'indicatrice des lieux visités
         .assign(
             # Indicatrice de visite
-            Visite=lambda x: x.apply(
+            visite=lambda x: x.apply(
                 lambda row: row[f"name_{granularite}"]
                 in liste_destinations.get(row["name_0"], []),
                 axis=1,
@@ -49,7 +49,7 @@ def creer_base_une_granularite(
             Granu=granularite,
         )
         # Sélection des colonnes
-        [["Pays", "subdivision", "Visite", "geometry", "Granu"]]
+        [["Pays", "subdivision", "visite", "geometry", "Granu"]]
     )
 
 
@@ -151,7 +151,7 @@ def remplacer_lieux_constants(
 
         # Ajout de la granularité inférieure à la table
         df_a_modifier = (
-            df_a_modifier[["Pays", "subdivision", "Granu", "geometry", "Visite"]]
+            df_a_modifier[["Pays", "subdivision", "Granu", "geometry", "visite"]]
             .merge(
                 df_monde_granu,
                 how="left",
@@ -162,7 +162,7 @@ def remplacer_lieux_constants(
 
         # Ajout d'une indicatrice informant de si une région est visitée en entier ou pas du tout
         df_a_modifier["visite_constante"] = (
-            df_a_modifier.groupby(["Pays", "region_temp"])["Visite"].transform(
+            df_a_modifier.groupby(["Pays", "region_temp"])["visite"].transform(
                 "nunique"
             )
             == 1
@@ -186,7 +186,7 @@ def remplacer_lieux_constants(
                         "subdivision",
                         "Granu",
                         "geometry",
-                        "Visite",
+                        "visite",
                     ]
                 ],
             ]
@@ -199,7 +199,7 @@ def remplacer_lieux_constants(
 
         # Ajout de la géométrie de la granularité inférieure
         df_a_modifier = (
-            df_a_modifier[["Pays", "region_temp", "Visite"]]
+            df_a_modifier[["Pays", "region_temp", "visite"]]
             # Récupération des régions concernées
             .drop_duplicates()
             # Ajout de la géométrie
@@ -215,7 +215,7 @@ def remplacer_lieux_constants(
                 how="left",
                 on=["Pays", "region_temp"],
                 # Sélection des colonnes
-            )[["Pays", "region_temp", "Visite", "geometry"]]
+            )[["Pays", "region_temp", "visite", "geometry"]]
             # Mise à jour des noms de colonnes
             .rename(columns={"region_temp": "subdivision"})
             # Ajout de la granularité
@@ -295,7 +295,7 @@ def cree_base_toutes_granularites(
                         Region=lambda x: x["name_0"] * 1,
                         Granu=0,
                         Visite=1,
-                    )[["Pays", "subdivision", "Visite", "geometry", "Granu"]],
+                    )[["Pays", "subdivision", "visite", "geometry", "Granu"]],
                 ],
                 ignore_index=True,
             )
@@ -324,7 +324,7 @@ def ajouter_indicatrice_visite(gdf_monde, gdf_visite, granularite=1):
     r"""
     Cette fonction ajoute une indicatrice de visite à un GeoDataFrame mondial (`gdf_monde`) en fonction des informations
     sur les pays ou régions visitées dans un autre GeoDataFrame (`gdf_visite`). Les pays non visités sont marqués avec une
-    valeur `False` dans la colonne "Visite", tandis que les pays ou régions visités auront cette valeur définie sur `True`.
+    valeur `False` dans la colonne "visite", tandis que les pays ou régions visités auront cette valeur définie sur `True`.
     Les pays et régions visités sont également concaténés avec ceux non visités pour produire un GeoDataFrame complet.
 
     Paramètres :
@@ -337,7 +337,7 @@ def ajouter_indicatrice_visite(gdf_monde, gdf_visite, granularite=1):
       niveaux plus fins (comme des départements ou des villes).
 
     Retourne :
-    – (GeoDataFrame) : Un GeoDataFrame combiné avec une nouvelle colonne "Visite", indiquant si chaque pays ou région a été visité.
+    – (GeoDataFrame) : Un GeoDataFrame combiné avec une nouvelle colonne "visite", indiquant si chaque pays ou région a été visité.
     """
 
     # Concaténation des deux tables et renvoi
@@ -357,9 +357,9 @@ def ajouter_indicatrice_visite(gdf_monde, gdf_visite, granularite=1):
                 # Ajout de la granularité
                 .assign(Granu=granularite)
                 # Ajout de l'indicatrice de visite
-                .assign(Visite=False)
+                .assign(visite=False)
                 # Sélection des colonnes
-                [["Pays", "subdivision", "Visite", "geometry", "Granu"]]
+                [["Pays", "subdivision", "visite", "geometry", "Granu"]]
             ),
         ],
         ignore_index=True,

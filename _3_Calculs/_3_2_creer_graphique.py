@@ -294,7 +294,7 @@ def creer_image_carte(
     Crée une image de carte à partir d'un GeoDataFrame et l'exporte dans un fichier d'image.
 
     Cette fonction génère une carte basée sur un GeoDataFrame donné, applique une couleur spécifique à chaque ligne
-    (en fonction de la colonne "Visite"), puis exporte l'image dans un fichier au format spécifié par le nom de fichier.
+    (en fonction de la colonne "visite"), puis exporte l'image dans un fichier au format spécifié par le nom de fichier.
 
     Paramètres :
     – gdf (GeoDataFrame) : Le GeoDataFrame contenant la carte à créer.
@@ -303,7 +303,7 @@ def creer_image_carte(
     – gdf_eau (GeoDataFrame, optionnel) : Le GeoDataFrame contenant les surfaces d'eau. Par défaut, `None`.
     – theme (dict, optionnel) : Un dictionnaire définissant les paramètres de luminosité et de saturation pour le thème de la carte. Par défaut, il contient des valeurs prédéfinies pour la luminosité et la saturation.
     – teintes_autorisees (list, optionnel) : Une liste de teintes spécifiques (valeurs comprises entre 0.0 et 1.0) qui limitent les couleurs générées à certains types (par exemple, pour cibler certaines nuances). Par défaut, `None`, ce qui signifie que toutes les teintes peuvent être utilisées.
-    – couleur_non_visites (str) : La couleur à utiliser pour les éléments où la variable "Visite" est False (par exemple, couleur grise pour les éléments non visités). Par défaut, `"#ecebed"`.
+    – couleur_non_visites (str) : La couleur à utiliser pour les éléments où la variable "visite" est False (par exemple, couleur grise pour les éléments non visités). Par défaut, `"#ecebed"`.
     – couleur_de_fond (str) : La couleur de fond de la carte. Par défaut, `"#FFFFFF"`.
     – couleur_lacs (str) : La couleur utilisée pour les lacs et autres plans d'eau. Par défaut, `"#cee3f5"`.
     – chemin_impression (str) : Le chemin où le fichier d'image sera sauvegardé. Par défaut, le répertoire du fichier courant.
@@ -320,7 +320,7 @@ def creer_image_carte(
     liste_pays = list(gdf["Pays"].unique())
 
     # On ajoute la couleur de chaque ligne
-    gdf["couleur"] = gdf["Visite"].apply(
+    gdf["couleur"] = gdf["visite"].apply(
         lambda x: (
             generer_couleur_aleatoire_hex(
                 preset=theme,

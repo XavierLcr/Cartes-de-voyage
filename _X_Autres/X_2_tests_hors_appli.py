@@ -50,5 +50,7 @@ lister_cartes_a_publier(
     pays="True",
     monde=True,
     continents=["Europe", "Asia"],
-    pays_visites=liste_pays_test,
+    voyages=voyages_test,
+    sortir_cartes_granu_inf=True,
+    granularite_objectif=2,
 )

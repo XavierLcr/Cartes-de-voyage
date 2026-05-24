@@ -211,7 +211,7 @@ def creer_une_carte(
         chemin_impression=direction_dossier,
         nom=carte_nom,
         qualite=qualite,
-        blabla=True,
+        blabla=False,
         limite_n_cartes=limite_n_cartes,
         afficher_nom_lieu=afficher_nom_lieu,
         marge_carte=0.03,
@@ -242,16 +242,15 @@ def creer_multiples_cartes(
         granularite_reste=granularite_reste,
     )
 
-    # Récupération du tracker
+    # Récupération des arguments
     tracker = kwargs.get("tracker", None)
+    ouvrir_dossier_stockage = kwargs.get("ouvrir_dossier_stockage", False)
 
     # Pays à reprojeter
     pays_reprojection = ["Russia", "United States"]
 
     # Itération sur les cartes à publier
     for nom, liste_pays in dict_cartes.items():
-
-        print(nom)
 
         if tracker:
             tracker.notify(nom)
@@ -274,6 +273,10 @@ def creer_multiples_cartes(
         )
 
         gc.collect()
+
+    # Ouverture du dossier des résultats
+    if ouvrir_dossier_stockage:
+        ouvrir_dossier(chemin=direction_dossier)
 
 
 # 2 -- Fonction renvoyant la table et le nom des groupes de pays ---------------

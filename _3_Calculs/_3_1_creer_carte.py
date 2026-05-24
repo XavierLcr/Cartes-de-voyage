@@ -104,9 +104,17 @@ def remplacer_lieux_constants(
     liste_dfs: list, df_visite: pd.DataFrame, granularite: int = 1
 ):
 
+    # Tests de cohérence
+    assert (
+        len(liste_dfs) > granularite
+    ), "Tables non disponibles à la granularité souhaitée"
+    assert granularite >= 0, "granularite doit être positive"
+
+    # Tous les cas ont été effectués
     if granularite == 0:
         return df_visite
 
+    # Tentative d'agrégation des lieux visités
     else:
 
         # On isole la base à modifier

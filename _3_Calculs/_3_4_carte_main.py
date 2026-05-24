@@ -10,7 +10,8 @@
 
 import os, sys, gc
 import pandas as pd
-from _3_Calculs import _1_1_creer_carte, _1_2_creer_graphique
+from _3_Calculs._1_1_creer_carte import cree_gdf_depuis_dicts
+from _3_Calculs import _1_2_creer_graphique
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     ouvrir_dossier,
     reordonner_dict,
@@ -138,7 +139,6 @@ def creer_une_carte(
     individu_nom = kwargs.get("individu_nom", "")
     format = kwargs.get("format", "png")
     qualite = kwargs.get("qualite", 200)
-    langue = kwargs.get("langue", "français")
     reprojeter = kwargs.get("reprojeter", False)
     limite_n_cartes = kwargs.get(
         "limite_n_cartes",
@@ -166,7 +166,7 @@ def creer_une_carte(
     )
     couleur_pays_contours = kwargs.get(
         "couleur_pays_contours",
-        "#ECEBED",
+        "#F9F9FA",
     )
     couleur_fond = kwargs.get(
         "couleur_fond",
@@ -177,23 +177,19 @@ def creer_une_carte(
         "#CEE3F5",
     )
 
-    # Suivi des cartes
-    tracker = kwargs.get("tracker", None)
+    # Envoi des cartes
     adresse_email = kwargs.get(
         "adresse_email",
         None,
     )
 
     if carte_liste_pays:
-        gdf = gdf[gdf["Pays"].isin(carte_liste_pays)].copy()
-        gdf_1 = gdf_1[gdf_1["name_0"].isin(carte_liste_pays)].copy()
+        gdf = gdf[gdf["Pays"].isin(carte_liste_pays)]
+        gdf_1 = gdf_1[gdf_1["name_0"].isin(carte_liste_pays)]
 
     # Création du nom de la carte
     if not carte_nom:
         carte_nom = "Temp"
-
-    if tracker:
-        tracker.notify(carte_nom)
 
     if individu_nom:
         carte_nom = f"{carte_nom} – {individu_nom}"
@@ -215,13 +211,69 @@ def creer_une_carte(
         chemin_impression=direction_dossier,
         nom=carte_nom,
         qualite=qualite,
-        blabla=False,
+        blabla=True,
         limite_n_cartes=limite_n_cartes,
         afficher_nom_lieu=afficher_nom_lieu,
         marge_carte=0.03,
         reprojeter=reprojeter,
         adresse_email=adresse_email,
     )
+
+
+# 3 -- Fonction créant un ensemble de graphiques -------------------------------
+
+
+def creer_multiples_cartes(
+    liste_dfs: list,
+    liste_dicts: list,
+    gdf_eau: pd.DataFrame | None,
+    granularite_visite: int,
+    granularite_reste: int,
+    dict_cartes: dict,
+    direction_dossier,
+    **kwargs,
+):
+
+    # Table des visites
+    df_temp = cree_gdf_depuis_dicts(
+        liste_dfs=liste_dfs,
+        liste_dicts=liste_dicts,
+        granularite_visite=granularite_visite,
+        granularite_reste=granularite_reste,
+    )
+
+    # Récupération du tracker
+    tracker = kwargs.get("tracker", None)
+
+    # Pays à reprojeter
+    pays_reprojection = ["Russia", "United States"]
+
+    # Itération sur les cartes à publier
+    for nom, liste_pays in dict_cartes.items():
+
+        print(nom)
+
+        if tracker:
+            tracker.notify(nom)
+
+        creer_une_carte(
+            gdf=df_temp,
+            gdf_0=liste_dfs[0],
+            gdf_1=liste_dfs[1],
+            gdf_eau=gdf_eau,
+            # Absence de dossier additionnel pour la Carte du monde
+            direction_dossier=(
+                direction_dossier
+                if liste_pays is None
+                else os.path.join(direction_dossier, nom)
+            ),
+            carte_nom=nom,
+            carte_liste_pays=liste_pays,
+            reprojeter=len(set(liste_pays or []) & set(pays_reprojection)) > 0,
+            **kwargs,
+        )
+
+        gc.collect()
 
 
 # 2 -- Fonction renvoyant la table et le nom des groupes de pays ---------------
@@ -594,7 +646,7 @@ def cree_graphe_depuis_debut(
     # Gestion de la création ou utilisation de la base utilisée
     if any(isinstance(element, dict) for element in liste_dicts):
 
-        gdf_temp = _1_1_creer_carte.cree_gdf_depuis_dicts(
+        gdf_temp = cree_gdf_depuis_dicts(
             liste_dfs=liste_dfs,
             liste_dicts=liste_dicts,
             granularite_reste=granularite_reste,

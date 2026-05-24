@@ -5,7 +5,11 @@
 ################################################################################
 
 
+# 0 -- Initialisation ----------------------------------------------------------
+
+
 import os
+from PyQt6.QtCore import pyqtSignal, QObject
 from PyQt6.QtWidgets import (
     QWidget,
     QHBoxLayout,
@@ -41,6 +45,29 @@ from _4_Interface._4_1_Onglets.onglet_1.onglet_1_2_combobox_coloree import (
 from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
     style_bouton_de_suppression,
 )
+
+
+class WorkerChargement(QObject):
+    finished = pyqtSignal()
+    erreur = pyqtSignal(str)
+
+    def __init__(self, parent, direction):
+        super().__init__()
+        self.parent = parent
+        self.direction = direction
+
+    def run(self):
+        try:
+            # Chargement lourd
+            self.parent.liste_gdfs = charger_gdfs(
+                direction_base=self.direction,
+                max_niveau=2,
+            )
+
+            self.finished.emit()
+
+        except Exception as e:
+            self.erreur.emit(str(e))
 
 
 class OngletParametres(QWidget):
@@ -507,6 +534,41 @@ class OngletParametres(QWidget):
         # Renvoi
         return probleme
 
+    def lancer_chargement_gdfs(self, callback=None):
+
+        # Création du thread
+        self.thread_chargement = QThread()
+
+        # Worker
+        self.worker_chargement = WorkerChargement(
+            parent=self, direction=self.constantes.direction_donnees_geographiques
+        )
+
+        # Déplacement dans le thread
+        self.worker_chargement.moveToThread(self.thread_chargement)
+
+        # Lancement
+        self.thread_chargement.started.connect(self.worker_chargement.run)
+
+        # Fin normale
+        self.worker_chargement.finished.connect(self.thread_chargement.quit)
+
+        self.worker_chargement.finished.connect(self.worker_chargement.deleteLater)
+
+        self.thread_chargement.finished.connect(self.thread_chargement.deleteLater)
+
+        # Callback optionnel
+        if callback:
+            self.worker_chargement.finished.connect(callback)
+
+        # Gestion erreurs
+        self.worker_chargement.erreur.connect(
+            lambda e: print(f"Erreur chargement : {e}")
+        )
+
+        # Start
+        self.thread_chargement.start()
+
     def fonction_principale(self, settings):
 
         # Vérification de potentiels problèmes
@@ -521,10 +583,10 @@ class OngletParametres(QWidget):
 
         # Chargement des tables (si nécessaire)
         if not self.liste_gdfs:
-            self.liste_gdfs = charger_gdfs(
-                direction_base=self.constantes.direction_donnees_geographiques,
-                max_niveau=2,
+            self.lancer_chargement_gdfs(
+                callback=lambda: self.fonction_principale(settings=settings)
             )
+            return
 
         # Ajout des tables géographiques
         settings["liste_dfs"] = self.liste_gdfs

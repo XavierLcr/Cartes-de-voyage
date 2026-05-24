@@ -11,7 +11,7 @@
 import os, sys, gc
 import pandas as pd
 from _3_Calculs._1_1_creer_carte import cree_gdf_depuis_dicts
-from _3_Calculs import _1_2_creer_graphique
+from _3_Calculs import _3_2_creer_graphique
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     ouvrir_dossier,
     reordonner_dict,
@@ -197,7 +197,7 @@ def creer_une_carte(
     carte_nom = f"{carte_nom}.{format}"
 
     # Création du graphique
-    _1_2_creer_graphique.creer_image_carte(
+    _3_2_creer_graphique.creer_image_carte(
         gdf=gdf,
         gdf_monde=gdf_0,
         gdf_regions=gdf_1,
@@ -460,7 +460,7 @@ def creer_graphiques_pays(
             if tracker:
                 tracker.notify(nom_i)
 
-            _1_2_creer_graphique.creer_image_carte(
+            _3_2_creer_graphique.creer_image_carte(
                 gdf=gdf_i,
                 gdf_monde=gdf_fond,
                 gdf_eau=gdf_eau,
@@ -559,7 +559,7 @@ def creer_graphique_region(
             if blabla:
                 print(nom_langue_region, end=". ")
 
-            _1_2_creer_graphique.creer_image_carte(
+            _3_2_creer_graphique.creer_image_carte(
                 gdf=gdf_temp,
                 gdf_monde=gdf_0,
                 gdf_regions=gdf_1,

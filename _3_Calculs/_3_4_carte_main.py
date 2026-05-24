@@ -104,7 +104,6 @@ def lister_cartes_a_publier(
 
                 # Pays/Regroupement de pays visité
                 if pays_temp in val.get("liste"):
-                    print(val.get("liste"))
                     dict_pays[nom_regroup] = pays_regroup
                     inclus = True
                     continue

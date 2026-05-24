@@ -13,6 +13,9 @@ from _3_Calculs._3_4_carte_main import (
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     voyages_vers_destinations_une_granu,
 )
+from _0_Utilitaires._0_7_fonctions_voyages import (
+    creer_liste_destinations,
+)
 
 # 1 -- Classe de suivi de l'avancement de la publication des cartes ------------
 
@@ -110,17 +113,6 @@ class CreerCartes(QObject):
             dict_voyages=self.parametres.get("dictionnaire_voyages", {}), clef="dep"
         )
 
-        if dict_deps is not None:
-            if dict_deps != {} and dict_regions is not None:
-                dict_regions = {
-                    k: v for k, v in dict_regions.items() if k not in dict_deps
-                }
-
-        if dict_deps == {}:
-            dict_deps = None
-        if dict_regions == {}:
-            dict_regions = None
-
         self.nb_graphes.emit(len(self.liste_cartes.keys()))
 
         # Gestion de l'e-mail
@@ -137,7 +129,9 @@ class CreerCartes(QObject):
             # Données de création de la table
             liste_dfs=self.parametres["liste_dfs"],
             gdf_eau=self.parametres["gdf_eau"],
-            liste_dicts=[dict_regions, dict_deps],
+            liste_dicts=creer_liste_destinations(
+                dict_regions=dict_regions, dict_dep=dict_deps
+            ),
             # Granularités
             granularite_visite=self.recuperer_granularite(clef="granularite"),
             granularite_reste=self.recuperer_granularite(clef="granularite_fond"),

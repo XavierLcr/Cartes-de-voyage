@@ -15,7 +15,6 @@ from typing import Literal, List
 from _0_Utilitaires._0_6_fonctions_utiles_traductions import traduire_pays
 from constantes import hierarchie_par_pays
 
-
 # 1 -- Création d'un voyage ----------------------------------------------------
 
 
@@ -138,3 +137,27 @@ def trier_voyages(dictionnaire: dict, tri: Literal["nom", "date", "clef"]) -> Li
 
     # Renvoi des clefs triées
     return [id_voyage for id_voyage, _ in sorted(voyages_prepares, key=cle_tri)]
+
+
+# 5 -- Opérations sur les destionations et voyages -----------------------------
+
+
+def creer_liste_destinations(dict_regions: dict, dict_dep: dict):
+
+    # Stabilisation
+    dict_regions = dict_regions.copy()
+    dict_dep = dict_dep.copy()
+
+    # Suppression des pays présents dans les départements
+    if dict_dep is not None:
+        if dict_dep != {} and dict_regions is not None:
+            dict_regions = {k: v for k, v in dict_regions.items() if k not in dict_dep}
+
+    # Mise en None si vide
+    if dict_dep == {}:
+        dict_dep = None
+    if dict_regions == {}:
+        dict_regions = None
+
+    # Renvoi
+    return [dict_regions, dict_dep]

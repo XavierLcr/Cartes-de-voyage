@@ -66,14 +66,17 @@ def lister_cartes_a_publier(
 
             # Continent souhaité
             if cont in continents:
+
                 # Pays visité
-                if len(set(pays_visites) & set(cont_pays)) > 1:
+                if len(set(pays_visites) & set(cont_pays)) >= 1:
+
                     # Pays à la bonne granularité
                     if (
                         sortir_cartes_granu_inf
                         or granularite_objectif <= 1
-                        or len(set(pays_visites_departements) & set(cont_pays)) > 1
+                        or len(set(pays_visites_departements) & set(cont_pays)) >= 1
                     ):
+
                         dict_cont[nom_temp] = cont_pays
 
         dict_temp = dict_temp | reordonner_dict(dictionnaire=dict_cont, clefs=None)

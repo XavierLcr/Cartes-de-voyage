@@ -82,8 +82,9 @@ def lister_cartes_a_publier(
         dict_temp = dict_temp | reordonner_dict(dictionnaire=dict_cont, clefs=None)
 
     # Ajout des pays ou regroupements de pays (si souhaité)
-    if granularite_objectif >= 2 & sortir_cartes_granu_inf == False:
+    if granularite_objectif >= 2 and sortir_cartes_granu_inf == False:
         pays_visites = pays_visites_departements.copy()
+
     if pays and len(pays_visites) > 0:
 
         dict_pays = {}
@@ -103,6 +104,7 @@ def lister_cartes_a_publier(
 
                 # Pays/Regroupement de pays visité
                 if pays_temp in val.get("liste"):
+                    print(val.get("liste"))
                     dict_pays[nom_regroup] = pays_regroup
                     inclus = True
                     continue

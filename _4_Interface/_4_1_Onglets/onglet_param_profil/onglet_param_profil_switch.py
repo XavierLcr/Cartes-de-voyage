@@ -5,10 +5,12 @@ from PyQt6.QtCore import (
     QEasingCurve,
     pyqtProperty,
     QRectF,
+    QPointF,
     QSize,
     pyqtSignal,
 )
-from PyQt6.QtGui import QPainter, QColor, QFont
+import math
+from PyQt6.QtGui import QPainter, QColor, QFont, QPen
 
 
 class BoutonSwitch(QWidget):
@@ -75,7 +77,7 @@ class BoutonSwitch(QWidget):
         painter.setPen(Qt.PenStyle.NoPen)
 
         painter.setBrush(
-            QColor(255, 200, 0) if self._checked else QColor(200, 200, 200)
+            QColor(255, 200, 0) if self._checked else QColor(120, 120, 120)
         )
 
         painter.drawRoundedRect(
@@ -83,8 +85,8 @@ class BoutonSwitch(QWidget):
             0,
             self.width(),
             self.height(),
-            self.height() // 2,
-            self.height() // 2,
+            self.height() / 2,
+            self.height() / 2,
         )
 
         # =========================================================
@@ -97,32 +99,74 @@ class BoutonSwitch(QWidget):
 
         x = margin + (self.width() - d - 2 * margin) * self._anim_pos
 
-        painter.setBrush(QColor(255, 255, 255) if self._checked else QColor(50, 50, 50))
+        knob_rect = QRectF(x, margin, d, d)
 
-        painter.drawEllipse(int(x), margin, d, d)
+        painter.setBrush(QColor(255, 255, 255) if self._checked else QColor(40, 40, 40))
+
+        painter.drawEllipse(knob_rect)
 
         # =========================================================
-        # Emoji
+        # Icône
         # =========================================================
 
-        emoji = "☀️" if self._checked else "🌙"
+        center = knob_rect.center()
 
-        font = QFont("Segoe UI Emoji")
-        font.setPixelSize(int(d * 0.60))
+        if self._checked:
 
-        painter.setFont(font)
+            # =====================================================
+            # Soleil
+            # =====================================================
 
-        painter.setPen(Qt.GlobalColor.black if self._checked else Qt.GlobalColor.white)
+            painter.setPen(QPen(QColor(255, 180, 0), 2))
+            painter.setBrush(QColor(255, 220, 0))
 
-        # Rectangle du bouton
-        rect = QRectF(x, margin, d, d)
+            radius = d * 0.18
 
-        # Centrage parfait
-        metrics = painter.fontMetrics()
+            # Centre du soleil
+            painter.drawEllipse(center, radius, radius)
 
-        text_rect = metrics.boundingRect(emoji)
+            # Rayons
+            ray_length = d * 0.12
 
-        text_x = rect.center().x() - text_rect.width() / 2
-        text_y = rect.center().y() + text_rect.height() / 3
+            for angle in range(0, 360, 45):
 
-        painter.drawText(int(text_x), int(text_y), emoji)
+                rad = math.radians(angle)
+
+                x1 = center.x() + math.cos(rad) * (radius + 2)
+                y1 = center.y() + math.sin(rad) * (radius + 2)
+
+                x2 = center.x() + math.cos(rad) * (radius + ray_length)
+                y2 = center.y() + math.sin(rad) * (radius + ray_length)
+
+                painter.drawLine(
+                    QPointF(x1, y1),
+                    QPointF(x2, y2),
+                )
+
+        else:
+
+            # =====================================================
+            # Lune
+            # =====================================================
+
+            painter.setPen(Qt.PenStyle.NoPen)
+
+            moon_color = QColor(230, 230, 230)
+
+            painter.setBrush(moon_color)
+
+            radius = d * 0.24
+
+            # Cercle principal
+            painter.drawEllipse(center, radius, radius)
+
+            # Découpe pour former le croissant
+            painter.setBrush(QColor(40, 40, 40))
+
+            offset = radius * 0.45
+
+            painter.drawEllipse(
+                QPointF(center.x() + offset, center.y() - offset * 0.2),
+                radius,
+                radius,
+            )

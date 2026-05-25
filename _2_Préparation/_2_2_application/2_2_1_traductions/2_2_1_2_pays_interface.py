@@ -30,7 +30,6 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
 
 from clefs_et_mots_de_passe import clef_api_gemini, liste_langues, modeles_google
 
-
 # 1 -- Fonctions ---------------------------------------------------------------
 
 
@@ -55,8 +54,7 @@ def creer_liste_pays_multilangue(
 
     for i in sorted(set(liste_pays)):
 
-        if blabla >= 1:
-            print(textwrap.shorten(i.strip(" \n-="), width=50, placeholder="..."))
+        premiere_trad = True
 
         # Récupération des traduction du pays
         resultat[i] = resultat.get(i, {})
@@ -72,8 +70,12 @@ def creer_liste_pays_multilangue(
             elif api_jour_modele >= modele_dict.get("limite_appels_jour", 200):
                 continue
 
+            if blabla >= 1 and premiere_trad == True:
+                print(textwrap.shorten(i.strip(" \n-="), width=50, placeholder="..."))
+                premiere_trad = False
+
             if blabla >= 2:
-                print("    ", j)
+                print("         ", j)
 
             if (j == "anglais" and version == 0) or (j == "français" and version == 1):
                 resultat[i][j] = i

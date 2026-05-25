@@ -77,6 +77,7 @@ class CalendrierVisite(QWidget):
                 titre=self.fct_traduction(
                     "titre_graphique_calendrier_voyages",
                 ),
+                label_taille_max=30,
             )
 
             self.layout.addWidget(

@@ -8,6 +8,7 @@
 # 0 -- Initialisation ----------------------------------------------------------
 
 
+import textwrap
 import matplotlib.pyplot as plt
 import pandas as pd
 import matplotlib.dates as mdates
@@ -24,6 +25,7 @@ def plot_diagramme_grantt(
     date_min: str | None = None,
     date_max: str | None = None,
     titre: str = "",
+    label_taille_max=30,
 ):
 
     fig, ax = plt.subplots(figsize=(10, 5))
@@ -33,7 +35,11 @@ def plot_diagramme_grantt(
     # nettoyage
     for _, item in data.items():
 
-        label_temp = item.get(voyage_label)
+        label_temp = textwrap.shorten(
+            item.get(voyage_label, ""),
+            width=max(label_taille_max, 10),
+            placeholder="...",
+        )
         deb_temp = item.get(date_min_label)
         fin_temp = item.get(date_max_label)
 

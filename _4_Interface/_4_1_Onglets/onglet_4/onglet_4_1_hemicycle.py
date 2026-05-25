@@ -319,24 +319,18 @@ class HemicycleWidget(QWidget):
         assert len(set(self.liste_pays) - set(df_temp["pays"])) == 0
         assert len(set(df_temp["pays"]) - set(self.liste_pays)) == 0
 
-        continent_points = {}
-
         for row in df_temp.itertuples(index=False):
 
+            # Récupération des informations du point
             x = row.x
             y = row.y
             continent = row.continent
             couleur_bord = row.couleur_bord
             couleur_centre = row.couleur_centre
 
-            # Ajoute le point au bon groupe
-            continent_points.setdefault(continent, []).append((x, y))
-
             # Dessiner le point
             painter.setBrush(QBrush(couleur_centre))
-
             painter.setPen(QPen(couleur_bord, int(self.diametre_point * 1 / 3)))
-
             painter.drawEllipse(
                 QPointF(x, y),
                 self.diametre_point,
@@ -361,7 +355,6 @@ class HemicycleWidget(QWidget):
         # Taille du texte
         font_metrics = painter.fontMetrics()
 
-        # for continent, points in continent_points.items():
         for continent in list(df_temp["continent"].unique()):
 
             df_continent = df_temp[df_temp["continent"] == continent]

@@ -14,6 +14,7 @@ from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     vider_layout,
+    conteneur_graphique_simple,
 )
 from _0_Utilitaires._0_9_plot_diagramme_gantt import plot_diagramme_grantt
 
@@ -73,4 +74,4 @@ class CalendrierVisite(QWidget):
                 ),
             )
 
-            self.layout.addWidget(FigureCanvas(fig))
+            self.layout.addWidget(conteneur_graphique_simple(fig=fig))

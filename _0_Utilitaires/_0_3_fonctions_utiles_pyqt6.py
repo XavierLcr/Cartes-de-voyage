@@ -7,6 +7,7 @@
 
 from PyQt6.QtWidgets import (
     QHBoxLayout,
+    QVBoxLayout,
     QFrame,
     QLabel,
     QWidget,
@@ -14,7 +15,7 @@ from PyQt6.QtWidgets import (
     QApplication,
 )
 from PyQt6.QtCore import Qt, QTimer
-
+from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 
 # 1 -- Fonctions sur les combo -------------------------------------------------
 
@@ -169,3 +170,29 @@ def set_emoji_sauvegarde(widget: QPushButton, temps_ms: int):
 
     widget.setText("💾✅")
     QTimer.singleShot(temps_ms, lambda: widget.setText("💾"))
+
+
+# 6 -- Style d'insertion des graphiques ----------------------------------------
+
+
+## 6.1 -- Conteneur simple -----------------------------------------------------
+
+
+def conteneur_graphique_simple(fig):
+
+    container = QFrame()
+    container.setStyleSheet("""
+        QFrame {
+            background: white;
+            border: 3px solid #E0E0E0;
+            border-radius: 10px;
+            padding: 12px;
+        }
+    """)
+
+    # Ajouter le canvas au conteneur
+    container_layout = QVBoxLayout(container)
+    container_layout.setContentsMargins(0, 0, 0, 0)
+    container_layout.addWidget(FigureCanvas(fig))
+
+    return container

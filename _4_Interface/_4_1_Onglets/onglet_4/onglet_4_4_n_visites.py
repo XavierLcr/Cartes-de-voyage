@@ -11,10 +11,10 @@
 import pandas as pd
 from collections import defaultdict
 from PyQt6.QtWidgets import QWidget, QVBoxLayout
-from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     vider_layout,
+    conteneur_graphique_simple,
 )
 from _0_Utilitaires._0_8_plot_diagramme_barres import plot_diagramme_barre
 
@@ -105,4 +105,4 @@ class PaysLesPlusVisites(QWidget):
                 y_decimales=0,
             )
 
-            self.layout.addWidget(FigureCanvas(fig))
+            self.layout.addWidget(conteneur_graphique_simple(fig=fig))

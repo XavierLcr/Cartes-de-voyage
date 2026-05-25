@@ -457,36 +457,41 @@ class OngletParametres(QWidget):
     def set_style(self, style: bool):
         self.reinit_parametres.setStyleSheet(style_bouton_de_suppression(sombre=style))
 
-    def initialiser_progression(self, nb_cartes: int):
+    def barre_set_max(self, val: int):
+        self.barre_progression.setMaximum(val)
+
+    def initialiser_progression(self):
 
         # Initialisation de la barre de progression
-        self.barre_progression.setMaximum(nb_cartes)
+        self.barre_set_max(val=10)
         self.barre_progression.setValue(0)
 
         # Affichage de la barre de progression
         self.debut_fin_creation_cartes(debut=True)
-
-    def afficher_avancement(self, libelle_pays):
-        self.barre_progression.setValue(self.barre_progression.value() + 1)
-        self.barre_progression.setFormat(libelle_pays)
 
     def debut_fin_creation_cartes(self, debut):
 
         self.creation_cartes_bouton.setVisible(not debut)
         self.barre_progression.setVisible(debut)
 
-        self.fonction_pop_up(
-            contenu=self.fonction_traduction(
-                clef=(
-                    "debut_publication_cartes"
-                    if debut
-                    else "publication_cartes_reussie"
+        if not debut:
+
+            self.fonction_pop_up(
+                contenu=self.fonction_traduction(
+                    clef=(
+                        "debut_publication_cartes"
+                        if debut
+                        else "publication_cartes_reussie"
+                    ),
+                    suffixe="." if debut else " ✅​",
                 ),
-                suffixe="." if debut else " ✅​",
-            ),
-            temps_max=5000 if debut else None,
-            titre=self.fonction_traduction(clef="titre_pop_up_publication_cartes"),
-        )
+                temps_max=5000 if debut else None,
+                titre=self.fonction_traduction(clef="titre_pop_up_publication_cartes"),
+            )
+
+    def afficher_avancement(self, libelle_pays):
+        self.barre_progression.setValue(self.barre_progression.value() + 1)
+        self.barre_progression.setFormat(libelle_pays)
 
     def soulever_probleme(self, dict_voyages: dict, dossier_stockage: str):
 
@@ -581,8 +586,14 @@ class OngletParametres(QWidget):
         ):
             return
 
+        # Affichage de la barre
+        self.initialiser_progression()
+
         # Chargement des tables (si nécessaire)
         if not self.liste_gdfs:
+            self.barre_progression.setFormat(
+                self.fonction_traduction("preparation_donnees_geo", suffixe="...")
+            )
             self.lancer_chargement_gdfs(
                 callback=lambda: self.fonction_principale(settings=settings)
             )
@@ -593,7 +604,8 @@ class OngletParametres(QWidget):
 
         # Initialisation de l'objet et de la barre de progression
         self.creation_cartes = CreerCartes(params=settings, constantes=self.constantes)
-        self.creation_cartes.nb_graphes.connect(self.initialiser_progression)
+        self.creation_cartes.nb_graphes.connect(lambda x: self.barre_set_max(val=x + 1))
+        # self.creation_cartes.nb_graphes.connect(self.barre_set_max)
         self.creation_cartes.tracker_signal.connect(self.afficher_avancement)
 
         self.thread_temp = QThread()

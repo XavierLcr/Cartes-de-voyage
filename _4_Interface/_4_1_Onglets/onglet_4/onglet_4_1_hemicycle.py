@@ -170,7 +170,7 @@ def ajouter_coordonnees(df: pd.DataFrame, coordonnees: list, alignement: int):
     )
 
     # Renvoi
-    return df_temp.drop(columns=["angle", "niveau", "visite"], inplace=False)
+    return df_temp.drop(columns=["angle", "niveau"], inplace=False)
 
 
 # 2 -- Classe de création de l'hémicycle des pays visités ----------------------
@@ -335,6 +335,10 @@ class HemicycleWidget(QWidget):
 
     def peindre_noms_continents(self, painter, df: pd.DataFrame, rayon: int):
 
+        font = painter.font()
+        font.setPointSize(self.calculer_taille_police())
+        painter.setFont(font)
+
         # Taille du texte
         font_metrics = painter.fontMetrics()
 
@@ -374,6 +378,49 @@ class HemicycleWidget(QWidget):
             )
             painter.restore()
 
+    def peindre_ratios_visites(self, painter, df: pd.DataFrame, rayon: int):
+
+        font = painter.font()
+        font.setPointSize(max(self.calculer_taille_police() - 1, 1))
+        painter.setFont(font)
+
+        # Taille du texte
+        font_metrics = painter.fontMetrics()
+
+        for continent in list(df["continent"].unique()):
+
+            df_temp = df[df["continent"] == continent].copy()
+
+            if len(df_temp) == 0:
+                continue
+
+            # Ratio de pays visité pour ce continent
+            texte_temp = f"{df_temp['visite'].sum()}/{len(df_temp)}"
+
+            # Calcul de l'angle du point par rapport au centre
+            theta = math.atan2(
+                df_temp["y"].mean() - self.center_y(),
+                df_temp["x"].mean() - self.center_x(),
+            )
+
+            painter.save()
+            painter.translate(
+                self.center_x() + rayon * math.cos(theta),
+                self.center_y() + rayon * math.sin(theta),
+            )
+            # Angle en degrés
+            painter.rotate(math.degrees(theta) + 90)
+
+            # Décaler légèrement le texte pour qu’il ne touche pas le point
+            painter.drawText(
+                QPointF(
+                    -font_metrics.horizontalAdvance(texte_temp) / 2,
+                    -font_metrics.height() / 2,
+                ),
+                texte_temp,
+            )
+            painter.restore()
+
     def calculer_taille_police(self):
         return max(int(8 + self.level_distance / 10), 1)
 
@@ -403,15 +450,20 @@ class HemicycleWidget(QWidget):
         rayon_texte = self.peindre_points(painter=painter, df=df_temp)
 
         # Distance du texte
-        rayon_texte = int(rayon_texte + 9 + self.diametre_point / 1.5)
+        rayon_texte = int(rayon_texte + 4 + self.diametre_point / 1.5)
 
         # Application des caractéristiques
         painter.setPen(QColor(self.couleur_texte))
-        font = painter.font()
-        font.setPointSize(self.calculer_taille_police())
-        painter.setFont(font)
 
-        self.peindre_noms_continents(painter=painter, df=df_temp, rayon=rayon_texte)
+        # Ajout des ratios de pays visités
+        self.peindre_ratios_visites(painter=painter, df=df_temp, rayon=rayon_texte)
+
+        # Ajout du nom des continents
+        self.peindre_noms_continents(
+            painter=painter,
+            df=df_temp,
+            rayon=rayon_texte + 10 + self.diametre_point / 1.5,
+        )
 
     def creer_hemicycle(self):
         self.update()

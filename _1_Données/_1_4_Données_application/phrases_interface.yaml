@@ -57,7 +57,8 @@ moyen_orient : Moyen-Orient
 autres_regions_monde : Autres régions du monde
 publier_cartes_faible_granularite_uniquement : Également publier les cartes pour lesquelles la granularité souhaitée n'est pas disponible
 description_publier_cartes_faible_granularite_uniquement : Permet de choisir si l'on souhaite publier l'entièreté des cartes ou seulement celles qui possèdent la granularité souhaitée. Veut-on par exemple publier une carte qui n'existe qu'au niveau régional si l'on souhaite des cartes au niveau départemental ?
-email_checkbox_tooltip : Envoi complémentaire des cartes à l'adresse e-mail renseignée 
+email_checkbox_tooltip : Envoi complémentaire des cartes à l'adresse e-mail renseignée
+preparation_donnees_geo : Préparation des données
 
 # Paramètres esthétiques
 titre_params_esthetiques : Paramètres esthétiques

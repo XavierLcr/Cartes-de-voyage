@@ -1,3 +1,13 @@
+################################################################################
+# Projet de cartes de voyage                                                   #
+# _4_Interface/_4_1_Onglets/onglet_param_profil/                               #
+# Onglet du bouton Switch                                                      #
+################################################################################
+
+
+# 0 -- Introduction ------------------------------------------------------------
+
+
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtCore import (
     Qt,
@@ -10,7 +20,7 @@ from PyQt6.QtCore import (
     pyqtSignal,
 )
 import math
-from PyQt6.QtGui import QPainter, QColor, QFont, QPen
+from PyQt6.QtGui import QPainter, QColor, QPen, QBrush, QRadialGradient
 
 
 class BoutonSwitch(QWidget):
@@ -112,61 +122,101 @@ class BoutonSwitch(QWidget):
         center = knob_rect.center()
 
         if self._checked:
-
-            # =====================================================
-            # Soleil
-            # =====================================================
-
-            painter.setPen(QPen(QColor(255, 180, 0), 2))
-            painter.setBrush(QColor(255, 220, 0))
-
-            radius = d * 0.18
-
-            # Centre du soleil
-            painter.drawEllipse(center, radius, radius)
-
-            # Rayons
-            ray_length = d * 0.12
-
-            for angle in range(0, 360, 45):
-
-                rad = math.radians(angle)
-
-                x1 = center.x() + math.cos(rad) * (radius + 2)
-                y1 = center.y() + math.sin(rad) * (radius + 2)
-
-                x2 = center.x() + math.cos(rad) * (radius + ray_length)
-                y2 = center.y() + math.sin(rad) * (radius + ray_length)
-
-                painter.drawLine(
-                    QPointF(x1, y1),
-                    QPointF(x2, y2),
-                )
-
+            self.draw_sun(painter, center, d)
         else:
+            self.draw_moon(painter, center, d)
 
-            # =====================================================
-            # Lune
-            # =====================================================
+    def draw_sun(self, painter, center, size):
 
-            painter.setPen(Qt.PenStyle.NoPen)
+        # =========================================================
+        # PARAMÈTRES
+        # =========================================================
 
-            moon_color = QColor(230, 230, 230)
+        radius = size * 0.18
 
-            painter.setBrush(moon_color)
+        ray_inner = radius + size * 0.02
+        ray_outer = radius + size * 0.14
 
-            radius = d * 0.24
+        # =========================================================
+        # GLOW (halo doux)
+        # =========================================================
 
-            # Cercle principal
-            painter.drawEllipse(center, radius, radius)
+        glow = QRadialGradient(center, size * 0.45)
+        glow.setColorAt(0.0, QColor(255, 230, 80, 180))
+        glow.setColorAt(0.4, QColor(255, 200, 0, 80))
+        glow.setColorAt(1.0, QColor(255, 200, 0, 0))
 
-            # Découpe pour former le croissant
-            painter.setBrush(QColor(40, 40, 40))
+        painter.setPen(Qt.PenStyle.NoPen)
+        painter.setBrush(glow)
+        painter.drawEllipse(center, size * 0.45, size * 0.45)
 
-            offset = radius * 0.45
+        # =========================================================
+        # RAYONS (douce variation d'épaisseur)
+        # =========================================================
 
-            painter.drawEllipse(
-                QPointF(center.x() + offset, center.y() - offset * 0.2),
-                radius,
-                radius,
-            )
+        for i in range(12):
+
+            angle = (2 * math.pi / 12) * i
+
+            x1 = center.x() + math.cos(angle) * ray_inner
+            y1 = center.y() + math.sin(angle) * ray_inner
+
+            x2 = center.x() + math.cos(angle) * ray_outer
+            y2 = center.y() + math.sin(angle) * ray_outer
+
+            pen = QPen(QColor(255, 170, 0, 180), 2)
+            pen.setCapStyle(Qt.PenCapStyle.RoundCap)
+            painter.setPen(pen)
+
+            painter.drawLine(QPointF(x1, y1), QPointF(x2, y2))
+
+        # =========================================================
+        # CŒUR DU SOLEIL (gradient + léger relief)
+        # =========================================================
+
+        core_gradient = QRadialGradient(center, radius * 1.2)
+        core_gradient.setColorAt(0.0, QColor(255, 255, 140))
+        core_gradient.setColorAt(0.6, QColor(255, 200, 0))
+        core_gradient.setColorAt(1.0, QColor(255, 140, 0))
+
+        painter.setPen(Qt.PenStyle.NoPen)
+        painter.setBrush(core_gradient)
+        painter.drawEllipse(center, radius, radius)
+
+        # =========================================================
+        # BRILLANCE (petit reflet en haut à gauche)
+        # =========================================================
+
+        highlight = QPointF(center.x() - radius * 0.4, center.y() - radius * 0.4)
+
+        painter.setBrush(QColor(255, 255, 255, 120))
+        painter.drawEllipse(highlight, radius * 0.35, radius * 0.35)
+
+    def draw_moon(self, painter, center, size):
+
+        moon_color = QColor(230, 230, 230)
+        cut_color = QColor(40, 40, 40)
+
+        painter.setPen(Qt.PenStyle.NoPen)
+
+        radius = size * 0.22
+
+        # =========================================================
+        # Cercle principal (lune)
+        # =========================================================
+
+        painter.setBrush(QBrush(moon_color))
+        painter.drawEllipse(center, radius, radius)
+
+        # =========================================================
+        # "Découpe" pour croissant
+        # =========================================================
+
+        painter.setBrush(QBrush(cut_color))
+
+        offset = radius * 0.45
+
+        # deuxième cercle décalé (crée un croissant propre)
+        painter.drawEllipse(
+            QPointF(center.x() + offset, center.y() - offset * 0.2), radius, radius
+        )

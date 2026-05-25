@@ -4,7 +4,7 @@ from PyQt6.QtCore import (
     QPropertyAnimation,
     QEasingCurve,
     pyqtProperty,
-    QRect,
+    QRectF,
     QSize,
     pyqtSignal,
 )
@@ -17,10 +17,10 @@ class BoutonSwitch(QWidget):
 
     def __init__(self):
         super().__init__()
-        self.setMinimumSize(QSize(120, 60))
+        self.setMinimumSize(QSize(100, 50))
 
-        self._checked = True  # ✅ état logique UNIQUE
-        self._anim_pos = 1.0  # détail graphique interne
+        self._checked = True
+        self._anim_pos = 1.0
 
         self._animation = QPropertyAnimation(self, b"animPos")
         self._animation.setDuration(300)
@@ -64,30 +64,65 @@ class BoutonSwitch(QWidget):
     # ========= PAINT =========
 
     def paintEvent(self, event):
+
         painter = QPainter(self)
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
 
+        # =========================================================
         # Fond
+        # =========================================================
+
+        painter.setPen(Qt.PenStyle.NoPen)
+
         painter.setBrush(
             QColor(255, 200, 0) if self._checked else QColor(200, 200, 200)
         )
-        painter.setPen(Qt.PenStyle.NoPen)
+
         painter.drawRoundedRect(
-            0, 0, self.width(), self.height(), self.height() // 2, self.height() // 2
+            0,
+            0,
+            self.width(),
+            self.height(),
+            self.height() // 2,
+            self.height() // 2,
         )
 
+        # =========================================================
         # Curseur
-        d = self.height() - 10
-        x = 5 + (self.width() - d - 10) * self._anim_pos
+        # =========================================================
+
+        margin = 5
+
+        d = self.height() - 2 * margin
+
+        x = margin + (self.width() - d - 2 * margin) * self._anim_pos
 
         painter.setBrush(QColor(255, 255, 255) if self._checked else QColor(50, 50, 50))
-        painter.drawEllipse(int(x), 5, d, d)
 
+        painter.drawEllipse(int(x), margin, d, d)
+
+        # =========================================================
         # Emoji
-        painter.setFont(QFont("Arial", 20))
+        # =========================================================
+
+        emoji = "☀️" if self._checked else "🌙"
+
+        font = QFont("Segoe UI Emoji")
+        font.setPixelSize(int(d * 0.60))
+
+        painter.setFont(font)
+
         painter.setPen(Qt.GlobalColor.black if self._checked else Qt.GlobalColor.white)
-        painter.drawText(
-            QRect(int(x), 5, d, d),
-            Qt.AlignmentFlag.AlignCenter,
-            "☀️" if self._checked else "🌙",
-        )
+
+        # Rectangle du bouton
+        rect = QRectF(x, margin, d, d)
+
+        # Centrage parfait
+        metrics = painter.fontMetrics()
+
+        text_rect = metrics.boundingRect(emoji)
+
+        text_x = rect.center().x() - text_rect.width() / 2
+        text_y = rect.center().y() + text_rect.height() / 3
+
+        painter.drawText(int(text_x), int(text_y), emoji)

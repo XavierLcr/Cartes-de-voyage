@@ -186,7 +186,7 @@ def conteneur_graphique_simple(fig, style, teinte, nuances):
 
     container = QFrame()
     couleur = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#C9D6E0", sombre="#2C3A4F"
+        style=style, teinte=teinte, nuances=nuances, clair="#C9D6E0", sombre="#26C6DA"
     )
     container.setStyleSheet(f"""
         QFrame {{

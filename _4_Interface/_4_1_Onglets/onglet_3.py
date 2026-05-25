@@ -88,7 +88,6 @@ class OngletResumeDestinations(QWidget):
         self.liste_pays = constantes.hierarchie_par_pays
         self.dicts_granu = {"region": {}, "dep": {}}
         self.langue_utilisee = "français"
-        self.set_style(style=1, teinte=None, nuances={})
 
         self.layout_onglet_3 = QVBoxLayout()
         self.layout_resume_pays = QHBoxLayout()
@@ -151,6 +150,8 @@ class OngletResumeDestinations(QWidget):
                 sombre="#7E0E5C",
             ),
         }
+
+        self.maj_layout_resume()
 
     def _creer_scroll(self, vbox):
         widget = QWidget()

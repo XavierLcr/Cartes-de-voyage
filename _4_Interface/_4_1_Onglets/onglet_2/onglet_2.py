@@ -388,7 +388,7 @@ class OngletSelectionnerDestinations(QWidget):
                 teinte=teinte,
                 nuances=nuances,
                 clair="#CFFFCA",
-                sombre="#6B6B6B",
+                sombre="#0A5E15",
             ),
             2: renvoyer_couleur_widget(
                 style=style,
@@ -405,6 +405,8 @@ class OngletSelectionnerDestinations(QWidget):
                 sombre="#1221C1",
             ),
         }
+
+        self.afficher_voyages(vbox=self.liste_voyage_layout)
 
     def initialiser_onglet(self, nom: str | None):
 

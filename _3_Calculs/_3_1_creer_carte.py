@@ -22,15 +22,15 @@ def creer_base_une_granularite(
     liste_destinations: dict,
     granularite: int = 1,
 ):
-    """Crée la base pour une liste de pays à un niveau de granularité donnée
+    """Crée la base pour une liste de pays à un niveau de granularité donnée.
 
     Args:
-        df : la base geopandas du monde
-        liste_destinations : la liste des destinations à ce niveau de granularité
-        granularite : le niveau de granularité souhaité (entre 0 et 5)
+        gdf : la base geopandas du monde.
+        liste_destinations : le dictionnaire des destinations à ce niveau de granularité.
+        granularite : le niveau de granularité souhaité (entre 0 et 5).
 
     Returns :
-        la base geopandas au bon avec les bonnes frontières
+        La base geopandas au bon avec les bonnes frontières
     """
 
     return (
@@ -248,65 +248,54 @@ def cree_base_toutes_granularites(
 
     granu = [i + 1 for i, val in enumerate(liste_dicts) if isinstance(val, dict)]
     dicos = [val for i, val in enumerate(liste_dicts) if isinstance(val, dict)]
-
+    # Test de cohérence
     assert len(granu) == len(dicos), "Problème."
 
-    if granularite_objectif >= 0:
+    if granularite_objectif < 0:
+        granularite_objectif = int(max(granu))
 
-        for i in range(len(granu)):
+    for i in range(len(granu)):
 
-            # Pays non détaillés
-            clefs_none_i = [k for k, v in dicos[i].items() if v is None]
+        # Pays non détaillés
+        clefs_none_i = [k for k, v in dicos[i].items() if v is None]
 
-            # Calcul du dataframe de chaque granularité
-            res_i = creer_base_double_granularite(
-                df_donnee=liste_dfs[granu[i]],
-                granularite_donnee=granu[i],
-                liste_destinations=dicos[i],
-                granularite_obj=granularite_objectif,
-                df_obj=liste_dfs[granularite_objectif],
-            )
-
-            resultat, pays_reste = (
-                (res_i, clefs_none_i)
-                if i == 0
-                else (
-                    pd.concat([resultat, res_i], ignore_index=True),
-                    pays_reste + clefs_none_i,
-                )
-            )
-
-        if len(pays_reste) > 0:
-
-            resultat = pd.concat(
-                [
-                    # Table des pays détaillés
-                    resultat,
-                    # Table des pays non détaillés
-                    liste_dfs[0][liste_dfs[0]["name_0"].isin(pays_reste)].assign(
-                        Pays=lambda x: x["name_0"] * 1,
-                        Region=lambda x: x["name_0"] * 1,
-                        Granu=0,
-                        Visite=1,
-                    )[["Pays", "subdivision", "visite", "geometry", "Granu"]],
-                ],
-                ignore_index=True,
-            )
-
-        # Renvoi
-        return resultat
-
-    else:
-
-        # Regroupement des régions non visitées
-        return agreger_lieux_constants(
-            liste_dfs=liste_dfs,
-            df_visite=cree_base_toutes_granularites(
-                liste_dfs=liste_dfs,
-                liste_dicts=liste_dicts,
-                granularite_objectif=int(max(granu)),
-            ),
+        # Calcul du dataframe de chaque granularité
+        res_i = creer_base_double_granularite(
+            df_donnee=liste_dfs[granu[i]],
+            granularite_donnee=granu[i],
+            liste_destinations=dicos[i],
+            granularite_obj=granularite_objectif,
+            df_obj=liste_dfs[granularite_objectif],
         )
+
+        resultat, pays_reste = (
+            (res_i, clefs_none_i)
+            if i == 0
+            else (
+                pd.concat([resultat, res_i], ignore_index=True),
+                pays_reste + clefs_none_i,
+            )
+        )
+
+    if len(pays_reste) > 0:
+
+        resultat = pd.concat(
+            [
+                # Table des pays détaillés
+                resultat,
+                # Table des pays non détaillés
+                liste_dfs[0][liste_dfs[0]["name_0"].isin(pays_reste)].assign(
+                    Pays=lambda x: x["name_0"] * 1,
+                    Region=lambda x: x["name_0"] * 1,
+                    Granu=0,
+                    Visite=1,
+                )[["Pays", "subdivision", "visite", "geometry", "Granu"]],
+            ],
+            ignore_index=True,
+        )
+
+    # Renvoi
+    return resultat
 
 
 ## 1.5 -- Complétion de la carte du monde avec les pays non visités ------------
@@ -377,12 +366,26 @@ def cree_gdf_depuis_dicts(
     – granularite_reste (int, optionnel) : Le niveau de granularité des pays non visités.
     """
 
-    return ajouter_indicatrice_visite(
-        gdf_monde=liste_dfs[granularite_reste],
-        gdf_visite=cree_base_toutes_granularites(
+    # Création de la table à la granularité souhaité
+    df_temp = cree_base_toutes_granularites(
+        liste_dfs=liste_dfs,
+        liste_dicts=liste_dicts,
+        granularite_objectif=granularite_visite,
+    )
+
+    # Agréagtion des lieux constantes (si souhaité)
+    if granularite_visite == -1:
+        df_temp = agreger_lieux_constants(
             liste_dfs=liste_dfs,
-            liste_dicts=liste_dicts,
-            granularite_objectif=granularite_visite,
-        ),
+            df_visite=df_temp,
+        )
+
+    # Ajout du reste du monde
+    df_temp = ajouter_indicatrice_visite(
+        gdf_monde=liste_dfs[granularite_reste],
+        gdf_visite=df_temp,
         granularite=granularite_reste,
     )
+
+    # Renvoi
+    return df_temp

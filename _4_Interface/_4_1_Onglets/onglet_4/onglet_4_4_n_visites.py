@@ -83,7 +83,8 @@ class PaysLesPlusVisites(QWidget):
                     pays_traduction=lambda x: x["pays"].apply(
                         lambda y: self.pays_trad.get(y, {}).get(self.langue, y)
                     )
-                ),
+                )
+                .reset_index(drop=True, inplace=False),
                 var_x="pays_traduction",
                 var_y="voyages",
                 var_color=None,

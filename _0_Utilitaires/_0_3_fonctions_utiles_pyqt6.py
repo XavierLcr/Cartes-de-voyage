@@ -17,6 +17,10 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtCore import Qt, QTimer
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 
+from _0_Utilitaires._0_2_fonctions_graphiques import (
+    renvoyer_couleur_widget,
+)
+
 # 1 -- Fonctions sur les combo -------------------------------------------------
 
 
@@ -178,16 +182,19 @@ def set_emoji_sauvegarde(widget: QPushButton, temps_ms: int):
 ## 6.1 -- Conteneur simple -----------------------------------------------------
 
 
-def conteneur_graphique_simple(fig):
+def conteneur_graphique_simple(fig, style, teinte, nuances):
 
     container = QFrame()
-    container.setStyleSheet("""
-        QFrame {
+    couleur = renvoyer_couleur_widget(
+        style=style, teinte=teinte, nuances=nuances, clair="#C9D6E0", sombre="#2C3A4F"
+    )
+    container.setStyleSheet(f"""
+        QFrame {{
             background: white;
-            border: 3px solid #E0E0E0;
+            border: 3px solid {couleur};
             border-radius: 10px;
             padding: 12px;
-        }
+        }}
     """)
 
     # Ajouter le canvas au conteneur

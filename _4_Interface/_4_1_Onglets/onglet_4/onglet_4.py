@@ -207,6 +207,10 @@ class OngletTopPays(QWidget):
             style=style, teinte=teinte, nuances=nuances
         )
 
+        # Graphiques
+        self.pays_souvent_visites.set_style(style=style, teinte=teinte, nuances=nuances)
+        self.calendrier_visites.set_style(style=style, teinte=teinte, nuances=nuances)
+
     def set_dicts_granu(self, dict_nv):
         dict_temp = voyages_vers_destinations(copy.deepcopy(dict_nv))
         self.hemicycle.set_pays_visites(pays_visites=dict_temp)

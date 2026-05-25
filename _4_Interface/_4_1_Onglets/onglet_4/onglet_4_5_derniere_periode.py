@@ -34,6 +34,11 @@ class CalendrierVisite(QWidget):
         self.date_max = pd.Timestamp.today().normalize()
         self.date_min = self.date_max - pd.DateOffset(years=1)
 
+        # Style par défaut
+        self.style = 1
+        self.teinte = None
+        self.nuances = {}
+
         self.layout = QVBoxLayout(self)
 
     def set_langue(self, langue: str):
@@ -42,6 +47,12 @@ class CalendrierVisite(QWidget):
 
     def set_voyages(self, voyages: dict):
         self.voyages = voyages
+        self.creer_graphique()
+
+    def set_style(self, style, teinte, nuances):
+        self.style = style
+        self.teinte = teinte
+        self.nuances = nuances
         self.creer_graphique()
 
     def creer_graphique(self):
@@ -74,4 +85,8 @@ class CalendrierVisite(QWidget):
                 ),
             )
 
-            self.layout.addWidget(conteneur_graphique_simple(fig=fig))
+            self.layout.addWidget(
+                conteneur_graphique_simple(
+                    fig=fig, style=self.style, teinte=self.teinte, nuances=self.nuances
+                )
+            )

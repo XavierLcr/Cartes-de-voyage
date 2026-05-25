@@ -53,12 +53,19 @@ def compter_voyages_par_pays(dictionnaire_voyages):
 class PaysLesPlusVisites(QWidget):
 
     def __init__(self, constantes, fct_traduction, parent=None):
+
         super().__init__(parent=None)
 
+        # Variables globales
         self.langue = "français"
         self.fct_traduction = fct_traduction
         self.voyages = {}
         self.pays_trad = constantes.pays_differentes_langues
+
+        # Style par défaut
+        self.style = 1
+        self.teinte = None
+        self.nuances = {}
 
         self.layout = QVBoxLayout(self)
 
@@ -68,6 +75,12 @@ class PaysLesPlusVisites(QWidget):
 
     def set_voyages(self, voyages: dict):
         self.voyages = voyages
+        self.creer_graphique()
+
+    def set_style(self, style, teinte, nuances):
+        self.style = style
+        self.teinte = teinte
+        self.nuances = nuances
         self.creer_graphique()
 
     def creer_graphique(self):
@@ -105,4 +118,8 @@ class PaysLesPlusVisites(QWidget):
                 y_decimales=0,
             )
 
-            self.layout.addWidget(conteneur_graphique_simple(fig=fig))
+            self.layout.addWidget(
+                conteneur_graphique_simple(
+                    fig=fig, style=self.style, teinte=self.teinte, nuances=self.nuances
+                )
+            )

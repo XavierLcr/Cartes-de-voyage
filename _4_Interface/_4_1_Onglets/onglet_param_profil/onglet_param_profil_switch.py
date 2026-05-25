@@ -20,7 +20,9 @@ from PyQt6.QtCore import (
     pyqtSignal,
 )
 import math
-from PyQt6.QtGui import QPainter, QColor, QPen, QBrush, QRadialGradient
+from PyQt6.QtGui import QPainter, QColor, QPen, QRadialGradient
+
+from _0_Utilitaires._0_1_fonctions_utiles_gen import phase_lunaire
 
 
 class BoutonSwitch(QWidget):
@@ -124,7 +126,7 @@ class BoutonSwitch(QWidget):
         if self._checked:
             self.draw_sun(painter, center, d)
         else:
-            self.draw_moon(painter, center, d)
+            self.draw_moon(painter, center, d, phase=phase_lunaire())
 
     def draw_sun(self, painter, center, size):
 
@@ -192,31 +194,73 @@ class BoutonSwitch(QWidget):
         painter.setBrush(QColor(255, 255, 255, 120))
         painter.drawEllipse(highlight, radius * 0.35, radius * 0.35)
 
-    def draw_moon(self, painter, center, size):
+    def draw_moon(self, painter, center, size, phase=0.25):
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
 
-        moon_color = QColor(230, 230, 230)
-        cut_color = QColor(40, 40, 40)
+        import math
+
+        radius = size * 0.3
+
+        # =========================================================
+        # 1. Base lune (gradient doux = essentiel)
+        # =========================================================
+        base = QRadialGradient(
+            center - QPointF(radius * 0.2, radius * 0.2), radius * 1.2
+        )
+
+        base.setColorAt(0.0, QColor(255, 255, 255))
+        base.setColorAt(0.6, QColor(235, 235, 240))
+        base.setColorAt(1.0, QColor(190, 190, 200))
 
         painter.setPen(Qt.PenStyle.NoPen)
-
-        radius = size * 0.22
-
-        # =========================================================
-        # Cercle principal (lune)
-        # =========================================================
-
-        painter.setBrush(QBrush(moon_color))
+        painter.setBrush(base)
         painter.drawEllipse(center, radius, radius)
 
         # =========================================================
-        # "Découpe" pour croissant
+        # 2. Ombre de phase (propre et douce)
         # =========================================================
+        illum = (1 - math.cos(2 * math.pi * phase)) / 2
 
-        painter.setBrush(QBrush(cut_color))
+        # direction du croissant
+        direction = 1 if phase < 0.5 else -1
 
-        offset = radius * 0.45
+        offset = radius * (1 - illum) * 1.8 * direction
 
-        # deuxième cercle décalé (crée un croissant propre)
-        painter.drawEllipse(
-            QPointF(center.x() + offset, center.y() - offset * 0.2), radius, radius
-        )
+        shadow = QRadialGradient(center + QPointF(offset, 0), radius * 1.2)
+
+        shadow.setColorAt(0.0, QColor(0, 0, 0, 0))
+        shadow.setColorAt(0.6, QColor(10, 10, 20, 120))
+        shadow.setColorAt(1.0, QColor(0, 0, 0, 255))
+
+        painter.setBrush(shadow)
+        painter.drawEllipse(center, radius, radius)
+
+        # =========================================================
+        # 3. Cratères subtils (très léger)
+        # =========================================================
+        painter.setBrush(QColor(180, 180, 190, 40))
+
+        import random
+
+        random.seed(3)
+
+        for _ in range(8):
+            angle = random.uniform(0, 6.28)
+            dist = random.uniform(0, radius * 0.7)
+
+            x = center.x() + math.cos(angle) * dist
+            y = center.y() + math.sin(angle) * dist
+
+            r = random.uniform(radius * 0.05, radius * 0.12)
+
+            painter.drawEllipse(QPointF(x, y), r, r)
+
+        # =========================================================
+        # 4. Glow léger (donne le côté “lune lumineuse”)
+        # =========================================================
+        glow = QRadialGradient(center, radius * 1.6)
+        glow.setColorAt(0.7, QColor(255, 255, 255, 0))
+        glow.setColorAt(1.0, QColor(200, 200, 255, 30))
+
+        painter.setBrush(glow)
+        painter.drawEllipse(center, radius * 1.05, radius * 1.05)

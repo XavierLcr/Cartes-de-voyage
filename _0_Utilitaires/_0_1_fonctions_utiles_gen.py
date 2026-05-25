@@ -264,6 +264,34 @@ def distance_haversine(lat1, lon1, lat2, lon2):
     )
 
 
+## 2.5 -- Phase de la Lune -----------------------------------------------------
+
+
+def phase_lunaire(date_jour=None):
+    """
+    Retourne la phase de la lune entre 0 et 1 :
+
+    0.0  = nouvelle lune 🌑
+    0.5  = pleine lune 🌕
+    1.0  = nouvelle lune (cycle suivant)
+    """
+
+    if date_jour is None:
+        date_jour = date.today()
+
+    # Date de référence (nouvelle lune proche connue)
+    date_reference = date(2000, 1, 6)
+
+    # Durée d'un cycle lunaire
+    jours_synodiques = 29.53058867
+
+    nombre_de_jours = (date_jour - date_reference).days
+
+    phase = (nombre_de_jours % jours_synodiques) / jours_synodiques
+
+    return phase
+
+
 # 3 -- Fonctions d'import et d'export ------------------------------------------
 
 

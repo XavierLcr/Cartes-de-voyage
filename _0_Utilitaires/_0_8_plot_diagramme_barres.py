@@ -14,6 +14,8 @@ import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 from matplotlib.ticker import FuncFormatter
 
+from _0_Utilitaires._0_5_isid import isid
+
 # 1 -- Fonctions ---------------------------------------------------------------
 
 
@@ -73,6 +75,11 @@ def plot_diagramme_barre(
     val_wrap = list(df_temp[var_wrap].unique())
     wrap_ncol = min(len(val_wrap), wrap_ncol)
 
+    # Test de granularité
+    assert isid(
+        df=df_temp, colonnes=[var_x, var_color, var_wrap], blabla=0
+    ), "Des doublons sont présents"
+
     # Création de la figure
     fig = plt.figure(figsize=figsize)
     gs = GridSpec(
@@ -81,42 +88,28 @@ def plot_diagramme_barre(
         figure=fig,
     )
 
-    # Calcul des limites globales de l'axe y
-    y_min = df_temp[var_y].min()
-    y_max = df_temp[var_y].max()
-    y_margin = (y_max - y_min) * 0.1
-    y_min -= y_margin
-    y_max += y_margin
-
-    # Détermine l'ordre global des catégories de var_x
     global_x_order = df_temp[var_x].unique()
-
-    # Liste pour stocker les axes
     axes = []
 
-    # Tracé des sous-graphiques
     for i, wrap_val in enumerate(val_wrap):
         ax = fig.add_subplot(gs[i])
         axes.append(ax)
-
-        # Désactiver les spines (cadres) en haut et à droite
         ax.spines["top"].set_visible(False)
         ax.spines["right"].set_visible(False)
 
         subset = df_temp[df_temp[var_wrap] == wrap_val]
-
-        # Largeur des barres
         bar_width = 0.8 / len(val_color)
         x_pos = np.arange(len(global_x_order))
 
-        # Tracé des barres pour chaque catégorie globale
         for j, color_val in enumerate(val_color):
             y_values = []
             for x_val in global_x_order:
                 color_data = subset[
                     (subset[var_color] == color_val) & (subset[var_x] == x_val)
                 ]
-                y_values.append(color_data[var_y].mean() if not color_data.empty else 0)
+                y_values.append(
+                    color_data[var_y].iloc[0] if not color_data.empty else 0
+                )
             ax.bar(
                 x_pos + j * bar_width,
                 y_values,
@@ -126,28 +119,23 @@ def plot_diagramme_barre(
                 zorder=1,
             )
 
-        # Formater les y-ticks
+        # Gestion des libellés et légendes
         ax.yaxis.set_major_formatter(FuncFormatter(creer_formateur(y_decimales)))
         ax.grid(axis="y", linestyle="--", alpha=0.7, color="#F2F2F2", zorder=0)
-
-        # Labels et titre
         ax.set_xticks(x_pos + (len(val_color) - 1) * bar_width / 2)
         ax.set_xticklabels(global_x_order)
+        ax.yaxis.set_major_locator(plt.MaxNLocator(integer=True))
         ax.set_title(f"{wrap_val}" if len(val_wrap) > 1 else "")
         if x_label:
             ax.set_xlabel(x_label)
         if y_label:
             ax.set_ylabel(y_label)
-
-        # Légende
         if len(val_color) > 1:
             ax.legend(title=color_label if color_label is not None else var_color)
 
-    # Aligner les axes y
     for ax in axes:
-        ax.set_ylim(y_min, y_max)
+        ax.set_ylim(bottom=0)
 
-    # Titre global
     if titre:
         fig.suptitle(titre)
 

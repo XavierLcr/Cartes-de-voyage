@@ -10,12 +10,12 @@
 
 import pandas as pd
 from PyQt6.QtWidgets import QWidget, QVBoxLayout
-from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     vider_layout,
     conteneur_graphique_simple,
 )
+from _0_Utilitaires._0_2_fonctions_graphiques import generer_couleur_aleatoire_hex
 from _0_Utilitaires._0_9_plot_diagramme_gantt import plot_diagramme_grantt
 
 # 1 -- Classe PyQt6 ------------------------------------------------------------
@@ -67,16 +67,10 @@ class CalendrierVisite(QWidget):
                 date_min_label="date_debut",
                 date_max_label="date_fin",
                 palette_couleurs=[
-                    "#7DC8E8",
-                    "#F5E474",
-                    "#E15759",
-                    "#76B7B2",
-                    "#59A14F",
-                    "#EDC948",
-                    "#B07AA1",
-                    "#FF9DA7",
-                    "#9C755F",
-                    "#BAB0AC",
+                    generer_couleur_aleatoire_hex(
+                        preset=self.nuances, teintes_autorisees=self.teinte
+                    )
+                    for i in range(len(self.voyages.keys()))
                 ],
                 date_min=self.date_min,
                 date_max=self.date_max,

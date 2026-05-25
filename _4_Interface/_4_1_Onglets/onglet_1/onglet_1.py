@@ -46,6 +46,8 @@ from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
     style_bouton_de_suppression,
 )
 
+# 1 -- Classe de chargement des GeoDataFrames ----------------------------------
+
 
 class WorkerChargement(QObject):
     finished = pyqtSignal()
@@ -68,6 +70,9 @@ class WorkerChargement(QObject):
 
         except Exception as e:
             self.erreur.emit(str(e))
+
+
+# 2 -- Classe de l'onglet des paramètres de cartes -----------------------------
 
 
 class OngletParametres(QWidget):

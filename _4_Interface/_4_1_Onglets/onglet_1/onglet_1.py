@@ -269,6 +269,9 @@ class OngletParametres(QWidget):
         # Possibilité d'envoi par e-mail
         self.email_checkbox = QCheckBox()
 
+        # Possibilité d'écrire le nom du territoire sur la carte
+        self.ecrire_nom_checkbox = QCheckBox()
+
         # Ajout des widgets au layout horizontal
         layout_format_qualite.addWidget(self.label_format)
         layout_format_qualite.addWidget(self.format_cartes)
@@ -286,7 +289,11 @@ class OngletParametres(QWidget):
                 20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding
             )
         )
-        layout_format_qualite.addWidget(self.email_checkbox)
+        layout_format_qualite.addWidget(creer_ligne_verticale())
+        layout_mail_texte = QVBoxLayout()
+        layout_mail_texte.addWidget(self.ecrire_nom_checkbox)
+        layout_mail_texte.addWidget(self.email_checkbox)
+        layout_format_qualite.addLayout(layout_mail_texte)
 
         # Ajouter le layout horizontal au layout principal
         layout_params_publication.addLayout(layout_format_qualite)
@@ -405,9 +412,19 @@ class OngletParametres(QWidget):
         self.label_qualite_min.setText(self.fonction_traduction("qualite_faible"))
 
         # Envoi par e-mail
-        self.email_checkbox.setText("✉️​")
+        self.email_checkbox.setText(
+            self.fonction_traduction("email_checkbox", suffixe=" ✉️​")
+        )
         self.email_checkbox.setToolTip(
             self.fonction_traduction("email_checkbox_tooltip", suffixe=".")
+        )
+
+        # Nom du territoire écrit
+        self.ecrire_nom_checkbox.setText(
+            self.fonction_traduction("ecrire_nom_checkbox", suffixe=" 🏷️")
+        )
+        self.ecrire_nom_checkbox.setToolTip(
+            self.fonction_traduction("ecrire_nom_checkbox_tooltip", suffixe=".")
         )
 
         # Boutons en bas de l'onglet 1
@@ -652,6 +669,8 @@ class OngletParametres(QWidget):
             "utiliser_theme": self.utiliser_theme,
             # Envoi par e-mail
             "envoi_email": self.email_checkbox,
+            # Labellisation du territoire
+            "labelliser_territoires": self.ecrire_nom_checkbox,
         }
         for nom_cle, checkbox in checkboxes.items():
             checkbox.setChecked(

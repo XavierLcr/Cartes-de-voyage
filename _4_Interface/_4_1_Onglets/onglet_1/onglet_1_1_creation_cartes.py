@@ -163,7 +163,7 @@ class CreerCartes(QObject):
             couleur_pays_contours="#EBEBEB",
             couleur_lacs="#CDEAF7",
             # Inclure le nom
-            afficher_nom_lieu=False,
+            afficher_nom_lieu=self.parametres.get("labelliser_territoires", False),
             # Tracker
             tracker=tracker,
         )

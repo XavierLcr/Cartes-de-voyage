@@ -482,6 +482,8 @@ class MesVoyagesApplication(QWidget):
             "cartes_des_pays": self.onglet_parametres.carte_pays.isChecked(),
             # Lieux visités
             "dictionnaire_voyages": self.voyages,
+            # Labelliser les territoires
+            "labelliser_territoires": self.onglet_parametres.ecrire_nom_checkbox.isChecked(),
             # Hémicycle
             "hemicycle_position": self.onglet_statistiques.get_hemicycle_position(),
             # Recommandations

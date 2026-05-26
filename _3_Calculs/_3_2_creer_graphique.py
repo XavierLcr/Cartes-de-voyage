@@ -218,7 +218,7 @@ def calculer_centre(gdf):
 ## 5.2 -- Calcul de reprojection d'une carte -----------------------------------
 
 
-def reprojeter_gdf(gdf, type_proj="laea", centre=None):
+def reprojeter_gdf(gdf, type_proj: str, centre=None):
     """
     Reprojette un GeoDataFrame selon le type de projection choisi.
 
@@ -261,7 +261,99 @@ def reprojeter_gdf(gdf, type_proj="laea", centre=None):
     return gdf.copy().to_crs(projections.get(type_proj, "wgs84"))
 
 
-# 6 -- Fonction de création de la carte ----------------------------------------
+# 6 -- Fonction d'ajout des noms des territoires -------------------------------
+
+
+def ajouter_labels_carte(
+    ax,
+    gdf,
+    colonne_label="subdivision",
+    colonne_couleur="couleur",
+    largeur_min=5,
+    facteur_retour_ligne=3,
+    espacement_lignes=0.8,
+    facteur_taille=0.5,
+    diviseur_taille=30,
+):
+    """
+    Ajoute automatiquement des labels centrés sur une carte GeoPandas.
+
+    Parameters
+    ----------
+    ax : matplotlib axis
+        Axe matplotlib.
+
+    gdf : GeoDataFrame
+        GeoDataFrame contenant les géométries.
+
+    colonne_label : str
+        Colonne contenant les labels.
+
+    colonne_couleur : str
+        Colonne contenant les couleurs associées.
+
+    largeur_min : int
+        Largeur minimale des retours à la ligne.
+
+    facteur_retour_ligne : float
+        Facteur utilisé pour le wrapping du texte.
+
+    espacement_lignes : float
+        Espacement vertical des lignes.
+
+    facteur_taille : float
+        Facteur de taille du texte.
+
+    diviseur_taille : float
+        Paramètre de normalisation de la taille.
+    """
+
+    gdf = gdf.copy()
+
+    # Dimensions des géométries
+    bounds = gdf.geometry.bounds
+
+    gdf["largeur"] = bounds["maxx"] - bounds["minx"]
+    gdf["hauteur"] = bounds["maxy"] - bounds["miny"]
+
+    # Taille du texte adaptative
+    gdf["taille_texte"] = gdf["largeur"].apply(
+        lambda a: math.log1p(max(0.01, a * facteur_taille * a / (a + diviseur_taille)))
+    )
+
+    # Centroïdes
+    centroïdes = gdf.geometry.centroid
+
+    for x, y, label, couleur, taille, largeur in zip(
+        centroïdes.x,
+        centroïdes.y,
+        gdf[colonne_label],
+        gdf[colonne_couleur],
+        gdf["taille_texte"],
+        gdf["largeur"],
+    ):
+
+        label_retour_ligne = "\n".join(
+            textwrap.wrap(
+                str(label),
+                width=max(largeur_min, int(largeur * facteur_retour_ligne)),
+                break_long_words=False,
+            )
+        )
+
+        ax.text(
+            x,
+            y,
+            label_retour_ligne,
+            fontsize=taille,
+            ha="center",
+            va="center",
+            color=transformer_couleur_texte(couleur),
+            linespacing=espacement_lignes,
+        )
+
+
+# 7 -- Fonction de création de la carte ----------------------------------------
 
 
 def creer_image_carte(
@@ -353,7 +445,7 @@ def creer_image_carte(
         )
         marge_carte = 0.75 * marge_carte
 
-        # Cree le graphique
+    # Crée le graphique
     if blabla:
         print("Création du graphique.", end=" ")
 
@@ -419,39 +511,17 @@ def creer_image_carte(
 
     # Affichage du nom de la région
     if afficher_nom_lieu:
-        # Calcul des dimensions des régions
-        bounds = gdf.geometry.bounds
-        gdf["largeur"] = bounds["maxx"] - bounds["minx"]
-        gdf["hauteur"] = bounds["maxy"] - bounds["miny"]
-
-        # Taille du texte selon la surface (plus douce grâce à log1p)
-        gdf["taille_texte"] = gdf["largeur"].apply(
-            lambda a: math.log1p(max(0.01, a * 0.5 * a / (a + 30)))
+        ajouter_labels_carte(
+            ax=ax,
+            gdf=gdf,
+            colonne_label="subdivision",
+            colonne_couleur="couleur",
+            largeur_min=5,
+            facteur_retour_ligne=3,
+            espacement_lignes=0.8,
+            facteur_taille=0.5,
+            diviseur_taille=30,
         )
-
-        for x, y, label, couleur, taille, largeur in zip(
-            gdf.geometry.centroid.x,
-            gdf.geometry.centroid.y,
-            gdf["subdivision"],
-            gdf["couleur"],
-            gdf["taille_texte"],
-            gdf["largeur"],
-        ):
-
-            ax.text(
-                x,
-                y,
-                "\n".join(
-                    textwrap.wrap(
-                        label, width=max(5, int(largeur * 3)), break_long_words=False
-                    )
-                ),
-                fontsize=taille,
-                ha="center",
-                va="center",
-                color=transformer_couleur_texte(couleur),
-                linespacing=0.8,
-            )
 
     # Enregistrer la carte dans un fichier sans l'afficher
     if blabla:

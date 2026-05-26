@@ -6668,6 +6668,77 @@ Envoi complémentaire des cartes à l'adresse e-mail renseignée:
   ukrainien: Додаткова відправка карток на вказану електронну адресу
   vietnamien: Gửi thêm thẻ đến địa chỉ email đã cung cấp
   zoulou: Thumela amakhadi angeziwe ku-imeyili enikezwe
+Envoi par e-mail:
+  afrikaans: E-posversending
+  albanais: Dërgim me e-mail
+  allemand: Versand per E-Mail
+  anglais: Sent by email
+  arabe: إرسال عبر البريد الإلكتروني
+  arménien: Էլեկտրոնային փոստով ուղարկում
+  basque: E-postaz bidalketa
+  bengali: ইমেলের মাধ্যমে পাঠানো
+  birman: အီးမေးလ်ဖြင့် ပေးပို့ခြင်း
+  breton: Kas gant kemel
+  bulgare: Изпращане по имейл
+  catalan: Enviament per correu electrònic
+  corse: Inviu per e-mail
+  coréen: 이메일 발송
+  danois: Sendes via e-mail
+  espagnol: Envío por correo electrónico
+  esperanto: Sendado per retpoŝto
+  estonien: Saatmine e-postiga
+  finnois: Sähköpostitse
+  français: Envoi par e-mail
+  gallois: Anfon drwy e-bost
+  grec: Αποστολή μέσω email
+  grec ancien: Ἀποστολὴ δι’ e-mail
+  géorgien: ელექტრონული ფოსტით გაგზავნა
+  hindi: ईमेल द्वारा भेजना
+  hongrois: E-mailben küldve
+  indonésien: Pengiriman via email
+  irlandais: Seoladh trí ríomhphost
+  islandais: Sending með tölvupósti
+  italien: Invio via e-mail
+  japonais: メール送信
+  kazakh: Электронды пошта арқылы жіберу
+  kirghize: Электрондук почта аркылуу жөнөтүү
+  kurde: Şandina bi e-nameyê
+  latin: Missio per epistulam electronicam
+  letton: Sūtīšana pa e-pastu
+  lituanien: Siuntimas el. paštu
+  luxembourgeois: Versand per E-Mail
+  macédonien: Испраќање преку е-пошта
+  malais: Penghantaran melalui e-mel
+  malgache: Fandefasana amin'ny mailaka
+  maltais: Bgħat permezz ta' email
+  mandarin standard: 通过电子邮件发送
+  mongol: И-мэйлээр илгээх
+  norvégien: Sending per e-post
+  néerlandais: Verzending per e-mail
+  népalais: इमेलमार्फत पठाउनुहोस्
+  ourdou: ای میل کے ذریعے بھیجیں
+  ouzbek: Elektron pochta orqali yuborish
+  pachto: په ایمیل لېږل
+  persan: ارسال از طریق ایمیل
+  polonais: Wysyłka e-mailem
+  portugais: Envio por e-mail
+  roumain: Trimitere prin e-mail
+  russe: Отправка по электронной почте
+  serbo-croate: Slanje e-poštom
+  slovaque: Odoslanie e-mailom
+  slovène: Pošiljanje po e-pošti
+  suédois: Sändning via e-post
+  swahili: Kutuma kwa barua pepe
+  tadjik: Ирсол тавассути почтаи электронӣ
+  tamoul: மின்னஞ்சல் மூலம் அனுப்புதல்
+  tchèque: Zaslání e-mailem
+  thaï: ส่งทางอีเมล
+  tibétain: གློག་འཕྲིན་བརྒྱུད་ནས་གཏོང་བ།
+  turc: E-posta ile gönderim
+  turkmène: Elektron poçta arkaly ugratmak
+  ukrainien: Відправлення електронною поштою
+  vietnamien: Gửi qua email
+  zoulou: Ukuthumela nge-imeyili
 Europe:
   afrikaans: Europa
   albanais: Evropë
@@ -9828,6 +9899,77 @@ L'export n'a pas fonctionné. Veuillez réessayer plus tard:
   ukrainien: Експорт не вдався. Будь ласка, спробуйте пізніше
   vietnamien: Xuất không thành công. Vui lòng thử lại sau
   zoulou: Ukuthumela ngaphandle akusebenzanga. Sicela uzame futhi ngemva kwesikhashana
+Labelliser les territoires:
+  afrikaans: Etiketteer die gebiede
+  albanais: Certifikimi i territorëve
+  allemand: Territorien labeln
+  anglais: Labeling territories
+  arabe: توسيم الأقاليم
+  arménien: Տարածքները սերտիֆիկացնել
+  basque: Lurraldeak labelizatzea
+  bengali: অঞ্চলগুলোকে লেবেলিং করা
+  birman: နယ်မြေများကို တံဆိပ်သတ်မှတ်ခြင်း
+  breton: Labellisañ ar territorioù
+  bulgare: Сертифициране на териториите
+  catalan: Labellitzar els territoris
+  corse: Labellizà i territorii
+  coréen: 지역 인증
+  danois: At mærke territorierne
+  espagnol: Certificar los territorios
+  esperanto: Etiketigi la teritoriojn
+  estonien: Territooriumide sertifitseerimine
+  finnois: Sertifioida alueet
+  français: Labelliser les territoires
+  gallois: Labelu'r teritiorïau
+  grec: Πιστοποίηση των περιοχών
+  grec ancien: Labelliser les territoires
+  géorgien: ტერიტორიების მარკირება
+  hindi: क्षेत्रों को लेबल करना
+  hongrois: Területek minősítése
+  indonésien: Melabeli wilayah
+  irlandais: Labaileáil na teritóireachtaí
+  islandais: Vörumerkja svæðin
+  italien: Certificare i territori
+  japonais: 地域を認定する
+  kazakh: Аймақтарды белгілеу
+  kirghize: Аймактарды белгилөө
+  kurde: Etiketkirina herêman
+  latin: Territoria signare
+  letton: Sertificēt teritorijas
+  lituanien: Sertifikuoti teritorijas
+  luxembourgeois: D'Territórien labelliséieren
+  macédonien: Етикетирање на териториите
+  malais: Melabelkan wilayah
+  malgache: Manome marika ny faritra
+  maltais: Iċċertifika t-territorji
+  mandarin standard: 区域认证
+  mongol: Нутаг дэвсгэрийг сертификатжуулах
+  norvégien: Sertifisere territoriene
+  néerlandais: Gebieden labelen
+  népalais: क्षेत्रहरूको प्रमाणिकरण
+  ourdou: علاقوں کو لیبل کرنا
+  ouzbek: Hududlarni sertifikatlash
+  pachto: سیمو ته نښان ورکول
+  persan: برچسب‌گذاری مناطق
+  polonais: Certyfikować terytoria
+  portugais: Certificar os territórios
+  roumain: Certificarea teritoriilor
+  russe: Сертифицировать территории
+  serbo-croate: Labelirati teritorije
+  slovaque: Sertifikovať územia
+  slovène: Označiti območja
+  suédois: Certifiera territorierna
+  swahili: Kuweka lebo maeneo
+  tadjik: Сертификатсияи ҳудудҳо
+  tamoul: பிரதேசங்களை அங்கீகரித்தல்
+  tchèque: Certifikovat území
+  thaï: การให้ตราสัญลักษณ์แก่พื้นที่
+  tibétain: ས་ཁོངས་ལ་རྟགས་འཛིན་བྱེད་པ།
+  turc: Bölgeleri tescil etmek
+  turkmène: Territoriýalary belliglemek
+  ukrainien: Сертифікувати території
+  vietnamien: Gắn nhãn các vùng lãnh thổ
+  zoulou: Ukubeka uphawu ezifundeni
 Langue:
   afrikaans: Taal
   albanais: Gjuhë
@@ -11816,6 +11958,78 @@ Pays visités par continent:
   ukrainien: Країни, які відвідуються за континентами
   vietnamien: Các quốc gia đã đến thăm theo châu lục
   zoulou: Amazwe avakashelwe yizwekazi
+Permet d'ajouter le nom des territoires sur la carte:
+  afrikaans: Laat toe om die name van die gebiede op die kaart by te voeg
+  albanais: Lejon shtimin e emrave të territoreve në hartë
+  allemand: Ermöglicht das Hinzufügen der Gebietsnamen auf der Karte
+  anglais: Allows adding territory names to the map
+  arabe: يتيح إضافة أسماء الأقاليم على الخريطة
+  arménien: 'Թույլ է տալիս ավելացնել տարածքների անվանումները քարտեզի վրա:'
+  basque: Lurraldeen izenak mapan gehitzeko aukera ematen du
+  bengali: মানচিত্রে অঞ্চলের নাম যোগ করার অনুমতি দেয়।
+  birman: မြေပုံပေါ်တွင် နယ်မြေအမည်များကို ထည့်သွင်းနိုင်ပါသည်။
+  breton: Permez ouder anv ar territoireiden war ar kart
+  bulgare: Позволява добавянето на имената на териториите върху картата
+  catalan: Permet afegir el nom dels territoris al mapa
+  corse: Permette d'aghjunghje u nome di i territorii sopra a carta
+  coréen: 지도에 영토 이름을 추가할 수 있습니다
+  danois: Gør det muligt at tilføje territorienavne på kortet
+  espagnol: Permite añadir el nombre de los territorios en el mapa
+  esperanto: Permesas aldoni la nomojn de la teritorioj sur la mapon
+  estonien: Võimaldab lisada territoriumide nimed kaardile
+  finnois: Mahdollistaa alueiden nimien lisäämisen kartalle
+  français: Permet d'ajouter le nom des territoires sur la carte
+  gallois: Yn canu ychwanegu enwau'r teryllthoedd ar y map
+  grec: Επιτρέπει την προσθήκη των ονομάτων των εδαφών στον χάρτη
+  grec ancien: Ἐπιτρέπει τὰ τῶν χωρῶν ὀνόματα ἐν τῷ χάρτῃ προστιθέναι
+  géorgien: შესაძლებლობას იძლევა დაამატოთ ტერიტორიების სახელები რუკაზე
+  hindi: मानचित्र पर क्षेत्रों के नाम जोड़ने की अनुमति देता है।
+  hongrois: Lehetővé teszi a területek neveinek hozzáadását a térképre
+  indonésien: Memungkinkan untuk menambahkan nama wilayah pada peta
+  irlandais: Ceadaíonn sé ainmneacha na teritóireachtaí a chur ar an mapáil
+  islandais: Leyfir að bæta við nöfnum landsvæðanna á kortið
+  italien: Permette di aggiungere i nomi dei territori sulla mappa
+  japonais: 地図に地域名を追加できます。
+  kazakh: Картаға аумақтардың атауларын қосуға мүмкіндік береді
+  kirghize: Картага аймактардын аттарын кошууга мүмкүндүк берет
+  kurde: Îmkana zêdekirina navên herêman li ser nexşeyê dide
+  latin: Sinit nomina territoriorum in mappam addere
+  letton: Ļauj pievienot teritoriju nosērumus kartē
+  lituanien: Leidžia pridėti teritorijų pavadinimus į žemėlapį
+  luxembourgeois: Erlaabt et, den Numm vun de Territorie op der Kaart hinzefuegen
+  macédonien: Овозможува додавање на имињата на териториите на мапата
+  malais: Membolehkan penambahan nama wilayah pada peta
+  malgache: Mamela hanampy ny anaran'ny faritra eo amin'ny sarintany
+  maltais: Jippermetti li żżid l-ismijiet it-territorji fuq il-mappa
+  mandarin standard: 允许在地图上添加区域名称。
+  mongol: Газрын зураг дээр нутаг дэвсгэрүүдийн нэрийг нэмэх боломжийг олгоно
+  norvégien: Lar deg legge til navnene på territoriene på kartet
+  néerlandais: Maakt het mogelijk om de namen van de territoria op de kaart toe te
+    voegen
+  népalais: नक्सामा क्षेत्रहरूको नाम थप्न अनुमति दिन्छ।
+  ourdou: نقشے پر علاقوں کے نام شامل کرنے کی اجازت دیتا ہے۔
+  ouzbek: Xaritaga hududlar nomini qo'shish imkonini beradi
+  pachto: په نقشه باندې د سیمو نومونه اضافه کولو اجازه ورکوي
+  persan: امکان افزودن نام قلمروها به نقشه را فراهم می‌کند
+  polonais: Pozwala na dodanie nazw terytoriów na mapie
+  portugais: Permite adicionar o nome dos territórios no mapa
+  roumain: Permite adăugarea numelor teritoriilor pe hartă
+  russe: Позволяет добавить названия территорий на карту
+  serbo-croate: Omogućava dodavanje naziva teritorija na kartu
+  slovaque: Umožňuje pridať názvy území na mapu
+  slovène: Omogoča dodajanje imen teritorijev na zemljevid
+  suédois: Gör det möjligt att lägga till namnen på territorierna på kartan
+  swahili: Inaruhusu kuongeza majina ya maeneo kwenye ramani
+  tadjik: Имкон медиҳад, ки номи ҳудудҳо ба харита илова шаванд
+  tamoul: வரைபடத்தில் பிராந்தியங்களின் பெயர்களைச் சேர்க்க அனுமதிக்கிறது
+  tchèque: Umožňuje přidat názvy území na mapu
+  thaï: ช่วยให้สามารถเพิ่มชื่อดินแดนลงบนแผนที่ได้
+  tibétain: ས་ཁྲའི་སྟེང་ལ་ས་ཁོར་གྱི་མིང་སྣོན་ཆོག
+  turc: Haritaya bölge isimleri eklemeyi sağlar
+  turkmène: Kartada çäkleriň atlaryny goşmaga mümkinçilik berýär
+  ukrainien: Дозволяє додати назви територій на мапі
+  vietnamien: Cho phép thêm tên các vùng lãnh thổ lên bản đồ
+  zoulou: Kuvumela ukwengeza amagama ezindawo emmephu
 ? Permet de choisir la couleur d'arrière plan. Sont disponibles comme couleurs le
   blanc, divers bleus plus ou moins proche de la couleur de la mer, ainsi que transparent.
   Le bleu le plus clair disponible est celui utilisé pour représenter les lacs sur

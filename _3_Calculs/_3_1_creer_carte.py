@@ -9,9 +9,13 @@
 
 
 import pandas as pd
+import geopandas as gpd
+import numpy as np
+from shapely.geometry import LineString
+
 from _0_Utilitaires._0_5_isid import isid
 
-# 1 -- Fonctions ---------------------------------------------------------------
+# 1 -- Fonctions de création de la table ---------------------------------------
 
 
 ## 1.1 -- Création de la table de visite pour un pays à une granularité donnée -
@@ -389,3 +393,64 @@ def cree_gdf_depuis_dicts(
 
     # Renvoi
     return df_temp
+
+
+# 2 -- Fonction de création de la table des parallèles notables ----------------
+
+
+def creer_paralleles_notables(crs_obj, n_points=2000):
+    """
+    Crée les lignes :
+    - Équateur
+    - Tropiques
+    - Cercles polaires
+
+    puis les reprojette dans le CRS cible.
+
+    Parameters
+    ----------
+    crs_obj : str | pyproj.CRS
+        Projection finale de la carte.
+
+    n_points : int
+        Nombre de points utilisés pour construire les lignes.
+
+    Returns
+    -------
+    GeoDataFrame
+    """
+
+    # Parallèles à produire
+    paralleles = [
+        ("Équateur", 0.0, "equateur"),
+        ("Tropique du Cancer", 23.4366, "tropique"),
+        ("Tropique du Capricorne", -23.4366, "tropique"),
+        ("Cercle polaire arctique", 66.5634, "polaire"),
+        ("Cercle polaire antarctique", -66.5634, "polaire"),
+    ]
+
+    longitudes = np.linspace(-180, 180, n_points)
+
+    geometries = []
+    noms = []
+    types = []
+
+    # Ajout des données de chaque parallèle
+    for nom, latitude, type_parallele in paralleles:
+
+        geometries.append(LineString([(lon, latitude) for lon in longitudes]))
+        noms.append(nom)
+        types.append(type_parallele)
+
+    # Mise au format GeoDataFrame
+    gdf = gpd.GeoDataFrame(
+        {
+            "nom": noms,
+            "type": types,
+        },
+        geometry=geometries,
+        crs="EPSG:4326",
+    )
+
+    # Renvoi
+    return gdf.to_crs(crs_obj)

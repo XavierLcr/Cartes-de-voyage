@@ -82,11 +82,11 @@ def minmax_lon_wrap(gdf, minimum):
 
 def selectionner_lieux(gdf, gdf_ref, extreme, marge):
 
-    minx, maxx, miny, maxy = renvoyer_limites_carte(gdf=gdf_ref, marge=marge)
-
     if gdf is None:
         return gdf
     elif extreme:
+
+        minx, maxx, miny, maxy = renvoyer_limites_carte(gdf=gdf_ref, marge=marge)
 
         return gdf[
             (

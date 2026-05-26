@@ -9,6 +9,7 @@
 
 
 import os, json, math, textwrap
+import numpy as np
 import matplotlib.pyplot as plt
 from shapely.geometry import box
 from PIL import Image
@@ -273,7 +274,7 @@ def ajouter_labels_carte(
     facteur_retour_ligne=3,
     espacement_lignes=0.8,
     facteur_taille=0.5,
-    diviseur_taille=30,
+    seuil_superficie: float = 0.3,
 ):
     """
     Ajoute automatiquement des labels centrés sur une carte GeoPandas.
@@ -304,34 +305,38 @@ def ajouter_labels_carte(
     facteur_taille : float
         Facteur de taille du texte.
 
-    diviseur_taille : float
-        Paramètre de normalisation de la taille.
     """
 
     gdf = gdf.copy()
 
     # Dimensions des géométries
     bounds = gdf.geometry.bounds
+    gdf["surface"] = gdf.geometry.area
 
     gdf["largeur"] = bounds["maxx"] - bounds["minx"]
     gdf["hauteur"] = bounds["maxy"] - bounds["miny"]
 
     # Taille du texte adaptative
-    gdf["taille_texte"] = gdf["largeur"].apply(
-        lambda a: math.log1p(max(0.01, a * facteur_taille * a / (a + diviseur_taille)))
-    )
+    gdf["taille_texte"] = (
+        (np.minimum(gdf["largeur"], gdf["hauteur"]) * facteur_taille)
+        / np.sqrt(gdf[colonne_label].str.len())
+    ).clip(lower=0.01, upper=2)
 
     # Centroïdes
     centroïdes = gdf.geometry.centroid
 
-    for x, y, label, couleur, taille, largeur in zip(
+    for x, y, label, couleur, taille, largeur, surface in zip(
         centroïdes.x,
         centroïdes.y,
         gdf[colonne_label],
         gdf[colonne_couleur],
         gdf["taille_texte"],
         gdf["largeur"],
+        gdf["surface"],
     ):
+
+        if surface < seuil_superficie:
+            continue
 
         label_retour_ligne = "\n".join(
             textwrap.wrap(
@@ -520,7 +525,6 @@ def creer_image_carte(
             facteur_retour_ligne=3,
             espacement_lignes=0.8,
             facteur_taille=0.5,
-            diviseur_taille=30,
         )
 
     # Enregistrer la carte dans un fichier sans l'afficher

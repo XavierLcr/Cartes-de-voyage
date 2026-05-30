@@ -25,6 +25,23 @@ class SelecteurDate(QDateEdit):
         # Calendrier popup (recommandé pour sélection jour)
         self.setCalendarPopup(True)
 
+        self.calendarWidget().setStyleSheet("""
+            QCalendarWidget {
+                color: black;
+                background-color: white;
+            }
+
+            QCalendarWidget QToolButton {
+                color: black;
+                background-color: #f0f0f0;
+            }
+
+            QCalendarWidget QMenu {
+                color: black;
+                background-color: white;
+            }
+        """)
+
         # date par défaut
         if date is not None:
             year, month, day = map(int, date.split("-"))

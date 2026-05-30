@@ -22,7 +22,7 @@ class SelecteurDate(QDateEdit):
         # ✔ affichage au jour près
         self.setDisplayFormat("dd/MM/yyyy")
 
-        # calendrier popup (recommandé pour sélection jour)
+        # Calendrier popup (recommandé pour sélection jour)
         self.setCalendarPopup(True)
 
         # date par défaut

@@ -16,7 +16,7 @@ import matplotlib.dates as mdates
 # 1 -- Fonction ----------------------------------------------------------------
 
 
-def plot_diagramme_grantt(
+def plot_diagramme_gantt(
     data,
     voyage_label: str,
     date_min_label: str,

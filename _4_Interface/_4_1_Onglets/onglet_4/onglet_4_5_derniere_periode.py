@@ -8,15 +8,18 @@
 # 0 -- Initialisation ----------------------------------------------------------
 
 
+from datetime import date
 import pandas as pd
-from PyQt6.QtWidgets import QWidget, QVBoxLayout
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel, QHBoxLayout
+from PyQt6.QtCore import Qt
 
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     vider_layout,
     conteneur_graphique_simple,
 )
+from _0_Utilitaires._0_10_selecteur_date import SelecteurDate
 from _0_Utilitaires._0_2_fonctions_graphiques import generer_couleur_aleatoire_hex
-from _0_Utilitaires._0_9_plot_diagramme_gantt import plot_diagramme_grantt
+from _0_Utilitaires._0_9_plot_diagramme_gantt import plot_diagramme_gantt
 
 # 1 -- Classe PyQt6 ------------------------------------------------------------
 
@@ -30,19 +33,57 @@ class CalendrierVisite(QWidget):
         self.fct_traduction = fct_traduction
         self.voyages = {}
 
-        # Dates du graphique
-        self.date_max = pd.Timestamp.today().normalize()
-        self.date_min = self.date_max - pd.DateOffset(years=1)
-
         # Style par défaut
         self.style = 1
         self.teinte = None
         self.nuances = {}
 
+        # Dates de départ
+        aujourdhui = date.today()
+        try:
+            date_il_y_a_un_an = aujourdhui.replace(year=aujourdhui.year - 1)
+        except ValueError:
+            date_il_y_a_un_an = aujourdhui.replace(year=aujourdhui.year - 1, day=28)
+
+        # Début du graphique
+        self.debut_voyage_label = QLabel()
+        self.debut_voyage = SelecteurDate(
+            parent=self, date=date_il_y_a_un_an.strftime("%Y-%m-%d")
+        )
+        self.debut_voyage.dateChanged.connect(self.creer_graphique)
+
+        # Fin du graphique
+        self.fin_voyage_label = QLabel()
+        self.fin_voyage = SelecteurDate(
+            parent=self, date=date.today().strftime("%Y-%m-%d")
+        )
+        self.fin_voyage.dateChanged.connect(self.creer_graphique)
+
+        # Disposition des dates
+        layout_dates = QHBoxLayout()
+        layout_dates.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        layout_dates.addWidget(self.debut_voyage_label)
+        layout_dates.addWidget(self.debut_voyage)
+        layout_dates.addSpacing(50)
+        layout_dates.addWidget(self.fin_voyage_label)
+        layout_dates.addWidget(self.fin_voyage)
+
+        # Layout du graphique
+        self.layout_graphique = QHBoxLayout()
+
+        # Layout principal
         self.layout = QVBoxLayout(self)
+        self.layout.addLayout(layout_dates)
+        self.layout.addLayout(self.layout_graphique)
 
     def set_langue(self, langue: str):
         self.langue = langue
+        self.debut_voyage_label.setText(
+            self.fct_traduction("general_voyage_debut", suffixe=" :")
+        )
+        self.fin_voyage_label.setText(
+            self.fct_traduction("general_voyage_fin", suffixe=" :")
+        )
         self.creer_graphique()
 
     def set_voyages(self, voyages: dict):
@@ -57,11 +98,11 @@ class CalendrierVisite(QWidget):
 
     def creer_graphique(self):
 
-        vider_layout(layout=self.layout)
+        vider_layout(layout=self.layout_graphique)
 
         if self.voyages:
 
-            fig = plot_diagramme_grantt(
+            fig = plot_diagramme_gantt(
                 data=self.voyages,
                 voyage_label="nom",
                 date_min_label="date_debut",
@@ -72,15 +113,15 @@ class CalendrierVisite(QWidget):
                     )
                     for i in range(len(self.voyages.keys()))
                 ],
-                date_min=self.date_min,
-                date_max=self.date_max,
+                date_min=self.debut_voyage.obtenir_date_str(),
+                date_max=self.fin_voyage.obtenir_date_str(),
                 titre=self.fct_traduction(
                     "titre_graphique_calendrier_voyages",
                 ),
                 label_taille_max=30,
             )
 
-            self.layout.addWidget(
+            self.layout_graphique.addWidget(
                 conteneur_graphique_simple(
                     fig=fig, style=self.style, teinte=self.teinte, nuances=self.nuances
                 )

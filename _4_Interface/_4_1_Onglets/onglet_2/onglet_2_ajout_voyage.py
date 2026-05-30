@@ -25,7 +25,7 @@ from PyQt6.QtWidgets import (
 )
 from PyQt6.QtCore import Qt, QSize
 
-from _4_Interface._4_1_Onglets.onglet_2.onglet_2_date import SelecteurDate
+from _0_Utilitaires._0_10_selecteur_date import SelecteurDate
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     obtenir_clef_par_valeur,

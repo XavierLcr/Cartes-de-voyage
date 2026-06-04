@@ -12,6 +12,7 @@ import textwrap
 import matplotlib.pyplot as plt
 import pandas as pd
 import matplotlib.dates as mdates
+from matplotlib.figure import Figure
 
 # 1 -- Fonction ----------------------------------------------------------------
 
@@ -28,7 +29,8 @@ def plot_diagramme_gantt(
     label_taille_max=30,
 ):
 
-    fig, ax = plt.subplots(figsize=(10, 5))
+    fig = Figure(figsize=(10, 5))
+    ax = fig.add_subplot(111)
 
     liste_temp = []
 

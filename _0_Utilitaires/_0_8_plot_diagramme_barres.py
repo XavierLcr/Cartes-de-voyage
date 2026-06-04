@@ -11,6 +11,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from matplotlib.figure import Figure
 from matplotlib.gridspec import GridSpec
 from matplotlib.ticker import FuncFormatter
 
@@ -81,7 +82,7 @@ def plot_diagramme_barre(
     ), "Des doublons sont présents"
 
     # Création de la figure
-    fig = plt.figure(figsize=figsize)
+    fig = Figure(figsize=(10, 5))
     gs = GridSpec(
         wrap_ncol,
         int(np.ceil(len(val_wrap) / wrap_ncol)),

@@ -166,6 +166,8 @@ class CreerCartes(QObject):
             afficher_nom_lieu=self.parametres.get("labelliser_territoires", False),
             # Tracker
             tracker=tracker,
+            langue=self.parametres.get("langue", "defaut"),
+            dict_trad_pays=self.constantes.pays_differentes_langues,
         )
 
         self.finished.emit()

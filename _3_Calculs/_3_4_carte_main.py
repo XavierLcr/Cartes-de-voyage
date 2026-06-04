@@ -148,10 +148,14 @@ def creer_une_carte(
         "limite_n_cartes",
         10,
     )
+
+    # Affichage des noms des lieux
     afficher_nom_lieu = kwargs.get(
         "afficher_nom_lieu",
         False,
     )
+    langue = kwargs.get("langue", None)
+    dict_trad_pays = kwargs.get("dict_trad_pays", {})
 
     # Style de la carte
     theme = kwargs.get(
@@ -221,6 +225,8 @@ def creer_une_carte(
         marge_carte=0.03,
         reprojeter=reprojeter,
         adresse_email=adresse_email,
+        langue=langue,
+        dict_trad_pays=dict_trad_pays,
     )
 
 

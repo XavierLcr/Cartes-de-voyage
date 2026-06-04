@@ -19,6 +19,7 @@ from _0_Utilitaires._0_2_fonctions_graphiques import (
     generer_couleur_aleatoire_hex,
     transformer_couleur_texte,
 )
+from _0_Utilitaires._0_6_fonctions_utiles_traductions import traduire_pays
 from _3_Calculs._3_3_envoyer_email import envoyer_email_avec_piece_jointe_smtp
 
 # 1 -- Renvoyer les marges les limites de la carte -----------------------------
@@ -293,6 +294,8 @@ def ajouter_labels_carte(
     espacement_lignes=0.8,
     facteur_taille=0.5,
     seuil_superficie: float = 0.3,
+    langue: None | str = None,
+    dict_trad_pays: dict = {},
 ):
     """
     Ajoute automatiquement des labels centrés sur une carte GeoPandas.
@@ -358,7 +361,7 @@ def ajouter_labels_carte(
 
         label_retour_ligne = "\n".join(
             textwrap.wrap(
-                str(label),
+                traduire_pays(pays=label, langue=langue, referentiel=dict_trad_pays),
                 width=max(largeur_min, int(largeur * facteur_retour_ligne)),
                 break_long_words=False,
             )
@@ -405,6 +408,8 @@ def creer_image_carte(
     marge_carte=0.03,
     reprojeter: bool = True,
     adresse_email: str | None = None,
+    langue: None | str = None,
+    dict_trad_pays: dict = {},
 ):
     r"""
     Crée une image de carte à partir d'un GeoDataFrame et l'exporte dans un fichier d'image.
@@ -544,6 +549,8 @@ def creer_image_carte(
             facteur_retour_ligne=3,
             espacement_lignes=0.8,
             facteur_taille=0.5,
+            langue=langue,
+            dict_trad_pays=dict_trad_pays,
         )
 
     # Enregistrer la carte dans un fichier sans l'afficher

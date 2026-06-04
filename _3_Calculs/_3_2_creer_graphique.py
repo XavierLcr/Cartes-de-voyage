@@ -8,11 +8,12 @@
 # 0 -- Initialisation ----------------------------------------------------------
 
 
-import os, json, math, textwrap
+import os, json, textwrap
 import numpy as np
 import matplotlib.pyplot as plt
 from shapely.geometry import box
 from PIL import Image
+from shapely.ops import polylabel
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import formater_temps_actuel
 from _0_Utilitaires._0_2_fonctions_graphiques import (
@@ -281,7 +282,20 @@ def reprojeter_gdf(gdf, type_proj: str, centre=None):
     return gdf.copy().to_crs(projections.get(type_proj, "wgs84"))
 
 
-# 6 -- Fonction d'ajout des noms des territoires -------------------------------
+# 6 -- Ajout des noms des territoires ------------------------------------------
+
+
+## 6.1 -- Fonction de séparation des exclaves ----------------------------------
+
+
+def point_isolement(geom):
+    if geom.geom_type == "MultiPolygon":
+        geom = max(geom.geoms, key=lambda g: g.area)
+
+    return polylabel(geom)
+
+
+## 6.2 -- Fonction d'ajout des noms des territoires ----------------------------
 
 
 def ajouter_labels_carte(
@@ -341,10 +355,10 @@ def ajouter_labels_carte(
     gdf["taille_texte"] = (
         (np.minimum(gdf["largeur"], gdf["hauteur"]) * facteur_taille)
         / np.sqrt(gdf[colonne_label].str.len())
-    ).clip(lower=0.01, upper=2)
+    ).clip(lower=0.005, upper=2)
 
     # Centroïdes
-    centroïdes = gdf.geometry.centroid
+    centroïdes = gdf.geometry.apply(point_isolement)
 
     for x, y, label, couleur, taille, largeur, surface in zip(
         centroïdes.x,
@@ -377,6 +391,7 @@ def ajouter_labels_carte(
             va="center",
             color=transformer_couleur_texte(couleur),
             linespacing=espacement_lignes,
+            zorder=5,
         )
 
 

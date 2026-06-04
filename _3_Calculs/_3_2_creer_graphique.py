@@ -159,26 +159,44 @@ def creer_nom_fichier(chemin: str, nom: str, max_cartes: int | None):
 # 4 -- Fonction de création des métadonnées ------------------------------------
 
 
-def renvoyer_metadonnees(
-    nom: str, theme: dict, teintes: list | None, qualite: int, granularite: int
-):
+def renvoyer_metadonnees(nom: str, **kwargs) -> dict | None:
 
-    if os.path.splitext(nom)[1].strip(". ") in ["png", "jpg", "jpeg", "tiff", "pdf"]:
-        return {
-            "Application": "MesVoyages",
-            "Auteur": "Xavier Lacour",
-            "Date": formater_temps_actuel(),
-            "HSV": json.dumps(
-                {
-                    "Bornes de luminosité et de saturation": theme,
-                    "Teintes possibles": teintes,
-                }
-            ),
-            "Qualité de l'image": str(qualite),
-            "Granularité maximale": f"{granularite}",
-        }
-    else:
+    if os.path.splitext(nom)[1].strip(". ") not in [
+        "png",
+        "jpg",
+        "tiff",
+        "pdf",
+    ]:
         return None
+
+    # Métadonnées par défaut
+    metadonnees = {
+        "Application": "MesVoyages",
+        "Auteur": "Xavier Lacour",
+        "Date": formater_temps_actuel(),
+    }
+
+    # Ajoute les métadonnées depuis kwargs
+    if "theme" in kwargs:
+        metadonnees["HSV"] = json.dumps(
+            {
+                "Bornes de luminosité et de saturation": kwargs["theme"],
+                "Teintes possibles": kwargs.get("teintes"),
+            }
+        )
+
+    if "qualite" in kwargs:
+        metadonnees["Résolution de l'image"] = str(kwargs["qualite"])
+
+    if "granularite" in kwargs:
+        metadonnees["Granularité maximale"] = str(kwargs["granularite"])
+
+    # Ajoute les autres kwargs (sauf ceux déjà traités)
+    for key, value in kwargs.items():
+        if key not in {"theme", "teintes", "qualite", "granularite"}:
+            metadonnees[key] = value
+
+    return metadonnees
 
 
 # 5 -- Recentrer la longitude d'une table --------------------------------------

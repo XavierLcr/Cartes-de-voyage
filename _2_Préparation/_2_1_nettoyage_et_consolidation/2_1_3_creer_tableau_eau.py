@@ -15,13 +15,13 @@ sys.path.append(os.getcwd())
 from constantes import direction_donnees_intermediaires, direction_donnees_geographiques
 from _0_Utilitaires._0_1_fonctions_utiles_gen import exporter_fichier, ouvrir_fichier
 
-
 # 1 -- Import des données ------------------------------------------------------
 
 gdf = ouvrir_fichier(
     direction_fichier=direction_donnees_intermediaires,
     nom_fichier="geodataframe_propre.pkl",
     defaut=None,
+    afficher_erreur="Fichier non trouvé",
 )
 
 

@@ -131,7 +131,7 @@ class MesVoyagesApplication(QWidget):
         )
         # Export
         self.onglet_parametres.bouton_sauvegarde.clicked.connect(
-            self.exporter_liste_parametres
+            lambda: self.exporter_liste_parametres(date_publication=False)
         )
         # Publication des cartes
         self.onglet_parametres.creation_cartes_bouton.clicked.connect(
@@ -203,7 +203,7 @@ class MesVoyagesApplication(QWidget):
 
         # Sauvegarde d'un individu
         self.onglet_param_profil.bouton_sauvegarde.clicked.connect(
-            self.exporter_liste_parametres
+            lambda: self.exporter_liste_parametres(date_publication=False)
         )
 
         # Suppression d'un individu
@@ -491,7 +491,7 @@ class MesVoyagesApplication(QWidget):
             "recommandations_nb": self.onglet_statistiques.get_recommandations_nb(),
         }
 
-    def exporter_liste_parametres(self):
+    def exporter_liste_parametres(self, date_publication: bool = True):
 
         parametres = self.creer_liste_parametres()
         if parametres["nom"] is None or parametres["nom"] in [""]:
@@ -500,7 +500,11 @@ class MesVoyagesApplication(QWidget):
             "date_publication": sauvegarde.get(parametres["nom"], {}).get(
                 "date_publication", []
             )
-            + [_0_1_fonctions_utiles_gen.formater_temps_actuel(n=1)]
+            + (
+                [_0_1_fonctions_utiles_gen.formater_temps_actuel(n=1)]
+                if date_publication
+                else []
+            )
         }
 
         # Ajout à la liste déroulante
@@ -592,7 +596,7 @@ class MesVoyagesApplication(QWidget):
     def publier_cartes(self):
 
         # Export
-        self.exporter_liste_parametres()
+        self.exporter_liste_parametres(date_publication=True)
 
         # Publication des cartes
         self.onglet_parametres.fonction_principale(

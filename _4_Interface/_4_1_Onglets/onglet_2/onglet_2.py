@@ -107,7 +107,9 @@ class OngletSelectionnerDestinations(QWidget):
 
         # Bouton de sauvegarde
         self.bouton_sauvegarde = QPushButton()
-        self.bouton_sauvegarde.clicked.connect(fct_sauvegarde)
+        self.bouton_sauvegarde.clicked.connect(
+            lambda: fct_sauvegarde(date_publication=False)
+        )
         self.bouton_sauvegarde.clicked.connect(
             lambda: set_emoji_sauvegarde(self.bouton_sauvegarde, 3000)
         )

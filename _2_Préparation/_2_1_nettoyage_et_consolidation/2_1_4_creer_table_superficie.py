@@ -12,8 +12,13 @@ import os, sys
 
 sys.path.append(os.getcwd())
 
-from constantes import direction_donnees_geographiques, direction_donnees_application
+from constantes import (
+    direction_donnees_geographiques,
+    direction_donnees_application,
+    direction_donnees_autres,
+)
 from _0_Utilitaires._0_1_fonctions_utiles_gen import ouvrir_fichier, exporter_fichier
+from _0_Utilitaires._0_5_isid import isid
 
 # 1 -- Import des données ------------------------------------------------------
 
@@ -23,6 +28,10 @@ gdf = ouvrir_fichier(
     nom_fichier="carte_monde_niveau_2.pkl",
     defaut=None,
 ).reset_index(drop=True)
+
+
+# Colonnes de granularité
+cols = [col for col in gdf.columns if col.startswith("name_")]
 
 
 # 1 -- Fonction de création de la table des pourcentages de superficie ---------
@@ -52,14 +61,29 @@ def calculer_superficie(gdf, epsg):
 # 2 -- Application -------------------------------------------------------------
 
 
-gdf = calculer_superficie(gdf=gdf, epsg=8857)
+gdf = (
+    calculer_superficie(gdf=gdf, epsg=8857)
+    .sort_values(by=cols, inplace=False)
+    .reset_index(drop=True, inplace=False)
+)
 
 
 # 3 -- Export ------------------------------------------------------------------
 
 
+# Test de granularité
+assert isid(df=gdf, colonnes=cols, blabla=1)
+
+# Export de la table à utiliser dans l'application
 exporter_fichier(
     objet=gdf,
     direction_fichier=direction_donnees_application,
     nom_fichier="table_superficie.pkl",
+)
+
+# Export de la table visualisable
+exporter_fichier(
+    objet=gdf,
+    direction_fichier=direction_donnees_autres,
+    nom_fichier="table_superficie.xlsx",
 )

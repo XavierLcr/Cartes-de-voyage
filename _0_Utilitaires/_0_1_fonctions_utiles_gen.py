@@ -403,8 +403,14 @@ def exporter_fichier(objet, direction_fichier, nom_fichier, sort_keys: bool = Tr
     elif extention in [".parquet"]:
         objet.to_parquet(nom_fichier, index=False)
 
+    elif extention == ".csv":
+        objet.to_csv(nom_fichier, index=False)
+
+    elif extention in (".xlsx", ".xls"):
+        objet.to_excel(nom_fichier, index=False)
+
     else:
-        print("Fichier non exportable.")
+        raise ValueError(f"Extension non supportée : {extention}")
 
 
 ## 3.4 -- Fonction créant les .yaml Pays × Région/Département/... --------------

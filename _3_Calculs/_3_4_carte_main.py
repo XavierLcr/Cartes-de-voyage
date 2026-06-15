@@ -200,7 +200,7 @@ def creer_une_carte(
         carte_nom = "Temp"
 
     if individu_nom:
-        carte_nom = f"{carte_nom} – {individu_nom}"
+        carte_nom = f"{individu_nom} – { carte_nom}"
 
     carte_nom = f"{carte_nom}.{format}"
 

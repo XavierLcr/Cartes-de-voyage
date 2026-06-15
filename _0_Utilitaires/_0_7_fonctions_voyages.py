@@ -13,13 +13,19 @@ from datetime import datetime, date
 from typing import Literal, List
 
 from _0_Utilitaires._0_6_fonctions_utiles_traductions import traduire_pays
-from constantes import hierarchie_par_pays
+from constantes import hierarchie_par_pays, pays_differentes_langues
 
 # 1 -- Création d'un voyage ----------------------------------------------------
 
 
 def creer_voyage(
-    nom: str | None, date_deb, date_fin, regions: dict, departements: dict, langue: str
+    nom: str | None,
+    date_deb,
+    date_fin,
+    regions: dict,
+    departements: dict,
+    langue: str,
+    referentiel: dict = pays_differentes_langues,
 ):
 
     # Création du voyage
@@ -38,7 +44,10 @@ def creer_voyage(
         )
 
         resultat["nom"] = ", ".join(
-            [traduire_pays(langue=langue, pays=pays) for pays in list(set(nom_temp))]
+            [
+                traduire_pays(langue=langue, pays=pays, referentiel=referentiel)
+                for pays in list(set(nom_temp))
+            ]
         )
 
     return resultat

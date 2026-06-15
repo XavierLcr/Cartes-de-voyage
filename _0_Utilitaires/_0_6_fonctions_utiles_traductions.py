@@ -5,13 +5,8 @@
 ################################################################################
 
 
-# 0 -- Introduction ------------------------------------------------------------
-
-
-from constantes import pays_differentes_langues
-
 # 1 -- Fonction de récupération du nom d'un pays -------------------------------
 
 
-def traduire_pays(pays: str, langue: str, referentiel: dict = pays_differentes_langues):
+def traduire_pays(pays: str, langue: str, referentiel: dict = {}):
     return referentiel.get(pays, {}).get(langue, pays)

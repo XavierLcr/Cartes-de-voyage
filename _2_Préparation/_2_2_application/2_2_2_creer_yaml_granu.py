@@ -55,8 +55,8 @@ dictception = construire_dictionnaire_imbrique(
         defaut=None,
         afficher_erreur="Base non trouvée.",
     ),
-    levels=["name_0", "name_1", "name_2", "name_3", "name_4"],
-    value_col="name_5",
+    niveaux=["name_0", "name_1", "name_2", "name_3", "name_4"],
+    colonne_valeur="name_5",
 )
 del dictception["Caspian Sea"]
 
@@ -64,7 +64,7 @@ del dictception["Caspian Sea"]
 exporter_fichier(
     objet=dictception,
     direction_fichier=constantes.direction_donnees_autres,
-    nom_fichier="hierarchie_complete_granularite_pays.pkl",
+    nom_fichier="hierarchie_complete_granularite_pays.yaml",
     sort_keys=True,
 )
 

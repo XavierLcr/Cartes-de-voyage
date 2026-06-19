@@ -100,6 +100,10 @@ class OngletSelectionnerDestinations(QWidget):
         self.telecharger_lieux_visites = QPushButton()
         self.telecharger_lieux_visites.clicked.connect(self.exporter_yamls_visites)
 
+        # Bouton d'import d'un YAML
+        self.chargement_yaml_bouton = QPushButton()
+        self.chargement_yaml_bouton.clicked.connect(self.charger_yaml)
+
         # Bouton de sauvegarde
         self.bouton_sauvegarde = QPushButton()
         self.bouton_sauvegarde.clicked.connect(
@@ -116,6 +120,7 @@ class OngletSelectionnerDestinations(QWidget):
         layout_boutons.addWidget(self.bouton_sauvegarde, stretch=1)
         layout_boutons.addWidget(creer_ligne_verticale())
         layout_boutons.addWidget(self.telecharger_lieux_visites, stretch=1)
+        layout_boutons.addWidget(self.chargement_yaml_bouton, stretch=1)
 
         # Voyages effectués
         self.liste_voyage_groupbox = QGroupBox()
@@ -128,37 +133,9 @@ class OngletSelectionnerDestinations(QWidget):
         self.liste_voyage = self._creer_scroll()
         self.liste_voyage_layout.addWidget(self.liste_voyage)
 
-        # Téléchargement des YAMLs
-
-        ## Stockage des données YAML
-        self.fichier_yaml_voyages = None
-        ## Création des boutons pour charger les YAML
-        self.chemin_fichier_yaml_voyages = None
-        self.fichier_yaml_1_bouton = QPushButton()
-        self.fichier_yaml_1_bouton.clicked.connect(self.charger_yaml)
-
-        ## Layout et Groupbox
-        self.bouton_afficher_option_yaml = QPushButton()
-        self.bouton_afficher_option_yaml.clicked.connect(
-            self.afficher_option_alternative
-        )
-        self.groupe_chargement_yaml = QGroupBox()
-        self.groupe_chargement_yaml.setSizePolicy(
-            QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred
-        )
-        layout_groupe_chargement_yaml = QHBoxLayout()
-        layout_groupe_chargement_yaml.addWidget(self.fichier_yaml_1_bouton)
-        self.groupe_chargement_yaml.setLayout(layout_groupe_chargement_yaml)
-        self.groupe_chargement_yaml.setVisible(False)
-        layout_yaml = QHBoxLayout()
-        layout_yaml.addWidget(
-            self.bouton_afficher_option_yaml, alignment=Qt.AlignmentFlag.AlignLeft
-        )
-        layout_yaml.addWidget(self.groupe_chargement_yaml)
-
+        # Layout complet
         layout.addLayout(layout_boutons)
         layout.addWidget(self.liste_voyage_groupbox)
-        layout.addLayout(layout_yaml)
 
         self.setLayout(layout)
 
@@ -173,7 +150,6 @@ class OngletSelectionnerDestinations(QWidget):
 
         if chemin_yaml:
 
-            self.chemin_fichier_yaml_voyages = chemin_yaml
             with open(chemin_yaml, "r", encoding="utf-8") as file:
                 data = yaml.safe_load(file)
 
@@ -313,19 +289,6 @@ class OngletSelectionnerDestinations(QWidget):
             self.fonction_traduire("bouton_ajouter_voyage")
         )
 
-        # YAML
-        if self.groupe_chargement_yaml.isVisible():
-
-            self.bouton_afficher_option_yaml.setText(
-                self.fonction_traduire("masquer_option_yaml", prefixe="", suffixe="")
-            )
-
-        else:
-
-            self.bouton_afficher_option_yaml.setText(
-                self.fonction_traduire("montrer_option_yaml", prefixe="", suffixe="")
-            )
-
         self.telecharger_lieux_visites.setText("📥")
         self.telecharger_lieux_visites.setToolTip(
             self.fonction_traduire("telecharger_lieux_visites", suffixe=".")
@@ -336,17 +299,10 @@ class OngletSelectionnerDestinations(QWidget):
         )
 
         # Chargement des YAMLs
-        self.groupe_chargement_yaml.setTitle(
-            self.fonction_traduire("titre_chargement_yaml")
-        )
-        self.groupe_chargement_yaml.setToolTip(
+        self.chargement_yaml_bouton.setToolTip(
             self.fonction_traduire("description_titre_chargement_yaml", suffixe=".")
         )
-        self.fichier_yaml_1_bouton.setText(
-            self.fonction_traduire("yaml_regions")
-            if self.fichier_yaml_voyages is None
-            else os.path.basename(self.chemin_fichier_yaml_voyages)
-        )
+        self.chargement_yaml_bouton.setText("📂")
 
         # Options de tri
         self.dict_correspondances_tri = {
@@ -364,27 +320,9 @@ class OngletSelectionnerDestinations(QWidget):
 
         self.afficher_voyages(vbox=self.liste_voyage_layout)
 
-    def reset_yaml(self):
-        self.fichier_yaml_voyages = None
-        self.set_langue(langue=None)
-
-    def afficher_option_alternative(self):
-
-        (
-            self.groupe_chargement_yaml.hide()
-            if self.groupe_chargement_yaml.isVisible()
-            else self.groupe_chargement_yaml.show()
-        )
-
-        self.set_langue(langue=None)
-
     def set_style(self, style, teinte, nuances):
 
         self.style = style
-
-        self.bouton_afficher_option_yaml.setStyleSheet(
-            style_bouton_yaml(style=style, teinte=teinte, nuances=nuances)
-        )
 
         self.couleurs = {
             1: renvoyer_couleur_widget(
@@ -413,10 +351,6 @@ class OngletSelectionnerDestinations(QWidget):
         self.afficher_voyages(vbox=self.liste_voyage_layout)
 
     def initialiser_onglet(self, nom: str | None):
-
-        # Reset des YAMLs et masquage de la partie correspondante
-        self.reset_yaml()
-        self.groupe_chargement_yaml.hide()
 
         # Mise à jour du nom
         self.set_nom_individu(nom=nom or "")

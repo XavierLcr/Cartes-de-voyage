@@ -117,11 +117,7 @@ general_voyage_utiliser_date : Utiliser la date pour ce voyage
 titre_choix_destinations_visitees : Sélection des lieux visités
 
 # Chargement des YAMLs
-masquer_option_yaml: Masquer la méthode alternative
-montrer_option_yaml: Montrer la méthode alternative
-titre_chargement_yaml : Chargement manuel d'un fichier YAML
 description_titre_chargement_yaml : Cela permet de charger la liste des voyages effectués. L'ancien format avec les listes de régions ou départements par pays est également supporté.
-yaml_regions : Charger le fichier de sauvegarde des voyages
 pop_up_yaml : Charger un fichier YAML
 
 # Onglets 3

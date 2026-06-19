@@ -36,6 +36,7 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     set_emoji_sauvegarde,
     vider_layout,
     reset_combo,
+    creer_ligne_verticale,
 )
 from _0_Utilitaires._0_2_fonctions_graphiques import (
     renvoyer_couleur_widget,
@@ -83,27 +84,21 @@ class OngletSelectionnerDestinations(QWidget):
         self.avertissement_prio.setWordWrap(True)
         layout.addWidget(self.avertissement_prio)
 
-        # Ligne de gestion des voyages
-        layout_boutons = QHBoxLayout()
-
         # Bouton d'ajout de voyages
         self.ajouter_voyage_bouton = QPushButton()
         self.ajouter_voyage_bouton.clicked.connect(
             lambda x: self.creer_voyage_ui(clef=None)
         )
-        layout_boutons.addWidget(self.ajouter_voyage_bouton, stretch=5)
 
         # Liste des options de tri
         self.options_tri = QComboBox()
         self.options_tri.currentTextChanged.connect(
             lambda x: self.afficher_voyages(vbox=self.liste_voyage_layout)
         )
-        layout_boutons.addWidget(self.options_tri, stretch=3)
 
         # Bouton d'export des YAML
         self.telecharger_lieux_visites = QPushButton()
         self.telecharger_lieux_visites.clicked.connect(self.exporter_yamls_visites)
-        layout_boutons.addWidget(self.telecharger_lieux_visites, stretch=1)
 
         # Bouton de sauvegarde
         self.bouton_sauvegarde = QPushButton()
@@ -113,7 +108,14 @@ class OngletSelectionnerDestinations(QWidget):
         self.bouton_sauvegarde.clicked.connect(
             lambda: set_emoji_sauvegarde(self.bouton_sauvegarde, 3000)
         )
+
+        # Ligne des boutons
+        layout_boutons = QHBoxLayout()
+        layout_boutons.addWidget(self.ajouter_voyage_bouton, stretch=5)
+        layout_boutons.addWidget(self.options_tri, stretch=3)
         layout_boutons.addWidget(self.bouton_sauvegarde, stretch=1)
+        layout_boutons.addWidget(creer_ligne_verticale())
+        layout_boutons.addWidget(self.telecharger_lieux_visites, stretch=1)
 
         # Voyages effectués
         self.liste_voyage_groupbox = QGroupBox()

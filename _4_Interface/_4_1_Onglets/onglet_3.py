@@ -15,6 +15,7 @@ from PyQt6.QtWidgets import (
     QTreeWidget,
     QTreeWidgetItem,
     QPushButton,
+    QSpacerItem,
 )
 
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
@@ -239,7 +240,7 @@ class OngletResumeDestinations(QWidget):
             )
         )
         vbox.addWidget(creer_ligne_horizontale())
-        vbox.addWidget(QLabel(""))
+        vbox.addSpacerItem(QSpacerItem(0, 10))
 
         # --- Création de l'arbre ---
         if pays_donnees:

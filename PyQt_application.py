@@ -85,9 +85,6 @@ class MesVoyagesApplication(QWidget):
             )
         )
 
-        self.liste_onglets = QTabWidget()
-        self.liste_onglets.setUsesScrollButtons(False)
-
         # Variables globales
         self.langue = "français"
         self.theme_application = True
@@ -106,7 +103,6 @@ class MesVoyagesApplication(QWidget):
         profile_layout.addWidget(self.nom_individu_label)
         self.nom_individu.addItems(list(sauvegarde.keys()))
         profile_layout.addWidget(self.nom_individu)
-        self.liste_onglets.setCornerWidget(profile_container, Qt.Corner.TopRightCorner)
         self.bouton_ajout = QPushButton()
         self.bouton_ajout.setText("➕")
         self.bouton_ajout.setFixedWidth(40)
@@ -120,7 +116,6 @@ class MesVoyagesApplication(QWidget):
             fct_traduction=self.traduire_depuis_id,
             fct_pop_up=self.montrer_popup,
         )
-        self.liste_onglets.addTab(self.onglet_parametres, "Paramètres")
         # Chargement d'un individu
         self.nom_individu.currentIndexChanged.connect(
             lambda: self.initialiser_sauvegarde(reinitialiser=False)
@@ -157,9 +152,6 @@ class MesVoyagesApplication(QWidget):
             fct_pop_up=self.montrer_popup,
             longueur=self.longueur_id_voyage,
         )
-        self.liste_onglets.addTab(
-            self.onglet_selection_destinations, "Sélection des pays visités"
-        )
         self.onglet_selection_destinations.dict_modif.connect(
             self.set_dictionnaire_destinations
         )
@@ -171,7 +163,6 @@ class MesVoyagesApplication(QWidget):
             constantes=constantes,
             parent=None,
         )
-        self.liste_onglets.addTab(self.onglet_resume_destinations, "📊")
 
         # === Quatrième onglet ===
 
@@ -186,14 +177,12 @@ class MesVoyagesApplication(QWidget):
             parent=None,
             fct_traduction=self.traduire_depuis_id,
         )
-        self.liste_onglets.addTab(self.onglet_statistiques, "Pays les plus visités")
 
         # === Cinquième onglet ===
 
         self.onglet_param_profil = onglet_param_profil.OngletParametresProfil(
             constantes=constantes, fct_traduction=self.traduire_depuis_id
         )
-        self.liste_onglets.addTab(self.onglet_param_profil, "⚙️")
 
         # Langue
         self.onglet_param_profil.signal_langue.connect(self.set_langue_interface)
@@ -228,13 +217,24 @@ class MesVoyagesApplication(QWidget):
             fct_traduire=self.traduire_depuis_id,
             version_logiciel=constantes.version_logiciel,
         )
-        self.liste_onglets.addTab(self.onglet_description_application, "ℹ️")
 
         # === Mise en forme === #
 
-        main_layout = QVBoxLayout()
+        # Création des onglets
+        self.liste_onglets = QTabWidget()
+        self.liste_onglets.setUsesScrollButtons(False)
+        self.liste_onglets.setCornerWidget(profile_container, Qt.Corner.TopRightCorner)
+        self.liste_onglets.addTab(self.onglet_parametres, "Cartes")
+        self.liste_onglets.addTab(self.onglet_selection_destinations, "Voyages")
+        self.liste_onglets.addTab(
+            self.onglet_resume_destinations, "Résumé des destinations"
+        )
+        self.liste_onglets.addTab(self.onglet_statistiques, "Statistiques")
+        self.liste_onglets.addTab(self.onglet_param_profil, "⚙️")
+        self.liste_onglets.addTab(self.onglet_description_application, "ℹ️")
+
+        main_layout = QVBoxLayout(self)
         main_layout.addWidget(self.liste_onglets)
-        self.setLayout(main_layout)
         self.liste_onglets.setCurrentIndex(0 if sauvegarde else 4)
 
         self.initialiser_sauvegarde(reinitialiser=True)

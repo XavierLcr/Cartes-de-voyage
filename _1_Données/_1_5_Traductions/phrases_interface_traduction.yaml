@@ -1,40 +1,33 @@
 ? '<h3>📌 Description :</h3>
 
-  <p>Mes Voyages est une application permettant de créer des cartes de voyages personnalisées
-  en sélectionnant les régions ou départements des pays que l''on a visités.</p>
+  <p>Mes Voyages est une application permettant de créer des cartes personnalisées
+  des lieux qu''on a visités.</p>
 
   <h3>💻 Comment utiliser :</h3>
 
   <ol>
 
-  <li>Saisissez votre nom et personnalisez vos paramètres.</li>
+  <li>Créez votre profil et personnalisez vos paramètres.</li>
 
-  <li>Sélectionnez les lieux que vous avez visités au niveau de granularité que vous
-  préférez.</li>
+  <li>Ajoutez l''nsemble des voyages que vous avez effectués en sélectionnant les
+  lieux visités.</li>
 
-  <li>Créez vos cartes ! La sauvegarde de vos visites et de vos paramètres se fait
-  lorsque vous cliquez sur un des boutons de sauvegarde ou de création des cartes.
-  Si vous changez d''onglet sans changer de profil, les lieux cochés ne sont pas perdus.</li>
+  <li>Customisez et créez vos cartes ! La sauvegarde de vos visites et de vos paramètres
+  se fait lorsque vous cliquez sur un des boutons de sauvegarde ou de création des
+  cartes. Si vous changez d''onglet sans changer de profil, les lieux cochés ne sont
+  pas perdus.</li>
 
-  <li>Découvrez quels sont les pays que vous avez le plus visités et explorez nos
-  recommandations pour vos prochaines vacances !</li>
+  <li>Découvrez des informations surprenantes à propos de vos voyages et explorez
+  nos recommandations pour vos prochaines vacances !</li>
 
   </ol>
-
-  <h3>📋 Fichiers YAML disponibles :</h3>
-
-  <p>Les fichiers <code>.yaml</code> fournis sont des <strong>modèles complets</strong>
-  contenant tous les pays, régions et départements disponibles.</p>
-
-  <p>▶️ Si vous préférez cette méthode afin d''indiquer les lieux que vous avez visités,
-  copiez d''abord les modèles présents dans le dossier de l''application. Supprimez
-  ensuite tous les lieux non visités et chargez-les dans l''application.</p>
 
   <h3>❓ Contact :</h3>
 
   <p>L''application se veut intuitive, mais pour toute question : mes.voyages.app@gmail.com.</p>
 
-  <p>Les traductions ont été générées automatiquement et n''ont pas été relues manuellement.
+  <p>Les traductions ont été générées automatiquement et n''ont pas été vérifiées
+  manuellement.
 
   Pour toute anomalie de traduction, bug ou si vous souhaitez tout simplement effectuer
   un retour, n''hésitez pas à me contacter.</p>
@@ -44,876 +37,658 @@
   <strong>Merci d’avoir choisi Mes Voyages !</strong>'
 : afrikaans: '<h3>📌 Beskrywing:</h3>
 
-    <p>My Reis is ''n toepassing om persoonlike reiskaarte te skep deur die streke
-    of departemente van die lande wat besoek is, te kies.</p>
+    <p>Mes Voyages is ''n toepassing waarmee jy gepersonaliseerde kaarte kan skep
+    van die plekke wat jy besoek het.</p>
 
-    <h3>💻 Hoe om te gebruik:</h3>
+    <h3>💻 Hoe om dit te gebruik:</h3>
 
     <ol>
 
-    <li>Voer jou naam in en pas jou instellings aan.</li>
+    <li>Skep jou profiel en pas jou instellings aan.</li>
 
-    <li>Kies die plekke wat jy besoek het op die vlak van granulariteit wat jy verkies.</li>
+    <li>Voeg al die reise wat jy onderneem het by deur die besoekte plekke te kies.</li>
 
-    <li>Skep jou kaarte! Jou besoeke en instellings word gestoor wanneer jy op een
-    van die stoor- of kaartskeppingsknoppies klik. As jy van oortjie verander sonder
-    om van profiel te verander, gaan gemerkte plekke nie verlore nie.</li>
+    <li>Pas jou kaarte aan en skep hulle! Die stoor van jou besoeke en instellings
+    gebeur wanneer jy op een van die stoor- of kaartskeppingsknoppies klik. As jy
+    van tab verander sonder om van profiel te verander, gaan die aangekruiste plekke
+    nie verlore nie.</li>
 
-    <li>Ontdek watter lande jy die meeste besoek het en verken ons aanbevelings vir
+    <li>Ontdek verrassende inligting oor jou reise en verken ons aanbevelings vir
     jou volgende vakansie!</li>
 
     </ol>
 
-    <h3>📋 Beskikbare YAML-lêers:</h3>
-
-    <p>Die verskafde <code>.yaml</code> lêers is <strong>volledige sjablone</strong>
-    wat alle beskikbare lande, streke en departemente bevat.</p>
-
-    <p>▶️ As jy verkies om hierdie metode te gebruik om die plekke wat jy besoek het
-    aan te dui, kopieer eers die sjablone in die toepassing se vouer. Verwyder dan
-    alle onbesoekte plekke en laai dit in die toepassing.</p>
-
     <h3>❓ Kontak:</h3>
 
-    <p>Die toepassing is bedoel om intuïtief te wees, maar vir enige vrae: mes.voyages.app@gmail.com.</p>
+    <p>Die toepassing is ontwerp om intuïtief te wees, maar vir enige vrae: mes.voyages.app@gmail.com.</p>
 
-    <p>Die vertalings is outomaties gegenereer en is nie met die hand nagesien nie.
+    <p>Vertalings is outomaties gegenereer en is nie handmatig nagegaan nie.
 
-    Vir enige vertalingsanomalie, fout, of as jy bloot terugvoer wil gee, kontak my
-    gerus.</p>
+    Vir enige vertalingsfoute, foute (bugs) of as jy bloot terugvoer wil gee, moet
+    asseblief nie huiwer om my te kontak nie.</p>
 
     <hr />
 
-    <strong>Dankie dat jy My Reis gekies het!</strong>'
-  albanais: '<h3>📌 Përshkrim:</h3>
+    <strong>Dankie dat jy Mes Voyages gekies het!</strong>'
+  albanais: '<h3>📌 Përshkrimi :</h3>
 
-    <p>Udhëtimet e mia është një aplikacion që ju lejon të krijoni harta të personalizuara
-    udhëtimi duke zgjedhur rajonet ose departamentet e vendeve që keni vizituar.</p>
+    <p>Mes Voyages është një aplikacion që ju lejon të krijoni harta të personalizuara
+    të vendeve që keni vizituar.</p>
 
-    <h3>💻 Si të përdorni:</h3>
+    <h3>💻 Si ta përdorni :</h3>
 
     <ol>
 
-    <li>Futni emrin tuaj dhe personalizoni cilësimet tuaja.</li>
+    <li>Krijoni profilin tuaj dhe personalizoni cilësimet tuaja.</li>
 
-    <li>Zgjidhni vendet që keni vizituar në nivelin e detajit që preferoni.</li>
+    <li>Shtoni të gjitha udhëtimet që keni bërë duke përzgjedhur vendet e vizituara.</li>
 
-    <li>Krijoni hartat tuaja! Ruajtja e vizitave dhe cilësimeve tuaja bëhet kur klikoni
-    në një nga butonat e ruajtjes ose krijimit të hartës. Nëse ndryshoni skedë pa
-    ndryshuar profil, vendet e zgjedhura nuk humbasin.</li>
+    <li>Personalizoni dhe krijoni hartat tuaja! Ruajtja e vizitave dhe e cilësimeve
+    tuaja bëhet kur klikoni në një nga butonat e ruajtjes ose të krijimit të hartave.
+    Nëse ndryshoni skedën pa ndryshuar profilin, vendet e zgjedhura nuk humbasin.</li>
 
-    <li>Zbuloni cilat vende keni vizituar më shumë dhe eksploroni rekomandimet tona
-    për pushimet tuaja të ardhshme!</li>
+    <li>Zbuloni informacione befasuese rreth udhëtimeve tuaja dhe eksploroni rekomandimet
+    tona për pushimet tuaja të ardhshme!</li>
 
     </ol>
 
-    <h3>📋 Dosjet YAML të disponueshme:</h3>
-
-    <p>Dosjet <code>.yaml</code> të ofruara janë <strong>shabllone të plota</strong>
-    që përmbajnë të gjitha vendet, rajonet dhe departamentet e disponueshme.</p>
-
-    <p>▶️ Nëse preferoni këtë metodë për të treguar vendet që keni vizituar, kopjoni
-    së pari shabllonet në dosjen e aplikacionit. Më pas fshini të gjitha vendet e
-    pazhdukura dhe ngarkojini ato në aplikacion.</p>
-
-    <h3>❓ Kontakt:</h3>
+    <h3>❓ Kontakti :</h3>
 
     <p>Aplikacioni synon të jetë intuitiv, por për çdo pyetje: mes.voyages.app@gmail.com.</p>
 
-    <p>Përkthimet janë gjeneruar automatikisht dhe nuk janë rishikuar manualisht.
+    <p>Përkthimet janë gjeneruar automatikisht dhe nuk janë verifikuar manualisht.
 
-    Për çdo anomali në përkthim, gabim ose nëse thjesht dëshironi të jepni një koment,
+    Për çdo anomali në përkthim, bug ose nëse thjesht dëshironi të jepni një koment,
     mos hezitoni të më kontaktoni.</p>
 
     <hr />
 
-    <strong>Faleminderit që zgjodhët Udhëtimet e mia!</strong>'
+    <strong>Faleminderit që zgjodhët Mes Voyages!</strong>'
   allemand: '<h3>📌 Beschreibung:</h3>
 
-    <p>Meine Reisen ist eine Anwendung, mit der Sie personalisierte Reisekarten erstellen
-    können, indem Sie die Regionen oder Departements der von Ihnen besuchten Länder
-    auswählen.</p>
+    <p>Mes Voyages ist eine App, mit der Sie personalisierte Karten der Orte erstellen
+    können, die Sie besucht haben.</p>
 
-    <h3>💻 Anwendung:</h3>
+    <h3>💻 So funktioniert es:</h3>
 
     <ol>
 
-    <li>Geben Sie Ihren Namen ein und passen Sie Ihre Einstellungen an.</li>
+    <li>Erstellen Sie Ihr Profil und personalisieren Sie Ihre Einstellungen.</li>
 
-    <li>Wählen Sie die Orte aus, die Sie mit der von Ihnen bevorzugten Detailgenauigkeit
-    besucht haben.</li>
+    <li>Fügen Sie all Ihre bisherigen Reisen hinzu, indem Sie die besuchten Orte auswählen.</li>
 
-    <li>Erstellen Sie Ihre Karten! Das Speichern Ihrer Besuche und Einstellungen erfolgt,
-    wenn Sie auf eine der Speicher- oder Kartenerstellungsbuttons klicken. Wenn Sie
-    den Tab wechseln, ohne das Profil zu ändern, gehen die ausgewählten Orte nicht
-    verloren.</li>
+    <li>Passen Sie Ihre Karten an und erstellen Sie diese! Das Speichern Ihrer Besuche
+    und Einstellungen erfolgt, wenn Sie auf eine der Schaltflächen zum Speichern oder
+    zum Erstellen der Karten klicken. Wenn Sie den Tab wechseln, ohne das Profil zu
+    ändern, gehen die ausgewählten Orte nicht verloren.</li>
 
-    <li>Finden Sie heraus, welche Länder Sie am häufigsten besucht haben, und erkunden
-    Sie unsere Empfehlungen für Ihren nächsten Urlaub!</li>
+    <li>Entdecken Sie überraschende Informationen über Ihre Reisen und erkunden Sie
+    unsere Empfehlungen für Ihren nächsten Urlaub!</li>
 
     </ol>
 
-    <h3>📋 Verfügbare YAML-Dateien:</h3>
-
-    <p>Die bereitgestellten <code>.yaml</code>-Dateien sind <strong>vollständige Vorlagen</strong>,
-    die alle verfügbaren Länder, Regionen und Departements enthalten.</p>
-
-    <p>▶️ Wenn Sie diese Methode bevorzugen, um die von Ihnen besuchten Orte anzugeben,
-    kopieren Sie zuerst die Vorlagen aus dem Anwendungsordner. Löschen Sie dann alle
-    nicht besuchten Orte und laden Sie sie in die Anwendung.</p>
-
     <h3>❓ Kontakt:</h3>
 
-    <p>Die Anwendung ist intuitiv gestaltet, aber bei Fragen wenden Sie sich bitte
-    an: mes.voyages.app@gmail.com.</p>
+    <p>Die App ist intuitiv gestaltet, aber bei Fragen wenden Sie sich bitte an: mes.voyages.app@gmail.com.</p>
 
     <p>Die Übersetzungen wurden automatisch generiert und nicht manuell überprüft.
 
-    Bei Übersetzungsproblemen, Fehlern oder wenn Sie einfach nur Feedback geben möchten,
+    Bei Übersetzungsfehlern, Bugs oder wenn Sie uns einfach Feedback geben möchten,
     zögern Sie bitte nicht, mich zu kontaktieren.</p>
 
     <hr />
 
-    <strong>Vielen Dank, dass Sie sich für Meine Reisen entschieden haben!</strong>'
+    <strong>Vielen Dank, dass Sie sich für Mes Voyages entschieden haben!</strong>'
   anglais: '<h3>📌 Description:</h3>
 
-    <p>My Travels is an application that allows you to create personalized travel
-    maps by selecting the regions or departments of countries you have visited.</p>
+    <p>Mes Voyages is an application that allows you to create personalized maps of
+    the places you have visited.</p>
 
-    <h3>💻 How to Use:</h3>
+    <h3>💻 How to use:</h3>
 
     <ol>
 
-    <li>Enter your name and customize your settings.</li>
+    <li>Create your profile and customize your settings.</li>
 
-    <li>Select the places you have visited at the granularity level you prefer.</li>
+    <li>Add all the trips you have taken by selecting the visited locations.</li>
 
-    <li>Create your maps! Your visits and settings are saved when you click on one
-    of the save or map creation buttons. If you change tabs without changing profiles,
-    checked locations are not lost.</li>
+    <li>Customize and create your maps! Your visits and settings are saved when you
+    click on one of the save or map creation buttons. If you change tabs without changing
+    your profile, the checked locations are not lost.</li>
 
-    <li>Discover which countries you have visited the most and explore our recommendations
+    <li>Discover surprising information about your trips and explore our recommendations
     for your next vacation!</li>
 
     </ol>
 
-    <h3>📋 Available YAML Files:</h3>
-
-    <p>The provided <code>.yaml</code> files are <strong>complete templates</strong>
-    containing all available countries, regions, and departments.</p>
-
-    <p>▶️ If you prefer this method to indicate the places you have visited, first
-    copy the templates present in the application''s folder. Then, delete all unvisited
-    locations and load them into the application.</p>
-
     <h3>❓ Contact:</h3>
 
-    <p>The application is intended to be intuitive, but for any questions: mes.voyages.app@gmail.com.</p>
+    <p>The application is designed to be intuitive, but for any questions: mes.voyages.app@gmail.com.</p>
 
-    <p>The translations were generated automatically and have not been manually reviewed.
-
+    <p>Translations were automatically generated and have not been manually verified.
     For any translation anomalies, bugs, or if you simply wish to provide feedback,
-    do not hesitate to contact me.</p>
+    please feel free to contact me.</p>
 
     <hr />
 
-    <strong>Thank you for choosing My Travels!</strong>'
-  arabe: '<h3>📌 وصف :</h3>
+    <strong>Thank you for choosing Mes Voyages!</strong>'
+  arabe: '<h3>📌 الوصف:</h3>
 
-    <p>رحلاتي هو تطبيق يسمح بإنشاء خرائط رحلات مخصصة عن طريق تحديد المناطق أو الأقسام
-    في البلدان التي تمت زيارتها.</p>
+    <p>Mes Voyages هو تطبيق يتيح إنشاء خرائط مخصصة للأماكن التي قمت بزيارتها.</p>
 
-    <h3>💻 كيفية الاستخدام :</h3>
+    <h3>💻 كيفية الاستخدام:</h3>
 
     <ol>
 
-    <li>أدخل اسمك وقم بتخصيص إعداداتك.</li>
+    <li>أنشئ ملفك الشخصي وخصص إعداداتك.</li>
 
-    <li>حدد الأماكن التي زرتها بالمستوى الذي تفضله.</li>
+    <li>أضف جميع الرحلات التي قمت بها عن طريق تحديد الأماكن التي زرتها.</li>
 
-    <li>أنشئ خرائطك! يتم حفظ زياراتك وإعداداتك عند النقر على أحد أزرار الحفظ أو إنشاء
-    الخرائط. إذا قمت بتغيير علامة تبويب دون تغيير ملف التعريف، فلن يتم فقدان الأماكن
+    <li>خصص وأنشئ خرائطك! يتم حفظ زياراتك وإعداداتك عند النقر على أحد أزرار الحفظ
+    أو إنشاء الخرائط. إذا قمت بتغيير التبويب دون تغيير الملف الشخصي، فلن تضيع الأماكن
     المحددة.</li>
 
-    <li>اكتشف البلدان التي زرتها أكثر واستكشف توصياتنا لعطلاتك القادمة!</li>
+    <li>اكتشف معلومات مدهشة عن رحلاتك واستكشف توصياتنا لعطلاتك القادمة!</li>
 
     </ol>
 
-    <h3>📋 ملفات YAML المتاحة :</h3>
+    <h3>❓ التواصل:</h3>
 
-    <p>ملفات <code>.yaml</code> المقدمة هي <strong>قوالب كاملة</strong> تحتوي على
-    جميع البلدان والمناطق والأقسام المتاحة.</p>
+    <p>التطبيق مصمم ليكون بديهياً، ولكن لأي استفسار: mes.voyages.app@gmail.com.</p>
 
-    <p>▶️ إذا كنت تفضل هذه الطريقة للإشارة إلى الأماكن التي زرتها، فانسخ أولاً القوالب
-    الموجودة في مجلد التطبيق. ثم احذف جميع الأماكن غير المزورة وقم بتحميلها في التطبيق.</p>
+    <p>تم إنشاء الترجمات تلقائياً ولم يتم التحقق منها يدوياً.
 
-    <h3>❓ تواصل :</h3>
-
-    <p>يهدف التطبيق إلى أن يكون سهل الاستخدام، ولكن لأي سؤال: mes.voyages.app@gmail.com.</p>
-
-    <p>تم إنشاء الترجمات تلقائيًا ولم تتم مراجعتها يدويًا.
-
-    لأي خلل في الترجمة أو خطأ أو إذا كنت ترغب ببساطة في تقديم ملاحظات، فلا تتردد في
-    الاتصال بي.</p>
+    لأي خطأ في الترجمة، أو خلل تقني، أو إذا كنت ترغب ببساطة في تقديم ملاحظات، فلا
+    تتردد في الاتصال بي.</p>
 
     <hr />
 
-    <strong>شكراً لاختيارك رحلاتي!</strong>'
-  arménien: '« Իմ Ճամփորդությունները » հավելվածը թույլ է տալիս ստեղծել անհատականացված
-    ճամփորդական քարտեզներ՝ ընտրելով այցելած երկրների մարզերը կամ շրջանները։
+    <strong>شكراً لاختيارك Mes Voyages!</strong>'
+  arménien: '<h3>📌 Նկարագրություն.</h3>
 
+    <p>Mes Voyages-ը հավելված է, որը թույլ է տալիս ստեղծել այցելած վայրերի անհատականացված
+    քարտեզներ:</p>
 
-    **Ինչպես օգտագործել:**
+    <h3>💻 Ինչպես օգտագործել.</h3>
 
+    <ol>
 
-    1. Մուտքագրեք ձեր անունը և անհատականացրեք ձեր պարամետրերը։
+    <li>Ստեղծեք ձեր պրոֆիլը և անհատականացրեք ձեր կարգավորումները:</li>
 
-    2. Ընտրեք այցելած վայրերը՝ ձեր նախընտրած մակարդակով։
+    <li>Ավելացրեք ձեր կատարած բոլոր ճամփորդությունները՝ ընտրելով այցելած վայրերը:</li>
 
-    3. Ստեղծեք ձեր քարտեզները։ Ձեր այցելությունների և պարամետրերի պահպանումը կատարվում
-    է քարտեզի պահպանման կամ ստեղծման կոճակներից մեկին սեղմելիս։ Եթե փոխեք ներդիրը՝
-    առանց պրոֆիլը փոխելու, ընտրված վայրերը չեն կորչի։
+    <li>Անհատականացրեք և ստեղծեք ձեր քարտեզները: Ձեր այցելությունների և կարգավորումների
+    պահպանումը կատարվում է, երբ սեղմում եք պահպանման կամ քարտեզների ստեղծման կոճակներից
+    մեկի վրա: Եթե փոխեք ներդիրը՝ առանց պրոֆիլը փոխելու, նշված վայրերը չեն կորչի:</li>
 
-    4. Պարզեք, թե որ երկրներն եք ամենից շատ այցելել, և ուսումնասիրեք մեր առաջարկությունները
-    ձեր հաջորդ արձակուրդի համար։
+    <li>Բացահայտեք զարմանալի տեղեկություններ ձեր ճամփորդությունների մասին և ուսումնասիրեք
+    մեր առաջարկությունները ձեր հաջորդ արձակուրդների համար:</li>
 
+    </ol>
 
-    **Հասանելի YAML ֆայլեր:**
+    <h3>❓ Կապ.</h3>
 
+    <p>Հավելվածն ինտուիտիվ է, սակայն ցանկացած հարցի համար դիմեք՝ mes.voyages.app@gmail.com:</p>
 
-    Տրամադրված `.yaml` ֆայլերը **լիարժեք մոդելներ** են, որոնք պարունակում են բոլոր
-    երկրները, մարզերը և շրջանները։
+    <p>Թարգմանությունները գեներացվել են ավտոմատ կերպով և չեն ստուգվել ձեռքով:
 
+    Թարգմանչական սխալների, բագերի կամ պարզապես հետադարձ կապ հաստատելու համար մի՛ վարան
+    կապնվել ինձ հետ:</p>
 
-    ▶️ Եթե նախընտրում եք այս մեթոդը՝ ձեր այցելած վայրերը նշելու համար, նախ copylez
-    մոդելները հավելվածի թղթապանակից։ Այնուհետև ջնջեք բոլոր չայցելած վայրերը և դրանք
-    բեռնեք հավելված։
+    <hr />
 
-
-    **Կապ:**
-
-
-    Հավելվածը նախատեսված է ինտուիտիվ լինելու համար, բայց ցանկացած հարցի դեպքում դիմեք
-    mes.voyages.app@gmail.com։
-
-
-    Հղումները ստեղծվել են ավտոմատ կերպով և ձեռքով չեն ստուգվել։
-
-    Ցանկացած թարգմանական անհամապատասխանության, սխալի դեպքում, կամ եթե ցանկանում եք
-    պարզապես կարծիք հայտնել, մի հապաղեք կապվել ինձ հետ։
-
-
-    ---
-
-
-    Շնորհակալություն «Իմ Ճամփորդությունները» ընտրելու համար։'
+    <strong>Շնորհակալություն Mes Voyages-ը ընտրելու համար:</strong>'
   basque: '<h3>📌 Deskribapena:</h3>
 
-    <p>Nire Bidaiek bidaia-mapa pertsonalizatuak sortzeko aukera ematen duen aplikazio
-    bat da, bisitatu ditugun herrialdeen eskualdeak edo departamentuak hautatuz.</p>
+    <p>Mes Voyages bisitatutako lekuen mapa pertsonalizatuak sortzeko aplikazio bat
+    da.</p>
 
     <h3>💻 Nola erabili:</h3>
 
     <ol>
 
-    <li>Idatzi zure izena eta pertsonalizatu zure ezarpenak.</li>
+    <li>Sortu zure profila eta pertsonalizatu zure konfigurazioak.</li>
 
-    <li>Hautatu bisitatu dituzun lekuak nahiago duzun granularitate-mailan.</li>
+    <li>Gehitu egindako bidaia guztiak bisitatutako lekuak hautatuz.</li>
 
-    <li>Sortu zure mapak! Zure bisiten eta ezarpenen gordetzeak botoi hauetakoren
-    bat sakatzean egiten da. fitxa bat aldatzen baduzu profil bat aldatu gabe, hautatutako
-    lekuak ez dira galtzen.</li>
+    <li>Kustomizatu eta sortu zure mapak! Zure bisitak eta konfigurazioak gorde egiten
+    dira mapa sortzeko edo gordetzeko botoietako batean klik egitean. Profila aldatu
+    gabe fitxategia aldatzen baduzu, markatutako lekuak ez dira galtzen.</li>
 
-    <li>Ezagutu zeintzuk diren gehien bisitatu dituzun herrialdeak eta arakatu gure
-    gomendioak zure hurrengo oporretarako!</li>
+    <li>Aurkitu zure bidaiei buruzko informazio harrigarria eta arakatu gure gomendapenak
+    zure hurrengo oporretarako!</li>
 
     </ol>
 
-    <h3>📋 Eskuragarri dauden YAML fitxategiak:</h3>
+    <h3>❓ Kontaktua:</h3>
 
-    <p>Emandako <code>.yaml</code> fitxategiak <strong>eredu osoak</strong> dira,
-    eskuragarri dauden herrialde, eskualde eta departamentu guztiak dituztenak.</p>
+    <p>Aplikazioa intuitiboa izan nahi da, baina edozein galderarako: mes.voyages.app@gmail.com.</p>
 
-    <p>▶️ Bisitatu dituzun lekuak adierazteko metodo hau nahiago baduzu, kopiatu aplikazioaren
-    karpetan dauden modeloak lehenik. Ondoren, ezabatu bisitatu gabeko leku guztiak
-    eta kargatu aplikazioan.</p>
-
-    <h3>❓ Harremanetarako:</h3>
-
-    <p>Aplikazioa intuitiboa izatea nahi da, baina edozein galdera egiteko: mes.voyages.app@gmail.com.</p>
-
-    <p>Itzulpenak automatikoki sortu dira eta ez dira eskuz berrikusi.
-
-    Itzulpen-anomalirik, akatsik edo besterik gabe iritzia eman nahi badidazu, ez
-    izan zalantzarik eta jarri harremanetan.</p>
+    <p>Itzulpenak automatikoki sortu dira eta ez dira eskuz egiaztatu. Itzulpen errore
+    bat, bug bat aurkitzean, edo iritzi bat eman nahi baduzu, ez hesitate kontaktu
+    hartzen naizarekin.</p>
 
     <hr />
 
-    <strong>Eskerrik asko Nire Bidaiek aukeratzeagatik!</strong>'
+    <strong>Eskerrik asko Mes Voyages aukeragatik!</strong>'
   bengali: '<h3>📌 বর্ণনা:</h3>
 
-    <p>আমার ভ্রমণ (Mes Voyages) হল একটি অ্যাপ যা আপনি যে দেশগুলি ভ্রমণ করেছেন তার
-    অঞ্চল বা বিভাগগুলি নির্বাচন করে কাস্টমাইজড ভ্রমণ মানচিত্র তৈরি করতে দেয়।</p>
+    <p>Mes Voyages হলো এমন একটি অ্যাপ যার মাধ্যমে আপনি আপনার ভ্রমণ করা স্থানগুলোর
+    ব্যক্তিগত মানচিত্র তৈরি করতে পারেন।</p>
 
-    <h3>💻 কিভাবে ব্যবহার করবেন:</h3>
+    <h3>💻 কীভাবে ব্যবহার করবেন:</h3>
 
     <ol>
 
-    <li>আপনার নাম লিখুন এবং আপনার সেটিংস কাস্টমাইজ করুন।</li>
+    <li>আপনার প্রোফাইল তৈরি করুন এবং আপনার সেটিংস কাস্টমাইজ করুন।</li>
 
-    <li>আপনি যে স্থানগুলি পরিদর্শন করেছেন সেগুলি আপনার পছন্দের গ্রানুলারিটি স্তরে
-    নির্বাচন করুন।</li>
+    <li>ভ্রমণ করা স্থানগুলো নির্বাচন করে আপনার সমস্ত ভ্রমণের তালিকা যোগ করুন।</li>
 
-    <li>আপনার মানচিত্র তৈরি করুন! আপনি সেভ বা ম্যাপ তৈরির বোতামে ক্লিক করলে আপনার
-    ভিজিট এবং সেটিংস সেভ হয়ে যাবে। আপনি যদি প্রোফাইল পরিবর্তন না করে ট্যাব পরিবর্তন
-    করেন, তবে নির্বাচিত স্থানগুলি হারানো হবে না।</li>
+    <li>আপনার মানচিত্রগুলো কাস্টমাইজ এবং তৈরি করুন! সেভ বা মানচিত্র তৈরির বোতামে ক্লিক
+    করলে আপনার ভ্রমণ এবং সেটিংস সেভ হয়ে যাবে। প্রোফাইল পরিবর্তন না করে আপনি যদি ট্যাব
+    পরিবর্তন করেন, তবে নির্বাচিত স্থানগুলো মুছে যাবে না।</li>
 
-    <li>আপনি কোন দেশগুলি সবচেয়ে বেশি পরিদর্শন করেছেন তা আবিষ্কার করুন এবং আপনার পরবর্তী
-    ছুটির জন্য আমাদের সুপারিশগুলি অন্বেষণ করুন!</li>
+    <li>আপনার ভ্রমণ সম্পর্কে আশ্চর্যজনক তথ্য জানুন এবং আপনার পরবর্তী ছুটির জন্য আমাদের
+    সুপারিশগুলো দেখুন!</li>
 
     </ol>
-
-    <h3>📋 উপলব্ধ YAML ফাইল:</h3>
-
-    <p>প্রদত্ত <code>.yaml</code> ফাইলগুলি <strong>সম্পূর্ণ টেমপ্লেট</strong> যাতে
-    সমস্ত উপলব্ধ দেশ, অঞ্চল এবং বিভাগ রয়েছে।</p>
-
-    <p>▶️ আপনি যদি আপনার পরিদর্শন করা স্থানগুলি নির্দেশ করার জন্য এই পদ্ধতিটি পছন্দ
-    করেন, তবে প্রথমে অ্যাপ্লিকেশনের ফোল্ডার থেকে টেমপ্লেটগুলি কপি করুন। তারপর, আপনি
-    পরিদর্শন করেননি এমন সমস্ত স্থানগুলি মুছে ফেলুন এবং সেগুলিতে অ্যাপ্লিকেশনটিতে লোড
-    করুন।</p>
 
     <h3>❓ যোগাযোগ:</h3>
 
-    <p>অ্যাপটি স্বজ্ঞাত হওয়ার উদ্দেশ্যে তৈরি, তবে যেকোনো প্রশ্নের জন্য: mes.voyages.app@gmail.com।</p>
+    <p>অ্যাপটি সহজবোধ্য করার চেষ্টা করা হয়েছে, তবে যেকোনো প্রশ্নের জন্য যোগাযোগ করুন:
+    mes.voyages.app@gmail.com।</p>
 
-    <p>অনুবাদগুলি স্বয়ংক্রিয়ভাবে তৈরি হয়েছে এবং ম্যানুয়ালি পর্যালোচনা করা হয়নি।</p>
-
-    <p>কোনো অনুবাদের ত্রুটি, বাগ বা আপনি কেবল প্রতিক্রিয়া জানাতে চাইলে, অনুগ্রহ করে
-    আমার সাথে যোগাযোগ করতে দ্বিধা করবেন না।</p>
+    <p>অনুবাদগুলো স্বয়ংক্রিয়ভাবে তৈরি করা হয়েছে এবং হাতে যাচাই করা হয়নি। অনুবাদের
+    কোনো ভুল, বাগ বা কোনো ফিডব্যাক দিতে চাইলে আমার সাথে যোগাযোগ করতে দ্বিধা করবেন
+    না।</p>
 
     <hr />
 
-    <strong>আমার ভ্রমণ (Mes Voyages) বেছে নেওয়ার জন্য আপনাকে ধন্যবাদ!</strong>'
+    <strong>Mes Voyages বেছে নেওয়ার জন্য ধন্যবাদ!</strong>'
   birman: '<h3>📌 ဖော်ပြချက် :</h3>
 
-    <p>ခရီးစဉ် ကျွန်တော့်ခရီးစဉ်များသည် ကျွန်တော်တို့သွားရောက်ခဲ့သည့် နိုင်ငံများ၏
-    ဒေသများ သို့မဟုတ် ပြည်နယ်များကို ရွေးချယ်ခြင်းဖြင့် ကိုယ်ပိုင်ခရီးသွားပုံများကို
-    ဖန်တီးနိုင်သည့် အက်ပ်တစ်ခု ဖြစ်ပါသည်။</p>
+    <p>Mes Voyages သည် မိမိသွားရောက်ခဲ့သော နေရာများအတွက် စိတ်ကြိုက်မြေပုံများ ဖန်တီးနိုင်သော
+    အက်ပလီကေးရှင်းတစ်ခု ဖြစ်ပါသည်။</p>
 
-    <h3>💻 မည်သို့အသုံးပြုရမည် :</h3>
+    <h3>💻 အသုံးပြုနည်း :</h3>
 
     <ol>
 
-    <li>သင်၏အမည်ကိုထည့်သွင်းပြီး သင်၏ဆက်တင်များကို စိတ်ကြိုက်ပြင်ဆင်ပါ။</li>
+    <li>သင့်ပရိုဖိုင်ကို ဖန်တီးပြီး သင့်ဆက်တင်များကို စိတ်ကြိုက်ပြင်ဆင်ပါ။</li>
 
-    <li>သင်လည်ပတ်ခဲ့သော နေရာများကို သင်နှစ်သက်ရာအဆင့်ဖြင့် ရွေးချယ်ပါ။</li>
+    <li>သွားရောက်ခဲ့သော နေရာများကို ရွေးချယ်ပြီး သင်သွားခဲ့သော ခရီးစဉ်အားလုံးကို ထည့်သွင်းပါ။</li>
 
-    <li>သင်၏ပုံများကို ဖန်တီးပါ။ သင်၏လည်ပတ်မှုများနှင့် ဆက်တင်များကို သိမ်းဆည်းခြင်းသည်
-    သိမ်းဆည်းခြင်း သို့မဟုတ် ပုံဖန်တီးခြင်း ခလုတ်တစ်ခုကို နှိပ်သောအခါ ဖြစ်ပေါ်ပါသည်။
-    ပရိုဖိုင်ကိုမပြောင်းဘဲ တက်ဘ်ကိုပြောင်းပါက၊ ရွေးချယ်ထားသော နေရာများသည် ဆုံးရှုံးမည်မဟုတ်ပါ။</li>
+    <li>သင့်မြေပုံများကို စိတ်ကြိုက်ပြင်ဆင်ပြီး ဖန်တီးပါ! သိမ်းဆည်းရန် သို့မဟုတ် မြေပုံဖန်တီးရန်
+    ခလုတ်တစ်ခုခုကို နှိပ်သည့်အခါတွင် သင့်ခရီးစဉ်များနှင့် ဆက်တင်များကို သိမ်းဆည်းပေးမည်ဖြစ်ပါသည်။
+    ပရိုဖိုင်မပြောင်းဘဲ တက်ဘ် (tab) ပြောင်းပါက ရွေးချယ်ထားသော နေရာများ ပျောက်ပျက်သွားမည်
+    မဟုတ်ပါ။</li>
 
-    <li>သင်အများဆုံးသွားရောက်ခဲ့သည့် နိုင်ငံများကို ရှာဖွေပြီး သင်၏နောက်အားလပ်ရက်များအတွက်
-    ကျွန်ုပ်တို့၏အကြံပြုချက်များကို စူးစမ်းလေ့လာပါ။</li>
+    <li>သင့်ခရီးစဉ်များနှင့် ပတ်သက်၍ အံ့အားသင့်ဖွယ် အချက်အလက်များကို ရှာဖွေပြီး သင့်နောက်လာမည့်
+    အားလပ်ရက်ခရီးစဉ်များအတွက် ကျွန်ုပ်တို့၏ အကြံပြုချက်များကို လေ့လာပါ!</li>
 
     </ol>
-
-    <h3>📋 ရရှိနိုင်သော YAML ဖိုင်များ :</h3>
-
-    <p>ပေးထားသော <code>.yaml</code> ဖိုင်များသည် ရရှိနိုင်သော နိုင်ငံများ၊ ဒေသများနှင့်
-    ပြည်နယ်များအားလုံး ပါဝင်သည့် <strong>ပြီးပြည့်စုံသောပုံစံများ</strong> ဖြစ်ပါသည်။</p>
-
-    <p>▶️ သင်ဤနည်းလမ်းကို သင်လည်ပတ်ခဲ့သော နေရာများကို ညွှန်ပြရန်အတွက် နှစ်သက်ပါက၊
-    ပထမဆုံးအနေဖြင့် အက်ပ်၏ ဖိုဒါရှိ ပုံစံများကို ကူးယူပါ။ ထို့နောက် မသွားရောက်ခဲ့သော
-    နေရာအားလုံးကို ဖယ်ရှားပြီး အက်ပ်ထဲသို့ တင်ပါ။</p>
 
     <h3>❓ ဆက်သွယ်ရန် :</h3>
 
-    <p>ဤအက်ပ်သည် အလိုအလျောက် နားလည်နိုင်ရန် ရည်ရွယ်ထားသော်လည်း၊ မည်သည့်မေးခွန်းများအတွက်မဆို
-    : mes.voyages.app@gmail.com.</p>
+    <p>အက်ပလီကေးရှင်းကို အသုံးပြုရလွယ်ကူအောင် ပြုလုပ်ထားသော်လည်း မေးမြန်းလိုသည်များရှိပါက
+    mes.voyages.app@gmail.com သို့ ဆက်သွယ်နိုင်ပါသည်။</p>
 
-    <p>ဘာသာပြန်ဆိုမှုများသည် အလိုအလျောက်ထုတ်လုပ်ထားခြင်းဖြစ်ပြီး လက်ဖြင့်ပြန်လည်စစ်ဆေးခြင်းမရှိပါ။</p>
-
-    <p>ဘာသာပြန်ဆိုမှု အမှားများ၊ အမှားများ သို့မဟုတ် တုံ့ပြန်ချက်တစ်ခုခု ပေးလိုပါက
-    ကျွန်ုပ်ကို ဆက်သွယ်ရန် မတွန့်ဆုတ်ပါနှင့်။</p>
+    <p>ဘာသာပြန်ဆိုချက်များကို အလိုအလျောက် ထုတ်ပေးထားခြင်းဖြစ်ပြီး လူကိုယ်တိုင် စစ်ဆေးထားခြင်း
+    မရှိပါ။ ဘာသာပြန်အမှား၊ bug များ သို့မဟုတ် အကြံပြုချက်ပေးလိုပါက ကျွန်ုပ်ထံ ဆက်သွယ်ရန်
+    ဝန်မလေးပါနှင့်။</p>
 
     <hr />
 
-    <strong>ကျွန်တော့်ခရီးစဉ်များကို ရွေးချယ်ပေးသည့်အတွက် ကျေးဇူးတင်ပါသည်။</strong>'
-  breton: '<h3>📌 Deskrivadur :</h3>
+    <strong>Mes Voyages ကို ရွေးချယ်ပေးသည့်အတွက် ကျေးဇူးတင်ပါသည်။</strong>'
+  breton: '<h3>📌 Deskripsion :</h3>
 
-    <p>Ma Beajoù zo un application a ro an tu da sevel kartennoù beajoù personel dre
-    choz an tiriadoù pe ar c''hontaeoù er broioù bet gwelet.</p>
+    <p>Mes Voyages eo ur aplikasion a lize kreiañ kartennoù personizaet eus ar lec''hoù
+    vizitaet.</p>
 
-    <h3>💻 Penaos implijout :</h3>
+    <h3>💻 Pegen rake :</h3>
 
     <ol>
 
-    <li>Skrivit hoc''h anv ha personelait ho parametradurioù.</li>
+    <li>Kreeit oc''h profil ha personizit oc''h paramatrez.</li>
 
-    <li>Dibabit ar plasoù bet gwelet ganeoc''h hervez an live donder a blij deoc''h.</li>
+    <li>Ajouteit an holl meurvezhoù beted o selet ar lec''hoù vizitaet.</li>
 
-    <li>Krouit ho kartennoù ! Ensav an evezh eus ho pezoù hag ho parametradurioù a
-    c''hoarvez pa glikit war unan eus ar boutonnoù ensav pe krouiñ kartenn. Ma cheñchit
-    skeuliad hep cheñch ho profil, n''eo ket kollet al lec''hioù merket.</li>
+    <li>Personizit ha kreeit oc''h kartennoù ! Ar savet oc''h vizitoù ha oc''h paramatrez
+    eo betet pa klikaite war un eus ar pezes savada neu kreiañ ar kartennoù. Ma kemret
+    tab hep kembrat profil, n''eo ket peril ar lec''hoù seletaet.</li>
 
-    <li>Gwelet peseurt broioù eo ar re bet gwelet ar muiañ ganeoc''h hag eztaolit
-    hon kinnigoù evit ho vakansioù da zont !</li>
+    <li>Dizoloite titroù digoadel war oc''h meurvezhoù ha lannet hon rekomendasionoù
+    evit oc''h vakasionoù c''hweze !</li>
 
     </ol>
 
-    <h3>📋 Restrigoù YAML a c''haller implijout :</h3>
+    <h3>❓ Kontakt :</h3>
 
-    <p>Ar restroù <code>.yaml</code> roet zo <strong>modellou klok</strong> enno an
-    holl vroioù, tiriadoù hag ar c''hontaeoù a c''haller implijout.</p>
+    <p>An aplikasion eo evit bezañ intuitif, met evit peph goulenn : mes.voyages.app@gmail.com.</p>
 
-    <p>▶️ Ma plij deoc''h an hent-mañ evit diskouez ar plasoù bet gwelet ganeoc''h,
-    eilet ar modellou a zo er c''harter an application da gentañ. Dilammet goude-se
-    an holl lec''hioù n''int ket bet gwelet ha karget int en application.</p>
+    <p>Ar trostroad eo betet kreet otomatik ha n''eo betet kontrollet manuellement.
 
-    <h3>❓ Darempred :</h3>
-
-    <p>An application a zo sklaer, met evit kement goulen: mes.voyages.app@gmail.com.</p>
-
-    <p>An troiou a zo bet savet otomatikel ha n''int ket bet sell ouzh gant tud.
-
-    Evit kement direizhder troiou, bug, pe ma fell deoc''h kement-ha-kement reiñ ho
-    ali, n''ho pefe ket aon da glask outañ.</p>
+    Evit peph difiz e trostroad, bug, neu ma c''hweze ober un retour, na droitit ket
+    me kontakte.</p>
 
     <hr />
 
-    <strong>Trugarez evit bezañ dibabet Ma Beajoù !</strong>'
+    <strong>Trugarez d''oc''h evit Mes Voyages !</strong>'
   bulgare: '<h3>📌 Описание:</h3>
 
-    <p>Моите пътувания е приложение, което ви позволява да създавате персонализирани
-    карти на пътувания, като избирате регионите или отделите на страните, които сте
-    посетили.</p>
+    <p>Mes Voyages е приложение, което позволява създаването на персонализирани карти
+    на местата, които сте посетили.</p>
 
     <h3>💻 Как да използвате:</h3>
 
     <ol>
 
-    <li>Въведете името си и персонализирайте настройките си.</li>
+    <li>Създайте своя профил и персонализирайте настройките си.</li>
 
-    <li>Изберете местата, които сте посетили, с предпочитаната от вас степен на детайлност.</li>
+    <li>Добавете всичките си пътувания, като изберете посетените места.</li>
 
-    <li>Създайте своите карти! Запазването на вашите посещения и настройки се извършва,
-    когато щракнете върху някой от бутоните за запазване или създаване на карти. Ако
-    смените раздела, без да променяте профила, отметнатите места няма да бъдат загубени.</li>
+    <li>Персонализирайте и създайте вашите карти! Запазването на посещенията и настройките
+    ви се извършва, когато кликнете върху един от бутоните за запазване или създаване
+    на карти. Ако смените раздела, без да сменяте профила, отбелязаните места няма
+    да бъдат изгубени.</li>
 
-    <li>Открийте кои държави сте посещавали най-често и разгледайте нашите препоръки
-    за следващата ви почивка!</li>
+    <li>Открийте изненадваща информация за вашите пътувания и разгледайте нашите препоръки
+    за следващата ви ваканция!</li>
 
     </ol>
 
-    <h3>📋 Налични YAML файлове:</h3>
-
-    <p>Предоставените <code>.yaml</code> файлове са <strong>пълни шаблони</strong>,
-    съдържащи всички налични държави, региони и отдели.</p>
-
-    <p>▶️ Ако предпочитате този метод, за да посочите местата, които сте посетили,
-    първо копирайте шаблоните, намиращи се в папката на приложението. След това изтрийте
-    всички непосетени места и ги заредете в приложението.</p>
-
     <h3>❓ Контакт:</h3>
 
-    <p>Приложението е замислено като интуитивно, но за всякакви въпроси: mes.voyages.app@gmail.com.</p>
+    <p>Приложението е създадено да бъде интуитивно, но за всякакви въпроси: mes.voyages.app@gmail.com.</p>
 
-    <p>Преводите са генерирани автоматично и не са били прегледани ръчно.
+    <p>Преводите са генерирани автоматично и не са били проверявани ръчно.
 
-    За всякакви аномалии в превода, грешки или ако просто искате да дадете обратна
-    връзка, не се колебайте да се свържете с мен.</p>
+    При всяка грешка в превода, бъг или ако просто желаете да оставите отзив, не се
+    колебайте да се свържете с мен.</p>
 
     <hr />
 
-    <strong>Благодарим ви, че избрахте Моите пътувания!</strong>'
+    <strong>Благодарим ви, че избрахте Mes Voyages!</strong>'
   catalan: '<h3>📌 Descripció:</h3>
 
-    <p>Els Meus Viatges és una aplicació per crear mapes de viatges personalitzats
-    seleccionant les regions o departaments dels països que s''han visitat.</p>
+    <p>Mes Voyages és una aplicació que permet crear mapes personalitzats dels llocs
+    visitats.</p>
 
     <h3>💻 Com utilitzar:</h3>
 
     <ol>
 
-    <li>Introduïu el vostre nom i personalitzeu la vostra configuració.</li>
+    <li>Creeu el vostre perfil i personalitzeu els vostres paràmetres.</li>
 
-    <li>Seleccioneu els llocs que heu visitat al nivell de granularitat que preferiu.</li>
+    <li>Afegiu tots els viatges que heu realitzat seleccionant els llocs visitats.</li>
 
-    <li>Creeu els vostres mapes! Guardar les vostres visites i la vostra configuració
-    es fa quan feu clic en un dels botons de desar o crear mapes. Si canvieu d''una
-    pestanya a una altra sense canviar de perfil, els llocs marcats no es perden.</li>
+    <li>Personalitzeu i creeu els vostres mapes! El desament de les vostres visites
+    i dels vostres paràmetres es realitza quan feu clic en un dels botons de desament
+    o de creació de mapes. Si canviau de pestanya sense canviar de perfil, els llocs
+    marcats no es perden.</li>
 
-    <li>Descobriu quins són els països que heu visitat més sovint i exploreu les nostres
-    recomanacions per a les vostres properes vacances!</li>
+    <li>Descobriu informació sorprenent sobre els vostres viatges i exploreu les nostres
+    recomanacions per a les vostres pròximes vacances!</li>
 
     </ol>
-
-    <h3>📋 Fitxers YAML disponibles:</h3>
-
-    <p>Els fitxers <code>.yaml</code> proporcionats són <strong>plantilles completes</strong>
-    que contenen tots els països, regions i departaments disponibles.</p>
-
-    <p>▶️ Si preferiu aquest mètode per indicar els llocs que heu visitat, copieu
-    primer les plantilles del directori de l''aplicació. Després, suprimiu tots els
-    llocs no visitats i carregueu-los a l''aplicació.</p>
 
     <h3>❓ Contacte:</h3>
 
-    <p>L''aplicació està pensada per ser intuïtiva, però per a qualsevol pregunta:
-    mes.voyages.app@gmail.com.</p>
+    <p>L''aplicació és intuïtiva, però per a qualsevol pregunta: mes.voyages.app@gmail.com.</p>
 
-    <p>Les traduccions s''han generat automàticament i no han estat revisades manualment.
+    <p>Les traduccions s''han generat automàticament i no s''han verificat manualment.
 
-    Per a qualsevol anomalia en la traducció, error o si simplement voleu fer una
-    observació, no dubteu a contactar-me.</p>
+    Per a qualsevol anomalia de traducció, error o si simplement voleu fer un comentari,
+    no dubteu a contactar amb mi.</p>
 
     <hr />
 
-    <strong>Gràcies per haver triat els Meus Viatges!</strong>'
-  corse: '<h3>📌 Descrizzione :</h3>
+    <strong>Gràcies per haver triat Mes Voyages!</strong>'
+  corse: '<h3>📌 Descrizione :</h3>
 
-    <p>I Me i Viaghji hè un''applicazione chì permette di creà carte di viaghji persunalizate
-    selezziunendu e rigione o i dipartimenti di i paesi chì si sò visitati.</p>
+    <p>Mes Voyages hè una applicazione chì permette di creà carte personalizate di
+    i lughi visitati.</p>
 
-    <h3>💻 Cumu aduprà :</h3>
+    <h3>💻 Cumu l''utilizà :</h3>
 
     <ol>
 
-    <li>Entra u vostru nome è persunalizate i vostri parametri.</li>
+    <li>Creà u vostru prufilu è personalizate i vostri parametri.</li>
 
-    <li>Selezziunate i lochi chì avete visitatu à u livellu di granularità chì preferite.</li>
+    <li>Aggiungite tutti i viaghji chì avete fattu selezziunando i lughi visitati.</li>
 
-    <li>Create e vostre carte ! U salvamentu di e vostre visite è di i vostri parametri
-    si face quandu cliccate nant''à unu di i buttone di salvamentu o di creazione
-    di e carte. Sè vo cambiate di tabulazione senza cambià di prufilu, i lochi spuntati
-    ùn si perdenu micca.</li>
+    <li>Personalizate è creà e vostre carte ! U salvamentu di e vostre visite è di
+    i vostri parametri si face quannu cliccate sopra unu di i buttuni di salvamentu
+    o di creazione di e carte. S''avete cambiatu scheda senza cambià prufilu, i lughi
+    scelti ùn sò micca persi.</li>
 
-    <li>Scopri quali sò i paesi chì avete visitatu u più è esplora e nostre raccomandazioni
-    per e vostre prossime vacanze !</li>
+    <li>Scuprite infurmazioni surprisante nantu à i vostri viaghji è esplurate e nostre
+    raccomandazioni per e vostre prossime vacanze !</li>
 
     </ol>
 
-    <h3>📋 Schede YAML dispunibuli :</h3>
+    <h3>❓ Cunttattu :</h3>
 
-    <p>E schede <code>.yaml</code> furnite sò <strong>mudelli cumpleti</strong> chì
-    cuntenenu tutti i paesi, rigione è dipartimenti dispunibuli.</p>
+    <p>L''applicazione si vole intuitiva, ma per ogni dumanda : mes.voyages.app@gmail.com.</p>
 
-    <p>▶️ Sè vo preferite stu metudu per indicà i lochi chì avete visitatu, copiate
-    prima i mudelli prisenti in u cartulare di l''applicazione. Sguassate dopu tutti
-    i lochi micca visitati è caricate li in l''applicazione.</p>
-
-    <h3>❓ Cuntattu :</h3>
-
-    <p>L''applicazione si vole intuitiva, ma per ogni quistione : mes.voyages.app@gmail.com.</p>
-
-    <p>E traduzzione sò state generate automaticamente è ùn sò micca state rilette
+    <p>E traduzzioni sò state generate automaticamenti è ùn sò micca state verificate
     manualmente.
 
-    Per ogni anomalia di traduzzione, bug o si vulete simpliciamente fà un ritornu,
-    ùn esitate micca à cuntattà mi.</p>
+    Per ogni anomalia di traduzzione, bug o s''avete semplicemente u desideriu di
+    mandà un commentu, ùn esitate micca à me cunttattà.</p>
 
     <hr />
 
-    <strong>Grazie d''avè sceltu I Me i Viaghji !</strong>'
+    <strong>Grazie per avè sceltu Mes Voyages !</strong>'
   coréen: '<h3>📌 설명:</h3>
 
-    <p>Mes Voyages는 방문한 국가의 지역 또는 부서를 선택하여 맞춤 여행 지도를 만들 수 있는 애플리케이션입니다.</p>
+    <p>Mes Voyages는 방문한 장소들의 맞춤형 지도를 만들 수 있는 애플리케이션입니다.</p>
 
     <h3>💻 사용 방법:</h3>
 
     <ol>
 
-    <li>이름을 입력하고 설정을 맞춤 설정하세요.</li>
+    <li>프로필을 생성하고 설정을 맞춤 설정하세요.</li>
 
-    <li>원하는 세부 수준으로 방문한 장소를 선택하세요.</li>
+    <li>방문한 장소를 선택하여 다녀온 모든 여행을 추가하세요.</li>
 
-    <li>지도를 만드세요! 방문 기록 및 설정은 저장 또는 지도 생성 버튼 중 하나를 클릭하면 저장됩니다. 프로필을 변경하지 않고 다른 탭으로
-    전환해도 선택한 장소는 사라지지 않습니다.</li>
+    <li>지도를 맞춤 설정하고 생성하세요! 저장 버튼이나 지도 생성 버튼을 클릭하면 방문 기록과 설정이 저장됩니다. 프로필을 변경하지 않고 탭을
+    이동해도 선택한 장소는 유지됩니다.</li>
 
-    <li>가장 많이 방문한 국가를 알아보고 다음 휴가에 대한 추천을 탐색하세요!</li>
+    <li>여행에 관한 놀라운 정보를 확인하고 다음 휴가를 위한 추천 장소를 탐색해 보세요!</li>
 
     </ol>
 
-    <h3>📋 사용 가능한 YAML 파일:</h3>
-
-    <p>제공된 <code>.yaml</code> 파일은 사용 가능한 모든 국가, 지역 및 부서를 포함하는 <strong>완전한 템플릿</strong>입니다.</p>
-
-    <p>▶️ 이 방법을 사용하여 방문한 장소를 표시하려면 먼저 애플리케이션 폴더에 있는 템플릿을 복사하세요. 그런 다음 방문하지 않은 모든 장소를
-    삭제하고 애플리케이션에 로드하세요.</p>
-
     <h3>❓ 문의:</h3>
 
-    <p>이 애플리케이션은 직관적으로 사용하도록 설계되었지만, 질문이 있으시면 mes.voyages.app@gmail.com으로 연락해주세요.</p>
+    <p>직관적인 앱이지만, 궁금한 점이 있으시면 mes.voyages.app@gmail.com으로 문의해 주세요.</p>
 
-    <p>번역은 자동으로 생성되었으며 수동으로 검토되지 않았습니다.
+    <p>본 번역은 자동 생성되었으며 수동으로 검토되지 않았습니다.
 
-    번역 오류, 버그가 있거나 단순히 피드백을 제공하고 싶으시면 언제든지 저에게 연락해주세요.</p>
+    번역 오류, 버그 또는 의견이 있으시면 언제든지 저에게 연락해 주세요.</p>
 
     <hr />
 
     <strong>Mes Voyages를 선택해 주셔서 감사합니다!</strong>'
-  danois: '### 📌 Beskrivelse:
-
-    "Mes Voyages" er en app, der giver dig mulighed for at oprette personlige rejsekort
-    ved at vælge de regioner eller afdelinger i lande, du har besøgt.
-
-
-    ### 💻 Sådan bruger du:
-
-    <ol>
-
-    <li>Indtast dit navn og tilpas dine indstillinger.</li>
-
-    <li>Vælg de steder, du har besøgt, med den detaljeringsgrad, du foretrækker.</li>
-
-    <li>Opret dine kort! Dine besøg og indstillinger gemmes, når du klikker på en
-    af gemme- eller kortoprettelsesknapperne. Hvis du skifter fane uden at skifte
-    profil, går de valgte steder ikke tabt.</li>
-
-    <li>Find ud af, hvilke lande du har besøgt mest, og udforsk vores anbefalinger
-    til din næste ferie!</li>
-
-    </ol>
-
-
-    ### 📋 Tilgængelige YAML-filer:
-
-    De medfølgende <code>.yaml</code>-filer er <strong>komplette skabeloner</strong>,
-    der indeholder alle tilgængelige lande, regioner og afdelinger.
-
-
-    ▶️ Hvis du foretrækker denne metode til at angive de steder, du har besøgt, skal
-    du først kopiere skabelonerne fra appens mappe. Slet derefter alle ikke-besøgte
-    steder og indlæs dem i appen.
-
-
-    ### ❓ Kontakt:
-
-    Appen er designet til at være intuitiv, men hvis du har spørgsmål: mes.voyages.app@gmail.com.
-
-
-    Oversættelserne er genereret automatisk og er ikke blevet manuelt gennemgået.
-
-    For eventuelle oversættelsesanomalier, fejl, eller hvis du blot ønsker at give
-    feedback, er du velkommen til at kontakte mig.
-
-
-    <hr />
-
-    <strong>Tak fordi du valgte Mes Voyages!</strong>'
+  danois: "<h3>\U0001F4CC Beskrivelse:</h3>\n<p>Mes Voyages er en app, der gør det\
+    \ muligt at oprette personlige kort over de steder, man har besøgt.</p>\n<h3>\U0001F4BB\
+    \ Sådan bruger du den:</h3>\n<ol>\n<li>Opret din profil og tilpas dine indstillinger.</li>\n\
+    <li>Tilføj alle de rejser, du har foretaget, ved at vælge de besøgte steder.</li>\n\
+    <li>Tilpas og opret dine kort! Gemning af dine besøg og indstillinger sker, når\
+    \ du klikker på en af knapperne til at gemme eller oprette kort. Hvis du skifter\
+    \ fane uden at skifte profil, går de markerede steder ikke tabt.</li>\n<li>Opdag\
+    \ overraskende informationer om dine rejser, og udforsk vores anbefalinger til\
+    \ din næste ferie!</li>\n</ol>\n<h3>❓ Kontakt:</h3>\n<p>Appen er tænkt som intuitiv,\
+    \ men hvis du har spørgsmål: mes.voyages.app@gmail.com.</p>\n<p>Oversættelserne\
+    \ er genereret automatisk og er ikke blevet kontrolleret manuelt. \nVed oversættelsesfejl,\
+    \ bugs eller hvis du blot ønsker at give feedback, tøv ikke med at kontakte mig.</p>\n\
+    <hr />\n<strong>Tak fordi du valgte Mes Voyages!</strong>"
   espagnol: '<h3>📌 Descripción:</h3>
 
-    <p>Mis Viajes es una aplicación que te permite crear mapas de viajes personalizados
-    seleccionando las regiones o departamentos de los países que has visitado.</p>
+    <p>Mes Voyages es una aplicación que permite crear mapas personalizados de los
+    lugares que hemos visitado.</p>
 
-    <h3>💻 Cómo usar:</h3>
+    <h3>💻 Cómo utilizarla:</h3>
 
     <ol>
 
-    <li>Introduce tu nombre y personaliza tu configuración.</li>
+    <li>Crea tu perfil y personaliza tus ajustes.</li>
 
-    <li>Selecciona los lugares que has visitado al nivel de detalle que prefieras.</li>
+    <li>Añade todos los viajes que hayas realizado seleccionando los lugares visitados.</li>
 
-    <li>¡Crea tus mapas! Tus visitas y tu configuración se guardan al hacer clic en
-    uno de los botones de guardar o crear mapas. Si cambias de pestaña sin cambiar
-    de perfil, los lugares marcados no se pierden.</li>
+    <li>¡Personaliza y crea tus mapas! El guardado de tus visitas y ajustes se realiza
+    al hacer clic en uno de los botones de guardado o de creación de mapas. Si cambias
+    de pestaña sin cambiar de perfil, los lugares seleccionados no se pierden.</li>
 
-    <li>¡Descubre qué países has visitado más y explora nuestras recomendaciones para
-    tus próximas vacaciones!</li>
+    <li>¡Descubre información sorprendente sobre tus viajes y explora nuestras recomendaciones
+    para tus próximas vacaciones!</li>
 
     </ol>
-
-    <h3>📋 Archivos YAML disponibles:</h3>
-
-    <p>Los archivos <code>.yaml</code> proporcionados son <strong>plantillas completas</strong>
-    que contienen todos los países, regiones y departamentos disponibles.</p>
-
-    <p>▶️ Si prefieres este método para indicar los lugares que has visitado, primero
-    copia las plantillas del directorio de la aplicación. Luego, elimina todos los
-    lugares no visitados y cárgalos en la aplicación.</p>
 
     <h3>❓ Contacto:</h3>
 
-    <p>La aplicación está diseñada para ser intuitiva, pero si tienes alguna pregunta:
-    mes.voyages.app@gmail.com.</p>
+    <p>La aplicación pretende ser intuitiva, pero para cualquier duda: mes.voyages.app@gmail.com.</p>
 
-    <p>Las traducciones se han generado automáticamente y no han sido revisadas manualmente.
+    <p>Las traducciones han sido generadas automáticamente y no han sido revisadas
+    manualmente.
 
-    Si encuentras alguna anomalía en la traducción, un error o simplemente deseas
-    dar tu opinión, no dudes en ponerte en contacto conmigo.</p>
+    Para cualquier anomalía de traducción, error o si simplemente desea enviar sus
+    comentarios, no dude en contactarme.</p>
 
     <hr />
 
-    <strong>¡Gracias por elegir Mis Viajes!</strong>'
-  esperanto: '<h3>📌 Priskribo:</h3>
+    <strong>¡Gracias por elegir Mes Voyages!</strong>'
+  esperanto: '<h3>📌 Priskribo :</h3>
 
-    <p>Miaj Vojaĝoj estas aplikaĵo por krei personigitajn vojaĝmapojn elektante regionojn
-    aŭ departementojn de l Vandaj landoj, kiujn oni vizitis.</p>
+    <p>Mes Voyages estas aplikaĵo permesanta krei personigitajn mapojn de la lokoj,
+    kiujn oni vizitis.</p>
 
-    <h3>💻 Kiel uzi:</h3>
+    <h3>💻 Kiel uzi :</h3>
 
     <ol>
 
-    <li>Enigu vian nomon kaj personecigu viajn agordojn.</li>
+    <li>Kreu vian profilon kaj personigu viajn agordojn.</li>
 
-    <li>Elektu la lokojn, kiujn vi vizitis, laŭ la preferata granula nivelo.</li>
+    <li>Aldonu ĉiujn vojaĝojn, kiujn vi faris, selektante la vizititajn lokojn.</li>
 
-    <li>Kreu viajn mapojn! Viaj vizitoj kaj viaj agordoj estas konservitaj kiam vi
-    klakas unu el la konservaj aŭ map-kreaj butonoj. Se vi ŝanĝas langeton sen ŝanĝi
-    profilon, la elektitaj lokoj ne perdiĝas.</li>
+    <li>Personigu kaj kreu viajn mapojn! La konservado de viaj vizitoj kaj agordoj
+    okazas kiam vi klakas sur unu el la butonoj por konservado aŭ kreado de mapoj.
+    Se vi ŝanĝas langeton sen ŝanĝi profilon, la markitaj lokoj ne estas perditaj.</li>
 
-    <li>Malkovru, kiuj estas la landoj, kiujn vi plej vizitis, kaj esploru niajn rekomendojn
+    <li>Malkovru surprizajn informojn pri viaj vojaĝoj kaj esploru niajn rekomendojn
     por viaj venontaj ferioj!</li>
 
     </ol>
 
-    <h3>📋 Haveblaj YAML-dosieroj:</h3>
+    <h3>❓ Kontakto :</h3>
 
-    <p>La provizitaj <code>.yaml</code> dosieroj estas <strong>kompletaj ŝablonoj</strong>
-    enhavantaj ĉiujn disponeblajn landojn, regionojn kaj departementojn.</p>
+    <p>La aplikaĵo celas esti intuicia, sed por ĉiu demando : mes.voyages.app@gmail.com.</p>
 
-    <p>▶️ Se vi preferas tiun metodon por indiki la lokojn, kiujn vi vizitis, unue
-    kopiu la ŝablonojn el la dosierujo de la aplikaĵo. Poste forigu ĉiujn ne-vizititajn
-    lokojn kaj ŝarĝu ilin en la aplikaĵon.</p>
+    <p>La tradukoj estis aŭtomate generitaj kaj ne estis mane kontrolitaj.
 
-    <h3>❓ Kontakti:</h3>
-
-    <p>La aplikaĵo celas esti intuicia, sed por ajna demando: mes.voyages.app@gmail.com.</p>
-
-    <p>La tradukoj estis aŭtomate generitaj kaj ne estis mane reviziitaj. Por ajna
-    traduka anomalio, cimo, aŭ se vi simple volas doni retro-informon, ne hezitu kontakti
+    Por ĉiu traduka eraro, bugo aŭ se vi simple volas doni respondon, ne hezitu kontakti
     min.</p>
 
     <hr />
 
-    <strong>Dankon pro elekti Miajn Vojaĝojn!</strong>'
+    <strong>Dankon pro la elekto de Mes Voyages !</strong>'
   estonien: '<h3>📌 Kirjeldus:</h3>
 
-    <p>Minu Reisid on rakendus, mis võimaldab luua isikupäraseid reisikaarte, valides
-    külastatud riikide piirkonnad või osakonnad.</p>
+    <p>Mes Voyages on rakendus, mis võimaldab luua personaliseeritud kaarte külastatud
+    kohtadest.</p>
 
     <h3>💻 Kuidas kasutada:</h3>
 
     <ol>
 
-    <li>Sisestage oma nimi ja kohandage oma seadeid.</li>
+    <li>Looge oma profiil ja personaliseerige oma seaded.</li>
 
-    <li>Valige külastatud kohad endale sobiva detailitasemega.</li>
+    <li>Lisage kõik oma reisid, valides külastatud kohad.</li>
 
-    <li>Looge oma kaardid! Teie külastuste ja seadete salvestamine toimub, kui klõpsate
-    ühel salvestamis- või kaardi loomise nuppudest. Kui vahetate vahekaarti ilma profiili
-    vahetamata, pole märgitud kohad kadunud.</li>
+    <li>Kohandage ja looge oma kaardid! Külastuste ja sätete salvestamine toimub,
+    kui klõpsate salvestamise või kaartide loomise nupule. Kui vahetate vahekaardit
+    ilma profiili vahetamiseta, ei kao märgitud kohad.</li>
 
-    <li>Avastage, milliseid riike olete enim külastanud, ja tutvuge meie soovitustega
-    järgmiseks puhkuseks!</li>
+    <li>Avastage üllatavat infot oma reiside kohta ja tutvuge meie soovitustega teie
+    järgmisteks puhkusteks!</li>
 
     </ol>
 
-    <h3>📋 Saadaval YAML-failid:</h3>
-
-    <p>Esitatud <code>.yaml</code>-failid on <strong>täielikud mallid</strong>, mis
-    sisaldavad kõiki saadaolevaid riike, piirkondi ja osakondi.</p>
-
-    <p>▶️ Kui eelistate seda meetodit oma külastatud kohtade näitamiseks, kopeerige
-    esmalt rakenduse kaustas olevad mallid. Seejärel kustutage kõik külastamata kohad
-    ja laadige need rakendusse.</p>
-
     <h3>❓ Kontakt:</h3>
 
-    <p>Rakendus on mõeldud olema intuitiivne, kuid küsimuste korral kirjutage aadressile:
-    mes.voyages.app@gmail.com.</p>
+    <p>Rakendus on mõeldud intuitiivseks, kuid kõikide küsimuste korral: mes.voyages.app@gmail.com.</p>
 
-    <p>Tõlked on genereeritud automaatselt ja neid ei ole käsitsi üle vaadatud.
+    <p>Tõlked on genereeritud automaatselt ega ole kontrollitud käsitsi.
 
-    Tõlke anomaaliate, vigade või lihtsalt tagasiside korral võtke minuga julgelt
-    ühendust.</p>
+    Tõlkevea, vea või lihtsalt tagasiside andmiseks võtke minuga julgelt ühendust.</p>
 
     <hr />
 
-    <strong>Täname, et valisite Minu Reisid!</strong>'
+    <strong>Tänud, et valisite Mes Voyages!</strong>'
   finnois: '<h3>📌 Kuvaus:</h3>
 
-    <p>Matkani on sovellus, jonka avulla voit luoda mukautettuja matkakarttoja valitsemalla
-    maanosat tai alueet maista, joissa olet käynyt.</p>
+    <p>Mes Voyages on sovellus, jolla voi luoda personoituja karttoja vierailluista
+    paikoista.</p>
 
-    <h3>💻 Käyttö:</h3>
+    <h3>💻 Käyttöohjeet:</h3>
 
     <ol>
 
-    <li>Syötä nimesi ja mukauta asetuksiasi.</li>
+    <li>Luo profiilisi ja mukauta asetuksesi.</li>
 
-    <li>Valitse paikat, joissa olet käynyt, haluamallasi tarkkuudella.</li>
+    <li>Lisää kaikki tekemäsi matkat valitsemalla vieraillut paikat.</li>
 
-    <li>Luo karttasi! Vierailujesi ja asetustesi tallennus tapahtuu, kun napsautat
-    jotain tallennus- tai kartanluontipainikkeista. Jos vaihdat välilehteä muuttamatta
-    profiilia, valitut paikat eivät katoa.</li>
+    <li>Muokkaa ja luo karttasi! Käyntiesi ja asetustesi tallennus tapahtuu, kun napsautat
+    tallennus- tai karttanluontipainiketta. Jos vaihdat välilehteä vaihtamatta profiilia,
+    valitut paikat eivät katoa.</li>
 
-    <li>Selvitä, missä maissa olet käynyt eniten, ja tutustu suosituksiimme seuraaville
+    <li>Löydä yllättäviä tietoja matkoistasi ja tutustu suosituksiimme seuraaville
     lomillesi!</li>
 
     </ol>
 
-    <h3>📋 Saatavilla olevat YAML-tiedostot:</h3>
-
-    <p>Annetut <code>.yaml</code>-tiedostot ovat <strong>täydellisiä malleja</strong>,
-    jotka sisältävät kaikki saatavilla olevat maat, alueet ja maakunnat.</p>
-
-    <p>▶️ Jos haluat osoittaa vierailemasi paikat tällä menetelmällä, kopioi ensin
-    sovelluksen kansiossa olevat mallit. Poista sitten kaikki vierailemattomat paikat
-    ja lataa ne sovellukseen.</p>
-
     <h3>❓ Yhteystiedot:</h3>
 
-    <p>Sovelluksen on tarkoitus olla intuitiivinen, mutta jos sinulla on kysyttävää:
-    mes.voyages.app@gmail.com.</p>
+    <p>Sovellus on suunniteltu intuitiiviseksi, mutta jos sinulla on kysyttävää: mes.voyages.app@gmail.com.</p>
 
-    <p>Käännökset on luotu automaattisesti, eivätkä ne ole ihmisten tarkistamia.
+    <p>Käännökset on luotu automaattisesti, eikä niitä ole tarkistettu manuaalisesti.
 
-    Jos löydät käännösvirheitä, bugeja tai haluat yksinkertaisesti antaa palautetta,
-    älä epäröi ottaa minuun yhteyttä.</p>
+    Jos huomaat käännösvirheen, bugin tai haluat antaa palautetta, älä epäröi ottaa
+    yhteyttä.</p>
 
     <hr />
 
-    <strong>Kiitos, että valitsit Matkani!</strong>'
+    <strong>Kiitos, että valitsit Mes Voyages!</strong>'
   français: '<h3>📌 Description :</h3>
 
-    <p>Mes Voyages est une application permettant de créer des cartes de voyages personnalisées
-    en sélectionnant les régions ou départements des pays que l''on a visités.</p>
+    <p>Mes Voyages est une application permettant de créer des cartes personnalisées
+    des lieux qu''on a visités.</p>
 
     <h3>💻 Comment utiliser :</h3>
 
     <ol>
 
-    <li>Saisissez votre nom et personnalisez vos paramètres.</li>
+    <li>Créez votre profil et personnalisez vos paramètres.</li>
 
-    <li>Sélectionnez les lieux que vous avez visités au niveau de granularité que
-    vous préférez.</li>
+    <li>Ajoutez l''nsemble des voyages que vous avez effectués en sélectionnant les
+    lieux visités.</li>
 
-    <li>Créez vos cartes ! La sauvegarde de vos visites et de vos paramètres se fait
-    lorsque vous cliquez sur un des boutons de sauvegarde ou de création des cartes.
-    Si vous changez d''onglet sans changer de profil, les lieux cochés ne sont pas
-    perdus.</li>
+    <li>Customisez et créez vos cartes ! La sauvegarde de vos visites et de vos paramètres
+    se fait lorsque vous cliquez sur un des boutons de sauvegarde ou de création des
+    cartes. Si vous changez d''onglet sans changer de profil, les lieux cochés ne
+    sont pas perdus.</li>
 
-    <li>Découvrez quels sont les pays que vous avez le plus visités et explorez nos
-    recommandations pour vos prochaines vacances !</li>
+    <li>Découvrez des informations surprenantes à propos de vos voyages et explorez
+    nos recommandations pour vos prochaines vacances !</li>
 
     </ol>
-
-    <h3>📋 Fichiers YAML disponibles :</h3>
-
-    <p>Les fichiers <code>.yaml</code> fournis sont des <strong>modèles complets</strong>
-    contenant tous les pays, régions et départements disponibles.</p>
-
-    <p>▶️ Si vous préférez cette méthode afin d''indiquer les lieux que vous avez
-    visités, copiez d''abord les modèles présents dans le dossier de l''application.
-    Supprimez ensuite tous les lieux non visités et chargez-les dans l''application.</p>
 
     <h3>❓ Contact :</h3>
 
     <p>L''application se veut intuitive, mais pour toute question : mes.voyages.app@gmail.com.</p>
 
-    <p>Les traductions ont été générées automatiquement et n''ont pas été relues manuellement.
+    <p>Les traductions ont été générées automatiquement et n''ont pas été vérifiées
+    manuellement.
 
     Pour toute anomalie de traduction, bug ou si vous souhaitez tout simplement effectuer
     un retour, n''hésitez pas à me contacter.</p>
@@ -921,1996 +696,1724 @@
     <hr />
 
     <strong>Merci d’avoir choisi Mes Voyages !</strong>'
-  gallois: Diolch am ddewis Fy Nghyflachod!
-  grec: '<h3>📌 Περιγραφή:</h3>
+  gallois: '<h3>📌 Disgrifiad :</h3>
 
-    <p>Το "Τα Ταξίδια μου" είναι μια εφαρμογή που επιτρέπει τη δημιουργία προσαρμοσμένων
-    χαρτών ταξιδιών επιλέγοντας τις περιοχές ή τα διαμερίσματα των χωρών που έχετε
-    επισκεφθεί.</p>
+    <p>Mae Mes Voyages yn ap sy''n caniatáu i chi greu mapiau personoledig o''r mannau
+    rydych chi wedi ymweld â nhw.</p>
 
-    <h3>💻 Πώς να χρησιμοποιήσετε:</h3>
+    <h3>💻 Sut i''w ddefnyddio :</h3>
 
     <ol>
 
-    <li>Εισαγάγετε το όνομά σας και προσαρμόστε τις ρυθμίσεις σας.</li>
+    <li>Creu eich proffil a personoleiddio eich gosodiadau.</li>
 
-    <li>Επιλέξτε τα μέρη που έχετε επισκεφθεί στο επίπεδο λεπτομέρειας που προτιμάτε.</li>
+    <li>Ychwanegwch yr holl daithiau rydych chi wedi eu gwneud trwy ddewis y mannau
+    rydych chi wedi ymweld â nhw.</li>
 
-    <li>Δημιουργήστε τους χάρτες σας! Η αποθήκευση των επισκέψεών σας και των ρυθμίσεών
-    σας γίνεται όταν κάνετε κλικ σε ένα από τα κουμπιά αποθήκευσης ή δημιουργίας χάρτη.
-    Εάν αλλάξετε καρτέλα χωρίς να αλλάξετε προφίλ, τα επιλεγμένα μέρη δεν χάνονται.</li>
+    <li>Personoleiddiwch a chreuwch eich mapiau! Cadwir eich ymweliadau a''ch gosodiadau
+    pan fyddwch chi''n clicio ar un o''r botymau cadw neu greu mapiau. Os ydych chi''n
+    newid tab heb newid proffil, ni colwir y mannau wedi''u taclo.</li>
 
-    <li>Ανακαλύψτε ποιες χώρες έχετε επισκεφθεί περισσότερο και εξερευνήστε τις προτάσεις
-    μας για τις επόμενες διακοπές σας!</li>
+    <li>Dyrchwelwch wybodaeth syrthio am eich taithiau ac archwiliwch ein rhagrwymion
+    ar gyfer eich gwyliau nesaf!</li>
 
     </ol>
 
-    <h3>📋 Διαθέσιμα αρχεία YAML:</h3>
+    <h3>❓ Cysylltu :</h3>
 
-    <p>Τα παρεχόμενα αρχεία <code>.yaml</code> είναι <strong>πλήρη πρότυπα</strong>
-    που περιέχουν όλες τις διαθέσιμες χώρες, περιοχές και διαμερίσματα.</p>
+    <p>Mae''r ap yn bwriadu bod yn syml, ond ar gyfer unrhyw gwestiwn: mes.voyages.app@gmail.com.</p>
 
-    <p>▶️ Εάν προτιμάτε αυτήν τη μέθοδο για να υποδείξετε τα μέρη που έχετε επισκεφθεί,
-    αντιγράψτε πρώτα τα πρότυπα που βρίσκονται στον φάκελο της εφαρμογής. Στη συνέχεια,
-    διαγράψτε όλα τα μέρη που δεν έχετε επισκεφθεί και φορτώστε τα στην εφαρμογή.</p>
+    <p>Caeir y cyfieithiadau''n awtomatig ac nid ywnt wedi''u gwirio''n law.
+
+    Ar gyfer unrhyw anomali cyfieithiad, bug neu os ydych chi eisiau rhoi adborth,
+    pellychwch ddim rhag cysylltu ân.</p>
+
+    <hr />
+
+    <strong>Diolch am ddewis Mes Voyages!</strong>'
+  grec: '<h3>📌 Περιγραφή:</h3>
+
+    <p>Το Mes Voyages είναι μια εφαρμογή που σας επιτρέπει να δημιουργήσετε εξατομικευμένους
+    χάρτες των τοποθεσιών που έχετε επισκεφθεί.</p>
+
+    <h3>💻 Πώς να το χρησιμοποιήσετε:</h3>
+
+    <ol>
+
+    <li>Δημιουργήστε το προφίλ σας και προσαρμόστε τις ρυθμίσεις σας.</li>
+
+    <li>Προσθέστε όλα τα ταξίδια που έχετε κάνει επιλέγοντας τις τοποθεσίες που επισκεφθήκατε.</li>
+
+    <li>Προσαρμόστε και δημιουργήστε τους χάρτες σας! Η αποθήκευση των επισκέψεών
+    σας και των ρυθμίσεών σας γίνεται όταν κάνετε κλικ σε ένα από τα κουμπιά αποθήκευσης
+    ή δημιουργίας χαρτών. Εάν αλλάξετε καρτέλα χωρίς να αλλάξετε προφίλ, οι επιλεγμένες
+    τοποθεσίες δεν χάνονται.</li>
+
+    <li>Ανακαλύψτε εκπληκτικές πληροφορίες για τα ταξίδια σας και εξερευνήστε τις
+    προτάσεις μας για τις επόμεσες διακοπές σας!</li>
+
+    </ol>
 
     <h3>❓ Επικοινωνία:</h3>
 
-    <p>Η εφαρμογή έχει σχεδιαστεί για να είναι διαισθητική, αλλά για οποιαδήποτε ερώτηση:
+    <p>Η εφαρμογή είναι σχεδιασμένη να είναι διαισθητική, αλλά για οποιαδήποτε ερώτηση:
     mes.voyages.app@gmail.com.</p>
 
-    <p>Οι μεταφράσεις έχουν παραχθεί αυτόματα και δεν έχουν ελεγχθεί χειροκίνητα.
+    <p>Οι μεταφράσεις δημιουργήθηκαν αυτόματα και δεν έχουν ελεγχθεί χειροκίνητα.
 
-    Για οποιαδήποτε ανωμαλία στη μετάφραση, σφάλμα ή εάν απλώς θέλετε να δώσετε σχόλια,
+    Για οποιοδήποτε σφάλμα μετάφρασης, bug ή εάν θέλετε απλώς να κάνετε μια αναφορά,
     μη διστάσετε να επικοινωνήσετε μαζί μου.</p>
 
     <hr />
 
-    <strong>Σας ευχαριστούμε που επιλέξατε το "Τα Ταξίδια μου"!</strong>'
-  grec ancien: Εὐχαριστῶ ὅτι ἐπελέξατε Τὰ Ἐμά Ὑπομνήματα Ὑμῶν Ὑπομνημάτων Ὑπομνημάτων
+    <strong>Ευχαριστούμε που επιλέξατε το Mes Voyages!</strong>'
+  grec ancien: '<h3>📌 Περιγραφή :</h3>
+
+    <p>Mes Voyages ὄργανον ἐστὶ ἐπιτρέπον χάρτους ἰδικούς ποιῆσαι τῶν τόπων οἳ ἐπεσκέψαμεν.</p>
+
+    <h3>💻 Πῶς χρῆσθαι :</h3>
+
+    <ol>
+
+    <li>Ποιεῖτε τὸν ὑμῶν χαρακτῆρα καὶ τὴν ὑμετέραν τάξιν διευθέтите.</li>
+
+    <li>Προστίθετε πάντας τοὺς πλάνους οἳ ἐγένετο, τοὺς ἐπισκεπτόμενους τόπους ἐπιλέγοντες.</li>
+
+    <li>Διαμορφῶτε καὶ ποιήσατε τοὺς ὑμετέρους χάρτους! ἡ δὲ σώζωσις τῶν ἐπισκέψεων
+    καὶ τῆς τάξεως γίνεται ὅταν ἅψῃτε ἐνὸς τῶν σημείων τῆς σώσεως ἢ τῆς ποιήσεως τῶν
+    χαρτών. εἰ δὲ τμήμα μεταβάλετε ἀμὴταγόντα τὸν χαρακτῆρα, οἱ ἐκλεγμένοι τόποι οὐχ
+    ἀπολλύνται.</li>
+
+    <li>Γνῶτε πράγματα θαυμαστά περὶ τῶν ὑμετέρων πλάνων καὶ ἐξερευνήσατε τὰς ἡμετέρας
+    συμβουλὰς περὶ τῶν ἐλθουσῶν σχολῶν!</li>
+
+    </ol>
+
+    <h3>❓ Ἐπαφή :</h3>
+
+    <p>τὸ ὄργανον εὐνόητον εἶναι θέλεται, περὶ δὲ παντὸς ἐρωτήματος : mes.voyages.app@gmail.com.</p>
+
+    <p>αἱ μεταφράσεις αὐτομάτως ἐγένετο καὶ χειριστῶς οὐκ ἐξετάσθησαν.
+
+    περὶ παντὸς σφάλματος μεταφράσεως, bug, ἢ εἰ βούλεσθε ἀποφάνεσθαι, μὴ δειλιάσατε
+    ἐπικοινωνήσαι μετ'' ἐμοῦ.</p>
+
+    <hr />
+
+    <strong>Χάρις ὅτι Mes Voyages ἐξελέξατε!</strong>'
   géorgien: '<h3>📌 აღწერა:</h3>
 
-    <p>ჩემი მოგზაურობა არის აპლიკაცია, რომელიც საშუალებას გაძლევთ შექმნათ მორგებული
-    მოგზაურობის რუკები ქვეყნების რეგიონების ან დეპარტამენტების არჩევით, რომლებიც გიმოგზაურიათ.</p>
+    <p>Mes Voyages არის აპლიკაცია, რომელიც საშუალებას გაძლევთ შექმნათ თქვენს მიერ
+    ნასულად ადგილების პერსონალიზებული რუკები.</p>
 
     <h3>💻 როგორ გამოვიყენოთ:</h3>
 
     <ol>
 
-    <li>შეიყვანეთ თქვენი სახელი და მოარგეთ თქვენი პარამეტრები.</li>
+    <li>შექმენით თქვენი პროფილის და მოარგეთ პარამეტრები.</li>
 
-    <li>აირჩიეთ ადგილები, რომლებიც გიმოგზაურიათ თქვენთვის სასურველი დეტალიზაციით.</li>
+    <li>დაამატეთ ყველა თქვენი განხორციელებული მოგზაურობა ნასულად ადგილების არჩევით.</li>
 
-    <li>შექმენით თქვენი რუკები! თქვენი ვიზიტებისა და პარამეტრების შენახვა ხდება, როდესაც
-    დააწკაპუნებთ შენახვის ან რუკების შექმნის ღილაკებს. თუ ჩანართს შეცვლით პროფილის
-    შეცვლის გარეშე, მონიშნული ადგილები არ იკარგება.</li>
+    <li>მოარგეთ და შექმენით თქვენი რუკები! თქვენი ვიზიტებისა და პარამეტრების შენახვა
+    ხდება შენახვის ან რუკების შექმნის ღილაკებზე დაჭერისას. თუ შეცვლით ჩანართს პროფილის
+    შეცვლის გარეშე, მონიშნული ადგილები არ დაიკარგება.</li>
 
-    <li>გაარკვიეთ, რომელი ქვეყნები გაქვთ ყველაზე მეტად ნანახი და დაათვალიერეთ ჩვენი
-    რეკომენდაციები თქვენი შემდეგი შვებულებისთვის!</li>
+    <li>აღმოაჩინეთ გასაკვირი ინფორმაცია თქვენი მოგზაურობების შესახებ და გაეცანით ჩვენს
+    რეკომენდაციებს თქვენი შემდეგი არდადეგისთვის!</li>
 
     </ol>
-
-    <h3>📋 ხელმისაწვდომი YAML ფაილები:</h3>
-
-    <p>მოწოდებული <code>.yaml</code> ფაილები არის <strong>სრული შაბლონები</strong>,
-    რომლებიც შეიცავს ყველა ხელმისაწვდომ ქვეყანას, რეგიონს და დეპარტამენტს.</p>
-
-    <p>▶️ თუ ამ მეთოდს ანიჭებთ უპირატესობას იმ ადგილების მითითებისთვის, რომლებიც გიმოგზაურიათ,
-    ჯერ დააკოპირეთ შაბლონები აპლიკაციის საქაღალდიდან. შემდეგ წაშალეთ ყველა დაუგეგმავი
-    ადგილი და ჩატვირთეთ ისინი აპლიკაციაში.</p>
 
     <h3>❓ კონტაქტი:</h3>
 
-    <p>აპლიკაცია ინტუიციური უნდა იყოს, მაგრამ ნებისმიერი შეკითხვისთვის: mes.voyages.app@gmail.com.</p>
+    <p>აპლიკაცია ინტუიციურია, თუმცა ნებისმიერი კითხვის შემთხვევაში: mes.voyages.app@gmail.com.</p>
 
-    <p>თარგმანები ავტომატურად იქნა გენერირებული და არ იქნა გადახედილი ხელით.
+    <p>თარგმანები გენერირებულია ავტომატურად და არ გაგივლია მანუალური შემოწმება.
 
-    ნებისმიერი თარგმანის ანომალიის, შეცდომის ან უბრალოდ უკუკავშირის სურვილის შემთხვევაში,
-    გთხოვთ, დამიკავშირდეთ.</p>
+    თარგმანის შეცდომის, ბაგის ან უბრალოდ უკუკავშირის შემთხვევაში, ნუ მოგერიდებათ ჩემთან
+    დაკავშირება.</p>
 
     <hr />
 
-    <strong>გმადლობთ, რომ აირჩიეთ ჩემი მოგზაურობა!</strong>'
-  hindi: '<h3>📌 विवरण :</h3>
+    <strong>გმადლობთ, რომ აირჩიეთ Mes Voyages!</strong>'
+  hindi: '<h3>📌 विवरण:</h3>
 
-    <p>Mes Voyages एक एप्लिकेशन है जो उन देशों के क्षेत्रों या विभागों का चयन करके
-    अनुकूलित यात्रा मानचित्र बनाने की अनुमति देता है जहाँ आप गए हैं।</p>
+    <p>Mes Voyages एक ऐसा एप्लिकेशन है जो उन जगहों के अनुकूलित मानचित्र बनाने की अनुमति
+    देता है जहाँ आप गए हैं।</p>
 
-    <h3>💻 कैसे उपयोग करें :</h3>
+    <h3>💻 कैसे उपयोग करें:</h3>
 
     <ol>
 
-    <li>अपना नाम दर्ज करें और अपनी सेटिंग्स को अनुकूलित करें।</li>
+    <li>अपनी प्रोफ़ाइल बनाएं और अपनी सेटिंग्स को अनुकूलित करें।</li>
 
-    <li>उन स्थानों का चयन करें जहाँ आप अपनी पसंद की दानेदारता पर गए हैं।</li>
+    <li>विजिट की गई जगहों को चुनकर अपनी सभी यात्राओं को जोड़ें।</li>
 
-    <li>अपने नक्शे बनाएँ! आपकी यात्राओं और आपकी सेटिंग्स को तब सहेजा जाता है जब आप
-    सहेजें या नक्शे बनाने वाले बटनों में से किसी एक पर क्लिक करते हैं। यदि आप प्रोफ़ाइल
-    बदले बिना एक टैब से दूसरे टैब पर जाते हैं, तो चेक किए गए स्थान खो नहीं जाते हैं।</li>
+    <li>अपने मानचित्रों को अनुकूलित करें और बनाएं! आपकी यात्राओं और सेटिंग्स का बैकअप
+    तब होता है जब आप सेव या मैप निर्माण बटन में से किसी एक पर क्लिक करते हैं। यदि
+    आप प्रोफ़ाइल बदले बिना टैब बदलते हैं, तो चयनित स्थान नष्ट नहीं होते हैं।</li>
 
-    <li>पता करें कि आपने किन देशों में सबसे अधिक यात्रा की है और अपनी अगली छुट्टियों
-    के लिए हमारी सिफारिशों का अन्वेषण करें!</li>
+    <li>अपनी यात्राओं के बारे में आश्चर्यजनक जानकारी खोजें और अपनी अगली छुट्टियों
+    के लिए हमारी सिफारिशें देखें!</li>
 
     </ol>
 
-    <h3>📋 उपलब्ध YAML फ़ाइलें :</h3>
+    <h3>❓ संपर्क:</h3>
 
-    <p>प्रदान की गई <code>.yaml</code> फ़ाइलें **पूर्ण टेम्पलेट** हैं जिनमें सभी उपलब्ध
-    देश, क्षेत्र और विभाग शामिल हैं।</p>
-
-    <p>▶️ यदि आप उन स्थानों को इंगित करने के लिए इस विधि को पसंद करते हैं जहाँ आप
-    गए थे, तो पहले एप्लिकेशन फ़ोल्डर में मौजूद टेम्पलेट्स को कॉपी करें। फिर सभी गैर-यात्रा
-    किए गए स्थानों को हटा दें और उन्हें एप्लिकेशन में लोड करें।</p>
-
-    <h3>❓ संपर्क :</h3>
-
-    <p>एप्लिकेशन को सहज होने के लिए डिज़ाइन किया गया है, लेकिन किसी भी प्रश्न के लिए:
+    <p>एप्लिकेशन को सहज बनाने का प्रयास किया गया है, लेकिन किसी भी प्रश्न के लिए:
     mes.voyages.app@gmail.com।</p>
 
-    <p>अनुवाद स्वचालित रूप से उत्पन्न किए गए थे और उन्हें मैन्युअल रूप से नहीं पढ़ा
-    गया था।
+    <p>अनुवाद स्वचालित रूप से उत्पन्न किए गए हैं और मैन्युअल रूप से सत्यापित नहीं
+    किए गए हैं।
 
-    किसी भी अनुवाद संबंधी विसंगति, बग के लिए, या यदि आप बस प्रतिक्रिया देना चाहते
-    हैं, तो मुझसे संपर्क करने में संकोच न करें।</p>
+    किसी भी अनुवाद त्रुटि, बग के लिए या यदि आप केवल फीडबैक देना चाहते हैं, तो बेझिझक
+    मुझसे संपर्क करें।</p>
 
     <hr />
 
-    <strong>Mes Voyages को चुनने के लिए धन्यवाद!</strong>'
+    <strong>Mes Voyages चुनने के लिए धन्यवाद!</strong>'
   hongrois: '<h3>📌 Leírás:</h3>
 
-    <p>Az Utazásaim egy olyan alkalmazás, amellyel egyéni utazási térképeket hozhat
-    létre az általa meglátogatott országok régióinak vagy megyéinek kiválasztásával.</p>
+    <p>A Mes Voyages egy olyan alkalmazás, amely lehetővé teszi a meglátogatott helyek
+    egyedi térképeinek létrehozását.</p>
 
-    <h3>💻 Hogyan kell használni:</h3>
+    <h3>💻 Hogyan használd:</h3>
 
     <ol>
 
-    <li>Adja meg a nevét és szabja testre a beállításokat.</li>
+    <li>Hozza létre profilját és szabja be beállításait.</li>
 
-    <li>Válassza ki a meglátogatott helyeket a kívánt részletességgel.</li>
+    <li>Adja hozzá összes utazását a meglátogatott helyek kiválasztásával.</li>
 
-    <li>Hozza létre a térképeit! A látogatások és a beállítások mentése akkor történik,
-    amikor az egyik mentés vagy térképkészítés gombra kattint. Ha lapot vált profilváltás
-    nélkül, a bejelölt helyek nem vesznek el.</li>
+    <li>Szabályozza és készítse el térképeit! A látogatások és beállítások mentése
+    akkor történik, amikor rákattint a mentési vagy a térképkészítési gombok egyikére.
+    Ha vált fülöt a profil megváltoztatása nélkül, a bejelölt helyek nem törlődnek.</li>
 
-    <li>Fedezze fel, mely országokat látogatott meg a legtöbbször, és fedezze fel
-    ajánlásainkat a következő nyaralásához!</li>
+    <li>Fedezzen fel meglepő információkat utazásairól, és ismerje meg ajánlásainkat
+    a következő nyaralásához!</li>
 
     </ol>
-
-    <h3>📋 Elérhető YAML fájlok:</h3>
-
-    <p>A megadott <code>.yaml</code> fájlok <strong>teljes sablonok</strong>, amelyek
-    az összes rendelkezésre álló országot, régiót és megyét tartalmazzák.</p>
-
-    <p>▶️ Ha ezt a módszert részesíti előnyben a meglátogatott helyek megjelölésére,
-    először másolja ki az alkalmazás mappájában található sablonokat. Ezután törölje
-    az összes nem meglátogatott helyet, és töltse be őket az alkalmazásba.</p>
 
     <h3>❓ Kapcsolat:</h3>
 
-    <p>Az alkalmazás intuitívnak szánt, de bármilyen kérdés esetén: mes.voyages.app@gmail.com.</p>
+    <p>Az alkalmazás intuitívnak készült, de bármilyen kérdés esetén forduljon hozzánk:
+    mes.voyages.app@gmail.com.</p>
 
-    <p>A fordítások automatikusan készültek, és nem voltak kézzel ellenőrizve.
+    <p>A fordításokat automatikusan generálták, és nem ellenőrizték manuálisan.
 
-    Bármilyen fordítási rendellenesség, hiba esetén, vagy ha egyszerűen csak visszajelzést
-    szeretne adni, ne habozzon kapcsolatba lépni velem.</p>
+    Fordítási hibák, bugok esetén, vagy ha egyszerűen csak visszajelzést szeretne
+    küldeni, forduljon hozzám bizalommal.</p>
 
     <hr />
 
-    <strong>Köszönjük, hogy az Utazásaimat választotta!</strong>'
+    <strong>Köszönjük, hogy a Mes Voyages-t választotta!</strong>'
   indonésien: '<h3>📌 Deskripsi:</h3>
 
-    <p>Mes Voyages adalah aplikasi untuk membuat peta perjalanan yang dipersonalisasi
-    dengan memilih wilayah atau departemen negara yang telah Anda kunjungi.</p>
+    <p>Mes Voyages adalah aplikasi yang memungkinkan Anda membuat peta khusus dari
+    tempat-tempat yang telah Anda kunjungi.</p>
 
-    <h3>💻 Cara Penggunaan:</h3>
+    <h3>💻 Cara penggunaan:</h3>
 
     <ol>
 
-    <li>Masukkan nama Anda dan sesuaikan pengaturan Anda.</li>
+    <li>Buat profil Anda dan sesuaikan pengaturan Anda.</li>
 
-    <li>Pilih lokasi yang telah Anda kunjungi pada tingkat kedalaman yang Anda inginkan.</li>
+    <li>Tambahkan semua perjalanan yang telah Anda lakukan dengan memilih tempat-tempat
+    yang dikunjungi.</li>
 
-    <li>Buat peta Anda! Kunjungan dan pengaturan Anda disimpan saat Anda mengklik
-    salah satu tombol simpan atau buat peta. Jika Anda berpindah tab tanpa mengubah
-    profil, lokasi yang dicentang tidak akan hilang.</li>
+    <li>Kustomisasi dan buat peta Anda! Penyimpanan kunjungan dan pengaturan Anda
+    dilakukan saat Anda mengklik salah satu tombol simpan atau tombol pembuatan peta.
+    Jika Anda berpindah tab tanpa mengganti profil, tempat-tempat yang telah dicentang
+    tidak akan hilang.</li>
 
-    <li>Temukan negara mana yang paling sering Anda kunjungi dan jelajahi rekomendasi
+    <li>Temukan informasi mengejutkan tentang perjalanan Anda dan jelajahi rekomendasi
     kami untuk liburan Anda berikutnya!</li>
 
     </ol>
 
-    <h3>📋 File YAML yang Tersedia:</h3>
-
-    <p>File <code>.yaml</code> yang disediakan adalah <strong>template lengkap</strong>
-    yang berisi semua negara, wilayah, dan departemen yang tersedia.</p>
-
-    <p>▶️ Jika Anda lebih memilih metode ini untuk menunjukkan lokasi yang telah Anda
-    kunjungi, salin terlebih dahulu template yang ada di folder aplikasi. Kemudian
-    hapus semua lokasi yang belum dikunjungi dan muat ke dalam aplikasi.</p>
-
     <h3>❓ Kontak:</h3>
 
-    <p>Aplikasi ini dimaksudkan agar intuitif, tetapi jika ada pertanyaan: mes.voyages.app@gmail.com.</p>
+    <p>Aplikasi ini dirancang agar intuitif, tetapi untuk pertanyaan apa pun: mes.voyages.app@gmail.com.</p>
 
-    <p>Terjemahan telah dihasilkan secara otomatis dan belum ditinjau secara manual.
+    <p>Terjemahan ini dihasilkan secara otomatis dan tidak diverifikasi secara manual.
 
-    Untuk setiap anomali terjemahan, bug, atau jika Anda hanya ingin memberikan umpan
-    balik, jangan ragu untuk menghubungi saya.</p>
+    Untuk setiap anomali terjemahan, bug, atau jika Anda sekadar ingin memberikan
+    masukan, jangan ragu untuk menghubungi saya.</p>
 
     <hr />
 
     <strong>Terima kasih telah memilih Mes Voyages!</strong>'
-  irlandais: Mo Chuid Turais
+  irlandais: '<h3>📌 Tuairisc :</h3>
+
+    <p>Is app é Mes Voyages a ligeann duit mapálaí pearsantaithe a chruthú de na háiteanna
+    a thug tú cuairt orú.</p>
+
+    <h3>💻 Conas a úsáid :</h3>
+
+    <ol>
+
+    <li>Cruthaigh do phróifíl agus pearsanaigh do shocruithe.</li>
+
+    <li>Cuir leis gach turas a rinne tú trí na háiteanna a thug tú cuairt orú a roghnú.</li>
+
+    <li>Pearsanaigh agus cruthaigh do mhapálaí! Sábhálaítear do chuairteanna agus
+    do shocruithe nuair a chliceann tú ar cheann as na cnaiap sábháil nó cruthaithe
+    mapálaí. Má athraíonn tú tab gan do phróifíl a athrú, ní chailltear na háiteanna
+    a roghnaíodh.</li>
+
+    <li>Faigh amach faisnéis iontach faoi do thurais agus déan iniúchadh ar ár moltaí
+    do do chéad saoire eile!</li>
+
+    </ol>
+
+    <h3>❓ Teagmháil :</h3>
+
+    <p>Tá an app intuídiúil, ach má tá ceist agat: mes.voyages.app@gmail.com.</p>
+
+    <p>Giniúnaíodh na h-aistriúcháin seo go h-uathoibríoch agus ní sheiceáladh iad
+    go láimheach.
+
+    Má tá aon anomailí aistriúcháin, bug, nó má theastaíonn feedback uait, ná bíodh
+    drochoras thusa a theagmháil.</p>
+
+    <hr />
+
+    <strong>Go raibh maith agat as Mes Voyages a roghnú!</strong>'
   islandais: '<h3>📌 Lýsing:</h3>
 
-    <p>Mín ferðalög er forrit sem gerir þér kleift að búa til sérsniðin ferðakort
-    með því að velja svæði eða sýslur í löndum sem þú hefur heimsótt.</p>
+    <p>Mes Voyages er forrit sem gerir þér kleift að búa til sérsniðnar kort yfir
+    staði sem þú hefur heimsótt.</p>
 
     <h3>💻 Hvernig á að nota:</h3>
 
     <ol>
 
-    <li>Sláðu inn nafn þitt og sérsniðið stillingar þínar.</li>
+    <li>Búðu til prófíl þinn og sérsniðu stillingarnar þínar.</li>
 
-    <li>Veldu staðina sem þú hefur heimsótt á því stigi sem þú vilt.</li>
+    <li>Bættu við öllum ferðum þínum með því að velja staðina sem þú heimsóttir.</li>
 
-    <li>Búðu til kortin þín! Vistun heimsókna þinna og stillinga fer fram þegar þú
-    smellir á einn af vistunar- eða kortagerðarhnappunum. Ef þú skiptir um flipa án
-    þess að skipta um prófíl tapast ekki valdir staðir.</li>
+    <li>Sérsniðu og búðu til kortin þín! Heimsóknir og stillingar eru vistaðar þegar
+    þú smellir á einn af vistunarhnappunum eða hnappinn til að búa til kort. Ef þú
+    skiptir um flipa án þess að skipta um prófíl, glatast valdir staðir ekki.</li>
 
-    <li>Skoðaðu hvaða lönd þú hefur heimsótt mest og skoðaðu ráðleggingar okkar fyrir
-    næsta frí!</li>
+    <li>Uppgötvaðu óvæntar upplýsingar um ferðir þínar og skoðaðu tilmálunir okkar
+    fyrir næstu fríetlu þína!</li>
 
     </ol>
 
-    <h3>📋 YAML skrár tiltækar:</h3>
+    <h3>❓ Tengiliðar:</h3>
 
-    <p><code>.yaml</code> skrárnar sem fylgja eru <strong>heildar sniðmát</strong>
-    sem innihalda öll lönd, svæði og sýslur sem eru tiltæk.</p>
+    <p>Forritið er hannað til að vera einfalt í notkun, en ef þú hefur spurningar:
+    mes.voyages.app@gmail.com.</p>
 
-    <p>▶️ Ef þú kýst þessa aðferð til að gefa til kynna þá staði sem þú hefur heimsótt,
-    afritaðu fyrst sniðmátin í möppunni forritsins. Eyðu síðan öllum þeim stöðum sem
-    ekki hefur verið heimsótt og hlaðið þeim inn í forritið.</p>
+    <p>Þessar þýðingar voru búðar til sjálfvirkt og hafa ekki verið yfirfarnar handvirkt.
 
-    <h3>❓ Hafðu samband:</h3>
-
-    <p>Forritið er ætlað að vera innsæi, en ef þú hefur einhverjar spurningar: mes.voyages.app@gmail.com.</p>
-
-    <p>Þýðingarnar voru búnar til sjálfkrafa og hafa ekki verið yfirlesnar handvirkt.
-
-    Fyrir allar þýðingargalla, villur eða ef þú vilt einfaldlega gefa endurgjöf, ekki
-    hika við að hafa samband við mig.</p>
+    Ef þú tekur eftir þýðingavillum, villum í forritinu eða vilt einfaldlega gefa
+    endurgjöf, ekki hika við að hafa samband við mig.</p>
 
     <hr />
 
-    <strong>Þakka þér fyrir að velja Mín ferðalög!</strong>'
+    <strong>Takk fyrir að hafa valið Mes Voyages!</strong>'
   italien: '<h3>📌 Descrizione:</h3>
 
-    <p>I Miei Viaggi è un''applicazione che permette di creare mappe di viaggio personalizzate
-    selezionando le regioni o i dipartimenti dei paesi che si sono visitati.</p>
+    <p>Mes Voyages è un''applicazione che permette di creare mappe personalizzate
+    dei luoghi visitati.</p>
 
     <h3>💻 Come utilizzare:</h3>
 
     <ol>
 
-    <li>Inserisci il tuo nome e personalizza le tue impostazioni.</li>
+    <li>Crea il tuo profilo e personalizza le tue impostazioni.</li>
 
-    <li>Seleziona i luoghi che hai visitato al livello di dettaglio che preferisci.</li>
+    <li>Aggiungi tutti i viaggi che hai effettuato selezionando i luoghi visitati.</li>
 
-    <li>Crea le tue mappe! Il salvataggio delle tue visite e delle tue impostazioni
-    avviene cliccando su uno dei pulsanti di salvataggio o di creazione mappe. Se
-    cambi scheda senza cambiare profilo, i luoghi selezionati non andranno persi.</li>
+    <li>Personalizza e crea le tue mappe! Il salvataggio delle tue visite e delle
+    tue impostazioni avviene quando clicchi su uno dei pulsanti di salvataggio o di
+    creazione delle mappe. Se cambi scheda senza cambiare profilo, i luoghi selezionati
+    non andranno persi.</li>
 
-    <li>Scopri quali sono i paesi che hai visitato di più ed esplora i nostri suggerimenti
+    <li>Scopri informazioni sorprendenti sui tuoi viaggi ed esplora i nostri consigli
     per le tue prossime vacanze!</li>
 
     </ol>
 
-    <h3>📋 File YAML disponibili:</h3>
-
-    <p>I file <code>.yaml</code> forniti sono <strong>modelli completi</strong> contenenti
-    tutti i paesi, le regioni e i dipartimenti disponibili.</p>
-
-    <p>▶️ Se preferisci questo metodo per indicare i luoghi che hai visitato, copia
-    prima i modelli presenti nella cartella dell''applicazione. Elimina quindi tutti
-    i luoghi non visitati e caricali nell''applicazione.</p>
-
     <h3>❓ Contatti:</h3>
 
-    <p>L''applicazione è pensata per essere intuitiva, ma per qualsiasi domanda: mes.voyages.app@gmail.com.</p>
+    <p>L''applicazione vuole essere intuitiva, ma per qualsiasi domanda: mes.voyages.app@gmail.com.</p>
 
-    <p>Le traduzioni sono state generate automaticamente e non sono state revisionate
+    <p>Le traduzioni sono state generate automaticamente e non sono state verificate
     manualmente.
 
-    Per qualsiasi anomalia di traduzione, bug o se desideri semplicemente fornire
+    Per qualsiasi anomalia di traduzione, bug o se desideri semplicemente inviare
     un feedback, non esitare a contattarmi.</p>
 
     <hr />
 
-    <strong>Grazie per aver scelto I Miei Viaggi!</strong>'
-  japonais: '「私の旅行」は、訪れた国の地域や県を選択して、パーソナライズされた旅行マップを作成できるアプリケーションです。
+    <strong>Grazie per aver scelto Mes Voyages!</strong>'
+  japonais: '<h3>📌 説明：</h3>
 
+    <p>Mes Voyagesは、訪れた場所のカスタムマップを作成できるアプリです。</p>
 
-    **使い方：**
-
-
-    1.  名前を入力し、設定をカスタマイズします。
-
-    2.  好みの粒度で、訪れた場所を選択します。
-
-    3.  マップを作成しましょう！ visitas と設定の保存は、保存ボタンまたはマップ作成ボタンのいずれかをクリックしたときに実行されます。プロファイルを変更せずにタブを変更しても、チェックされた場所は失われません。
-
-    4.  最も多く訪れた国を見つけ、次の休暇のおすすめを探索しましょう！
-
-
-    **利用可能なYAMLファイル：**
-
-
-    提供されている <code>.yaml</code> ファイルは、利用可能なすべての国、地域、県を含む**完全なテンプレート**です。
-
-
-    ▶️ この方法で訪れた場所を指定したい場合は、まずアプリケーションフォルダーにあるテンプレートをコピーします。その後、訪れていない場所をすべて削除し、アプリケーションに読み込みます。
-
-
-    **お問い合わせ：**
-
-
-    このアプリケーションは直感的に使えるように設計されていますが、ご不明な点がございましたら、 mes.voyages.app@gmail.com までご連絡ください。
-
-
-    翻訳は自動生成されたもので、手動で校閲されていません。
-
-    翻訳の異常、バグ、または単にフィードバックをしたい場合は、お気軽にご連絡ください。
-
-
-    ***
-
-    「私の旅行」をお選びいただきありがとうございます！'
-  kazakh: '<h3>📌 Сипаттама :</h3>
-
-    <p>Менің саяхаттарым – бұл сіз барған елдердің аймақтарын немесе аудандарын таңдау
-    арқылы жеке саяхат карталарын жасауға мүмкіндік беретін қосымша.</p>
-
-    <h3>💻 Қалай пайдалануға болады :</h3>
+    <h3>💻 使い方：</h3>
 
     <ol>
 
-    <li>Атыңызды енгізіп, параметрлеріңізді баптаңыз.</li>
+    <li>プロフィールを作成し、設定をカスタマイズしてください。</li>
 
-    <li>Қалаған егжей-тегжей деңгейінде барған жерлеріңізді таңдаңыз.</li>
+    <li>訪れた場所を選択して、これまでに行ったすべての旅行を追加してください。</li>
 
-    <li>Карталарыңызды жасаңыз! Сіздің сапарларыңыз бен параметрлеріңіз карталарды
-    сақтау немесе жасау батырмаларының бірін басқан кезде сақталады. Егер профильді
-    өзгертпестен қойындыны өзгертсеңіз, белгіленген орындар жоғалмайды.</li>
+    <li>マップをカスタマイズして作成しましょう！保存ボタンまたはマップ作成ボタンをクリックすると、訪問履歴と設定が保存されます。プロフィールを変更せずにタブを切り替えても、チェックした場所は保持されます。</li>
 
-    <li>Қай елдерге жиі барғаныңызды біліп, келесі демалысыңызға арналған ұсыныстарымызды
-    зерттеңіз!</li>
+    <li>旅行に関する驚きの情報を発見し、次の休暇に向けたおすすめスポットを探索しましょう！</li>
 
     </ol>
 
-    <h3>📋 Жинақталған YAML файлдары :</h3>
+    <h3>❓ お問い合わせ：</h3>
 
-    <p>Берілген <code>.yaml</code> файлдары – барлық елдерді, аймақтарды және аудандарды
-    қамтитын <strong>толық үлгілер</strong>.</p>
+    <p>直感的に操作できるアプリですが、ご質問がある場合は mes.voyages.app@gmail.com までご連絡ください。</p>
 
-    <p>▶️ Егер сіз барған жерлеріңізді көрсету үшін осы әдісті қаласаңыз, алдымен
-    қосымша каталогындағы үлгілерді көшіріңіз. Содан кейін бармаған барлық жерлерді
-    жойып, оларды қосымшаға жүктеңіз.</p>
+    <p>この翻訳は自動生成されており、手動での確認は行われていません。
 
-    <h3>❓ Байланыс :</h3>
-
-    <p>Қосымша интуитивті болуға арналған, бірақ кез келген сұрақ бойынша: mes.voyages.app@gmail.com.</p>
-
-    <p>Аудармалар автоматты түрде жасалған және қолмен тексерілмеген.
-
-    Егер аудармада қандай да бір ауытқулар, қателер болса немесе сіз жай ғана пікір
-    қалдырғыңыз келсе, менімен байланысудан тартынбаңыз.</p>
+    翻訳の誤り、バグ、またはフィードバックがある場合は、お気軽にご連絡ください。</p>
 
     <hr />
 
-    <strong>Менің саяхаттарымды таңдағаныңызға рахмет!</strong>'
-  kirghize: '<h3>📌 Description:</h3>
+    <strong>Mes Voyagesをご利用いただきありがとうございます！</strong>'
+  kazakh: '<h3>📌 Сипаттама:</h3>
 
-    <p>Менин саякаттарым - бул өлкөлөрдүн аймактарын же бөлүмдөрүн тандоо аркылуу
-    саякат карталарын түзүүгө мүмкүндүк берген тиркеме.</p>
+    <p>Mes Voyages — бұл барған жерлеріңіздің жеке карталарын жасауға мүмкіндік беретін
+    қосымша.</p>
+
+    <h3>💻 Қолдану жолы:</h3>
+
+    <ol>
+
+    <li>Профильді жасап, баптауларды реттеңіз.</li>
+
+    <li>Барған жерлеріңізді таңдап, жасаған барлық саяхаттарыңызды қосыңыз.</li>
+
+    <li>Карталарыңызды реттеңіз және жасаңыз! Саяхаттарыңыз бен баптауларыңыз сақтау
+    немесе карталарды жасау батырмаларының бірін басқанда сақталады. Егер профильді
+    ауыстырмай, басқа бетке өтсеңіз, белгіленген жерлер жоғалмайды.</li>
+
+    <li>Саяхаттарыңыз туралы таңғажайып мәліметтерді біліңіз және келесі демалысыңыз
+    үшін біздің ұсыныстарымызды зерттеңіз!</li>
+
+    </ol>
+
+    <h3>❓ Байланыс:</h3>
+
+    <p>Қосымша интуитивті болуы тиіс, бірақ кез келген сұрақ бойынша: mes.voyages.app@gmail.com.</p>
+
+    <p>Аудармалар автоматты түрде жасалды және қолмен тексерілген жоқ. Аудармадағы
+    қателіктер, бағдарламалық ақаулар туралы хабарлау немесе кері байланыс қалдыру
+    үшін менімен байланысудан тартынбаңыз.</p>
+
+    <hr />
+
+    <strong>Mes Voyages-ты таңдағаныңыз үшін рахмет!</strong>'
+  kirghize: '<h3>📌 Сүрөттөмө:</h3>
+
+    <p>Mes Voyages — бул барган жерлериңиздин жеке карталарын түзүүгө мүмкүндүк берген
+    тиркеме.</p>
 
     <h3>💻 Кантип колдонуу керек:</h3>
 
     <ol>
 
-    <li>Атыңызды киргизип, орнотууларыңызды ыңгайлаштырыңыз.</li>
+    <li>Профилиңизди түзүңүз жана жөндөөлөрүңүздү жекече ылайыктаңыз.</li>
 
-    <li>Сиз барган жерлерди каалаган майда-чүйдөсүнө чейин тандаңыз.</li>
+    <li>Барган жерлериңизди тандап, жасаган бардык саякаттарыңызды кошуңуз.</li>
 
-    <li>Карталарды түзүңүз! Сапарларыңызды жана орнотууларыңызды сактоо, сактоо же
-    карта түзүү баскычтарынын бирин басканда болот. Эгер сиз профилиңизди өзгөртпөстөн
-    башка кошумча барагына өтсөңүз, тандалган жерлер жоголбойт.</li>
+    <li>Карталарыңызды ылайыктаңыз жана түзүңүз! Сиздин барган жерлериңиз жана жөндөөлөрүңүз
+    сактоо же карталарды түзүү баскычтарынын бирин басканда сакталат. Эгер сиз профилди
+    өзгөртпөй башка өтмөккө өтсөңүз, тандалган жерлер жоголбойт.</li>
 
-    <li>Көп барган өлкөлөрүңүздү билип алыңыз жана кийинки эс алууңузга сунуштарды
-    изилдеңиз!</li>
+    <li>Саякаттарыңыз жөнүндө кызыктуу маалыматтарды табыңыз жана кийинки эс алууңуз
+    үчүн биздин сунуштамаларыбыз менен таанышыңыз!</li>
 
     </ol>
-
-    <h3>📋 Жеткиликтүү YAML файлдары:</h3>
-
-    <p>Берилген <code>.yaml</code> файлдары - бул бардык өлкөлөрдү, аймактарды жана
-    бөлүмдөрдү камтыган <strong>толук шаблондор</strong>.</p>
-
-    <p>▶️ Эгер сиз барган жерлериңизди көрсөтүүнүн ушул ыкмасын жактырсаңыз, адегенде
-    тиркеме папкасындагы шаблондорду көчүрүңүз. Андан кийин барылбаган бардык жерлерди
-    жок кылып, аларды тиркемеге жүктөңүз.</p>
 
     <h3>❓ Байланыш:</h3>
 
-    <p>Тиркеме интуитивдик түрдө жасалган, бирок кандайдыр бир суроолор болсо: mes.voyages.app@gmail.com.</p>
+    <p>Тиркеме түшүнүктүү болушу керек, бирок суроолор болсо: mes.voyages.app@gmail.com.</p>
 
-    <p>Тексттер автоматтык түрдө которулган жана кол менен текшерилген эмес.
+    <p>Котормолор автоматтык түрдө жасалды жана кол менен текшерилген жок.
 
-    Которулуудагы кандайдыр бир кемчиликтер, каталар же жөн гана пикир калтыргыңыз
-    келсе, мени менен байланышуудан тартынбаңыз.</p>
+    Котормодогу каталар, мүчүлүштүктөр боюнча же жөн гана пикириңизди билдирүү үчүн,
+    мен менен байланышуудан тартынбаңыз.</p>
 
     <hr />
 
-    <strong>Менин саякаттарымды тандаганыңыз үчүн рахмат!</strong>'
-  kurde: '<h3>📌 Daxuyaniya Berhemê:</h3>
+    <strong>Mes Voyages тиркемесин тандаганыңыз үчүн рахмат!</strong>'
+  kurde: '<h3>📌 Şîrovekir:</h3>
 
-    <p>Mes Voyages serlêdanek e ku dihêle hûn nexşeyên rêwîtiyê yên kesane biafirînin
-    bi hilbijartina herêmên an departmanên welatên ku we serdana wan kirine.</p>
+    <p>Mes Voyages aplikasyoneke wisa ye ku rê dide we nexşeyên taybet ên cihên ku
+    we serdan kirine ava bikin.</p>
 
-    <h3>💻 Meriv Çawa Bikaranîne:</h3>
+    <h3>💻 Çawa bikar bîne:</h3>
 
     <ol>
 
-    <li>Navê xwe binivîse û mîhengên xwe xweşbîne.</li>
+    <li>Profilê xwe ava bikin û mîhengên xwe bidastûr bikin.</li>
 
-    <li>Cihên ku we serdana wan kirine bi asta hûrgelî ku hûn tercîh dikin hilbijêrin.</li>
+    <li>Bi hilbijartina cihên ku we serdan kirine, hemû geştên xwe zêde bikin.</li>
 
-    <li>Nexşeyên xwe biafirînin! Teserufa serdanên we û mîhengên we dema ku hûn li
-    yek ji bişkokên teserufê an afirînerê nexşeyê bikirtînin çêdibe. Ger hûn tabloyê
-    biguhezînin bêyî ku profîl biguhezînin, cîhên nîşankirî winda nabin.</li>
+    <li>Nexşeyên xwe bidastûr bikin û ava bikin! Parastina serdan û mîhengên we gava
+    hûn li ser butonên parastinê yan jî avakirina nexşeyan diklikînin, pêk tê. Heke
+    hûn tabeyê biguherînin bêyî ku profil biguherînin, cihên hatine nîşankirin winda
+    nabin.</li>
 
-    <li>Vecine ka kîjan welatên ku we herî zêde serdana wan kirine û li pêşniyarên
-    me ji bo betlaneyên xwe yên pêşîn bigerin!</li>
+    <li>Agahiyên ecêb derbarê geştên xwe dekeşin û pêşniyarên me ji bo bêhnvedanên
+    we yên nû lêbigerin!</li>
 
     </ol>
 
-    <h3>📋 Pelên YAML-ê yên Berdest:</h3>
+    <h3>❓ Peywendî:</h3>
 
-    <p>Pelên <code>.yaml</code> hatine peyda kirin<strong>modelên temam</strong> ku
-    hemî welat, herêm û departmanên berdest dihewîne.</p>
+    <p>Aplikasyon bi hêsanî tê fêmkirin, lê ji bo her pirsevanî: mes.voyages.app@gmail.com.</p>
 
-    <p>▶️ Ger hûn vê rêbazê tercîh dikin da ku cîhên ku we serdana wan kirine nîşan
-    bidin, pêşî modelên di peldanka serlêdanê de kopî bikin. Piştre hemî cîhên ku
-    nehatine serdanê jêbirin û wan di serlêdanê de bar bikin.</p>
+    <p>Werger bi rengeke otomatîk hatine amadekirin û bi destan nehatine kontrolkirin.
 
-    <h3>❓ Têkilî:</h3>
-
-    <p>Serlêdan tê armanc kirin ku bibe intuîtîf, lê ji bo her pirsek: mes.voyages.app@gmail.com.</p>
-
-    <p>Wergerên bixweber hatine çêkirin û bi destî nehatine vekolandin.
-
-    Ji bo her bêhevkariyek wergerê, xeletî an heke hûn tenê dixwazin vegerin, dudilî
-    nebin ku bi min re têkilî daynin.</p>
+    Ji bo her xeletiyeke wergerê, bug, an jî heke hûn bixwazin rênêrînan bikin, ji
+    kerema xwe bi min re ragihînin.</p>
 
     <hr />
 
-    <strong>Spas ji bo hilbijartina Mes Voyages!</strong>'
-  latin: '"Meae Peregrinationes" est nomine appi quae mappas peregrinationum conficere
-    sinit, regiones vel partes regionum exploratas eligendo.
+    <strong>Spas ku we Mes Voyages hilbijart!</strong>'
+  latin: '<h3>📌 Descriptio:</h3>
 
+    <p>Mes Voyages est applicatio quae sinit tabulas locorum visitatorum ad usum proprium
+    accommodare.</p>
 
-    **Quomodo uti:**
+    <h3>💻 Quomodo utaris:</h3>
 
+    <ol>
 
-    1. Nomen tuum scribe et occasus tuos scribe.
+    <li>Crea profilum tuum et parametros tuos accommoda.</li>
 
-    2. Loca explorata elige quam accuratissime vis.
+    <li>Adde omnia itinera quae fecisti locos visitatos eligendo.</li>
 
-    3. Mappas tuas crea! Tua itinera et occasus servantur cum in tabulas salvandi
-    vel creandi deprimes. Si tabulas mutes sine proficiscendo, loca electa non amittuntur.
+    <li>Tabulas tuas accommoda et crea! Conservatio visitarum tuarum et parametrorum
+    fit cum in unum ex botonis servandi vel tabulas creandi premas. Si tabulam mutas
+    sine profilo mutando, loci selecti non perduntur.</li>
 
-    4. Invenias quae regiones maxime frequentavisti et nostras commendationes proximis
-    vacationibus explora!
+    <li>Inveni res mirabiles de itineribus tuis et consilia nostra pro feriis tuis
+    venturis explora!</li>
 
+    </ol>
 
-    **Tabulae YAML praesto:**
+    <h3>❓ Contactus:</h3>
 
+    <p>Applicatio intuitiva esse vult, sed pro omni quaestione: mes.voyages.app@gmail.com.</p>
 
-    Tabulae .yaml provisae sunt exemplaria completa quae omnes regiones, partes regionum
-    et partes regiones continentes praesto sunt.
+    <p>Translationes automate generatae sunt et manu non probatae sunt.
 
+    Pro omni errore translationis, defectu, vel si simpliciter responsum dare vis,
+    noli dubitare me contactare.</p>
 
-    ▶️ Si methodum hanc praesentes locos exploratos indicandi malis, primum exemplaria
-    in folder appi copia. Tum omnes locos non exploratos dele et in appi eas onerando.
+    <hr />
 
-
-    **Contactus:**
-
-
-    App intuitiva esse desideratur, sed ad omnes quaestiones: mes.voyages.app@gmail.com.
-
-
-    T translationes automatice generatae sunt et non manualiter recognitae. Pro translatione
-    anomalia, bug, aut si simpliciter vis feedback dare, noli dubitare me contactus.
-
-
-    ---
-
-
-    Gratias tibi ago quod "Meae Peregrinationes" elegisti!'
+    <strong>Gratias tibi ago quod Mes Voyages elegisti!</strong>'
   letton: '<h3>📌 Apraksts:</h3>
 
-    <p>Mana Ceļojumi ir lietojumprogramma, kas ļauj izveidot personalizētas ceļojumu
-    kartes, atlasot valstu reģionus vai departamentus, kurus esat apmeklējuši.</p>
+    <p>Mes Voyages ir lietotne, kas ļauj izveidot personalizētas kartes ar apmeklētajām
+    vietām.</p>
 
-    <h3>💻 Kā lietot:</h3>
+    <h3>💻 Kā izmantot:</h3>
 
     <ol>
 
-    <li>Ievadiet savu vārdu un personalizējiet savus iestatījumus.</li>
+    <li>Izveidojiet savu profilu un pielāgojiet savus iestatījumus.</li>
 
-    <li>Atlasiet vietas, kuras esat apmeklējuši, ar vēlamo detalizācijas līmeni.</li>
+    <li>Pievienojiet visus savus ceļojumus, izvēloties apmeklētās vietas.</li>
 
-    <li>Izveidojiet savas kartes! Jūsu apmeklējumu un iestatījumu saglabāšana notiek,
-    noklikšķinot uz kāda no saglabāšanas vai kartes izveides pogām. Ja pāriet uz citu
-    cilni, nemainot profilu, atzīmētās vietas netiek zaudētas.</li>
+    <li>Pielāgojiet un izveidojiet savas kartes! Jūsu apmeklējumi un iestatījumi tiek
+    saglabāti, kad noklikšķināt uz kāda no saglabāšanas vai karšu izveides pogām.
+    Ja maināt cilni, nemainot profilu, atzīmētās vietas netiek dzēstas.</li>
 
-    <li>Uzziniet, kuras valstis esat apmeklējuši visvairāk, un izpētiet mūsu ieteikumus
-    nākamajām brīvdienām!</li>
+    <li>Atklājiet pārsteidzošu informāciju par saviem ceļojumiem un izpētiet mūsu
+    rekomendācijas jūsu nākamajām brīvdienām!</li>
 
     </ol>
 
-    <h3>📋 Pieejamie YAML faili:</h3>
+    <h3>❓ Kontakti:</h3>
 
-    <p>Tiek nodrošinātie <code>.yaml</code> faili ir <strong>pilnīgi paraugi</strong>,
-    kas satur visas pieejamās valstis, reģionus un departamentus.</p>
+    <p>Lietotne ir domāta būt intuitīva, tomēr jebkuru jautājumu gadījumā rakstiet:
+    mes.voyages.app@gmail.com.</p>
 
-    <p>▶️ Ja vēlaties norādīt apmeklētās vietas šādā veidā, vispirms kopējiet paraugus
-    no lietojumprogrammas mapes. Pēc tam izdzēsiet visas neapmeklētās vietas un ielādējiet
-    tās lietojumprogrammā.</p>
+    <p>Tulkojumi tika izveidoti automātiski un nav pārbaudīti manuāli.
 
-    <h3>❓ Kontakts:</h3>
-
-    <p>Lietojumprogramma ir paredzēta intuitīvai lietošanai, taču jebkuru jautājumu
-    gadījumā: mes.voyages.app@gmail.com.</p>
-
-    <p>Tulkojumi tika radīti automātiski un nav manuāli pārskatīti.
-
-    Ja rodas kādi tulkojuma, kļūdu vai atgriezeniskās saites problēmas, lūdzu, nevilcinieties
-    sazināties ar mani.</p>
+    Ja pamanāt tulkojuma kļūdas, kļūdas programmā vai vienkārši vēlaties sniegt atsauksmi,
+    nevadieties ar mani sazināties.</p>
 
     <hr />
 
-    <strong>Paldies, ka izvēlējāties Mana Ceļojumi!</strong>'
+    <strong>Paldies, ka izvēlējāties Mes Voyages!</strong>'
   lituanien: '<h3>📌 Aprašymas:</h3>
 
-    <p>Mano kelionės yra programa, leidžianti kurti suasmenintus kelionių žemėlapius,
-    pasirenkant šalių, kuriose lankėtės, regionus ar departamentus.</p>
+    <p>Mes Voyages yra programėlė, leidžianti kurti personalizuotus lankytų vietų
+    žemėlapius.</p>
 
-    <h3>💻 Kaip naudoti:</h3>
+    <h3>💻 Kaip naudotis:</h3>
 
     <ol>
 
-    <li>Įveskite savo vardą ir tinkinkite nustatymus.</li>
+    <li>Sukurkite savo profilį ir pritaikykite nustatymus.</li>
 
-    <li>Pasirinkite vietas, kuriose lankėtės, pasirinkdami norimą detalumo lygį.</li>
+    <li>Pridėkite visas savo keliones pasirinkdami lankytas vietas.</li>
 
-    <li>Sukurkite savo žemėlapius! Jūsų lankytinos vietos ir nustatymai bus išsaugoti
-    spustelėjus vieną iš išsaugojimo arba žemėlapių kūrimo mygtukų. Jei pakeisite
-    skirtukus, nepakeisdami profilio, pažymėtos vietos nebus pamirštos.</li>
+    <li>Personalizuokite ir kurkite savo žemėlapius! Jūsų apsilankymai ir nustatymai
+    išsaugomi paspaudus vieną iš išsaugojimo arba žemėlapio kūrimo mygtukų. Jei pakeisite
+    skirtuką nekeisdami profilio, pažymėtos vietos nebus prarastos.</li>
 
-    <li>Sužinokite, kuriose šalyse lankėtės daugiausiai, ir peržiūrėkite mūsų rekomendacijas
-    kitoms atostogoms!</li>
+    <li>Atraskite stebinančią informaciją apie savo keliones ir peržiūrėkite mūsų
+    rekomendacijas jūsų kitoms atostogoms!</li>
 
     </ol>
-
-    <h3>📋 Galimi YAML failai:</h3>
-
-    <p>Pateikti <code>.yaml</code> failai yra <strong>išsamūs šablonai</strong>, kuriuose
-    yra visos galimos šalys, regionai ir departamentai.</p>
-
-    <p>▶️ Jei norite nurodyti vietas, kuriose lankėtės, naudodami šį metodą, pirmiausia
-    nukopijuokite programos aplanke esančius šablonus. Tada ištrinkite visas neaplankytas
-    vietas ir įkelkite jas į programą.</p>
 
     <h3>❓ Kontaktai:</h3>
 
-    <p>Programa sukurta būti intuityvi, bet jei turite klausimų: mes.voyages.app@gmail.com.</p>
+    <p>Programėlė yra intuityvi, tačiau jei turite klausimų: mes.voyages.app@gmail.com.</p>
 
-    <p>Vertimai buvo sugeneruoti automatiškai ir nebuvo peržiūrėti rankiniu būdu.
+    <p>Vertimai buvo sugeneruoti automatiškai ir nebuvo patikrinti rankiniu būdu.
 
-    Jei pastebėjote vertimo klaidų, programos klaidų arba tiesiog norite pateikti
-    atsiliepimą, nedvejodami susisiekite su manimi.</p>
+    Jei pastebėjote vertimo klaidų, programinės įrangos klaidų arba tiesiog norite
+    pateikti atsiliepimą, drąsiai mane kreipkitės.</p>
 
     <hr />
 
-    <strong>Ačiū, kad pasirinkote Mano keliones!</strong>'
-  luxembourgeois: '<h3>📌 Beschreiwung :</h3>
+    <strong>Ačiū, kad pasirinkote Mes Voyages!</strong>'
+  luxembourgeois: '<h3>📌 Beschreiwung:</h3>
 
-    <p>Meng Rees ass eng Applikatioun, déi et erlaabt, personaliséiert Reeskaarte
-    ze kreéieren, andeems een déi Regiounen oder Departementer vun de Länner auswielt,
-    déi een besicht huet.</p>
+    <p>Mes Voyages ass eng App, déi et erméiglecht, personaliséiert Kaarten vun de
+    Plazen ze erstellen, déi een besicht huë.</p>
 
-    <h3>💻 Wéi benotzen :</h3>
+    <h3>💻 Wéi mee benotze:</h3>
 
     <ol>
 
-    <li>Gitt Ären Numm an a personaliséiert Är Astellungen.</li>
+    <li>Erstellt Äre Profil an personaliséiert Är Astellungen.</li>
 
-    <li>Wielt d''Plazen, déi Dir besicht hutt, op dem Granularitéitsniveau, deen Dir
-    léiwer.</li>
+    <li>Füügt all Är Reisen zou, andeems Dir déi besicht Plazen auswielt.</li>
 
-    <li>Erstellt Är Kaarte! D''Späichere vun Äre Visiten an Ären Astellunge geschitt,
-    wann Dir op ee vun de Späicher- oder Kaarteknäppche klickt. Wann Dir vun engem
-    Tab op en aneren wiesselt, ouni de Profil z''änneren, ginn déi markéiert Plazen
-    net verluer.</li>
+    <li>Customiséiert an erstellt Är Kaarten! D''Späieren vun Äre Besiche an Äre Parametere
+    geschitt, wann Dir op ee vun de Späierknäpper oder op den Knäpper fir d''Erstellung
+    vun de Kaarten klickt. Wann Dir den Tab wësselt ouni den Profil ze wësselen, ginn
+    déi ausgewielte Plazen net verluer.</li>
 
-    <li>Entdeckt, wéi eng Länner Dir am meeschte besicht hutt an entdeckt eis Recommandatioune
-    fir Är nächst Vakanz!</li>
+    <li>Entdeckt iwwerraschend Informatiounen iwwer Är Reisen an exploréiert eis Empfehlungen
+    fir Är nächst Vakancen!</li>
 
     </ol>
 
-    <h3>📋 YAML-Fichierë verfügbar :</h3>
+    <h3>❓ Kontakt:</h3>
 
-    <p>D''<code>.yaml</code>-Fichierë, déi uginn sinn, sinn <strong>komplett Modeller</strong>
-    mat alle verfügbare Länner, Regiounen an Departementer.</p>
+    <p>D''App soll intuitiv sinn, mee fir all Fro: mes.voyages.app@gmail.com.</p>
 
-    <p>▶️ Wann Dir dës Method léiwer, fir unzeweisen, wou Dir scho waart, kopéiert
-    fir d''éischt d''Modeller aus dem Dossier vun der Applikatioun. Duerno läscht
-    all d''Plazen, déi Dir net besicht hutt, a lued se an d''Applikatioun.</p>
+    <p>D''Iwwersetzungen hu vum automatesch generéiert a sinn net manuell kontrolléiert
+    ginn.
 
-    <h3>❓ Kontakt :</h3>
-
-    <p>D''Applikatioun soll intuitiv sinn, awer fir all Fro: mes.voyages.app@gmail.com.</p>
-
-    <p>D''Iwwersetzunge goufen automatesch generéiert an net manuell iwwerpréift.
-    Fir all Iwwersetzungsännerung, Feeler, oder wann Dir einfach Feedback géift ginn,
-    zéckt net, mech ze kontaktéieren.</p>
+    Fir all Iwwersetzungsfehler, Bug oder wann Dir einfach e Feedback ginn wëllt,
+    hësetzt net mech ze kontaktéieren.</p>
 
     <hr />
 
-    <strong>Merci, datt Dir Meng Rees gewielt hutt!</strong>'
+    <strong>Merci datt Dir Mes Voyages gewielt hutt!</strong>'
   macédonien: '<h3>📌 Опис:</h3>
 
-    <p>Мои патувања е апликација за креирање персонализирани мапи на патувања со избирање
-    на региони или одделенија на земјите што сте ги посетиле.</p>
+    <p>Mes Voyages е апликација која овозможува создавање персонализирани мапи на
+    местата што сте ги посетивле.</p>
 
-    <h3>💻 Како да користите:</h3>
+    <h3>💻 Како да се користи:</h3>
 
     <ol>
 
-    <li>Внесете го вашето име и персонализирајте ги поставките.</li>
+    <li>Креирајте го вашиот профил и персонализирајте ги вашите поставки.</li>
 
-    <li>Изберете ги местата што сте ги посетиле на ниво на детали што го претпочитате.</li>
+    <li>Додадете ги сите патувања што сте ги оствариле со избирање на посетените места.</li>
 
-    <li>Креирајте ги вашите мапи! Вашите посети и поставки се зачувуваат кога ќе кликнете
-    на едно од копчињата за зачувување или креирање мапи. Ако го промените табот без
-    да го промените профилот, избраните места нема да се изгубат.</li>
+    <li>Прилагодете ги и креирајте ги вашите мапи! Зачувувањето на вашите посети и
+    поставки се случува кога ќе кликнете на едно од копчињата за зачувување или за
+    креирање мапи. Ако смените таб без да го смените профилот, одбележените места
+    нема да се изгубат.</li>
 
-    <li>Откријте кои земји најмногу сте ги посетиле и истражете ги нашите препораки
-    за вашиот следен одмор!</li>
+    <li>Откријте изненадувачки информации за вашите патувања и истражете ги нашите
+    препораки за вашиот следни одмор!</li>
 
     </ol>
-
-    <h3>📋 Достапни YAML-датотеки:</h3>
-
-    <p>Предоставените <code>.yaml</code> датотеки се <strong>целосни шаблони</strong>
-    кои ги содржат сите достапни земји, региони и одделенија.</p>
-
-    <p>▶️ Ако ја претпочитате овој метод за да ги наведете местата што сте ги посетиле,
-    прво копирајте ги шаблоните што се наоѓаат во папката на апликацијата. Потоа избришете
-    ги сите непосетени места и вчитајте ги во апликацијата.</p>
 
     <h3>❓ Контакт:</h3>
 
-    <p>Апликацијата е наменета да биде интуитивна, но за било какви прашања: mes.voyages.app@gmail.com.</p>
+    <p>Апликацијата е замислена да биде интуитивна, но за секое прашање: mes.voyages.app@gmail.com.</p>
 
-    <p>Преводите се генерирани автоматски и не се прегледани рачно.
+    <p>Преводите се генерирани автоматски и не се проверени рачно.
 
-    За било какви аномалии при превод, грешки или ако едноставно сакате да дадете
-    повратна информација, не двоумете се да ме контактирате.</p>
+    За каква било грешка во преводот, баг или едноставно ако сакате да оставите повратна
+    информација, не двоумете се да ме контактирате.</p>
 
     <hr />
 
-    <strong>Ви благодариме што ја избравте Мои патувања!</strong>'
-  malais: '<h3>📌 Penerangan:</h3>
+    <strong>Ви благодариме што го избравте Mes Voyages!</strong>'
+  malais: '<h3>📌 Deskripsi:</h3>
 
-    <p>Perjalanan Saya ialah aplikasi untuk mencipta peta perjalanan peribadi dengan
-    memilih kawasan atau daerah negara yang telah dilawati.</p>
+    <p>Mes Voyages adalah aplikasi yang membolehkan anda mencipta peta tersuai bagi
+    tempat-tempat yang telah anda lawati.</p>
 
-    <h3>💻 Cara Guna:</h3>
+    <h3>💻 Cara penggunaan:</h3>
 
     <ol>
 
-    <li>Masukkan nama anda dan sesuaikan tetapan anda.</li>
+    <li>Cipta profil anda dan peribadikan tetapan anda.</li>
 
-    <li>Pilih tempat yang anda lawati pada peringkat terperinci yang anda pilih.</li>
+    <li>Tambah semua perjalanan yang telah anda lakukan dengan memilih tempat yang
+    dilawati.</li>
 
-    <li>Cipta peta anda! Simpanan lawatan dan tetapan anda dibuat apabila anda mengklik
-    salah satu butang simpan atau mencipta peta. Jika anda menukar tab tanpa menukar
-    profil, tempat yang ditandai tidak akan hilang.</li>
+    <li>Ubah suai dan cipta peta anda! Lawatan dan tetapan anda akan disimpan apabila
+    anda klik pada salah satu butang simpan atau cipta peta. Jika anda menukar tab
+    tanpa menukar profil, tempat yang ditanda tidak akan hilang.</li>
 
-    <li>Ketahui negara mana yang paling kerap anda lawati dan teroka cadangan kami
-    untuk percutian anda seterusnya!</li>
+    <li>Temui maklumat yang mengejutkan mengenai perjalanan anda dan terokai cadangan
+    kami untuk percutian anda yang seterusnya!</li>
 
     </ol>
 
-    <h3>📋 Fail YAML Tersedia:</h3>
-
-    <p>Fail <code>.yaml</code> yang disediakan ialah <strong>templat lengkap</strong>
-    yang mengandungi semua negara, kawasan dan daerah yang tersedia.</p>
-
-    <p>▶️ Jika anda lebih suka kaedah ini untuk menunjukkan tempat yang anda lawati,
-    salin dahulu templat yang ada dalam folder aplikasi. Kemudian padam semua tempat
-    yang tidak dilawati dan muat naik ke dalam aplikasi.</p>
-
     <h3>❓ Hubungi:</h3>
 
-    <p>Aplikasi ini direka untuk intuitif, tetapi untuk sebarang pertanyaan: mes.voyages.app@gmail.com.</p>
+    <p>Aplikasi ini direka untuk menjadi intuitif, tetapi untuk sebarang pertanyaan:
+    mes.voyages.app@gmail.com.</p>
 
-    <p>Terjemahan telah dijana secara automatik dan belum disemak secara manual.
+    <p>Terjemahan telah dijana secara automatik dan tidak disemak secara manual.
 
-    Untuk sebarang anomali terjemahan, pepijat atau jika anda hanya ingin memberikan
+    Untuk sebarang ralat terjemahan, pepijat atau jika anda hanya ingin memberikan
     maklum balas, jangan teragak-agak untuk menghubungi saya.</p>
 
     <hr />
 
-    <strong>Terima kasih kerana memilih Perjalanan Saya!</strong>'
+    <strong>Terima kasih kerana memilih Mes Voyages!</strong>'
   malgache: '<h3>📌 Famaritana :</h3>
 
-    <p>Ny "Mes Voyages" (Ny Diako) dia fampiharana ahafahana mamorona sarintany dia
-    natao manokana amin''ny alalan''ny fisafidianana faritra na departemanta amin''ny
-    firenena efa notsidihinao.</p>
+    <p>Ny Mes Voyages dia fampiharana ahafahana mamorona sarintany manokana momba
+    ireo toerana efa notsidihina.</p>
 
-    <h3>💻 Ahoana no fampiasana :</h3>
+    <h3>💻 Fomba fampiasana :</h3>
 
     <ol>
 
-    <li>Asio ny anaranao ary amboary ny fikirana manokana.</li>
+    <li>Mamorona ny mombamomba anao ary amboary ny fandrindrana.</li>
 
-    <li>Fidio ny toerana efa notsidihinao amin''ny ambaratonga tianao indrindra.</li>
+    <li>Ampidiro ny fitetezana rehetra nataonao amin''ny alalan''ny fisafidianana
+    ireo toerana notsidihina.</li>
 
-    <li>Mamorona ny sarintaninao! Ny fitahirizana ny dia nataonao sy ny fikirana anao
-    dia atao rehefa manindry iray amin''ireo bokotra fitahirizana na famoronana sarintany
-    ianao. Raha mifindra takelaka ianao tsy manova mombamomba, dia tsy ho very ny
-    toerana voafantina.</li>
+    <li>Amboary sy mamorona ny sarintaninao ! Voatahiry ny fitsidihanao sy ny fandrindrana
+    rehefa manindry ny bokotra fitahirizana na ny bokotra famoronana sarintany ianao.
+    Raha manova takelaka ianao nefa tsy manova ny mombamomba anao, dia tsy very ireo
+    toerana voafidy.</li>
 
-    <li>Fantaro izay firenena efa notsidihinao indrindra ary jereo ny tolo-kevitray
-    ho an''ny vakansy manaraka!</li>
+    <li>Hita ao ireo fampahalalana mahagaga momba ny fitetezana nataonao ary jereo
+    ny soso-kevitray ho an''ny vakansinao manaraka !</li>
 
     </ol>
 
-    <h3>📋 Antontan-taratasy YAML azo alaina :</h3>
-
-    <p>Ny antontan-taratasy <code>.yaml</code> omena dia <strong>modely feno</strong>
-    ahitana ny firenena, faritra, ary departemanta rehetra azo.</p>
-
-    <p>▶️ Raha alefanao ity fomba ity mba hanondroana ny toerana efa notsidihinao,
-    alao aloha ny modely ao amin''ny lahatahiry fampiharana. Avy eo esory ny toerana
-    rehetra tsy notsidihinao ary ampidiro ao amin''ny fampiharana.</p>
-
     <h3>❓ Fifandraisana :</h3>
 
-    <p>Ny fampiharana dia natao ho mora ampiasaina, fa raha misy fanontaniana: mes.voyages.app@gmail.com.</p>
+    <p>Natao ho mora ampiasaina ny fampiharana, saingy raha misy fanontaniana : mes.voyages.app@gmail.com.</p>
 
-    <p>Ny fandikan-teny dia natao ho azy ary tsy nanamarinina an-tanana.
+    <p>Navoaka ho azy ny fandikan-teny ary tsy mbola nohadihadiana tamin''ny tanana.
 
-    Raha misy tsy mety amin''ny fandikan-teny, bug, na te hilaza hevitra fotsiny ianao,
-    aza misalasala mifandray amiko.</p>
+    Raha misy fahadisoana amin''ny fandikan-teny, bug, na raha te hanome hevitra ianao,
+    dia aza misalasala mifandray amiko.</p>
 
     <hr />
 
-    <strong>Misaotra anao nifidy ny "Mes Voyages" (Ny Diako) !</strong>'
+    <strong>Misaotra anao nifidy ny Mes Voyages !</strong>'
   maltais: '<h3>📌 Deskrizzjoni:</h3>
 
-    <p>Il-Vjaġġi Tiegħi hija applikazzjoni li tippermetti li toħloq mapep tal-vjaġġi
-    personalizzati billi tagħżel reġjuni jew dipartimenti fil-pajjiżi li żort.</p>
+    <p>Mes Voyages hija applikazzjoni li tippermetti li toħloq mappi personalizzati
+    tal-postijiet li żarnejna.</p>
 
     <h3>💻 Kif tuża:</h3>
 
     <ol>
 
-    <li>Daħħal ismek u personalizza s-settings tiegħek.</li>
+    <li>Oħloq il-profil tiegħek u ippersonalizza s-settings tiegħek.</li>
 
-    <li>Agħżel il-postijiet li żort fil-livell ta'' granularità li tippreferi.</li>
+    <li>Żid il-vjaġġijiet kollha li għamilt billi selezzjoni l-postijiet iżżarati.</li>
 
-    <li>Oħloq il-mapep tiegħek! Il-maħżen tal-żjarat u s-settings tiegħek isir meta
-    tikklikkja fuq waħda mill-buttuni tal-ħżin jew tal-ħolqien tal-mapep. Jekk tibdel
-    it-tab mingħajr ma tbiddel il-profil, il-postijiet magħżula mhumiex mitlufa.</li>
+    <li>Ippersonalizza u oħloq il-mappi tiegħek! Is-salvataġġ ta'' żjariet u s-settings
+    tiegħek isir meta tkikka fuq wieħed mill-buttuni tas-salvataġġ jew ta''t-tħolqiq
+    tal-mappi. Jekk tbiddel it-tab mingħajr ma tbiddel il-profil, il-postijiet immarkati
+    ma jintilxew.</li>
 
-    <li>Skopri liema pajjiżi żort l-aktar u esplora r-rakkomandazzjonijiet tagħna
-    għall-vaganza li jmiss tiegħek!</li>
+    <li>Skopri informazzjoni sorpriżanti dwar il-vjaġġijiet tiegħek u esplora r-rakkomandazzjonijiet
+    tagħna għal vakkanzi li jmissu!</li>
 
     </ol>
 
-    <h3>📋 Fajls YAML disponibbli:</h3>
-
-    <p>Il-fajls <code>.yaml</code> provduti huma <strong>mudelli kompluti</strong>
-    li fihom il-pajjiżi, ir-reġjuni u d-dipartimenti kollha disponibbli.</p>
-
-    <p>▶️ Jekk tippreferi din il-metodu biex tindika l-postijiet li żort, ikkopja
-    l-ewwel il-mudelli fil-folder tal-applikazzjoni. Imbagħad ħassar il-postijiet
-    kollha li ma żortx u għabbihom fl-applikazzjoni.</p>
-
     <h3>❓ Kuntatt:</h3>
 
-    <p>L-applikazzjoni hija maħsuba biex tkun intuwittiva, imma għal kwalunkwe mistoqsija:
-    mes.voyages.app@gmail.com.</p>
+    <p>L-applikazzjoni hija intuittiva, iżda għal kull mistoqsija: mes.voyages.app@gmail.com.</p>
 
-    <p>It-traduzzjonijiet ġew ġenerati awtomatikament u ma ġewx reviżi manwalment.
+    <p>It-traduzzjonijiet ġew iġenerati awtomatikament u ma ġewx ivverifikati manuwalment.
 
-    Għal kwalunkwe anomalija fit-traduzzjoni, bug, jew jekk sempliċement trid tagħti
-    feedback, tħossokx liberu li tikkuntattjani.</p>
+    Għal kull anomalija fit-traduzzjoni, bug jew jekk trid sempliċement tagħti feedback,
+    ma tħezzimex tikkontattani.</p>
 
     <hr />
 
-    <strong>Grazzi talli għażilt Il-Vjaġġi Tiegħi!</strong>'
+    <strong>Grazzi li għżielt Mes Voyages!</strong>'
   mandarin standard: '<h3>📌 描述：</h3>
 
-    <p>我的旅行 (Mes Voyages) 是一款应用程序，允许您通过选择您曾到访过的国家的地区或省份来创建自定义的旅行地图。</p>
+    <p>Mes Voyages 是一款可用于创建已访问地点个性化地图的应用。</p>
 
     <h3>💻 使用方法：</h3>
 
     <ol>
 
-    <li>输入您的名字并自定义您的设置。</li>
+    <li>创建您的个人资料并自定义设置。</li>
 
-    <li>根据您喜欢的详细程度选择您到访过的地方。</li>
+    <li>通过选择访问过的地点，添加您所有经历过的旅程。</li>
 
-    <li>创建您的地图！当您点击其中一个保存或创建地图按钮时，您的行程和设置将被保存。如果您在不更改配置文件的情况下更改标签页，您勾选的地方也不会丢失。</li>
+    <li>自定义并创建您的地图！当您点击保存按钮或创建地图按钮时，您的访问记录和设置将被保存。如果您在未更改个人资料的情况下切换标签页，已勾选的地点不会丢失。</li>
 
-    <li>发现您去过最多的国家，并探索我们为您推荐的下一个假期！</li>
+    <li>发现关于您旅程的惊喜信息，并探索我们为您下次假期提供的建议！</li>
 
     </ol>
-
-    <h3>📋 可用的 YAML 文件：</h3>
-
-    <p>提供的 <code>.yaml</code> 文件是<strong>完整模板</strong>，包含所有可用的国家、地区和省份。</p>
-
-    <p>▶️ 如果您更喜欢此方法来指明您到访过的地方，请先复制应用程序文件夹中的模板。然后删除所有未到访过的地方并将其加载到应用程序中。</p>
 
     <h3>❓ 联系方式：</h3>
 
-    <p>该应用程序旨在直观易用，但如有任何疑问，请联系：mes.voyages.app@gmail.com。</p>
+    <p>该应用旨在简单直观，但如有任何问题，请发送邮件至：mes.voyages.app@gmail.com。</p>
 
-    <p>翻译是自动生成的，未经人工审阅。
+    <p>翻译由自动生成，未经人工核对。
 
-    如有任何翻译异常、错误或您只是想提供反馈，请随时与我联系。</p>
+    如发现翻译异常、漏洞或仅想提供反馈，请随时与我联系。</p>
 
     <hr />
 
-    <strong>感谢您选择我的旅行！</strong>。'
-  mongol: '<h3>📌 Тайланбар:</h3>
+    <strong>感谢您选择 Mes Voyages！</strong>'
+  mongol: '<h3>📌 Тодорхойлолт:</h3>
 
-    <p>Миний Аялал бол бидний зочилсон улс орнуудын бүс эсвэл мужуудыг сонгож, хувийн
-    тохиргоот аяллын газрын зураг бүтээх боломжийг олгодог програм юм.</p>
+    <p>Mes Voyages бол зочилсон газруудынхаа хувийн газрын зургийг үүсгэх боломжтой
+    аппликейшн юм.</p>
 
-    <h3>💻 Хэрхэн ашиглах:</h3>
+    <h3>💻 Хэрхэн ашиглах вэ:</h3>
 
     <ol>
 
-    <li>Өөрийн нэрийг оруулж, тохиргоогоо тохируулна уу.</li>
+    <li>Профайл үүсгэж, тохиргоогоо өөрчилнө үү.</li>
 
-    <li>Таны сонгосон нарийвчлалын түвшинд зочилсон газруудаа сонгоно уу.</li>
+    <li>Зочилсон газруудаа сонгож, хийсэн бүх аяллалаа нэмнэ үү.</li>
 
-    <li>Өөрийн газрын зургаа бүтээцгээе! Таны зочилсон газрууд болон тохиргоог хадгалах
-    нь хадгалах эсвэл газрын зураг бүтээх товчлууруудын аль нэгийг дарсан үед автоматаар
-    хийгдэнэ. Хэрэв та профайлаа өөрчлөхгүйгээр бусад таб руу шилжих юм бол тэмдэглэгдсэн
-    газрууд алдагдахгүй.</li>
+    <li>Газрын зургаа засаж, үүсгээрэй! Та хадгалах эсвэл газрын зураг үүсгэх товчлуурыг
+    дарах үед зочилсон газрууд болон тохиргоо хадгалагдана. Хэрэв та профайлаа солихгүйгээр
+    цонхыг сольсон тохиолдолд сонгосон газрууд устахгүй.</li>
 
-    <li>Та аль улсуудад хамгийн их зочилсон болохыг олж мэдэж, дараагийн амралтаараа
-    бидний зөвлөмжийг судлаарай!</li>
+    <li>Аяллаллынхаа талаарх сонирхолтой мэдээллүүдийг олж мэдэж, дараагийн амралтынхаа
+    төлөөх бидний зөвлөмжүүдтэй танилцаарай!</li>
 
     </ol>
-
-    <h3>📋 Боломжит YAML файлууд:</h3>
-
-    <p>Өгөгдсөн <code>.yaml</code> файлууд нь боломжит бүх улс орнууд, бүс нутгууд
-    болон мужуудыг агуулсан **бүрэн загварууд** юм.</p>
-
-    <p>▶️ Хэрэв та зочилсон газруудаа заахын тулд энэ аргыг илүүд үзвэл, эхлээд програмын
-    хавтаснаас загварыг хуулж авна уу. Дараа нь зочилж амжаагүй бүх газруудыг устгаад
-    програмынхаа дотор оруулаад ачаална уу.</p>
 
     <h3>❓ Холбоо барих:</h3>
 
-    <p>Програм нь ойлгомжтой байх зорилготой боловч ямар нэгэн асуулт байвал: mes.voyages.app@gmail.com.</p>
+    <p>Аппликейшн нь ойлгомжтой байхаар бүтээгдсэн, гэхдээ асуух зүйл гарвал: mes.voyages.app@gmail.com.</p>
 
-    <p>Орчуулгыг автоматаар үүсгэсэн бөгөөд гараар хянан шалгаагүй болно.
+    <p>Орчуулгыг автоматаар үүсгэсэн бөгөөд гараар шалгаагүй.
 
-    Орчуулгын ямар нэгэн алдаа, алдаа эсвэл зүгээр л санал хүсэлт байвал надад хандахаас
-    бүү татгалзаарай.</p>
+    Орчуулгын алдаа, баг гарсан эсвэл санал хүжүүлэхийг хүсвэл надтай холбогдохоос
+    бүү ngạiарай.</p>
 
     <hr />
 
-    <strong>"Миний Аялал"-ыг сонгосон танд баярлалаа!</strong>'
+    <strong>Mes Voyages-ийг сонгосонт баярлалаа!</strong>'
   norvégien: '<h3>📌 Beskrivelse:</h3>
 
-    <p>Mine Reiser er en applikasjon som lar deg lage personlige reisekart ved å velge
-    regioner eller avdelinger i landene du har besøkt.</p>
+    <p>Mes Voyages er en app som lar deg lage personlige kart over stedene du har
+    besøkt.</p>
 
-    <h3>💻 Hvordan bruke:</h3>
+    <h3>💻 Slik bruker du den:</h3>
 
     <ol>
 
-    <li>Skriv inn navnet ditt og tilpass innstillingene dine.</li>
+    <li>Opprett profilen din og tilpass innstillingene dine.</li>
 
-    <li>Velg stedene du har besøkt på det detaljnivået du foretrekker.</li>
+    <li>Legg til alle reisene du har foretatt ved å velge stedene du har besøkt.</li>
 
-    <li>Lag kartene dine! Lagring av besøkene og innstillingene dine gjøres når du
-    klikker på en av lagrings- eller kartopprettingsknappene. Hvis du bytter fane
-    uten å bytte profil, går ikke de avmerkede stedene tapt.</li>
+    <li>Tilpass og lag kartene dine! Lagring av besøkene og innstillingene dine skjer
+    når du klikker på en av knappene for lagring eller oppretting av kart. Hvis du
+    bytter fane uten å bytte profil, vil ikke de valgte stedene gå tapt.</li>
 
-    <li>Finn ut hvilke land du har besøkt mest, og utforsk våre anbefalinger for din
-    neste ferie!</li>
+    <li>Oppdag overraskende informasjon om reisene dine og utforsk våre anbefalinger
+    for din neste ferie!</li>
 
     </ol>
 
-    <h3>📋 Tilgjengelige YAML-filer:</h3>
-
-    <p>De medfølgende <code>.yaml</code>-filene er <strong>komplette maler</strong>
-    som inneholder alle tilgjengelige land, regioner og avdelinger.</p>
-
-    <p>▶️ Hvis du foretrekker denne metoden for å angi stedene du har besøkt, kopierer
-    du først malene i applikasjonens mappe. Slett deretter alle ubesøkte steder og
-    last dem inn i applikasjonen.</p>
-
     <h3>❓ Kontakt:</h3>
 
-    <p>Applikasjonen er ment å være intuitiv, men for spørsmål: mes.voyages.app@gmail.com.</p>
+    <p>Appen er ment å være intuitiv, men for alle spørsmål: mes.voyages.app@gmail.com.</p>
 
-    <p>Oversettelsene ble generert automatisk og er ikke manuelt gjennomgått.
-
-    For eventuelle oversettelsesanomalier, feil, eller hvis du rett og slett ønsker
-    å gi tilbakemelding, ikke nøl med å kontakte meg.</p>
+    <p>Oversettelsene er generert automatisk og har ikke blitt kontrollert manuelt.
+    For oversettelsesfeil, bugs eller hvis du bare ønsker å gi tilbakemelding, ikke
+    nøl med å kontakte meg.</p>
 
     <hr />
 
-    <strong>Takk for at du valgte Mine Reiser!</strong>'
+    <strong>Takk for at du valgte Mes Voyages!</strong>'
   néerlandais: '<h3>📌 Beschrijving:</h3>
 
-    <p>Mijn Reizen is een app waarmee u aangepaste reisroutes kunt maken door regio''s
-    of departementen van landen te selecteren die u hebt bezocht.</p>
+    <p>Mes Voyages is een app waarmee je gepersonaliseerde kaarten kunt maken van
+    de plaatsen die je hebt bezocht.</p>
 
     <h3>💻 Hoe te gebruiken:</h3>
 
     <ol>
 
-    <li>Voer uw naam in en pas uw instellingen aan.</li>
+    <li>Maak je profiel aan en personaliseer je instellingen.</li>
 
-    <li>Selecteer de plaatsen die u hebt bezocht met de gewenste granulariteit.</li>
+    <li>Voeg al je reizen toe door de bezochte plaatsen te selecteren.</li>
 
-    <li>Maak uw kaarten! Uw bezoeken en instellingen worden opgeslagen wanneer u op
-    een van de opslaan- of kaartcreatieknoppen klikt. Als u van tabblad wisselt zonder
-    van profiel te wisselen, gaan de aangevinkte plaatsen niet verloren.</li>
+    <li>Pas je kaarten aan en maak ze! Je bezoeken en instellingen worden opgeslagen
+    wanneer je op een van de knoppen voor opslaan of het maken van kaarten klikt.
+    Als je van tabblad wisselt zonder van profiel te veranderen, gaan de aangevinkte
+    plaatsen niet verloren.</li>
 
-    <li>Ontdek welke landen u het meest hebt bezocht en verken onze aanbevelingen
-    voor uw volgende vakantie!</li>
+    <li>Ontdek verrassende informatie over je reizen en bekijk onze aanbevelingen
+    voor je volgende vakantie!</li>
 
     </ol>
 
-    <h3>📋 Beschikbare YAML-bestanden:</h3>
-
-    <p>De meegeleverde <code>.yaml</code>-bestanden zijn <strong>complete sjablonen</strong>
-    met alle beschikbare landen, regio''s en departementen.</p>
-
-    <p>▶️ Als u deze methode verkiest om aan te geven welke plaatsen u hebt bezocht,
-    kopieert u eerst de sjablonen uit de app-map. Verwijder vervolgens alle onbezochte
-    plaatsen en laad ze in de app.</p>
-
     <h3>❓ Contact:</h3>
 
-    <p>De app is bedoeld om intuïtief te zijn, maar voor vragen kunt u contact opnemen
-    via: mes.voyages.app@gmail.com.</p>
+    <p>De app is bedoeld om intuïtief te zijn, maar voor alle vragen: mes.voyages.app@gmail.com.</p>
 
-    <p>De vertalingen zijn automatisch gegenereerd en niet handmatig gecontroleerd.
+    <p>De vertalingen zijn automatisch gegenereerd en zijn niet handmatig gecontroleerd.
 
-    Voor eventuele vertaalfouten, bugs of als u gewoon feedback wilt geven, aarzel
-    dan niet om contact met mij op te nemen.</p>
+    Voor vertaalfouten, bugs of als je gewoon feedback wilt geven, aarzel dan niet
+    om contact met me op te nemen.</p>
 
     <hr />
 
-    <strong>Bedankt dat u voor Mijn Reizen hebt gekozen!</strong>'
+    <strong>Bedankt voor het kiezen voor Mes Voyages!</strong>'
   népalais: '<h3>📌 विवरण:</h3>
 
-    <p>मेरो यात्रा (Mes Voyages) एउटा एप हो जसले तपाईंले भ्रमण गरेका देशका क्षेत्र
-    वा विभागहरू चयन गरेर अनुकूलित यात्रा नक्साहरू सिर्जना गर्न अनुमति दिन्छ।</p>
+    <p>Mes Voyages तपाईंले भ्रमण गरेका ठाउँहरूको व्यक्तिगत नक्साहरू बनाउन अनुमति दिने
+    एउटा एप हो।</p>
 
     <h3>💻 कसरी प्रयोग गर्ने:</h3>
 
     <ol>
 
-    <li>तपाईंको नाम प्रविष्ट गर्नुहोस् र तपाईंको सेटिङहरू अनुकूलित गर्नुहोस्।</li>
+    <li>आफ्नो प्रोफाइल बनाउनुहोस् र आफ्नो सेटिङहरू अनुकूलित गर्नुहोस्।</li>
 
-    <li>तपाईंले जुनसुकै स्तरको विस्तृततामा भ्रमण गरेका स्थानहरू चयन गर्नुहोस्।</li>
+    <li>भ्रमण गरेका ठाउँहरू चयन गरेर तपाईंले गरेका सबै भ्रमणहरू थप्नुहोस्।</li>
 
-    <li>तपाईंको नक्साहरू सिर्जना गर्नुहोस्! नक्साको बचत वा निर्माण बटनहरू मध्ये कुनै
-    एकमा क्लिक गर्दा तपाईंको भ्रमण र सेटिङहरूको बचत गरिन्छ। यदि तपाईंले प्रोफाइल नबदली
-    ट्याब परिवर्तन गर्नुभयो भने, चयन गरिएका स्थानहरू हराउँदैनन्।</li>
+    <li>आफ्ना नक्साहरू अनुकूलित गर्नुहोस् र बनाउनुहोस्! तपाईंले बचत गर्ने वा नक्सा
+    बनाउने बटनहरूमध्ये एकमा क्लिक गर्दा तपाईंको भ्रमण र सेटिङहरू सुरक्षित हुन्छन्।
+    यदि तपाईं प्रोफाइल परिवर्तन नगरी ट्याब परिवर्तन गर्नुहुन्छ भने, चयन गरिएका ठाउँहरू
+    हराउँदैनन्।</li>
 
-    <li>तपाईंले कुन देशहरू सबैभन्दा बढी भ्रमण गर्नुभएको छ पत्ता लगाउनुहोस् र तपाईंको
-    अर्को छुट्टीको लागि हाम्रा सिफारिसहरू अन्वेषण गर्नुहोस्!</li>
+    <li>आफ्नो भ्रमणहरूको बारेमा आश्चर्यजनक जानकारीहरू पत्ता लगाउनुहोस् र तपाईंको अर्को
+    बिदाको लागि हाम्रा सिफारिसहरू अन्वेषण गर्नुहोस्!</li>
 
     </ol>
 
-    <h3>📋 उपलब्ध YAML फाइलहरू:</h3>
-
-    <p>प्रदान गरिएका <code>.yaml</code> फाइलहरू **पूर्ण टेम्प्लेटहरू** हुन् जसमा सबै
-    उपलब्ध देशहरू, क्षेत्रहरू र विभागहरू समावेश छन्।</p>
-
-    <p>▶️ यदि तपाईंले भ्रमण गरेका स्थानहरू सङ्केत गर्न यो विधि मन पराउनुहुन्छ भने,
-    पहिले एपको फोल्डरमा रहेका टेम्प्लेटहरू प्रतिलिपि गर्नुहोस्। त्यसपछि, भ्रमण नगरेका
-    सबै स्थानहरू हटाउनुहोस् र तिनीहरूलाई एपमा लोड गर्नुहोस्।</p>
-
     <h3>❓ सम्पर्क:</h3>
 
-    <p>एप सहज हुनको लागि डिजाइन गरिएको हो, तर कुनै पनि प्रश्नको लागि: mes.voyages.app@gmail.com।</p>
+    <p>यो एप सहज छ, तर कुनै पनि प्रश्नको लागि: mes.voyages.app@gmail.com।</p>
 
-    <p>अनुवादहरू स्वचालित रूपमा उत्पन्न भएका हुन् र म्यानुअल रूपमा समीक्षा गरिएको
-    छैन।
+    <p>अनुवादहरू स्वचालित रूपमा उत्पन्न गरिएका हुन् र मैन्युअल्ली जाँच गरिएका छैनन्।
 
-    कुनै पनि अनुवाद असामान्यता, बग, वा तपाईं केवल प्रतिक्रिया दिन चाहनुहुन्छ भने,
-    मसँग सम्पर्क गर्न संकोच नगर्नुहोस्।</p>
+    अनुवादमा कुनै त्रुटि, बग, वा यदि तपाईं प्रतिक्रिया दिन चाहनुहुन्छ भने, कृपया मलाई
+    सम्पर्क गर्न नहिचकिचाउनुहोस्।</p>
 
     <hr />
 
-    <strong>मेरो यात्रा (Mes Voyages) छनोट गर्नुभएकोमा धन्यवाद!</strong>।'
+    <strong>Mes Voyages रोज्नुभएकोमा धन्यवाद!</strong>'
   ourdou: '<h3>📌 تفصیل:</h3>
 
-    <p>Mes Voyages ایک ایسی ایپلیکیشن ہے جو آپ کے دورہ کردہ ممالک کے خطوں یا محکموں
-    کو منتخب کرکے حسب ضرورت سفری نقشے بنانے کی سہولت فراہم کرتی ہے۔</p>
+    <p>Mes Voyages ایک ایسی ایپ ہے جو آپ کو ان جگہوں کے ذاتی نقشے بنانے کی اجازت دیتی
+    ہے جہاں آپ سیر کے لیے گئے ہیں۔</p>
 
     <h3>💻 استعمال کرنے کا طریقہ:</h3>
 
     <ol>
 
-    <li>اپنا نام درج کریں اور اپنی ترجیحات کو حسب ضرورت بنائیں۔</li>
+    <li>اپنی پروفائل بنائیں اور اپنی ترتیبات کو اپنی مرضی کے مطابق ترتیب دیں۔</li>
 
-    <li>ان مقامات کا انتخاب کریں جہاں آپ نے اپنی ترجیحی سطح کی تفصیل کے مطابق دورہ
-    کیا ہے۔</li>
+    <li>سیر کی گئی جگہوں کا انتخاب کر کے اپنے تمام سفروں کو شامل کریں۔</li>
 
-    <li>اپنے نقشے بنائیں! آپ کے دوروں اور ترجیحات کو محفوظ کیا جائے گا جب آپ کسی محفوظ
-    یا نقشہ بنانے والے بٹن پر کلک کریں گے۔ اگر آپ پروفائل تبدیل کیے بغیر ٹیبز کو تبدیل
-    کرتے ہیں، تو منتخب کردہ مقامات ضائع نہیں ہوں گے۔</li>
+    <li>اپنے نقشے ترتیب دیں اور بنائیں! آپ کے دورے اور ترتیبات اس وقت محفوظ ہوتے ہیں
+    جب آپ محفوظ کرنے یا نقشہ بنانے کے بٹن پر کلک کرتے ہیں۔ اگر آپ پروفائل بدلے بغیر
+    ٹیب تبدیل کرتے ہیں، تو منتخب کردہ جگہیں ضائع نہیں ہوں گی۔</li>
 
-    <li>معلوم کریں کہ آپ نے کون سے ممالک کا سب سے زیادہ دورہ کیا ہے اور اپنی اگلی
-    تعطیلات کے لیے ہماری سفارشات دریافت کریں!</li>
+    <li>اپنے سفر کے بارے میں حیران کن معلومات دریافت کریں اور اپنی اگلی تعطیلات کے
+    لیے ہماری سفارشات دیکھیں!</li>
 
     </ol>
 
-    <h3>📋 دستیاب YAML فائلیں:</h3>
-
-    <p>فراہم کردہ <code>.yaml</code> فائلیں <strong>مکمل ٹیمپلیٹس</strong> ہیں جن
-    میں تمام دستیاب ممالک، خطے اور محکمے شامل ہیں۔</p>
-
-    <p>▶️ اگر آپ اپنے دورہ کردہ مقامات کی نشاندہی کرنے کے لیے اس طریقہ کار کو ترجیح
-    دیتے ہیں، تو پہلے ایپلیکیشن فولڈر میں موجود ٹیمپلیٹس کو کاپی کریں۔ پھر تمام غیر
-    دورہ کردہ مقامات کو حذف کریں اور انہیں ایپلیکیشن میں لوڈ کریں۔</p>
-
     <h3>❓ رابطہ:</h3>
 
-    <p>ایپلیکیشن کا مقصد بدیہی ہے، لیکن کسی بھی سوال کے لیے: mes.voyages.app@gmail.com۔</p>
+    <p>ایپ کو استعمال کرنا آسان بنایا گیا ہے، لیکن کسی بھی سوال کے لیے: mes.voyages.app@gmail.com۔</p>
 
-    <p>ترجمے خود بخود تیار کیے گئے ہیں اور ان کا دستی طور پر جائزہ نہیں لیا گیا ہے۔
+    <p>ترجمہ خودکار طریقے سے کیا گیا ہے اور اسے دستی طور پر چیک نہیں کیا گیا ہے۔
 
-    ترجمہ میں کسی بھی غیر معمولی صورتحال، خرابی، یا اگر آپ صرف رائے دینا چاہتے ہیں،
-    تو مجھ سے رابطہ کرنے میں ہچکچائیں نہیں۔</p>
+    ترجمے کی کسی بھی غلطی، بگ، یا اگر آپ صرف اپنی رائے دینا چاہتے ہیں، تو بلا جھجھک
+    مجھ سے رابطہ کریں۔</p>
 
     <hr />
 
-    <strong>Mes Voyages کو منتخب کرنے کا شکریہ!</strong>۔'
+    <strong>Mes Voyages منتخب کرنے کا شکریہ!</strong>'
   ouzbek: '<h3>📌 Tavsif:</h3>
 
-    <p>Sayohatlarim - bu tashrif buyurilgan mamlakatlarning mintaqalari yoki departamentlarini
-    tanlash orqali shaxsiy sayohat xaritalarini yaratishga imkon beradigan ilova.</p>
+    <p>Mes Voyages — bu tashrif buyurilgan joylarning shaxsiylashtirilgan xaritalarini
+    yaratish imkonini beruvchi ilovadir.</p>
 
     <h3>💻 Qanday foydalanish kerak:</h3>
 
     <ol>
 
-    <li>Ismingizni kiriting va sozlamalaringizni sozlang.</li>
+    <li>Profilingizni yarating va sozlamalaringizni shaxsiylashtiring.</li>
 
-    <li>Siz tashrif buyurgan joylarni o''zingiz xohlagan darajada tanlang.</li>
+    <li>Tashrif buyurilgan joylarni tanlab, amalga oshirgan barcha sayohatlaringizni
+    qo''shing.</li>
 
-    <li>Xaritalaringizni yarating! Safari va sozlamalaringizni saqlash tugmalardan
-    birini bosganingizda amalga oshiriladi. Agar siz profilni o''zgartirmasdan boshqa
-    yorliqqa o''tsangiz, belgilangan joylar yo''qolmaydi.</li>
+    <li>Xaritalaringizni moslashtiring va yarating! Tashriflaringiz va sozlamalaringiz
+    xaritalarni saqlash yoki yaratish tugmalaridan birini bosganingizda saqlanadi.
+    Agar profilni o''zgartirmasdan boshqa vkladkaga o''tsangiz, belgilangan joylar
+    yo''qolmaydi.</li>
 
-    <li>Qaysi mamlakatlarga eng ko''p tashrif buyurganingizni bilib oling va keyingi
-    ta''til uchun tavsiyalarimizni o''rganing!</li>
-
-    </ol>
-
-    <h3>📋 Mavjud YAML fayllari:</h3>
-
-    <p>Ta''minlangan <code>.yaml</code> fayllari - bu barcha mavjud mamlakatlar, mintaqalar
-    va departamentlarni o''z ichiga olgan <strong>to''liq shablonlar</strong>.</p>
-
-    <p>▶️ Agar siz tashrif buyurgan joylarni ko''rsatish uchun ushbu usulni afzal
-    ko''rsangiz, avval dastur papkasidagi shablonlarni nusxalashingiz kerak. Keyin
-    tashrif buyurmagan barcha joylarni olib tashlang va ularni dasturga yuklang.</p>
-
-    <h3>❓ Aloqa:</h3>
-
-    <p>Ilova intuitiv bo''lishi uchun mo''ljallangan, ammo har qanday savol uchun:
-    mes.voyages.app@gmail.com.</p>
-
-    <p>Tarjimalar avtomatik ravishda yaratilgan va qo''lda ko''rib chiqilmagan.
-
-    Agar tarjimadagi har qanday nomuvofiqlik, xatolik yoki shunchaki fikr bildirishni
-    istasangiz, men bilan bog''laning.</p>
-
-    <hr />
-
-    <strong>Sayohatlarimni tanlaganingiz uchun tashakkur!</strong>'
-  pachto: '<h2>📌 تشریح:</h2>
-
-    <p>زما سفرونه یوه اپلیکیشن دی چې تاسو ته اجازه درکوي د هیوادونو د سیمو یا ایالتونو
-    په انتخابولو سره دودیز د سفر نقشې رامینځته کړئ چې تاسو ورته تللي یاست.</p>
-
-    <h2>💻 څنګه کارول:</h2>
-
-    <ol>
-
-    <li>خپل نوم ولیکئ او خپل ترتیبات دودیز کړئ.</li>
-
-    <li>هغه ځایونه غوره کړئ چې تاسو په هغه کچه چې تاسو یې غوره کوئ لیدلي دي.</li>
-
-    <li>خپل نقشې جوړې کړئ! ستاسو لیدنې او ستاسو ترتیبات د کله چې تاسو د خوندي کولو
-    یا نقشه جوړونې تڼۍ کلیک کوئ خوندي کیږي. که تاسو پرته له پروفایل بدلولو ټب بدل
-    کړئ، چک شوي ځایونه نه له لاسه ورکوي.</li>
-
-    <li>ومومئ چې کوم هیوادونه مو ډیر لیدلي او د خپلو راتلونکو رخصتیو لپاره زموږ سپارښتنې
-    وپلټئ!</li>
+    <li>Sayohatlaringiz haqida ajoyib ma''lumotlarni kashf eting va keyingi ta''tilingiz
+    uchun tavsiyalarimiz bilan tanishing!</li>
 
     </ol>
 
-    <h2>📋 موجود YAML فایلونه:</h2>
+    <h3>❓ Bog''lanish:</h3>
 
-    <p><code>.yaml</code> فایلونه چې چمتو شوي دي <strong>بشپړ ماډلونه</strong> دي
-    چې ټول هیوادونه، سیمې او ایالتونه لري.</p>
+    <p>Ilova tushunarli qilib yaratilgan, lekin har qanday savol uchun: mes.voyages.app@gmail.com.</p>
 
-    <p>▶️ که تاسو دا طریقه غوره کوئ ترڅو هغه ځایونه په ګوته کړئ چې تاسو لیدلي، لومړی
-    په اپلیکیشن فولډر کې موجود ماډلونه کاپي کړئ. بیا ټول نا لیدل شوي ځایونه حذف کړئ
-    او په اپلیکیشن کې یې پورته کړئ.</p>
+    <p>Tarjimalar avtomatik ravishda yaratilgan va qo''lda tekshirilmagan.
 
-    <h2>❓ اړیکه:</h2>
-
-    <p>اپلیکیشن هوښیار دی، مګر د هرې پوښتنې لپاره: mes.voyages.app@gmail.com.</p>
-
-    <p>ژباړې په اتوماتيک ډول رامینځته شوي او په لاسي ډول نه دي چک شوي.
-
-    د ژباړې کومې ستونزې، بګ، یا که تاسو یوازې بیرته ورکول غواړئ، مه هیروئ چې له ما
-    سره اړیکه ونیسئ.</p>
+    Tarjimadagi xatoliklar, texnik nosozliklar yoki shunchaki fikr bildirish uchun
+    men bilan bog''lanishdan tortinmang.</p>
 
     <hr />
 
-    <strong>د زما د سفرونو غوره کولو لپاره مننه!</strong>'
-  persan: '<h3>📌 توضیحات :</h3>
+    <strong>Mes Voyages''ni tanlaganingiz uchun rahmat!</strong>'
+  pachto: '<h3>📌 تفصیل:</h3>
 
-    <p>سفرهای من برنامه‌ای است برای ایجاد نقشه‌های سفری شخصی‌سازی شده با انتخاب مناطق
-    یا بخش‌های کشورهایی که بازدید کرده‌اید.</p>
+    <p>Mes Voyages یو اپلیکیشن دی چې تاسو ته د هغو ځایونو د شخصي نقشې جوړولو اجازه
+    ورکوي چې تاسو لیدلي دي.</p>
 
-    <h3>💻 نحوه استفاده :</h3>
+    <h3>💻 د کارولو طریقه:</h3>
 
     <ol>
 
-    <li>نام خود را وارد کرده و تنظیمات خود را شخصی‌سازی کنید.</li>
+    <li>خپل پروفایل جوړ کړئ او خپل تنظیمات تنظیم کړئ.</li>
 
-    <li>مکان‌هایی که از آنها بازدید کرده‌اید را با سطح دانه‌بندی مورد نظر خود انتخاب
-    کنید.</li>
+    <li>د لیدل شویو ځایونو په غوره کولو سره خپل ټول سفرونه اضافه کړئ.</li>
 
-    <li>نقشه‌های خود را بسازید! ذخیره بازدیدها و تنظیمات شما هنگام کلیک بر روی یکی
-    از دکمه‌های ذخیره یا ایجاد نقشه انجام می‌شود. اگر بدون تغییر نمایه، برگه دیگری
-    را تغییر دهید، مکان‌های انتخاب شده گم نمی‌شوند.</li>
+    <li>خپلې نقشې جوړې او شخصي کړئ! ستاسو د لیدنو او تنظیماتو خوندي کول هغه وخت ترسره
+    کیږي کله چې تاسو د خوندي کولو یا د نقشې جوړولو یو له بټنونو څخه کلیک وکړئ. که
+    تاسو د پروفایل بدلولو پرته ټب بدل کړئ، خوړل شوي ځایونه له منځه نه ځي.</li>
 
-    <li>کشف کنید که بیشتر از کدام کشورها بازدید کرده‌اید و توصیه‌های ما را برای تعطیلات
+    <li>د خپلو سفرونو په اړه حیراندونکي معلومات ومومئ او د خپلو راتلونکو رخصتیاو لپاره
+    زموږ وړاندیزونه وګورئ!</li>
+
+    </ol>
+
+    <h3>❓ اړیکه:</h3>
+
+    <p>دا اپلیکیشن د کارولو لپاره اسانه دی، مګر د هر ډول پوښتنې لپاره: mes.voyages.app@gmail.com.</p>
+
+    <p>ژباړې په اتوماتیک ډول تولید شوي او په لاسي ډول نه دي چک شوي. د ژباړې هر ډول
+    غلطي، بګ یا که تاسو غواړئ چې نظر ورکړئ، مه زړه کېنه او له ما سره اړیکه ونیسئ.</p>
+
+    <hr />
+
+    <strong>د Mes Voyages د غوره کولو لپاره مننه!</strong>'
+  persan: '<h3>📌 توضیحات:</h3>
+
+    <p>Mes Voyages برنامه‌ای است که به شما امکان می‌دهد نقشه‌های شخصی‌سازی‌شده‌ای
+    از مکان‌هایی که بازدید کرده‌اید، ایجاد کنید.</p>
+
+    <h3>💻 نحوه استفاده:</h3>
+
+    <ol>
+
+    <li>پروفایل خود را بسازید و تنظیمات خود را شخصی‌سازی کنید.</li>
+
+    <li>با انتخاب مکان‌های بازدید شده، تمام سفرهایی را که داشته‌اید اضافه کنید.</li>
+
+    <li>نقشه‌های خود را سفارشی‌سازی کرده و ایجاد کنید! ذخیره بازدیدها و تنظیمات شما
+    هنگام کلیک بر روی یکی از دکمه‌های ذخیره یا ایجاد نقشه انجام می‌شود. اگر بدون تغییر
+    پروفایل، تب را عوض کنید، مکان‌های علامت‌گذاری شده پاک نخواهند شد.</li>
+
+    <li>اطلاعات شگفت‌انگیزی درباره سفرهای خود کشف کنید و توصیه‌های ما را برای تعطیلات
     بعدی خود بررسی کنید!</li>
 
     </ol>
 
-    <h3>📋 فایل‌های YAML موجود :</h3>
+    <h3>❓ تماس:</h3>
 
-    <p>فایل‌های <code>.yaml</code> ارائه شده <strong>قالب‌های کاملی</strong> هستند
-    که حاوی تمام کشورهای، مناطق و بخش‌های موجود می‌باشند.</p>
+    <p>این برنامه به گونه‌ای طراحی شده است که بصری و ساده باشد، اما برای هرگونه سوال
+    به آدرس mes.voyages.app@gmail.com ایمیل بزنید.</p>
 
-    <p>▶️ اگر این روش را ترجیح می‌دهید تا مکان‌هایی را که بازدید کرده‌اید مشخص کنید،
-    ابتدا قالب‌های موجود در پوشه برنامه را کپی کنید. سپس تمام مکان‌های بازدید نشده
-    را حذف کرده و آنها را در برنامه بارگذاری کنید.</p>
+    <p>ترجمه‌ها به صورت خودکار تولید شده‌اند و به صورت دستی بررسی نشده‌اند.
 
-    <h3>❓ تماس :</h3>
-
-    <p>برنامه به گونه‌ای طراحی شده است که بصری باشد، اما برای هر گونه سوال: mes.voyages.app@gmail.com.</p>
-
-    <p>ترجمه‌ها به صورت خودکار تولید شده‌اند و به صورت دستی بازبینی نشده‌اند.
-
-    برای هر گونه ناهنجاری ترجمه، اشکال یا اگر به سادگی می‌خواهید بازخوردی ارائه دهید،
+    برای هرگونه نقص در ترجمه، باگ یا اگر صرفاً می‌خواهید بازخورد خود را ارسال کنید،
     در تماس با من تردید نکنید.</p>
 
     <hr />
 
-    <strong>از اینکه سفرهای من را انتخاب کردید سپاسگزاریم!</strong>'
+    <strong>از اینکه Mes Voyages را انتخاب کردید، متشکریم!</strong>'
   polonais: '<h3>📌 Opis:</h3>
 
-    <p>Moje Podróże to aplikacja umożliwiająca tworzenie spersonalizowanych map podróży
-    poprzez wybieranie odwiedzonych krajów, regionów lub departamentów.</p>
+    <p>Mes Voyages to aplikacja umożliwiająca tworzenie spersonalizowanych map odwiedzonych
+    miejsc.</p>
 
     <h3>💻 Jak używać:</h3>
 
     <ol>
 
-    <li>Wpisz swoje imię i spersonalizuj ustawienia.</li>
+    <li>Utwórz swój profil i spersonalizuj ustawienia.</li>
 
-    <li>Wybierz miejsca, które odwiedziłeś, z preferowaną szczegółowością.</li>
+    <li>Dodaj wszystkie swoje podróże, wybierając odwiedzone miejsca.</li>
 
-    <li>Stwórz swoje mapy! Twoje wizyty i ustawienia są zapisywane po kliknięciu jednego
-    z przycisków zapisywania lub tworzenia map. Jeśli zmienisz zakładkę bez zmiany
-    profilu, zaznaczone miejsca nie zostaną utracone.</li>
+    <li>Personalizuj i twórz swoje mapy! Zapisywanie odwiedzin i ustawień następuje
+    po kliknięciu jednego z przycisków zapisu lub tworzenia map. Jeśli zmienisz kartę
+    bez zmiany profilu, zaznaczone miejsca nie zostaną utracone.</li>
 
-    <li>Odkryj, które kraje odwiedziłeś najczęściej i poznaj nasze rekomendacje na
-    następne wakacje!</li>
+    <li>Odkryj zaskakujące informacje na temat swoich podróży i sprawdź nasze rekomendacje
+    na następne wakacje!</li>
 
     </ol>
-
-    <h3>📋 Dostępne pliki YAML:</h3>
-
-    <p>Dostarczone pliki <code>.yaml</code> są <strong>kompletnymi szablonami</strong>
-    zawierającymi wszystkie dostępne kraje, regiony i departamenty.</p>
-
-    <p>▶️ Jeśli wolisz tę metodę oznaczania odwiedzonych miejsc, najpierw skopiuj
-    szablony znajdujące się w folderze aplikacji. Następnie usuń wszystkie nieodwiedzone
-    miejsca i załaduj je do aplikacji.</p>
 
     <h3>❓ Kontakt:</h3>
 
-    <p>Aplikacja ma być intuicyjna, ale w razie pytań: mes.voyages.app@gmail.com.</p>
+    <p>Aplikacja ma być intuicyjna, ale w razie jakichkolwiek pytań: mes.voyages.app@gmail.com.</p>
 
-    <p>Tłumaczenia zostały wygenerowane automatycznie i nie zostały ręcznie sprawdzone.
+    <p>Tłumaczenia zostały wygenerowane automatycznie i nie zostały sprawdzone ręcznie.
 
-    W przypadku jakichkolwiek nieprawidłowości w tłumaczeniu, błędów lub jeśli po
-    prostu chcesz podzielić się swoją opinią, skontaktuj się ze mną.</p>
+    W przypadku błędów w tłumaczeniu, błędów w działaniu aplikacji lub jeśli po prostu
+    chcesz przekazać opinię, nie wahaj się ze mną skontaktować.</p>
 
     <hr />
 
-    <strong>Dziękujemy za wybranie aplikacji Moje Podróże!</strong>'
+    <strong>Dziękujemy za wybranie Mes Voyages!</strong>'
   portugais: '<h3>📌 Descrição:</h3>
 
-    <p>Minhas Viagens é um aplicativo para criar mapas de viagens personalizados selecionando
-    as regiões ou departamentos dos países que você visitou.</p>
+    <p>Mes Voyages é uma aplicação que permite criar mapas personalizados dos locais
+    que visitou.</p>
 
-    <h3>💻 Como usar:</h3>
+    <h3>💻 Como utilizar:</h3>
 
     <ol>
 
-    <li>Digite seu nome e personalize suas configurações.</li>
+    <li>Crie o seu perfil e personalize as suas definições.</li>
 
-    <li>Selecione os lugares que você visitou no nível de granularidade de sua preferência.</li>
+    <li>Adicione todas as viagens que realizou, selecionando os locais visitados.</li>
 
-    <li>Crie seus mapas! O salvamento de suas visitas e configurações é feito ao clicar
-    em um dos botões de salvar ou criar mapas. Se você mudar de aba sem mudar de perfil,
-    os lugares marcados não serão perdidos.</li>
+    <li>Personalize e crie os seus mapas! A gravação das suas visitas e das suas definições
+    é feita quando clica num dos botões de gravação ou de criação de mapas. Se alterar
+    de separador sem alterar de perfil, os locais selecionados não serão perdidos.</li>
 
-    <li>Descubra quais países você visitou mais e explore nossas recomendações para
-    suas próximas férias!</li>
+    <li>Descubra informações surpreendentes sobre as suas viagens e explore as nossas
+    recomendações para as suas próximas férias!</li>
 
     </ol>
 
-    <h3>📋 Arquivos YAML disponíveis:</h3>
+    <h3>❓ Contacto:</h3>
 
-    <p>Os arquivos <code>.yaml</code> fornecidos são **modelos completos** contendo
-    todos os países, regiões e departamentos disponíveis.</p>
+    <p>A aplicação pretende ser intuitiva, mas para qualquer dúvida: mes.voyages.app@gmail.com.</p>
 
-    <p>▶️ Se você prefere este método para indicar os lugares que visitou, copie primeiro
-    os modelos presentes na pasta do aplicativo. Em seguida, remova todos os lugares
-    não visitados e carregue-os no aplicativo.</p>
+    <p>As traduções foram geradas automaticamente e não foram verificadas manualmente.
 
-    <h3>❓ Contato:</h3>
-
-    <p>O aplicativo foi projetado para ser intuitivo, mas para qualquer dúvida: mes.voyages.app@gmail.com.</p>
-
-    <p>As traduções foram geradas automaticamente e não foram revisadas manualmente.
-
-    Para qualquer anomalia de tradução, bug ou se você simplesmente quiser dar um
-    feedback, não hesite em me contatar.</p>
+    Para qualquer anomalia de tradução, bug ou se simplesmente desejar dar feedback,
+    não hesite em contactar-me.</p>
 
     <hr />
 
-    <strong>Obrigado por escolher Minhas Viagens!</strong>'
-  roumain: '<h3>📌 Descriere :</h3>
+    <strong>Obrigado por escolher o Mes Voyages!</strong>'
+  roumain: '<h3>📌 Descriere:</h3>
 
-    <p>Călătoriile Mele este o aplicație pentru crearea hărților personalizate de
-    călătorie prin selectarea regiunilor sau departamentelor țărilor vizitate.</p>
+    <p>Mes Voyages este o aplicație care permite crearea de hărți personalizate cu
+    locurile vizitate.</p>
 
-    <h3>💻 Cum se utilizează :</h3>
+    <h3>💻 Cum se utilizează:</h3>
 
     <ol>
 
-    <li>Introduceți numele dvs. și personalizați setările.</li>
+    <li>Creați-vă profilul și personalizați setările.</li>
 
-    <li>Selectați locurile pe care le-ați vizitat la nivelul de granularitate preferat.</li>
+    <li>Adăugați toate călătoriile efectuate, selectând locurile vizitate.</li>
 
-    <li>Creați-vă hărțile! Salvarea vizitelor și a setărilor se face prin clic pe
-    unul dintre butoanele de salvare sau de creare a hărților. Dacă schimbați fila
-    fără a schimba profilul, locurile bifate nu se pierd.</li>
+    <li>Personalizați și creați hărțile voastre! Salvarea vizitelor și a setărilor
+    se face atunci când faceți clic pe unul dintre butoanele de salvare sau de creare
+    a hărților. Dacă schimbați tab-ul fără a schimba profilul, locurile selectate
+    nu sunt pierdute.</li>
 
-    <li>Descoperiți care sunt țările pe care le-ați vizitat cel mai mult și explorați
+    <li>Descoperiți informații surprinzătoare despre călătoriile voastre și explorați
     recomandările noastre pentru următoarele vacanțe!</li>
 
     </ol>
 
-    <h3>📋 Fișiere YAML disponibile :</h3>
-
-    <p>Fișierele <code>.yaml</code> furnizate sunt <strong>șabloane complete</strong>
-    care conțin toate țările, regiunile și departamentele disponibile.</p>
-
-    <p>▶️ Dacă preferați această metodă pentru a indica locurile pe care le-ați vizitat,
-    copiați mai întâi șabloanele din dosarul aplicației. Apoi, ștergeți toate locurile
-    nevizitate și încărcați-le în aplicație.</p>
-
-    <h3>❓ Contact :</h3>
+    <h3>❓ Contact:</h3>
 
     <p>Aplicația este concepută pentru a fi intuitivă, dar pentru orice întrebare:
     mes.voyages.app@gmail.com.</p>
 
-    <p>Traducerile au fost generate automat și nu au fost revizuite manual.
+    <p>Traducerile au fost generate automat și nu au fost verificate manual.
 
-    Pentru orice anomalie de traducere, bug sau dacă doriți pur și simplu să oferiți
+    Pentru orice anomalie de traducere, bug sau dacă doriți pur și simplu să trimiteți
     un feedback, nu ezitați să mă contactați.</p>
 
     <hr />
 
-    <strong>Vă mulțumim că ați ales Călătoriile Mele!</strong>'
+    <strong>Vă mulțumim că ați ales Mes Voyages!</strong>'
   russe: '<h3>📌 Описание:</h3>
 
-    <p>«Мои Путешествия» — это приложение, позволяющее создавать персонализированные
-    карты путешествий, выбирая регионы или департаменты стран, которые вы посетили.</p>
+    <p>Mes Voyages — это приложение, позволяющее создавать персонализированные карты
+    мест, которые вы посетили.</p>
 
     <h3>💻 Как использовать:</h3>
 
     <ol>
 
-    <li>Введите свое имя и настройте параметры.</li>
+    <li>Создайте свой профиль и настройте параметры.</li>
 
-    <li>Выберите места, которые вы посетили, с предпочитаемым уровнем детализации.</li>
+    <li>Добавьте все свои поездки, выбирая посещенные места.</li>
 
-    <li>Создайте свои карты! Сохранение ваших посещений и параметров происходит при
-    нажатии на одну из кнопок сохранения или создания карт. Если вы переключаетесь
-    между вкладками, не меняя профиль, отмеченные места не теряются.</li>
+    <li>Настраивайте и создавайте свои карты! Сохранение ваших посещений и настроек
+    происходит при нажатии одной из кнопок сохранения или создания карт. Если вы перейдете
+    на другую вкладку, не меняя профиль, отмеченные места не пропадут.</li>
 
-    <li>Узнайте, какие страны вы посетили чаще всего, и изучите наши рекомендации
+    <li>Узнайте удивительные факты о своих путешествиях и изучите наши рекомендации
     для вашего следующего отпуска!</li>
 
     </ol>
 
-    <h3>📋 Доступные YAML-файлы:</h3>
-
-    <p>Предоставленные файлы <code>.yaml</code> являются <strong>полными шаблонами</strong>,
-    содержащими все доступные страны, регионы и департаменты.</p>
-
-    <p>▶️ Если вы предпочитаете этот метод для указания посещенных мест, сначала скопируйте
-    шаблоны из папки приложения. Затем удалите все непосещенные места и загрузите
-    их в приложение.</p>
-
     <h3>❓ Контакты:</h3>
 
-    <p>Приложение интуитивно понятно, но по любым вопросам: mes.voyages.app@gmail.com.</p>
+    <p>Приложение задумано как интуитивно понятное, но по любым вопросам пишите на:
+    mes.voyages.app@gmail.com.</p>
 
-    <p>Переводы были сгенерированы автоматически и не проходили ручной проверки.
+    <p>Переводы были созданы автоматически и не проверялись вручную.
 
-    При возникновении аномалий перевода, ошибок или если вы просто хотите оставить
-    отзыв, не стесняйтесь обращаться ко мне.</p>
+    При обнаружении ошибок в переводе, багов или если вы просто хотите оставить отзыв,
+    не стесняйтесь обращаться ко мне.</p>
 
     <hr />
 
-    <strong>Спасибо, что выбрали «Мои Путешествия»!</strong>'
+    <strong>Спасибо, что выбрали Mes Voyages!</strong>'
   serbo-croate: '<h3>📌 Opis:</h3>
 
-    <p>Moji Putovi je aplikacija koja omogućava kreiranje personaliziranih mapa putovanja
-    odabirom regija ili odjela zemalja koje ste posjetili.</p>
+    <p>Mes Voyages je aplikacija koja omogućava kreiranje personalizovanih mapa mesta
+    koja ste posetili.</p>
 
     <h3>💻 Kako koristiti:</h3>
 
     <ol>
 
-    <li>Unesite svoje ime i prilagodite postavke.</li>
+    <li>Kreirajte svoj profil i prilagodite svoja podešavanja.</li>
 
-    <li>Odaberite mjesta koja ste posjetili na željenoj razini detalja.</li>
+    <li>Dodajte sva putovanja koja ste obavili tako što ćete izabrati posećena mesta.</li>
 
-    <li>Kreirajte svoje karte! Spremanje vaših posjeta i postavki vrši se klikom na
-    jednu od tipki za spremanje ili kreiranje karte. Ako promijenite karticu bez promjene
-    profila, označena mjesta se ne gube.</li>
+    <li>Prilagodite i kreirajte svoje mape! Čuvanje vaših poseta i podešavanja vrši
+    se kada kliknete na jedno od dugmadi za čuvanje ili kreiranje mapa. Ako promenite
+    karticu bez promene profila, označena mesta neće biti izgubljena.</li>
 
-    <li>Otkrijte koje ste zemlje najviše posjetili i istražite naše preporuke za vaš
-    sljedeći odmor!</li>
+    <li>Otkrijte iznenađujuće informacije o svojim putovanjima i istražite naše preporuke
+    za vaš sledeći odmor!</li>
 
     </ol>
 
-    <h3>📋 Dostupne YAML datoteke:</h3>
-
-    <p>Navedene <code>.yaml</code> datoteke su <strong>potpuni predlošci</strong>
-    koji sadrže sve dostupne zemlje, regije i odjele.</p>
-
-    <p>▶️ Ako preferirate ovu metodu za označavanje mjesta koja ste posjetili, prvo
-    kopirajte predloške iz mape aplikacije. Zatim izbrišite sva neposjećena mjesta
-    i učitajte ih u aplikaciju.</p>
-
     <h3>❓ Kontakt:</h3>
 
-    <p>Aplikacija je namijenjena biti intuitivna, ali za sva pitanja: mes.voyages.app@gmail.com.</p>
+    <p>Aplikacija je dizajnirana da bude intuitivna, ali za sva pitanja: mes.voyages.app@gmail.com.</p>
 
-    <p>Prijevodi su generirani automatski i nisu ručno provjereni.
+    <p>Prevodi su automatski generisani i nisu ručno provereni.
 
-    Za bilo kakve anomalije u prijevodu, greške ili ako jednostavno želite dati povratnu
-    informaciju, slobodno me kontaktirajte.</p>
+    Za svaku grešku u prevodu, bag ili ako jednostavno želite da pošaljete povratne
+    informacije, slobodno me kontaktirajte.</p>
 
     <hr />
 
-    <strong>Hvala vam što ste odabrali Moje Putove!</strong>'
+    <strong>Hvala što ste izabrali Mes Voyages!</strong>'
   slovaque: '<h3>📌 Popis:</h3>
 
-    <p>Moje Cesty je aplikácia, ktorá umožňuje vytvárať prispôsobené mapy ciest výberom
-    regiónov alebo departmánov krajín, ktoré ste navštívili.</p>
+    <p>Mes Voyages je aplikácia, ktorá umožňuje vytvárať prispôsobené mapy miest,
+    ktoré ste navštívili.</p>
 
-    <h3>💻 Ako používať:</h3>
+    <h3>💻 Ako použiť:</h3>
 
     <ol>
 
-    <li>Zadajte svoje meno a prispôsobte si nastavenia.</li>
+    <li>Vytvorte si profil a prispôsobte si svoje nastavenia.</li>
 
-    <li>Vyberte miesta, ktoré ste navštívili, na úrovni detailov, ktorú preferujete.</li>
+    <li>Pridajte všetky svoje cesty výberom navštívených miest.</li>
 
-    <li>Vytvorte si svoje mapy! Uloženie vašich návštev a nastavení sa uskutoční kliknutím
-    na jedno z tlačidiel na uloženie alebo vytvorenie mapy. Ak zmeníte kartu bez zmeny
-    profilu, označené miesta sa nestratia.</li>
+    <li>Prispôsobte si a vytvorte svoje mapy! Uloženie vašich návštev a nastavení
+    prebehne po kliknutí na jedno z tlačidiel pre uloženie alebo vytvorenie mapy.
+    Ak zmeníte kartu bez zmeny profilu, zaškrtnuté miesta sa nestratia.</li>
 
-    <li>Zistite, ktoré krajiny ste navštívili najviac, a preskúmajte naše odporúčania
-    pre vaše ďalšie dovolenky!</li>
+    <li>Objavte prekvapivé informácie o svojich cestách a preskúmajte naše odporúčania
+    pre vašu ďalšiu dovolenku!</li>
 
     </ol>
 
-    <h3>📋 Dostupné súbory YAML:</h3>
-
-    <p>Poskytnuté súbory <code>.yaml</code> sú <strong>kompletné šablóny</strong>
-    obsahujúce všetky dostupné krajiny, regióny a departmány.</p>
-
-    <p>▶️ Ak preferujete túto metódu na označenie miest, ktoré ste navštívili, najprv
-    skopírujte šablóny z priečinka aplikácie. Potom odstráňte všetky nenavštívené
-    miesta a nahrajte ich do aplikácie.</p>
-
     <h3>❓ Kontakt:</h3>
 
-    <p>Aplikácia je navrhnutá tak, aby bola intuitívna, ale v prípade akýchkoľvek
-    otázok: mes.voyages.app@gmail.com.</p>
+    <p>Aplikácia je navrhnutá tak, aby bola intuitívna, ale pri akýchkoľvek otázkach
+    nás kontaktujte na: mes.voyages.app@gmail.com.</p>
 
-    <p>Preklady boli generované automaticky a neboli manuálne skontrolované. V prípade
-    akýchkoľvek nezrovnalostí v preklade, chýb alebo ak sa chcete jednoducho podeliť
-    o svoje skúsenosti, neváhajte ma kontaktovať.</p>
+    <p>Preklady boli vygenerované automaticky a neboli manuálne kontrolované.
+
+    V prípade chyby v preklade, bugu alebo ak chcete jednoducho poskytnúť spätnú väzbu,
+    neváhajte ma kontaktovať.</p>
 
     <hr />
 
-    <strong>Ďakujeme, že ste si vybrali Moje Cesty!</strong>'
+    <strong>Ďakujeme, že ste si vybrali Mes Voyages!</strong>'
   slovène: '<h3>📌 Opis:</h3>
 
-    <p>Moji potovalni načrti je aplikacija za ustvarjanje personaliziranih zemljevidov
-    potovanj z izbiro regij ali oddelkov držav, ki ste jih obiskali.</p>
+    <p>Mes Voyages je aplikacija, ki omogoča ustvarjanje prilagojenih zemljevidov
+    krajev, ki smo jih obiskali.</p>
 
-    <h3>💻 Kako uporabljati:</h3>
+    <h3>💻 Kako uporabiti:</h3>
 
     <ol>
 
-    <li>Vnesite svoje ime in prilagodite svoje nastavitve.</li>
+    <li>Ustvarite svoj profil in prilagodite svoje nastavitve.</li>
 
-    <li>Izberite kraje, ki ste jih obiskali, na ravni podrobnosti, ki jo želite.</li>
+    <li>Dodajte vsa svoja potovanja z izbiro obiskanih krajev.</li>
 
-    <li>Ustvarite svoje zemljevide! Vaši obiski in nastavitve se shranijo s klikom
-    na eno od gumbov za shranjevanje ali ustvarjanje zemljevida. Če spremenite zavihek,
-    ne da bi spremenili profil, izbrani kraji niso izgubljeni.</li>
+    <li>Prilagodite in ustvarite svoje zemljevide! Shranjevanje vaših obiskov in nastavitev
+    se zgodi, ko kliknete na gumb za shranjevanje ali ustvarjanje zemljevidov. Če
+    zamenjate zavihek, ne da bi zamenjali profil, označeni kraji ne bodo izbrisani.</li>
 
-    <li>Odkrijte, katere države ste obiskali največkrat, in raziščite naše priporočila
+    <li>Odkrijte presnje informacije o svojih potovanjih in raziščite naša priporočila
     za vaše naslednje počitnice!</li>
 
     </ol>
 
-    <h3>📋 Na voljo so datoteke YAML:</h3>
-
-    <p>Priložene datoteke <code>.yaml</code> so <strong>celotne predloge</strong>,
-    ki vsebujejo vse razpoložljive države, regije in oddelke.</p>
-
-    <p>▶️ Če imate raje to metodo za označevanje krajev, ki ste jih obiskali, najprej
-    kopirajte predloge iz mape aplikacije. Nato izbrišite vsa neobiskana mesta in
-    jih naložite v aplikacijo.</p>
-
     <h3>❓ Kontakt:</h3>
 
-    <p>Aplikacija naj bi bila intuitivna, vendar če imate kakršna koli vprašanja,
-    se obrnite na: mes.voyages.app@gmail.com.</p>
+    <p>Aplikacija je zasnovana tako, da je intuitivna, vendar za vsa vprašanja pišite
+    na: mes.voyages.app@gmail.com.</p>
 
-    <p>Prevedeno je bilo samodejno in ni bilo pregledano ročno. Če naletite na kakršne
-    koli napake pri prevajanju, napake ali če želite le dati povratne informacije,
-    me prosim kontaktirajte.</p>
+    <p>Prevodi so bili generirani samodejno in niso bili ročno preverjeni.
+
+    V primeru prevodnih napak, hroščev ali če želite preprosto poslati povratne informacije,
+    me kontaktirajte.</p>
 
     <hr />
 
-    <strong>Hvala, ker ste izbrali Moje potovalne načrte!</strong>'
+    <strong>Hvala, ker ste izbrali Mes Voyages!</strong>'
   suédois: '<h3>📌 Beskrivning:</h3>
 
-    <p>Mina Resor är en applikation som låter dig skapa anpassade reskartor genom
-    att välja de regioner eller departement i länder du har besökt.</p>
+    <p>Mes Voyages är en app för att skapa personliga kartor över platser man har
+    besökt.</p>
 
-    <h3>💻 Hur man använder:</h3>
+    <h3>💻 Så här gör du:</h3>
 
     <ol>
 
-    <li>Ange ditt namn och anpassa dina inställningar.</li>
+    <li>Skapa din profil och anpassa dina inställningar.</li>
 
-    <li>Välj de platser du har besökt på den granularitetsnivå du föredrar.</li>
+    <li>Lägg till alla resor du har gjort genom att välja de platser du besökt.</li>
 
-    <li>Skapa dina kartor! Dina besök och inställningar sparas när du klickar på en
-    av spara- eller kartskaparknapparna. Om du byter flik utan att byta profil går
-    de markerade platserna inte förlorade.</li>
+    <li>Anpassa och skapa dina kartor! Spara dina besök och inställningar genom att
+    klicka på någon av knapparna för att spara eller skapa kartor. Om du byter flik
+    utan att byta profil går de markerade platserna inte förlorade.</li>
 
-    <li>Ta reda på vilka länder du har besökt mest och utforska våra rekommendationer
+    <li>Upptäck överraskande information om dina resor och utforska våra rekommendationer
     för din nästa semester!</li>
 
     </ol>
 
-    <h3>📋 Tillgängliga YAML-filer:</h3>
-
-    <p>De medföljande <code>.yaml</code>-filerna är <strong>fullständiga mallar</strong>
-    som innehåller alla tillgängliga länder, regioner och departement.</p>
-
-    <p>▶️ Om du föredrar den här metoden för att ange platser du har besökt, kopiera
-    först mallarna i applikationens mapp. Ta sedan bort alla oregelbundna platser
-    och ladda dem i applikationen.</p>
-
     <h3>❓ Kontakt:</h3>
 
-    <p>Applikationen är avsedd att vara intuitiv, men för alla frågor: mes.voyages.app@gmail.com.</p>
+    <p>Appen är tänkt att vara intuitiv, men för alla frågor: mes.voyages.app@gmail.com.</p>
 
-    <p>Översättningarna har genererats automatiskt och har inte granskats manuellt.
+    <p>Översättningarna har genererats automatiskt och har inte kontrollerats manuellt.
 
-    För eventuella översättningsanomalier, buggar eller om du helt enkelt vill ge
-    feedback, tveka inte att kontakta mig.</p>
+    Vid översättningsfel, buggar eller om du helt enkelt vill lämna feedback, tveka
+    inte att kontakta mig.</p>
 
     <hr />
 
-    <strong>Tack för att du valde Mina Resor!</strong>'
+    <strong>Tack för att du valt Mes Voyages!</strong>'
   swahili: '<h3>📌 Maelezo :</h3>
 
-    <p>Safari Zangu ni programu inayokuruhusu kuunda ramani za safari za kibinafsi
-    kwa kuchagua mikoa au idara za nchi ambazo umeitembelea.</p>
+    <p>Mes Voyages ni programu inayoruhusu kutengeneza ramani zilizobinafsishwa za
+    maeneo tuliyoyotembelea.</p>
 
-    <h3>💻 Jinsi ya Kutumia :</h3>
+    <h3>💻 Jinsi ya kutumia :</h3>
 
     <ol>
 
-    <li>Weka jina lako na ubadilishe mipangilio yako.</li>
+    <li>Unda wasifu wako na ubadilishe mipangilio yako.</li>
 
-    <li>Chagua maeneo uliyotembelea katika kiwango cha undani unachopendelea.</li>
+    <li>Ongeza safari zote ulizofanya kwa kuchagua maeneo uliyotembelea.</li>
 
-    <li>Unda ramani zako! Kuhifadhi matembezi na mipangilio yako hufanyika unapobofya
-    mojawapo ya vitufe vya kuhifadhi au kuunda ramani. Ukibadilisha kichupo bila kubadilisha
-    wasifu, maeneo yaliyochaguliwa hayapotei.</li>
+    <li>Badilisha na utengeneze ramani zako! Kuhifadhi kwa ziara na mipangilio yako
+    hufanyika unapobofya moja ya vitufe vya kuhifadhi au kutengeneza ramani. Ukibadilisha
+    tab bila kubadilisha wasifu, maeneo uliyochagua hayapotei.</li>
 
-    <li>Gundua ni nchi zipi umeitembelea zaidi na chunguza mapendekezo yetu kwa likizo
-    zako zijazo!</li>
+    <li>Gundua taarifa za kushangaza kuhusu safari zako na utafute mapendekezo yetu
+    kwa likizo zako zijazo!</li>
 
     </ol>
 
-    <h3>📋 Faili za YAML Zinapatikana :</h3>
-
-    <p>Faili za <code>.yaml</code> zilizotolewa ni <strong>miundo kamili</strong>
-    yenye nchi zote, mikoa na idara zinazopatikana.</p>
-
-    <p>▶️ Ikiwa unapendelea njia hii kuonyesha maeneo uliyotembelea, kwanza nakili
-    miundo iliyo kwenye folda ya programu. Kisha, futa maeneo yote ambayo hujatembelea
-    na uyaweke kwenye programu.</p>
-
     <h3>❓ Mawasiliano :</h3>
 
-    <p>Programu inalenga kuwa angavu, lakini kwa maswali yoyote: mes.voyages.app@gmail.com.</p>
+    <p>Programu hii imekusudiwa kuwa rahisi kutumia, lakini kwa swali lolote: mes.voyages.app@gmail.com.</p>
 
-    <p>Tafsiri zimeundwa kiotomatiki na hazijakaguliwa na binadamu.
+    <p>Tafsiri hizi zimezalishwa kiotomatiki na hazijahakikiwa kwa mkono.
 
-    Kwa hitilafu zozote za tafsiri, hitilafu, au ikiwa unataka tu kutoa maoni, usisite
+    Kwa hitilafu yoyote ya tafsiri, bug, au ikiwa unataka tu kutoa maoni, usisite
     kuwasiliana nami.</p>
 
     <hr />
 
-    <strong>Asante kwa kuchagua Safari Zangu!</strong>'
-  tadjik: '<h3>📌 Тавсифи:</h3>
+    <strong>Asante kwa kuchagua Mes Voyages !</strong>'
+  tadjik: '<h3>📌 Тавсиф:</h3>
 
-    <p>Сафарҳои Ман барномаест, ки ба шумо имкон медиҳад харитаҳои сафариро бо интихоби
-    минтақаҳо ё ноҳияҳои кишварҳое, ки шумо боздид кардаед, эҷод кунед.</p>
+    <p>Mes Voyages барномаест, ки имкон медиҳад, ки харитаҳои фардии ҷойҳое, ки шумо
+    ба онҳо сафар кардед, созед.</p>
 
-    <h3>💻 Чӣ тавр истифода бурдан:</h3>
+    <h3>💻 Чӣ тавр истифода баред:</h3>
 
     <ol>
 
-    <li>Номи худро ворид кунед ва танзимоти худро танзим кунед.</li>
+    <li>Профили худро созед ва танзимоти худро шахсӣ кунед.</li>
 
-    <li>Ҷойҳоеро, ки шумо боздид кардаед, дар сатҳи дақиқи ба шумо писандида интихоб
-    кунед.</li>
+    <li>Ҳамаи сафариҳоятонро бо интихоби ҷойҳои зиёратшуда илова кунед.</li>
 
-    <li>Харитаҳои худро эҷод кунед! Захираи боздидҳо ва танзимоти шумо ҳангоми клик
-    кардани яке аз тугмаҳои захиравӣ ё эҷоди харита анҷом дода мешавад. Агар шумо
-    ҷадвалҳоро бидуни тағир додани профил иваз кунед, ҷойҳои қайдшуда гум намешаванд.</li>
+    <li>Харитаҳои худро шахсӣ кунед ва созед! Захираи сафарҳо ва танзимоти шумо ҳангоми
+    пахш кардани яке аз тугмаҳои захира ё сохтани харитаҳо сурат мегирад. Агар шумо
+    бе тағйир додани профил ба баробари дигар гузаред, ҷойҳои интихобшуда гум намешаванд.</li>
 
-    <li>Кашф кунед, ки шумо кадом кишварҳоро бештар боздид кардаед ва барои таътили
-    навбатии худ тавсияҳои моро омӯзед!</li>
+    <li>Маълумоти ҳайратовар дар бораи сафариҳоятонро кашф кунед ва тавсияҳои моро
+    барои таътили ояндаи худ бинед!</li>
 
     </ol>
-
-    <h3>📋 Файлҳои YAML дастрас:</h3>
-
-    <p>Файлҳои <code>.yaml</code> пешниҳодшуда <strong>шаблонҳои пурра</strong> мебошанд,
-    ки ҳамаи кишварҳо, минтақаҳо ва ноҳияҳои мавҷударо дар бар мегиранд.</p>
-
-    <p>▶️ Агар шумо ин усулро барои нишон додани ҷойҳое, ки шумо боздид кардаед, афзалтар
-    донед, аввал шаблонҳоро аз папкаи барнома нусхабардорӣ кунед. Баъдан, ҳамаи ҷойҳои
-    боздид нашударо нест кунед ва онҳоро дар барнома бор кунед.</p>
 
     <h3>❓ Тамос:</h3>
 
-    <p>Барнома бояд беихтиёр бошад, аммо барои ҳар гуна савол: mes.voyages.app@gmail.com.</p>
+    <p>Барнома содда ва фаҳмо аст, аммо барои ҳар гуна савол: mes.voyages.app@gmail.com.</p>
 
-    <p>Тарҷумаҳо ба таври худкор генератсия шудаанд ва дастӣ баррасӣ нашудаанд.
-
-    Барои ҳама гуна аномалияҳои тарҷума, хатогӣ ё агар шумо танҳо хоҳед, ки фикру
-    мулоҳиза диҳед, дар тамос шудан бо ман шарм надоред.</p>
+    <p>Тарҷумаҳо ба таври автоматӣ сохта шудаанд ва ба таври дастӣ санҷида нашудаанд.
+    Барои ҳар гуна хатои тарҷума, баг ё агар шумо хоҳед, ки фикри худро баён кунед,
+    бедилор бо ман тамос гиред.</p>
 
     <hr />
 
-    <strong>Барои интихоби "Сафарҳои Ман" ташаккур!</strong>'
+    <strong>Ташаккур, ки Mes Voyages-ро интихоб кардед!</strong>'
   tamoul: '<h3>📌 விளக்கம்:</h3>
 
-    <p>Mes Voyages என்பது நீங்கள் சென்ற நாடுகளின் பகுதிகள் அல்லது துறைகளைத் தேர்ந்தெடுப்பதன்
-    மூலம் தனிப்பயனாக்கப்பட்ட பயண வரைபடங்களை உருவாக்க உதவும் ஒரு செயலியாகும்.</p>
+    <p>Mes Voyages என்பது நீங்கள் சென்ற இடங்களுக்கான தனிப்பயனாக்கப்பட்ட வரைபடங்களை
+    உருவாக்க அனுமதிக்கும் ஒரு செயலியாகும்.</p>
 
-    <h3>💻 எப்படி பயன்படுத்துவது:</h3>
+    <h3>💻 பயன்படுத்துவது எப்படி:</h3>
 
     <ol>
 
-    <li>உங்கள் பெயரை உள்ளிட்டு உங்கள் அமைப்புகளைத் தனிப்பயனாக்கவும்.</li>
+    <li>உங்கள் சுயவிவரத்தை உருவாக்கி உங்கள் அமைப்புகளைத் தனிப்பயனாக்குங்கள்.</li>
 
-    <li>நீங்கள் விரும்பும் அளவுக்கு துல்லியமாக நீங்கள் பார்வையிட்ட இடங்களைத் தேர்ந்தெடுக்கவும்.</li>
+    <li>நீங்கள் சென்ற இடங்களைத் தேர்ந்தெடுத்து, நீங்கள் மேற்கொண்ட அனைத்துப் பயணங்களையும்
+    சேர்க்கவும்.</li>
 
-    <li>உங்கள் வரைபடங்களை உருவாக்கவும்! உங்கள் வருகைகள் மற்றும் அமைப்புகள் சேமிக்கப்படும்,
-    நீங்கள் சேமித்தல் அல்லது வரைபடம் உருவாக்கும் பொத்தான்களில் ஒன்றைக் கிளிக் செய்யும்
-    போது. நீங்கள் தாவல்களை மாற்றினாலும், சுயவிவரத்தை மாற்றாமல் இருந்தால், தேர்ந்தெடுக்கப்பட்ட
+    <li>உங்கள் வரைபடங்களைத் தனிப்பயனாக்கி உருவாக்குங்கள்! சேமிப்பு அல்லது வரைபட உருவாக்க
+    பொத்தான்களில் ஒன்றை நீங்கள் கிளிக் செய்யும்போது உங்கள் வருகைகள் மற்றும் அமைப்புகள்
+    சேமிக்கப்படும். சுயவிவரத்தை மாற்றாமல் நீங்கள் தாவல்களை மாற்றினால், தேர்ந்தெடுக்கப்பட்ட
     இடங்கள் இழக்கப்படாது.</li>
 
-    <li>நீங்கள் எந்த நாடுகளுக்கு அடிக்கடி சென்றுள்ளீர்கள் என்பதைக் கண்டறிந்து, உங்கள்
-    அடுத்த விடுமுறைக்கான எங்கள் பரிந்துரைகளை ஆராயுங்கள்!</li>
+    <li>உங்கள் பயணங்களைப் பற்றிய ஆச்சரியமான தகவல்களைக் கண்டறியுங்கள் மற்றும் உங்கள்
+    அடுத்த விடுமுறைகளுக்கான எங்கள் பரிந்துரைகளை ஆராயுங்கள்!</li>
 
     </ol>
 
-    <h3>📋 YAML கோப்புகள் கிடைக்கின்றன:</h3>
-
-    <p>வழங்கப்பட்ட <code>.yaml</code> கோப்புகள், கிடைக்கக்கூடிய அனைத்து நாடுகள், பகுதிகள்
-    மற்றும் துறைகளைக் கொண்ட <strong>முழுமையான வார்ப்புருக்கள்</strong> ஆகும்.</p>
-
-    <p>▶️ நீங்கள் சென்ற இடங்களைக் குறிக்க இந்த முறையை விரும்பினால், முதலில் செயலியின்
-    கோப்புறையில் உள்ள வார்ப்புருக்களை நகலெடுக்கவும். பின்னர், நீங்கள் பார்வையிடாத
-    அனைத்து இடங்களையும் நீக்கி, அவற்றை செயலிக்குள் ஏற்றவும்.</p>
-
     <h3>❓ தொடர்பு:</h3>
 
-    <p>இந்த செயலி உள்ளுணர்வுடன் வடிவமைக்கப்பட்டுள்ளது, ஆனால் ஏதேனும் கேள்விகளுக்கு:
-    mes.voyages.app@gmail.com.</p>
+    <p>இந்தச் செயலி எளிதாகப் பயன்படுத்தக்கூடியதாக வடிவமைக்கப்பட்டுள்ளது, இருப்பினும்
+    ஏதேனும் கேள்விகளுக்கு: mes.voyages.app@gmail.com.</p>
 
-    <p>மொழிபெயர்ப்புகள் தானாகவே உருவாக்கப்பட்டன மற்றும் கைமுறையாக மதிப்பாய்வு செய்யப்படவில்லை.
-
-    மொழிபெயர்ப்பில் ஏதேனும் அசாதாரணங்கள், பிழைகள் அல்லது நீங்கள் ஒரு கருத்தைத் தெரிவிக்க
-    விரும்பினால், தயவுசெய்து என்னைத் தொடர்பு கொள்ளவும்.</p>
+    <p>இந்த மொழிபெயர்ப்புகள் தானாக உருவாக்கப்பட்டவை மற்றும் கைமுறையாக சரிபார்க்கப்படவில்லை.
+    மொழிபெயர்ப்புப் பிழைகள், bug அல்லது நீங்கள் கருத்து தெரிவிக்க விரும்பினால், என்னை
+    தொடர்பு கொள்ளத் தயங்காதீர்கள்.</p>
 
     <hr />
 
-    <strong>Mes Voyages ஐ தேர்ந்தெடுத்ததற்கு நன்றி!</strong>'
+    <strong>Mes Voyages-ஐத் தேர்ந்தெடுத்ததற்கு நன்றி!</strong>'
   tchèque: '<h3>📌 Popis:</h3>
 
-    <p>Moje Cesty je aplikace pro vytváření vlastních cestovních map výběrem regionů
-    nebo oddělení zemí, které jste navštívili.</p>
+    <p>Mes Voyages je aplikace, která umožňuje vytvářet osobní mapy míst, která jste
+    navštívili.</p>
 
     <h3>💻 Jak používat:</h3>
 
     <ol>
 
-    <li>Zadejte své jméno a přizpůsobte svá nastavení.</li>
+    <li>Vytvořte si profil a personalizujte si své nastavení.</li>
 
-    <li>Vyberte místa, která jste navštívili, s preferovanou úrovní podrobností.</li>
+    <li>Přidejte všechny své cesty výběrem navštívených míst.</li>
 
-    <li>Vytvořte si své mapy! Vaše návštěvy a nastavení se uloží kliknutím na jedno
-    z tlačítek pro uložení nebo vytvoření map. Pokud změníte záložku bez změny profilu,
-    zaškrtnutá místa se neztratí.</li>
+    <li>Přizpůsobte si a vytvořte své mapy! Uložení vašich návštěv a nastavení proběhne
+    poté, co kliknete na jedno z tlačítek pro ukládání nebo vytváření map. Pokud změníte
+    kartu, aniž byste změnili profil, zaškrtnutá místa se neztratí.</li>
 
-    <li>Zjistěte, které země jste navštívili nejčastěji, a prozkoumejte naše doporučení
+    <li>Objevte překvapivé informace o svých cestách a prozkoumejte naše doporučení
     pro vaši příští dovolenou!</li>
 
     </ol>
 
-    <h3>📋 Dostupné soubory YAML:</h3>
-
-    <p>Poskytnuté soubory <code>.yaml</code> jsou <strong>kompletní šablony</strong>
-    obsahující všechny dostupné země, regiony a oddělení.</p>
-
-    <p>▶️ Pokud dáváte přednost této metodě zadávání míst, která jste navštívili,
-    nejprve zkopírujte šablony z adresáře aplikace. Poté odstraňte všechna nenavštívená
-    místa a načtěte je do aplikace.</p>
-
     <h3>❓ Kontakt:</h3>
 
-    <p>Aplikace je navržena tak, aby byla intuitivní, ale v případě jakýchkoli dotazů
-    kontaktujte: mes.voyages.app@gmail.com.</p>
+    <p>Aplikace je navržena tak, aby byla intuitivní, ale v případě jakýchkoli dotazů:
+    mes.voyages.app@gmail.com.</p>
 
     <p>Překlady byly vygenerovány automaticky a nebyly ručně zkontrolovány.
 
-    V případě jakýchkoli nesrovnalostí v překladu, chyb, nebo pokud chcete jednoduše
-    sdělit zpětnou vazbu, neváhejte mě kontaktovat.</p>
+    V případě jakékoli chyby v překladu, bugu nebo pokud chcete jednoduše poskytnout
+    zpětnou vazbu, neváhejte mě kontaktovat.</p>
 
     <hr />
 
-    <strong>Děkujeme, že jste si vybrali Moje Cesty!</strong>'
-  thaï: '<h3>📌 คำอธิบาย :</h3>
+    <strong>Děkujeme, že jste si vybrali Mes Voyages!</strong>'
+  thaï: '<h3>📌 คำอธิบาย:</h3>
 
-    <p>Mes Voyages เป็นแอปพลิเคชันที่ช่วยให้คุณสร้างแผนที่การเดินทางส่วนตัวได้โดยการเลือกภูมิภาคหรือแผนกของประเทศที่คุณเคยไปเยือน</p>
+    <p>Mes Voyages คือแอปพลิเคชันสำหรับสร้างแผนที่ส่วนตัวของสถานที่ที่คุณเคยไปเยือน</p>
 
-    <h3>💻 วิธีใช้งาน :</h3>
+    <h3>💻 วิธีใช้งาน:</h3>
 
     <ol>
 
-    <li>ป้อนชื่อของคุณและปรับแต่งการตั้งค่าของคุณ</li>
+    <li>สร้างโปรไฟล์ของคุณและปรับแต่งการตั้งค่าของคุณ</li>
 
-    <li>เลือกสถานที่ที่คุณเคยไปเยือนตามระดับรายละเอียดที่คุณต้องการ</li>
+    <li>เพิ่มการเดินทางทั้งหมดที่คุณเคยไปโดยการเลือกสถานที่ที่เคยไปเยือน</li>
 
-    <li>สร้างแผนที่ของคุณ! การบันทึกการเยี่ยมชมและการตั้งค่าของคุณจะเกิดขึ้นเมื่อคุณคลิกที่ปุ่มบันทึกหรือสร้างแผนที่
-    หากคุณเปลี่ยนแท็บโดยไม่เปลี่ยนโปรไฟล์ สถานที่ที่เลือกจะไม่สูญหาย</li>
+    <li>ปรับแต่งและสร้างแผนที่ของคุณ! การบันทึกการเยี่ยมชมและการตั้งค่าของคุณจะเกิดขึ้นเมื่อคุณคลิกปุ่มบันทึกหรือปุ่มสร้างแผนที่
+    หากคุณเปลี่ยนแท็บโดยไม่เปลี่ยนโปรไฟล์ สถานที่ที่เลือกไว้จะไม่หายไป</li>
 
-    <li>ค้นหาว่าประเทศใดที่คุณไปบ่อยที่สุดและสำรวจคำแนะนำสำหรับวันหยุดพักผ่อนครั้งต่อไปของคุณ!</li>
+    <li>ค้นพบข้อมูลที่น่าประหลาดใจเกี่ยวกับการเดินทางของคุณ และสำรวจคำแนะนำของเราสำหรับวันหยุดครั้งต่อไปของคุณ!</li>
 
     </ol>
 
-    <h3>📋 ไฟล์ YAML ที่มีให้ :</h3>
+    <h3>❓ ติดต่อ:</h3>
 
-    <p>ไฟล์ <code>.yaml</code> ที่ให้มาเป็น <strong>เทมเพลตที่สมบูรณ์</strong> ซึ่งมีประเทศ
-    ภูมิภาค และแผนกทั้งหมดที่มีให้</p>
+    <p>แอปพลิเคชันนี้ถูกออกแบบมาให้ใช้งานง่าย แต่หากมีข้อสงสัยใดๆ สามารถติดต่อได้ที่:
+    mes.voyages.app@gmail.com</p>
 
-    <p>▶️ หากคุณต้องการใช้วิธีนี้เพื่อระบุสถานที่ที่คุณเคยไปเยือน ให้คัดลอกเทมเพลตในโฟลเดอร์แอปพลิเคชันก่อน
-    จากนั้นลบสถานที่ที่ไม่ได้เยี่ยมชมทั้งหมดแล้วโหลดเข้าไปในแอปพลิเคชัน</p>
-
-    <h3>❓ ติดต่อ :</h3>
-
-    <p>แอปพลิเคชันนี้ออกแบบมาให้ใช้งานง่าย แต่หากมีคำถามใดๆ โปรดติดต่อ mes.voyages.app@gmail.com</p>
-
-    <p>การแปลเหล่านี้ถูกสร้างขึ้นโดยอัตโนมัติและไม่ได้ตรวจสอบด้วยตนเอง
-
-    หากมีการแปลผิดปกติ ข้อบกพร่อง หรือคุณเพียงแค่ต้องการแสดงความคิดเห็น อย่าลังเลที่จะติดต่อฉัน</p>
+    <p>คำแปลเหล่านี้ถูกสร้างขึ้นโดยอัตโนมัติและไม่ได้ผ่านการตรวจสอบด้วยตนเอง หากพบข้อผิดพลาดในการแปล
+    บั๊ก หรือหากคุณต้องการส่งข้อเสนอแนะ โปรดอย่าลังเลที่จะติดต่อฉัน</p>
 
     <hr />
 
-    <strong>ขอบคุณที่เลือก Mes Voyages!</strong>'
-  tibétain: ངའི་ཡུལ་སྐོར་ནི་རྒྱལ་ཁབ་དག་གི་ས་ཁུལ་སམ་རྫོང་ཁག་བདམས་ནས་ཡུལ་སྐོར་གྱི་ས་ཁྲ་རང་འདོད་ལྟར་གསར་འགོད་བྱེད་པར་ཕན་པའི་ཞལ་པར་ཞིག་ཡིན།
+    <strong>ขอบคุณที่เลือกใช้ Mes Voyages!</strong>'
+  tibétain: '<h3>📌 གནས་བརྗོད།</h3>
+
+    <p>Mes Voyages ནི་རང་ཉིད་ཀྱིས་ཕྱོགས་པའི་ས་གནས་རྣམས་ཀྱི་ས་ཁྲ་སྒྲིག་བཟོ་བྱེད་པའི་ལག་རྩལ་ཞིག་རེད།</p>
+
+    <h3>💻 བེད་སྤྱོད་གཏོང་སྟངས།</h3>
+
+    <ol>
+
+    <li>རང་ཉིད་ཀྱི་ལོ་རྒྱུས་བཟོ་ပြီး གོ་སྒྲིག་གསོ་སྒྲིག་བྱོས།</li>
+
+    <li>རང་ཉིད་ཀྱིས་ཕྱོགས་པའི་ས་གནས་རྣམས་བདམས་ཏེ། འགྲུལ་ལམ་རྣམས་སྣོན་པར་བྱོས།</li>
+
+    <li>རང་ཉིད་ཀྱི་ས་ཁྲ་སྒྲིག་བཟོ་དང་བཟོ་བར་བྱོས། ཉར་ཚགས་བྱེད་པའི་གཞེར་མ་འམ་ས་ཁྲ་བཟོ་བའི་གཞེར་མ་སྤར་སྐབས།
+    ཕྱོགས་པའི་ས་གནས་དང་གོ་སྒྲིག་རྣམས་ཉར་ཚགས་བྱེད་ཀྱི་རེད། གལ་ཏེ། ལོ་རྒྱུས་མ་བརྗེ་བར་ཤོག་གྲོམ་བརྗེ་ན།
+    བདམས་པའི་ས་གནས་རྣམས་མེད་པར་མི་འགྱུར།</li>
+
+    <li>རང་ཉིད་ཀྱི་འགྲུལ་ལམ་སྐོར་གྱི་ཧ་ལས་པའི་གནས་ཚུལ་རྣམས་ཤེས་པར་བྱོས། མ་འོངས་པའི་གུང་གནང་གི་ཆེད་དུ་ང་ཚོའི་ལམ་སྟོན་རྣམས་བརྟག་དཔྱད་བྱོས།</li>
+
+    </ol>
+
+    <h3>❓ འབྲེལ་བ།</h3>
+
+    <p>ལག་རྩལ་འདི་བེད་སྤྱོད་གཏོང་རལွယ်བོ་ཡིན་ཡང་། འདྲི་བ་ཡོད་ཚེ། mes.voyages.app@gmail.com
+    ལ་འབྲེལ་བ་གནང་རོགས།</p>
+
+    <p>བསྒྱུར་ཡིག་འདི་རྣམས་རང་འགུལ་གྱིས་བཟོས་པ་ཡིན་ပြီး མིའི་ལག་གིས་བརྟག་དཔྱད་བྱས་མེད།
+    བསྒྱུར་ཡིག་གི་ནོར་འོར་འམ་ bug ཡོད་ན། ཡང་ན་ལྟ་བ་གནང་འདོད་ཡོད་ན། ང་ལ་འབྲེལ་བ་གནང་maktanམ་འཛེམ་རོགས།</p>
+
+    <hr />
+
+    <strong>Mes Voyages བདམས་པར་ཐུགས་རྗེ་ཆེ་ཞུ།</strong>'
   turc: '<h3>📌 Açıklama:</h3>
 
-    <p>Seyahatlerim, ziyaret ettiğiniz ülkelerin bölgelerini veya departmanlarını
-    seçerek kişiselleştirilmiş seyahat haritaları oluşturmanıza olanak tanıyan bir
-    uygulamadır.</p>
+    <p>Mes Voyages, ziyaret ettiğiniz yerlerin kişiselleştirilmiş haritalarını oluşturmanıza
+    olanak tanıyan bir uygulamadır.</p>
 
     <h3>💻 Nasıl Kullanılır:</h3>
 
     <ol>
 
-    <li>Adınızı girin ve ayarlarınızı özelleştirin.</li>
+    <li>Profilinizi oluşturun ve ayarlarınızı kişiselleştirin.</li>
 
-    <li>Ziyaret ettiğiniz yerleri tercih ettiğiniz ayrıntı düzeyinde seçin.</li>
+    <li>Ziyaret ettiğiniz yerleri seçerek yaptığınız tüm seyahatleri ekleyin.</li>
 
-    <li>Haritalarınızı oluşturun! Ziyaretlerinizi ve ayarlarınızı kaydetmek için kaydetme
-    veya harita oluşturma düğmelerinden birine tıkladığınızda yapılır. Sekmeler arasında
-    profilinizi değiştirmeden geçiş yaparsanız, işaretlenen yerler kaybolmaz.</li>
+    <li>Haritalarınızı özelleştirin ve oluşturun! Ziyaretlerinizin ve ayarlarınızın
+    kaydedilmesi, kaydet veya harita oluşturma butonlarından birine tıkladığınızda
+    gerçekleşir. Profilinizi değiştirmeden sekme değiştirirseniz, işaretli yerler
+    kaybolmaz.</li>
 
-    <li>En çok ziyaret ettiğiniz ülkeleri keşfedin ve bir sonraki tatiliniz için önerilerimizi
-    inceleyin!</li>
+    <li>Seyahatleriniz hakkında şaşırtıcı bilgiler keşfedin ve bir sonraki tatiliniz
+    için önerilerimizi inceleyin!</li>
 
     </ol>
 
-    <h3>📋 Mevcut YAML Dosyaları:</h3>
-
-    <p>Sağlanan <code>.yaml</code> dosyaları, mevcut tüm ülkeleri, bölgeleri ve departmanları
-    içeren <strong>tam şablonlardır</strong>.</p>
-
-    <p>▶️ Ziyaret ettiğiniz yerleri belirtmek için bu yöntemi tercih ederseniz, önce
-    uygulamanın klasöründeki şablonları kopyalayın. Ardından ziyaret etmediğiniz tüm
-    yerleri silin ve bunları uygulamaya yükleyin.</p>
-
     <h3>❓ İletişim:</h3>
 
-    <p>Uygulama sezgisel olmayı amaçlamaktadır, ancak herhangi bir soru için: mes.voyages.app@gmail.com.</p>
+    <p>Uygulama sezgisel olacak şekilde tasarlanmıştır, ancak herhangi bir sorunuz
+    için: mes.voyages.app@gmail.com.</p>
 
-    <p>Çeviriler otomatik olarak oluşturulmuştur ve manuel olarak gözden geçirilmemiştir.
+    <p>Çeviriler otomatik olarak oluşturulmuştur ve manuel olarak kontrol edilmemiştir.
 
-    Herhangi bir çeviri anormalliği, hata veya sadece geri bildirimde bulunmak isterseniz,
+    Herhangi bir çeviri hatası, bug veya sadece geri bildirimde bulunmak isterseniz,
     benimle iletişime geçmekten çekinmeyin.</p>
 
     <hr />
 
-    <strong>Seyahatlerim''i seçtiğiniz için teşekkür ederiz!</strong>'
-  turkmène: '<h3>📌 düşündiriş:</h3>
+    <strong>Mes Voyages''ı seçtiğiniz için teşekkürler!</strong>'
+  turkmène: '<h3>📌 Beýany:</h3>
 
-    <p>Meniň Syýahatym – bu, adamyň baryp gelen ýurtlarynyň sebitlerini ýa-da etraplaryny
-    saýlap, şahsy syýahat kartalaryny döretmäge mümkinçilik berýän goşundydyr.</p>
+    <p>Mes Voyages - bu barylan ýerleriň şahsy kartalaryny döretmäge mümkinçilik berýän
+    goşundydyr.</p>
 
-    <h3>💻 Nädip ulanmaly:</h3>
+    <h3>💻 Ulanylyşy:</h3>
 
     <ol>
 
-    <li>At goýuň we sazlamalaryňyzy sazlaň.</li>
+    <li>Profilyňyzy dörediň we sazlamalaryňyzy şahsyllaşdyryň.</li>
 
-    <li>Baryp gelen ýerleriňizi islediňizçe degişli derejede saýlaň.</li>
+    <li>Barylan ýerleri saýlap, amala aşyran ähli syýahatlaryňyzy goşuň.</li>
 
-    <li>Kartalaryňyzy dörediň! Syýahatlaryňyzy we sazlamalaryňyzy ýazmak, kartalaryň
-    ýa-da ýazgylaryň düwmeleriniň birini basanyňyzda amala aşýar. Goýumymyzy üýtgetmän,
-    başga bir düwme geçseňiz, saýlanan ýerler ýitmez.</li>
+    <li>Kartalaryňyzy sazlaň we dörediň! Barylan ýerleriňiz we sazlamalaryňyz saklamak
+    ýa-da karta döretmek düwmeleriniň birine basanyňyzda ýatda saklanýar. Eger siz
+    profili üýtgetmezden basgançagy üýtgetseňiz, saýlan ýerleriňiz ýitmez.</li>
 
-    <li>Käni baryp gören ýurtlaryňyzy anyň we geljekdäki dynç alyş üçin tekliplerimize
-    serediň!</li>
+    <li>Syýahatlaryňyz barada geň galdyryjy maglumatlary öwreniň we geljekki dynç
+    alyşlaryňyz üçin maslahatlarymyz bilen tanyşyň!</li>
 
     </ol>
 
-    <h3>📋 YAML faýllary:</h3>
+    <h3>❓ Habarlaşmak:</h3>
 
-    <p>Berilen <code>.yaml</code> faýllary, elýeterli ähli ýurtlary, sebitleri we
-    etraplary öz içine alýan <strong>doly şablonlardyr</strong>.</p>
+    <p>Goşundy intuitive bolmaga çalyşyldy, emma islendik sorag üçin: mes.voyages.app@gmail.com.</p>
 
-    <p>▶️ Baryp gören ýerleriňizi görkezmek üçin bu usuly agyryňda, ilki bilen, goşundyň
-    bukjasyndaky şablonlary göçüriň. Soňra baryp görmedik ýerleriňizi aýryň we olary
-    goşundyda ýükleň.</p>
-
-    <h3>❓ Hobbi:</h3>
-
-    <p>Goşundy intellektual bolmagy üçin durlupdyr, ýöne islendik sorag üçin: mes.voyages.app@gmail.com.</p>
-
-    <p>Terjimelemeler awtomatiki usulda taýýarlanan we el bilen seljerilmedik.
-
-    Terjimede nädogrylyk ýa-da säwlik bar bolsa ýa-da ýöne öwmek isleseňiz, bilen
-    habarlaşmagyňyzy haýyş edýärin.</p>
+    <p>Terjimeler awtomatiki usulda döredildi we el bilen barlanylmady. Terjimedäki
+    ýalňyşlyklar, säwirlikler ýa-da diňe bir pikirleriňizi bildirmek isleseňiz, meň
+    bilen habarlaşmakdan çekinmäň.</p>
 
     <hr />
 
-    <strong>Meniň Syýahatym saýlanyňyz üçin sag boluň!</strong>'
+    <strong>Mes Voyages-y saýlanyňyz üçin sag boluň!</strong>'
   ukrainien: '<h3>📌 Опис:</h3>
 
-    <p>Мої Подорожі – це застосунок, який дозволяє створювати персоналізовані карти
-    подорожей, обираючи регіони чи департаменти країн, які ви відвідали.</p>
+    <p>Mes Voyages — це додаток, що дозволяє створювати персоналізовані карти відвіданих
+    місць.</p>
 
     <h3>💻 Як користуватися:</h3>
 
     <ol>
 
-    <li>Введіть своє ім''я та налаштуйте параметри.</li>
+    <li>Створіть свій профіль і налаштуйте параметри.</li>
 
-    <li>Виберіть місця, які ви відвідали, на бажаному рівні деталізації.</li>
+    <li>Додайте всі свої подорожі, вибираючи відвідані місця.</li>
 
-    <li>Створюйте свої карти! Збереження ваших відвідувань та налаштувань відбувається
-    при натисканні на одну з кнопок збереження або створення карти. Якщо ви перемикаєте
-    вкладки, не змінюючи профіль, вибрані місця не будуть втрачені.</li>
+    <li>Налаштуйте та створюйте свої карти! Збереження ваших відвідувань та параметрів
+    відбувається, коли ви натискаєте одну з кнопок збереження або створення карт.
+    Якщо ви переходите на іншу вкладку, не змінюючи профілю, позначені місця не зникають.</li>
 
-    <li>Дізнайтеся, які країни ви відвідували найчастіше, та ознайомтеся з нашими
-    рекомендаціями для вашого наступного відпустки!</li>
+    <li>Дізнайтеся дивовижну інформацію про свої подорожі та ознайомтеся з нашими
+    рекомендаціями для вашої наступної відпустки!</li>
 
     </ol>
 
-    <h3>📋 Доступні YAML файли:</h3>
+    <h3>❓ Контакти:</h3>
 
-    <p>Надані файли <code>.yaml</code> є <strong>повними шаблонами</strong>, що містять
-    усі доступні країни, регіони та департаменти.</p>
+    <p>Додаток має бути інтуїтивно зрозумілим, але якщо у вас виникли запитання: mes.voyages.app@gmail.com.</p>
 
-    <p>▶️ Якщо ви віддаєте перевагу цьому методу для зазначення місць, які ви відвідали,
-    спочатку скопіюйте шаблони з папки програми. Потім видаліть усі невідвідані місця
-    та завантажте їх у програму.</p>
+    <p>Переклади були створені автоматично і не перевірялися вручну.
 
-    <h3>❓ Контакт:</h3>
-
-    <p>Застосунок розроблено як інтуїтивно зрозумілий, але з будь-якими запитаннями
-    звертайтеся за адресою: mes.voyages.app@gmail.com.</p>
-
-    <p>Переклади були згенеровані автоматично і не були переглянуті вручну.
-
-    Якщо ви виявите будь-які аномалії в перекладі, помилки або просто хочете залишити
-    відгук, будь ласка, не соромтеся зв''язатися зі мною.</p>
+    У разі виявлення помилок у перекладі, багів або якщо ви просто хочете залишити
+    відгук, будь ласка, зв''яжіться зі мною.</p>
 
     <hr />
 
-    <strong>Дякуємо, що обрали "Мої Подорожі"!</strong>'
+    <strong>Дякуємо, що обрали Mes Voyages!</strong>'
   vietnamien: '<h3>📌 Mô tả:</h3>
 
-    <p>Mes Voyages là một ứng dụng cho phép tạo bản đồ du lịch tùy chỉnh bằng cách
-    chọn các vùng hoặc tỉnh của các quốc gia bạn đã ghé thăm.</p>
+    <p>Mes Voyages là một ứng dụng cho phép tạo các bản đồ tùy chỉnh về những địa
+    điểm bạn đã ghé thăm.</p>
 
     <h3>💻 Cách sử dụng:</h3>
 
     <ol>
 
-    <li>Nhập tên của bạn và tùy chỉnh cài đặt của bạn.</li>
+    <li>Tạo hồ sơ và tùy chỉnh các cài đặt của bạn.</li>
 
-    <li>Chọn các địa điểm bạn đã ghé thăm ở mức độ chi tiết bạn muốn.</li>
+    <li>Thêm tất cả các chuyến đi bạn đã thực hiện bằng cách chọn các địa điểm đã
+    ghé thăm.</li>
 
-    <li>Tạo bản đồ của bạn! Các chuyến thăm và cài đặt của bạn sẽ được lưu khi bạn
-    nhấp vào một trong các nút lưu hoặc tạo bản đồ. Nếu bạn thay đổi tab mà không
-    thay đổi hồ sơ, các địa điểm đã chọn sẽ không bị mất.</li>
+    <li>Tùy chỉnh và tạo bản đồ của bạn! Việc lưu các chuyến thăm và cài đặt sẽ được
+    thực hiện khi bạn nhấp vào một trong các nút lưu hoặc nút tạo bản đồ. Nếu bạn
+    thay đổi tab mà không thay đổi hồ sơ, các địa điểm đã chọn sẽ không bị mất.</li>
 
-    <li>Khám phá những quốc gia bạn đã ghé thăm nhiều nhất và khám phá các đề xuất
-    của chúng tôi cho kỳ nghỉ tiếp theo của bạn!</li>
+    <li>Khám phá những thông tin thú vị về các chuyến đi của bạn và tìm hiểu các đề
+    xuất của chúng tôi cho kỳ nghỉ sắp tới!</li>
 
     </ol>
 
-    <h3>📋 Các tệp YAML có sẵn:</h3>
-
-    <p>Các tệp <code>.yaml</code> được cung cấp là các <strong>mẫu hoàn chỉnh</strong>
-    chứa tất cả các quốc gia, vùng và tỉnh có sẵn.</p>
-
-    <p>▶️ Nếu bạn thích phương pháp này để chỉ ra các địa điểm bạn đã ghé thăm, trước
-    tiên hãy sao chép các mẫu trong thư mục ứng dụng. Sau đó, xóa tất cả các địa điểm
-    chưa được ghé thăm và tải chúng vào ứng dụng.</p>
-
     <h3>❓ Liên hệ:</h3>
 
-    <p>Ứng dụng được thiết kế để trực quan, nhưng đối với bất kỳ câu hỏi nào: mes.voyages.app@gmail.com.</p>
+    <p>Ứng dụng được thiết kế để dễ sử dụng, nhưng nếu có bất kỳ câu hỏi nào: mes.voyages.app@gmail.com.</p>
 
-    <p>Các bản dịch đã được tạo tự động và chưa được xem xét thủ công.
+    <p>Các bản dịch được tạo tự động và chưa được kiểm tra thủ công.
 
-    Đối với bất kỳ sự bất thường nào trong bản dịch, lỗi hoặc nếu bạn chỉ đơn giản
-    là muốn phản hồi, đừng ngần ngại liên hệ với tôi.</p>
+    Đối với bất kỳ lỗi dịch thuật, lỗi ứng dụng hoặc nếu bạn chỉ đơn giản muốn gửi
+    phản hồi, đừng ngần ngại liên hệ với tôi.</p>
 
     <hr />
 
     <strong>Cảm ơn bạn đã chọn Mes Voyages!</strong>'
-  zoulou: '<h3>📌 Incazelo:</h3>
+  zoulou: '<h3>📌 Incazelo :</h3>
 
-    <p>I-My Trips uhlelo lokusebenza olukuvumela ukuthi udale amabalazwe ohambo enziwe
-    ngendlela oyifisayo ngokukhetha izifunda noma izifunda zamazwe owavakashelile.</p>
+    <p>I-Mes Voyages uhlelo oluvumela ukudala amamephu aqondiswe kuwe ezindaweni obuzivakashele
+    kuzo.</p>
 
-    <h3>💻 Indlela Yokusebenzisa:</h3>
+    <h3>💻 Ukusetshenziswa kanjani :</h3>
 
     <ol>
 
-    <li>Faka igama lakho bese wenza ngokwezifiso izilungiselelo zakho.</li>
+    <li>Dala iphrofayili yakho futhi lungisa izilungiselelo zakho.</li>
 
-    <li>Khetha izindawo owavakashelile ezingeni olikhethayo lokugcinwa.</li>
+    <li>Faka zonke izohambo obuzenzile ngokukhetha izindawo obuzivakashele kuzo.</li>
 
-    <li>Dala amabalazwe akho! Ukulondoloza izindawo ozivakashelile nezilungiselelo
-    zakho kwenziwa lapho uchofoza enye yezinkinobho zokonga noma zokudala amabalazwe.
+    <li>Lungisa futhi udale amamephu akho! Ukugcinwa kokuvakashela kwakho nezilungiselelo
+    kwenzeka lapho uchofoza kwenye yezinkinobho zokugcina noma zokudala amamephu.
     Uma ushintsha ithebhu ngaphandle kokushintsha iphrofayili, izindawo ezikhethiwe
-    azilahlekile.</li>
+    azilahleki.</li>
 
-    <li>Thola ukuthi yimaphi amazwe owavakashele kakhulu bese uhlola izincomo zethu
-    zamaholide akho alandelayo!</li>
+    <li>Thola imininingwane ethusayo mayelana nohambo lwakho futhi hlola izeluleko
+    zethu zeholide lakho elilandelayo!</li>
 
     </ol>
 
-    <h3>📋 Amafayela Atholakalayo we-YAML:</h3>
+    <h3>❓ Ukuxhumana :</h3>
 
-    <p>Amafayela <code>.yaml</code> anikeziwe ayizimbhalo **eziphelele** equkethe
-    wonke amazwe, izifunda, nezifunda ezitholakalayo.</p>
-
-    <p>▶️ Uma ukhetha le ndlela ukukhombisa izindawo owavakashelile, khopisha izibonelo
-    ezisefayeleni yesicelo kuqala. Bese ususa zonke izindawo ongazivakashelanga bese
-    uzilayisha kuhlelo lokusebenza.</p>
-
-    <h3>❓ Xhumana Nathi:</h3>
-
-    <p>Uhlelo lokusebenza luhloselwe ukuba lube lula, kodwa nganoma yimiphi imibuzo:
+    <p>Uhlelo lwenziwe ukuze lube lula ukulusebenzisa, kodwa noma yimaphi imibuzo:
     mes.voyages.app@gmail.com.</p>
 
-    <p>Izinguqulo zenziwe ngokuzenzakalela futhi azizange zihlolwe ngesandla.
+    <p>Izihumushi zingenziwe ngokuzenzakalelayo futhi azihlolwanga ngesandla.
 
-    Nganoma yiziphi izinkinga zokuhumusha, amabhugi, noma uma ufuna nje ukunikeza
-    impendulo, unganqikazi ukuxhumana nami.</p>
+    Uma kukhona amaphutha okuhumusha, i-bug noma ufuna ukunikeza impendulo, ungabandaki
+    ukuxhumana nami.</p>
 
     <hr />
 
-    <strong>Siyabonga ngokukhetha i-My Trips!</strong>'
+    <strong>Ngiyabonga ngokukhetha i-Mes Voyages!</strong>'
 Adresse e-mail:
   afrikaans: E-posadres
   albanais: Adresa e-mail
@@ -15945,6 +15448,77 @@ Vos pays de prédilection:
   ukrainien: Ваші улюблені країни
   vietnamien: Các quốc gia yêu thích của bạn
   zoulou: Izwe labathandayo
+Voyages effectués au cours de la période sélectionnée:
+  afrikaans: Reise onderneem gedurende die geselekteerde tydperk
+  albanais: Udhëtime të kryera gjatë periudhës së përzgjedhur
+  allemand: Im ausgewählten Zeitraum durchgeführte Reisen
+  anglais: Trips made during the selected period
+  arabe: الرحلات التي تمت خلال الفترة المختارة
+  arménien: 'Ընտրված ժամանակահատվածում կատարված ճամփորդությունները:'
+  basque: Hautatutako epean egindako bidaiaak
+  bengali: নির্বাচিত সময়ের মধ্যে করা ভ্রমণ।
+  birman: ရွေးချယ်ထားသော ကာလအတွင်း သွားရောက်ခဲ့သော ခရီးစဉ်များ။
+  breton: Mezhuroù kennet e-barz ar periodoù selektet
+  bulgare: Пътувания, извършени през избрания период
+  catalan: Viatges realitzats durant el període seleccionat
+  corse: Viaghji effetti durante u periodu sceltu
+  coréen: 선택한 기간 동안의 여행 내역
+  danois: Rejser foretaget i den valgte periode
+  espagnol: Viajes realizados durante el periodo seleccionado
+  esperanto: Vojaĝoj faritaj dum la elektita periodo
+  estonien: Valitud perioodi jooksul tehtud reisid
+  finnois: Valitun ajanjakson aikana tehdyt matkat
+  français: Voyages effectués au cours de la période sélectionnée
+  gallois: Teithiau a wnaed yn ystod y cyfnod a ddewiswyd
+  grec: Ταξίδια που πραγματοποιήθηκαν κατά την επιλεγμένη περίοδο
+  grec ancien: Ὁδοὶ ἐν τῷ ἐκλεγμένῳ χρόνῳ γενομέναι
+  géorgien: შერჩეული პერიოდის განმავლობაში განხორციელებული მოგზაურობები
+  hindi: चयनित अवधि के दौरान की गई यात्राएं।
+  hongrois: A kiválasztott időszakban tett utazások
+  indonésien: Perjalanan yang dilakukan selama periode yang dipilih
+  irlandais: Turasai déanta le linn na tréimhse roghnaithe
+  islandais: Ferðir á valdu tímabili
+  italien: Viaggi effettuati durante il periodo selezionato
+  japonais: 選択された期間中の旅行
+  kazakh: Таңдалған кезеңде жасалған сапарлар
+  kirghize: Тандалган мезгил ичинде жасалган саякаттар
+  kurde: Geştên di maweya hilbijartî de hatine kirin
+  latin: Itinera peracta per tempus electum
+  letton: Izvēlētajā periodā veiktie ceļojumi
+  lituanien: Kelionės, atliktos pasirinktu laikotarpiu
+  luxembourgeois: Reisen am Laf vun der ausgewielter Period
+  macédonien: Патувања извршени во текот на избраниот период
+  malais: Perjalanan dalam tempoh yang dipilih
+  malgache: Dia natao nandritra ny fe-potoana nofidiana
+  maltais: Vjaġġijiet imgħamlul matul il-perjodu selezionat
+  mandarin standard: 所选期间内的行程。
+  mongol: Сонгосон хугацаанд хийгдсэн аяллууд
+  norvégien: Reiser foretatt i den valgte perioden
+  néerlandais: Reizen gemaakt tijdens de geselecteerde periode
+  népalais: छानिएको अवधिमा गरिएका यात्रा।
+  ourdou: منتخب کردہ مدت کے دوران کیے گئے سفر۔
+  ouzbek: Tanlangan davr davomida amalga oshirilgan sayohatlar
+  pachto: په غوره کړل شويې دورې کې ترسره شوي سفرونه
+  persan: سفرهای انجام شده در بازه زمانی انتخاب شده
+  polonais: Podróże odbyte w wybranym okresie
+  portugais: Viagens realizadas durante o período selecionado
+  roumain: Călătorii efectuate în perioada selectată
+  russe: Поездки за выбранный период
+  serbo-croate: Putovanja obavljena u odabranom periodu
+  slovaque: Cesty uskutočnené počas vybraného obdobia
+  slovène: Potovanja, opravljena v izbranem obdobju
+  suédois: Resor genomförda under den valda perioden
+  swahili: Safari zilizofanyika katika kipindi kilichochaguliwa
+  tadjik: Сафарҳои дар давоми давраи интихобшуда суратгирифта
+  tamoul: தேர்ந்தெடுக்கப்பட்ட காலப்பகுதியில் மேற்கொள்ளப்பட்ட பயணங்கள்
+  tchèque: Cesty uskutečněné během vybraného období
+  thaï: การเดินทางในช่วงเวลาที่เลือก
+  tibétain: གདམ་ཁ་བརྒྱབ་པའི་དུས་ཡུན་རིང་ལ་འགྲུལ་བཞུད་གནང་བ།
+  turc: Seçilen dönemde yapılan yolculuklar
+  turkmène: Saýlanan döwürde amala aşyrylan syýahatlar
+  ukrainien: Подорожі, здійснені протягом обраного періоду
+  vietnamien: Các chuyến đi đã thực hiện trong khoảng thời gian đã chọn
+  zoulou: Ohambo athathiwe ngesikhathi esikhethiwe
 ou charger manuellement un fichier YAML contenant la liste des lieux visités:
   afrikaans: of laai handmatig 'n YAML-lêer op wat die lys van besoekte plekke bevat
   albanais: ose kodoni manualisht një skedar YAML që përmban listën e vendeve të vizituara

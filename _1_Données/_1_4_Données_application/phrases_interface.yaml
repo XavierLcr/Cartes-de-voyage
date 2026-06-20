@@ -3,11 +3,13 @@ titre_windows : Cartes de voyage
 titre_application : Outil de création de cartes
 
 # Titres d'onglets
-titre_onglet_1 : Paramètres
-titre_onglet_2 : Sélection des lieux visités
-titre_onglet_3 : Liste des lieux visités
+titre_onglet_1 : Cartes
+description_onglet_1 : Paramètres de création des cartes
+titre_onglet_2 : Voyages effectués
+titre_onglet_3 : Résumé des lieux visités
 titre_onglet_4 : Statistiques
 description_onglet_4 : En termes de pourcentage de la superficie visitée pour chaque pays
+titre_onglet_param_profil : Paramètres du profil
 
 # Gestion du profil
 nom_individu_label : Profil actuel

@@ -269,8 +269,12 @@ class MesVoyagesApplication(QWidget):
             self.liste_onglets.indexOf(self.onglet_parametres),
             self.traduire_depuis_id(
                 "titre_onglet_1",
-                suffixe=(" 🎨"),
+                suffixe=(" 🎨"),
             ),
+        )
+        self.liste_onglets.setTabToolTip(
+            self.liste_onglets.indexOf(self.onglet_parametres),
+            self.traduire_depuis_id("description_onglet_1"),
         )
         self.onglet_parametres.set_langue(langue=self.langue)
 
@@ -279,7 +283,7 @@ class MesVoyagesApplication(QWidget):
             self.liste_onglets.indexOf(self.onglet_selection_destinations),
             self.traduire_depuis_id(
                 "titre_onglet_2",
-                suffixe=(" 📌"),
+                suffixe=(" 📌"),
             ),
         )
         self.onglet_selection_destinations.set_langue(langue=self.langue)
@@ -289,7 +293,7 @@ class MesVoyagesApplication(QWidget):
             self.liste_onglets.indexOf(self.onglet_resume_destinations),
             self.traduire_depuis_id(
                 "titre_onglet_3",
-                suffixe=(" 🧭"),
+                suffixe=(" 🧭"),
             ),
         )
         self.onglet_resume_destinations.set_langue(nouvelle_langue=self.langue)
@@ -306,6 +310,10 @@ class MesVoyagesApplication(QWidget):
         self.onglet_statistiques.set_langue(nouvelle_langue=self.langue)
 
         # Onglet des paramètres du profil
+        self.liste_onglets.setTabToolTip(
+            self.liste_onglets.indexOf(self.onglet_param_profil),
+            self.traduire_depuis_id("titre_onglet_param_profil"),
+        )
         self.onglet_param_profil.set_langue()
         self.onglet_param_profil.signal_theme_application.connect(self.set_style)
 

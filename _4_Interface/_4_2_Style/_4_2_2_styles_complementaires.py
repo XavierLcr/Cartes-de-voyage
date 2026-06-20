@@ -13,7 +13,6 @@ from _0_Utilitaires._0_2_fonctions_graphiques import (
     renvoyer_couleur_texte,
 )
 
-
 # 1 -- Génération du style des boutons de suppression et de réinitialisation ---
 
 
@@ -33,43 +32,7 @@ def style_bouton_de_suppression(sombre: bool):
     """
 
 
-# 2 -- Couleur du bouton montrant la posssibilité de télécharger des YAMLs -----
-
-
-def style_bouton_yaml(style: int, teinte, nuances):
-
-    bg_couleur = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#D6F0EE", sombre="#742C82"
-    )
-    bg_couleur_survol = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#EBD3E6", sombre="#B34FA9"
-    )
-    bg_couleur_click = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#A8AFEA", sombre="#6E0D73"
-    )
-
-    return f"""
-        QPushButton {{
-            background-color: {bg_couleur};
-            color: {renvoyer_couleur_texte(style=style, couleur=bg_couleur)}; 
-            border-radius: 8px;
-            padding: 10px 22px;
-            border:  none;
-        }}
-        QPushButton:hover {{
-            background-color: {bg_couleur_survol};
-            color: {renvoyer_couleur_texte(style=style, couleur=bg_couleur_survol)};  
-            border-color: none;
-        }}
-        QPushButton:pressed {{
-            background-color: {bg_couleur_click};
-            color: {renvoyer_couleur_texte(style=style, couleur=bg_couleur_click)};   
-            border-color: none;
-        }}
-    """
-
-
-# 3 -- Fonction de choix de la couleur du bouton de recommandation -------------------------------
+# 2 -- Fonction de choix de la couleur du bouton de recommandation -------------------------------
 
 
 def style_bouton_recommandation(style: int, teinte, nuances):
@@ -107,7 +70,7 @@ def style_bouton_recommandation(style: int, teinte, nuances):
     """
 
 
-# 4 -- Fonction du style du bouton d'ajout de profils --------------------------
+# 3 -- Fonction du style du bouton d'ajout de profils --------------------------
 
 
 def style_bouton_ajout_profil(style: int, teinte, nuances):

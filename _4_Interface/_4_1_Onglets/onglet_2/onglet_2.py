@@ -5,7 +5,10 @@
 ################################################################################
 
 
-import os, yaml
+# 0 -- Initialisation ----------------------------------------------------------
+
+
+import yaml
 from datetime import datetime
 
 # PyQt6
@@ -48,7 +51,6 @@ from _0_Utilitaires._0_7_fonctions_voyages import (
     trier_voyages,
 )
 from _4_Interface._4_1_Onglets.onglet_2.onglet_2_ajout_voyage import CreerVoyage
-from _4_Interface._4_2_Style._4_2_2_styles_complementaires import style_bouton_yaml
 
 # 1 -- Classe de sélection des destinations ------------------------------------
 
@@ -115,7 +117,7 @@ class OngletSelectionnerDestinations(QWidget):
 
         # Ligne des boutons
         layout_boutons = QHBoxLayout()
-        layout_boutons.addWidget(self.ajouter_voyage_bouton, stretch=5)
+        layout_boutons.addWidget(self.ajouter_voyage_bouton, stretch=3)
         layout_boutons.addWidget(self.options_tri, stretch=3)
         layout_boutons.addWidget(self.bouton_sauvegarde, stretch=1)
         layout_boutons.addWidget(creer_ligne_verticale())

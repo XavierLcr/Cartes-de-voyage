@@ -223,6 +223,8 @@ class MesVoyagesApplication(QWidget):
         # Création des onglets
         self.liste_onglets = QTabWidget()
         self.liste_onglets.setUsesScrollButtons(False)
+        self.liste_onglets.setTabShape(QTabWidget.TabShape.Rounded)
+        self.liste_onglets.setTabPosition(QTabWidget.TabPosition.North)
         self.liste_onglets.setCornerWidget(profile_container, Qt.Corner.TopRightCorner)
         self.liste_onglets.addTab(self.onglet_parametres, "Cartes")
         self.liste_onglets.addTab(self.onglet_selection_destinations, "Voyages")

@@ -42,9 +42,6 @@ from _4_Interface._4_1_Onglets.onglet_1.onglet_1_1_creation_cartes import CreerC
 from _4_Interface._4_1_Onglets.onglet_1.onglet_1_2_combobox_coloree import (
     FondCarteCombo,
 )
-from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
-    style_bouton_de_suppression,
-)
 
 # 1 -- Classe de chargement des GeoDataFrames ----------------------------------
 
@@ -312,20 +309,15 @@ class OngletParametres(QWidget):
             lambda: set_emoji_sauvegarde(self.bouton_sauvegarde, 3000)
         )
 
-        # Bouton de réinitialisation
-        self.reinit_parametres = QPushButton()
-
         # Ajouter les widgets dans la grille
-        layout_valid_reinit.addWidget(self.reinit_parametres, 0, 0)
-        layout_valid_reinit.addWidget(self.creation_cartes_bouton, 0, 1)
-        layout_valid_reinit.addWidget(self.barre_progression, 0, 1)
+        layout_valid_reinit.addWidget(self.creation_cartes_bouton, 0, 0)
+        layout_valid_reinit.addWidget(self.barre_progression, 0, 0)
         self.barre_progression.setVisible(False)
-        layout_valid_reinit.addWidget(self.bouton_sauvegarde, 0, 2)
+        layout_valid_reinit.addWidget(self.bouton_sauvegarde, 0, 1)
 
         # Ajuster les proportions : colonne 1 (droite) prend plus de place
-        layout_valid_reinit.setColumnStretch(0, 1)  # petite colonne gauche
-        layout_valid_reinit.setColumnStretch(1, 4)  # plus grande colonne au milieu
-        layout_valid_reinit.setColumnStretch(2, 1)  # petite colonne à gauche
+        layout_valid_reinit.setColumnStretch(0, 4)  # plus grande colonne au milieu
+        layout_valid_reinit.setColumnStretch(1, 1)  # petite colonne à gauche
 
         layout.addLayout(layout_valid_reinit, stretch=1)
         self.setLayout(layout)
@@ -413,14 +405,6 @@ class OngletParametres(QWidget):
         )
 
         # Boutons en bas de l'onglet 1
-        self.reinit_parametres.setText(
-            self.fonction_traduction("reinitialisation_interface")
-        )
-        self.reinit_parametres.setToolTip(
-            self.fonction_traduction(
-                "description_bouton_reinitialisation_interface", suffixe="."
-            )
-        )
         self.creation_cartes_bouton.setText(
             self.fonction_traduction("bouton_publier_cartes")
         )
@@ -460,9 +444,6 @@ class OngletParametres(QWidget):
                 .values()
             ),
         )
-
-    def set_style(self, style: bool):
-        self.reinit_parametres.setStyleSheet(style_bouton_de_suppression(sombre=style))
 
     def barre_set_max(self, val: int):
         self.barre_progression.setMaximum(val)

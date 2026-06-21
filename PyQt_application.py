@@ -38,6 +38,7 @@ from _4_Interface._4_1_Onglets.onglet_param_profil import onglet_param_profil
 from _4_Interface._4_2_Style._4_2_1_style_principal import style_dynamique_application
 from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
     style_bouton_ajout_profil,
+    style_bouton_de_suppression,
 )
 from _4_Interface._4_2_Style._4_2_4_pluie_emojis import VuePluieEmojis
 
@@ -107,11 +108,20 @@ class MesVoyagesApplication(QWidget):
         profile_layout.addWidget(self.nom_individu_label)
         self.nom_individu.addItems(list(sauvegarde.keys()))
         profile_layout.addWidget(self.nom_individu)
+        # Bouton d'ajout d'un profil
         self.bouton_ajout = QPushButton()
         self.bouton_ajout.setText("➕")
         self.bouton_ajout.setFixedWidth(40)
         self.bouton_ajout.clicked.connect(self.ajouter_profil)
         profile_layout.addWidget(self.bouton_ajout)
+        # Bouton de réinitialisation
+        self.reinit_parametres = QPushButton()
+        self.reinit_parametres.setText("🧹")
+        self.reinit_parametres.setFixedWidth(40)
+        self.reinit_parametres.clicked.connect(
+            lambda: self.initialiser_sauvegarde(reinitialiser=True)
+        )
+        profile_layout.addWidget(self.reinit_parametres)
 
         # === Premier onglet ===
 
@@ -123,10 +133,6 @@ class MesVoyagesApplication(QWidget):
         # Chargement d'un individu
         self.nom_individu.currentIndexChanged.connect(
             lambda: self.initialiser_sauvegarde(reinitialiser=False)
-        )
-        # Réinitialisation
-        self.onglet_parametres.reinit_parametres.clicked.connect(
-            lambda: self.initialiser_sauvegarde(reinitialiser=True)
         )
         # Export
         self.onglet_parametres.bouton_sauvegarde.clicked.connect(
@@ -281,6 +287,15 @@ class MesVoyagesApplication(QWidget):
         self.nom_individu_label.setText("👤")
         self.nom_individu.setPlaceholderText(
             self.traduire_depuis_id("nom_individu_placeholder", suffixe="...")
+        )
+        self.reinit_parametres.setText(
+            "🧹"
+            # self.traduire_depuis_id("reinitialisation_interface")
+        )
+        self.reinit_parametres.setToolTip(
+            self.traduire_depuis_id(
+                "description_bouton_reinitialisation_interface", suffixe="."
+            )
         )
 
         # Onglet 1
@@ -441,9 +456,9 @@ class MesVoyagesApplication(QWidget):
                 style=style_temp, teinte=teinte_temp, nuances=theme_temp
             )
         )
-
-        # Onglet 1
-        self.onglet_parametres.set_style(style=not self.theme_application)
+        self.reinit_parametres.setStyleSheet(
+            style_bouton_de_suppression(sombre=not self.theme_application)
+        )
 
         # Onglet 2
         self.onglet_selection_destinations.set_style(

@@ -89,13 +89,6 @@ class OngletParametres(QWidget):
 
         layout = QVBoxLayout()
 
-        # Créer un label comme titre
-        self.titre = QLabel()
-        self.set_style_titre(taille=24)
-
-        # Layout vertical
-        layout.addWidget(self.titre, stretch=2)  # Ajouter le titre en haut
-
         self.setLayout(layout)
 
         # Ajouter le layout à la group box et la group box au layout général
@@ -642,15 +635,6 @@ class OngletParametres(QWidget):
 
         self.thread_temp.started.connect(self.creation_cartes.run)
         self.thread_temp.start()
-
-    def set_style_titre(self, taille=24):
-
-        self.titre.setStyleSheet(
-            f"font-size: {taille * self.constantes.dict_themes_temporaires.get('titre_police_coeff', 1)}px;"
-            f"font-weight: bold;"
-            f"text-align: center;"
-            f"font-family: {self.constantes.dict_themes_temporaires.get('titre_police', 'Vivaldi')}, sans-serif;"
-        )
 
     def initialiser_onglet(self, **kwargs):
 

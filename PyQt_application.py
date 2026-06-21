@@ -21,6 +21,7 @@ from PyQt6.QtWidgets import (
     QComboBox,
     QPushButton,
     QLineEdit,
+    QLabel,
 )
 from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtCore import QTimer, Qt
@@ -90,6 +91,9 @@ class MesVoyagesApplication(QWidget):
         self.theme_application = True
         self.voyages = {}
         self.longueur_id_voyage = 10
+
+        self.titre = QLabel()
+        self.set_style_titre(taille=24)
 
         # === Profil sélectionné ===
 
@@ -236,6 +240,7 @@ class MesVoyagesApplication(QWidget):
         self.liste_onglets.addTab(self.onglet_description_application, "ℹ️")
 
         main_layout = QVBoxLayout(self)
+        main_layout.addWidget(self.titre)
         main_layout.addWidget(self.liste_onglets)
         self.liste_onglets.setCurrentIndex(0 if sauvegarde else 4)
 
@@ -259,6 +264,13 @@ class MesVoyagesApplication(QWidget):
 
         # Titres généraux
         self.setWindowTitle(self.traduire_depuis_id("titre_windows"))
+
+        self.titre.setText(
+            self.traduire_depuis_id(
+                clef="titre_application",
+                suffixe=constantes.dict_themes_temporaires.get("emoji", ""),
+            )
+        )
 
         # Profil sélectionné
         self.nom_individu_label.setText("👤")
@@ -814,6 +826,15 @@ class MesVoyagesApplication(QWidget):
                     # Utilisation du profil en question
                     self.nom_individu.setCurrentText(nouveau_profil)
                     self.initialiser_sauvegarde(reinitialiser=False)
+
+    def set_style_titre(self, taille=24):
+
+        self.titre.setStyleSheet(
+            f"font-size: {taille * constantes.dict_themes_temporaires.get('titre_police_coeff', 1)}px;"
+            f"font-weight: bold;"
+            f"text-align: center;"
+            f"font-family: {constantes.dict_themes_temporaires.get('titre_police', 'Vivaldi')}, sans-serif;"
+        )
 
     # def jouer_musique(self, fichier):
 

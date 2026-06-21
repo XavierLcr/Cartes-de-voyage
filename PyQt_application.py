@@ -224,12 +224,17 @@ class MesVoyagesApplication(QWidget):
 
         # === Mise en forme === #
 
+        # Layout de la ligne générale
+        layout_top = QHBoxLayout()
+        layout_top.addWidget(self.titre)
+        layout_top.addStretch()
+        layout_top.addWidget(profile_container)
+
         # Création des onglets
         self.liste_onglets = QTabWidget()
         self.liste_onglets.setUsesScrollButtons(False)
         self.liste_onglets.setTabShape(QTabWidget.TabShape.Rounded)
         self.liste_onglets.setTabPosition(QTabWidget.TabPosition.North)
-        self.liste_onglets.setCornerWidget(profile_container, Qt.Corner.TopRightCorner)
         self.liste_onglets.addTab(self.onglet_parametres, "Cartes")
         self.liste_onglets.addTab(self.onglet_selection_destinations, "Voyages")
         self.liste_onglets.addTab(
@@ -240,7 +245,7 @@ class MesVoyagesApplication(QWidget):
         self.liste_onglets.addTab(self.onglet_description_application, "ℹ️")
 
         main_layout = QVBoxLayout(self)
-        main_layout.addWidget(self.titre)
+        main_layout.addLayout(layout_top)
         main_layout.addWidget(self.liste_onglets)
         self.liste_onglets.setCurrentIndex(0 if sauvegarde else 4)
 

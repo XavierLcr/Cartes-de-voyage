@@ -3857,6 +3857,77 @@ Carte du monde:
   ukrainien: Карта світу
   vietnamien: Bản đồ thế giới
   zoulou: imephu yomhlaba
+Cartes:
+  afrikaans: Kaarte
+  albanais: Kartat
+  allemand: Karten
+  anglais: Cards
+  arabe: بطاقات
+  arménien: Քարտեր
+  basque: Kartak
+  bengali: Cartes
+  birman: မြေပုံများ
+  breton: Kartoù
+  bulgare: карти
+  catalan: Cartes
+  corse: Carte
+  coréen: 카드
+  danois: Kort
+  espagnol: Cartes
+  esperanto: Kartoj
+  estonien: Kaardid
+  finnois: Kortit
+  français: Cartes
+  gallois: Cerddau
+  grec: Cartes
+  grec ancien: χάρται
+  géorgien: ბარათები
+  hindi: Cartes
+  hongrois: Kártyák
+  indonésien: Kartu
+  irlandais: Cártaí
+  islandais: Kort
+  italien: Carte
+  japonais: カード
+  kazakh: Карталар
+  kirghize: Карталар
+  kurde: Nexşe
+  latin: Chartae
+  letton: Kartes
+  lituanien: Kortos
+  luxembourgeois: Kaarten
+  macédonien: карти
+  malais: Kad
+  malgache: Karatra
+  maltais: Karti
+  mandarin standard: 卡片
+  mongol: Картууд
+  norvégien: Kort
+  néerlandais: Kaarten
+  népalais: नक्साहरू
+  ourdou: کارڈز
+  ouzbek: Kartalar
+  pachto: کارتونه
+  persan: کارت‌ها
+  polonais: Karty
+  portugais: Cartas
+  roumain: Cartes
+  russe: Карты
+  serbo-croate: Karte
+  slovaque: Karty
+  slovène: Karte
+  suédois: Cartes
+  swahili: Cartes
+  tadjik: Картаҳо
+  tamoul: Cartes
+  tchèque: Cartes
+  thaï: Cartes
+  tibétain: Cartes
+  turc: Kartlar
+  turkmène: Kartalar
+  ukrainien: Карти
+  vietnamien: Cartes
+  zoulou: Amakhadi
 Cartes de voyage:
   afrikaans: Reiskaarte
   albanais: Harta udhëtimi
@@ -10473,6 +10544,77 @@ Paramètres:
   ukrainien: Параметри
   vietnamien: Tham số
   zoulou: Izilungiselelo
+Paramètres de création des cartes:
+  afrikaans: Instellings vir die skepping van kaarte
+  albanais: Cilësimet e krijimit të hartave
+  allemand: Kartenerstellungseinstellungen
+  anglais: Map creation settings
+  arabe: إعدادات إنشاء الخرائط
+  arménien: Քարտերի ստեղծման կարգավորումներ
+  basque: Mapak sortzeko parametroak
+  bengali: কার্ড তৈরির সেটিংস
+  birman: မြေပုံဖန်တီးမှု ဆက်တင်များ
+  breton: Parametrezhoù kreioù kartennoù
+  bulgare: Настройки за създаване на карти
+  catalan: Paràmetres de creació de mapes
+  corse: Parametri di creazione di e carte
+  coréen: 지도 생성 설정
+  danois: Indstillinger for kortoprettelse
+  espagnol: Parámetros de creación de mapas
+  esperanto: Parametroj de mapkreado
+  estonien: Kaartide loomise seaded
+  finnois: Korttien luomisen asetukset
+  français: Paramètres de création des cartes
+  gallois: Gosodiadau creu mapiau
+  grec: Ρυθμίσεις δημιουργίας χαρτών
+  grec ancien: Ὅροι ποιήσεως χαρτῶν
+  géorgien: რუკების შექმნის პარამეტრები
+  hindi: कार्ड निर्माण सेटिंग्स
+  hongrois: Kártyakészítési beállítások
+  indonésien: Pengaturan pembuatan kartu
+  irlandais: Socruithe cruthaithe na mapáil
+  islandais: Kortagerðarstillingar
+  italien: Impostazioni di creazione delle mappe
+  japonais: カード作成設定
+  kazakh: Карталарды жасау параметрлері
+  kirghize: Карталарды түзүүнүн жөндөөлөрү
+  kurde: Sazkirinên çêkirina nexşeyan
+  latin: Parametri creationis chartarum
+  letton: Kartu veidošanas iestatījumi
+  lituanien: Žemėlapių kūrimo nustatymai
+  luxembourgeois: Astellunge fir d'Erstellung vun de Kaarten
+  macédonien: Параметри за креирање карти
+  malais: Tetapan Penciptaan Kad
+  malgache: Fikirana famoronana sarintany
+  maltais: Parametri tal-kreazzjoni tal-karti
+  mandarin standard: 地图创建设置
+  mongol: Газрын зураг үүсгэх тохиргоо
+  norvégien: Innstillinger for kartopprettelse
+  néerlandais: Instellingen voor het maken van kaarten
+  népalais: नक्सा निर्माण सेटिङहरू
+  ourdou: نقشے بنانے کی ترتیبات
+  ouzbek: Xaritalarni yaratish sozlamalari
+  pachto: د نقشو جوړولو تنظیمات
+  persan: تنظیمات ساخت نقشه‌ها
+  polonais: Parametry tworzenia kart
+  portugais: Configurações de criação de mapas
+  roumain: Setări de creare a hărților
+  russe: Настройки создания карт
+  serbo-croate: Parametri kreiranja mapa
+  slovaque: Nastavenia vytvárania map
+  slovène: Nastavitve ustvarjanja kart
+  suédois: Inställningar för kartskapande
+  swahili: Mipangilio ya kuunda ramani
+  tadjik: Танзимоти сохти харитаҳо
+  tamoul: வரைபட உருவாக்க அமைப்புகள்
+  tchèque: Parametry vytváření karet
+  thaï: การตั้งค่าการสร้างแผนที่
+  tibétain: Paramètres de création des cartes
+  turc: Harita oluşturma ayarları
+  turkmène: Kartlary döretmek sazlamalary
+  ukrainien: Налаштування створення карт
+  vietnamien: Cài đặt tạo bản đồ
+  zoulou: Izilungiselelo zokwakha amamaphu
 Paramètres de l'individu:
   afrikaans: Individu se parameters
   albanais: Parametrat e individit
@@ -10609,6 +10751,77 @@ Paramètres de publication des cartes:
   ukrainien: Параметри публікації карт
   vietnamien: Thiết lập xuất bản bản đồ
   zoulou: Izilungiselelo zokushicilela amamephu
+Paramètres du profil:
+  afrikaans: Profielinstellings
+  albanais: Cilësimet e profilit
+  allemand: Profileinstellungen
+  anglais: Profile settings
+  arabe: إعدادات الملف الشخصي
+  arménien: Պրոֆիլի կարգավորումներ
+  basque: Profilaren parametroak
+  bengali: প্রোফাইল সেটিংস
+  birman: ပရိုဖိုင်ဆက်တင်များ
+  breton: Parametroù ar profil
+  bulgare: Настройки на профила
+  catalan: Configuració del perfil
+  corse: Parametri di u profilu
+  coréen: 프로필 설정
+  danois: Profilindstillinger
+  espagnol: Configuración del perfil
+  esperanto: Profilaj agordoj
+  estonien: Profiili seaded
+  finnois: Profiiliasetukset
+  français: Paramètres du profil
+  gallois: Gosodiadau'r proffil
+  grec: Ρυθμίσεις προφίλ
+  grec ancien: Paramètres du profil
+  géorgien: პროფილის პარამეტრები
+  hindi: प्रोफ़ाइल सेटिंग
+  hongrois: Profil beállítások
+  indonésien: Pengaturan profil
+  irlandais: Socruithe an próifíle
+  islandais: Prófílstillingar
+  italien: Impostazioni del profilo
+  japonais: プロフィール設定
+  kazakh: Профиль баптаулары
+  kirghize: Профильдин жөндөөлөрү
+  kurde: Sazkirinên profîlê
+  latin: Parametri profili
+  letton: Profila iestatījumi
+  lituanien: Profilio nustatymai
+  luxembourgeois: Profil-Astellungen
+  macédonien: Поставки на профилот
+  malais: Tetapan profil
+  malgache: Fikirakirana ny mombamomba
+  maltais: Settings tal-profil
+  mandarin standard: 个人资料设置
+  mongol: Профайл тохиргоо
+  norvégien: Profilinnstillinger
+  néerlandais: Profielinstellingen
+  népalais: प्रोफाइल सेटिङहरू
+  ourdou: پروفائل کی ترتیبات
+  ouzbek: Profil sozlamalari
+  pachto: د پروفایل تنظیمات
+  persan: تنظیمات پروفایل
+  polonais: Ustawienia profilu
+  portugais: Configurações do perfil
+  roumain: Setări de profil
+  russe: Настройки профиля
+  serbo-croate: Postavke profila
+  slovaque: Nastavenia profilu
+  slovène: Nastavitve profila
+  suédois: Profilinställningar
+  swahili: Mipangilio ya wasifu
+  tadjik: Танзимоти профил
+  tamoul: சுயவிவர அமைப்புகள்
+  tchèque: Nastavení profilu
+  thaï: การตั้งค่าโปรไฟล์
+  tibétain: མིང་ཐོབཀྱི་སྒྲིག་བཀོད།
+  turc: Profil Ayarları
+  turkmène: Profil sazlamalary
+  ukrainien: Налаштування профілю
+  vietnamien: Cài đặt hồ sơ
+  zoulou: Izilungiselelo zeprofayili
 Paramètres esthétiques:
   afrikaans: Estetiese parameters
   albanais: Parametra estetikë
@@ -13102,6 +13315,77 @@ Réinitialiser l'interface:
   ukrainien: Скинути інтерфейс
   vietnamien: Đặt lại giao diện
   zoulou: Qalisa kabusha isikhombimsebenzisi
+Résumé des lieux visités:
+  afrikaans: Opsomming van besoekte plekke
+  albanais: Përmbledhje e vendeve të vizituara
+  allemand: Zusammenfassung der besuchten Orte
+  anglais: Summary of places visited
+  arabe: ملخص الأماكن المزارة
+  arménien: Այցելած վայրերի ամփոփում
+  basque: Bisitatutako lekuen laburpena
+  bengali: পরিদর্শিত স্থানগুলোর সারসংক্ষেপ
+  birman: လည်ပတ်ခဲ့သော နေရာများ၏ အနှစ်ချုပ်
+  breton: Samm an lec'hoù yezet
+  bulgare: Резюме на посетените места
+  catalan: Resum dels llocs visitats
+  corse: Riassuntu di i lughi visitati
+  coréen: 방문한 장소 요약
+  danois: Oversigt over besøgte steder
+  espagnol: Resumen de los lugares visitados
+  esperanto: Sumaro de la vizititaj lokoj
+  estonien: Külastatud kohtade kokkuvõte
+  finnois: Vieraillujen paikkojen yhteenveto
+  français: Résumé des lieux visités
+  gallois: Crynodeb o'r leoedd a ymydwyd ohonynt
+  grec: Περίληψη των επισκεφθέντων τοποθεσιών
+  grec ancien: Σύνοψις τῶν ἐπισκεψιθέντων τόπων
+  géorgien: ნანახი ადგილების შეჯამება
+  hindi: देखे गए स्थानों का सारांश
+  hongrois: Látogatott helyek összefoglalója
+  indonésien: Ringkasan tempat yang dikunjungi
+  irlandais: Samhradh ar na háiteanna a thurasnaigh
+  islandais: Samantekt yfir heimsótta staði
+  italien: Riassunto dei luoghi visitati
+  japonais: 訪問地のまとめ
+  kazakh: Араланған жерлердің шолуы
+  kirghize: Барган жерлердин кыскача маалыматы
+  kurde: Kurteya cihên hatine serdan kirin
+  latin: Summarium locorum visitatorum
+  letton: Apmeklēto vietu kopsavilkums
+  lituanien: Aplankytų vietų santrauka
+  luxembourgeois: Zesummefaassung vun de besicht Plazen
+  macédonien: Резиме на посетените места
+  malais: Ringkasan tempat-tempat yang dilawati
+  malgache: Famintinana ireo toerana novangiana
+  maltais: Sommarju tal-postijiet ivżitati
+  mandarin standard: 参观地点总结
+  mongol: Зочилсон газруудын хураангуй
+  norvégien: Sammendrag av besøkte steder
+  néerlandais: Samenvatting van de bezochte plaatsen
+  népalais: भ्रमण गरिएका स्थानहरूको सारांश
+  ourdou: دیکھی گئی جگہوں کا خلاصہ
+  ouzbek: Tashrif buyurilgan joylar xulosasi
+  pachto: د لیدل شویو ځایونو خلاصه
+  persan: خلاصه مکان‌های بازدید شده
+  polonais: Podsumowanie odwiedzonych miejsc
+  portugais: Resumo dos lugares visitados
+  roumain: Rezumatul locurilor vizitate
+  russe: Обзор посещённых мест
+  serbo-croate: Sažetak posjećenih mjesta
+  slovaque: Zhrnutie navštívených miest
+  slovène: Povzetek obiškanih mest
+  suédois: Sammanfattning av besökta platser
+  swahili: Muhtasari wa maeneo yaliyotembelewa
+  tadjik: Хулосаи ҷойҳои диданшуда
+  tamoul: பார்வையிடப்பட்ட இடங்களின் சுருக்கம்
+  tchèque: Přehled navštívených míst
+  thaï: สรุปสถานที่ที่ไปเยี่ยมชม
+  tibétain: ཕྱེབས་པའི་ས་གནས་ཀྱི་སྙིང་བསྡུས།
+  turc: Ziyaret edilen yerlerin özeti
+  turkmène: Ziarat edilen ýerleriň gysgaça mazmuny
+  ukrainien: Огляд відвіданих місць
+  vietnamien: Tóm tắt các địa điểm đã tham quan
+  zoulou: Isifinyezo sezindawo ezivakashelwe
 S'il existe plus de versions d'une carte que la limite sélectionnée, alors la carte la plus ancienne sera supprimée:
   afrikaans: As daar meer weergawes van 'n kaart is as die gekose limiet, sal die
     oudste kaart verwyder word
@@ -14241,6 +14525,77 @@ Supprimer ce profil:
   ukrainien: Видалити цей профіль
   vietnamien: Xóa hồ sơ này
   zoulou: Susa lephrofayili
+Sélection des lieux visités:
+  afrikaans: Seleksie van besoekte plekke
+  albanais: Përzgjedhja e vendeve të vizituara
+  allemand: Auswahl der besuchten Orte
+  anglais: Selection of visited places
+  arabe: اختيار الأماكن التي تمت زيارتها
+  arménien: Այցելած վայրերի ընտրություն
+  basque: Bisitatuen lekuen hautaketa
+  bengali: পরিদর্শিত স্থানগুলোর নির্বাচন
+  birman: လည်ပတ်ခဲ့သော နေရာများ ရွေးချယ်မှု
+  breton: Séléksion ar leoù vizitet
+  bulgare: Избор на посетени места
+  catalan: Selecció dels llocs visitats
+  corse: Selezzione di i loci visitati
+  coréen: 방문한 장소 선택
+  danois: Valg af besøgte steder
+  espagnol: Selección de los lugares visitados
+  esperanto: Selektado de vizitataj lokoj
+  estonien: Külastatud kohtade valik
+  finnois: Vieraillujen paikkojen valinta
+  français: Sélection des lieux visités
+  gallois: Dewis o leoedd a yfeddwyd
+  grec: Επιλογή επισκεφθέντων τοποθεσιών
+  grec ancien: ἐπιλογή τῶν τεθεαμένων τόπων
+  géorgien: ნასტუმრევი ადგილების შერჩევა
+  hindi: देखे गए स्थानों का चयन
+  hongrois: Látogatott helyek kiválasztása
+  indonésien: Seleksi tempat yang dikunjungi
+  irlandais: Roghnaíocht na háiteanna cuairte
+  islandais: Val á heimsæktum stöðum
+  italien: Selezione dei luoghi visitati
+  japonais: 訪問した場所の選択
+  kazakh: Араланған жерлерді таңдау
+  kirghize: Барган жерлердин тандоосу
+  kurde: Hilbijartina cihên serdan kirî
+  latin: Selectio locorum visitatorum
+  letton: Apmeklēto vietu atlase
+  lituanien: Lankytų vietų pasirinkimas
+  luxembourgeois: Selektioun vun de besichte Plazen
+  macédonien: Избор на посетени места
+  malais: Pemilihan tempat yang dilawati
+  malgache: Fisafidianana ireo toerana notsidihina
+  maltais: Selezzjoni tal-postijiet iżvisti
+  mandarin standard: 已访问地点的选择
+  mongol: Зочилсон газруудын сонголт
+  norvégien: Utvalg av besøkte steder
+  néerlandais: Selectie van bezochte plaatsen
+  népalais: भ्रमण गरिएका स्थानहरूको छनोट
+  ourdou: سیر کیے گئے مقامات کا انتخاب
+  ouzbek: Tashrif buyurilgan joylar tanlovi
+  pachto: د لیدل شویو ځایونو انتخاب
+  persan: انتخاب مکان‌های بازدید شده
+  polonais: Wybór odwiedzonych miejsc
+  portugais: Seleção dos lugares visitados
+  roumain: Selecția locurilor vizitate
+  russe: Выбор посещённых мест
+  serbo-croate: Izbor posjećenih mjesta
+  slovaque: Výber navštívených miest
+  slovène: Izbor obiskanih krajev
+  suédois: Urval av besökta platser
+  swahili: Uteuzi wa maeneo yaliyotembelewa
+  tadjik: Интихоби ҷойҳои диданшуда
+  tamoul: பார்வையிடப்பட்ட இடங்களின் தேர்வு
+  tchèque: Výběr navštívených míst
+  thaï: การเลือกสถานที่ที่ไปเยือน
+  tibétain: གཟིགས་ཟིན་པའི་ས་གནས་འདེམས་སྦྱོར།
+  turc: Ziyaret edilen yerlerin seçimi
+  turkmène: Barylan ýerleriň saýlawy
+  ukrainien: Вибір відвіданих місць
+  vietnamien: Lựa chọn các địa điểm đã tham quan
+  zoulou: Ukukhetha izindawo ezivakashwe
 Sélectionner un dossier:
   afrikaans: Kies 'n vouer
   albanais: Zgjidh dosjen
@@ -14738,6 +15093,77 @@ Trier par ordre de création des voyages:
   ukrainien: Сортувати подорожі за датою створення
   vietnamien: Sắp xếp theo thứ tự tạo chuyến đi
   zoulou: Hlunga uhambo ngokwezinsuku lokudala kwazo
+Télécharger le fichier YAML des voyages effectués:
+  afrikaans: Laai die YAML-lêer van die voltooide reise af
+  albanais: Shkarko skedarin YAML të udhëtimeve të kryera
+  allemand: Die YAML-Datei der durchgeführten Reisen herunterladen
+  anglais: Download the YAML file of trips taken
+  arabe: تحميل ملف YAML للرحلات التي تم القيام بها
+  arménien: Ներբեռնել կատարված ուղևորությունների YAML ֆայլը
+  basque: Egindako bidaien YAML fitxategia deskargatu
+  bengali: সম্পন্ন করা ভ্রমণগুলোর YAML ফাইলটি ডাউনলোড করুন।
+  birman: ပြုလုပ်ခဲ့သော ခရီးစဉ်များ၏ YAML ဖိုင်ကို ဒေါင်းလုဒ်လုပ်ပါ။
+  breton: Luel ar faskell YAML an estellournoù betet
+  bulgare: Изтеглете YAML файла на извършените пътувания
+  catalan: Descarregar el fitxer YAML dels viatges realitzats
+  corse: Scaricà u file YAML di i viaghji effettuati
+  coréen: 완료된 여행 YAML 파일 다운로드
+  danois: Download YAML-filen over gennemførte rejser
+  espagnol: Descargar el archivo YAML de los viajes realizados
+  esperanto: Elŝutu la YAML-dosieron de la faritaj vojaĝoj
+  estonien: Laadi alla tehtud reiside YAML-fail
+  finnois: Lataa tehtyjen matkojen YAML-tiedosto
+  français: Télécharger le fichier YAML des voyages effectués
+  gallois: Lawrlwytho'r ffail YAML o'r teithiau a wnaed
+  grec: Κατεβάστε το αρχείο YAML των πραγματοποιημένων ταξιδιών
+  grec ancien: Télécharger le fichier YAML τῶν γενομένων ὁδῶν
+  géorgien: განხორციელებული მოგზაურებების YAML ფაილის ჩამოტვირთვა
+  hindi: की गई यात्राओं की YAML फ़ाइल डाउनलोड करें।
+  hongrois: A megtört utazások YAML fájljának letöltése
+  indonésien: Unduh file YAML perjalanan yang dilakukan
+  irlandais: Íoslódáil an comhad YAML na ntaisteal déanta
+  islandais: Sækja YAML-skjalið yfir ferðirnar
+  italien: Scarica il file YAML dei viaggi effettuati
+  japonais: 旅行履歴のYAMLファイルをダウンロード
+  kazakh: Орындалған саяхаттардың YAML файлын жүктеу
+  kirghize: Аткарылган саякаттардын YAML файлын жүктөп алуу
+  kurde: Fayla YAML a geştên hatine kirin dabaz bike
+  latin: Detrahe fasciculum YAML itinerum peractorum
+  letton: Lejupielādēt veikto ceļojumu YAML failu
+  lituanien: Atsisiųsti atliktų kelionių YAML failą
+  luxembourgeois: Erlaaden d'YAML-Datei vun de gemaachte Reesen
+  macédonien: Преземи ја YAML датотеката на извршените патувања
+  malais: Muat turun fail YAML perjalanan yang telah dilakukan
+  malgache: Ampidino ny rakitra YAML ny dia efa natao
+  maltais: Niżżel il-fajl YAML tal-vjaġġijiet magmula
+  mandarin standard: 下载已完成行程的 YAML 文件。
+  mongol: Хийсэн аяллуудын YAML файлыг татаж авах
+  norvégien: Last ned YAML-filen for utførte reiser
+  néerlandais: Download het YAML-bestand van de uitgevoerde reizen
+  népalais: गरिएका यात्राहरूको YAML फाइल डाउनलोड गर्नुहोस्।
+  ourdou: کیے گئے سفروں کی YAML فائل ڈاؤن لوڈ کریں۔
+  ouzbek: Amalga oshirilgan sayohatlarning YAML faylini yuklab olish
+  pachto: د شوي سفرونو YAML فایل ډاونلوډ کړئ
+  persan: دانلود فایل YAML سفرهای انجام شده
+  polonais: Pobierz plik YAML zrealizowanych podróży
+  portugais: Baixar o arquivo YAML das viagens realizadas
+  roumain: Descărcați fișierul YAML al călătoriilor efectuate
+  russe: Скачать YAML-файл совершенных поездок
+  serbo-croate: Preuzmite YAML datoteku obavljenih putovanja
+  slovaque: Stiahnuť YAML súbor uskutočnených ciest
+  slovène: Prenesite YAML datoteko opravljenih potovanj
+  suédois: Ladda ner YAML-filen för genomförda resor
+  swahili: Pakua faili la YAML la safari zilizofanyika
+  tadjik: Файли YAML-и сафариҳои содиршударо боргирӣ кунед
+  tamoul: மேற்கொள்ளப்பட்ட பயணங்களின் YAML கோப்பைப் பதிவிறக்கவும்
+  tchèque: Stáhnout YAML soubor uskutečněných cest
+  thaï: ดาวน์โหลดไฟล์ YAML ของการเดินทางที่ผ่านมา
+  tibétain: འགྲུལ་ལམ་ཕྱོགས་པའི་ YAML ཡིག་ཆ་ཕབ་ལེན།
+  turc: Yapılan yolculukların YAML dosyasını indir
+  turkmène: Amlalaşdyrylan syýahatlar YAML faýlyny ýükleň
+  ukrainien: Завантажити YAML-файл здійснених поїздок
+  vietnamien: Tải xuống tệp YAML của các chuyến đi đã thực hiện
+  zoulou: Landa ifayela le-YAML lehambo elenziwe
 Utiliser la date pour ce voyage:
   afrikaans: Gebruik die datum vir hierdie reis
   albanais: Përdorni datën për këtë udhëtim
@@ -15235,6 +15661,77 @@ Vos pays de prédilection:
   ukrainien: Ваші улюблені країни
   vietnamien: Các quốc gia yêu thích của bạn
   zoulou: Izwe labathandayo
+Voyages effectués:
+  afrikaans: Voltooide reise
+  albanais: Udhëtime të kryera
+  allemand: Getätigte Reisen
+  anglais: Trips completed
+  arabe: الرحلات المنجزة
+  arménien: Կատարված ճամփորդություններ
+  basque: Egin bidaiak
+  bengali: সম্পন্ন ভ্রমণ
+  birman: သွားရောက်ပြီးသော ခရီးစဉ်များ
+  breton: Montioù betet
+  bulgare: Извършени пътувания
+  catalan: Viatges realitzats
+  corse: Viaghji effetti
+  coréen: 여행 기록
+  danois: Foretagne rejser
+  espagnol: Viajes realizados
+  esperanto: Faritaj vojaĝoj
+  estonien: Teostatud reisid
+  finnois: Tehdyt matkat
+  français: Voyages effectués
+  gallois: Teithiau a wnaed
+  grec: Πραγματοποιημένα ταξίδια
+  grec ancien: ὁδοί τελεσθείσαι
+  géorgien: განხორციელებული მოგზაურობები
+  hindi: की गई यात्राएं
+  hongrois: Teljesített utazások
+  indonésien: Perjalanan selesai
+  irlandais: Turasai déanta
+  islandais: Fullnaðaðar ferðir
+  italien: Viaggi effettuati
+  japonais: 完了した旅行
+  kazakh: Орындалған саяхаттар
+  kirghize: Аткарылган саякаттар
+  kurde: Geştên temamkirî
+  latin: Itinera peracta
+  letton: Veiktie ceļojumi
+  lituanien: Atliktos kelionės
+  luxembourgeois: Durchgeféiert Reesen
+  macédonien: Остварени патувања
+  malais: Perjalanan yang dilakukan
+  malgache: Dia vita
+  maltais: Vjaġġijiet magmula
+  mandarin standard: 已完成的旅行
+  mongol: Хийгдсэн аяллууд
+  norvégien: Gjennomførte reiser
+  néerlandais: Afgelegde reizen
+  népalais: गरिएका यात्रा
+  ourdou: کیے گئے سفر
+  ouzbek: Amalga oshirilgan sayohatlar
+  pachto: کړل شوي سفرونه
+  persan: سفرهای انجام شده
+  polonais: Odbyte podróże
+  portugais: Viagens realizadas
+  roumain: Călătorii efectuate
+  russe: Совершенные поездки
+  serbo-croate: Obavljena putovanja
+  slovaque: Uskutočnené cesty
+  slovène: Izvedena potovanja
+  suédois: Utförda resor
+  swahili: Safari zilizofanyika
+  tadjik: Сафароҳои анҷомёфта
+  tamoul: மேற்கொள்ளப்பட்ட பயணங்கள்
+  tchèque: Absolvované cesty
+  thaï: การเดินทางที่ดำเนินการแล้ว
+  tibétain: འགྲུལ་བཞུད་བྱས་པ།
+  turc: Gerçekleştirilen yolculuklar
+  turkmène: Amala aşyrylan syýahatlar
+  ukrainien: Здійснені подорожі
+  vietnamien: Chuyến đi đã thực hiện
+  zoulou: Izohambo ezenziwe
 Voyages effectués au cours de la période sélectionnée:
   afrikaans: Reise onderneem gedurende die geselekteerde tydperk
   albanais: Udhëtime të kryera gjatë periudhës së përzgjedhur

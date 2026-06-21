@@ -75,7 +75,7 @@ def creer_liste_pays_multilangue(
                 premiere_trad = False
 
             if blabla >= 2:
-                print("         ", j)
+                print("    • ", j)
 
             if (j == "anglais" and version == 0) or (j == "français" and version == 1):
                 resultat[i][j] = i

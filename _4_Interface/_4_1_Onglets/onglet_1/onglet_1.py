@@ -335,14 +335,6 @@ class OngletParametres(QWidget):
         # Récupération de la langue
         self.langue = langue
 
-        # Titre
-        self.titre.setText(
-            self.fonction_traduction(
-                clef="titre_application",
-                suffixe=self.constantes.dict_themes_temporaires.get("emoji", ""),
-            )
-        )
-
         if self.langue is None:
             return
 

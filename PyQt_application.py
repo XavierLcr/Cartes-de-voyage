@@ -15,12 +15,10 @@ from PyQt6.QtWidgets import (
     QWidget,
     QHBoxLayout,
     QVBoxLayout,
-    QMessageBox,
     QTabWidget,
     QSplashScreen,
     QComboBox,
     QPushButton,
-    QLineEdit,
 )
 from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtCore import Qt

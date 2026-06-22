@@ -30,6 +30,7 @@ from PyQt6.QtCore import QTimer, Qt
 import constantes
 from _0_Utilitaires import _0_1_fonctions_utiles_gen, _0_3_fonctions_utiles_pyqt6
 from _0_Utilitaires._0_7_fonctions_voyages import voyage_id, creer_voyage
+from _0_Utilitaires._0_11_classes_pop_up import PopupInfo
 from _4_Interface._4_1_Onglets.onglet_1 import onglet_1
 from _4_Interface._4_1_Onglets.onglet_2 import onglet_2
 from _4_Interface._4_1_Onglets.onglet_4 import onglet_4
@@ -570,12 +571,8 @@ class MesVoyagesApplication(QWidget):
 
     def montrer_popup(
         self,
-        titre="Création des cartes",
-        contenu="Début de l'opération.",
-        temps_max: int | None = 5000,
-        bouton_ok: bool = True,
-        boutons_oui_non: bool = False,
-        renvoyer_popup: bool = False,
+        titre: str,
+        contenu: str,
     ):
         # Crée le message box
         msg = QMessageBox(self)
@@ -584,31 +581,16 @@ class MesVoyagesApplication(QWidget):
         msg.setTextFormat(Qt.TextFormat.RichText)
         msg.setIcon(QMessageBox.Icon.Information)
 
-        # Configure le bouton OK et centre le message box
-        if bouton_ok:
-            msg.setStandardButtons(QMessageBox.StandardButton.Ok)
-            msg.setDefaultButton(QMessageBox.StandardButton.Ok)
+        msg.addButton(
+            self.traduire_depuis_id(clef="oui"), QMessageBox.ButtonRole.YesRole
+        )
+        msg.addButton(
+            self.traduire_depuis_id(clef="non"), QMessageBox.ButtonRole.NoRole
+        )
+        msg.setIcon(QMessageBox.Icon.Question)
 
-        if boutons_oui_non:
-            # msg.setStandardButtons(
-            #     QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
-            # )
-            msg.addButton(
-                self.traduire_depuis_id(clef="oui"), QMessageBox.ButtonRole.YesRole
-            )
-            msg.addButton(
-                self.traduire_depuis_id(clef="non"), QMessageBox.ButtonRole.NoRole
-            )
-            msg.setIcon(QMessageBox.Icon.Question)
-
-        # Timer pour fermer le message box après 3 secondes (3000 ms)
-        if temps_max is not None and not boutons_oui_non:
-            QTimer.singleShot(max(3000, temps_max), msg.close)
-
-        if renvoyer_popup == False:
-            msg.exec()  # Affiche le message box
-        else:
-            return msg
+        # Renvoi du pop-up
+        return msg
 
     def set_dictionnaire_destinations(self, dictionnaire: dict):
         self.voyages = dictionnaire
@@ -734,10 +716,6 @@ class MesVoyagesApplication(QWidget):
             contenu=self.traduire_depuis_id(
                 clef="contenu_pop_up_suppression", suffixe="."
             ),
-            temps_max=None,
-            bouton_ok=False,
-            boutons_oui_non=True,
-            renvoyer_popup=True,
         )
         message = message.exec()
 
@@ -830,15 +808,12 @@ class MesVoyagesApplication(QWidget):
                     self.exporter_sauvegarde()
 
                     # Pop-up de fin
-                    self.montrer_popup(
+                    PopupInfo(parent=self).montrer(
                         titre=self.traduire_depuis_id("nom_individu_pop_up_titre"),
                         contenu=self.traduire_depuis_id(
                             "nom_individu_pop_up_reussite", suffixe=" !"
                         ),
                         temps_max=8000,
-                        bouton_ok=True,
-                        boutons_oui_non=False,
-                        renvoyer_popup=False,
                     )
 
                     # Utilisation du profil en question

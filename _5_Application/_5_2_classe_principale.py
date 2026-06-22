@@ -229,13 +229,9 @@ class MesVoyagesApplication(QWidget):
         # Création des onglets
         self.liste_onglets = QTabWidget()
         self.liste_onglets.setUsesScrollButtons(False)
-        self.liste_onglets.setTabShape(QTabWidget.TabShape.Rounded)
-        self.liste_onglets.setTabPosition(QTabWidget.TabPosition.North)
         self.liste_onglets.addTab(self.onglet_parametres, "Cartes")
         self.liste_onglets.addTab(self.onglet_selection_destinations, "Voyages")
-        self.liste_onglets.addTab(
-            self.onglet_resume_destinations, "Résumé des destinations"
-        )
+        self.liste_onglets.addTab(self.onglet_resume_destinations, "Résumé")
         self.liste_onglets.addTab(self.onglet_statistiques, "Statistiques")
         self.liste_onglets.addTab(self.onglet_param_profil, "⚙️")
         self.liste_onglets.addTab(self.onglet_description_application, "ℹ️")

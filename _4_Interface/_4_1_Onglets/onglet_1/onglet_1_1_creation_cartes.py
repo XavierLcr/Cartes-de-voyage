@@ -8,6 +8,7 @@
 # 0 -- Initialisation ----------------------------------------------------------
 
 
+import re
 from PyQt6.QtCore import pyqtSignal, QObject
 from _3_Calculs._3_4_carte_main import (
     creer_multiples_cartes,
@@ -62,6 +63,13 @@ class CreerCartes(QObject):
             ),
             granularite_objectif=self.recuperer_granularite(clef="granularite"),
         )
+
+        # Gestion du cas "couleur du pays"
+        self.couleur_pays = 0
+        for i in range(1, 4):
+            if self.parametres.get("couleur") == f"Thème Pays n°{i}":
+                self.couleur_pays = i
+                self.parametres["couleur"] = "Multicolore"
 
     def recuperer_granularite(self, clef: str):
         return {"Pays": 0, "Région": 1, "Département": 2}.get(
@@ -168,6 +176,9 @@ class CreerCartes(QObject):
             tracker=tracker,
             langue=self.parametres.get("langue", "defaut"),
             dict_trad_pays=self.constantes.pays_differentes_langues,
+            # Couleurs du pays
+            chemin_drapeaux=self.constantes.direction_donnees_drapeaux,
+            couleur_pays=self.couleur_pays,
         )
 
         self.finished.emit()

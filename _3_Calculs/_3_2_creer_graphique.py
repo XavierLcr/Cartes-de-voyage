@@ -8,7 +8,7 @@
 # 0 -- Initialisation ----------------------------------------------------------
 
 
-import os, json, textwrap
+import os, json, textwrap, colorsys
 import numpy as np
 import matplotlib.pyplot as plt
 from shapely.geometry import box
@@ -19,6 +19,8 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import formater_temps_actuel
 from _0_Utilitaires._0_2_fonctions_graphiques import (
     generer_couleur_aleatoire_hex,
     transformer_couleur_texte,
+    recuperer_drapeau,
+    rgb_to_hex,
 )
 from _0_Utilitaires._0_6_fonctions_utiles_traductions import traduire_pays
 from _3_Calculs._3_3_envoyer_email import envoyer_email_avec_piece_jointe_smtp
@@ -395,7 +397,87 @@ def ajouter_labels_carte(
         )
 
 
-# 7 -- Fonction de création de la carte ----------------------------------------
+# 7 -- Fonction d'ajout des couleurs -------------------------------------------
+
+
+## 7.1 -- Attribution de la couleur à une ligne donnée -------------------------
+
+
+def attribuer_couleur_une_ligne(
+    ligne,
+    couleur_pays: int,
+    theme: dict,
+    teintes: list | None,
+    couleur_non_visites: str,
+    chemin: str,
+):
+
+    # Territoire non visité
+    if ligne["visite"] == False:
+        return couleur_non_visites
+
+    # Récupération de l'image si possible
+    couleur = recuperer_drapeau(chemin=chemin, pays=ligne["Pays"])
+    if couleur is None:
+        couleur_pays = 0
+
+    # Couleur avec la même teinte
+    if couleur_pays == 2:
+        r, g, b = couleur
+        h, s, v = colorsys.rgb_to_hsv(r / 255, g / 255, b / 255)
+        return generer_couleur_aleatoire_hex(
+            preset=theme,
+            teintes_autorisees=[h],
+        )
+
+    # Cas d'utilisation de la couleur directe du pays
+    if couleur_pays == 1:
+        return rgb_to_hex(couleur)
+
+    else:
+        # Pas de règle de couleur de pays
+        return generer_couleur_aleatoire_hex(
+            preset=theme,
+            teintes_autorisees=teintes,
+        )
+
+
+## 7.2 -- Fonction d'application à toute la table ------------------------------
+
+
+def ajouter_couleurs(
+    gdf,
+    theme: dict,
+    teintes: list | None,
+    couleur_non_visites: str,
+    couleur_de_fond: str,
+    couleur_pays: int,
+    chemin: str,
+):
+
+    # On ajoute la couleur de chaque ligne
+    gdf["couleur"] = gdf.apply(
+        lambda x: (
+            attribuer_couleur_une_ligne(
+                ligne=x,
+                couleur_pays=couleur_pays,
+                theme=theme,
+                teintes=teintes,
+                couleur_non_visites=couleur_non_visites,
+                chemin=chemin,
+            )
+        ),
+        axis=1,
+    )
+
+    # Gestion de la mer Caspienne
+    gdf.loc[gdf["Pays"] == "Caspian Sea", "couleur"] = couleur_de_fond
+
+    # Renvoi
+    return gdf
+
+
+# 8 -- Fonction de création de la carte ----------------------------------------
 
 
 def creer_image_carte(
@@ -414,7 +496,7 @@ def creer_image_carte(
     couleur_pays_contours: str = "#F7F7F7",
     couleur_de_fond: str = "#FFFFFF",
     couleur_lacs: str = "#CEE3F5",
-    chemin_impression: str = os.path.dirname(os.path.abspath(__file__)),
+    chemin_impression: str = "",
     nom: str = "Carte.jpg",
     qualite: int = 400,
     blabla=True,
@@ -425,6 +507,8 @@ def creer_image_carte(
     adresse_email: str | None = None,
     langue: None | str = None,
     dict_trad_pays: dict = {},
+    chemin_drapeaux: str = "",
+    couleur_pays: int = 0,
 ):
     r"""
     Crée une image de carte à partir d'un GeoDataFrame et l'exporte dans un fichier d'image.
@@ -455,19 +539,16 @@ def creer_image_carte(
     # Pays présents
     liste_pays = list(gdf["Pays"].unique())
 
-    # On ajoute la couleur de chaque ligne
-    gdf["couleur"] = gdf["visite"].apply(
-        lambda x: (
-            generer_couleur_aleatoire_hex(
-                preset=theme,
-                teintes_autorisees=teintes_autorisees,
-            )
-            if x
-            else couleur_non_visites
-        )
+    # Ajout des couleurs
+    gdf = ajouter_couleurs(
+        gdf=gdf,
+        theme=theme,
+        teintes=teintes_autorisees,
+        couleur_non_visites=couleur_non_visites,
+        couleur_de_fond=couleur_de_fond,
+        couleur_pays=couleur_pays,
+        chemin=chemin_drapeaux,
     )
-    # Gestion de la mer Caspienne
-    gdf.loc[gdf["Pays"] == "Caspian Sea", "couleur"] = couleur_de_fond
 
     # Limitation des tables complémentaires
     gdf_monde = selectionner_lieux(

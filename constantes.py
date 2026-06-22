@@ -26,6 +26,7 @@ if getattr(sys, "frozen", False):
     direction_donnees_application = os.path.join(
         direction_donnees, "2 – Données application"
     )
+    direction_donnees_drapeaux = os.path.join(direction_donnees_application, "Drapeaux")
     direction_donnees_traductions = os.path.join(direction_donnees, "3 – Traductions")
     compilation = True
 else:
@@ -41,6 +42,7 @@ else:
     direction_donnees_application = os.path.join(
         direction_donnees, "_1_4_Données_application"
     )
+    direction_donnees_drapeaux = os.path.join(direction_donnees_application, "Drapeaux")
     direction_donnees_traductions = os.path.join(direction_donnees, "_1_5_Traductions")
     direction_donnees_autres = os.path.join(direction_donnees, "_1_X_Autres")
     compilation = False

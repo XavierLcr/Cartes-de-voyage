@@ -168,6 +168,8 @@ def creer_une_carte(
         },
     )
     teinte = kwargs.get("teinte", None)
+    chemin_drapeaux = kwargs.get("chemin_drapeaux", "")
+    couleur_pays = kwargs.get("couleur_pays", 0)
     couleur_non_visites = kwargs.get(
         "couleur_non_visites",
         "#ECEBED",
@@ -227,6 +229,8 @@ def creer_une_carte(
         adresse_email=adresse_email,
         langue=langue,
         dict_trad_pays=dict_trad_pays,
+        chemin_drapeaux=chemin_drapeaux,
+        couleur_pays=couleur_pays,
     )
 
 

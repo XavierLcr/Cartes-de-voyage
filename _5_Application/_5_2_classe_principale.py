@@ -399,12 +399,13 @@ class MesVoyagesApplication(QWidget):
 
         try:
 
+            # Correspondance des paramètres
+            params_trad = self.constantes.parametres_traduits
+
             # Récupération de l'ambiance
             theme_temp = self.constantes.liste_ambiances.get(
                 obtenir_clef_par_valeur(
-                    dictionnaire=self.constantes.parametres_traduits[
-                        "themes_cartes"
-                    ].get(self.langue, {}),
+                    dictionnaire=params_trad["themes_cartes"].get(self.langue, {}),
                     valeur=self.onglet_parametres.theme_combo.currentText(),
                 )
             )
@@ -412,9 +413,7 @@ class MesVoyagesApplication(QWidget):
             # Récupération des teintes utilisées
             teinte_temp = self.constantes.liste_couleurs.get(
                 obtenir_clef_par_valeur(
-                    dictionnaire=self.constantes.parametres_traduits[
-                        "teintes_couleurs"
-                    ].get(self.langue, {}),
+                    dictionnaire=params_trad["teintes_couleurs"].get(self.langue, {}),
                     valeur=self.onglet_parametres.color_combo.currentText(),
                 )
             )

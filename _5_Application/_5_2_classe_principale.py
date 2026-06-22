@@ -472,49 +472,16 @@ class MesVoyagesApplication(QWidget):
 
     def creer_liste_parametres(self):
 
-        langue = self.langue
-
-        params_traduits = self.constantes.parametres_traduits.copy()
-
         return (
             {
                 # Paramètres individuels
                 "nom": self.nom_individu.currentText(),
-                "langue": langue,
-                "granularite": obtenir_clef_par_valeur(
-                    valeur=self.onglet_parametres.granularite_visite.currentText(),
-                    dictionnaire=params_traduits["granularite"][langue],
-                ),
-                "granularite_fond": obtenir_clef_par_valeur(
-                    valeur=self.onglet_parametres.granularite_fond.currentText(),
-                    dictionnaire=params_traduits["granularite"][langue],
-                ),
-                "couleur": obtenir_clef_par_valeur(
-                    valeur=self.onglet_parametres.color_combo.currentText(),
-                    dictionnaire=params_traduits["teintes_couleurs"][langue],
-                ),
-                "theme": obtenir_clef_par_valeur(
-                    valeur=self.onglet_parametres.theme_combo.currentText(),
-                    dictionnaire=params_traduits["themes_cartes"][langue],
-                ),
-                "couleur_fond_carte": self.onglet_parametres.combo_couleur_fond.valeur_en_francais(),
-                "qualite": self.onglet_parametres.curseur_qualite.value(),
-                "format": self.onglet_parametres.format_cartes.currentText(),
-                "envoi_email": self.onglet_parametres.email_checkbox.isChecked(),
-                # Cartes à publier
-                "carte_du_monde": self.onglet_parametres.carte_monde.isChecked(),
-                "europe": self.onglet_parametres.europe.isChecked(),
-                "asie": self.onglet_parametres.asie.isChecked(),
-                "amerique": self.onglet_parametres.amerique.isChecked(),
-                "afrique": self.onglet_parametres.afrique.isChecked(),
-                "moyen_orient": self.onglet_parametres.moyen_orient.isChecked(),
-                "autres_regions": self.onglet_parametres.autres_regions.isChecked(),
-                "cartes_des_pays": self.onglet_parametres.carte_pays.isChecked(),
+                "langue": self.langue,
                 # Lieux visités
                 "dictionnaire_voyages": self.voyages,
-                # Labelliser les territoires
-                "labelliser_territoires": self.onglet_parametres.ecrire_nom_checkbox.isChecked(),
             }
+            # Onglet des paramètres de cartes
+            | self.onglet_parametres.creer_dict_parametres()
             # Onglet de statistiques
             | self.onglet_statistiques.creer_dict_parametres()
             # Onglet des paramètres de profil

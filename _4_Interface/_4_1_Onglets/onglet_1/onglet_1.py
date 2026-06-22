@@ -29,6 +29,7 @@ from PyQt6.QtCore import Qt, QThread
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     charger_gdfs,
+    obtenir_clef_par_valeur,
 )
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     reset_combo,
@@ -689,3 +690,42 @@ class OngletParametres(QWidget):
             valeur=kwargs.get("couleur_fond_carte") or None,
             defaut_index=0,
         )
+
+    def creer_dict_parametres(self):
+
+        langue = self.langue
+        params_traduits = self.constantes.parametres_traduits.copy()
+
+        return {
+            "granularite": obtenir_clef_par_valeur(
+                valeur=self.granularite_visite.currentText(),
+                dictionnaire=params_traduits["granularite"][langue],
+            ),
+            "granularite_fond": obtenir_clef_par_valeur(
+                valeur=self.granularite_fond.currentText(),
+                dictionnaire=params_traduits["granularite"][langue],
+            ),
+            "couleur": obtenir_clef_par_valeur(
+                valeur=self.color_combo.currentText(),
+                dictionnaire=params_traduits["teintes_couleurs"][langue],
+            ),
+            "theme": obtenir_clef_par_valeur(
+                valeur=self.theme_combo.currentText(),
+                dictionnaire=params_traduits["themes_cartes"][langue],
+            ),
+            "couleur_fond_carte": self.combo_couleur_fond.valeur_en_francais(),
+            "qualite": self.curseur_qualite.value(),
+            "format": self.format_cartes.currentText(),
+            "envoi_email": self.email_checkbox.isChecked(),
+            # Cartes à publier
+            "carte_du_monde": self.carte_monde.isChecked(),
+            "europe": self.europe.isChecked(),
+            "asie": self.asie.isChecked(),
+            "amerique": self.amerique.isChecked(),
+            "afrique": self.afrique.isChecked(),
+            "moyen_orient": self.moyen_orient.isChecked(),
+            "autres_regions": self.autres_regions.isChecked(),
+            "cartes_des_pays": self.carte_pays.isChecked(),
+            # Labelliser les territoires
+            "labelliser_territoires": self.ecrire_nom_checkbox.isChecked(),
+        }

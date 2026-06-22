@@ -371,7 +371,6 @@ class OngletSelectionnerDestinations(QWidget):
             fct_traduction=self.fonction_traduire,
             parent=self,
             longueur=self.longueur,
-            fct_popup=self.fonction_pop_up,
             langue=self.langue,
         )
 

@@ -34,6 +34,7 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
 )
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import reset_combo
 from _0_Utilitaires._0_7_fonctions_voyages import creer_voyage, voyage_id
+from _0_Utilitaires._0_11_classes_pop_up import PopupInfo
 from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
     style_bouton_de_suppression,
 )
@@ -97,7 +98,6 @@ class CreerVoyage(QDialog):
         clef: str | None,
         constantes,
         fct_traduction,
-        fct_popup,
         parent=None,
         style: int = 1,
         longueur: int = 10,
@@ -117,7 +117,6 @@ class CreerVoyage(QDialog):
         self.visites = visites
         self.langue = langue
         self.fct_traduction = fct_traduction
-        self.fct_popup = fct_popup
         self.resultat = None
         self.id_longueur = longueur
 
@@ -516,7 +515,8 @@ class CreerVoyage(QDialog):
             self.accept()
 
         else:
-            self.fct_popup(
+
+            PopupInfo(parent=self).montrer(
                 titre=self.fct_traduction("pop_up_probleme_titre"),
                 contenu=self.fct_traduction("pop_up_aucun_lieu_coche_2", suffixe=" !"),
                 temps_max=10000,

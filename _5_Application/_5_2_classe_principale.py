@@ -58,7 +58,7 @@ os.environ["QT_LOGGING_RULES"] = "qt.text.font.db=false"
 
 class MesVoyagesApplication(QWidget):
 
-    def __init__(self, constantes, sauvegarde={}):
+    def __init__(self, constantes, sauvegarde={}, df_superficie=None):
 
         super().__init__()
 
@@ -168,12 +168,7 @@ class MesVoyagesApplication(QWidget):
 
         self.onglet_statistiques = onglet_4.OngletTopPays(
             constantes=self.constantes,
-            table_superficie=ouvrir_fichier(
-                direction_fichier=self.constantes.direction_donnees_application,
-                nom_fichier="table_superficie.pkl",
-                defaut=None,
-                afficher_erreur="Problème avec la table de superficie.",
-            ),
+            table_superficie=df_superficie,
             parent=None,
             fct_traduction=self.traduire_depuis_id,
         )

@@ -1,7 +1,9 @@
 # Ignorer les dossiers de données dans /donnees
 _1_Données/_1_1_Données_brutes/
 _1_Données/_1_2_Données_géographiques/
+_1_Données/_1_4_Données_application/Drapeaux
 _1_Données/_1_X_Autres/
+
 
 # Dossier d'environnement
 venv/

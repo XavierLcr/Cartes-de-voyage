@@ -21,14 +21,14 @@ from PyQt6.QtWidgets import (
     QComboBox,
     QPushButton,
     QLineEdit,
-    QLabel,
 )
 from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtCore import Qt
 
 # Scripts et fonctions du projet
 import constantes
-from _0_Utilitaires import _0_1_fonctions_utiles_gen, _0_3_fonctions_utiles_pyqt6
+from _0_Utilitaires import _0_1_fonctions_utiles_gen
+from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import creer_QLabel_centre
 from _0_Utilitaires._0_7_fonctions_voyages import voyage_id, creer_voyage
 from _0_Utilitaires._0_11_classes_pop_up import PopupInfo, PopupOuiNon
 from _4_Interface._4_1_Onglets.onglet_1 import onglet_1
@@ -94,7 +94,7 @@ class MesVoyagesApplication(QWidget):
         self.voyages = {}
         self.longueur_id_voyage = 10
 
-        self.titre = QLabel()
+        self.titre = creer_QLabel_centre(alignement=Qt.AlignmentFlag.AlignLeft)
         self.set_style_titre(taille=24)
 
         # === Profil sélectionné ===
@@ -105,7 +105,7 @@ class MesVoyagesApplication(QWidget):
         self.nom_individu = QComboBox(self)
         self.nom_individu.setEditable(False)
         self.nom_individu.setPlaceholderText("")
-        self.nom_individu_label = _0_3_fonctions_utiles_pyqt6.creer_QLabel_centre()
+        self.nom_individu_label = creer_QLabel_centre()
         profile_layout.addWidget(self.nom_individu_label)
         self.nom_individu.addItems(list(sauvegarde.keys()))
         profile_layout.addWidget(self.nom_individu)

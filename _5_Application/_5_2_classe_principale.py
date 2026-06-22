@@ -32,7 +32,13 @@ from PyQt6.QtGui import QIcon
 from PyQt6.QtCore import Qt
 
 # Scripts et fonctions du projet
-from _0_Utilitaires import _0_1_fonctions_utiles_gen
+from _0_Utilitaires._0_1_fonctions_utiles_gen import (
+    ouvrir_fichier,
+    exporter_fichier,
+    voyages_vers_destinations,
+    obtenir_clef_par_valeur,
+    formater_temps_actuel,
+)
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import creer_QLabel_centre
 from _0_Utilitaires._0_7_fonctions_voyages import voyage_id, creer_voyage
 from _0_Utilitaires._0_11_classes_pop_up import PopupInfo, PopupOuiNon, PopupSaisieTexte
@@ -171,7 +177,7 @@ class MesVoyagesApplication(QWidget):
 
         self.onglet_statistiques = onglet_4.OngletTopPays(
             constantes=self.constantes,
-            table_superficie=_0_1_fonctions_utiles_gen.ouvrir_fichier(
+            table_superficie=ouvrir_fichier(
                 direction_fichier=self.constantes.direction_donnees_application,
                 nom_fichier="table_superficie.pkl",
                 defaut=None,
@@ -402,7 +408,7 @@ class MesVoyagesApplication(QWidget):
 
             # Récupération de l'ambiance
             theme_temp = self.constantes.liste_ambiances.get(
-                _0_1_fonctions_utiles_gen.obtenir_clef_par_valeur(
+                obtenir_clef_par_valeur(
                     dictionnaire=self.constantes.parametres_traduits[
                         "themes_cartes"
                     ].get(self.langue, {}),
@@ -412,7 +418,7 @@ class MesVoyagesApplication(QWidget):
 
             # Récupération des teintes utilisées
             teinte_temp = self.constantes.liste_couleurs.get(
-                _0_1_fonctions_utiles_gen.obtenir_clef_par_valeur(
+                obtenir_clef_par_valeur(
                     dictionnaire=self.constantes.parametres_traduits[
                         "teintes_couleurs"
                     ].get(self.langue, {}),
@@ -477,6 +483,8 @@ class MesVoyagesApplication(QWidget):
 
         langue = self.langue
 
+        params_traduits = self.constantes.parametres_traduits.copy()
+
         return {
             # Paramètres individuels
             "nom": self.nom_individu.currentText(),
@@ -488,27 +496,23 @@ class MesVoyagesApplication(QWidget):
             # Paramètres des cartes
             "sortir_cartes_granu_inf": self.onglet_param_profil.get_sortir_cartes_granu_inf(),
             "limite_n_cartes": self.onglet_param_profil.get_limite_de_cartes(),
-            "granularite": _0_1_fonctions_utiles_gen.obtenir_clef_par_valeur(
+            "granularite": obtenir_clef_par_valeur(
                 valeur=self.onglet_parametres.granularite_visite.currentText(),
-                dictionnaire=self.constantes.parametres_traduits["granularite"][langue],
+                dictionnaire=params_traduits["granularite"][langue],
             ),
-            "granularite_fond": _0_1_fonctions_utiles_gen.obtenir_clef_par_valeur(
+            "granularite_fond": obtenir_clef_par_valeur(
                 valeur=self.onglet_parametres.granularite_fond.currentText(),
-                dictionnaire=self.constantes.parametres_traduits["granularite"][langue],
+                dictionnaire=params_traduits["granularite"][langue],
             ),
-            "couleur": _0_1_fonctions_utiles_gen.obtenir_clef_par_valeur(
+            "couleur": obtenir_clef_par_valeur(
                 valeur=self.onglet_parametres.color_combo.currentText(),
-                dictionnaire=self.constantes.parametres_traduits["teintes_couleurs"][
-                    langue
-                ],
+                dictionnaire=params_traduits["teintes_couleurs"][langue],
+            ),
+            "theme": obtenir_clef_par_valeur(
+                valeur=self.onglet_parametres.theme_combo.currentText(),
+                dictionnaire=params_traduits["themes_cartes"][langue],
             ),
             "couleur_fond_carte": self.onglet_parametres.combo_couleur_fond.valeur_en_francais(),
-            "theme": _0_1_fonctions_utiles_gen.obtenir_clef_par_valeur(
-                valeur=self.onglet_parametres.theme_combo.currentText(),
-                dictionnaire=self.constantes.parametres_traduits["themes_cartes"][
-                    langue
-                ],
-            ),
             "qualite": self.onglet_parametres.curseur_qualite.value(),
             "format": self.onglet_parametres.format_cartes.currentText(),
             "envoi_email": self.onglet_parametres.email_checkbox.isChecked(),
@@ -536,16 +540,12 @@ class MesVoyagesApplication(QWidget):
 
         parametres = self.creer_liste_parametres()
         if parametres["nom"] is None or parametres["nom"] in [""]:
-            parametres["nom"] = _0_1_fonctions_utiles_gen.formater_temps_actuel(n=0)
+            parametres["nom"] = formater_temps_actuel(n=0)
         self.sauvegarde[parametres["nom"]] = copy.deepcopy(parametres) | {
             "date_publication": self.sauvegarde.get(parametres["nom"], {}).get(
                 "date_publication", []
             )
-            + (
-                [_0_1_fonctions_utiles_gen.formater_temps_actuel(n=1)]
-                if date_publication
-                else []
-            )
+            + ([formater_temps_actuel(n=1)] if date_publication else [])
         }
 
         # Ajout à la liste déroulante
@@ -562,7 +562,7 @@ class MesVoyagesApplication(QWidget):
 
     def exporter_sauvegarde(self):
 
-        _0_1_fonctions_utiles_gen.exporter_fichier(
+        exporter_fichier(
             objet=self.sauvegarde,
             direction_fichier=self.constantes.direction_donnees_application,
             nom_fichier="sauvegarde_utilisateurs.yaml",
@@ -573,9 +573,7 @@ class MesVoyagesApplication(QWidget):
         self.voyages = dictionnaire
         self.onglet_selection_destinations.set_voyages(dictionnaire=self.voyages)
 
-        dict_temp = _0_1_fonctions_utiles_gen.voyages_vers_destinations(
-            dict_voyages=self.voyages
-        )
+        dict_temp = voyages_vers_destinations(dict_voyages=self.voyages)
         bool_temp = dict_temp != {"region": {}, "dep": {}}
 
         self.liste_onglets.setTabVisible(
@@ -601,7 +599,7 @@ class MesVoyagesApplication(QWidget):
         self.onglet_parametres.fonction_principale(
             settings=self.creer_liste_parametres()
             | {
-                "gdf_eau": _0_1_fonctions_utiles_gen.ouvrir_fichier(
+                "gdf_eau": ouvrir_fichier(
                     direction_fichier=self.constantes.direction_donnees_geographiques,
                     nom_fichier="carte_monde_lacs.pkl",
                     defaut=None,
@@ -704,7 +702,7 @@ class MesVoyagesApplication(QWidget):
             self.nom_individu.addItems(list(self.sauvegarde.keys()))
 
             # Sauvegarde
-            _0_1_fonctions_utiles_gen.exporter_fichier(
+            exporter_fichier(
                 objet=self.sauvegarde,
                 direction_fichier=self.constantes.direction_donnees_application,
                 nom_fichier="sauvegarde_utilisateurs.yaml",

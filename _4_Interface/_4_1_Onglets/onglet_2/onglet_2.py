@@ -155,11 +155,11 @@ class OngletSelectionnerDestinations(QWidget):
 
             type = detecter_type_yaml(dictionnaire=data)
             # Ce sont des voyages
-            if not type:
+            if type == True:
                 for clef in data.keys():
                     self.ajouter_voyage(voyage=data.get(clef), clef=None)
 
-            else:
+            elif type in ["region", "dep"]:
                 for clef in data.keys():
                     self.ajouter_voyage(
                         voyage=creer_voyage(

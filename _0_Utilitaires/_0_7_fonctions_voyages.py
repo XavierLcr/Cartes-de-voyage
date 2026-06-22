@@ -59,12 +59,12 @@ def creer_voyage(
 def detecter_type_yaml(dictionnaire: dict):
 
     # Cas 1 : le dictionnaire est vide
-    if not dict:
+    if not dictionnaire:
         return False
 
     # Cas 2 : le dictionnaire est au bon format
     if all(cle.startswith("voyage_") for cle in dictionnaire.keys()):
-        return False
+        return True
 
     # Cas 3 : le dictionnaire correspond à un des deux anciens dictionnaires
     for pays, liste_div in dictionnaire.items():
@@ -170,3 +170,53 @@ def creer_liste_destinations(dict_regions: dict, dict_dep: dict):
 
     # Renvoi
     return [dict_regions, dict_dep]
+
+
+# 6 -- Transformer les destinations en dictionnaire de voyages -----------------
+
+
+def destinations_vers_voyages(
+    regions: dict, departements: dict, langue: str, longueur_id_voyage
+):
+
+    # Initialisation du résultat
+    voyages_temp = {}
+
+    # Régions
+    if regions:
+        for pays in list(regions.keys()):
+            voyages_temp[
+                voyage_id(
+                    voyages=voyages_temp,
+                    clef=None,
+                    longueur=longueur_id_voyage,
+                )
+            ] = creer_voyage(
+                nom=None,
+                date_deb=None,
+                date_fin=None,
+                regions={pays: regions.get(pays)},
+                departements={},
+                langue=langue,
+            )
+
+    # Départements
+    if departements:
+        for pays in list(departements.keys()):
+            voyages_temp[
+                voyage_id(
+                    voyages=voyages_temp,
+                    clef=None,
+                    longueur=longueur_id_voyage,
+                )
+            ] = creer_voyage(
+                nom=None,
+                date_deb=None,
+                date_fin=None,
+                regions={},
+                departements={pays: departements.get(pays)},
+                langue=langue,
+            )
+
+    # Renvoi
+    return voyages_temp

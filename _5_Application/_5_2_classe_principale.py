@@ -31,7 +31,7 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     formater_temps_actuel,
 )
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import creer_QLabel_centre
-from _0_Utilitaires._0_7_fonctions_voyages import voyage_id, creer_voyage
+from _0_Utilitaires._0_7_fonctions_voyages import destinations_vers_voyages
 from _0_Utilitaires._0_11_classes_pop_up import PopupInfo, PopupOuiNon, PopupSaisieTexte
 from _4_Interface._4_1_Onglets.onglet_1 import onglet_1
 from _4_Interface._4_1_Onglets.onglet_2 import onglet_2
@@ -589,48 +589,22 @@ class MesVoyagesApplication(QWidget):
         # Récupération des destinations
         if "dictionnaire_voyages" in list(sauv.keys()):
 
+            # Version actuelle
             self.set_dictionnaire_destinations(
                 dictionnaire=sauv.get("dictionnaire_voyages", {})
             )
 
         else:
 
-            voyages_temp = {}
-            reg_dict_temp = sauv.get("dictionnaire_regions") or {}
-            dep_dict_temp = sauv.get("dictionnaire_departements") or {}
-
-            for pays in list(reg_dict_temp.keys()):
-                voyages_temp[
-                    voyage_id(
-                        voyages=voyages_temp,
-                        clef=None,
-                        longueur=self.longueur_id_voyage,
-                    )
-                ] = creer_voyage(
-                    nom=None,
-                    date_deb=None,
-                    date_fin=None,
-                    regions={pays: reg_dict_temp.get(pays)},
-                    departements={},
+            # Version ancienne
+            self.set_dictionnaire_destinations(
+                dictionnaire=destinations_vers_voyages(
+                    regions=sauv.get("dictionnaire_regions") or {},
+                    departements=sauv.get("dictionnaire_departements") or {},
                     langue=self.langue,
+                    longueur_id_voyage=self.longueur_id_voyage,
                 )
-            for pays in list(dep_dict_temp.keys()):
-                voyages_temp[
-                    voyage_id(
-                        voyages=voyages_temp,
-                        clef=None,
-                        longueur=self.longueur_id_voyage,
-                    )
-                ] = creer_voyage(
-                    nom=None,
-                    date_deb=None,
-                    date_fin=None,
-                    regions={},
-                    departements={pays: dep_dict_temp.get(pays)},
-                    langue=self.langue,
-                )
-
-            self.set_dictionnaire_destinations(dictionnaire=voyages_temp)
+            )
 
         self.set_style()
 

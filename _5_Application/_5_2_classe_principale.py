@@ -25,10 +25,8 @@ from PyQt6.QtCore import Qt
 # Scripts et fonctions du projet
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     ouvrir_fichier,
-    exporter_fichier,
     voyages_vers_destinations,
     obtenir_clef_par_valeur,
-    formater_temps_actuel,
 )
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import creer_QLabel_centre
 from _0_Utilitaires._0_7_fonctions_voyages import destinations_vers_voyages
@@ -44,6 +42,7 @@ from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
     style_bouton_de_suppression,
 )
 from _4_Interface._4_2_Style._4_2_4_pluie_emojis import VuePluieEmojis
+from _5_Application._5_1_gestion_sauvegarde import Sauvegarde
 
 # from _4_Interface._4_2_Style._4_2_3_musique import MusicPlayer
 
@@ -79,7 +78,6 @@ class MesVoyagesApplication(QWidget):
 
         # Variables globales
         self.constantes = constantes
-        self.sauvegarde = sauvegarde
         self.langue = "français"
         self.theme_application = True
         self.voyages = {}
@@ -87,6 +85,13 @@ class MesVoyagesApplication(QWidget):
 
         self.titre = creer_QLabel_centre(alignement=Qt.AlignmentFlag.AlignLeft)
         self.set_style_titre(taille=24)
+
+        # Sauvegarde
+        self.sauvegarde = Sauvegarde(
+            chemin_sauvegarde=constantes.direction_donnees_application,
+            sauvegarde=sauvegarde,
+            parent=None,
+        )
 
         # === Profil sélectionné ===
 
@@ -98,7 +103,7 @@ class MesVoyagesApplication(QWidget):
         self.nom_individu.setPlaceholderText("")
         self.nom_individu_label = creer_QLabel_centre()
         profile_layout.addWidget(self.nom_individu_label)
-        self.nom_individu.addItems(list(self.sauvegarde.keys()))
+        self.nom_individu.addItems(self.sauvegarde.renvoyer_liste_profils())
         profile_layout.addWidget(self.nom_individu)
         # Bouton d'ajout d'un profil
         self.bouton_ajout = QPushButton()
@@ -238,7 +243,9 @@ class MesVoyagesApplication(QWidget):
         main_layout = QVBoxLayout(self)
         main_layout.addLayout(layout_top)
         main_layout.addWidget(self.liste_onglets)
-        self.liste_onglets.setCurrentIndex(0 if self.sauvegarde else 4)
+        self.liste_onglets.setCurrentIndex(
+            4 if self.sauvegarde.sauvegarde_vide() else 0
+        )
 
         self.initialiser_sauvegarde(reinitialiser=True)
 
@@ -485,36 +492,22 @@ class MesVoyagesApplication(QWidget):
 
     def exporter_liste_parametres(self, date_publication: bool = True):
 
+        # Récupération des paramètres
         parametres = self.creer_liste_parametres()
-        if parametres["nom"] is None or parametres["nom"] in [""]:
-            parametres["nom"] = formater_temps_actuel(n=0)
-        self.sauvegarde[parametres["nom"]] = copy.deepcopy(parametres) | {
-            "date_publication": self.sauvegarde.get(parametres["nom"], {}).get(
-                "date_publication", []
-            )
-            + ([formater_temps_actuel(n=1)] if date_publication else [])
-        }
 
-        # Ajout à la liste déroulante
+        # Actualisation du profil
+        self.sauvegarde.actualiser_profil(
+            parametres=parametres, date_publication=date_publication
+        )
+
+        # Ajout à la liste déroulante (si nécessaire)
         if parametres["nom"] not in [
             self.nom_individu.itemText(i) for i in range(self.nom_individu.count())
         ]:
             self.nom_individu.addItem(parametres["nom"])
 
-        # Export sous forme de YAML
-        self.exporter_sauvegarde()
-
         # Gestion des autres onglets
         self.onglet_selection_destinations.set_nom_individu(nom=parametres["nom"])
-
-    def exporter_sauvegarde(self):
-
-        exporter_fichier(
-            objet=self.sauvegarde,
-            direction_fichier=self.constantes.direction_donnees_application,
-            nom_fichier="sauvegarde_utilisateurs.yaml",
-            sort_keys=True,
-        )
 
     def set_dictionnaire_destinations(self, dictionnaire: dict):
         self.voyages = dictionnaire
@@ -558,7 +551,7 @@ class MesVoyagesApplication(QWidget):
 
         if not reinitialiser:
             nom = self.nom_individu.currentText()
-            sauv = self.sauvegarde.get(nom, {})
+            sauv = self.sauvegarde.renvoyer_profil(nom=nom)
         else:
             nom = ""
             self.nom_individu.setCurrentText(nom)
@@ -615,15 +608,13 @@ class MesVoyagesApplication(QWidget):
             return
 
         # Suppression de l'individu
-        if clef in self.sauvegarde:
-            del self.sauvegarde[clef]
+        suppression_ok = self.sauvegarde.supprimer_profil(clef=clef)
+
+        if suppression_ok:
 
             # Mise à jour de la liste déroulante
             self.nom_individu.clear()
-            self.nom_individu.addItems(list(self.sauvegarde.keys()))
-
-            # Sauvegarde
-            self.exporter_sauvegarde()
+            self.nom_individu.addItems(self.sauvegarde.renvoyer_liste_profils())
 
             # Réinitialisation des paramètres
             self.initialiser_sauvegarde(reinitialiser=True)
@@ -658,16 +649,17 @@ class MesVoyagesApplication(QWidget):
         if nouveau_profil:
 
             # Valeur non existante
-            if nouveau_profil not in list(self.sauvegarde.keys()):
+            if not self.sauvegarde.profil_existant(profil=nouveau_profil):
 
                 # Ajout du nom à la liste existante
                 self.nom_individu.addItem(nouveau_profil)
 
                 # Export sous forme de YAML
-                parametres_actuels = self.creer_liste_parametres()
-                parametres_actuels["nom"] = nouveau_profil
-                self.sauvegarde[nouveau_profil] = parametres_actuels
-                self.exporter_sauvegarde()
+                param_temp = self.creer_liste_parametres()
+                param_temp["nom"] = nouveau_profil
+                self.sauvegarde.actualiser_profil(
+                    parametres=param_temp, date_publication=False
+                )
 
                 # Pop-up de fin
                 PopupInfo(parent=self).montrer(

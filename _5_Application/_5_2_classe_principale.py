@@ -623,12 +623,7 @@ class MesVoyagesApplication(QWidget):
             self.nom_individu.addItems(list(self.sauvegarde.keys()))
 
             # Sauvegarde
-            exporter_fichier(
-                objet=self.sauvegarde,
-                direction_fichier=self.constantes.direction_donnees_application,
-                nom_fichier="sauvegarde_utilisateurs.yaml",
-                sort_keys=True,
-            )
+            self.exporter_sauvegarde()
 
             # Réinitialisation des paramètres
             self.initialiser_sauvegarde(reinitialiser=True)

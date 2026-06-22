@@ -643,50 +643,45 @@ class OngletParametres(QWidget):
         )
         self.format_cartes.setCurrentText(kwargs.get("format") or "png")
 
-        # Chargement de la granularité
-        restaurer_valeur_combo(
-            combo=self.granularite_visite,
-            dict_parent=self.constantes.parametres_traduits.get("granularite", {}),
-            langue=self.langue,
-            valeur=kwargs.get("granularite"),
-            defaut_index=0,
-        )
+        # Menus déroulants
+        combo_configs = {
+            # Granularité des pays visités
+            self.granularite_visite: {
+                "dict_key": "granularite",
+                "valeur": kwargs.get("granularite"),
+            },
+            # Granularités des pays non visités
+            self.granularite_fond: {
+                "dict_key": "granularite",
+                "valeur": kwargs.get("granularite_fond"),
+            },
+            # Thème
+            self.theme_combo: {
+                "dict_key": "themes_cartes",
+                "valeur": kwargs.get("theme"),
+            },
+            # Teintes
+            self.color_combo: {
+                "dict_key": "teintes_couleurs",
+                "valeur": kwargs.get("couleur"),
+            },
+            # Couleur de la mer
+            self.combo_couleur_fond: {
+                "dict_key": "arrière_plans",
+                "valeur": kwargs.get("couleur_fond_carte"),
+            },
+        }
 
-        # Chargement de la granularité de fond
-        restaurer_valeur_combo(
-            combo=self.granularite_fond,
-            dict_parent=self.constantes.parametres_traduits.get("granularite", {}),
-            langue=self.langue,
-            valeur=kwargs.get("granularite_fond"),
-            defaut_index=0,
-        )
-
-        # Chargement du thème
-        restaurer_valeur_combo(
-            combo=self.theme_combo,
-            dict_parent=self.constantes.parametres_traduits.get("themes_cartes", {}),
-            langue=self.langue,
-            valeur=kwargs.get("theme"),
-            defaut_index=0,
-        )
-
-        # Chargement de la teinte
-        restaurer_valeur_combo(
-            combo=self.color_combo,
-            dict_parent=self.constantes.parametres_traduits.get("teintes_couleurs", {}),
-            langue=self.langue,
-            valeur=kwargs.get("couleur") or None,
-            defaut_index=0,
-        )
-
-        # Couleur de fond de cartes
-        restaurer_valeur_combo(
-            combo=self.combo_couleur_fond,
-            dict_parent=self.constantes.parametres_traduits.get("arrière_plans", {}),
-            langue=self.langue,
-            valeur=kwargs.get("couleur_fond_carte") or None,
-            defaut_index=0,
-        )
+        # Boucle pour restaurer les valeurs
+        trads = self.constantes.parametres_traduits
+        for combo, config in combo_configs.items():
+            restaurer_valeur_combo(
+                combo=combo,
+                dict_parent=trads.get(config["dict_key"], {}),
+                langue=self.langue,
+                valeur=config["valeur"] or None,
+                defaut_index=0,
+            )
 
     def creer_dict_parametres(self):
 

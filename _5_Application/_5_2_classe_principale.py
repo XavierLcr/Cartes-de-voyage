@@ -520,12 +520,7 @@ class MesVoyagesApplication(QWidget):
             "dictionnaire_voyages": self.voyages,
             # Labelliser les territoires
             "labelliser_territoires": self.onglet_parametres.ecrire_nom_checkbox.isChecked(),
-            # Hémicycle
-            "hemicycle_position": self.onglet_statistiques.get_hemicycle_position(),
-            # Recommandations
-            "recommandations_par_pays": self.onglet_statistiques.get_recommandations_par_pays(),
-            "recommandations_nb": self.onglet_statistiques.get_recommandations_nb(),
-        }
+        } | self.onglet_statistiques.creer_dict_parametres()
 
     def exporter_liste_parametres(self, date_publication: bool = True):
 

@@ -239,3 +239,13 @@ class OngletTopPays(QWidget):
 
     def get_recommandations_nb(self):
         return self.recommandations.get_recommandations_nb()
+
+    def creer_dict_parametres(self):
+
+        return {
+            # Hémicycle
+            "hemicycle_position": self.get_hemicycle_position(),
+            # Recommandations
+            "recommandations_par_pays": self.get_recommandations_par_pays(),
+            "recommandations_nb": self.get_recommandations_nb(),
+        }

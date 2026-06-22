@@ -29,7 +29,6 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
 
 from clefs_et_mots_de_passe import clef_api_gemini, modeles_google, liste_langues
 
-
 # 1 -- Fonctions ---------------------------------------------------------------
 
 
@@ -68,7 +67,7 @@ def creer_liste_parametres_multilangue(
             if j not in list(resultat[i].keys()) and api_jour_modele < limite_api:
 
                 if blabla >= 3:
-                    print("        ", j)
+                    print("    • ", j)
 
                 if i == "français":
                     resultat[i][j] = j

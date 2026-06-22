@@ -38,6 +38,7 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     restaurer_valeur_combo,
     set_emoji_sauvegarde,
 )
+from _0_Utilitaires._0_11_classes_pop_up import PopupInfo
 from _4_Interface._4_1_Onglets.onglet_1.onglet_1_1_creation_cartes import CreerCartes
 from _4_Interface._4_1_Onglets.onglet_1.onglet_1_2_combobox_coloree import (
     FondCarteCombo,
@@ -74,13 +75,12 @@ class WorkerChargement(QObject):
 
 class OngletParametres(QWidget):
 
-    def __init__(self, constantes, fct_traduction, fct_pop_up):
+    def __init__(self, constantes, fct_traduction):
 
         super().__init__()
 
         self.constantes = constantes
         self.fonction_traduction = fct_traduction
-        self.fonction_pop_up = fct_pop_up
         self.langue = "français"
         self.liste_gdfs = []
 
@@ -459,22 +459,21 @@ class OngletParametres(QWidget):
 
     def debut_fin_creation_cartes(self, debut):
 
+        # Affichage soit du bouton, soit de la barre de progression
         self.creation_cartes_bouton.setVisible(not debut)
         self.barre_progression.setVisible(debut)
 
         if not debut:
 
-            self.fonction_pop_up(
-                contenu=self.fonction_traduction(
-                    clef=(
-                        "debut_publication_cartes"
-                        if debut
-                        else "publication_cartes_reussie"
-                    ),
-                    suffixe="." if debut else " ✅​",
-                ),
-                temps_max=5000 if debut else None,
+            # Pop-up de fin de publication des cartes
+            # message = PopupInfo(parent=self)
+            PopupInfo(parent=self).montrer(
                 titre=self.fonction_traduction(clef="titre_pop_up_publication_cartes"),
+                contenu=self.fonction_traduction(
+                    clef="publication_cartes_reussie",
+                    suffixe=" ✅​",
+                ),
+                temps_max=2 * 10**4,
             )
 
     def afficher_avancement(self, libelle_pays):
@@ -486,41 +485,43 @@ class OngletParametres(QWidget):
         # Pas de problème au départ
         probleme = False
 
+        # Initialisation du message
+        message = PopupInfo(parent=self)
+        temps_max = 10**4
+
         # Pas de voyages effectués
         if not dict_voyages:
 
-            self.fonction_pop_up(
-                contenu=self.fonction_traduction(
-                    "pop_up_aucun_lieu_coche", suffixe="."
-                ),
+            message.montrer(
                 titre=self.fonction_traduction("pop_up_probleme_titre", suffixe="."),
-                temps_max=10000,
+                contenu=self.fonction_traduction("pop_up_aucun_lieu_coche"),
+                temps_max=temps_max,
             )
             probleme = True
 
         # Dossier de stockage inexistant
         elif dossier_stockage is None:
 
-            self.fonction_pop_up(
+            message.montrer(
                 titre=self.fonction_traduction("pop_up_probleme_titre", suffixe="."),
                 contenu=self.fonction_traduction(
                     "pop_up_pas_de_dossier_de_stockage",
                     suffixe=".",
                 ),
-                temps_max=10000,
+                temps_max=temps_max,
             )
             probleme = True
 
         # Dossier de stockage invalide
         elif not os.path.exists(dossier_stockage):
 
-            self.fonction_pop_up(
+            message.montrer(
                 titre=self.fonction_traduction("pop_up_probleme_titre", suffixe="."),
                 contenu=self.fonction_traduction(
                     "pop_up_dossier_de_stockage_faux",
                     suffixe=".",
                 ),
-                temps_max=10000,
+                temps_max=temps_max,
             )
             probleme = True
 

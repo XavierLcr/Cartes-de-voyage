@@ -128,7 +128,6 @@ class MesVoyagesApplication(QWidget):
         self.onglet_parametres = onglet_1.OngletParametres(
             constantes=constantes,
             fct_traduction=self.traduire_depuis_id,
-            fct_pop_up=self.montrer_popup,
         )
         # Chargement d'un individu
         self.nom_individu.currentIndexChanged.connect(

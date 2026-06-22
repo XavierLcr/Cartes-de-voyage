@@ -50,6 +50,7 @@ from _0_Utilitaires._0_7_fonctions_voyages import (
     creer_voyage,
     trier_voyages,
 )
+from _0_Utilitaires._0_11_classes_pop_up import PopupInfo
 from _4_Interface._4_1_Onglets.onglet_2.onglet_2_ajout_voyage import CreerVoyage
 
 # 1 -- Classe de sélection des destinations ------------------------------------
@@ -60,9 +61,7 @@ class OngletSelectionnerDestinations(QWidget):
     # Signal de modification des lieux visités
     dict_modif = pyqtSignal(dict)
 
-    def __init__(
-        self, constantes, fct_sauvegarde, fct_traduire, fct_pop_up, longueur=10
-    ):
+    def __init__(self, constantes, fct_sauvegarde, fct_traduire, longueur=10):
         super().__init__()
 
         # Variables globales de la classe
@@ -76,7 +75,6 @@ class OngletSelectionnerDestinations(QWidget):
         # Fonctions et constantes
         self.constantes = constantes
         self.fonction_traduire = fct_traduire
-        self.fonction_pop_up = fct_pop_up
 
         # Layout de l'onglet
         layout = QVBoxLayout()
@@ -177,35 +175,32 @@ class OngletSelectionnerDestinations(QWidget):
                         clef=None,
                     )
 
-            # separer_combinaisons(
-            #         dico1=data,
-            #         dico2=tronquer_dict(d=self.constantes.hierarchie_par_pays, n=2),
-            #     )
+                # separer_combinaisons(
+                #         dico1=data,
+                #         dico2=tronquer_dict(d=self.constantes.hierarchie_par_pays, n=2),
+                #     )
 
-            # if dict_sep[False]:
+                # if dict_sep[False]:
 
-            #     for pays in dict_sep[False]:
+                #     for pays in dict_sep[False]:
 
-            #         temp = (
-            #             ", ".join(dict_sep[False][pays])
-            #             if dict_sep[False][pays]
-            #             else ""
-            #         )
-            #         dict_sep[False][
-            #             pays
-            #         ] = f"– <b>{pays}</b>{(f' ({temp})' if temp else '')}"
+                #         temp = (
+                #             ", ".join(dict_sep[False][pays])
+                #             if dict_sep[False][pays]
+                #             else ""
+                #         )
+                #         dict_sep[False][
+                #             pays
+                #         ] = f"– <b>{pays}</b>{(f' ({temp})' if temp else '')}"
 
-            #     self.fonction_pop_up(
-            #         titre=self.fonction_traduire("pop_up_attention_titre"),
-            #         contenu=self.fonction_traduire(
-            #             "lieux_sans_correspondance",
-            #             suffixe=f" :<br>{f' ; <br>'.join(list(dict_sep[False].values()))}.",
-            #         ),
-            #         temps_max=None,
-            #         bouton_ok=True,
-            #         boutons_oui_non=False,
-            #         renvoyer_popup=False,
-            #     )
+                # PopupInfo(parent=self).montrer(
+                #     titre=self.fonction_traduire("pop_up_attention_titre"),
+                #     contenu=self.fonction_traduire(
+                #         "lieux_sans_correspondance",
+                #         suffixe=f" :<br>{f' ; <br>'.join(list(dict_sep[False].values()))}.",
+                #     ),
+                #     temps_max=None,
+                # )
 
             self.dict_modif.emit(self.voyages)
             self.set_langue(langue=None)
@@ -214,7 +209,7 @@ class OngletSelectionnerDestinations(QWidget):
 
         if self.dossier_stockage is None:
 
-            self.fonction_pop_up(
+            PopupInfo(parent=self).montrer(
                 contenu=self.fonction_traduire(
                     "pop_up_pas_de_dossier_de_stockage",
                     suffixe=".",
@@ -251,7 +246,7 @@ class OngletSelectionnerDestinations(QWidget):
 
             except Exception as e:
 
-                self.fonction_pop_up(
+                PopupInfo(parent=self).montrer(
                     titre=self.fonction_traduire("pop_up_probleme_titre", suffixe="."),
                     contenu=self.fonction_traduire(
                         "export_pas_fonctionnel",

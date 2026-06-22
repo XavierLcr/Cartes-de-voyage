@@ -158,7 +158,6 @@ class MesVoyagesApplication(QWidget):
             constantes=constantes,
             fct_traduire=self.traduire_depuis_id,
             fct_sauvegarde=self.exporter_liste_parametres,
-            fct_pop_up=self.montrer_popup,
             longueur=self.longueur_id_voyage,
         )
         self.onglet_selection_destinations.dict_modif.connect(

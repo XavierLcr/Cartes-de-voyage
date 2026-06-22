@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
-# _4_Interface/_4_1_Onglets/onglet_2                                           #
-# Onglet 2 – Sélection des destinations                                        #
+# _0_Utilitaires                                                               #
+# 0.10 – Classe d'outil de sélection d'une date                                #
 ################################################################################
 
 

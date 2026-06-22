@@ -476,51 +476,50 @@ class MesVoyagesApplication(QWidget):
 
         params_traduits = self.constantes.parametres_traduits.copy()
 
-        return {
-            # Paramètres individuels
-            "nom": self.nom_individu.currentText(),
-            "langue": langue,
-            "adresse_email": self.onglet_param_profil.get_email(),
-            "dossier_stockage": self.onglet_param_profil.get_dossier(),
-            "ouvrir_dossier_stockage": self.onglet_param_profil.get_ouvrir_dossier(),
-            "theme_application": self.onglet_param_profil.get_theme_application(),
-            # Paramètres des cartes
-            "sortir_cartes_granu_inf": self.onglet_param_profil.get_sortir_cartes_granu_inf(),
-            "limite_n_cartes": self.onglet_param_profil.get_limite_de_cartes(),
-            "granularite": obtenir_clef_par_valeur(
-                valeur=self.onglet_parametres.granularite_visite.currentText(),
-                dictionnaire=params_traduits["granularite"][langue],
-            ),
-            "granularite_fond": obtenir_clef_par_valeur(
-                valeur=self.onglet_parametres.granularite_fond.currentText(),
-                dictionnaire=params_traduits["granularite"][langue],
-            ),
-            "couleur": obtenir_clef_par_valeur(
-                valeur=self.onglet_parametres.color_combo.currentText(),
-                dictionnaire=params_traduits["teintes_couleurs"][langue],
-            ),
-            "theme": obtenir_clef_par_valeur(
-                valeur=self.onglet_parametres.theme_combo.currentText(),
-                dictionnaire=params_traduits["themes_cartes"][langue],
-            ),
-            "couleur_fond_carte": self.onglet_parametres.combo_couleur_fond.valeur_en_francais(),
-            "qualite": self.onglet_parametres.curseur_qualite.value(),
-            "format": self.onglet_parametres.format_cartes.currentText(),
-            "envoi_email": self.onglet_parametres.email_checkbox.isChecked(),
-            # Cartes à publier
-            "carte_du_monde": self.onglet_parametres.carte_monde.isChecked(),
-            "europe": self.onglet_parametres.europe.isChecked(),
-            "asie": self.onglet_parametres.asie.isChecked(),
-            "amerique": self.onglet_parametres.amerique.isChecked(),
-            "afrique": self.onglet_parametres.afrique.isChecked(),
-            "moyen_orient": self.onglet_parametres.moyen_orient.isChecked(),
-            "autres_regions": self.onglet_parametres.autres_regions.isChecked(),
-            "cartes_des_pays": self.onglet_parametres.carte_pays.isChecked(),
-            # Lieux visités
-            "dictionnaire_voyages": self.voyages,
-            # Labelliser les territoires
-            "labelliser_territoires": self.onglet_parametres.ecrire_nom_checkbox.isChecked(),
-        } | self.onglet_statistiques.creer_dict_parametres()
+        return (
+            {
+                # Paramètres individuels
+                "nom": self.nom_individu.currentText(),
+                "langue": langue,
+                "granularite": obtenir_clef_par_valeur(
+                    valeur=self.onglet_parametres.granularite_visite.currentText(),
+                    dictionnaire=params_traduits["granularite"][langue],
+                ),
+                "granularite_fond": obtenir_clef_par_valeur(
+                    valeur=self.onglet_parametres.granularite_fond.currentText(),
+                    dictionnaire=params_traduits["granularite"][langue],
+                ),
+                "couleur": obtenir_clef_par_valeur(
+                    valeur=self.onglet_parametres.color_combo.currentText(),
+                    dictionnaire=params_traduits["teintes_couleurs"][langue],
+                ),
+                "theme": obtenir_clef_par_valeur(
+                    valeur=self.onglet_parametres.theme_combo.currentText(),
+                    dictionnaire=params_traduits["themes_cartes"][langue],
+                ),
+                "couleur_fond_carte": self.onglet_parametres.combo_couleur_fond.valeur_en_francais(),
+                "qualite": self.onglet_parametres.curseur_qualite.value(),
+                "format": self.onglet_parametres.format_cartes.currentText(),
+                "envoi_email": self.onglet_parametres.email_checkbox.isChecked(),
+                # Cartes à publier
+                "carte_du_monde": self.onglet_parametres.carte_monde.isChecked(),
+                "europe": self.onglet_parametres.europe.isChecked(),
+                "asie": self.onglet_parametres.asie.isChecked(),
+                "amerique": self.onglet_parametres.amerique.isChecked(),
+                "afrique": self.onglet_parametres.afrique.isChecked(),
+                "moyen_orient": self.onglet_parametres.moyen_orient.isChecked(),
+                "autres_regions": self.onglet_parametres.autres_regions.isChecked(),
+                "cartes_des_pays": self.onglet_parametres.carte_pays.isChecked(),
+                # Lieux visités
+                "dictionnaire_voyages": self.voyages,
+                # Labelliser les territoires
+                "labelliser_territoires": self.onglet_parametres.ecrire_nom_checkbox.isChecked(),
+            }
+            # Onglet de statistiques
+            | self.onglet_statistiques.creer_dict_parametres()
+            # Onglet des paramètres de profil
+            | self.onglet_param_profil.creer_dict_parametres()
+        )
 
     def exporter_liste_parametres(self, date_publication: bool = True):
 

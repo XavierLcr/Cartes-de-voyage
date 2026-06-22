@@ -491,3 +491,18 @@ class OngletParametresProfil(QWidget):
         # Recommandations
         self.set_recommandations_par_pays(val=recommandations_par_pays)
         self.set_recommandations_nb(val=recommandations_nb)
+
+    def creer_dict_parametres(self):
+
+        return {
+            # Adresse e-mail
+            "adresse_email": self.get_email(),
+            # Thème de l'application
+            "theme_application": self.get_theme_application(),
+            # Paramètres de stockage
+            "dossier_stockage": self.get_dossier(),
+            "ouvrir_dossier_stockage": self.get_ouvrir_dossier(),
+            # Paramètres des cartes
+            "sortir_cartes_granu_inf": self.get_sortir_cartes_granu_inf(),
+            "limite_n_cartes": self.get_limite_de_cartes(),
+        }

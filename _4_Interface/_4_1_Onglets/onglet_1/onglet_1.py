@@ -172,7 +172,7 @@ class OngletParametres(QWidget):
 
         # Boîte des couleurs
         self.groupe_couleurs = QGroupBox()
-        layout_theme_couleurs = QVBoxLayout()
+        layout_theme_couleurs = QVBoxLayout(self.groupe_couleurs)
 
         # Choix du thème
         self.theme_label = creer_QLabel_centre()
@@ -215,9 +215,6 @@ class OngletParametres(QWidget):
             creer_ligne_horizontale(lStretch=0, ligne_largeur=1, rStretch=0)
         )
         layout_theme_couleurs.addLayout(layout_couleur_fond)
-
-        # Ajout du layout de couleurs au groupbox et ajout du groupbox au layout principal
-        self.groupe_couleurs.setLayout(layout_theme_couleurs)
 
         # # Ajout des groupbox des cartes et des couleurs
         layout_cartes_et_couleurs.addLayout(layout_granu_cartes_a_creer)

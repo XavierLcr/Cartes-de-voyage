@@ -8,7 +8,7 @@
 # 0 -- Introduction ------------------------------------------------------------
 
 
-from PyQt6.QtWidgets import QMessageBox
+from PyQt6.QtWidgets import QMessageBox, QLineEdit, QWidget, QVBoxLayout
 from PyQt6.QtCore import QTimer, Qt
 
 # 1 -- Pop-up informatif -------------------------------------------------------
@@ -102,3 +102,73 @@ class PopupOuiNon:
 
         # Retourne True si le bouton Oui est cliqué
         return msg.clickedButton() == bouton_oui
+
+
+# 3 -- Pop-up de saisie de texte -----------------------------------------------
+
+
+class PopupSaisieTexte:
+
+    def __init__(self, traducteur, parent=None):
+        """
+        Args:
+            parent: Widget parent (ex: self dans ta classe principale).
+            traducteur: Fonction de traduction (ex: self.traduire_depuis_id).
+                       Si None, utilise les textes par défaut.
+        """
+
+        self.parent = parent
+        self.traducteur = traducteur
+
+    def montrer(
+        self,
+        titre: str,
+        texte: str,
+        placeholder: str = "",
+        largeur: int = 250,
+    ) -> str | None:
+        """
+        Affiche une pop-up avec un champ de saisie et un bouton Valider.
+
+        Args:
+            titre: Titre de la pop-up.
+            texte: Texte affiché dans la pop-up.
+            placeholder: Texte d'aide dans le champ de saisie.
+            largeur: Largeur du champ de saisie.
+
+        Returns:
+            Le texte saisi par l'utilisateur, ou None si annulé.
+        """
+        msg_box = QMessageBox(self.parent)
+        msg_box.setMinimumWidth(300)
+        msg_box.setWindowTitle(titre)
+        msg_box.setText(texte)
+        msg_box.setTextFormat(Qt.TextFormat.RichText)
+
+        # Champ de saisie
+        line_edit = QLineEdit()
+        line_edit.setPlaceholderText(placeholder)
+        line_edit.setFixedWidth(largeur)
+
+        # Widget pour intégrer le champ de saisie
+        widget = QWidget()
+        layout = QVBoxLayout()
+        layout.addWidget(line_edit)
+        widget.setLayout(layout)
+
+        # Ajout du widget dans la QMessageBox
+        msg_box.layout().addWidget(widget, 1, 0, 1, msg_box.layout().columnCount())
+
+        # Bouton Valider
+        bouton_valider = msg_box.addButton(
+            self.traducteur(clef="valider"),
+            QMessageBox.ButtonRole.AcceptRole,
+        )
+
+        # Affichage et récupération du résultat
+        result = msg_box.exec()
+
+        # Si l'utilisateur clique sur Valider, retourne le texte saisi
+        if msg_box.clickedButton() == bouton_valider:
+            return line_edit.text().strip()
+        return None

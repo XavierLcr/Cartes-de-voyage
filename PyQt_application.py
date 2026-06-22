@@ -30,7 +30,7 @@ import constantes
 from _0_Utilitaires import _0_1_fonctions_utiles_gen
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import creer_QLabel_centre
 from _0_Utilitaires._0_7_fonctions_voyages import voyage_id, creer_voyage
-from _0_Utilitaires._0_11_classes_pop_up import PopupInfo, PopupOuiNon
+from _0_Utilitaires._0_11_classes_pop_up import PopupInfo, PopupOuiNon, PopupSaisieTexte
 from _4_Interface._4_1_Onglets.onglet_1 import onglet_1
 from _4_Interface._4_1_Onglets.onglet_2 import onglet_2
 from _4_Interface._4_1_Onglets.onglet_4 import onglet_4
@@ -730,69 +730,44 @@ class MesVoyagesApplication(QWidget):
 
     def ajouter_profil(self):
 
-        # création de la boîte
-        msg_box = QMessageBox(self)
-        msg_box.setMinimumWidth(300)
-        msg_box.setWindowTitle(self.traduire_depuis_id("nom_individu_pop_up_titre"))
-        msg_box.setText(
-            self.traduire_depuis_id("nom_individu_pop_up_texte", suffixe=" :")
+        nouveau_profil = PopupSaisieTexte(
+            traducteur=self.traduire_depuis_id, parent=self
+        ).montrer(
+            titre=self.traduire_depuis_id("nom_individu_pop_up_titre"),
+            texte=self.traduire_depuis_id("nom_individu_pop_up_texte", suffixe=" :"),
+            placeholder=self.traduire_depuis_id(
+                "nom_individu_pop_up_placeholder", suffixe="..."
+            ),
+            largeur=250,
         )
 
-        # Ajout d'un champ de saisie
-        line_edit = QLineEdit()
-        line_edit.setPlaceholderText(
-            self.traduire_depuis_id("nom_individu_pop_up_placeholder", suffixe="...")
-        )
-        line_edit.setFixedWidth(250)
+        # Valeur cohérente
+        if nouveau_profil:
 
-        # Ouverture du pop-up
-        widget = QWidget()
-        layout = QVBoxLayout()
-        layout.addWidget(line_edit)
-        widget.setLayout(layout)
+            # Valeur non existante
+            if nouveau_profil not in list(sauvegarde.keys()):
 
-        # Ajout du widget dans le QMessageBox, sous le texte
-        msg_box.layout().addWidget(widget, 1, 0, 1, msg_box.layout().columnCount())
+                # Ajout du nom à la liste existante
+                self.nom_individu.addItem(nouveau_profil)
 
-        # Bouton "Valider"
-        bouton_valider = msg_box.addButton(
-            self.traduire_depuis_id("valider", suffixe=""),
-            QMessageBox.ButtonRole.AcceptRole,
-        )
+                # Export sous forme de YAML
+                parametres_actuels = self.creer_liste_parametres()
+                parametres_actuels["nom"] = nouveau_profil
+                sauvegarde[nouveau_profil] = parametres_actuels
+                self.exporter_sauvegarde()
 
-        # Affichage
-        msg_box.exec()
+                # Pop-up de fin
+                PopupInfo(parent=self).montrer(
+                    titre=self.traduire_depuis_id("nom_individu_pop_up_titre"),
+                    contenu=self.traduire_depuis_id(
+                        "nom_individu_pop_up_reussite", suffixe=" !"
+                    ),
+                    temps_max=8000,
+                )
 
-        if msg_box.clickedButton() == bouton_valider:
-
-            # Récupération du nom
-            nouveau_profil = line_edit.text()
-
-            if nouveau_profil:
-
-                if nouveau_profil not in list(sauvegarde.keys()):
-
-                    # Ajout du nom à la liste existante
-                    self.nom_individu.addItem(nouveau_profil)
-
-                    # Export sous forme de YAML
-                    parametres_actuels = self.creer_liste_parametres()
-                    parametres_actuels["nom"] = nouveau_profil
-                    sauvegarde[nouveau_profil] = parametres_actuels
-                    self.exporter_sauvegarde()
-
-                    # Pop-up de fin
-                    PopupInfo(parent=self).montrer(
-                        titre=self.traduire_depuis_id("nom_individu_pop_up_titre"),
-                        contenu=self.traduire_depuis_id(
-                            "nom_individu_pop_up_reussite", suffixe=" !"
-                        ),
-                        temps_max=8000,
-                    )
-
-                    # Utilisation du profil en question
-                    self.nom_individu.setCurrentText(nouveau_profil)
-                    self.initialiser_sauvegarde(reinitialiser=False)
+                # Utilisation du profil en question
+                self.nom_individu.setCurrentText(nouveau_profil)
+                self.initialiser_sauvegarde(reinitialiser=False)
 
     def set_style_titre(self, taille=24):
 

@@ -24,13 +24,13 @@ from PyQt6.QtWidgets import (
     QLabel,
 )
 from PyQt6.QtGui import QIcon, QPixmap
-from PyQt6.QtCore import QTimer, Qt
+from PyQt6.QtCore import Qt
 
 # Scripts et fonctions du projet
 import constantes
 from _0_Utilitaires import _0_1_fonctions_utiles_gen, _0_3_fonctions_utiles_pyqt6
 from _0_Utilitaires._0_7_fonctions_voyages import voyage_id, creer_voyage
-from _0_Utilitaires._0_11_classes_pop_up import PopupInfo
+from _0_Utilitaires._0_11_classes_pop_up import PopupInfo, PopupOuiNon
 from _4_Interface._4_1_Onglets.onglet_1 import onglet_1
 from _4_Interface._4_1_Onglets.onglet_2 import onglet_2
 from _4_Interface._4_1_Onglets.onglet_4 import onglet_4
@@ -569,29 +569,6 @@ class MesVoyagesApplication(QWidget):
             sort_keys=True,
         )
 
-    def montrer_popup(
-        self,
-        titre: str,
-        contenu: str,
-    ):
-        # Crée le message box
-        msg = QMessageBox(self)
-        msg.setWindowTitle(titre)
-        msg.setText(contenu)
-        msg.setTextFormat(Qt.TextFormat.RichText)
-        msg.setIcon(QMessageBox.Icon.Information)
-
-        msg.addButton(
-            self.traduire_depuis_id(clef="oui"), QMessageBox.ButtonRole.YesRole
-        )
-        msg.addButton(
-            self.traduire_depuis_id(clef="non"), QMessageBox.ButtonRole.NoRole
-        )
-        msg.setIcon(QMessageBox.Icon.Question)
-
-        # Renvoi du pop-up
-        return msg
-
     def set_dictionnaire_destinations(self, dictionnaire: dict):
         self.voyages = dictionnaire
         self.onglet_selection_destinations.set_voyages(dictionnaire=self.voyages)
@@ -711,15 +688,12 @@ class MesVoyagesApplication(QWidget):
         global sauvegarde
 
         # Pop-up afin de s'assurer de la décision
-        message = self.montrer_popup(
+        if not PopupOuiNon(traducteur=self.traduire_depuis_id).montrer(
             titre=self.traduire_depuis_id(clef="titre_pop_up_suppression"),
             contenu=self.traduire_depuis_id(
                 clef="contenu_pop_up_suppression", suffixe="."
             ),
-        )
-        message = message.exec()
-
-        if message != 2:
+        ):
             return
 
         # Suppression de l'individu

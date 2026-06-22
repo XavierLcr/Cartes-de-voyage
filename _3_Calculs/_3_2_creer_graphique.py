@@ -20,6 +20,7 @@ from _0_Utilitaires._0_2_fonctions_graphiques import (
     generer_couleur_aleatoire_hex,
     transformer_couleur_texte,
     recuperer_drapeau,
+    couleur_depuis_drapeau,
     rgb_to_hex,
 )
 from _0_Utilitaires._0_6_fonctions_utiles_traductions import traduire_pays
@@ -417,7 +418,8 @@ def attribuer_couleur_une_ligne(
         return couleur_non_visites
 
     # Récupération de l'image si possible
-    couleur = recuperer_drapeau(chemin=chemin, pays=ligne["Pays"])
+    drapeau = recuperer_drapeau(chemin=chemin, pays=ligne["Pays"])
+    couleur = couleur_depuis_drapeau(drapeau)
     if couleur is None:
         couleur_pays = 0
 

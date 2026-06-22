@@ -106,6 +106,9 @@ def renvoyer_couleur_widget(style, teinte, nuances, clair, sombre):
 # 5 -- Récupérer l'image du drapeau --------------------------------------------
 
 
+## 5.1 -- Récupération du drapeau brut -----------------------------------------
+
+
 def recuperer_drapeau(chemin: str, pays: str):
 
     # Construire le motif regex (insensible à la casse)
@@ -114,13 +117,21 @@ def recuperer_drapeau(chemin: str, pays: str):
     # Parcourir les fichiers du dossier
     for fichier in os.listdir(chemin):
         if motif.search(fichier):
-            couleurs = list(
-                Image.open(os.path.join(chemin, fichier)).convert("RGB").getdata()
-            )
-            return random.choice(couleurs)
+            return Image.open(os.path.join(chemin, fichier)).convert("RGB")
 
     # Si le fichier n'est pas trouvé
     return None
+
+
+## 5.2 -- Exctraction d'une couleur --------------------------------------------
+
+
+def couleur_depuis_drapeau(drapeau):
+
+    if drapeau is not None:
+        return random.choice(list(drapeau.getdata()))
+    else:
+        return None
 
 
 # 6 -- RGB vers hexadécimales --------------------------------------------------

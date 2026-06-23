@@ -228,13 +228,15 @@ class OngletParametresProfil(QWidget):
         self.bouton_sauvegarde.clicked.connect(
             lambda: set_emoji_sauvegarde(self.bouton_sauvegarde, 3000)
         )
-        layout.addWidget(self.bouton_sauvegarde)
-
-        layout.addStretch()
 
         # Suppression du profil
         self.suppression_profil = QPushButton()
-        layout.addWidget(self.suppression_profil)
+
+        # Layout des boutons
+        layout_boutons_finaux = QHBoxLayout()
+        layout_boutons_finaux.addWidget(self.bouton_sauvegarde, stretch=10)
+        layout_boutons_finaux.addWidget(self.suppression_profil, stretch=3)
+        layout.addLayout(layout_boutons_finaux)
 
         # Layout principal
         self.setLayout(layout)

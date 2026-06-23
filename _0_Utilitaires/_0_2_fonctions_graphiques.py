@@ -5,7 +5,7 @@
 ################################################################################
 
 
-import os, random, colorsys, re
+import os, random, colorsys
 from PIL import Image
 
 # 1 -- Générer une couleur aléatoire selon des contraintes HSV -----------------
@@ -111,16 +111,14 @@ def renvoyer_couleur_widget(style, teinte, nuances, clair, sombre):
 
 def recuperer_drapeau(chemin: str, pays: str):
 
-    # Construire le motif regex (insensible à la casse)
-    motif = re.compile(rf".*{re.escape(pays)}.*", re.IGNORECASE)
+    # Construction du nom du fichier
+    pays = f"{pays}.png"
 
-    # Parcourir les fichiers du dossier
-    for fichier in os.listdir(chemin):
-        if motif.search(fichier):
-            return Image.open(os.path.join(chemin, fichier)).convert("RGB")
-
-    # Si le fichier n'est pas trouvé
-    return None
+    # Chargement (si le fichier existe)
+    if pays in os.listdir(chemin):
+        return Image.open(os.path.join(chemin, pays)).convert("RGB")
+    else:
+        return None
 
 
 ## 5.2 -- Exctraction d'une couleur --------------------------------------------

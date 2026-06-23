@@ -66,10 +66,12 @@ class CreerCartes(QObject):
 
         # Gestion du cas "couleur du pays"
         self.couleur_pays = 0
-        for i in range(1, 4):
-            if self.parametres.get("couleur") == f"Thème Pays n°{i}":
-                self.couleur_pays = i
-                self.parametres["couleur"] = "Multicolore"
+        match = re.search(
+            r"Thème Pays n°(\d+)", self.parametres.get("couleur", "Multicolore")
+        )
+        if match:
+            self.couleur_pays = int(match.group(1))
+            self.parametres["couleur"] = "Multicolore"
 
     def recuperer_granularite(self, clef: str):
         return {"Pays": 0, "Région": 1, "Département": 2}.get(

@@ -30,7 +30,7 @@ from _0_Utilitaires._0_2_fonctions_graphiques import (
 class ToggleSwitch(QCheckBox):
     """Un toggle switch animé, avec support de setText() comme une QCheckBox normale."""
 
-    def __init__(self, text="", parent=None, track_width=44, track_height=24):
+    def __init__(self, text="", style=1, parent=None, track_width=44, track_height=24):
         super().__init__(parent)
         self._track_width = track_width
         self._track_height = track_height
@@ -61,6 +61,8 @@ class ToggleSwitch(QCheckBox):
 
         if text:
             self.setText(text)  # déclenche aussi updateGeometry via setText override
+
+        self.set_style(style=style)
 
     def _animate_to_state(self, state):
         self._animation.stop()

@@ -21,11 +21,11 @@ from PyQt6.QtWidgets import (
     QListWidget,
     QListWidgetItem,
     QLineEdit,
-    QCheckBox,
 )
 from PyQt6.QtCore import Qt, QSize
 
 from _0_Utilitaires._0_10_selecteur_date import SelecteurDate
+from _0_Utilitaires._0_12_toggle_checkbox import ToggleSwitch
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     obtenir_clef_par_valeur,
@@ -150,8 +150,8 @@ class CreerVoyage(QDialog):
         )
 
         # Utilisation des dates
-        self.utiliser_date = QCheckBox()
-        self.utiliser_date.setChecked(True)
+        self.utiliser_date = ToggleSwitch(style=style)
+        self.utiliser_date.setChecked(self.visite_temp.get("date_fin") is not None)
 
         # Layout principal du groupbox
         self.general_groupbox = QGroupBox()

@@ -449,6 +449,11 @@ class MesVoyagesApplication(QWidget):
             style_bouton_de_suppression(sombre=not self.theme_application)
         )
 
+        # Onglet 1
+        self.onglet_parametres.set_style(
+            style=style_temp, teintes=teinte_temp, preset=theme_temp
+        )
+
         # Onglet 2
         self.onglet_selection_destinations.set_style(
             style=style_temp, teinte=teinte_temp, nuances=theme_temp

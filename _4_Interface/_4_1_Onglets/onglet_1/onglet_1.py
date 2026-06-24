@@ -40,6 +40,7 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     set_emoji_sauvegarde,
 )
 from _0_Utilitaires._0_11_classes_pop_up import PopupInfo
+from _0_Utilitaires._0_12_toggle_checkbox import ToggleSwitch
 from _4_Interface._4_1_Onglets.onglet_1.onglet_1_1_creation_cartes import CreerCartes
 from _4_Interface._4_1_Onglets.onglet_1.onglet_1_2_combobox_coloree import (
     FondCarteCombo,
@@ -191,7 +192,8 @@ class OngletParametres(QWidget):
         layout_couleurs.addWidget(self.color_combo)
 
         # Utilisation ou non du thème dans l'interface
-        self.utiliser_theme = QCheckBox()
+        self.utiliser_theme = ToggleSwitch()
+        # self.utiliser_theme = QCheckBox()
         # self.utiliser_theme.stateChanged.connect(self.maj_style)
 
         # Choix de la couleur de fond
@@ -442,6 +444,10 @@ class OngletParametres(QWidget):
                 .values()
             ),
         )
+
+    def set_style(self, style, preset, teintes):
+
+        self.utiliser_theme.set_style(style=style, preset=preset, teintes=teintes)
 
     def barre_set_max(self, val: int):
         self.barre_progression.setMaximum(val)

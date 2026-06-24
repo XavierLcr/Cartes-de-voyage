@@ -10,7 +10,7 @@
 
 import pandas as pd
 from collections import defaultdict
-from PyQt6.QtWidgets import QWidget, QVBoxLayout
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QScrollArea
 
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     vider_layout,
@@ -49,15 +49,36 @@ def compter_voyages_par_pays(
     # Trier par ordre décroissant de voyages
     return (
         pd.DataFrame(list(comptage_pays.items()), columns=["pays", "voyages"])
-        .sort_values(by="voyages", ascending=False, inplace=False)
-        .reset_index(drop=True, inplace=False)
         # Ajout de la traduction des pays
         .assign(
             pays_traduction=lambda x: x["pays"].apply(
                 lambda y: traductions.get(y, {}).get(langue, y)
             )
         )
+        .sort_values(
+            by=["voyages", "pays_traduction"], ascending=(False, True), inplace=False
+        )
+        .reset_index(drop=True, inplace=False)
     )
+
+
+## 1.2 -- Fonction de limite du nombre de pays ---------------------------------
+
+
+def limiter_nombre_pays(df: pd.DataFrame, n: int, type: bool):
+
+    # Récupéartion des paramètres
+    df_temp = df.copy()
+    n = max(n, 2)
+
+    # Conservation du top pays
+    if type and len(df_temp) > n:
+        df_temp = df_temp[df_temp["voyages"] >= df_temp.iloc[n - 1]["voyages"]]
+    else:
+        df_temp = df_temp.head(n)
+
+    # Renvoi
+    return df_temp
 
 
 # 2 -- Classe du graphique -----------------------------------------------------
@@ -74,7 +95,7 @@ class PaysLesPlusVisites(QWidget):
         self.fct_traduction = fct_traduction
         self.voyages = {}
         self.n_pays = 5
-        self.n_pays_limite = 1
+        self.n_pays_limite_type = True
         self.pays_trad = constantes.pays_differentes_langues
 
         # Style par défaut
@@ -105,9 +126,13 @@ class PaysLesPlusVisites(QWidget):
         if self.voyages:
 
             fig = plot_diagramme_barre(
-                df=compter_voyages_par_pays(
-                    self.voyages, traductions=self.pays_trad, langue=self.langue
-                ).head(n=5),
+                df=limiter_nombre_pays(
+                    df=compter_voyages_par_pays(
+                        self.voyages, traductions=self.pays_trad, langue=self.langue
+                    ),
+                    n=self.n_pays,
+                    type=self.n_pays_limite_type,
+                ),
                 var_x="pays_traduction",
                 var_y="voyages",
                 var_color=None,

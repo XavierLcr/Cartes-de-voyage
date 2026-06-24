@@ -65,7 +65,7 @@ def creer_classement_pays(
             # Mise en forme du pourcentage
             pct_superficie_dans_pays_label=lambda x: x[
                 "pct_superficie_dans_pays"
-            ].apply(lambda x: f"{x} %".replace(".", ",")),
+            ].apply(lambda x: f"{x} %".replace(".", ",")),
             # Récupération du nom du pays dans la langue utilisée
             nom_pays=lambda x: x["pays"].apply(
                 lambda y: pays_traductions.get(y, {}).get(langue, y)
@@ -209,7 +209,9 @@ class ClassementPays(QWidget):
 
             vbox.addWidget(
                 creer_QLabel_centre(
-                    text=f"🥇<br>{', '.join(f'<b>{x}</b>' for x in df_temp['nom_pays'].head(top_n_lignes))}<br>100 %",
+                    text="🥇<br>"
+                    f"{', '.join(f'<b>{x}</b>' for x in df_temp['nom_pays'].head(top_n_lignes))}"
+                    "<br>100 %",
                     wordWrap=True,
                 ),
                 0,
@@ -234,7 +236,7 @@ class ClassementPays(QWidget):
                 creer_QLabel_centre(
                     text=(
                         # Classement
-                        (f"<b>{row['classement']}</b>")
+                        f"<b>{row['classement']}</b>"
                         # Nom du pays
                         + f"<br>{'<b>' if ligne == 0 else ''}{row['nom_pays']}{'</b>' if ligne == 0 else ''}<br>"
                         # Part de la superficie visitée

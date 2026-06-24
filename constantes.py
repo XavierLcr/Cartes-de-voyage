@@ -51,7 +51,7 @@ else:
 # 2 -- Version du logiciel -----------------------------------------------------
 
 
-version_logiciel = "2.3"
+version_logiciel = "2.4"
 
 
 # 3 -- Import des données ------------------------------------------------------

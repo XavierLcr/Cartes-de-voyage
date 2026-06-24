@@ -367,6 +367,7 @@ class OngletSelectionnerDestinations(QWidget):
             parent=self,
             longueur=self.longueur,
             langue=self.langue,
+            style=self.style,
         )
 
         if objet.exec() == QDialog.DialogCode.Accepted:

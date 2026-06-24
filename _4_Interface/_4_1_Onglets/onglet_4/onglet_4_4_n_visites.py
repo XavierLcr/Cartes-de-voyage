@@ -18,10 +18,15 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
 )
 from _0_Utilitaires._0_8_plot_diagramme_barres import plot_diagramme_barre
 
-# 1 -- Fonction de comptage par pays -------------------------------------------
+# 1 -- Fonctions utiles --------------------------------------------------------
 
 
-def compter_voyages_par_pays(dictionnaire_voyages):
+## 1.1 -- Fonction de comptage par pays ----------------------------------------
+
+
+def compter_voyages_par_pays(
+    dictionnaire_voyages: dict, traductions: dict, langue: str
+):
 
     comptage_pays = defaultdict(int)
 
@@ -42,9 +47,17 @@ def compter_voyages_par_pays(dictionnaire_voyages):
             comptage_pays[pays] += 1
 
     # Trier par ordre décroissant de voyages
-    return pd.DataFrame(
-        list(comptage_pays.items()), columns=["pays", "voyages"]
-    ).sort_values(by="voyages", ascending=False, inplace=False)
+    return (
+        pd.DataFrame(list(comptage_pays.items()), columns=["pays", "voyages"])
+        .sort_values(by="voyages", ascending=False, inplace=False)
+        .reset_index(drop=True, inplace=False)
+        # Ajout de la traduction des pays
+        .assign(
+            pays_traduction=lambda x: x["pays"].apply(
+                lambda y: traductions.get(y, {}).get(langue, y)
+            )
+        )
+    )
 
 
 # 2 -- Classe du graphique -----------------------------------------------------
@@ -60,6 +73,8 @@ class PaysLesPlusVisites(QWidget):
         self.langue = "français"
         self.fct_traduction = fct_traduction
         self.voyages = {}
+        self.n_pays = 5
+        self.n_pays_limite = 1
         self.pays_trad = constantes.pays_differentes_langues
 
         # Style par défaut
@@ -90,14 +105,9 @@ class PaysLesPlusVisites(QWidget):
         if self.voyages:
 
             fig = plot_diagramme_barre(
-                df=compter_voyages_par_pays(self.voyages)
-                .head(n=5)
-                .assign(
-                    pays_traduction=lambda x: x["pays"].apply(
-                        lambda y: self.pays_trad.get(y, {}).get(self.langue, y)
-                    )
-                )
-                .reset_index(drop=True, inplace=False),
+                df=compter_voyages_par_pays(
+                    self.voyages, traductions=self.pays_trad, langue=self.langue
+                ).head(n=5),
                 var_x="pays_traduction",
                 var_y="voyages",
                 var_color=None,

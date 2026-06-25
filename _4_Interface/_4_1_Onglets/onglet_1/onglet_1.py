@@ -451,6 +451,12 @@ class OngletParametres(QWidget):
             style=style, preset=preset, teintes=teintes
         )
 
+        self.creation_cartes_bouton.setStyleSheet("""
+            QPushButton {
+                font-weight: 600;
+            }
+            """)
+
     def barre_set_max(self, val: int):
         self.barre_progression.setMaximum(val)
 

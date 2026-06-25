@@ -193,8 +193,6 @@ class OngletParametres(QWidget):
 
         # Utilisation ou non du thème dans l'interface
         self.utiliser_theme = ToggleSwitch()
-        # self.utiliser_theme = QCheckBox()
-        # self.utiliser_theme.stateChanged.connect(self.maj_style)
 
         # Choix de la couleur de fond
         layout_couleur_fond = QHBoxLayout()
@@ -257,10 +255,10 @@ class OngletParametres(QWidget):
         )
 
         # Possibilité d'envoi par e-mail
-        self.email_checkbox = QCheckBox()
+        self.email_checkbox = ToggleSwitch()
 
         # Possibilité d'écrire le nom du territoire sur la carte
-        self.ecrire_nom_checkbox = QCheckBox()
+        self.labellisation_checkbox = ToggleSwitch()
 
         # Ajout des widgets au layout horizontal
         layout_format_qualite.addWidget(self.label_format)
@@ -281,7 +279,7 @@ class OngletParametres(QWidget):
         )
         layout_format_qualite.addWidget(creer_ligne_verticale())
         layout_mail_texte = QVBoxLayout()
-        layout_mail_texte.addWidget(self.ecrire_nom_checkbox)
+        layout_mail_texte.addWidget(self.labellisation_checkbox)
         layout_mail_texte.addWidget(self.email_checkbox)
         layout_format_qualite.addLayout(layout_mail_texte)
 
@@ -397,10 +395,10 @@ class OngletParametres(QWidget):
         )
 
         # Nom du territoire écrit
-        self.ecrire_nom_checkbox.setText(
+        self.labellisation_checkbox.setText(
             self.fonction_traduction("ecrire_nom_checkbox", suffixe=" 🏷️")
         )
-        self.ecrire_nom_checkbox.setToolTip(
+        self.labellisation_checkbox.setToolTip(
             self.fonction_traduction("ecrire_nom_checkbox_tooltip", suffixe=".")
         )
 
@@ -448,6 +446,10 @@ class OngletParametres(QWidget):
     def set_style(self, style, preset, teintes):
 
         self.utiliser_theme.set_style(style=style, preset=preset, teintes=teintes)
+        self.email_checkbox.set_style(style=style, preset=preset, teintes=teintes)
+        self.labellisation_checkbox.set_style(
+            style=style, preset=preset, teintes=teintes
+        )
 
     def barre_set_max(self, val: int):
         self.barre_progression.setMaximum(val)
@@ -632,7 +634,7 @@ class OngletParametres(QWidget):
             # Envoi par e-mail
             "envoi_email": self.email_checkbox,
             # Labellisation du territoire
-            "labelliser_territoires": self.ecrire_nom_checkbox,
+            "labelliser_territoires": self.labellisation_checkbox,
         }
         for nom_cle, checkbox in checkboxes.items():
             checkbox.setChecked(
@@ -725,5 +727,5 @@ class OngletParametres(QWidget):
             "autres_regions": self.autres_regions.isChecked(),
             "cartes_des_pays": self.carte_pays.isChecked(),
             # Labelliser les territoires
-            "labelliser_territoires": self.ecrire_nom_checkbox.isChecked(),
+            "labelliser_territoires": self.labellisation_checkbox.isChecked(),
         }

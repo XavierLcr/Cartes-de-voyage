@@ -114,7 +114,6 @@ class ToggleSwitch(QCheckBox):
         poignet_temp = str(
             renvoyer_couleur_texte({1: 2, 2: 1}.get(style, 0), couleur=texte_temp)
         )
-        print(texte_temp)
         self._color_on = QColor(couleur)
         self._color_knob = QColor(poignet_temp)
         self._color_text = QColor(texte_temp)

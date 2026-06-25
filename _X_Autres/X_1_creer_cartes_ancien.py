@@ -5,7 +5,13 @@
 ################################################################################
 
 
-import os, yaml
+# 0 -- Initialisation ----------------------------------------------------------
+
+
+import os, yaml, sys
+
+sys.path.append(os.getcwd())
+
 import worldmap as wm
 from translate import Translator
 
@@ -16,7 +22,7 @@ from translate import Translator
 # Nom de la personne
 nom = "Xavier"
 
-# Directions et chemins
+# Chemins
 base_dir = os.path.join(os.path.expanduser("~"), "Documents", "Voyages")
 direction_dossier = os.path.join(base_dir, f"{nom} – Cartes de voyage")
 yaml_fichier = os.path.join(base_dir, f"Liste_destinations_{nom}.yaml")

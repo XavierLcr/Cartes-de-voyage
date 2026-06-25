@@ -5,29 +5,55 @@
 ################################################################################
 
 
-import os, yaml
+# 0 -- Initialisation ----------------------------------------------------------
+
+
+import yaml
+from datetime import datetime
 
 # PyQt6
-from PyQt6.QtCore import Qt, QTimer, QSize, pyqtSignal
+from PyQt6.QtCore import Qt, QTimer, pyqtSignal
+from PyQt6 import QtGui
+
 from PyQt6.QtWidgets import (
     QWidget,
     QVBoxLayout,
     QHBoxLayout,
     QLabel,
     QGroupBox,
-    QComboBox,
     QPushButton,
     QFileDialog,
-    QListWidget,
-    QListWidgetItem,
+    QSizePolicy,
+    QDialog,
+    QScrollArea,
+    QTreeWidgetItem,
+    QTreeWidget,
+    QComboBox,
 )
 
-from _0_Utilitaires._0_1_Fonctions_utiles import (
-    obtenir_clef_par_valeur,
-    reset_combo,
+from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     exporter_fichier,
     formater_temps_actuel,
 )
+from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
+    set_emoji_sauvegarde,
+    vider_layout,
+    reset_combo,
+    creer_ligne_verticale,
+)
+from _0_Utilitaires._0_2_fonctions_graphiques import (
+    renvoyer_couleur_widget,
+)
+from _0_Utilitaires._0_7_fonctions_voyages import (
+    detecter_type_yaml,
+    voyage_id,
+    creer_voyage,
+    trier_voyages,
+)
+from _0_Utilitaires._0_11_classes_pop_up import PopupInfo
+from _4_Interface._4_1_Onglets.onglet_2.onglet_2_ajout_voyage import CreerVoyage
+
+# 1 -- Classe de sélection des destinations ------------------------------------
 
 
 class OngletSelectionnerDestinations(QWidget):
@@ -35,123 +61,155 @@ class OngletSelectionnerDestinations(QWidget):
     # Signal de modification des lieux visités
     dict_modif = pyqtSignal(dict)
 
-    def __init__(self, constantes, fct_sauvegarde, fct_traduire, fct_pop_up):
+    def __init__(self, constantes, fct_sauvegarde, fct_traduire, longueur=10):
         super().__init__()
 
         # Variables globales de la classe
-        self.dicts_granu = {"region": {}, "dep": {}}
+        self.voyages = {}
         self.dossier_stockage = None
         self.langue = "français"
         self.nom_individu = ""
+        self.style = 0
+        self.longueur = longueur
 
         # Fonctions et constantes
         self.constantes = constantes
         self.fonction_traduire = fct_traduire
-        self.fonction_pop_up = fct_pop_up
 
-        # Ajouter un layout et un label au deuxième onglet
+        # Layout de l'onglet
         layout = QVBoxLayout()
-        self.groupe_selection_lieux = QGroupBox()
-        layout_selection_lieux = QVBoxLayout()
 
-        self.liste_des_pays = QComboBox()
-        self.liste_niveaux = QComboBox()
+        # Avertissement
         self.avertissement_prio = QLabel()
         self.avertissement_prio.setWordWrap(True)
-        self.liste_endroits = QListWidget()
-        self.liste_endroits.setWrapping(True)
-        self.liste_endroits.setResizeMode(QListWidget.ResizeMode.Adjust)
-        self.liste_endroits.setGridSize(QSize(250, 25))
+        layout.addWidget(self.avertissement_prio)
+
+        # Bouton d'ajout de voyages
+        self.ajouter_voyage_bouton = QPushButton()
+        self.ajouter_voyage_bouton.clicked.connect(
+            lambda x: self.creer_voyage_ui(clef=None)
+        )
+
+        # Liste des options de tri
+        self.options_tri = QComboBox()
+        self.options_tri.currentTextChanged.connect(
+            lambda x: self.afficher_voyages(vbox=self.liste_voyage_layout)
+        )
+
+        # Bouton d'export des YAML
         self.telecharger_lieux_visites = QPushButton()
         self.telecharger_lieux_visites.clicked.connect(self.exporter_yamls_visites)
-        self.bouton_sauvegarde2 = QPushButton()
-        self.bouton_sauvegarde2.clicked.connect(fct_sauvegarde)
 
-        # Remplir les déroulés
-        self.liste_des_pays.addItems(self.constantes.regions_par_pays.keys())
-        self.liste_des_pays.currentIndexChanged.connect(self.maj_liste_reg_dep_pays)
-        self.liste_niveaux.currentIndexChanged.connect(self.maj_liste_reg_dep_pays)
-        self.liste_endroits.itemChanged.connect(self.changer_item_liste_pays)
+        # Bouton d'import d'un YAML
+        self.chargement_yaml_bouton = QPushButton()
+        self.chargement_yaml_bouton.clicked.connect(self.charger_yaml)
 
-        layout_selection_params = QHBoxLayout()
-        layout_selection_params.addWidget(self.liste_des_pays)
-        layout_selection_params.addWidget(self.liste_niveaux)
-        layout_selection_params.addWidget(self.telecharger_lieux_visites)
-        layout_selection_params.addWidget(self.bouton_sauvegarde2)
-        layout_selection_params.setStretch(
-            0, 3
-        )  # Le premier widget prend plus de place
-        layout_selection_params.setStretch(
-            1, 3
-        )  # Le deuxième widget prend plus de place
-        layout_selection_params.setStretch(
-            2, 1
-        )  # Le troisième widget prend moins de place
-        layout_selection_params.setStretch(
-            3, 1
-        )  # Le troisième widget prend moins de place
+        # Bouton de sauvegarde
+        self.bouton_sauvegarde = QPushButton()
+        self.bouton_sauvegarde.clicked.connect(
+            lambda: fct_sauvegarde(date_publication=False)
+        )
+        self.bouton_sauvegarde.clicked.connect(
+            lambda: set_emoji_sauvegarde(self.bouton_sauvegarde, 3000)
+        )
 
-        layout_selection_lieux.addLayout(layout_selection_params)
-        layout_selection_lieux.addWidget(self.avertissement_prio)
-        layout_selection_lieux.addWidget(self.liste_endroits)
-        self.groupe_selection_lieux.setLayout(layout_selection_lieux)
+        # Ligne des boutons
+        layout_boutons = QHBoxLayout()
+        layout_boutons.addWidget(self.ajouter_voyage_bouton, stretch=3)
+        layout_boutons.addWidget(self.options_tri, stretch=3)
+        layout_boutons.addWidget(self.bouton_sauvegarde, stretch=1)
+        layout_boutons.addWidget(creer_ligne_verticale())
+        layout_boutons.addWidget(self.telecharger_lieux_visites, stretch=1)
+        layout_boutons.addWidget(self.chargement_yaml_bouton, stretch=1)
 
-        # Téléchargement des YAMLs
+        # Voyages effectués
+        self.liste_voyage_groupbox = QGroupBox()
+        self.liste_voyage_layout = QVBoxLayout()
+        self.liste_voyage_groupbox.setLayout(self.liste_voyage_layout)
+        self.liste_voyage_groupbox.setSizePolicy(
+            QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding
+        )
 
-        ## Stockage des données YAML
-        self.fichier_yaml_1 = None
-        self.fichier_yaml_2 = None
+        self.liste_voyage = self._creer_scroll()
+        self.liste_voyage_layout.addWidget(self.liste_voyage)
 
-        ## Création des boutons pour charger les YAML
-        self.chemin_fichier_yaml_1 = None
-        self.chemin_fichier_yaml_2 = None
-        self.fichier_yaml_1_bouton = QPushButton()
-        self.fichier_yaml_1_bouton.clicked.connect(lambda: self.charger_yaml(1))
-
-        self.fichier_yaml_2_bouton = QPushButton()
-        self.fichier_yaml_2_bouton.clicked.connect(lambda: self.charger_yaml(2))
-
-        ## Layout et Groupbox
-        self.groupe_chargement_yaml = QGroupBox()
-        layout_groupe_chargement_yaml = QHBoxLayout()
-        layout_groupe_chargement_yaml.addWidget(self.fichier_yaml_1_bouton)
-        layout_groupe_chargement_yaml.addWidget(self.fichier_yaml_2_bouton)
-        self.groupe_chargement_yaml.setLayout(layout_groupe_chargement_yaml)
-
-        layout.addWidget(self.groupe_selection_lieux)
-        layout.addWidget(self.groupe_chargement_yaml)
+        # Layout complet
+        layout.addLayout(layout_boutons)
+        layout.addWidget(self.liste_voyage_groupbox)
 
         self.setLayout(layout)
 
-    def charger_yaml(self, num):
+    def charger_yaml(self):
+
         chemin_yaml, _ = QFileDialog.getOpenFileName(
             self,
             self.fonction_traduire("pop_up_yaml"),
             "",
             "YAML Files (*.yaml *.yml)",
         )
+
         if chemin_yaml:
+
             with open(chemin_yaml, "r", encoding="utf-8") as file:
                 data = yaml.safe_load(file)
-                if num == 1:
-                    self.chemin_fichier_yaml_1 = chemin_yaml
-                    self.fichier_yaml_1 = data  # Stocke les données du YAML 1
-                    self.dicts_granu["region"] = data
 
-                else:
-                    self.chemin_fichier_yaml_2 = chemin_yaml
-                    self.fichier_yaml_2 = data  # Stocke les données du YAML 2
-                    self.dicts_granu["dep"] = data
+            type = detecter_type_yaml(dictionnaire=data)
+            # Ce sont des voyages
+            if type == True:
+                for clef in data.keys():
+                    self.ajouter_voyage(voyage=data.get(clef), clef=None)
 
-            self.dict_modif.emit(self.dicts_granu)
-            self.maj_liste_reg_dep_pays()
+            elif type in ["region", "dep"]:
+                for clef in data.keys():
+                    self.ajouter_voyage(
+                        voyage=creer_voyage(
+                            nom=None,
+                            date_deb=None,
+                            date_fin=None,
+                            regions={clef: data.get(clef)} if type == "region" else {},
+                            departements=(
+                                {clef: data.get(clef)} if type == "dep" else {}
+                            ),
+                            langue=self.langue,
+                        ),
+                        clef=None,
+                    )
+
+                # separer_combinaisons(
+                #         dico1=data,
+                #         dico2=tronquer_dict(d=self.constantes.hierarchie_par_pays, n=2),
+                #     )
+
+                # if dict_sep[False]:
+
+                #     for pays in dict_sep[False]:
+
+                #         temp = (
+                #             ", ".join(dict_sep[False][pays])
+                #             if dict_sep[False][pays]
+                #             else ""
+                #         )
+                #         dict_sep[False][
+                #             pays
+                #         ] = f"– <b>{pays}</b>{(f' ({temp})' if temp else '')}"
+
+                # PopupInfo(parent=self).montrer(
+                #     titre=self.fonction_traduire("pop_up_attention_titre"),
+                #     contenu=self.fonction_traduire(
+                #         "lieux_sans_correspondance",
+                #         suffixe=f" :<br>{f' ; <br>'.join(list(dict_sep[False].values()))}.",
+                #     ),
+                #     temps_max=None,
+                # )
+
+            self.dict_modif.emit(self.voyages)
             self.set_langue(langue=None)
 
     def exporter_yamls_visites(self):
 
         if self.dossier_stockage is None:
 
-            self.fonction_pop_up(
+            PopupInfo(parent=self).montrer(
                 contenu=self.fonction_traduire(
                     "pop_up_pas_de_dossier_de_stockage",
                     suffixe=".",
@@ -166,31 +224,18 @@ class OngletSelectionnerDestinations(QWidget):
             if nom is None or nom in [""]:
                 nom = formater_temps_actuel()
 
-            gran = self.constantes.parametres_traduits["granularite"][self.langue]
             nom = (
-                f"{nom}{' – '}{self.fonction_traduire(clef='granularite_pays_visites')}"
+                f"{nom}{' – '}{self.fonction_traduire(clef='titre_liste_voyages')}.yaml"
             )
-
-            nom_yaml_regions = f"{nom} – {gran['Régions']}.yaml"
-            nom_yaml_departements = f"{nom} – {gran['Départements']}.yaml"
 
             try:
 
                 # Export des régions
-                if self.dicts_granu["region"] != {}:
+                if self.voyages:
                     exporter_fichier(
-                        objet=self.dicts_granu["region"],
+                        objet=self.voyages,
                         direction_fichier=self.dossier_stockage,
-                        nom_fichier=nom_yaml_regions,
-                        sort_keys=True,
-                    )
-
-                # Export des départements
-                if self.dicts_granu["dep"] != {}:
-                    exporter_fichier(
-                        objet=self.dicts_granu["dep"],
-                        direction_fichier=self.dossier_stockage,
-                        nom_fichier=nom_yaml_departements,
+                        nom_fichier=nom,
                         sort_keys=True,
                     )
 
@@ -201,7 +246,7 @@ class OngletSelectionnerDestinations(QWidget):
 
             except Exception as e:
 
-                self.fonction_pop_up(
+                PopupInfo(parent=self).montrer(
                     titre=self.fonction_traduire("pop_up_probleme_titre", suffixe="."),
                     contenu=self.fonction_traduire(
                         "export_pas_fonctionnel",
@@ -216,12 +261,9 @@ class OngletSelectionnerDestinations(QWidget):
     def set_nom_individu(self, nom):
         self.nom_individu = nom
 
-    def set_dict_granu(self, dictionnaire: dict):
-        self.dicts_granu = dictionnaire
-
-    def set_emoji_sauvegarde(self):
-        self.bouton_sauvegarde2.setText("💾✅")
-        QTimer.singleShot(3000, lambda: self.bouton_sauvegarde2.setText("💾"))
+    def set_voyages(self, dictionnaire: dict):
+        self.voyages = dictionnaire
+        self.afficher_voyages(vbox=self.liste_voyage_layout)
 
     def set_langue(self, langue):
 
@@ -230,142 +272,248 @@ class OngletSelectionnerDestinations(QWidget):
             self.langue = langue
 
         # Mise à jour de l'interface
-        self.groupe_selection_lieux.setTitle(
-            self.fonction_traduire("titre_choix_destinations_visitees")
+        self.liste_voyage_groupbox.setTitle(
+            self.fonction_traduire("titre_liste_voyages")
         )
+
+        # Avertissement
         self.avertissement_prio.setText(
             self.fonction_traduire("avertissement_onglet_2", prefixe="⚠️ ", suffixe=".")
         )
 
-        reset_combo(
-            self.liste_niveaux,
-            [
-                self.constantes.parametres_traduits["granularite"][self.langue][k]
-                for k in ["Régions", "Départements"]
-            ],
+        # Boutons
+        self.ajouter_voyage_bouton.setText(
+            self.fonction_traduire("bouton_ajouter_voyage")
         )
+
         self.telecharger_lieux_visites.setText("📥")
         self.telecharger_lieux_visites.setToolTip(
             self.fonction_traduire("telecharger_lieux_visites", suffixe=".")
         )
-        self.bouton_sauvegarde2.setText("💾")
-        self.bouton_sauvegarde2.setToolTip(
+        self.bouton_sauvegarde.setText("💾")
+        self.bouton_sauvegarde.setToolTip(
             self.fonction_traduire("sauvegarder_profil", suffixe=".")
-        )
-        self.liste_des_pays.setToolTip(
-            self.fonction_traduire("precision_diplomatique_onglet_2", suffixe=".")
         )
 
         # Chargement des YAMLs
-        self.groupe_chargement_yaml.setTitle(
-            self.fonction_traduire("titre_chargement_yamls", prefixe="... ")
+        self.chargement_yaml_bouton.setToolTip(
+            self.fonction_traduire("description_titre_chargement_yaml", suffixe=".")
         )
-        self.groupe_chargement_yaml.setToolTip(
-            self.fonction_traduire("description_titre_chargement_yamls", suffixe=".")
-        )
-        self.fichier_yaml_1_bouton.setText(
-            self.fonction_traduire("yaml_regions")
-            if self.fichier_yaml_1 is None
-            else os.path.basename(self.chemin_fichier_yaml_1)
-        )
-        self.fichier_yaml_2_bouton.setText(
-            self.fonction_traduire("yaml_departements")
-            if self.fichier_yaml_2 is None
-            else os.path.basename(self.chemin_fichier_yaml_2)
-        )
+        self.chargement_yaml_bouton.setText("📂")
 
-    def maj_liste_reg_dep_pays(self):
-
-        pays_i = self.liste_des_pays.currentText()
-        niveau_i = obtenir_clef_par_valeur(
-            valeur=self.liste_niveaux.currentText(),
-            dictionnaire=self.constantes.parametres_traduits["granularite"][
-                self.langue
-            ],
+        # Options de tri
+        self.dict_correspondances_tri = {
+            self.fonction_traduire(clef): corresp
+            for clef, corresp in {
+                "tri_ordre_creation_voyages": "clef",
+                "tri_nom_voyages": "nom",
+                "tri_dates_debut_voyages": "date",
+            }.items()
+        }
+        reset_combo(
+            self.options_tri,
+            list(self.dict_correspondances_tri.keys()),
         )
 
-        self.liste_endroits.blockSignals(True)
-        self.liste_endroits.clear()
+        self.afficher_voyages(vbox=self.liste_voyage_layout)
 
-        liste_end = (
-            {
-                "Régions": self.constantes.regions_par_pays,
-                "Départements": self.constantes.departements_par_pays,
-            }
-            .get(niveau_i, {})
-            .get(pays_i, [])
+    def set_style(self, style, teinte, nuances):
+
+        self.style = style
+
+        self.couleurs = {
+            1: renvoyer_couleur_widget(
+                style=style,
+                teinte=teinte,
+                nuances=nuances,
+                clair="#C1D9EE",
+                sombre="#1A3B9B",
+            ),
+            2: renvoyer_couleur_widget(
+                style=style,
+                teinte=teinte,
+                nuances=nuances,
+                clair="#D6E4F0",
+                sombre="#2A5BB8",
+            ),
+            3: renvoyer_couleur_widget(
+                style=style,
+                teinte=teinte,
+                nuances=nuances,
+                clair="#E2F0FD",
+                sombre="#3A7BD5",
+            ),
+        }
+
+        self.afficher_voyages(vbox=self.liste_voyage_layout)
+
+    def initialiser_onglet(self, nom: str | None):
+
+        # Mise à jour du nom
+        self.set_nom_individu(nom=nom or "")
+
+    def ajouter_voyage(self, voyage: dict, clef: str | None):
+
+        clef = voyage_id(voyages=self.voyages, clef=clef, longueur=self.longueur)
+        self.voyages[clef] = voyage
+
+    def creer_voyage_ui(self, clef):
+
+        objet = CreerVoyage(
+            visites=self.voyages,
+            clef=clef,
+            constantes=self.constantes,
+            fct_traduction=self.fonction_traduire,
+            parent=self,
+            longueur=self.longueur,
+            langue=self.langue,
+            style=self.style,
         )
 
-        if liste_end == []:
-            self.liste_endroits.blockSignals(False)
-            return
+        if objet.exec() == QDialog.DialogCode.Accepted:
+            if objet.ajouter:
+                clef, voyage = objet.resultat
+                self.ajouter_voyage(voyage=voyage, clef=clef)
+            else:
+                clef = objet.clef
+                if clef in self.voyages:
+                    del self.voyages[clef]
 
-        for item in liste_end:
-            liste_item = QListWidgetItem(item)
-            liste_item.setFlags(liste_item.flags() | Qt.ItemFlag.ItemIsUserCheckable)
+            self.dict_modif.emit(self.voyages)
 
-            # Si déjà sélectionné dans le dict, on coche
-            est_coche = item in (
-                (
-                    self.dicts_granu.get("region" if niveau_i == "Régions" else "dep")
-                    or {}
-                ).get(pays_i)
-                or []
+        self.afficher_voyages(vbox=self.liste_voyage_layout)
+
+    def _creer_scroll(self):
+        scroll = QScrollArea()
+        scroll.setWidgetResizable(True)
+
+        # Layout interne propre pour le scroll
+        container = QWidget()
+        container_layout = QVBoxLayout(container)
+        scroll.setWidget(container)
+
+        # On garde une référence vers container si besoin pour ajouter dynamiquement
+        scroll.container_layout = container_layout
+        scroll.container_widget = container
+
+        return scroll
+
+    def afficher_voyages(self, vbox):
+        """Affiche self.voyages dans un QTreeWidget avec un affichage simplifié."""
+
+        def ajouter_voyage_elements(parent_item, data, niveau=1):
+            """Ajoute récursivement les éléments de self.voyages à l'arbre."""
+            if isinstance(data, dict):
+                for cle, valeur in data.items():
+
+                    if cle in ["nom"]:
+                        pass
+                    elif cle in ["date_debut", "date_fin"]:
+                        if valeur:
+                            child = QTreeWidgetItem(
+                                parent_item,
+                                [
+                                    f"{self.fonction_traduire(f'voyage_{cle}')} : "
+                                    f"{datetime.strptime(str(valeur), '%Y-%m-%d').strftime('%d/%m/%Y')}"
+                                ],
+                            )
+                            child.setBackground(
+                                0,
+                                QtGui.QBrush(
+                                    QtGui.QColor(self.couleurs.get(niveau, "#FFFFFF"))
+                                ),
+                            )
+                    # Pour "region" et "dep", garder le comportement complexe
+                    elif cle in ["region", "dep"]:
+                        if valeur:
+                            child = QTreeWidgetItem(
+                                parent_item,
+                                [
+                                    self.constantes.parametres_traduits.get(
+                                        "granularite", {}
+                                    )
+                                    .get(self.langue, {})
+                                    .get(
+                                        "Départements"
+                                        if str(cle) == "dep"
+                                        else "Régions"
+                                    )
+                                ],
+                            )
+                            child.setBackground(
+                                0,
+                                QtGui.QBrush(
+                                    QtGui.QColor(self.couleurs.get(niveau, "#FFFFFF"))
+                                ),
+                            )
+                            ajouter_voyage_elements(child, valeur, niveau + 1)
+                    else:
+                        # Pour les autres clés (si jamais il y en a)
+                        child = QTreeWidgetItem(parent_item, [str(cle)])
+                        child.setBackground(
+                            0,
+                            QtGui.QBrush(
+                                QtGui.QColor(self.couleurs.get(niveau, "#FFFFFF"))
+                            ),
+                        )
+                        ajouter_voyage_elements(child, valeur, niveau + 1)
+            elif isinstance(data, list):
+                # Pour les listes (ex: ["Alice", "Bob"])
+                for item in data:
+                    child = QTreeWidgetItem(parent_item, [f"• {str(item)}"])
+                    child.setBackground(
+                        0, QtGui.QBrush(QtGui.QColor(Qt.GlobalColor.transparent))
+                    )
+            else:
+                # Pour les valeurs simples (ex: "Paris", "01/01/2026")
+                child = QTreeWidgetItem(parent_item, [str(data)])
+                child.setBackground(
+                    0, QtGui.QBrush(QtGui.QColor(Qt.GlobalColor.transparent))
+                )
+
+        # Nettoie le layout
+        vider_layout(vbox)
+
+        # Création de l'arbre
+        if self.voyages:
+            tree = QTreeWidget()
+            tree.setHeaderHidden(True)
+            tree.setColumnCount(1)
+            tree.setIndentation(20)
+            tree.setExpandsOnDoubleClick(True)
+
+            # Connecte le signal de double-clic
+            tree.itemDoubleClicked.connect(self.voyage_double_clique)
+
+            clefs_temp = trier_voyages(
+                dictionnaire=self.voyages,
+                tri=self.dict_correspondances_tri.get(self.options_tri.currentText()),
             )
-            liste_item.setCheckState(
-                Qt.CheckState.Checked if est_coche else Qt.CheckState.Unchecked
-            )
-            self.liste_endroits.addItem(liste_item)
 
-        self.liste_endroits.blockSignals(False)
+            # Remplit l'arbre avec les données
+            for voyage_ident in clefs_temp:
 
-        # Connecte le signal (une seule fois idéalement)
-        try:
-            self.liste_endroits.itemChanged.disconnect()
-        except TypeError:
-            pass
-        self.liste_endroits.itemChanged.connect(self.changer_item_liste_pays)
+                voyage_temp = self.voyages.get(voyage_ident, {})
+                # Crée un item pour chaque voyage (ex: "Voyage 1")
+                voyage_item = QTreeWidgetItem(
+                    tree.invisibleRootItem(),
+                    [voyage_temp.get("nom") or voyage_ident],
+                )
+                voyage_item.setBackground(
+                    0, QtGui.QBrush(QtGui.QColor(self.couleurs.get(1, "#FFFFFF")))
+                )
+                voyage_item.setData(0, Qt.ItemDataRole.UserRole, voyage_ident)
+                ajouter_voyage_elements(voyage_item, voyage_temp, niveau=2)
 
-    def changer_item_liste_pays(self, item):
+            # Affiche tout replié
+            tree.collapseAll()
 
-        pays_i = self.liste_des_pays.currentText()
-        texte = item.text()
+            vbox.addWidget(tree)
 
-        # Détermine la clé du dictionnaire selon le niveau
-        clef = (
-            "region"
-            if obtenir_clef_par_valeur(
-                valeur=self.liste_niveaux.currentText(),
-                dictionnaire=self.constantes.parametres_traduits["granularite"][
-                    self.langue
-                ],
-            )
-            == "Régions"
-            else "dep"
-        )
-
-        # Initialise le dictionnaire pour le pays s’il n’existe pas
-        self.dicts_granu[clef] = self.dicts_granu.get(clef) or {}
-        self.dicts_granu[clef][pays_i] = self.dicts_granu[clef].get(pays_i) or []
-
-        # Ajoute ou retire l’élément selon son état
-        if item.checkState() == Qt.CheckState.Checked:
-            if texte not in self.dicts_granu[clef][pays_i]:
-                self.dicts_granu[clef][pays_i].append(texte)
-                self.dicts_granu[clef][pays_i].sort()
-                self.dicts_granu[clef] = {
-                    pays: self.dicts_granu[clef][pays]
-                    for pays in sorted(self.dicts_granu[clef])
-                }
-        else:
-            if texte in self.dicts_granu[clef][pays_i]:
-                self.dicts_granu[clef][pays_i].remove(texte)
-                if self.dicts_granu[clef][pays_i] == []:
-                    del self.dicts_granu[clef][pays_i]
-
-        self.dict_modif.emit(self.dicts_granu)
-
-    def reset_yaml(self):
-        self.fichier_yaml_1 = None
-        self.fichier_yaml_2 = None
-        self.set_langue(langue=None)
+    def voyage_double_clique(self, item, column):
+        """Gère le double-clic sur un voyage."""
+        # Récupère la clé du voyage stockée dans UserRole
+        voyage_identifiant = item.data(column, Qt.ItemDataRole.UserRole)
+        if voyage_identifiant:
+            # Appelle creer_voyage_ui avec la clé du voyage
+            self.creer_voyage_ui(voyage_identifiant)

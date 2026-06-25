@@ -5,7 +5,11 @@
 ################################################################################
 
 
+# 0 -- Initialisation ----------------------------------------------------------
+
+
 import os
+from PyQt6.QtCore import pyqtSignal, QObject
 from PyQt6.QtWidgets import (
     QWidget,
     QHBoxLayout,
@@ -15,101 +19,78 @@ from PyQt6.QtWidgets import (
     QPushButton,
     QComboBox,
     QCheckBox,
-    QFileDialog,
     QSlider,
     QGroupBox,
-    QButtonGroup,
-    QRadioButton,
     QProgressBar,
     QSpacerItem,
     QSizePolicy,
 )
-from PyQt6.QtCore import Qt, QTimer, QThread, pyqtSignal
+from PyQt6.QtCore import Qt, QThread
+
+from _0_Utilitaires._0_1_fonctions_utiles_gen import (
+    charger_gdfs,
+    obtenir_clef_par_valeur,
+)
+from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
+    reset_combo,
+    creer_QLabel_centre,
+    creer_ligne_horizontale,
+    creer_ligne_verticale,
+    restaurer_valeur_combo,
+    set_emoji_sauvegarde,
+)
+from _0_Utilitaires._0_11_classes_pop_up import PopupInfo
+from _0_Utilitaires._0_12_toggle_checkbox import ToggleSwitch
 from _4_Interface._4_1_Onglets.onglet_1.onglet_1_1_creation_cartes import CreerCartes
 from _4_Interface._4_1_Onglets.onglet_1.onglet_1_2_combobox_coloree import (
     FondCarteCombo,
 )
-from _0_Utilitaires._0_1_Fonctions_utiles import (
-    creer_ligne_verticale,
-    creer_ligne_separation,
-    creer_QLabel_centre,
-    style_bouton_de_suppression,
-    obtenir_clef_par_valeur,
-    reset_combo,
-)
+
+# 1 -- Classe de chargement des GeoDataFrames ----------------------------------
+
+
+class WorkerChargement(QObject):
+    finished = pyqtSignal()
+    erreur = pyqtSignal(str)
+
+    def __init__(self, parent, direction):
+        super().__init__()
+        self.parent = parent
+        self.direction = direction
+
+    def run(self):
+        try:
+            # Chargement lourd
+            self.parent.liste_gdfs = charger_gdfs(
+                direction_base=self.direction,
+                max_niveau=2,
+            )
+
+            self.finished.emit()
+
+        except Exception as e:
+            self.erreur.emit(str(e))
+
+
+# 2 -- Classe de l'onglet des paramètres de cartes -----------------------------
 
 
 class OngletParametres(QWidget):
 
-    envoi_dossier = pyqtSignal(str)
-
-    def __init__(
-        self, gdf_eau, constantes, liste_individus, fct_traduction, fct_pop_up
-    ):
+    def __init__(self, constantes, fct_traduction):
 
         super().__init__()
 
-        self.gdf_eau = gdf_eau
         self.constantes = constantes
         self.fonction_traduction = fct_traduction
-        self.fonction_pop_up = fct_pop_up
+        self.langue = "français"
+        self.liste_gdfs = []
 
         layout = QVBoxLayout()
 
-        # Créer un label comme titre
-        self.titre = QLabel()
-        self.set_style_titre(taille=24)
-
-        # Layout vertical
-        layout.addWidget(self.titre, stretch=2)  # Ajouter le titre en haut
-
         self.setLayout(layout)
 
-        self.groupe_params_individu = QGroupBox()
-
-        # Layout horizontal pour organiser les éléments dans la boîte
-        layout_params_individu = QHBoxLayout()
-
-        # Champ de texte pour le nom de l'individu
-        self.nom_individu = QComboBox(self)
-        self.nom_individu.setEditable(True)
-        self.nom_individu.setPlaceholderText(" ")
-        self.nom_individu.addItems(liste_individus)
-        layout_params_individu.addWidget(self.nom_individu, stretch=2)
-
-        # Bouton pour choisir le dossier de stockage
-        self.dossier_stockage = None
-        self.dossier_stockage_bouton = QPushButton()
-        self.dossier_stockage_bouton.clicked.connect(self.choisir_dossier)
-        layout_params_individu.addWidget(self.dossier_stockage_bouton, stretch=3)
-
-        # Choix de la langue
-        self.label_langue = creer_QLabel_centre()
-        self.langue_utilisee = QComboBox()
-        self.langue_utilisee.addItems(
-            ["Français", "English"]
-            + sorted(
-                langue
-                for langue in constantes.dict_langues_dispo.values()
-                if langue not in {"Français", "English"}
-            )
-        )
-        layout_params_individu.addWidget(self.label_langue, stretch=1)
-        layout_params_individu.addWidget(self.langue_utilisee, stretch=2)
-
-        # Ajout de la possibilité de supprimer un profil
-        layout_params_individu.addWidget(creer_ligne_verticale(), stretch=1)
-        self.suppression_profil = QPushButton()
-        self.suppression_profil.setStyleSheet(
-            style_bouton_de_suppression(
-                sombre=constantes.parametres_application["interface_foncee"]
-            )
-        )
-        layout_params_individu.addWidget(self.suppression_profil, stretch=2)
-
         # Ajouter le layout à la group box et la group box au layout général
-        self.groupe_params_individu.setLayout(layout_params_individu)
-        layout.addWidget(self.groupe_params_individu, stretch=3)
 
         # Créer un QGroupBox pour les choix de granularité
         self.groupe_granularite = QGroupBox()
@@ -150,8 +131,6 @@ class OngletParametres(QWidget):
         self.moyen_orient = QCheckBox()
         self.autres_regions = QCheckBox()
 
-        self.sortir_cartes_granu_inf = QCheckBox()
-
         self.carte_pays.setChecked(True)
         self.europe.setChecked(True)
 
@@ -167,8 +146,8 @@ class OngletParametres(QWidget):
             self.carte_pays, 0, 3, 1, 3, alignment=Qt.AlignmentFlag.AlignCenter
         )
 
-        layout_cartes_a_creer.addLayout(
-            creer_ligne_separation(lStretch=0, ligne_largeur=1, rStretch=0),
+        layout_cartes_a_creer.addWidget(
+            creer_ligne_horizontale(lStretch=0, ligne_largeur=1, rStretch=0),
             1,
             0,
             1,
@@ -185,65 +164,16 @@ class OngletParametres(QWidget):
         layout_cartes_a_creer.addWidget(self.moyen_orient, ligne_regions_1, 2, 1, 2)
         layout_cartes_a_creer.addWidget(self.autres_regions, ligne_regions_1, 4, 1, 2)
 
-        layout_cartes_a_creer.addLayout(
-            creer_ligne_separation(lStretch=0, ligne_largeur=1, rStretch=0),
-            4,
-            0,
-            1,
-            6,
-        )
-
-        layout_cartes_a_creer.addWidget(
-            self.sortir_cartes_granu_inf,
-            5,
-            0,
-            1,
-            6,
-            alignment=Qt.AlignmentFlag.AlignCenter,
-        )
-
-        widget_nb_copies_cartes = QWidget()
-        radio_layout = QHBoxLayout()
-        radio_layout.setContentsMargins(0, 0, 0, 0)
-        radio_layout.setSpacing(10)
-        widget_nb_copies_cartes.setLayout(radio_layout)
-
-        # Titre (centré verticalement)
-        self.label_nb_copies_cartes = creer_QLabel_centre()
-
-        # Création des boutons radio avec noms clairs
-        self.radio_carte_1 = QRadioButton()
-        self.radio_carte_2 = QRadioButton()
-        self.radio_carte_3 = QRadioButton()
-        self.radio_carte_sans_limite = QRadioButton()
-
-        # Option par défaut
-        self.radio_carte_2.setChecked(True)
-
-        # Groupe exclusif
-        self.groupe_radio_max_cartes = QButtonGroup(self)
-        self.groupe_radio_max_cartes.addButton(self.radio_carte_1, 1)
-        self.groupe_radio_max_cartes.addButton(self.radio_carte_2, 2)
-        self.groupe_radio_max_cartes.addButton(self.radio_carte_3, 3)
-        self.groupe_radio_max_cartes.addButton(self.radio_carte_sans_limite, -1)
-
-        # Ajout au layout horizontal
-        radio_layout.addWidget(self.label_nb_copies_cartes)
-        radio_layout.addWidget(self.radio_carte_1)
-        radio_layout.addWidget(self.radio_carte_2)
-        radio_layout.addWidget(self.radio_carte_3)
-        radio_layout.addWidget(self.radio_carte_sans_limite)
-
         # Ajout du layout au QGroupBox puis ajout au layout principal
         self.groupe_cartes_a_creer.setLayout(layout_cartes_a_creer)
         layout_granu_cartes_a_creer = QVBoxLayout()
-        layout_granu_cartes_a_creer.addWidget(self.groupe_granularite)
-        layout_granu_cartes_a_creer.addWidget(self.groupe_cartes_a_creer)
+        layout_granu_cartes_a_creer.addWidget(self.groupe_granularite, stretch=3)
+        layout_granu_cartes_a_creer.addWidget(self.groupe_cartes_a_creer, stretch=5)
         # layout.addWidget(self.groupe_cartes_a_creer)
 
         # Boîte des couleurs
         self.groupe_couleurs = QGroupBox()
-        layout_theme_couleurs = QVBoxLayout()
+        layout_theme_couleurs = QVBoxLayout(self.groupe_couleurs)
 
         # Choix du thème
         self.theme_label = creer_QLabel_centre()
@@ -262,8 +192,7 @@ class OngletParametres(QWidget):
         layout_couleurs.addWidget(self.color_combo)
 
         # Utilisation ou non du thème dans l'interface
-        self.utiliser_theme = QCheckBox()
-        # self.utiliser_theme.stateChanged.connect(self.maj_style)
+        self.utiliser_theme = ToggleSwitch()
 
         # Choix de la couleur de fond
         layout_couleur_fond = QHBoxLayout()
@@ -282,13 +211,10 @@ class OngletParametres(QWidget):
         layout_theme_couleurs.addWidget(
             self.utiliser_theme, alignment=Qt.AlignmentFlag.AlignCenter
         )
-        layout_theme_couleurs.addLayout(
-            creer_ligne_separation(lStretch=0, ligne_largeur=1, rStretch=0)
+        layout_theme_couleurs.addWidget(
+            creer_ligne_horizontale(lStretch=0, ligne_largeur=1, rStretch=0)
         )
         layout_theme_couleurs.addLayout(layout_couleur_fond)
-
-        # Ajout du layout de couleurs au groupbox et ajout du groupbox au layout principal
-        self.groupe_couleurs.setLayout(layout_theme_couleurs)
 
         # # Ajout des groupbox des cartes et des couleurs
         layout_cartes_et_couleurs.addLayout(layout_granu_cartes_a_creer)
@@ -309,20 +235,16 @@ class OngletParametres(QWidget):
         self.label_qualite_min = creer_QLabel_centre()
         self.label_qualite_max = creer_QLabel_centre()
         self.curseur_qualite = QSlider(Qt.Orientation.Horizontal)
-        self.curseur_qualite.setMinimum(
-            constantes.parametres_application["qualite_min"]
+        self.curseur_qualite_min = self.constantes.parametres_application.get(
+            "qualite_min", 100
         )
-        self.curseur_qualite.setMaximum(
-            constantes.parametres_application["qualite_max"]
+        self.curseur_qualite_max = self.constantes.parametres_application.get(
+            "qualite_max", 4500
         )
+        self.curseur_qualite.setMinimum(self.curseur_qualite_min)
+        self.curseur_qualite.setMaximum(self.curseur_qualite_max)
         self.curseur_qualite.setValue(
-            int(
-                (
-                    constantes.parametres_application["qualite_min"]
-                    + constantes.parametres_application["qualite_max"]
-                )
-                / 2
-            )
+            int((self.curseur_qualite_min + self.curseur_qualite_max) / 2)
         )
 
         # Choix du format d'image
@@ -331,6 +253,12 @@ class OngletParametres(QWidget):
         self.format_cartes.addItems(
             ["png", "jpg", "svg", "pdf", "tif", "webp", "raw", "ps"]
         )
+
+        # Possibilité d'envoi par e-mail
+        self.email_checkbox = ToggleSwitch()
+
+        # Possibilité d'écrire le nom du territoire sur la carte
+        self.labellisation_checkbox = ToggleSwitch()
 
         # Ajout des widgets au layout horizontal
         layout_format_qualite.addWidget(self.label_format)
@@ -344,15 +272,24 @@ class OngletParametres(QWidget):
         layout_format_qualite.addWidget(self.label_qualite_min)
         layout_format_qualite.addWidget(self.curseur_qualite)
         layout_format_qualite.addWidget(self.label_qualite_max)
+        layout_format_qualite.addItem(
+            QSpacerItem(
+                20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding
+            )
+        )
+        layout_format_qualite.addWidget(creer_ligne_verticale())
+        layout_mail_texte = QVBoxLayout()
+        layout_mail_texte.addWidget(self.labellisation_checkbox)
+        layout_mail_texte.addWidget(self.email_checkbox)
+        layout_format_qualite.addLayout(layout_mail_texte)
 
         # Ajouter le layout horizontal au layout principal
         layout_params_publication.addLayout(layout_format_qualite)
-        layout_params_publication.addWidget(widget_nb_copies_cartes)
         # Ajouter le layout principal à la group box
         self.groupe_params_publication.setLayout(layout_params_publication)
 
         # Ajouter le QGroupBox au layout principal
-        layout.addWidget(self.groupe_params_publication, stretch=6)
+        layout.addWidget(self.groupe_params_publication, stretch=3)
 
         # Bouton de validation
         layout_valid_reinit = QGridLayout()
@@ -366,55 +303,30 @@ class OngletParametres(QWidget):
 
         # Bouton de sauvegarde
         self.bouton_sauvegarde = QPushButton()
-
-        # Bouton de réinitialisation
-        self.reinit_parametres = QPushButton()
-        self.reinit_parametres.setStyleSheet(
-            style_bouton_de_suppression(
-                sombre=constantes.parametres_application["interface_foncee"]
-            )
+        self.bouton_sauvegarde.clicked.connect(
+            lambda: set_emoji_sauvegarde(self.bouton_sauvegarde, 3000)
         )
 
         # Ajouter les widgets dans la grille
-        layout_valid_reinit.addWidget(self.reinit_parametres, 0, 0)
-        layout_valid_reinit.addWidget(self.creation_cartes_bouton, 0, 1)
-        layout_valid_reinit.addWidget(self.barre_progression, 0, 1)
+        layout_valid_reinit.addWidget(self.creation_cartes_bouton, 0, 0)
+        layout_valid_reinit.addWidget(self.barre_progression, 0, 0)
         self.barre_progression.setVisible(False)
-        layout_valid_reinit.addWidget(self.bouton_sauvegarde, 0, 2)
+        layout_valid_reinit.addWidget(self.bouton_sauvegarde, 0, 1)
 
         # Ajuster les proportions : colonne 1 (droite) prend plus de place
-        layout_valid_reinit.setColumnStretch(0, 1)  # petite colonne gauche
-        layout_valid_reinit.setColumnStretch(1, 4)  # plus grande colonne au milieu
-        layout_valid_reinit.setColumnStretch(2, 1)  # petite colonne à gauche
+        layout_valid_reinit.setColumnStretch(0, 4)  # plus grande colonne au milieu
+        layout_valid_reinit.setColumnStretch(1, 1)  # petite colonne à gauche
 
         layout.addLayout(layout_valid_reinit, stretch=1)
         self.setLayout(layout)
 
-    def set_langue(self):
+    def set_langue(self, langue: str | None):
 
         # Récupération de la langue
-        langue_actuelle = obtenir_clef_par_valeur(
-            dictionnaire=self.constantes.dict_langues_dispo,
-            valeur=self.langue_utilisee.currentText(),
-        )
+        self.langue = langue
 
-        if langue_actuelle is None:
+        if self.langue is None:
             return
-
-        # Paramètres de l'individu
-        self.groupe_params_individu.setTitle(
-            self.fonction_traduction("titre_params_individu")
-        )
-        # self.dossier_stockage_bouton.setText(
-        #     self.fonction_traduction("dossier_stockage_individu")
-        #     if self.dossier_stockage is None
-        #     else os.sep.join(os.path.normpath(self.dossier_stockage).split(os.sep)[-3:])
-        # )
-        self.set_dossier(dossier=self.dossier_stockage)
-        self.label_langue.setText(
-            self.fonction_traduction(clef="langue_individu", suffixe=" :")
-        )
-        self.suppression_profil.setText(self.fonction_traduction("supprimer_profil"))
 
         # Granularité des cartes
         self.groupe_granularite.setTitle(self.fonction_traduction("titre_granularite"))
@@ -437,15 +349,6 @@ class OngletParametres(QWidget):
         self.europe.setText(self.fonction_traduction("europe"))
         self.moyen_orient.setText(self.fonction_traduction("moyen_orient"))
         self.autres_regions.setText(self.fonction_traduction("autres_regions_monde"))
-        self.sortir_cartes_granu_inf.setText(
-            self.fonction_traduction("publier_cartes_faible_granularite_uniquement")
-        )
-        self.sortir_cartes_granu_inf.setToolTip(
-            self.fonction_traduction(
-                clef="description_publier_cartes_faible_granularite_uniquement",
-                largeur_max=None,
-            )
-        )
 
         # Paramètres visuels
         self.groupe_couleurs.setTitle(
@@ -468,7 +371,7 @@ class OngletParametres(QWidget):
         self.couleur_fond_label.setToolTip(
             self.fonction_traduction(clef="cartes_couleurs_fond_tool_tip", suffixe=".")
         )
-        self.combo_couleur_fond.set_langue(langue=langue_actuelle, taille=20)
+        self.combo_couleur_fond.set_langue(langue=self.langue, taille=20)
 
         # Paramètres de format et de qualité
         self.groupe_params_publication.setTitle(
@@ -482,30 +385,24 @@ class OngletParametres(QWidget):
         )
         self.label_qualite_max.setText(self.fonction_traduction("qualite_elevee"))
         self.label_qualite_min.setText(self.fonction_traduction("qualite_faible"))
-        self.label_nb_copies_cartes.setText(
-            self.fonction_traduction("nombre_exemplaires_cartes", suffixe=" : ")
+
+        # Envoi par e-mail
+        self.email_checkbox.setText(
+            self.fonction_traduction("email_checkbox", suffixe=" ✉️​")
         )
-        self.label_nb_copies_cartes.setToolTip(
-            self.fonction_traduction(
-                "description_nombre_exemplaires_cartes", suffixe="."
-            )
+        self.email_checkbox.setToolTip(
+            self.fonction_traduction("email_checkbox_tooltip", suffixe=".")
         )
-        self.radio_carte_1.setText(self.fonction_traduction("cinq_cartes"))
-        self.radio_carte_2.setText(self.fonction_traduction("dix_cartes"))
-        self.radio_carte_3.setText(self.fonction_traduction("quinze_cartes"))
-        self.radio_carte_sans_limite.setText(
-            self.fonction_traduction("pas_de_limite_de_cartes")
+
+        # Nom du territoire écrit
+        self.labellisation_checkbox.setText(
+            self.fonction_traduction("ecrire_nom_checkbox", suffixe=" 🏷️")
+        )
+        self.labellisation_checkbox.setToolTip(
+            self.fonction_traduction("ecrire_nom_checkbox_tooltip", suffixe=".")
         )
 
         # Boutons en bas de l'onglet 1
-        self.reinit_parametres.setText(
-            self.fonction_traduction("reinitialisation_interface")
-        )
-        self.reinit_parametres.setToolTip(
-            self.fonction_traduction(
-                "description_bouton_reinitialisation_interface", suffixe="."
-            )
-        )
         self.creation_cartes_bouton.setText(
             self.fonction_traduction("bouton_publier_cartes")
         )
@@ -519,9 +416,10 @@ class OngletParametres(QWidget):
 
         # Mise à jour des listes déroulantes
         liste_granularite = [
-            self.constantes.parametres_traduits["granularite"][langue_actuelle][k]
+            self.constantes.parametres_traduits["granularite"][self.langue][k]
             for k in ["Pays", "Région", "Département", "Amusant"]
         ]
+
         reset_combo(combo=self.granularite_visite, items=liste_granularite)
         reset_combo(combo=self.granularite_fond, items=liste_granularite[:-1])
 
@@ -530,7 +428,7 @@ class OngletParametres(QWidget):
             combo=self.color_combo,
             items=sorted(
                 self.constantes.parametres_traduits.get("teintes_couleurs", {})
-                .get(langue_actuelle, {})
+                .get(self.langue, {})
                 .values()
             ),
         )
@@ -540,129 +438,300 @@ class OngletParametres(QWidget):
             self.theme_combo,
             sorted(
                 self.constantes.parametres_traduits.get("themes_cartes", {})
-                .get(langue_actuelle, {})
+                .get(self.langue, {})
                 .values()
             ),
         )
 
-    def set_dossier(self, dossier):
+    def set_style(self, style, preset, teintes):
 
-        self.dossier_stockage = dossier
-        self.dossier_stockage_bouton.setText(
-            self.fonction_traduction("dossier_stockage_individu")
-            if self.dossier_stockage is None
-            else os.sep.join(os.path.normpath(self.dossier_stockage).split(os.sep)[-3:])
+        self.utiliser_theme.set_style(style=style, preset=preset, teintes=teintes)
+        self.email_checkbox.set_style(style=style, preset=preset, teintes=teintes)
+        self.labellisation_checkbox.set_style(
+            style=style, preset=preset, teintes=teintes
         )
-        self.envoi_dossier.emit(self.dossier_stockage)
 
-    def choisir_dossier(self):
-        dossier = QFileDialog.getExistingDirectory(
-            self, self.fonction_traduction("dossier_stockage_pop_up")
-        )
-        if dossier:
-            self.set_dossier(dossier=dossier)
-            self.set_langue()
+        self.creation_cartes_bouton.setStyleSheet("""
+            QPushButton {
+                font-weight: 600;
+            }
+            """)
 
-    def initialiser_progression(self, nb_cartes: int):
+    def barre_set_max(self, val: int):
+        self.barre_progression.setMaximum(val)
+
+    def initialiser_progression(self):
 
         # Initialisation de la barre de progression
-        self.barre_progression.setMaximum(nb_cartes)
+        self.barre_set_max(val=10)
         self.barre_progression.setValue(0)
-        self.nb_total_graphes = nb_cartes
-        self.graphique_i = 0
 
         # Affichage de la barre de progression
         self.debut_fin_creation_cartes(debut=True)
 
-    def afficher_avancement(self, libelle_pays):
-        self.graphique_i = self.graphique_i + 1
-        self.barre_progression.setValue(self.graphique_i)
-        self.barre_progression.setFormat(
-            f"{self.graphique_i}/{self.nb_total_graphes} : {libelle_pays}"
-        )
-
     def debut_fin_creation_cartes(self, debut):
 
+        # Affichage soit du bouton, soit de la barre de progression
         self.creation_cartes_bouton.setVisible(not debut)
         self.barre_progression.setVisible(debut)
 
-        self.fonction_pop_up(
-            contenu=self.fonction_traduction(
-                clef=(
-                    "debut_publication_cartes"
-                    if debut
-                    else "publication_cartes_reussie"
-                ),
-                suffixe="." if debut else " ✅​",
-            ),
-            temps_max=5000 if debut else None,
-            titre=self.fonction_traduction(clef="titre_pop_up_publication_cartes"),
-        )
+        if not debut:
 
-    def set_emoji_sauvegarde(self):
-        self.bouton_sauvegarde.setText("💾✅")
-        QTimer.singleShot(3000, lambda: self.bouton_sauvegarde.setText("💾"))
-
-    def fonction_principale(self, settings):
-
-        if (
-            settings["dictionnaire_regions"] is None
-            and settings["dictionnaire_departements"] is None
-        ):
-
-            self.fonction_pop_up(
+            # Pop-up de fin de publication des cartes
+            # message = PopupInfo(parent=self)
+            PopupInfo(parent=self).montrer(
+                titre=self.fonction_traduction(clef="titre_pop_up_publication_cartes"),
                 contenu=self.fonction_traduction(
-                    "pop_up_aucun_lieu_coche", suffixe="."
+                    clef="publication_cartes_reussie",
+                    suffixe=" ✅​",
                 ),
-                titre=self.fonction_traduction("pop_up_probleme_titre", suffixe="."),
-                temps_max=10000,
+                temps_max=2 * 10**4,
             )
 
-        elif settings["dossier_stockage"] is None:
+    def afficher_avancement(self, libelle_pays):
+        self.barre_progression.setValue(self.barre_progression.value() + 1)
+        self.barre_progression.setFormat(libelle_pays)
 
-            self.fonction_pop_up(
+    def soulever_probleme(self, dict_voyages: dict, dossier_stockage: str):
+
+        # Pas de problème au départ
+        probleme = False
+
+        # Initialisation du message
+        message = PopupInfo(parent=self)
+        temps_max = 10**4
+
+        # Pas de voyages effectués
+        if not dict_voyages:
+
+            message.montrer(
+                titre=self.fonction_traduction("pop_up_probleme_titre", suffixe="."),
+                contenu=self.fonction_traduction("pop_up_aucun_lieu_coche"),
+                temps_max=temps_max,
+            )
+            probleme = True
+
+        # Dossier de stockage inexistant
+        elif dossier_stockage is None:
+
+            message.montrer(
                 titre=self.fonction_traduction("pop_up_probleme_titre", suffixe="."),
                 contenu=self.fonction_traduction(
                     "pop_up_pas_de_dossier_de_stockage",
                     suffixe=".",
                 ),
-                temps_max=10000,
+                temps_max=temps_max,
             )
+            probleme = True
 
-        elif not os.path.exists(settings["dossier_stockage"]):
+        # Dossier de stockage invalide
+        elif not os.path.exists(dossier_stockage):
 
-            self.fonction_pop_up(
+            message.montrer(
                 titre=self.fonction_traduction("pop_up_probleme_titre", suffixe="."),
                 contenu=self.fonction_traduction(
                     "pop_up_dossier_de_stockage_faux",
                     suffixe=".",
                 ),
-                temps_max=10000,
+                temps_max=temps_max,
             )
+            probleme = True
 
-        else:
+        # Renvoi
+        return probleme
 
-            # Initialisation de l'objet et de la barre de progression
-            self.creation_cartes = CreerCartes(
-                gdf_eau=self.gdf_eau, params=settings, constantes=self.constantes
-            )
-            self.creation_cartes.nb_graphes.connect(self.initialiser_progression)
-            self.creation_cartes.tracker_signal.connect(self.afficher_avancement)
+    def lancer_chargement_gdfs(self, callback=None):
 
-            self.thread_temp = QThread()
-            self.creation_cartes.moveToThread(self.thread_temp)
+        # Création du thread
+        self.thread_chargement = QThread()
 
-            self.creation_cartes.finished.connect(self.thread_temp.quit)
-            self.creation_cartes.finished.connect(self.creation_cartes.deleteLater)
-            self.thread_temp.finished.connect(self.thread_temp.deleteLater)
-            self.thread_temp.finished.connect(
-                lambda: self.debut_fin_creation_cartes(debut=False)
-            )
-
-            self.thread_temp.started.connect(self.creation_cartes.run)
-            self.thread_temp.start()
-
-    def set_style_titre(self, taille=24):
-        self.titre.setStyleSheet(
-            f"font-size: {taille}px; font-weight: bold; text-align: center; font-family: Vivaldi, sans-serif;"
+        # Worker
+        self.worker_chargement = WorkerChargement(
+            parent=self, direction=self.constantes.direction_donnees_geographiques
         )
+
+        # Déplacement dans le thread
+        self.worker_chargement.moveToThread(self.thread_chargement)
+
+        # Lancement
+        self.thread_chargement.started.connect(self.worker_chargement.run)
+
+        # Fin normale
+        self.worker_chargement.finished.connect(self.thread_chargement.quit)
+
+        self.worker_chargement.finished.connect(self.worker_chargement.deleteLater)
+
+        self.thread_chargement.finished.connect(self.thread_chargement.deleteLater)
+
+        # Callback optionnel
+        if callback:
+            self.worker_chargement.finished.connect(callback)
+
+        # Gestion erreurs
+        self.worker_chargement.erreur.connect(
+            lambda e: print(f"Erreur chargement : {e}")
+        )
+
+        # Start
+        self.thread_chargement.start()
+
+    def fonction_principale(self, settings):
+
+        # Vérification de potentiels problèmes
+        if (
+            self.soulever_probleme(
+                dict_voyages=settings["dictionnaire_voyages"],
+                dossier_stockage=settings["dossier_stockage"],
+            )
+            == True
+        ):
+            return
+
+        # Affichage de la barre
+        self.initialiser_progression()
+
+        # Chargement des tables (si nécessaire)
+        if not self.liste_gdfs:
+            self.barre_progression.setFormat(
+                self.fonction_traduction("preparation_donnees_geo", suffixe="...")
+            )
+            self.lancer_chargement_gdfs(
+                callback=lambda: self.fonction_principale(settings=settings)
+            )
+            return
+
+        # Ajout des tables géographiques
+        settings["liste_dfs"] = self.liste_gdfs
+
+        # Initialisation de l'objet et de la barre de progression
+        self.creation_cartes = CreerCartes(params=settings, constantes=self.constantes)
+        self.creation_cartes.nb_graphes.connect(lambda x: self.barre_set_max(val=x + 1))
+        # self.creation_cartes.nb_graphes.connect(self.barre_set_max)
+        self.creation_cartes.tracker_signal.connect(self.afficher_avancement)
+
+        self.thread_temp = QThread()
+        self.creation_cartes.moveToThread(self.thread_temp)
+
+        self.creation_cartes.finished.connect(self.thread_temp.quit)
+        self.creation_cartes.finished.connect(self.creation_cartes.deleteLater)
+        self.thread_temp.finished.connect(self.thread_temp.deleteLater)
+        self.thread_temp.finished.connect(
+            lambda: self.debut_fin_creation_cartes(debut=False)
+        )
+
+        self.thread_temp.started.connect(self.creation_cartes.run)
+        self.thread_temp.start()
+
+    def initialiser_onglet(self, **kwargs):
+
+        # Indicatrices
+        checkboxes = {
+            # cartes à publier
+            "carte_du_monde": self.carte_monde,
+            "cartes_des_pays": self.carte_pays,
+            "asie": self.asie,
+            "amerique": self.amerique,
+            "afrique": self.afrique,
+            "europe": self.europe,
+            "moyen_orient": self.moyen_orient,
+            "autres_regions": self.autres_regions,
+            # Utilisation du thème
+            "utiliser_theme": self.utiliser_theme,
+            # Envoi par e-mail
+            "envoi_email": self.email_checkbox,
+            # Labellisation du territoire
+            "labelliser_territoires": self.labellisation_checkbox,
+        }
+        for nom_cle, checkbox in checkboxes.items():
+            checkbox.setChecked(
+                kwargs.get(nom_cle)
+                if kwargs.get(nom_cle) is not None
+                else (nom_cle in ["europe", "cartes_des_pays"])
+            )
+
+        # Paramètres de stockage
+        self.curseur_qualite.setValue(
+            # Valeur passée
+            kwargs.get("qualite")
+            or int((self.curseur_qualite_min + self.curseur_qualite_max) / 2)
+        )
+        self.format_cartes.setCurrentText(kwargs.get("format") or "png")
+
+        # Menus déroulants
+        combo_configs = {
+            # Granularité des pays visités
+            self.granularite_visite: {
+                "dict_key": "granularite",
+                "valeur": kwargs.get("granularite"),
+            },
+            # Granularités des pays non visités
+            self.granularite_fond: {
+                "dict_key": "granularite",
+                "valeur": kwargs.get("granularite_fond"),
+            },
+            # Thème
+            self.theme_combo: {
+                "dict_key": "themes_cartes",
+                "valeur": kwargs.get("theme"),
+            },
+            # Teintes
+            self.color_combo: {
+                "dict_key": "teintes_couleurs",
+                "valeur": kwargs.get("couleur"),
+            },
+            # Couleur de la mer
+            self.combo_couleur_fond: {
+                "dict_key": "arrière_plans",
+                "valeur": kwargs.get("couleur_fond_carte"),
+            },
+        }
+
+        # Boucle pour restaurer les valeurs
+        trads = self.constantes.parametres_traduits
+        for combo, config in combo_configs.items():
+            restaurer_valeur_combo(
+                combo=combo,
+                dict_parent=trads.get(config["dict_key"], {}),
+                langue=self.langue,
+                valeur=config["valeur"] or None,
+                defaut_index=0,
+            )
+
+    def creer_dict_parametres(self):
+
+        langue = self.langue
+        params_traduits = self.constantes.parametres_traduits.copy()
+
+        return {
+            "granularite": obtenir_clef_par_valeur(
+                valeur=self.granularite_visite.currentText(),
+                dictionnaire=params_traduits["granularite"][langue],
+            ),
+            "granularite_fond": obtenir_clef_par_valeur(
+                valeur=self.granularite_fond.currentText(),
+                dictionnaire=params_traduits["granularite"][langue],
+            ),
+            "couleur": obtenir_clef_par_valeur(
+                valeur=self.color_combo.currentText(),
+                dictionnaire=params_traduits["teintes_couleurs"][langue],
+            ),
+            "theme": obtenir_clef_par_valeur(
+                valeur=self.theme_combo.currentText(),
+                dictionnaire=params_traduits["themes_cartes"][langue],
+            ),
+            "couleur_fond_carte": self.combo_couleur_fond.valeur_en_francais(),
+            "qualite": self.curseur_qualite.value(),
+            "format": self.format_cartes.currentText(),
+            "envoi_email": self.email_checkbox.isChecked(),
+            # Cartes à publier
+            "carte_du_monde": self.carte_monde.isChecked(),
+            "europe": self.europe.isChecked(),
+            "asie": self.asie.isChecked(),
+            "amerique": self.amerique.isChecked(),
+            "afrique": self.afrique.isChecked(),
+            "moyen_orient": self.moyen_orient.isChecked(),
+            "autres_regions": self.autres_regions.isChecked(),
+            "cartes_des_pays": self.carte_pays.isChecked(),
+            # Labelliser les territoires
+            "labelliser_territoires": self.labellisation_checkbox.isChecked(),
+        }

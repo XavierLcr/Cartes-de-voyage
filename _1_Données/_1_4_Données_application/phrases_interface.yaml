@@ -1,0 +1,173 @@
+# Titres généraux
+titre_windows : Cartes de voyage
+titre_application : Outil de création de cartes
+
+# Titres d'onglets
+titre_onglet_1 : Cartes
+description_onglet_1 : Paramètres de création des cartes
+titre_onglet_2 : Voyages effectués
+titre_onglet_3 : Résumé des lieux visités
+titre_onglet_4 : Statistiques
+description_onglet_4 : En termes de pourcentage de la superficie visitée pour chaque pays
+titre_onglet_param_profil : Paramètres du profil
+
+# Gestion du profil
+nom_individu_label : Profil actuel
+nom_individu_placeholder : Choisir profil
+nom_individu_pop_up_titre : Ajout d'un nouveau profil
+nom_individu_pop_up_texte : Nom de profil
+nom_individu_pop_up_placeholder : Saisir le nom de profil souhaité
+nom_individu_pop_up_reussite : Nouveau profil ajouté avec succès
+
+# Paramètres individuels
+dossier_stockage_titre : Dossier de stockage des cartes
+dossier_stockage_individu : Choisir le dossier de stockage des cartes
+dossier_stockage_pop_up : Sélectionner un dossier
+dossier_stockage_ouverture : Ouvrir le dossier
+dossier_stockage_ouverture_description : Ouvrir le dossier sélectionné après la publication de l'ensemble des cartes
+langue_individu : Langue
+theme_application : Thème de l'application
+preferences_cartes_groupbox : Préférences – Publication des cartes
+email_groupbox : Adresse e-mail
+email_tooltip : Saisir son adresse e-mail permet de pouvoir recevoir, si cela est souhaité, les cartes par e-mail. Cela est pratique si vous souhaitez par exemple les partager
+hemicycle_position_label : Alignement des pays visités dans l'hémicycle
+hemicycle_position_gauche : Gauche
+hemicycle_position_alea : Aléatoire
+hemicycle_position_droite : Droite
+recommandations_par_pays : Regrouper par pays
+recommandations_par_pays_tooltip : Si cochée, les recommandations sont groupées par pays. Sinon, elles sont triées par pertinence
+recommandations_nb : recommandations
+
+supprimer_profil : Supprimer ce profil
+titre_pop_up_suppression : Suppression du profil
+contenu_pop_up_suppression : Soutaitez-vous vraiment supprimer ce profil ? Cette opération est définitive
+
+# Granularité des cartes
+titre_granularite : Granularité des cartes
+granularite_pays_visites : Pays visités
+granularite_pays_non_visites : Pays non visités
+
+# Cartes à publier
+titre_cartes_a_publier : Cartes à publier
+carte_du_monde : Carte du monde
+cartes_pays_visites : Cartes des pays visités
+afrique : Afrique
+amerique : Amérique
+asie : Asie
+europe : Europe
+moyen_orient : Moyen-Orient
+autres_regions_monde : Autres régions du monde
+publier_cartes_faible_granularite_uniquement : Également publier les cartes pour lesquelles la granularité souhaitée n'est pas disponible
+description_publier_cartes_faible_granularite_uniquement : Permet de choisir si l'on souhaite publier l'entièreté des cartes ou seulement celles qui possèdent la granularité souhaitée. Veut-on par exemple publier une carte qui n'existe qu'au niveau régional si l'on souhaite des cartes au niveau départemental ?
+email_checkbox : Envoi par e-mail
+email_checkbox_tooltip : Envoi complémentaire des cartes à l'adresse e-mail renseignée
+preparation_donnees_geo : Préparation des données
+ecrire_nom_checkbox : Labelliser les territoires
+ecrire_nom_checkbox_tooltip : Permet d'ajouter le nom des territoires sur la carte
+
+# Paramètres esthétiques
+titre_params_esthetiques : Paramètres esthétiques
+cartes_theme : Thème
+cartes_couleurs : Teintes
+tick_style_dans_app : Utiliser le style dans l'application
+description_tick_style_dans_app : "Applique les paramètres esthétiques sélectionnés à l'application. Cela permet d'avoir un aperçu de leur rendu"
+cartes_couleurs_fond : Couleur de l'arrière plan
+cartes_couleurs_fond_tool_tip : Permet de choisir la couleur d'arrière plan. Sont disponibles comme couleurs le blanc, divers bleus plus ou moins proche de la couleur de la mer, ainsi que transparent. Le bleu le plus clair disponible est celui utilisé pour représenter les lacs sur les cartes.
+
+# Paramètres de format et de qualité
+titre_params_techniques : Paramètres de publication des cartes
+cartes_format : Format
+cartes_qualite : Qualité de l'image
+qualite_elevee : Élevée
+qualite_faible : Faible
+nombre_exemplaires_cartes : Nombre de versions conservées pour chaque carte
+description_nombre_exemplaires_cartes : S'il existe plus de versions d'une carte que la limite sélectionnée, alors la carte la plus ancienne sera supprimée
+cinq_cartes : Cinq cartes
+dix_cartes : Dix cartes
+quinze_cartes : Quinze cartes
+pas_de_limite_de_cartes : Pas de limite
+
+# Boutons finaux du premier onglet
+reinitialisation_interface : Réinitialiser l'interface
+description_bouton_reinitialisation_interface : Réinitialise l'interface ainsi que la liste des pays visités. Veuillez vérifier d'avoir bien sauvegardé les paramètres actuels avant de cliquer sur ce bouton
+sauvegarder_profil : Sauvegarder mes paramètres
+sauvegarde_effectuee : Vos paramètres ont bien été sauvegardés
+bouton_publier_cartes : Publier les cartes !
+description_bouton_publier_cartes : "Publier les cartes sauvegarde également les paramètres"
+
+# Onglet 2
+telecharger_lieux_visites : Télécharger le fichier YAML des voyages effectués
+bouton_ajouter_voyage : Ajouter un voyage
+titre_liste_voyages : Liste des voyages effectués
+export_pas_fonctionnel : L'export n'a pas fonctionné. Veuillez réessayer plus tard
+avertissement_onglet_2 : Pour un pays donné, si des départements sont cochés, ils sont prioritaires sur les régions cochées. Dans ce cas, la liste des régions visitées est automatiquement reconstituée à partir de la liste des départements. Il n'est donc plus nécessaire de cocher les régions visitées (les régions peuvent rester cochées mais ne seront pas prises en compte)
+lieux_sans_correspondance : Certains lieux provenant de votre fichier n'ont pas de correspondance
+voyage_date_debut : Date de début
+voyage_date_fin : Date de fin
+tri_ordre_creation_voyages : Trier par ordre de création des voyages
+tri_nom_voyages : Trier par nom des voyages
+tri_dates_debut_voyages : Trier par date des voyages
+
+# Création des voyages de l'onlget 2
+general_voyage_groupbox : Contexte du voyage
+general_voyage_nom : Nom du voyage
+general_voyage_debut : Date de début
+onglet_2_filtre_pattern : Filtrer selon un lieu
+precision_diplomatique_onglet_2 : Dans ce logiciel, le terme « pays » est employé par commodité pour regrouper des ensembles géographiques. Il peut ainsi désigner non seulement un État souverain, mais aussi un territoire, une île éloignée ou une subdivision administrative particulière. Cette approche vise uniquement à simplifier l’organisation et l’utilisation des cartes. Elle ne reflète aucune prise de position politique, diplomatique ou juridique concernant le statut des lieux représentés.
+general_voyage_fin : Date de fin
+general_voyage_utiliser_date : Utiliser la date pour ce voyage
+titre_choix_destinations_visitees : Sélection des lieux visités
+
+# Chargement des YAMLs
+description_titre_chargement_yaml : Cela permet de charger la liste des voyages effectués. L'ancien format avec les listes de régions ou départements par pays est également supporté.
+pop_up_yaml : Charger un fichier YAML
+
+# Onglets 3
+titre_regions_visitees : Régions visitées
+titre_departements_visites : Départements visités
+mise_en_forme_onglet_3 : Affichage regroupé
+
+# Onglet 4
+## Hémicycle
+titre_sous_onglet_4_1: Pays visités par continent
+## Classement
+titre_sous_onglet_4_2 : Pays les plus visités
+classement_selon_regions : Selon les régions visitées
+classement_selon_departements : Selon les départements visités
+# Recommandations
+titre_sous_onglet_4_3 : Suggestions de destinations
+bouton_recommandations : Cliquez ici afin de trouver votre prochaine destination !
+titre_recommandations : Nos suggestions rien que pour vous
+recommandation_passeport : À vos passeports, prêts, voyagez !
+# Pays où l'on va le plus souvent
+titre_sous_onglet_4_4 : Vos pays de prédilection
+titre_graphique_n_voyages : Pays visités le plus grand nombre de fois
+y_label_n_voyages : Nombre de visites
+# Calendrier des visites
+titre_sous_onglet_4_5 : Calendrier des visites
+titre_graphique_calendrier_voyages : Voyages effectués au cours de la période sélectionnée
+
+# Onglet 5
+sous_titre_description_application : Création de cartes de voyages
+version : Version
+description_application : "<h3>📌 Description :</h3>\n<p>Mes Voyages est une application permettant de créer des cartes personnalisées des lieux qu'on a visités.</p>\n<h3>💻 Comment utiliser :</h3>\n<ol>\n<li>Créez votre profil et personnalisez vos paramètres.</li>\n<li>Ajoutez l'nsemble des voyages que vous avez effectués en sélectionnant les lieux visités.</li>\n<li>Customisez et créez vos cartes ! La sauvegarde de vos visites et de vos paramètres se fait lorsque vous cliquez sur un des boutons de sauvegarde ou de création des cartes. Si vous changez d'onglet sans changer de profil, les lieux cochés ne sont pas perdus.</li>\n<li>Découvrez des informations surprenantes à propos de vos voyages et explorez nos recommandations pour vos prochaines vacances !</li>\n</ol>\n<h3>❓ Contact :</h3>\n<p>L'application se veut intuitive, mais pour toute question : mes.voyages.app@gmail.com.</p>\n<p>Les traductions ont été générées automatiquement et n'ont pas été vérifiées manuellement.\nPour toute anomalie de traduction, bug ou si vous souhaitez tout simplement effectuer un retour, n'hésitez pas à me contacter.</p>\n<hr />\n<strong>Merci d’avoir choisi Mes Voyages !</strong>"
+
+# Pop_ups de publication des cartes
+titre_pop_up_publication_cartes : Création des cartes
+debut_publication_cartes : Début de l'opération
+publication_cartes_reussie : Les cartes ont été créées avec succès !
+
+# Pop-ups des problèmes
+pop_up_probleme_titre : Problème
+pop_up_attention_titre : Attention !
+pop_up_aucun_lieu_coche : Aucun voyage n'a été enregistré. Essayez de créer un voyage associé à votre emplacement actuel !
+pop_up_aucun_lieu_coche_2 : Aucun lieu n'a été coché. Veuillez cocher au minimum une destination afin que votre voyage puisse être enregistré
+pop_up_pas_de_dossier_de_stockage : Il est nécessaire de choisir un dossier de stockage des cartes
+pop_up_dossier_de_stockage_faux : Il est nécessaire de choisir un dossier de stockage des cartes valide
+
+# Mots clefs
+oui : Oui
+non : Non
+valider : Valider
+supprimer : Supprimer
+

@@ -16,12 +16,11 @@ from PyQt6.QtWidgets import (
     QGridLayout,
 )
 
-from _0_Utilitaires._0_1_Fonctions_utiles import (
-    creer_ligne_separation,
-    vider_layout,
+from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     creer_QLabel_centre,
+    creer_ligne_horizontale,
+    vider_layout,
 )
-
 
 # 1 -- Fonctions ---------------------------------------------------------------
 
@@ -32,41 +31,64 @@ from _0_Utilitaires._0_1_Fonctions_utiles import (
 def creer_classement_pays(
     gdf_visite,
     table_superficie,
+    pays_traductions: dict,
+    langue: str,
     granularite: int = 1,
     top_n: int | None = None,
     ndigits: int | None = None,
 ):
 
-    gdf_visite = (
+    df_temp = (
         # Ajout des superficies
-        gdf_visite.merge(
+        gdf_visite.copy()
+        .merge(
             table_superficie,
             how="left",
-            left_on=["Pays", "Region"],
+            left_on=["pays", "subdivision"],
             right_on=["name_0", f"name_{granularite}"],
         )
         # Somme par pays des superficies visitées
-        .groupby("Pays")[["pct_superficie_dans_pays", "superficie"]]
+        .groupby("pays")[["pct_superficie_dans_pays", "superficie"]]
         .sum()
         .reset_index()
         # Tri des valeurs par ordre décroissant
         .sort_values(
             by=["pct_superficie_dans_pays", "superficie"], ascending=[False, False]
         )
+        # Arrondi de la valeur
+        .assign(
+            pct_superficie_dans_pays=lambda x: x["pct_superficie_dans_pays"].apply(
+                lambda x: round(100 * (x or 0), ndigits=ndigits)
+            )
+        )
+        .assign(
+            # Mise en forme du pourcentage
+            pct_superficie_dans_pays_label=lambda x: x[
+                "pct_superficie_dans_pays"
+            ].apply(lambda x: f"{x} %".replace(".", ",")),
+            # Récupération du nom du pays dans la langue utilisée
+            nom_pays=lambda x: x["pays"].apply(
+                lambda y: pays_traductions.get(y, {}).get(langue, y)
+            ),
+        )
+        .reset_index()
+    )
+
+    # Ajout du classement
+    df_temp["classement"] = df_temp.index.to_series().apply(
+        lambda i: ["🥇", "🥈", "🥉"][i] if i < 3 else f"{i+1}."
     )
 
     # Sélection du top pays si souhaité
     if top_n is not None:
-        gdf_visite = gdf_visite.head(top_n)
+        df_temp = df_temp.head(top_n)
 
-    # Mise en forme
-    gdf_visite["pct_superficie_dans_pays_label"] = gdf_visite[
-        "pct_superficie_dans_pays"
-    ].apply(lambda x: f"{round(100 * (x or 0), ndigits=ndigits)} %".replace(".", ","))
+    # Pays avec un pourcentage arrondi non nul ou dans les trois premières lignes
+    df_temp = df_temp[(df_temp["pct_superficie_dans_pays"] > 0) | (df_temp.index < 3)]
 
     return (
-        gdf_visite,
-        gdf_visite[gdf_visite["pct_superficie_dans_pays"] == 1].shape[0],
+        df_temp,
+        df_temp[df_temp["pct_superficie_dans_pays"] == 100].shape[0],
     )
 
 
@@ -87,7 +109,7 @@ class ClassementPays(QWidget):
         super().__init__(parent)
 
         # Variables passées en paramètre
-        self.constantes = constantes
+        self.pays_traductions = constantes.pays_differentes_langues
         self.table_superficie = table_superficie
         self.top_n = constantes.parametres_application["top_n_pays"]
         self.ndigits = constantes.parametres_application["pct_ndigits"]
@@ -103,7 +125,7 @@ class ClassementPays(QWidget):
         layout_entete_top_pays_regions = QVBoxLayout()
         layout_entete_top_pays_regions.addWidget(self.entete_top_pays_regions)
 
-        layout_entete_top_pays_regions.addLayout(creer_ligne_separation())
+        layout_entete_top_pays_regions.addWidget(creer_ligne_horizontale())
         layout_entete_top_pays_regions.addWidget(QLabel(""))
 
         self.layout_top_pays_regions = QGridLayout()
@@ -124,7 +146,7 @@ class ClassementPays(QWidget):
         layout_entete_top_pays_departements = QVBoxLayout()
         layout_entete_top_pays_departements.addWidget(self.entete_top_pays_departements)
 
-        layout_entete_top_pays_departements.addLayout(creer_ligne_separation())
+        layout_entete_top_pays_departements.addWidget(creer_ligne_horizontale())
         layout_entete_top_pays_departements.addWidget(QLabel(""))
 
         self.layout_top_pays_deps = QGridLayout()
@@ -145,110 +167,87 @@ class ClassementPays(QWidget):
 
     def classement_standard(
         self,
-        classement: pd.DataFrame,
+        df: pd.DataFrame,
         vbox: QGridLayout,
-        taille_top_100: int,
-        adapter: bool,
+        top_n_lignes: int,
     ):
         """
         Affiche le classement des pays dans un QGridLayout (vbox).
-        - classement : DataFrame contenant 'Pays' et 'pct_superficie_dans_pays'
+        - df : DataFrame contenant 'Pays' et 'pct_superficie_dans_pays'
         - vbox : QGridLayout où ajouter les QLabel
         """
 
-        if classement is not None:
-            if len(classement) > 0:
+        if df is None or df.empty:
+            return
 
-                # Ajout des couronnes
-                vbox.addWidget(
-                    creer_QLabel_centre(
-                        text="👑",
-                        alignement=Qt.AlignmentFlag.AlignRight
-                        | Qt.AlignmentFlag.AlignVCenter,
-                    ),
-                    0,
-                    0,
-                )
-                vbox.addWidget(
-                    creer_QLabel_centre(
-                        text="👑",
-                        alignement=Qt.AlignmentFlag.AlignLeft
-                        | Qt.AlignmentFlag.AlignVCenter,
-                    ),
-                    0,
-                    2,
-                )
+        if (
+            top_n_lignes < self.min_changement_mise_en_forme
+            or not self.adapter_mise_en_forme
+        ):
+            top_n_lignes = None
+
+        df_temp = df.copy()
+
+        # Ajout des couronnes
+        for couronne in [0, 2]:
+            vbox.addWidget(
+                creer_QLabel_centre(
+                    text="👑",
+                    alignement=(
+                        Qt.AlignmentFlag.AlignRight
+                        if couronne == 0
+                        else Qt.AlignmentFlag.AlignLeft
+                    )
+                    | Qt.AlignmentFlag.AlignVCenter,
+                ),
+                0,
+                couronne,
+            )
 
         # Gestion des premières lignes
-        if adapter:
-
-            liste_pays = [
-                self.constantes.pays_differentes_langues.get(p, {}).get(
-                    self.langue_utilisee, p
-                )
-                for p in classement["Pays"].head(taille_top_100)
-            ]
+        if top_n_lignes is not None:
 
             vbox.addWidget(
                 creer_QLabel_centre(
-                    text=f"🥇<br>{', '.join(f'<b>{x}</b>' for x in liste_pays)}<br>100 %",
+                    text="🥇<br>"
+                    f"{', '.join(f'<b>{x}</b>' for x in df_temp['nom_pays'].head(top_n_lignes))}"
+                    "<br>100 %",
                     wordWrap=True,
                 ),
                 0,
                 1,
             )
 
-        else:
+            # Suppression des lignes déjà gérées
+            df_temp = df_temp.iloc[top_n_lignes:]
 
-            taille_top_100 = min(3, classement.shape[0])
-            for i in range(taille_top_100):
+        # Complétion du reste des cases
+        for i, (_, row) in enumerate(df_temp.iterrows()):
 
-                pays = classement["Pays"].iloc[i]
+            if top_n_lignes is not None or i >= 3:
+                ligne = 1 + (i // 3)
+                col = i % 3
+            elif i == 0:
+                ligne, col = 0, 1
+            else:  # i == 1 ou 2
+                ligne, col = 1, 2 * i - 2
 
-                nom_pays = self.constantes.pays_differentes_langues.get(pays, {}).get(
-                    self.langue_utilisee, pays
-                )
+            vbox.addWidget(
+                creer_QLabel_centre(
+                    text=(
+                        # Classement
+                        f"<b>{row['classement']}</b>"
+                        # Nom du pays
+                        + f"<br>{'<b>' if ligne == 0 else ''}{row['nom_pays']}{'</b>' if ligne == 0 else ''}<br>"
+                        # Part de la superficie visitée
+                        + f"{row['pct_superficie_dans_pays_label']}"
+                    )
+                ),
+                ligne,
+                col,
+            )
 
-                vbox.addWidget(
-                    creer_QLabel_centre(
-                        text=(
-                            ["🥇", "🥈", "🥉"][i]
-                            + f"<br><b>{nom_pays}</b><br>"
-                            + str(classement["pct_superficie_dans_pays_label"].iloc[i])
-                        ).replace(".", ",")
-                    ),
-                    int(i != 0),
-                    {0: 1, 1: 0}.get(i, i),
-                )
-
-        for i, (_, row) in enumerate(classement.iloc[taille_top_100:].iterrows()):
-
-            pays = row["Pays"]
-
-            if round(100 * row["pct_superficie_dans_pays"], ndigits=self.ndigits) > 0:
-                nom_pays = self.constantes.pays_differentes_langues.get(pays, {}).get(
-                    self.langue_utilisee,
-                    pays,
-                )
-
-                vbox.addWidget(
-                    creer_QLabel_centre(
-                        text=(
-                            # Classement
-                            (f"<b>{taille_top_100 + i + 1}.</b>")
-                            # Nom du pays
-                            + f"<br>{nom_pays}<br>"
-                            # Part de la superficie visitée
-                            + f"{row['pct_superficie_dans_pays_label']}"
-                        )
-                    ),
-                    2 + (i // 3) - int(adapter),
-                    i % 3,
-                )
-
-    def lancer_classement_pays(
-        self, granularite: int, vbox: QGridLayout, adapter_mise_en_forme=True
-    ):
+    def lancer_classement_pays(self, granularite: int, vbox: QGridLayout):
 
         # Complétion des régions à partir des départements
         dict_regions = self.dicts_granu.get("region") or {}
@@ -268,7 +267,7 @@ class ClassementPays(QWidget):
         try:
 
             # Classement des pays
-            classement, taille_top_100 = creer_classement_pays(
+            df_temp, top_n_lignes = creer_classement_pays(
                 # transformation du dictionnaire en Data.frame
                 gdf_visite=pd.DataFrame(
                     [
@@ -280,20 +279,19 @@ class ClassementPays(QWidget):
                         )
                         for v in (lst or [])
                     ],
-                    columns=["Pays", "Region"],
+                    columns=["pays", "subdivision"],
                 ),
                 table_superficie=self.table_superficie,
+                pays_traductions=self.pays_traductions,
+                langue=self.langue_utilisee,
                 granularite=granularite,
                 top_n=self.top_n,
                 ndigits=self.ndigits,
             )
-
             self.classement_standard(
-                classement=classement,
+                df=df_temp,
                 vbox=vbox,
-                taille_top_100=taille_top_100,
-                adapter=(taille_top_100 >= self.min_changement_mise_en_forme)
-                and adapter_mise_en_forme,
+                top_n_lignes=top_n_lignes,
             )
 
         except Exception as e:
@@ -303,12 +301,10 @@ class ClassementPays(QWidget):
         self.lancer_classement_pays(
             vbox=self.layout_top_pays_regions,
             granularite=1,
-            adapter_mise_en_forme=self.adapter_mise_en_forme,
         )
         self.lancer_classement_pays(
             vbox=self.layout_top_pays_deps,
             granularite=2,
-            adapter_mise_en_forme=self.adapter_mise_en_forme,
         )
 
     def set_dicts_granu(self, dict_nv):

@@ -1,0 +1,104 @@
+Défaut:
+  config:
+    titre_police: "Vivaldi"
+    titre_police_coeff: 1
+    emoji: ""
+
+Nouvel an:
+  dates:
+    - { debut: { mois: 12, jour: 29 }, fin: { mois: 12, jour: 31 } }
+    - { debut: { mois: 1, jour: 1 }, fin: { mois: 1, jour: 2 } }
+  config:
+    titre_police: "Monotype Corsiva"
+    titre_police_coeff: 1.3
+    emoji: " 🎆​​​"
+    pluie_emojis: 
+      - ✨
+      - 🎉
+      - 🥂
+      - 🍾
+
+Chandeleur:
+  dates:
+    - { debut: { mois: 2, jour: 2 }, fin: { mois: 2, jour: 3 } }
+  config:
+    titre_police: "Monotype Corsiva"
+    titre_police_coeff: 1.3
+    pluie_emojis: 
+      - 🥞​
+
+Saint-Valentin:
+  dates:
+    - { debut: { mois: 2, jour: 12 }, fin: { mois: 2, jour: 14 } }
+  config:
+    titre_police: "French Script MT"
+    titre_police_coeff: 1
+    emoji: " 💝​​​"
+    pluie_emojis: 
+      - 💘
+      - 💖
+      - 💌
+      - 🌹
+      - 💐​
+
+Printemps:
+  dates:
+    - { debut: { mois: 3, jour: 19 }, fin: { mois: 3, jour: 21 } }
+  config:
+    titre_police: "Segoe Print"
+    titre_police_coeff: 1.4
+    emoji: " 🌷​​​"
+    pluie_emojis: 
+      - 🌼
+      - 🌼
+      - 🐝
+      - 🌸
+      - 🌱
+      - 🌿
+
+Automne:
+  dates:
+    - { debut: { mois: 9, jour: 21 }, fin: { mois: 9, jour: 23 } }
+  config:
+    titre_police: "Constantia"
+    titre_police_coeff: 1
+    emoji: " 🍂​​​"
+    pluie_emojis: 
+      - 🍂
+      - 🍂
+      - 🍂
+      - 🌰
+      - ☕
+      - ☔
+
+Halloween:
+  dates:
+    - { debut: { mois: 10, jour: 20 }, fin: { mois: 10, jour: 31 } }
+  config:
+    titre_police: "Chiller"
+    titre_police_coeff: 1.2
+    emoji: " 🎃​"
+    pluie_emojis: 
+      - 👻
+      - 👻
+      - 👻
+      - 🍬​
+      - 🐈‍⬛​
+      - 🧟​
+
+Noël:
+  dates:
+    - { debut: { mois: 12, jour: 15 }, fin: { mois: 12, jour: 28 } }
+  config:
+    titre_police: "Edwardian Script ITC"
+    titre_police_coeff: 1.8
+    emoji: " 🎄​​"
+    pluie_emojis: 
+      - ❄️
+      - ❄️
+      - ❄️
+      - ❄️
+      - 🌨️
+      - ⛄
+      - 🦌
+      - 🎁

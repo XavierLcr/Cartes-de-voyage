@@ -3,9 +3,15 @@
 # Fichier contenant les constantes et les données secondaires                  #
 ################################################################################
 
-import os, sys
-from _0_Utilitaires._0_1_Fonctions_utiles import ouvrir_fichier
 
+# 0 -- Initialisation ----------------------------------------------------------
+
+
+import os, sys
+from _0_Utilitaires._0_1_fonctions_utiles_gen import (
+    ouvrir_fichier,
+    periode_particuliere,
+)
 
 # 1 -- Gestion des directions --------------------------------------------------
 
@@ -13,26 +19,31 @@ from _0_Utilitaires._0_1_Fonctions_utiles import ouvrir_fichier
 if getattr(sys, "frozen", False):
     # cx_Freeze place tout à côté de l'exécutable
     direction_base = os.path.dirname(sys.executable)
+    direction_donnees = os.path.join(direction_base, "Données")
     direction_donnees_geographiques = os.path.join(
-        direction_base, "1 – Données géographiques"
+        direction_donnees, "1 – Données géographiques"
     )
     direction_donnees_application = os.path.join(
-        direction_base, "2 – Données application"
+        direction_donnees, "2 – Données application"
     )
-    direction_donnees_traductions = os.path.join(direction_base, "3 – Traductions")
+    direction_donnees_drapeaux = os.path.join(direction_donnees_application, "Drapeaux")
+    direction_donnees_traductions = os.path.join(direction_donnees, "3 – Traductions")
     compilation = True
 else:
     direction_base = os.path.dirname(os.path.abspath(__file__))
     direction_donnees = os.path.join(direction_base, "_1_Données")
     direction_donnees_brutes = os.path.join(direction_donnees, "_1_1_Données_brutes")
+    direction_donnees_intermediaires = os.path.join(
+        direction_donnees, "_1_2_Données_intermediaires"
+    )
     direction_donnees_geographiques = os.path.join(
-        direction_donnees, "_1_2_Données_géographiques"
+        direction_donnees, "_1_3_Données_géographiques"
     )
     direction_donnees_application = os.path.join(
-        direction_donnees, "_1_3_Données_application"
+        direction_donnees, "_1_4_Données_application"
     )
-    print(direction_donnees_application)
-    direction_donnees_traductions = os.path.join(direction_donnees, "_1_4_Traductions")
+    direction_donnees_drapeaux = os.path.join(direction_donnees_application, "Drapeaux")
+    direction_donnees_traductions = os.path.join(direction_donnees, "_1_5_Traductions")
     direction_donnees_autres = os.path.join(direction_donnees, "_1_X_Autres")
     compilation = False
 
@@ -40,7 +51,7 @@ else:
 # 2 -- Version du logiciel -----------------------------------------------------
 
 
-version_logiciel = "2.2"
+version_logiciel = "2.4"
 
 
 # 3 -- Import des données ------------------------------------------------------
@@ -56,8 +67,6 @@ parametres_application_defaut = {
     "application_position_hauteur": 40,
     "application_largeur": 750,
     "application_hauteur": 250,
-    # Paramètres d'interface
-    "interface_foncee": False,
     # Paramètres des cartes
     "qualite_min": 200,
     "qualite_max": 4000,
@@ -160,6 +169,38 @@ df_caracteristiques_pays = ouvrir_fichier(
 )
 
 
+### Import des thèmes temporaires ----------------------------------------------
+
+
+dict_themes_temporaires = periode_particuliere(
+    ouvrir_fichier(
+        direction_fichier=direction_donnees_application,
+        nom_fichier="themes_temporaires.yaml",
+        defaut={
+            "Défaut": {
+                "config": {
+                    "titre_police": "Vivaldi",
+                    "titre_police_coeff": 1,
+                    "emoji": "",
+                },
+            }
+        },
+        afficher_erreur="Thèmes temporaires introuvables.",
+    )
+)
+
+
+### Import de la granularité maximale d'un pays --------------------------------
+
+
+granularite_max_pays = phrases_interface = ouvrir_fichier(
+    direction_fichier=direction_donnees_application,
+    nom_fichier="niveau_maximal_par_pays.yaml",
+    defaut={},
+    afficher_erreur="Granularité maximale introuvable.",
+)
+
+
 ## 3.3 -- Import des paramètres accessibles à l'utilisateur –––––––––––––-------
 
 
@@ -185,25 +226,24 @@ outil_differentes_langues = ouvrir_fichier(
 )
 
 
-### Import des régions ---------------------------------------------------------
+### Import de la liste globale des lieux ---------------------------------------
 
 
-regions_par_pays = ouvrir_fichier(
+# Version simplifiée
+hierarchie_par_pays = ouvrir_fichier(
     direction_fichier=direction_donnees_application,
-    nom_fichier="liste_pays_granularite_1.yaml",
+    nom_fichier="hierarchie_granularite_pays.pkl",
     defaut={},
-    afficher_erreur="Régions des pays introuvables.",
+    afficher_erreur="Hiérarchie des pays introuvables",
 )
 
 
-### Import des départements ----------------------------------------------------
-
-
-departements_par_pays = ouvrir_fichier(
+# Version complète
+hierarchie_complete_par_pays = ouvrir_fichier(
     direction_fichier=direction_donnees_application,
-    nom_fichier="liste_pays_granularite_2.yaml",
-    defaut={},
-    afficher_erreur="Départements des pays introuvables.",
+    nom_fichier="hierarchie_complete_granularite_pays_df.pkl",
+    defaut=None,
+    afficher_erreur="Hiérarchie des pays introuvables",
 )
 
 

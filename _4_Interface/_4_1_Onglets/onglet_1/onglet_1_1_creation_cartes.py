@@ -5,9 +5,21 @@
 ################################################################################
 
 
-from PyQt6.QtCore import pyqtSignal, QObject
-from _3_Calculs._1_3_carte_main import cree_graphe_depuis_debut
+# 0 -- Initialisation ----------------------------------------------------------
 
+
+import re
+from PyQt6.QtCore import pyqtSignal, QObject
+from _3_Calculs._3_4_carte_main import (
+    creer_multiples_cartes,
+    lister_cartes_a_publier,
+)
+from _0_Utilitaires._0_1_fonctions_utiles_gen import (
+    voyages_vers_destinations_une_granu,
+)
+from _0_Utilitaires._0_7_fonctions_voyages import (
+    creer_liste_destinations,
+)
 
 # 1 -- Classe de suivi de l'avancement de la publication des cartes ------------
 
@@ -23,88 +35,131 @@ class TrackerPays(QObject):
 
 
 class CreerCartes(QObject):
+
     finished = pyqtSignal()
     tracker_signal = pyqtSignal(str)
     nb_graphes = pyqtSignal(int)
 
-    def __init__(self, gdf_eau, params, constantes):
+    def __init__(self, params, constantes):
 
         super().__init__()
 
-        self.gdf_eau = gdf_eau
+        # Récupération des paramètres
         self.parametres = params
         self.constantes = constantes
 
-    def run(self):
-
-        # === Ajustement des variables ===
-        self.granularite = {"Pays": 0, "Région": 1, "Département": 2}.get(
-            self.parametres.get("granularite"), -1
+        # Liste des cartes à publier
+        self.liste_cartes = lister_cartes_a_publier(
+            regroupements_pays_ref=constantes.liste_pays_groupes,
+            continents_ref=constantes.liste_regions_monde,
+            traductions_ref=constantes.pays_differentes_langues,
+            langue=self.parametres["langue"],
+            pays=self.parametres["cartes_des_pays"],
+            monde=self.parametres["carte_du_monde"],
+            continents=self.recuperer_continents(),
+            voyages=self.parametres.get("dictionnaire_voyages", {}),
+            sortir_cartes_granu_inf=self.parametres.get(
+                "sortir_cartes_granu_inf", False
+            ),
+            granularite_objectif=self.recuperer_granularite(clef="granularite"),
         )
 
-        self.liste_regions_temp = {
+        # Gestion du cas "couleur du pays"
+        self.couleur_pays = 0
+        match = re.search(
+            r"Thème Pays n°(\d+)", self.parametres.get("couleur", "Multicolore")
+        )
+        if match:
+            self.couleur_pays = int(match.group(1))
+            self.parametres["couleur"] = "Multicolore"
+
+    def recuperer_granularite(self, clef: str):
+        return {"Pays": 0, "Région": 1, "Département": 2}.get(
+            self.parametres.get(clef), -1
+        )
+
+    def recuperer_continents(self):
+
+        dict_bouton_continent = {
+            "afrique": ["Africa"],
+            "amerique": ["South America", "North America"],
+            "asie": ["Asia"],
+            "europe": ["Europe"],
+            "moyen_orient": ["Middle East"],
+        }
+
+        # Ajout des continents souhaités
+        liste_regions_temp = {
             region: self.constantes.liste_regions_monde[region]
-            for cle_param, regions in {
-                "moyen_orient": ["Middle East"],
-                "europe": ["Europe"],
-                "amerique": ["South America", "North America"],
-                "afrique": ["Africa"],
-                "asie": ["Asia"],
-            }.items()
+            for cle_param, regions in dict_bouton_continent.items()
             if self.parametres.get(cle_param, False)
             for region in regions
         }
 
+        # Ajout des régions complémentaires (si souhaité)
         if self.parametres.get("autres_regions", False):
-            self.liste_regions_temp.update(
+
+            liste_regions_temp.update(
                 {
                     k: v
                     for k, v in self.constantes.liste_regions_monde.items()
-                    if k not in set(self.liste_regions_temp.keys())
+                    if k
+                    not in [
+                        region
+                        for regions in dict_bouton_continent.values()
+                        for region in regions
+                    ]
                 }
             )
 
-        dict_regions = self.parametres["dictionnaire_regions"]
-        if self.parametres["dictionnaire_departements"] is not None:
-            if (
-                self.parametres["dictionnaire_departements"] != {}
-                and dict_regions is not None
-            ):
-                dict_regions = {
-                    k: v
-                    for k, v in self.parametres["dictionnaire_regions"].items()
-                    if k not in self.parametres["dictionnaire_departements"]
-                }
+        # Renvoi
+        return liste_regions_temp
 
-        if self.parametres["dictionnaire_departements"] == {}:
-            self.parametres["dictionnaire_departements"] = None
-        if dict_regions == {}:
-            dict_regions = None
+    def run(self):
 
-        self.nb_graphes.emit(
-            self.calculer_nb_total_graphes(
-                dict_regions=dict_regions,
-                dict_departement=self.parametres["dictionnaire_departements"],
-            )
+        # === Ajustement des variables ===
+
+        dict_regions = voyages_vers_destinations_une_granu(
+            dict_voyages=self.parametres.get("dictionnaire_voyages", {}), clef="region"
         )
+        dict_deps = voyages_vers_destinations_une_granu(
+            dict_voyages=self.parametres.get("dictionnaire_voyages", {}), clef="dep"
+        )
+
+        self.nb_graphes.emit(len(self.liste_cartes.keys()))
+
+        # Gestion de l'e-mail
+        if not self.parametres.get("adresse_email") or not self.parametres.get(
+            "envoi_email"
+        ):
+            self.parametres["adresse_email"] = None
 
         # --- Partie calcul cartes ---
         tracker = TrackerPays()
         tracker.tracker_pays_en_cours.connect(self.tracker_signal.emit)
 
-        cree_graphe_depuis_debut(
+        creer_multiples_cartes(
+            # Données de création de la table
             liste_dfs=self.parametres["liste_dfs"],
-            liste_dicts=[dict_regions, self.parametres["dictionnaire_departements"]],
-            gdf_eau=self.gdf_eau,
-            noms_pays=self.constantes.pays_differentes_langues,
-            dictionnaire_pays_unis=self.constantes.liste_pays_groupes,
-            nom_indiv=self.parametres["nom"],
-            direction_resultat=self.parametres["dossier_stockage"],
-            langue=self.parametres["langue"],
-            granularite_visite=self.granularite,
-            granularite_reste={"Pays": 0, "Région": 1}.get(
-                self.parametres.get("granularite_fond"), 2
+            gdf_eau=self.parametres["gdf_eau"],
+            liste_dicts=creer_liste_destinations(
+                dict_regions=dict_regions, dict_dep=dict_deps
             ),
+            # Granularités
+            granularite_visite=self.recuperer_granularite(clef="granularite"),
+            granularite_reste=self.recuperer_granularite(clef="granularite_fond"),
+            # Cartes à sortir
+            dict_cartes=self.liste_cartes,
+            # Format et taille
+            qualite=self.parametres["qualite"],
+            format=self.parametres["format"],
+            # Informations liées à l'utilisateur
+            individu_nom=self.parametres["nom"],
+            adresse_email=self.parametres.get("adresse_email"),
+            direction_dossier=self.parametres["dossier_stockage"],
+            ouvrir_dossier_stockage=self.parametres["ouvrir_dossier_stockage"],
+            limite_n_cartes=self.parametres["limite_n_cartes"],
+            # Choix esthétiques de la carte
             theme=self.constantes.liste_ambiances[
                 self.parametres.get("theme", "Pastel")
             ],
@@ -117,36 +172,15 @@ class CreerCartes(QObject):
             couleur_non_visites="#DFDFDF",
             couleur_pays_contours="#EBEBEB",
             couleur_lacs="#CDEAF7",
-            format=self.parametres["format"],
-            qualite=self.parametres["qualite"],
-            carte_du_monde=self.parametres["carte_du_monde"],
-            liste_regions=self.liste_regions_temp,
-            pays_individuel=self.parametres["cartes_des_pays"],
-            max_cartes_additionnelles=self.parametres["max_cartes_additionnelles"],
-            sortir_cartes_granu_inf=self.parametres["sortir_cartes_granu_inf"],
+            # Inclure le nom
+            afficher_nom_lieu=self.parametres.get("labelliser_territoires", False),
+            # Tracker
             tracker=tracker,
-            blabla=False,
-            afficher_nom_lieu=False,
+            langue=self.parametres.get("langue", "defaut"),
+            dict_trad_pays=self.constantes.pays_differentes_langues,
+            # Couleurs du pays
+            chemin_drapeaux=self.constantes.direction_donnees_drapeaux,
+            couleur_pays=self.couleur_pays,
         )
 
         self.finished.emit()
-
-    def calculer_nb_total_graphes(self, dict_regions, dict_departement):
-
-        return (
-            (
-                (len(list(dict_regions.keys())) if dict_regions is not None else 0)
-                * int(
-                    (self.parametres["sortir_cartes_granu_inf"] or self.granularite < 2)
-                )
-                + (
-                    len(list(dict_departement.keys()))
-                    if dict_departement is not None
-                    else 0
-                )
-            )
-            * self.parametres["cartes_des_pays"]
-            * int(self.granularite != 0)
-            + len(self.liste_regions_temp)
-            + int(self.parametres["carte_du_monde"])
-        )

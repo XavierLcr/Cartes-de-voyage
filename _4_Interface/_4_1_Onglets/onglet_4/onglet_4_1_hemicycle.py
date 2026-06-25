@@ -5,13 +5,16 @@
 ################################################################################
 
 
-import math
-from PyQt6.QtCore import Qt, QPointF
-from PyQt6.QtWidgets import QWidget
-from PyQt6.QtGui import QPainter, QPen, QColor, QBrush, QFont
-from collections import defaultdict
-from _0_Utilitaires._0_1_Fonctions_utiles import reordonner_dict
+# 0 -- Introduction ------------------------------------------------------------
 
+
+import math, copy, random, time
+import pandas as pd
+from PyQt6.QtCore import QPointF
+from PyQt6.QtWidgets import QWidget
+from PyQt6.QtGui import QPainter, QPen, QColor, QBrush
+from collections import defaultdict
+from _0_Utilitaires._0_5_isid import isid
 
 # 1 -- Fonctions ---------------------------------------------------------------
 
@@ -26,27 +29,14 @@ def somme_filee(lignes, a, b):
     return total
 
 
-## 1.2 -- Fonction de suppression des pays présents dans plusieurs continents --
+## 1.2 -- Fonction de calcul du nombre de pays visités par continent -----------
 
 
-def valeurs_dans_plusieurs_listes(dictionnaire):
-    valeur_cles = defaultdict(list)
-
-    # On parcourt le dictionnaire et on enregistre pour chaque valeur les clés où elle apparaît
-    for cle, liste in dictionnaire.items():
-        for val in liste:
-            valeur_cles[val].append(cle)
-
-    # Ne garder que les valeurs qui apparaissent dans plusieurs listes
-    return {val: cles for val, cles in valeur_cles.items() if len(cles) > 1}
-
-
-## 1.3 -- Fonction de calcul du nombre de pays visités par continent -----------
-
-
-def nb_pays_visites(
+def table_pays_visites(
     dict_granu: dict,
     continents: dict,
+    palette: dict,
+    clair_indice: float,
     a_supprimer: dict = {
         "Africa": [
             "French Southern Territories",
@@ -65,16 +55,24 @@ def nb_pays_visites(
             "Turkey",
         ],
         "Oceania": ["Indonesia"],
-        "North America": ["United States Minor Outlying Isl", "Grenada"],
-        "South America": ["Bonaire, Sint Eustatius and Saba", "Panama"],
+        "North America": [
+            "United States Minor Outlying Isl",
+            "Grenada",
+        ],
+        "South America": [
+            "Bonaire, Sint Eustatius and Saba",
+            "Panama",
+        ],
     },
 ):
 
+    continents = continents.copy()
+
     # Suppression du Moyen-Orient
-    if "Middle East" in list(continents.keys()):
+    if "Middle East" in continents:
         del continents["Middle East"]
 
-    # Suppression des doublons
+    # Suppression doublons
     continents = {
         continent: [
             pays for pays in liste_pays if pays not in a_supprimer.get(continent, [])
@@ -82,35 +80,97 @@ def nb_pays_visites(
         for continent, liste_pays in continents.items()
     }
 
-    # Test de vérification de l'absence de doublons
-    assert (
-        valeurs_dans_plusieurs_listes(continents) == {}
-    ), f"Pays en double :{valeurs_dans_plusieurs_listes(continents)}"
+    # Récupération des pays visités
+    pays_visites = set(
+        list((dict_granu.get("region") or {}).keys())
+        + list((dict_granu.get("dep") or {}).keys())
+    )
 
-    resultat = {}
-    for continent in list(continents.keys()):
+    # Création de la table
+    lignes = []
+    for continent, liste_pays in continents.items():
 
-        resultat[continent] = {
-            # Nombre de pays dans le continents
-            "total": len(continents[continent]),
-            # Nombre de pays visités dans le continent
-            "visites": len(
-                [
-                    i
-                    for i in continents[continent]
-                    if i
-                    # Liste des pays visités
-                    in list(
-                        set(
-                            list((dict_granu.get("region") or {}).keys())
-                            + list((dict_granu.get("dep") or {}).keys())
-                        )
-                    )
-                ]
-            ),
-        }
+        # Couleur du continent
+        couleur_bord = palette.get(continent, None)
+        couleur_centre = (
+            couleur_bord.lighter(clair_indice) if couleur_bord else QColor("#FFFFFF")
+        )
 
-    return resultat
+        for pays in sorted(liste_pays):
+
+            if pays == "Caspian Sea":
+                continue
+
+            lignes.append(
+                {
+                    "continent": continent,
+                    "pays": pays,
+                    "visite": pays in pays_visites,
+                    "couleur_centre": (
+                        couleur_bord if pays in pays_visites else couleur_centre
+                    ),
+                    "couleur_bord": couleur_bord if couleur_bord else QColor("#000000"),
+                }
+            )
+
+    # Mise au format DataFrame
+    df_temp = pd.DataFrame(lignes)
+
+    # Test de granularité
+    assert isid(df=df_temp, colonnes="pays", blabla=0)
+
+    # Renvoi
+    return df_temp
+
+
+## 1.3 -- Fonction d'ajout des coordonnées -------------------------------------
+
+
+def ajouter_coordonnees(df: pd.DataFrame, coordonnees: list, alignement: int):
+
+    df_temp = df.copy().assign(
+        continent_cat=lambda x: pd.Categorical(
+            x["continent"],
+            categories=[
+                "Antarctica",
+                "Africa",
+                "Europe",
+                "Asia",
+                "Oceania",
+                "North America",
+                "South America",
+            ],
+            ordered=True,
+        )
+    )
+
+    # Tri des pays dans l'ordre souhaité
+    if abs(alignement) == 1:
+
+        df_temp = df_temp.sort_values(
+            by=["continent_cat", "visite"],
+            inplace=False,
+            ascending=(True, alignement == 1),
+        ).reset_index(drop=True)
+
+    else:
+
+        df_temp = (
+            df_temp.groupby("continent_cat", group_keys=False)
+            .apply(lambda x: x.sample(frac=1))
+            .reset_index(drop=True)
+        )
+
+    # Test de cohérence
+    assert len(coordonnees) == len(df_temp), f"{len(coordonnees)} != {len(df_temp)}"
+
+    # Ajout des coordonnées
+    df_temp[["x", "y", "angle", "niveau"]] = sorted(
+        coordonnees, key=lambda t: (-t[2], -t[3])
+    )
+
+    # Renvoi
+    return df_temp.drop(columns=["angle", "niveau"], inplace=False)
 
 
 # 2 -- Classe de création de l'hémicycle des pays visités ----------------------
@@ -126,58 +186,55 @@ class HemicycleWidget(QWidget):
         super().__init__()
         self.pays_visites = {"region": {}, "dep": {}}
         self.continents = constantes.liste_regions_monde
-        self.constantes = constantes
+        self.traductions_pays = constantes.pays_differentes_langues
+        self.liste_pays = list(constantes.hierarchie_par_pays.keys())
         self.langue = "français"
+
+        # Nombre de niveaux dans l'hémicycle
         self.num_levels = max(
             min(constantes.parametres_application["n_rangees"], 20), 4
-        )  # Nombre de niveaux dans l'hémicycle
-        self.base_points = max(
-            constantes.parametres_application["points_base"], 5
-        )  # Nombre de points de base pour le premier niveau
+        )
+
+        # Nombre de points de base pour le premier niveau
+        self.base_points = max(constantes.parametres_application["points_base"], 5)
+
+        # Incrément du nombre de points par niveau
         self.points_increment = max(
             constantes.parametres_application["points_increment"], 1
-        )  # Incrément du nombre de points par niveau
-        self.lighter_value = constantes.parametres_application["lighter_value"]
-        self.ordre_clefs = [
-            "Antarctica",
-            "Africa",
-            "Europe",
-            "Asia",
-            "Oceania",
-            "North America",
-            "South America",
-        ]
+        )
+
+        # Paramètres esthétiques
+        self.lighter_value = constantes.parametres_application.get("lighter_value")
+        self.couleur_texte = "#2C2C2C"
+        self.points_visites_position = -1
 
         # Ajustement du nombre de points par ligne
-        self.decalage = len(
-            list(self.constantes.departements_par_pays.keys())
-        ) - somme_filee(
+        self.decalage = len(self.liste_pays) - somme_filee(
             lignes=self.num_levels, a=self.base_points, b=self.points_increment
         )
         ## Si le total est trop haut
         while self.decalage < 0:
             self.base_points = max(self.base_points - 1, 10)
             self.points_increment = max(self.points_increment, 4)
-            self.decalage = len(
-                list(self.constantes.departements_par_pays.keys())
-            ) - somme_filee(
+            self.decalage = len(self.liste_pays) - somme_filee(
                 lignes=self.num_levels, a=self.base_points, b=self.points_increment
             )
 
         # Couleurs pour chaque continent
-        self.continent_colors = constantes.parametres_application["couleurs_continents"]
+        self.continent_colors = constantes.parametres_application.get(
+            "couleurs_continents"
+        )
         self.continent_colors = {
-            "Africa": QColor(self.continent_colors.get("Africa", "#3454D1")),
-            "Antarctica": QColor(self.continent_colors.get("Antarctica", "#2E8B57")),
-            "Asia": QColor(self.continent_colors.get("Asia", "#C3423F")),
-            "Europe": QColor(self.continent_colors.get("Europe", "#7B4B94")),
-            "North America": QColor(
-                self.continent_colors.get("North America", "#2A7F9E")
-            ),
-            "Oceania": QColor(self.continent_colors.get("Oceania", "#E27D60")),
-            "South America": QColor(
-                self.continent_colors.get("South America", "#4A7856")
-            ),
+            continent: QColor(self.continent_colors.get(continent, col))
+            for continent, col in {
+                "Africa": "#D1A734",
+                "Antarctica": "#20C065",
+                "Asia": "#C3423F",
+                "Europe": "#7B4B94",
+                "North America": "#2A369E",
+                "Oceania": "#60B9E2",
+                "South America": "#4A7856",
+            }.items()
         }
 
         self.creer_hemicycle()
@@ -188,11 +245,18 @@ class HemicycleWidget(QWidget):
     def center_y(self):
         return self.height() * 0.9
 
+    def set_points_visites_position(self, position):
+        self.points_visites_position = position
+
+    def get_points_visites_position(self):
+        return self.points_visites_position
+
     def creer_coordonnées(self):
+
         coords_angles = []
 
         for level in range(self.num_levels):
-            radius = self.base_radius + level * self.level_distance
+
             num_points = (
                 # Points de base
                 self.base_points
@@ -211,108 +275,95 @@ class HemicycleWidget(QWidget):
                 angle = (180.0 / (num_points - 1)) * i if num_points > 1 else 90
                 angle_rad = math.radians(angle)
 
+                radius = self.base_radius + level * self.level_distance
                 x = self.center_x() + radius * math.cos(angle_rad)
                 y = self.center_y() - radius * math.sin(angle_rad)
 
                 coords_angles.append((x, y, angle, level))
 
-        coords_angles = sorted(coords_angles, key=lambda t: (-t[2], -t[3]))
-        assert len(coords_angles) == len(
-            list(self.constantes.departements_par_pays.keys())
-        ), f"{len(coords_angles)} ≠ {len(list(self.constantes.departements_par_pays.keys()))}"
+        # Renvoi
         return coords_angles
 
-    def renvoyer_couleur(self, i: int, lighter_value: int):
+    def creer_table_pays_coordonnees(self):
 
-        total = 0
-        for cont in list(self.resume.keys()):
-
-            # Choix du continent
-            if i >= total and i < total + self.resume[cont]["total"]:
-                couleur = self.continent_colors[cont]
-
-                # Visité ?
-                if i - total > self.resume[cont]["visites"] - 1:
-                    couleur = couleur.lighter(lighter_value)
-
-                return couleur, self.continent_colors[cont], cont
-
-            else:
-                total = total + self.resume[cont]["total"]
-
-        return QColor(255, 255, 255), QColor(0, 0, 0), "Problème"
-
-    def paintEvent(self, event):
-
-        painter = QPainter(self)
-        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
-
-        center_x, center_y = self.center_x(), self.center_y()  # Centre du cercle
-        rayon_texte = 0  # Coefficient d'éloignement
-
-        self.base_radius = int(
-            45 + min(self.width(), self.height()) * 0.15
-        )  # Rayon de base pour le premier niveau
-        self.level_distance = max(1, int(min(self.width(), self.height()) * 0.09) - 10)
-        self.diametre_point = int(min(self.width(), self.height()) * 0.023 - 2)
-
-        coords_angles = self.creer_coordonnées()
-        continent_points = {}  # continent: list of (x, y)
-
-        i = 0
-        for coord in coords_angles:
-            x, y, angle, level = coord
-            rayon_texte = max(rayon_texte, abs(y - center_y))
-            couleur, couleur_originale, continent = self.renvoyer_couleur(
-                i=i, lighter_value=self.lighter_value
+        return (
+            # Création de la table des pays
+            table_pays_visites(
+                dict_granu=self.pays_visites,
+                continents=copy.copy(self.continents),
+                palette=self.continent_colors,
+                clair_indice=self.lighter_value,
+            ).pipe(
+                # Ajout des coordonnées
+                lambda x: ajouter_coordonnees(
+                    df=x,
+                    coordonnees=self.creer_coordonnées(),
+                    alignement=self.points_visites_position,
+                )
             )
+        )
 
-            # Ajoute le point au bon groupe
-            continent_points.setdefault(continent, []).append((x, y))
+    def peindre_points(self, painter, df: pd.DataFrame):
+
+        # Coefficient d'éloignement du texte
+        rayon_texte = 0
+
+        # Ajout des points
+        for row in df.itertuples(index=False):
+
+            # Récupération des informations du point
+            x = row.x
+            y = row.y
+            continent = row.continent
+            couleur_bord = row.couleur_bord
+            couleur_centre = row.couleur_centre
 
             # Dessiner le point
-            painter.setBrush(QBrush(couleur))  # Remplissage
-            painter.setPen(
-                QPen(couleur_originale, int(self.diametre_point * 1 / 3))
-            )  # Couleur du contour
+            painter.setBrush(QBrush(couleur_centre))
+            painter.setPen(QPen(couleur_bord, int(self.diametre_point * 1 / 3)))
             painter.drawEllipse(
                 QPointF(x, y),
                 self.diametre_point,
                 self.diametre_point,
             )
 
-            # Incrément
-            i = i + 1
+            # Calcul du rayon du texte
+            rayon_texte = max(rayon_texte, abs(y - self.center_y()))
 
-        # === Légendes : centrées sur le centroïde === #
+        # Renvoi
+        return rayon_texte
 
-        painter.setPen(Qt.GlobalColor.black)
-        font = QFont()
-        font.setPointSize(int(8 + self.level_distance / 10))  # Taille en points
+    def peindre_noms_continents(self, painter, df: pd.DataFrame, rayon: int):
 
+        font = painter.font()
+        font.setPointSize(self.calculer_taille_police())
         painter.setFont(font)
+
+        # Taille du texte
         font_metrics = painter.fontMetrics()
 
-        rayon_texte = rayon_texte + 10 + self.diametre_point / 1.5
-        for continent, points in continent_points.items():
-            if not points:
+        for continent in list(df["continent"].unique()):
+
+            df_temp = df[df["continent"] == continent].copy()
+
+            if len(df_temp) == 0:
                 continue
 
-            # Nom dans la bonne langue
-            nom_affiche = self.constantes.pays_differentes_langues.get(
-                continent, {}
-            ).get(self.langue, continent)
+            # Nom du continent
+            nom_affiche = self.traductions_pays.get(continent, {}).get(
+                self.langue, continent
+            )
 
             # Calcul de l'angle du point par rapport au centre
             theta = math.atan2(
-                sum(p[1] for p in points) / len(points) - center_y,
-                sum(p[0] for p in points) / len(points) - center_x,
+                df_temp["y"].mean() - self.center_y(),
+                df_temp["x"].mean() - self.center_x(),
             )
 
             painter.save()
             painter.translate(
-                center_x + rayon_texte * math.cos(theta),
-                center_y + rayon_texte * math.sin(theta),
+                self.center_x() + rayon * math.cos(theta),
+                self.center_y() + rayon * math.sin(theta),
             )
             # Angle en degrés
             painter.rotate(math.degrees(theta) + 90)
@@ -327,9 +378,100 @@ class HemicycleWidget(QWidget):
             )
             painter.restore()
 
+    def peindre_ratios_visites(self, painter, df: pd.DataFrame, rayon: int):
+
+        font = painter.font()
+        font.setPointSize(max(self.calculer_taille_police() - 1, 1))
+        painter.setFont(font)
+
+        # Taille du texte
+        font_metrics = painter.fontMetrics()
+
+        for continent in list(df["continent"].unique()):
+
+            df_temp = df[df["continent"] == continent].copy()
+
+            if len(df_temp) == 0:
+                continue
+
+            # Ratio de pays visité pour ce continent
+            texte_temp = f"{df_temp['visite'].sum()}/{len(df_temp)}"
+
+            # Calcul de l'angle du point par rapport au centre
+            theta = math.atan2(
+                df_temp["y"].mean() - self.center_y(),
+                df_temp["x"].mean() - self.center_x(),
+            )
+
+            painter.save()
+            painter.translate(
+                self.center_x() + rayon * math.cos(theta),
+                self.center_y() + rayon * math.sin(theta),
+            )
+            # Angle en degrés
+            painter.rotate(math.degrees(theta) + 90)
+
+            # Décaler légèrement le texte pour qu’il ne touche pas le point
+            painter.drawText(
+                QPointF(
+                    -font_metrics.horizontalAdvance(texte_temp) / 2,
+                    -font_metrics.height() / 2,
+                ),
+                texte_temp,
+            )
+            painter.restore()
+
+    def calculer_taille_police(self):
+        return max(int(8 + self.level_distance / 10), 1)
+
+    def paintEvent(self, event):
+
+        # Initialisation
+        painter = QPainter(self)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+
+        center_x, center_y = self.center_x(), self.center_y()  # Centre du cercle
+
+        # Mise à jour des dimensions du graphique
+        self.base_radius = int(
+            45 + min(self.width(), self.height()) * 0.15
+        )  # Rayon de base pour le premier niveau
+        self.level_distance = max(1, int(min(self.width(), self.height()) * 0.09) - 10)
+        self.diametre_point = int(min(self.width(), self.height()) * 0.023 - 2)
+
+        # Création de la table des points
+        df_temp = self.creer_table_pays_coordonnees()
+
+        # Test de cohérence entre les pays
+        assert len(set(self.liste_pays) - set(df_temp["pays"])) == 0
+        assert len(set(df_temp["pays"]) - set(self.liste_pays)) == 0
+
+        # Ajout des points
+        rayon_texte = self.peindre_points(painter=painter, df=df_temp)
+
+        # Distance du texte
+        rayon_texte = int(rayon_texte + 4 + self.diametre_point / 1.5)
+
+        # Application des caractéristiques
+        painter.setPen(QColor(self.couleur_texte))
+
+        # Ajout des ratios de pays visités
+        self.peindre_ratios_visites(painter=painter, df=df_temp, rayon=rayon_texte)
+
+        # Ajout du nom des continents
+        self.peindre_noms_continents(
+            painter=painter,
+            df=df_temp,
+            rayon=rayon_texte + 10 + self.diametre_point / 1.5,
+        )
+
+    def creer_hemicycle(self):
+        self.update()
+
     def set_pays_visites(self, pays_visites):
         """Met à jour la liste des pays visités."""
         self.pays_visites = pays_visites
+        random.seed(int(time.time()))
         self.creer_hemicycle()
 
     def set_langue(self, langue):
@@ -337,13 +479,7 @@ class HemicycleWidget(QWidget):
         self.langue = langue
         self.creer_hemicycle()
 
-    def creer_hemicycle(self):
-        self.resume = reordonner_dict(
-            nb_pays_visites(
-                dict_granu=self.pays_visites,
-                continents=self.constantes.liste_regions_monde,
-            ),
-            clefs=self.ordre_clefs,
-        )
+    def set_style(self, couleur):
 
-        self.update()
+        self.couleur_texte = couleur[0] if isinstance(couleur, tuple) else couleur
+        self.creer_hemicycle()

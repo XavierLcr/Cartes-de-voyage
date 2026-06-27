@@ -12,10 +12,9 @@ import os, sys
 import pandas as pd
 import geopandas as gpd
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+sys.path.append(os.getcwd())
 import constantes
 from _0_Utilitaires._0_1_fonctions_utiles_gen import exporter_fichier
-
 
 # 1 -- Import des données ------------------------------------------------------
 
@@ -29,7 +28,7 @@ gdf = gpd.read_file(os.path.join(constantes.direction_donnees_brutes, "gadm_410.
 gdf.columns = gdf.columns.str.lower()
 
 
-# 2 -- Correction d'erreurs dans la table  -------------------------------------
+# 2 -- Correction d'erreurs dans la table --------------------------------------
 
 
 ## 2.1 -- Allemagne ------------------------------------------------------------
@@ -389,7 +388,7 @@ gdf.loc[
 ## 2.19 -- Portugal ------------------------------------------------------------
 
 
-print("Portugaal", end=" ; ")
+print("Portugal", end=" ; ")
 gdf.loc[
     (gdf["name_0"] == "Portugal")
     & (gdf["name_1"] == "Viana do Castelo")

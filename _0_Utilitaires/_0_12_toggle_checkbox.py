@@ -129,6 +129,9 @@ class ToggleSwitch(QCheckBox):
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
         painter.setPen(Qt.PenStyle.NoPen)
 
+        if not self.isEnabled():
+            painter.setOpacity(0.4)
+
         # La piste est verticalement centrée dans le widget (utile si le
         # texte est plus haut que la piste)
         track_y = (self.height() - self._track_height) / 2

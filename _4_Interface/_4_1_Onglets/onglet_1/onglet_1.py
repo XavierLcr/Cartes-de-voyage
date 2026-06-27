@@ -445,7 +445,10 @@ class OngletParametres(QWidget):
 
     def set_style(self, style, preset, teintes):
 
+        # Bouton de style
         self.utiliser_theme.set_style(style=style, preset=preset, teintes=teintes)
+
+        # Paramètres de cartes
         self.email_checkbox.set_style(style=style, preset=preset, teintes=teintes)
         self.labellisation_checkbox.set_style(
             style=style, preset=preset, teintes=teintes

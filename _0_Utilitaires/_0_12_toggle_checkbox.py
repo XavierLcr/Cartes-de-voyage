@@ -60,7 +60,7 @@ class ToggleSwitch(QCheckBox):
         self.stateChanged.connect(self._animate_to_state)
 
         if text:
-            self.setText(text)  # déclenche aussi updateGeometry via setText override
+            self.setText(text)
 
         self.set_style(style=style)
 
@@ -83,6 +83,11 @@ class ToggleSwitch(QCheckBox):
     def set_knob_position(self, value):
         self._knob_position = value
         self.update()
+
+    def setChecked(self, checked: bool):
+        super().setChecked(checked)
+        self._animation.stop()
+        self.set_knob_position(1.0 if checked else 0.0)
 
     knob_position = pyqtProperty(float, get_knob_position, set_knob_position)
 

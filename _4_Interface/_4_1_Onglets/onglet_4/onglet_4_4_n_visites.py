@@ -10,7 +10,7 @@
 
 import pandas as pd
 from collections import defaultdict
-from PyQt6.QtWidgets import QWidget, QVBoxLayout, QScrollArea
+from PyQt6.QtWidgets import QWidget, QVBoxLayout
 
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     vider_layout,
@@ -88,7 +88,7 @@ class PaysLesPlusVisites(QWidget):
 
     def __init__(self, constantes, fct_traduction, parent=None):
 
-        super().__init__(parent=None)
+        super().__init__(parent=parent)
 
         # Variables globales
         self.langue = "français"

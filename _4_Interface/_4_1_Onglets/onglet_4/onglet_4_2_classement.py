@@ -86,10 +86,7 @@ def creer_classement_pays(
     # Pays avec un pourcentage arrondi non nul ou dans les trois premières lignes
     df_temp = df_temp[(df_temp["pct_superficie_dans_pays"] > 0) | (df_temp.index < 3)]
 
-    return (
-        df_temp,
-        df_temp[df_temp["pct_superficie_dans_pays"] == 100].shape[0],
-    )
+    return df_temp
 
 
 # 2 -- Classe affichant les pays les plus visités ------------------------------
@@ -267,7 +264,7 @@ class ClassementPays(QWidget):
         try:
 
             # Classement des pays
-            df_temp, top_n_lignes = creer_classement_pays(
+            df_temp = creer_classement_pays(
                 # transformation du dictionnaire en Data.frame
                 gdf_visite=pd.DataFrame(
                     [
@@ -291,7 +288,7 @@ class ClassementPays(QWidget):
             self.classement_standard(
                 df=df_temp,
                 vbox=vbox,
-                top_n_lignes=top_n_lignes,
+                top_n_lignes=(df_temp["pct_superficie_dans_pays"] == 100).sum(),
             )
 
         except Exception as e:

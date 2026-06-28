@@ -13,7 +13,6 @@ import pandas as pd
 from PyQt6.QtCore import QPointF
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtGui import QPainter, QPen, QColor, QBrush
-from collections import defaultdict
 from _0_Utilitaires._0_5_isid import isid
 
 # 1 -- Fonctions ---------------------------------------------------------------
@@ -23,10 +22,7 @@ from _0_Utilitaires._0_5_isid import isid
 
 
 def somme_filee(lignes, a, b):
-    total = 0
-    for i in range(lignes):
-        total = total + a + i * b
-    return total
+    return lignes * a + b * (lignes * (lignes - 1) // 2)
 
 
 ## 1.2 -- Fonction de calcul du nombre de pays visités par continent -----------

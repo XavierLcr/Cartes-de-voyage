@@ -24,7 +24,6 @@ from _0_Utilitaires._0_4_fonctions_utiles_nettoyage import (
 )
 from _0_Utilitaires._0_5_isid import isid
 
-
 # 1 -- Import des données ------------------------------------------------------
 
 

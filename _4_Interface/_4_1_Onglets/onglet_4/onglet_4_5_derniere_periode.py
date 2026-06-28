@@ -9,7 +9,6 @@
 
 
 from datetime import date
-import pandas as pd
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel, QHBoxLayout
 from PyQt6.QtCore import Qt
 
@@ -27,7 +26,7 @@ from _0_Utilitaires._0_9_plot_diagramme_gantt import plot_diagramme_gantt
 class CalendrierVisite(QWidget):
 
     def __init__(self, fct_traduction, parent=None):
-        super().__init__(parent=None)
+        super().__init__(parent=parent)
 
         self.langue = "français"
         self.fct_traduction = fct_traduction

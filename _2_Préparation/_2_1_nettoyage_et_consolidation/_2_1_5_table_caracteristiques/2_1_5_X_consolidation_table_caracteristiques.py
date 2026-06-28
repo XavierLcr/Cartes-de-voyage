@@ -5,7 +5,6 @@
 ################################################################################
 
 
-import unicodedata
 import numpy as np
 import pandas as pd
 
@@ -20,7 +19,6 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     distance_haversine,
 )
 from _0_Utilitaires._0_5_isid import isid
-
 
 # 1 -- Import des données ------------------------------------------------------
 
@@ -300,6 +298,8 @@ gdf_cons = imputation_geo_knn(
     df=gdf_cons,
     n_voisins=10,
     colonnes_exclues=colonnes_a_exclure,
+    col_long="longitude",
+    col_lat="latitude",
 )
 
 
@@ -366,6 +366,7 @@ for pattern, pondération in {
 
 for col in gdf_cons.select_dtypes(include="object").columns:
     if col not in ["name_0", "name_1", "name_2"]:
+        print(col)
         gdf_cons[col] = gdf_cons[col].astype(float)
 
 

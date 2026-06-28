@@ -13,7 +13,6 @@ from _0_Utilitaires._0_2_fonctions_graphiques import (
     renvoyer_couleur_texte,
 )
 
-
 # 1 -- Fonction de gestion des situations où deux couleurs doivent différer ----
 
 
@@ -243,10 +242,11 @@ def style_dynamique_application(
                 color: {couleur_push_texte};
                 border-radius: 5px;
                 padding: 8px;
+                border-color:none;
             }}
             QPushButton:hover {{
-                background-color: { couleur_push_hover};
-                color: { couleur_push_hover_texte};
+                background-color: {couleur_push_hover};
+                color: {couleur_push_hover_texte};
             }}
             QComboBox {{
                 background-color: {couleur_box};
@@ -305,9 +305,11 @@ def style_dynamique_application(
                 padding: 5px;
                 height: 20px;  /* Hauteur de chaque élément de la liste */
             }}
-
-
-            /* Personnalise la flèche elle-même */
+            QComboBox::drop-down {{
+                border: 0px;
+                width: 20px;
+                height: 20px;
+            }}
             QComboBox::down-arrow {{
                 width: 10px;
                 height: 10px;

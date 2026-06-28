@@ -35,7 +35,7 @@ from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
 ## 1.1 -- Fonction de calcul des scores entre régions --------------------------
 
 
-@numba.njit
+@numba.njit(parallel=True)
 def calculer_score_region(
     lats_visite,
     lons_visite,
@@ -51,9 +51,11 @@ def calculer_score_region(
     n_reste = lats_reste.shape[0]
     n_visite = lats_visite.shape[0]
     scores = np.zeros(n_reste)
-    for i in range(n_reste):
+    superficie_visitee_totale = np.sum(superficie_visite)
+    poids_visite = superficie_visite * (1 - na_visite)
+    for i in numba.prange(n_reste):
         s = 0.0
-        total_i = 0.0
+        na_reste_i = 1 - na_reste[i]
         for j in range(n_visite):
             s += (
                 # Un bon score est un score avec une faible norme
@@ -68,16 +70,13 @@ def calculer_score_region(
                     )
                     ** alpha
                 )
-                # Pondération par la superficie
-                * superficie_visite[j]
-                # Les couples avec des NA sont moins mis en avant
-                * (1 - na_visite[j])
-                * (1 - na_reste[i])
+                # Pondération par la superficie et les NA
+                * poids_visite[j]
+                * na_reste_i
             )
 
             # Pondération par la superficie
-            total_i += superficie_visite[j]
-        scores[i] = 100 * s / total_i if n_visite > 0 else 0.0
+        scores[i] = (100 * s / superficie_visitee_totale) if n_visite > 0 else 0.0
     return scores
 
 
@@ -121,13 +120,13 @@ def calculer_recommandation(
         df_reste.assign(
             # Calcul des scores
             score_region=calculer_score_region(
-                lats_visite=df_visite["latitude"].to_numpy(),
-                lons_visite=df_visite["longitude"].to_numpy(),
+                lats_visite=np.radians(df_visite["latitude"].to_numpy()),
+                lons_visite=np.radians(df_visite["longitude"].to_numpy()),
                 vals_visite=df_visite[cols_val].to_numpy(),
                 na_visite=df_visite["nombre_na"].to_numpy(),
                 superficie_visite=df_visite["superficie"].to_numpy(),
-                lats_reste=df_reste["latitude"].to_numpy(),
-                lons_reste=df_reste["longitude"].to_numpy(),
+                lats_reste=np.radians(df_reste["latitude"].to_numpy()),
+                lons_reste=np.radians(df_reste["longitude"].to_numpy()),
                 vals_reste=df_reste[cols_val].to_numpy(),
                 na_reste=df_reste["nombre_na"].to_numpy(),
                 alpha=alpha,

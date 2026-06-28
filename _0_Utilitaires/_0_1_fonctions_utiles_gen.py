@@ -250,7 +250,6 @@ def periode_particuliere(periodes: dict) -> dict:
 
 @numba.njit
 def distance_haversine(lat1, lon1, lat2, lon2):
-    lat1, lon1, lat2, lon2 = map(np.radians, [lat1, lon1, lat2, lon2])
 
     return (
         2

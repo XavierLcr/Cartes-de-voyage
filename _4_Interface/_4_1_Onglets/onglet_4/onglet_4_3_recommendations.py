@@ -226,7 +226,7 @@ class PaysAVisiter(QWidget):
         # Paramètres utilisateur
         self.langue = "français"
         self.dict_granu = {"region": {}, "dep": {}}
-        self.recommandations_par_pays = False
+        self.recommandations_par_pays = True
         self.recommandations_nb = 20
         self.df = None
 

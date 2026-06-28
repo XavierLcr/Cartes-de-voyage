@@ -202,8 +202,9 @@ class OngletParametresProfil(QWidget):
         self.recommandations_groupbox.setLayout(recommandations_layout)
         # Par pays
         self.recommandations_par_pays = QCheckBox()
-        recommandations_layout.addWidget(self.recommandations_par_pays)
-        self.recommandations_par_pays.clicked.connect(self.get_recommandations_par_pays)
+        self.recommandations_par_pays.setChecked(True)
+        # recommandations_layout.addWidget(self.recommandations_par_pays)
+        # self.recommandations_par_pays.clicked.connect(self.get_recommandations_par_pays)
         # Nombre de recommandations
         self.recommandations_nb = QSpinBox()
         self.recommandations_nb.setMinimum(5)
@@ -460,7 +461,7 @@ class OngletParametresProfil(QWidget):
         theme_application = kwargs.get("theme_application", True)
         adresse_email = kwargs.get("adresse_email", "")
         hemicycle_position = kwargs.get("hemicycle_position", -1)
-        recommandations_par_pays = kwargs.get("recommandations_par_pays", False)
+        recommandations_par_pays = True  # kwargs.get("recommandations_par_pays", False)
         recommandations_nb = kwargs.get("recommandations_nb", 20)
 
         # Langue

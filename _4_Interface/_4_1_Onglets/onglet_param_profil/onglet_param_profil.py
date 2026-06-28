@@ -321,13 +321,13 @@ class OngletParametresProfil(QWidget):
             self.fonction_traduction("hemicycle_position_label", suffixe=" :")
         )
         self.hemicycle_position_gauche.setText(
-            self.fonction_traduction("hemicycle_position_gauche")
+            self.fonction_traduction("hemicycle_position_gauche", prefixe="← ")
         )
         self.hemicycle_position_alea.setText(
-            self.fonction_traduction("hemicycle_position_alea")
+            self.fonction_traduction("hemicycle_position_alea", prefixe="⛬ ")
         )
         self.hemicycle_position_droite.setText(
-            self.fonction_traduction("hemicycle_position_droite")
+            self.fonction_traduction("hemicycle_position_droite", prefixe="→ ")
         )
 
         # Recommandations

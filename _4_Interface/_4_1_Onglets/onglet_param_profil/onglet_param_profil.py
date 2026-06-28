@@ -78,20 +78,18 @@ class OngletParametresProfil(QWidget):
             )
         )
         self.langues_groupbox = QGroupBox()
-        langues_layout = QHBoxLayout()
+        langues_layout = QHBoxLayout(self.langues_groupbox)
         langues_layout.addWidget(self.langues_dispos)
-        self.langues_groupbox.setLayout(langues_layout)
-        # layout.addWidget(self.langues_groupbox)
         self.langues_dispos.currentIndexChanged.connect(self.get_langue)
 
         # Dossier de stockage
-        # Choix du dossier
         self.dossier_stockage = None
         self.dossier_stockage_bouton = QPushButton()
         self.dossier_stockage_bouton.clicked.connect(self.choisir_dossier)
         self.dossier_stockage_groupbox = QGroupBox()
-        dossier_stockage_layout = QHBoxLayout()
+        dossier_stockage_layout = QHBoxLayout(self.dossier_stockage_groupbox)
         dossier_stockage_layout.addWidget(self.dossier_stockage_bouton, stretch=2)
+
         # Ouverture du dossier après publication des cartes
         self.dossier_stockage_ouverture = QCheckBox()
         dossier_stockage_layout.addWidget(
@@ -99,8 +97,6 @@ class OngletParametresProfil(QWidget):
             stretch=1,
             alignment=Qt.AlignmentFlag.AlignHCenter,
         )
-        self.dossier_stockage_groupbox.setLayout(dossier_stockage_layout)
-        # layout.addWidget(self.dossier_stockage_groupbox)
 
         # Thème de l'application
         self.theme_application_groupbox = QGroupBox()
@@ -111,36 +107,15 @@ class OngletParametresProfil(QWidget):
         self.theme_application_bouton.stateChanged.connect(self.set_theme_application)
         self.signal_theme_application.emit(self.theme_application)
 
-        # Ajout de la langue et du dossier au layout
-        layout_temp = QHBoxLayout()
-        layout_temp.addWidget(self.langues_groupbox)
-        layout_temp.addWidget(self.dossier_stockage_groupbox)
-        layout_temp.addWidget(self.theme_application_groupbox)
-        layout.addLayout(layout_temp)
-
-        # Préférences à propos des publications
-        self.preferences_cartes_groupbox = QGroupBox()
-        preferences_cartes_layout = QVBoxLayout()
-        self.preferences_cartes_groupbox.setLayout(preferences_cartes_layout)
-        layout.addWidget(self.preferences_cartes_groupbox)
-
         # Cartes à faible granularité
         self.sortir_cartes_granu_inf = QCheckBox()
-        preferences_cartes_layout.addWidget(self.sortir_cartes_granu_inf)
-
-        # Ligne de séparation
-        preferences_cartes_layout.addWidget(creer_ligne_horizontale())
 
         # Nombre limite de cartes
         widget_nb_copies_cartes = QWidget()
-        radio_layout = QHBoxLayout()
-        # radio_layout.setAlignment(Qt.AlignmentFlag.AlignHCenter)
-        radio_layout.setContentsMargins(0, 0, 0, 0)
-        radio_layout.setSpacing(12)
-        widget_nb_copies_cartes.setLayout(radio_layout)
-
-        # Titre (centré verticalement)
+        radio_layout = QHBoxLayout(widget_nb_copies_cartes)
         self.label_nb_copies_cartes = creer_QLabel_centre()
+        radio_layout.setContentsMargins(0, 0, 0, 0)
+        radio_layout.setSpacing(9)
 
         # Création des boutons radio avec noms clairs
         self.radio_carte_1 = QRadioButton()
@@ -164,6 +139,12 @@ class OngletParametresProfil(QWidget):
         radio_layout.addWidget(self.radio_carte_2)
         radio_layout.addWidget(self.radio_carte_3)
         radio_layout.addWidget(self.radio_carte_sans_limite)
+
+        # Groupbox des préférences de cartes
+        self.preferences_cartes_groupbox = QGroupBox()
+        preferences_cartes_layout = QVBoxLayout(self.preferences_cartes_groupbox)
+        preferences_cartes_layout.addWidget(self.sortir_cartes_granu_inf)
+        preferences_cartes_layout.addWidget(creer_ligne_horizontale())
         preferences_cartes_layout.addWidget(widget_nb_copies_cartes)
 
         # Groupbox – e-mails
@@ -213,17 +194,6 @@ class OngletParametresProfil(QWidget):
         self.recommandations_nb.valueChanged.connect(self.get_recommandations_nb)
         recommandations_layout.addWidget(self.recommandations_nb)
 
-        # Layout avec e-mails et l'hémicycle
-        layout_email_hemicycle = QVBoxLayout()
-        layout_email_hemicycle.addWidget(self.email_groupbox)
-        layout_email_hemicycle.addWidget(self.hemicycle_groupbox)
-
-        # Layout avec e-mails, l'émicycle et les recommandations
-        layout_email_hemicycle_reco = QHBoxLayout()
-        layout_email_hemicycle_reco.addLayout(layout_email_hemicycle)
-        layout_email_hemicycle_reco.addWidget(self.recommandations_groupbox)
-        layout.addLayout(layout_email_hemicycle_reco)
-
         # Bouton de sauvegarde
         self.bouton_sauvegarde = QPushButton()
         self.bouton_sauvegarde.clicked.connect(
@@ -233,11 +203,32 @@ class OngletParametresProfil(QWidget):
         # Suppression du profil
         self.suppression_profil = QPushButton()
 
+        # --- Agencement des groupbox, layouts et widgets --- #
+
+        # Ajout de la langue, du dossier et de l'email
+        layout_temp = QHBoxLayout()
+        layout_temp.addWidget(self.langues_groupbox, stretch=3)
+        layout_temp.addWidget(self.dossier_stockage_groupbox, stretch=5)
+        layout_temp.addWidget(self.theme_application_groupbox, stretch=2)
+        layout.addLayout(layout_temp, stretch=2)
+
+        # Thème et préférences de publication de cartes
+        layout_temp = QHBoxLayout()
+        layout_temp.addWidget(self.preferences_cartes_groupbox)
+        layout_temp.addWidget(self.recommandations_groupbox)
+        layout.addLayout(layout_temp, stretch=2)
+
+        # Statistiques
+        layout_temp = QHBoxLayout()
+        layout_temp.addWidget(self.email_groupbox)
+        layout_temp.addWidget(self.hemicycle_groupbox)
+        layout.addLayout(layout_temp, stretch=2)
+
         # Layout des boutons
         layout_boutons_finaux = QHBoxLayout()
         layout_boutons_finaux.addWidget(self.bouton_sauvegarde, stretch=10)
         layout_boutons_finaux.addWidget(self.suppression_profil, stretch=3)
-        layout.addLayout(layout_boutons_finaux)
+        layout.addLayout(layout_boutons_finaux, stretch=1)
 
         # Layout principal
         self.setLayout(layout)
@@ -283,7 +274,9 @@ class OngletParametresProfil(QWidget):
 
         # Sorties des cartes avec une faible granularité
         self.sortir_cartes_granu_inf.setText(
-            self.fonction_traduction("publier_cartes_faible_granularite_uniquement")
+            self.fonction_traduction(
+                "publier_cartes_faible_granularite_uniquement", largeur_max=None
+            )
         )
         self.sortir_cartes_granu_inf.setToolTip(
             self.fonction_traduction(

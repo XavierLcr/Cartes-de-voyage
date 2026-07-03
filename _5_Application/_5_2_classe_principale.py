@@ -424,10 +424,11 @@ class MesVoyagesApplication(QWidget):
         if theme_temp is None or teinte_temp is None:
             self.onglet_parametres.utiliser_theme.setEnabled(False)
             self.onglet_parametres.utiliser_theme.setChecked(checked=False)
-            return
-
-        # Bouton de style
-        self.onglet_parametres.utiliser_theme.setEnabled(True)
+            theme_temp = {}
+            teinte_temp = None
+        else:
+            # Bouton de style
+            self.onglet_parametres.utiliser_theme.setEnabled(True)
 
         # Appliquer les styles dynamiques
         style_temp = (

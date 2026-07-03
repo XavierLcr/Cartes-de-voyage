@@ -13,6 +13,7 @@ import copy
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     exporter_fichier,
     formater_temps_actuel,
+    ouvrir_fichier,
 )
 
 # 1 -- Classe de sauvegarde ----------------------------------------------------
@@ -20,12 +21,15 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
 
 class Sauvegarde(dict):
 
-    def __init__(self, chemin_sauvegarde, sauvegarde: dict = {}, parent=None):
+    def __init__(self, chemin_sauvegarde):
         super().__init__()
 
-        self.sauvegarde = sauvegarde or {}
+        # Constantes
         self.chemin_sauvegarde = chemin_sauvegarde
         self.nom_fichier = "sauvegarde_utilisateurs.yaml"
+
+        # Chargement de la sauvegarde
+        self.charger_sauvegarde()
 
     def supprimer_profil(self, clef: str):
         """Permet de supprimer un profil s'il existe"""
@@ -40,6 +44,14 @@ class Sauvegarde(dict):
     def renvoyer_liste_profils(self):
         """Renvoie tous les profils existants, par ordre alphabétique"""
         return list(self.sauvegarde.keys())
+
+    def charger_sauvegarde(self):
+
+        self.sauvegarde = ouvrir_fichier(
+            direction_fichier=self.chemin_sauvegarde,
+            nom_fichier=self.nom_fichier,
+            defaut={},
+        )
 
     def exporter_sauvegarde(self):
 

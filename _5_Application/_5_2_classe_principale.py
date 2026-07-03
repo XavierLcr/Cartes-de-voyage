@@ -57,7 +57,7 @@ os.environ["QT_LOGGING_RULES"] = "qt.text.font.db=false"
 
 class MesVoyagesApplication(QWidget):
 
-    def __init__(self, constantes, sauvegarde={}, df_superficie=None):
+    def __init__(self, constantes, df_superficie=None):
 
         super().__init__()
 
@@ -88,9 +88,7 @@ class MesVoyagesApplication(QWidget):
 
         # Sauvegarde
         self.sauvegarde = Sauvegarde(
-            chemin_sauvegarde=constantes.direction_donnees_application,
-            sauvegarde=sauvegarde,
-            parent=None,
+            chemin_sauvegarde=constantes.direction_donnees_application
         )
 
         # === Profil sélectionné ===

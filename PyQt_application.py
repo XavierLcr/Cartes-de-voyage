@@ -27,17 +27,7 @@ os.environ["QT_LOGGING_RULES"] = "qt.text.font.db=false"
 # 1 -- Import des données ------------------------------------------------------
 
 
-## 1.1 -- Import de la sauvegarde ----------------------------------------------
-
-
-sauvegarde = _0_1_fonctions_utiles_gen.ouvrir_fichier(
-    direction_fichier=constantes.direction_donnees_application,
-    nom_fichier="sauvegarde_utilisateurs.yaml",
-    defaut={},
-)
-
-
-## 1.2 -- Superficie des territoires -------------------------------------------
+## 1.1 -- Superficie des territoires -------------------------------------------
 
 
 df_superficie = _0_1_fonctions_utiles_gen.ouvrir_fichier(
@@ -68,9 +58,7 @@ if __name__ == "__main__":
     app.processEvents()  # Force l'affichage
 
     # Lancement de la fenêtre principale
-    window = MesVoyagesApplication(
-        constantes=constantes, sauvegarde=sauvegarde, df_superficie=df_superficie
-    )
+    window = MesVoyagesApplication(constantes=constantes, df_superficie=df_superficie)
     window.show()
 
     # Fermeture du splash

@@ -190,7 +190,7 @@ class OngletParametresProfil(QWidget):
         layout_temp.addWidget(self.langues_groupbox, stretch=3)
         layout_temp.addWidget(self.dossier_stockage_groupbox, stretch=5)
         layout_temp.addWidget(self.theme_application_groupbox, stretch=2)
-        layout.addLayout(layout_temp, stretch=2)
+        layout.addLayout(layout_temp)
 
         # Préférences de publication de cartes
         layout.addWidget(self.preferences_cartes_groupbox)
@@ -199,13 +199,16 @@ class OngletParametresProfil(QWidget):
         layout_temp = QHBoxLayout()
         layout_temp.addWidget(self.email_groupbox)
         layout_temp.addWidget(self.hemicycle_groupbox)
-        layout.addLayout(layout_temp, stretch=2)
+        layout.addLayout(layout_temp)
+
+        # Stretch
+        layout.addStretch()
 
         # Layout des boutons
         layout_boutons_finaux = QHBoxLayout()
         layout_boutons_finaux.addWidget(self.bouton_sauvegarde, stretch=10)
         layout_boutons_finaux.addWidget(self.suppression_profil, stretch=3)
-        layout.addLayout(layout_boutons_finaux, stretch=1)
+        layout.addLayout(layout_boutons_finaux)
 
         # Layout principal
         self.setLayout(layout)

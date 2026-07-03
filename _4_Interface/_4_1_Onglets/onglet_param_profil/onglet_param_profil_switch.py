@@ -47,7 +47,6 @@ class BoutonSwitch(QWidget):
             return
 
         self._checked = checked
-        self.set_anim_pos(value=checked)
 
         self._animation.stop()
         self._animation.setStartValue(self._anim_pos)

@@ -50,8 +50,6 @@ class OngletParametresProfil(QWidget):
     signal_langue = pyqtSignal(str)
     signal_theme_application = pyqtSignal(bool)
     signal_hemicyle_position = pyqtSignal(int)
-    signal_reco_par_pays = pyqtSignal(bool)
-    signal_reco_nb = pyqtSignal(int)
 
     def __init__(self, constantes, fct_traduction):
 
@@ -177,23 +175,6 @@ class OngletParametresProfil(QWidget):
         self.hemicycle_groupbox.setLayout(hemicycle_layout)
         self.hemicycle_position_gauche.setChecked(True)
 
-        # Recommandations
-        self.recommandations_groupbox = QGroupBox()
-        recommandations_layout = QVBoxLayout()
-        self.recommandations_groupbox.setLayout(recommandations_layout)
-        # Par pays
-        self.recommandations_par_pays = QCheckBox()
-        self.recommandations_par_pays.setChecked(True)
-        # recommandations_layout.addWidget(self.recommandations_par_pays)
-        # self.recommandations_par_pays.clicked.connect(self.get_recommandations_par_pays)
-        # Nombre de recommandations
-        self.recommandations_nb = QSpinBox()
-        self.recommandations_nb.setMinimum(5)
-        self.recommandations_nb.setMaximum(100)
-        self.recommandations_nb.setSingleStep(1)
-        self.recommandations_nb.valueChanged.connect(self.get_recommandations_nb)
-        recommandations_layout.addWidget(self.recommandations_nb)
-
         # Bouton de sauvegarde
         self.bouton_sauvegarde = QPushButton()
         self.bouton_sauvegarde.clicked.connect(
@@ -215,7 +196,6 @@ class OngletParametresProfil(QWidget):
         # Thème et préférences de publication de cartes
         layout_temp = QHBoxLayout()
         layout_temp.addWidget(self.preferences_cartes_groupbox)
-        layout_temp.addWidget(self.recommandations_groupbox)
         layout.addLayout(layout_temp, stretch=2)
 
         # Statistiques
@@ -324,21 +304,6 @@ class OngletParametresProfil(QWidget):
             self.fonction_traduction("hemicycle_position_droite", prefixe="→ ")
         )
 
-        # Recommandations
-        self.recommandations_groupbox.setTitle(
-            self.fonction_traduction("titre_sous_onglet_4_3")
-        )
-
-        self.recommandations_par_pays.setText(
-            self.fonction_traduction("recommandations_par_pays")
-        )
-        self.recommandations_par_pays.setToolTip(
-            self.fonction_traduction("recommandations_par_pays_tooltip", suffixe=".")
-        )
-        self.recommandations_nb.setSuffix(
-            self.fonction_traduction("recommandations_nb", prefixe=" ")
-        )
-
         # Bouton de sauvegarde
         self.bouton_sauvegarde.setText("💾")
         self.bouton_sauvegarde.setToolTip(
@@ -431,18 +396,6 @@ class OngletParametresProfil(QWidget):
     def set_email(self, email: str):
         self.email_input.setText(email)
 
-    def get_recommandations_par_pays(self):
-        self.signal_reco_par_pays.emit(self.recommandations_par_pays.isChecked())
-
-    def set_recommandations_par_pays(self, val: bool):
-        self.recommandations_par_pays.setChecked(val)
-
-    def get_recommandations_nb(self):
-        self.signal_reco_nb.emit(self.recommandations_nb.value())
-
-    def set_recommandations_nb(self, val: int):
-        self.recommandations_nb.setValue(val)
-
     def initialiser_param_profil(self, **kwargs):
 
         # Récupération des valeurs avec des valeurs par défaut
@@ -454,8 +407,6 @@ class OngletParametresProfil(QWidget):
         theme_application = kwargs.get("theme_application", True)
         adresse_email = kwargs.get("adresse_email", "")
         hemicycle_position = kwargs.get("hemicycle_position", -1)
-        recommandations_par_pays = True  # kwargs.get("recommandations_par_pays", False)
-        recommandations_nb = kwargs.get("recommandations_nb", 20)
 
         # Langue
         self.langues_dispos.setCurrentIndex(
@@ -483,10 +434,6 @@ class OngletParametresProfil(QWidget):
 
         # Alignement des pays dans l'hémicycle
         self.set_hemicycle_position(val=hemicycle_position)
-
-        # Recommandations
-        self.set_recommandations_par_pays(val=recommandations_par_pays)
-        self.set_recommandations_nb(val=recommandations_nb)
 
     def creer_dict_parametres(self):
 

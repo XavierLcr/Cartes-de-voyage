@@ -219,26 +219,14 @@ class OngletTopPays(QWidget):
         self.pays_souvent_visites.set_voyages(voyages=copy.deepcopy(dict_nv))
         self.calendrier_visites.set_voyages(voyages=copy.deepcopy(dict_nv))
 
-    def initialiser_onglet(self):
-        self.recommandations.initialiser_onglet()
+    def initialiser_onglet(self, **kwargs):
+        self.recommandations.initialiser_onglet(**kwargs)
 
     def set_hemicycle_position(self, val: int):
         self.hemicycle.set_points_visites_position(position=val)
 
     def get_hemicycle_position(self):
         return self.hemicycle.get_points_visites_position()
-
-    def set_recommandations_par_pays(self, val: bool):
-        self.recommandations.set_recommandations_par_pays(val=val)
-
-    def get_recommandations_par_pays(self):
-        return self.recommandations.get_recommandations_par_pays()
-
-    def set_recommandations_nb(self, val: int):
-        self.recommandations.set_recommandations_nb(val=val)
-
-    def get_recommandations_nb(self):
-        return self.recommandations.get_recommandations_nb()
 
     def creer_dict_parametres(self):
 

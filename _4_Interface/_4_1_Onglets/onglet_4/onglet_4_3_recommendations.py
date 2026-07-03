@@ -16,6 +16,7 @@ from PyQt6.QtWidgets import (
     QGridLayout,
     QLabel,
     QScrollArea,
+    QSpinBox,
 )
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import distance_haversine
@@ -227,7 +228,6 @@ class PaysAVisiter(QWidget):
         self.langue = "français"
         self.dict_granu = {"region": {}, "dep": {}}
         self.recommandations_par_pays = True
-        self.recommandations_nb = 20
         self.df = None
 
         layout = QVBoxLayout()
@@ -248,6 +248,16 @@ class PaysAVisiter(QWidget):
         )  # permet au scroll de s’adapter à la taille
         scroll_area.setWidget(scroll_widget)
         layout.addWidget(scroll_area)
+
+        # Nombre de recommandations
+        self.recommandations_nb = QSpinBox()
+        recommandations_layout = QHBoxLayout()
+        self.recommandations_nb.setMinimum(5)
+        self.recommandations_nb.setMaximum(100)
+        self.recommandations_nb.setSingleStep(1)
+        recommandations_layout.addStretch()
+        recommandations_layout.addWidget(self.recommandations_nb)
+        layout.addLayout(recommandations_layout)
 
         self.setLayout(layout)
 
@@ -410,6 +420,9 @@ class PaysAVisiter(QWidget):
         self.bouton_recommandations.setToolTip(
             self.fonction_traduire("recommandation_passeport")
         )
+        self.recommandations_nb.setSuffix(
+            self.fonction_traduire("recommandations_nb", prefixe=" ")
+        )
         self.afficher_recommandation()
 
     def set_bouton_recommandation(self, style, teinte, nuances):
@@ -424,15 +437,19 @@ class PaysAVisiter(QWidget):
     def set_recommandations_par_pays(self, val: bool):
         self.recommandations_par_pays = val
 
-    def get_recommandations_nb(self):
-        return self.recommandations_nb
-
-    def set_recommandations_nb(self, val: int):
-        self.recommandations_nb = val
-
     def vider_recommandations(self):
         vider_layout(self.corps_recommandations)
         self.corps_recommandations.update()
 
-    def initialiser_onglet(self):
+    def get_recommandations_nb(self):
+        return self.recommandations_nb.value()
+
+    def set_recommandations_nb(self, val: int):
+        self.recommandations_nb.setValue(val)
+
+    def initialiser_onglet(self, **kwargs):
         self.vider_recommandations()
+
+        # Recommandations
+        recommandations_nb = kwargs.get("recommandations_nb", 20)
+        self.set_recommandations_nb(val=recommandations_nb)

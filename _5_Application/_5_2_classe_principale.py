@@ -205,12 +205,6 @@ class MesVoyagesApplication(QWidget):
             self.set_hemicycle_position
         )
 
-        # Recommandations
-        self.onglet_param_profil.signal_reco_par_pays.connect(
-            self.set_recommandations_par_pays
-        )
-        self.onglet_param_profil.signal_reco_nb.connect(self.set_recommandations_nb)
-
         # == Sixième onglet ===
 
         self.onglet_description_application = onglet_info.OngletInformations(
@@ -581,7 +575,7 @@ class MesVoyagesApplication(QWidget):
         self.onglet_selection_destinations.initialiser_onglet(nom=nom)
 
         # Onglet de statistiques
-        self.onglet_statistiques.initialiser_onglet()
+        self.onglet_statistiques.initialiser_onglet(**sauv)
 
         # Récupération des destinations
         if "dictionnaire_voyages" in list(sauv.keys()):
@@ -634,12 +628,6 @@ class MesVoyagesApplication(QWidget):
 
     def set_hemicycle_position(self, val: int):
         self.onglet_statistiques.set_hemicycle_position(val=val)
-
-    def set_recommandations_par_pays(self, val: bool):
-        self.onglet_statistiques.set_recommandations_par_pays(val=val)
-
-    def set_recommandations_nb(self, val: int):
-        self.onglet_statistiques.set_recommandations_nb(val=val)
 
     def ajouter_profil(self):
 

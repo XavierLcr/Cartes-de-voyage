@@ -127,6 +127,17 @@ class BoutonSwitch(QWidget):
         else:
             self.draw_moon(painter, center, d, phase=phase_lunaire())
 
+    def resizeEvent(self, event):
+        # La hauteur idéale d'un switch = moitié de la largeur (forme "pilule")
+        hauteur_max = int(max(30, self.width() / 1.1))
+
+        if self.height() > hauteur_max:
+            self.setMaximumHeight(hauteur_max)
+        else:
+            self.setMaximumHeight(16777215)  # QWIDGETSIZE_MAX, on retire la contrainte
+
+        super().resizeEvent(event)
+
     def draw_sun(self, painter, center, size):
 
         # =========================================================

@@ -432,7 +432,7 @@ class HemicycleWidget(QWidget):
         self.base_radius = int(
             45 + min(self.width(), self.height()) * 0.15
         )  # Rayon de base pour le premier niveau
-        self.level_distance = max(1, int(min(self.width(), self.height()) * 0.09) - 10)
+        self.level_distance = max(1, int(min(self.width(), self.height()) * 0.095) - 10)
         self.diametre_point = int(min(self.width(), self.height()) * 0.023 - 2)
 
         # Création de la table des points

@@ -21,7 +21,6 @@ from PyQt6.QtWidgets import (
     QButtonGroup,
     QRadioButton,
     QLineEdit,
-    QSpinBox,
 )
 from PyQt6.QtCore import Qt, pyqtSignal
 
@@ -186,19 +185,17 @@ class OngletParametresProfil(QWidget):
 
         # --- Agencement des groupbox, layouts et widgets --- #
 
-        # Ajout de la langue, du dossier et de l'email
+        # Ajout de la langue, du dossier et du thème
         layout_temp = QHBoxLayout()
         layout_temp.addWidget(self.langues_groupbox, stretch=3)
         layout_temp.addWidget(self.dossier_stockage_groupbox, stretch=5)
         layout_temp.addWidget(self.theme_application_groupbox, stretch=2)
         layout.addLayout(layout_temp, stretch=2)
 
-        # Thème et préférences de publication de cartes
-        layout_temp = QHBoxLayout()
-        layout_temp.addWidget(self.preferences_cartes_groupbox)
-        layout.addLayout(layout_temp, stretch=2)
+        # Préférences de publication de cartes
+        layout.addWidget(self.preferences_cartes_groupbox)
 
-        # Statistiques
+        # E-mail & Statistiques
         layout_temp = QHBoxLayout()
         layout_temp.addWidget(self.email_groupbox)
         layout_temp.addWidget(self.hemicycle_groupbox)

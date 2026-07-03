@@ -389,7 +389,7 @@ def ajouter_labels_carte(
             y,
             label_retour_ligne,
             fontsize=taille,
-            fontfamily="Lucida Handwriting",
+            fontfamily=["Lucida Handwriting", "Arial", "sans-serif"],
             ha="center",
             va="center",
             color=transformer_couleur_texte(couleur),

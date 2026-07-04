@@ -9,10 +9,8 @@ import pandas as pd
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import (
     QWidget,
-    QLabel,
     QHBoxLayout,
     QVBoxLayout,
-    QScrollArea,
     QGridLayout,
 )
 
@@ -20,6 +18,7 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     creer_QLabel_centre,
     creer_ligne_horizontale,
     vider_layout,
+    creer_scroll,
 )
 
 # 1 -- Fonctions ---------------------------------------------------------------
@@ -177,7 +176,7 @@ class ClassementPays(QWidget):
     ):
         super().__init__(parent)
 
-        # Variables passées en paramètre
+        # === Variables globales === #
         self.pays_traductions = constantes.pays_differentes_langues
         self.table_superficie = table_superficie
         self.top_n = constantes.parametres_application["top_n_pays"]
@@ -190,38 +189,10 @@ class ClassementPays(QWidget):
         self.adapter_mise_en_forme = adapter_mise_en_forme
         self.n_colonnes = 3
 
-        # === Bloc "Top pays par région" === #
+        # === Layout principal === #
+        self.layout = QHBoxLayout(self)
 
-        self.layout_top_pays_regions = QVBoxLayout()
-
-        widget_top_pays_regions = QWidget()
-        widget_top_pays_regions.setLayout(self.layout_top_pays_regions)
-
-        scroll_top_pays_regions = QScrollArea()
-        scroll_top_pays_regions.setWidgetResizable(True)
-        scroll_top_pays_regions.setWidget(widget_top_pays_regions)
-
-        # --- Bloc "Top pays par département" ---
-
-        self.layout_top_pays_deps = QVBoxLayout()
-
-        widget_top_pays_deps = QWidget()
-        widget_top_pays_deps.setLayout(self.layout_top_pays_deps)
-
-        scroll_top_pays_deps = QScrollArea()
-        scroll_top_pays_deps.setWidgetResizable(True)
-        scroll_top_pays_deps.setWidget(widget_top_pays_deps)
-
-        # --- Layout principal ---
-        layout = QHBoxLayout(self)
-        layout.addWidget(scroll_top_pays_regions)
-        layout.addWidget(scroll_top_pays_deps)
-
-    def classement_standard(
-        self,
-        df: pd.DataFrame,
-        vbox: QVBoxLayout,
-    ):
+    def creer_layout_classement(self, df: pd.DataFrame, vbox: QVBoxLayout):
         """
         Affiche le classement des pays dans un QGridLayout (vbox).
         - df : DataFrame contenant 'Pays' et 'pct_superficie_dans_pays'
@@ -320,7 +291,7 @@ class ClassementPays(QWidget):
         if layout_necessaire:
             vbox.addLayout(layout_temp)
 
-    def lancer_classement_pays(self, granularite: int, vbox: QVBoxLayout):
+    def lancer_classement_pays(self, granularite: int):
 
         # Complétion des régions à partir des départements
         dict_regions = self.dicts_granu.get("region") or {}
@@ -334,8 +305,21 @@ class ClassementPays(QWidget):
                 self.table_superficie.loc[mask, "name_1"].unique().tolist()
             )
 
-        # Layout nettoyé
-        vider_layout(vbox)
+        layout_final = QVBoxLayout()
+
+        # Création du layout
+        layout_final.addWidget(
+            creer_QLabel_centre(
+                text=self.fonction_traduction(
+                    f"classement_selon_{'regions' if granularite==1 else 'departements'}",
+                    prefixe="<b>",
+                    suffixe="</b>",
+                )
+            )
+        )
+
+        layout_final.addWidget(creer_ligne_horizontale())
+        layout_final.addWidget(creer_QLabel_centre())
 
         try:
 
@@ -374,37 +358,32 @@ class ClassementPays(QWidget):
                 ),
             )
 
-            # Création du layout
-            vbox.addWidget(
-                creer_QLabel_centre(
-                    text=self.fonction_traduction(
-                        f"classement_selon_{'regions' if granularite==1 else 'departements'}",
-                        prefixe="<b>",
-                        suffixe="</b>",
-                    )
-                )
-            )
-
-            vbox.addWidget(creer_ligne_horizontale())
-            vbox.addWidget(QLabel(""))
-            self.classement_standard(
+            self.creer_layout_classement(
                 df=df_temp,
-                vbox=vbox,
+                vbox=layout_final,
             )
-            vbox.addStretch()
 
         except Exception as e:
             pass
 
+        layout_final.addStretch()
+
+        # Mise en scroll et renvoi
+        return creer_scroll(layout=layout_final)
+
     def lancer_classement_par_region_departement(self):
-        self.lancer_classement_pays(
-            vbox=self.layout_top_pays_regions,
-            granularite=1,
-        )
-        self.lancer_classement_pays(
-            vbox=self.layout_top_pays_deps,
-            granularite=2,
-        )
+
+        # Nettoyage du layout
+        vider_layout(self.layout)
+
+        # Ajout des classements
+        for i in range(1, 3):
+
+            self.layout.addWidget(
+                self.lancer_classement_pays(
+                    granularite=i,
+                )
+            )
 
     def set_dicts_granu(self, dict_nv):
         self.dicts_granu = dict_nv

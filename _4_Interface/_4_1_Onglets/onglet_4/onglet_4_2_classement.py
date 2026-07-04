@@ -190,41 +190,23 @@ class ClassementPays(QWidget):
         self.adapter_mise_en_forme = adapter_mise_en_forme
         self.n_colonnes = 3
 
-        # --- Bloc "Top pays par région" ---
-        self.entete_top_pays_regions = QLabel(alignment=Qt.AlignmentFlag.AlignCenter)
-        layout_entete_top_pays_regions = QVBoxLayout()
-        layout_entete_top_pays_regions.addWidget(self.entete_top_pays_regions)
-
-        layout_entete_top_pays_regions.addWidget(creer_ligne_horizontale())
-        layout_entete_top_pays_regions.addWidget(QLabel(""))
+        # === Bloc "Top pays par région" === #
 
         self.layout_top_pays_regions = QVBoxLayout()
-        layout_entete_top_pays_regions.addLayout(self.layout_top_pays_regions)
-        layout_entete_top_pays_regions.addStretch()
 
         widget_top_pays_regions = QWidget()
-        widget_top_pays_regions.setLayout(layout_entete_top_pays_regions)
+        widget_top_pays_regions.setLayout(self.layout_top_pays_regions)
 
         scroll_top_pays_regions = QScrollArea()
         scroll_top_pays_regions.setWidgetResizable(True)
         scroll_top_pays_regions.setWidget(widget_top_pays_regions)
 
         # --- Bloc "Top pays par département" ---
-        self.entete_top_pays_departements = QLabel(
-            alignment=Qt.AlignmentFlag.AlignCenter
-        )
-        layout_entete_top_pays_departements = QVBoxLayout()
-        layout_entete_top_pays_departements.addWidget(self.entete_top_pays_departements)
-
-        layout_entete_top_pays_departements.addWidget(creer_ligne_horizontale())
-        layout_entete_top_pays_departements.addWidget(QLabel(""))
 
         self.layout_top_pays_deps = QVBoxLayout()
-        layout_entete_top_pays_departements.addLayout(self.layout_top_pays_deps)
-        layout_entete_top_pays_departements.addStretch()
 
         widget_top_pays_deps = QWidget()
-        widget_top_pays_deps.setLayout(layout_entete_top_pays_departements)
+        widget_top_pays_deps.setLayout(self.layout_top_pays_deps)
 
         scroll_top_pays_deps = QScrollArea()
         scroll_top_pays_deps.setWidgetResizable(True)
@@ -393,10 +375,23 @@ class ClassementPays(QWidget):
             )
 
             # Création du layout
+            vbox.addWidget(
+                creer_QLabel_centre(
+                    text=self.fonction_traduction(
+                        f"classement_selon_{'regions' if granularite==1 else 'departements'}",
+                        prefixe="<b>",
+                        suffixe="</b>",
+                    )
+                )
+            )
+
+            vbox.addWidget(creer_ligne_horizontale())
+            vbox.addWidget(QLabel(""))
             self.classement_standard(
                 df=df_temp,
                 vbox=vbox,
             )
+            vbox.addStretch()
 
         except Exception as e:
             pass
@@ -418,14 +413,3 @@ class ClassementPays(QWidget):
     def set_langue(self, nouvelle_langue):
         self.langue_utilisee = nouvelle_langue
         self.lancer_classement_par_region_departement()
-
-        self.entete_top_pays_regions.setText(
-            self.fonction_traduction(
-                "classement_selon_regions", prefixe="<b>", suffixe="</b>"
-            )
-        )
-        self.entete_top_pays_departements.setText(
-            self.fonction_traduction(
-                "classement_selon_departements", prefixe="<b>", suffixe="</b>"
-            )
-        )

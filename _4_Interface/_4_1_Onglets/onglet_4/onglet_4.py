@@ -81,7 +81,7 @@ class OngletTopPays(QWidget):
         )
 
         # Mise en page des sous-onglets
-        layout = QVBoxLayout(self)
+        layout = QHBoxLayout(self)
 
         if self.mise_en_page == 0:
 
@@ -94,7 +94,7 @@ class OngletTopPays(QWidget):
             self.pages.addWidget(self.calendrier_visites)
 
             # === Barre de boutons (navigation) ===
-            btn_layout = QHBoxLayout()
+            btn_layout = QVBoxLayout()
             self.btn_hemicycle = QPushButton("Hémicycle")
             self.btn_top_pays = QPushButton("Top Pays")
             self.btn_recommandations = QPushButton("Suggestions")
@@ -105,6 +105,7 @@ class OngletTopPays(QWidget):
             btn_layout.addWidget(self.btn_recommandations)
             btn_layout.addWidget(self.btn_pays_souvent_visites)
             btn_layout.addWidget(self.btn_calendrier)
+            btn_layout.addStretch()
 
             # Connexions
             self.btn_hemicycle.clicked.connect(lambda: self.pages.setCurrentIndex(0))

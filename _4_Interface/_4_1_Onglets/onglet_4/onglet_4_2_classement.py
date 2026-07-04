@@ -157,6 +157,7 @@ def creer_label_pays(ligne):
             f"{ligne['pct_superficie_dans_pays_label']}"
         ),
         wordWrap=True,
+        alignement=Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignTop,
     )
 
 

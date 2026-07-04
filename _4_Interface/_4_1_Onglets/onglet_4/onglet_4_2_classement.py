@@ -89,6 +89,78 @@ def creer_classement_pays(
     return df_temp
 
 
+## 1.2 -- Fonction d'agrégation des lignes à 100 % -----------------------------
+
+
+def agreger_top_pays(df: pd.DataFrame, top_n_lignes_min: int | None):
+
+    df_temp = df.copy()
+
+    top_n_lignes = (df_temp["pct_superficie_dans_pays"] == 100).sum()
+
+    # Agrégation des pays à 100 % (si souhaité)
+    if top_n_lignes_min is not None and top_n_lignes >= top_n_lignes_min:
+
+        df_temp = pd.concat(
+            [  # Agrégation des premières lignes
+                pd.DataFrame(
+                    {
+                        "classement": [df_temp["classement"].iloc[0]],
+                        "nom_pays": [
+                            ", ".join(
+                                df_temp.copy()
+                                .assign(
+                                    nom_pays=lambda x: "<b>" + x["nom_pays"] + "</b>"
+                                )
+                                .head(top_n_lignes)["nom_pays"]
+                            )
+                        ],
+                        "pct_superficie_dans_pays_label": [
+                            df_temp["pct_superficie_dans_pays_label"].iloc[0]
+                        ],
+                    }
+                ),
+                # reste de la table
+                df_temp.iloc[top_n_lignes:][
+                    ["classement", "nom_pays", "pct_superficie_dans_pays_label"]
+                ],
+            ],
+            axis=0,
+        ).assign(agreg=True)
+
+    else:
+
+        # Mise en forme de la première ligne
+        df_temp.at[df_temp.index[0], "nom_pays"] = (
+            "<b>" + df_temp.at[df_temp.index[0], "nom_pays"] + "</b>"
+        )
+
+        df_temp["agreg"] = False
+
+    # Mise en forme additionnelle
+    df_temp["classement"] = "<b>" + df_temp["classement"] + "</b>"
+
+    # Renvoi
+    return df_temp
+
+
+## 1.3 -- Fonction de création d'un label --------------------------------------
+
+
+def creer_label_pays(ligne):
+
+    return creer_QLabel_centre(
+        text=(
+            f"{ligne['classement']}"
+            "<br>"
+            f"{ligne['nom_pays']}"
+            "<br>"
+            f"{ligne['pct_superficie_dans_pays_label']}"
+        ),
+        wordWrap=True,
+    )
+
+
 # 2 -- Classe affichant les pays les plus visités ------------------------------
 
 
@@ -116,6 +188,7 @@ class ClassementPays(QWidget):
         self.langue_utilisee = "français"
         self.min_changement_mise_en_forme = min_changement_mise_en_forme
         self.adapter_mise_en_forme = adapter_mise_en_forme
+        self.n_colonnes = 3
 
         # --- Bloc "Top pays par région" ---
         self.entete_top_pays_regions = QLabel(alignment=Qt.AlignmentFlag.AlignCenter)
@@ -125,7 +198,7 @@ class ClassementPays(QWidget):
         layout_entete_top_pays_regions.addWidget(creer_ligne_horizontale())
         layout_entete_top_pays_regions.addWidget(QLabel(""))
 
-        self.layout_top_pays_regions = QGridLayout()
+        self.layout_top_pays_regions = QVBoxLayout()
         layout_entete_top_pays_regions.addLayout(self.layout_top_pays_regions)
         layout_entete_top_pays_regions.addStretch()
 
@@ -146,7 +219,7 @@ class ClassementPays(QWidget):
         layout_entete_top_pays_departements.addWidget(creer_ligne_horizontale())
         layout_entete_top_pays_departements.addWidget(QLabel(""))
 
-        self.layout_top_pays_deps = QGridLayout()
+        self.layout_top_pays_deps = QVBoxLayout()
         layout_entete_top_pays_departements.addLayout(self.layout_top_pays_deps)
         layout_entete_top_pays_departements.addStretch()
 
@@ -165,29 +238,26 @@ class ClassementPays(QWidget):
     def classement_standard(
         self,
         df: pd.DataFrame,
-        vbox: QGridLayout,
-        top_n_lignes: int,
+        vbox: QVBoxLayout,
     ):
         """
         Affiche le classement des pays dans un QGridLayout (vbox).
         - df : DataFrame contenant 'Pays' et 'pct_superficie_dans_pays'
-        - vbox : QGridLayout où ajouter les QLabel
+        - vbox : QVBoxLayout où ajouter les QLabel
         """
 
         if df is None or df.empty:
             return
 
-        if (
-            top_n_lignes < self.min_changement_mise_en_forme
-            or not self.adapter_mise_en_forme
-        ):
-            top_n_lignes = None
-
         df_temp = df.copy()
+
+        # === Ajout de la première ligne === #
+
+        layout_temp = QGridLayout()
 
         # Ajout des couronnes
         for couronne in [0, 2]:
-            vbox.addWidget(
+            layout_temp.addWidget(
                 creer_QLabel_centre(
                     text="👑",
                     alignement=(
@@ -201,50 +271,74 @@ class ClassementPays(QWidget):
                 couronne,
             )
 
-        # Gestion des premières lignes
-        if top_n_lignes is not None:
+        # Ajout du ou des pays
+        layout_temp.addWidget(
+            creer_label_pays(ligne=df_temp.iloc[0]),
+            0,
+            1,
+        )
 
-            vbox.addWidget(
-                creer_QLabel_centre(
-                    text="🥇<br>"
-                    f"{', '.join(f'<b>{x}</b>' for x in df_temp['nom_pays'].head(top_n_lignes))}"
-                    "<br>100 %",
-                    wordWrap=True,
-                ),
-                0,
-                1,
-            )
+        # Ajout au layout
+        vbox.addLayout(layout_temp)
 
-            # Suppression des lignes déjà gérées
-            df_temp = df_temp.iloc[top_n_lignes:]
+        # Suppression de la première ligne
+        df_temp = df_temp.iloc[1:]
+
+        # === Ajout de la deuxième ligne === #
+
+        if df_temp["agreg"].sum() == 0:
+
+            layout_temp = QGridLayout()
+
+            for i in range(2):
+
+                # Test de longueur
+                if len(df_temp) == 0:
+                    if i == 1:
+                        layout_temp.addWidget(creer_QLabel_centre())
+                    return
+
+                layout_temp.addWidget(
+                    creer_label_pays(ligne=df_temp.iloc[0]),
+                    0,
+                    i,
+                )
+
+                # Largueur de la colonne
+                layout_temp.setColumnStretch(i, 1)
+
+                # Suppression de la ligne
+                df_temp = df_temp.iloc[1:]
+
+            # Ajout au layout
+            vbox.addLayout(layout_temp)
+
+        # === Ajout des autres lignes === #
+
+        layout_temp = QGridLayout()
+        n_col_temp = self.n_colonnes
+        layout_necessaire = False
 
         # Complétion du reste des cases
-        for i, (_, row) in enumerate(df_temp.iterrows()):
+        for i, (_, ligne) in enumerate(df_temp.iterrows()):
 
-            if top_n_lignes is not None or i >= 3:
-                ligne = 1 + (i // 3)
-                col = i % 3
-            elif i == 0:
-                ligne, col = 0, 1
-            else:  # i == 1 ou 2
-                ligne, col = 1, 2 * i - 2
+            layout_necessaire = True
 
-            vbox.addWidget(
-                creer_QLabel_centre(
-                    text=(
-                        # Classement
-                        f"<b>{row['classement']}</b>"
-                        # Nom du pays
-                        + f"<br>{'<b>' if ligne == 0 else ''}{row['nom_pays']}{'</b>' if ligne == 0 else ''}<br>"
-                        # Part de la superficie visitée
-                        + f"{row['pct_superficie_dans_pays_label']}"
-                    )
-                ),
-                ligne,
-                col,
+            # Ajout du label
+            layout_temp.addWidget(
+                creer_label_pays(ligne=ligne),
+                i // n_col_temp,
+                i % n_col_temp,
             )
 
-    def lancer_classement_pays(self, granularite: int, vbox: QGridLayout):
+            # Largueur de la colonne
+            layout_temp.setColumnStretch(i % n_col_temp, 1)
+
+        # Ajout au layout
+        if layout_necessaire:
+            vbox.addLayout(layout_temp)
+
+    def lancer_classement_pays(self, granularite: int, vbox: QVBoxLayout):
 
         # Complétion des régions à partir des départements
         dict_regions = self.dicts_granu.get("region") or {}
@@ -263,21 +357,24 @@ class ClassementPays(QWidget):
 
         try:
 
+            # Création de la table des lieux visités
+            df_temp = pd.DataFrame(
+                [
+                    (k, v)
+                    for k, lst in (
+                        dict_regions.items()
+                        if granularite == 1
+                        else dict_departements.items()
+                    )
+                    for v in (lst or [])
+                ],
+                columns=["pays", "subdivision"],
+            )
+
             # Classement des pays
             df_temp = creer_classement_pays(
-                # transformation du dictionnaire en Data.frame
-                gdf_visite=pd.DataFrame(
-                    [
-                        (k, v)
-                        for k, lst in (
-                            dict_regions.items()
-                            if granularite == 1
-                            else dict_departements.items()
-                        )
-                        for v in (lst or [])
-                    ],
-                    columns=["pays", "subdivision"],
-                ),
+                # Transformation du dictionnaire en Data.frame
+                gdf_visite=df_temp,
                 table_superficie=self.table_superficie,
                 pays_traductions=self.pays_traductions,
                 langue=self.langue_utilisee,
@@ -285,10 +382,20 @@ class ClassementPays(QWidget):
                 top_n=self.top_n,
                 ndigits=self.ndigits,
             )
+            # Agrégation du top pays (si souhaité et nécessaire)
+            df_temp = agreger_top_pays(
+                df=df_temp,
+                top_n_lignes_min=(
+                    None
+                    if not self.adapter_mise_en_forme
+                    else self.min_changement_mise_en_forme
+                ),
+            )
+
+            # Création du layout
             self.classement_standard(
                 df=df_temp,
                 vbox=vbox,
-                top_n_lignes=(df_temp["pct_superficie_dans_pays"] == 100).sum(),
             )
 
         except Exception as e:

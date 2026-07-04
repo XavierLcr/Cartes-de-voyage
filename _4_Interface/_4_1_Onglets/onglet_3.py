@@ -89,18 +89,8 @@ class OngletResumeDestinations(QWidget):
         self.dicts_granu = {"region": {}, "dep": {}}
         self.langue_utilisee = "français"
 
-        # Layout régions
-        self.layout_resume_regions = QVBoxLayout()
-        self.scroll_regions = creer_scroll(layout=self.layout_resume_regions)
-
-        # Layout départements
-        self.layout_resume_departements = QVBoxLayout()
-        self.scroll_departements = creer_scroll(layout=self.layout_resume_departements)
-
-        # Mise en forme côte-à-côte
-        layout_resume_pays = QHBoxLayout()
-        layout_resume_pays.addWidget(self.scroll_regions)
-        layout_resume_pays.addWidget(self.scroll_departements)
+        # Layout des pays visités
+        self.layout_resume_pays = QHBoxLayout()
 
         # Boutons de mise en forme
         layout_boutons = QHBoxLayout()
@@ -115,7 +105,7 @@ class OngletResumeDestinations(QWidget):
 
         # Layout final
         layout = QVBoxLayout()
-        layout.addLayout(layout_resume_pays)
+        layout.addLayout(self.layout_resume_pays)
         layout.addLayout(layout_boutons)
         self.setLayout(layout)
 
@@ -152,7 +142,7 @@ class OngletResumeDestinations(QWidget):
 
         self.maj_layout_resume()
 
-    def ajouter_partie_a_layout(self, granu, pays_donnees, vbox, affichage_groupe=True):
+    def ajouter_partie_a_layout(self, granu, pays_donnees, affichage_groupe=True):
         """Affiche les données hiérarchiques (pays_donnees) dans un QTreeWidget.
 
         Args:
@@ -221,7 +211,7 @@ class OngletResumeDestinations(QWidget):
                 )
 
         # --- Nettoyage de la zone ---
-        vider_layout(vbox)
+        vbox = QVBoxLayout()
 
         # --- Titre de section ---
         vbox.addWidget(
@@ -250,24 +240,39 @@ class OngletResumeDestinations(QWidget):
             vbox.addWidget(creer_QLabel_centre(text="⏳🚝"))
             vbox.addStretch()
 
+        # Renvoi
+        return vbox
+
     def maj_layout_resume(self):
 
-        self.ajouter_partie_a_layout(
-            granu="titre_regions_visitees",
-            pays_donnees=self.dicts_granu.get("region", {}),
-            vbox=self.layout_resume_regions,
-            affichage_groupe=self.arbre_groupe,
-        )
+        vider_layout(self.layout_resume_pays)
 
-        self.ajouter_partie_a_layout(
-            granu="titre_departements_visites",
-            pays_donnees=filtrer_hierarchie(
-                dico_plat=self.dicts_granu.get("dep", {}),
-                dico_hier=self.liste_pays,
-            ),
-            vbox=self.layout_resume_departements,
-            affichage_groupe=self.arbre_groupe,
-        )
+        for granularite in range(1, 3):
+
+            clef_temp = (
+                f"titre_{'regions' if granularite==1 else 'departements'}_visitees"
+            )
+            dict_temp = (
+                self.dicts_granu.get("region", {})
+                if granularite == 1
+                else filtrer_hierarchie(
+                    dico_plat=self.dicts_granu.get("dep", {}),
+                    dico_hier=self.liste_pays,
+                )
+            )
+
+            # Création de l'arbre
+            res_temp = self.ajouter_partie_a_layout(
+                granu=clef_temp,
+                pays_donnees=dict_temp,
+                affichage_groupe=self.arbre_groupe,
+            )
+
+            # Mise en scroll
+            res_temp = creer_scroll(layout=res_temp)
+
+            # Ajout au layout
+            self.layout_resume_pays.addWidget(res_temp)
 
     def replier_deplier(self, replier):
         self.arbre_groupe = replier

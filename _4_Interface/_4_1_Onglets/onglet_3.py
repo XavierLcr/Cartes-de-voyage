@@ -8,7 +8,6 @@
 from PyQt6 import QtGui, QtCore
 from PyQt6.QtWidgets import (
     QWidget,
-    QLabel,
     QHBoxLayout,
     QVBoxLayout,
     QScrollArea,
@@ -22,6 +21,7 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     creer_QLabel_centre,
     creer_ligne_horizontale,
     vider_layout,
+    creer_scroll,
 )
 from _0_Utilitaires._0_2_fonctions_graphiques import (
     renvoyer_couleur_widget,
@@ -96,11 +96,11 @@ class OngletResumeDestinations(QWidget):
 
         # Layout régions
         self.layout_resume_regions = QVBoxLayout()
-        self.scroll_regions = self._creer_scroll(self.layout_resume_regions)
+        self.scroll_regions = creer_scroll(layout=self.layout_resume_regions)
 
         # Layout départements
         self.layout_resume_departements = QVBoxLayout()
-        self.scroll_departements = self._creer_scroll(self.layout_resume_departements)
+        self.scroll_departements = creer_scroll(layout=self.layout_resume_departements)
 
         # Boutons de mise en forme
         self.arbre_groupe = True
@@ -153,14 +153,6 @@ class OngletResumeDestinations(QWidget):
         }
 
         self.maj_layout_resume()
-
-    def _creer_scroll(self, vbox):
-        widget = QWidget()
-        widget.setLayout(vbox)
-        scroll = QScrollArea()
-        scroll.setWidgetResizable(True)
-        scroll.setWidget(widget)
-        return scroll
 
     def ajouter_partie_a_layout(self, granu, pays_donnees, vbox, affichage_groupe=True):
         """Affiche les données hiérarchiques (pays_donnees) dans un QTreeWidget.

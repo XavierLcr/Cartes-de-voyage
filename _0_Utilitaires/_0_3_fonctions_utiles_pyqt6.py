@@ -13,6 +13,7 @@ from PyQt6.QtWidgets import (
     QWidget,
     QPushButton,
     QApplication,
+    QScrollArea,
 )
 from PyQt6.QtCore import Qt, QTimer
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
@@ -203,3 +204,19 @@ def conteneur_graphique_simple(fig, style, teinte, nuances):
     container_layout.addWidget(FigureCanvas(fig))
 
     return container
+
+
+# 7 -- Création d'un scroll ----------------------------------------------------
+
+
+def creer_scroll(layout):
+
+    # Widget conteneur
+    widget_temp = QWidget()
+    widget_temp.setLayout(layout)
+
+    # Scroll
+    scroll_temp = QScrollArea()
+    scroll_temp.setWidgetResizable(True)
+    scroll_temp.setWidget(widget_temp)
+    return scroll_temp

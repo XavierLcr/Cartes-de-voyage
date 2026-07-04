@@ -10,7 +10,6 @@ from PyQt6.QtWidgets import (
     QWidget,
     QHBoxLayout,
     QVBoxLayout,
-    QScrollArea,
     QTreeWidget,
     QTreeWidgetItem,
     QPushButton,
@@ -90,10 +89,6 @@ class OngletResumeDestinations(QWidget):
         self.dicts_granu = {"region": {}, "dep": {}}
         self.langue_utilisee = "français"
 
-        self.layout_onglet_3 = QVBoxLayout()
-        self.layout_resume_pays = QHBoxLayout()
-        self.layout_boutons = QHBoxLayout()
-
         # Layout régions
         self.layout_resume_regions = QVBoxLayout()
         self.scroll_regions = creer_scroll(layout=self.layout_resume_regions)
@@ -102,24 +97,27 @@ class OngletResumeDestinations(QWidget):
         self.layout_resume_departements = QVBoxLayout()
         self.scroll_departements = creer_scroll(layout=self.layout_resume_departements)
 
+        # Mise en forme côte-à-côte
+        layout_resume_pays = QHBoxLayout()
+        layout_resume_pays.addWidget(self.scroll_regions)
+        layout_resume_pays.addWidget(self.scroll_departements)
+
         # Boutons de mise en forme
+        layout_boutons = QHBoxLayout()
         self.arbre_groupe = True
         self.deplier = QPushButton()
         self.deplier.clicked.connect(lambda: self.replier_deplier(False))
         self.replier = QPushButton()
         self.replier.clicked.connect(lambda: self.replier_deplier(True))
-        self.layout_boutons.addWidget(self.deplier, stretch=1)
-        self.layout_boutons.addStretch(3)
-        self.layout_boutons.addWidget(self.replier, stretch=1)
+        layout_boutons.addWidget(self.deplier, stretch=1)
+        layout_boutons.addStretch(3)
+        layout_boutons.addWidget(self.replier, stretch=1)
 
-        # Assembler les widgets
-        self.layout_resume_pays.addWidget(self.scroll_regions)
-        self.layout_resume_pays.addWidget(self.scroll_departements)
-
-        self.layout_onglet_3.addLayout(self.layout_resume_pays)
-        self.layout_onglet_3.addLayout(self.layout_boutons)
-
-        self.setLayout(self.layout_onglet_3)
+        # Layout final
+        layout = QVBoxLayout()
+        layout.addLayout(layout_resume_pays)
+        layout.addLayout(layout_boutons)
+        self.setLayout(layout)
 
     def set_dicts_granu(self, dict_nv: dict):
         """Permet de mettre à jour les sélections de destinations."""

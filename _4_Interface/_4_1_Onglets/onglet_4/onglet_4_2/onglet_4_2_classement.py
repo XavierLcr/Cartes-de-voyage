@@ -20,6 +20,7 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     vider_layout,
     creer_scroll,
 )
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_2.onglet_4_2_1_podium import Podium
 
 # 1 -- Fonctions ---------------------------------------------------------------
 
@@ -105,34 +106,29 @@ def agreger_top_pays(df: pd.DataFrame, top_n_lignes_min: int | None):
                 pd.DataFrame(
                     {
                         "classement": [df_temp["classement"].iloc[0]],
-                        "nom_pays": [
-                            ", ".join(
-                                df_temp.copy()
-                                .assign(
-                                    nom_pays=lambda x: "<b>" + x["nom_pays"] + "</b>"
-                                )
-                                .head(top_n_lignes)["nom_pays"]
-                            )
-                        ],
+                        "nom_pays": [", ".join(df_temp.head(top_n_lignes)["nom_pays"])],
                         "pct_superficie_dans_pays_label": [
                             df_temp["pct_superficie_dans_pays_label"].iloc[0]
+                        ],
+                        "pct_superficie_dans_pays": [
+                            df_temp["pct_superficie_dans_pays"].iloc[0]
                         ],
                     }
                 ),
                 # reste de la table
                 df_temp.iloc[top_n_lignes:][
-                    ["classement", "nom_pays", "pct_superficie_dans_pays_label"]
+                    [
+                        "classement",
+                        "nom_pays",
+                        "pct_superficie_dans_pays",
+                        "pct_superficie_dans_pays_label",
+                    ]
                 ],
             ],
             axis=0,
         ).assign(agreg=True)
 
     else:
-
-        # Mise en forme de la première ligne
-        df_temp.at[df_temp.index[0], "nom_pays"] = (
-            "<b>" + df_temp.at[df_temp.index[0], "nom_pays"] + "</b>"
-        )
 
         df_temp["agreg"] = False
 
@@ -207,65 +203,18 @@ class ClassementPays(QWidget):
 
         # === Ajout de la première ligne === #
 
-        layout_temp = QGridLayout()
+        layout_temp = QHBoxLayout()
+        n_lignes = 3 if df_temp["agreg"].sum() == 0 else 1
 
-        # Ajout des couronnes
-        for couronne in [0, 2]:
-            layout_temp.addWidget(
-                creer_QLabel_centre(
-                    text="👑",
-                    alignement=(
-                        Qt.AlignmentFlag.AlignRight
-                        if couronne == 0
-                        else Qt.AlignmentFlag.AlignLeft
-                    )
-                    | Qt.AlignmentFlag.AlignVCenter,
-                ),
-                0,
-                couronne,
-            )
-
-        # Ajout du ou des pays
-        layout_temp.addWidget(
-            creer_label_pays(ligne=df_temp.iloc[0]),
-            0,
-            1,
-        )
+        podium_temp = Podium()
+        podium_temp.set_donnees(df_temp.head(n=n_lignes).to_dict(orient="records"))
+        layout_temp.addWidget(podium_temp)
 
         # Ajout au layout
         vbox.addLayout(layout_temp)
 
         # Suppression de la première ligne
-        df_temp = df_temp.iloc[1:]
-
-        # === Ajout de la deuxième ligne === #
-
-        if df_temp["agreg"].sum() == 0:
-
-            layout_temp = QGridLayout()
-
-            for i in range(2):
-
-                # Test de longueur
-                if len(df_temp) == 0:
-                    if i == 1:
-                        layout_temp.addWidget(creer_QLabel_centre())
-                    return
-
-                layout_temp.addWidget(
-                    creer_label_pays(ligne=df_temp.iloc[0]),
-                    0,
-                    i,
-                )
-
-                # Largueur de la colonne
-                layout_temp.setColumnStretch(i, 1)
-
-                # Suppression de la ligne
-                df_temp = df_temp.iloc[1:]
-
-            # Ajout au layout
-            vbox.addLayout(layout_temp)
+        df_temp = df_temp.iloc[n_lignes:]
 
         # === Ajout des autres lignes === #
 

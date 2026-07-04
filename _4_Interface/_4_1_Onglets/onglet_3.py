@@ -142,14 +142,13 @@ class OngletResumeDestinations(QWidget):
 
         self.maj_layout_resume()
 
-    def ajouter_partie_a_layout(self, granu, pays_donnees, affichage_groupe=True):
+    def ajouter_partie_a_layout(self, granu, pays_donnees):
         """Affiche les données hiérarchiques (pays_donnees) dans un QTreeWidget.
 
         Args:
             granu (str): Nom de la granularité (ex: 'régions', 'départements', etc.)
             pays_donnees (dict): Dictionnaire hiérarchique {pays: {région: [lieux], ...}}
             vbox (QVBoxLayout): Layout dans lequel insérer le widget.
-            affichage_groupe (bool): Si True, affiche les items regroupés sur une seule ligne quand c'est possible.
         """
 
         def ajouter_elements(parent_item, data, niveau=1):
@@ -234,7 +233,7 @@ class OngletResumeDestinations(QWidget):
 
             ajouter_elements(tree.invisibleRootItem(), pays_donnees, niveau=1)
 
-            tree.collapseAll() if affichage_groupe else tree.expandAll()
+            tree.collapseAll() if self.liste_pays else tree.expandAll()
             vbox.addWidget(tree)
         else:
             vbox.addWidget(creer_QLabel_centre(text="⏳🚝"))
@@ -265,7 +264,6 @@ class OngletResumeDestinations(QWidget):
             res_temp = self.ajouter_partie_a_layout(
                 granu=clef_temp,
                 pays_donnees=dict_temp,
-                affichage_groupe=self.arbre_groupe,
             )
 
             # Mise en scroll

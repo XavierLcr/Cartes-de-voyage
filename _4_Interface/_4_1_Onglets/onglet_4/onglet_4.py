@@ -23,11 +23,11 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import voyages_vers_destinations
 from _0_Utilitaires._0_2_fonctions_graphiques import renvoyer_couleur_texte
 from _4_Interface._4_1_Onglets.onglet_4 import (
     onglet_4_1_hemicycle,
-    onglet_4_2_classement,
     onglet_4_3_recommendations,
     onglet_4_4_n_visites,
     onglet_4_5_derniere_periode,
 )
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_2 import onglet_4_2_classement
 
 # 1 -- Classe de l'onglet contenant les statistiques ---------------------------
 

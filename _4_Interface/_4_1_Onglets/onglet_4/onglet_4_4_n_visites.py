@@ -8,6 +8,7 @@
 # 0 -- Initialisation ----------------------------------------------------------
 
 
+import textwrap
 import pandas as pd
 from collections import defaultdict
 from PyQt6.QtWidgets import QWidget, QVBoxLayout
@@ -65,7 +66,7 @@ def compter_voyages_par_pays(
 ## 1.2 -- Fonction de limite du nombre de pays ---------------------------------
 
 
-def limiter_nombre_pays(df: pd.DataFrame, n: int, type: bool):
+def limiter_nombre_pays(df: pd.DataFrame, n: int, type: bool, agreger: bool):
 
     # Récupéartion des paramètres
     df_temp = df.copy()
@@ -76,6 +77,21 @@ def limiter_nombre_pays(df: pd.DataFrame, n: int, type: bool):
         df_temp = df_temp[df_temp["voyages"] >= df_temp.iloc[n - 1]["voyages"]]
     else:
         df_temp = df_temp.head(n)
+
+    if agreger:
+        df_temp = (
+            (
+                df_temp.groupby("voyages")["pays_traduction"]
+                .agg(", ".join)
+                .reset_index()
+            ).sort_values(by="voyages", ascending=False, inplace=False)
+            # Mise en forme
+            .assign(
+                pays_traduction=lambda x: x["pays_traduction"].apply(
+                    lambda y: textwrap.fill(y, width=20)
+                )
+            )
+        )
 
     # Renvoi
     return df_temp
@@ -97,6 +113,7 @@ class PaysLesPlusVisites(QWidget):
         self.n_pays = 5
         self.n_pays_limite_type = True
         self.pays_trad = constantes.pays_differentes_langues
+        self.agreger = True
 
         # Style par défaut
         self.style = 1
@@ -132,6 +149,7 @@ class PaysLesPlusVisites(QWidget):
                     ),
                     n=self.n_pays,
                     type=self.n_pays_limite_type,
+                    agreger=self.agreger,
                 ),
                 var_x="pays_traduction",
                 var_y="voyages",

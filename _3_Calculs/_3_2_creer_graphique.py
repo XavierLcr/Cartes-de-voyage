@@ -420,6 +420,16 @@ def attribuer_couleur_une_ligne(
     # Récupération de l'image si possible
     drapeau = recuperer_drapeau(chemin=chemin, pays=ligne["Pays"])
     couleur = couleur_depuis_drapeau(drapeau)
+
+    # On évite le blanc
+    if couleur is not None:
+        i = 0
+        while couleur == "#FFFFFF" and i < 100:
+            couleur = couleur_depuis_drapeau(drapeau)
+            i = i + 1
+            if couleur is None:
+                break
+
     if couleur is None:
         couleur_pays = 0
 

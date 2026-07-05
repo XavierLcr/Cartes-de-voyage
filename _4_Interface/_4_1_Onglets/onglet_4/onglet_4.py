@@ -222,6 +222,7 @@ class OngletTopPays(QWidget):
         self.calendrier_visites.set_style(style=style, teinte=teinte, nuances=nuances)
 
     def set_dicts_granu(self, dict_nv):
+        # Attention, la màj de self.classement_widget se fait dans cliquer_bouton_onglet
         dict_temp = voyages_vers_destinations(copy.deepcopy(dict_nv))
         self.dict_voyages = copy.deepcopy(dict_nv)
         self.hemicycle.set_pays_visites(pays_visites=dict_temp)

@@ -53,7 +53,8 @@ class Podium(QWidget):
 
     def __init__(self):
         super().__init__()
-        self.setMinimumSize(220, 150)
+        self.setMinimumSize(220, 100)
+        # self.setMaximumWidth(500)
         self._donnees = []
         self._anim_progress = 0.0  # 0 -> 1, pour l'animation de montée
         self._timer = QTimer(self)
@@ -127,7 +128,7 @@ class Podium(QWidget):
         largeur_marche = largeur_dispo / nb_marches
         largeur_bloc = largeur_marche * 0.72
 
-        hauteur_relative = {1: 0.46, 2: 0.33, 3: 0.23}
+        hauteur_relative = {1: 0.7, 2: 0.5, 3: 0.36}
         zone_texte_haut = h * 0.20
         base_y = h * 0.90
         profondeur_3d = largeur_marche * 0.16  # profondeur du bloc 3D
@@ -183,7 +184,7 @@ class Podium(QWidget):
                     self._dessiner_couronne(
                         painter,
                         x + largeur_bloc / 2,
-                        zone_texte_y - zone_texte_haut * 0.05,
+                        zone_texte_y - zone_texte_haut * 0.25,
                         zone_texte_haut * 0.22,
                         alpha,
                     )
@@ -425,7 +426,7 @@ class Podium(QWidget):
 
         zone_nom = QRectF(
             x - largeur * 0.15,
-            y_zone + hauteur_zone * 0.45,
+            y_zone + hauteur_zone * 0.32,
             largeur * 1.3,
             hauteur_zone * 0.4,
         )
@@ -491,4 +492,11 @@ class Podium(QWidget):
             painter.drawText(rect_ligne, Qt.AlignmentFlag.AlignCenter, ligne)
 
     def sizeHint(self):
-        return QSize(420, 340)
+        return QSize(420, 300)
+
+    def hasHeightForWidth(self):
+        return True
+
+    def heightForWidth(self, width):
+        ratio = 300 / 420
+        return int(width * ratio)

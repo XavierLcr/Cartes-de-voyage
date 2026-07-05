@@ -53,7 +53,7 @@ class Podium(QWidget):
 
     def __init__(self):
         super().__init__()
-        self.setMinimumSize(420, 340)
+        self.setMinimumSize(220, 150)
         self._donnees = []
         self._anim_progress = 0.0  # 0 -> 1, pour l'animation de montée
         self._timer = QTimer(self)
@@ -195,7 +195,6 @@ class Podium(QWidget):
                     largeur_bloc,
                     zone_texte_haut,
                     pays,
-                    rang,
                     alpha,
                 )
 
@@ -335,8 +334,8 @@ class Podium(QWidget):
 
         font_rang = QFont("Parisienne")  # essaie une police manuscrite
         if not QFontInfo(font_rang).exactMatch():
-            font_rang = QFont("Arial")  # fallback si Segoe Script absente
-        font_rang.setPointSize(max(10, int(hauteur * 0.24)))
+            font_rang = QFont("Arial")  # fallback si Parisienne absente
+        font_rang.setPointSize(max(10, int(hauteur * 0.15 + 5)))
         font_rang.setBold(True)
         painter.setFont(font_rang)
 
@@ -419,7 +418,7 @@ class Podium(QWidget):
         painter.restore()
 
     def _dessiner_texte_personne(
-        self, painter, x, y_zone, largeur, hauteur_zone, pays, rang, alpha
+        self, painter, x, y_zone, largeur, hauteur_zone, pays, alpha
     ):
         painter.save()
         painter.setOpacity(alpha)
@@ -436,9 +435,60 @@ class Podium(QWidget):
         font_nom.setBold(True)
         painter.setFont(font_nom)
         painter.setPen(QColor(35, 35, 40))
-        painter.drawText(zone_nom, Qt.AlignmentFlag.AlignCenter, str(pays["nom_pays"]))
+
+        self._dessiner_texte_wrap(painter, zone_nom, str(pays["nom_pays"]))
 
         painter.restore()
+
+    def _dessiner_texte_wrap(self, painter, rect, texte):
+        """
+        Découpe `texte` en lignes qui tiennent dans la largeur de `rect`
+        (calcul en pixels réels via QFontMetrics, pas en nb de caractères).
+        Si le texte tient sur plusieurs lignes, le rectangle est agrandi
+        verticalement (en restant centré sur la même zone) pour tout
+        afficher sans jamais changer la taille de police.
+        """
+        metrics = painter.fontMetrics()
+        largeur_max = rect.width() - 0.2
+
+        mots = texte.split()
+        lignes = []
+        ligne_courante = ""
+
+        for mot in mots:
+            essai = f"{ligne_courante} {mot}".strip()
+            if metrics.horizontalAdvance(essai) <= largeur_max:
+                ligne_courante = essai
+            else:
+                if ligne_courante:
+                    lignes.append(ligne_courante)
+                ligne_courante = mot
+        if ligne_courante:
+            lignes.append(ligne_courante)
+
+        if not lignes:
+            lignes = [""]
+
+        hauteur_ligne = metrics.height()
+        hauteur_totale = hauteur_ligne * len(lignes)
+
+        # Agrandit le rect uniquement vers le HAUT si nécessaire,
+        # pour ne pas empiéter sur le podium en dessous
+        if hauteur_totale > rect.height():
+            surplus = hauteur_totale - rect.height()
+            rect = QRectF(
+                rect.x(),
+                rect.y() - surplus,
+                rect.width(),
+                hauteur_totale,
+            )
+
+        y_depart = rect.y() + (rect.height() - hauteur_totale) / 2
+        for i, ligne in enumerate(lignes):
+            rect_ligne = QRectF(
+                rect.x(), y_depart + i * hauteur_ligne, rect.width(), hauteur_ligne
+            )
+            painter.drawText(rect_ligne, Qt.AlignmentFlag.AlignCenter, ligne)
 
     def sizeHint(self):
         return QSize(420, 340)

@@ -5,6 +5,9 @@
 ################################################################################
 
 
+# 0 -- Initialisation ----------------------------------------------------------
+
+
 import copy, numba
 import numpy as np
 from PyQt6.QtCore import Qt, QThread, pyqtSignal, QObject

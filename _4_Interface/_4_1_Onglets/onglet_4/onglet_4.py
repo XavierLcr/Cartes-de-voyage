@@ -33,6 +33,9 @@ from _4_Interface._4_1_Onglets.onglet_4.onglet_4_2 import onglet_4_2_classement
 
 
 class OngletTopPays(QWidget):
+
+    dict_voyages = {}
+
     def __init__(
         self,
         constantes,
@@ -108,15 +111,21 @@ class OngletTopPays(QWidget):
             btn_layout.addStretch()
 
             # Connexions
-            self.btn_hemicycle.clicked.connect(lambda: self.pages.setCurrentIndex(0))
-            self.btn_top_pays.clicked.connect(lambda: self.pages.setCurrentIndex(1))
+            self.btn_hemicycle.clicked.connect(
+                lambda: self.cliquer_bouton_onglet(num_onglet=0)
+            )
+            self.btn_top_pays.clicked.connect(
+                lambda: self.cliquer_bouton_onglet(num_onglet=1)
+            )
             self.btn_recommandations.clicked.connect(
-                lambda: self.pages.setCurrentIndex(2)
+                lambda: self.cliquer_bouton_onglet(num_onglet=2)
             )
             self.btn_pays_souvent_visites.clicked.connect(
-                lambda: self.pages.setCurrentIndex(3)
+                lambda: self.cliquer_bouton_onglet(num_onglet=3)
             )
-            self.btn_calendrier.clicked.connect(lambda: self.pages.setCurrentIndex(4))
+            self.btn_calendrier.clicked.connect(
+                lambda: self.cliquer_bouton_onglet(num_onglet=4)
+            )
 
             # Layout principal
             layout.addLayout(btn_layout)
@@ -214,8 +223,8 @@ class OngletTopPays(QWidget):
 
     def set_dicts_granu(self, dict_nv):
         dict_temp = voyages_vers_destinations(copy.deepcopy(dict_nv))
+        self.dict_voyages = copy.deepcopy(dict_nv)
         self.hemicycle.set_pays_visites(pays_visites=dict_temp)
-        self.classement_widget.set_dicts_granu(dict_nv=dict_temp)
         self.recommandations.set_dicts_granu(dict_nv=dict_temp)
         self.pays_souvent_visites.set_voyages(voyages=copy.deepcopy(dict_nv))
         self.calendrier_visites.set_voyages(voyages=copy.deepcopy(dict_nv))
@@ -240,3 +249,12 @@ class OngletTopPays(QWidget):
             # Recommandations
             "recommandations_nb": self.get_recommandations_nb(),
         }
+
+    def cliquer_bouton_onglet(self, num_onglet: int):
+
+        self.pages.setCurrentIndex(num_onglet)
+
+        if num_onglet == 1:
+            self.classement_widget.set_dicts_granu(
+                dict_nv=voyages_vers_destinations(copy.deepcopy(self.dict_voyages))
+            )

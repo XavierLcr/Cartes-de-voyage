@@ -8,101 +8,103 @@
 # 0 -- Introduction ------------------------------------------------------------
 
 
-import os, sys, time
-import google.genai
+import os, sys
 
 sys.path.append(os.getcwd())
 
-from constantes import (
-    direction_donnees_traductions,
-    direction_donnees_autres,
-)
+from constantes import direction_donnees_traductions
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     ouvrir_fichier,
     exporter_fichier,
-    formater_temps_actuel,
-    sleep_n_fois,
 )
-
-from clefs_et_mots_de_passe import clef_api_gemini, liste_langues, modeles_google
-
+from _0_Utilitaires._0_13_LLM import LLMClient
+from clefs_et_mots_de_passe import liste_langues
 
 # 1 -- Fonctions ---------------------------------------------------------------
 
 
-## 1.1 -- Fonction de traduction des langues -----------------------------------
+## 1.1 -- Fonction de création du prompt ---------------------------------------
 
 
-### Fonction générique ---------------------------------------------------------
+def creer_prompt(langue: str):
+
+    prompt_temp = f"""
+        Tu es un expert en langues du monde.
+
+        Ta mission est de convertir un nom de langue écrit en français vers son nom dans cette langue (son endonyme).
+
+        Règles :
+        - Ne renvoie que le nom de la langue.
+        - N'ajoute aucune explication.
+        - N'ajoute aucune ponctuation.
+        - N'ajoute aucune prononciation, translittération ou traduction.
+        - Utilise l'écriture native lorsque la langue possède son propre alphabet.
+        - Mets une majuscule uniquement lorsqu'elle est utilisée dans la langue concernée.
+
+        Exemples :
+        anglais → English
+        allemand → Deutsch
+        espagnol → Español
+        français → français
+        italien → Italiano
+        grec → Ελληνικά
+        russe → Русский
+        japonais → 日本語
+        coréen → 한국어
+        chinois mandarin → 普通话
+        ourdou → اردو
+        persan → فارسی
+        hindi → हिन्दी
+        thaï → ไทย
+        tibétain → བོད་སྐད།
+
+        Langue française :
+        {langue}
+
+        Réponse :
+        """
+
+    return prompt_temp
+
+
+## 1.2 -- Fonction de traduction des langues -----------------------------------
 
 
 def creer_dictionnaire_langues(
-    modele_dict: dict,
+    modele: str,
     liste_deja_existante: dict,
     liste_langues: list,
     blabla: bool = True,
 ):
 
-    modele = modele_dict.get("modèle", "gemini-2.5-flash-lite")
-    modele_limite_jour = modele_dict.get("limite_appels_jour", 200)
-    modele_limite_minute = modele_dict.get("limite_appels_minute", 30)
-    client = google.genai.Client(vertexai=False, api_key=clef_api_gemini)
-    resultat = {} if liste_deja_existante is None else liste_deja_existante
-    global api_jour_modele
+    resultat = liste_deja_existante or {}
 
-    for i in list(set(liste_langues)):
+    for i in sorted(liste_langues):
 
-        if i not in list(resultat.keys()) and api_jour_modele < modele_limite_jour:
-
-            temps_debut = time.time()
+        if i not in list(resultat.keys()):
 
             if blabla:
-                print(f"{i} : {resultat[i]}")
+                print(f"{i}")
 
             # Traduction
             try:
-                resultat[i] = client.models.generate_content(
+                llm_temp = LLMClient(
                     model=modele,
-                    contents=f"Le nom d'une langue va t'être donné en français. "
-                    "Donne le nom de cette langue dans sa version propre. "
-                    "Par exemple anglais donne English et allemand donne Deutsch. "
-                    "Mets une majuscule quand cela est possible. "
-                    "Ne renvoie rien d'autre et surtout pas de ponctuation ou de prononciation pour les langues exotiques. "
-                    f"\nLa langue est : '{i}'.",
-                ).text.strip(" .'\n")
+                    url="http://localhost:11434/api/generate",
+                    timeout=300,
+                    temperature=0,
+                )
+                llm_temp.set_prompt(prompt=creer_prompt(langue=i))
+                resultat[i] = llm_temp.generate().strip(" .'\n")
 
             except Exception as e:
                 print(f"Erreur : {e}")
                 continue
 
-            # Attente si nécessaire
-            sleep_n_fois(n=modele_limite_minute, time_ref=temps_debut)
-
-            # Mise à jour du nombre d'appels
-            api_jour_modele = api_jour_modele + 1
-
     return resultat
 
 
 # 2 -- Lecture des données -----------------------------------------------------
-
-
-# Date du jour
-date_jour = formater_temps_actuel(n=2)
-
-
-## 2.1 -- Appels API déjà effectués --------------------------------------------
-
-
-api_dict = ouvrir_fichier(
-    direction_fichier=direction_donnees_autres,
-    nom_fichier="appels_api_par_jour.yaml",
-    defaut={},
-    afficher_erreur="Fichier YAML des appels API non trouvé.",
-)
-
-
-## 2.2 -- Traductions de langues ------------------------------------------------
 
 
 langues = ouvrir_fichier(
@@ -116,45 +118,20 @@ langues = ouvrir_fichier(
 # 3 -- Traduction --------------------------------------------------------------
 
 
-for modele in modeles_google:
-
-    # Appel API
-    api_jour_modele = int(api_dict.get(date_jour, {}).get(modele["modèle"], 0))
-
-    # Traduction des langues
-    langues = creer_dictionnaire_langues(
-        modele_dict=modele,
-        liste_deja_existante=langues,
-        liste_langues=liste_langues,
-        blabla=True,
-    )
-
-    # Appels API
-    if not date_jour in list(api_dict.keys()):
-        api_dict[date_jour] = {}
-    api_dict[date_jour][modele["modèle"]] = api_jour_modele
+langues_trad = creer_dictionnaire_langues(
+    modele="mistral:7b",
+    liste_deja_existante=langues,
+    liste_langues=liste_langues,
+    blabla=True,
+)
 
 
 # 4 -- Export ------------------------------------------------------------------
 
 
-## 4.1 -- Langues --------------------------------------------------------------
-
-
-exporter_fichier(
+langues = exporter_fichier(
     objet=langues,
     direction_fichier=direction_donnees_traductions,
     nom_fichier="noms_langues_traduction.yaml",
-    sort_keys=True,
-)
-
-
-## 4.2 -- Appels API effectués -------------------------------------------------
-
-
-exporter_fichier(
-    objet=api_dict,
-    direction_fichier=direction_donnees_autres,
-    nom_fichier="appels_api_par_jour.yaml",
     sort_keys=True,
 )

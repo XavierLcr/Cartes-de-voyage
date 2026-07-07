@@ -48,26 +48,25 @@ from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
 def filtrer_df(df: pd.DataFrame, pays: str, pattern: str | None):
 
     # Filtre sur le pays
-    df_temp = df[df["name_0"] == pays].copy()
+    df_temp = df[df["name_0"] == pays].copy().drop(columns=["name_0"])
 
     # Filtre sur la valeur (si souhaité)
     if pattern:
 
-        # masque initial à False
-        mask_global = False
+        mask = (
+            # Sélection des colonnes
+            df_temp[[f"name_{i}" for i in range(1, 6)]].fillna("")
+            # Agrégation des colonnes
+            .agg(" ".join, axis=1)
+            # Détection
+            .str.contains(pattern, case=False, regex=False)
+        )
 
-        for i in range(1, 6):
+        # Filtre
+        df_temp = df_temp[mask]
 
-            mask = df_temp[f"name_{i}"].str.contains(
-                pat=pattern, case=False, regex=False, na=False
-            )
-
-            # OU logique
-            mask_global |= mask
-
-        df_temp = df_temp[mask_global]
-
-    return df_temp
+    # Renvoi
+    return df_temp.copy()
 
 
 ## 1.2 -- Fonction de création du dictionnaire de destinations -----------------
@@ -79,9 +78,11 @@ def creer_dictionnaire(
 
     return tronquer_dict(
         d=construire_dictionnaire_imbrique(
-            df=filtrer_df(df=df, pays=pays, pattern=pattern).drop(columns=["name_0"]),
-            niveaux=[f"name_{i}" for i in range(1, 5)],
-            colonne_valeur="name_5",
+            df=filtrer_df(df=df, pays=pays, pattern=pattern)[
+                ["name_1", "name_2", "name_3"]
+            ],
+            niveaux=[f"name_{i}" for i in range(1, 3)],
+            colonne_valeur="name_3",
         ),
         n=niveau_tronc,
     )

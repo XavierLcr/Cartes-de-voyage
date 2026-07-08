@@ -10,7 +10,7 @@
 
 from textwrap import dedent
 
-from PyQt6.QtWidgets import QWidget, QVBoxLayout, QGroupBox
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QGroupBox, QPushButton
 from PyQt6.QtCore import Qt
 
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
@@ -20,7 +20,7 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
 )
 from _0_Utilitaires._0_13_LLM import LLMClient
 
-# 1 -- Classe PyQt6 ------------------------------------------------------------
+# 1 -- Fonction de simplification des voyages ----------------------------------
 
 
 def compacter_voyages(voyages: dict) -> str:
@@ -69,6 +69,12 @@ def compacter_voyages(voyages: dict) -> str:
     return "\n".join(lignes)
 
 
+# 2 -- Classe d'un Worker pour un Thread ---------------------------------------
+
+
+# 3 -- Classe PyQt6 ------------------------------------------------------------
+
+
 class ProfilVoyageur(QWidget):
 
     langue = "français"
@@ -82,7 +88,16 @@ class ProfilVoyageur(QWidget):
         self.fonction_traduction = fct_traduction
 
         self.groupbox_description_profil = QGroupBox()
-        self.layout_description_profil = QVBoxLayout(self.groupbox_description_profil)
+        layout_temp = QVBoxLayout()
+        self.layout_description_profil = QVBoxLayout()
+        self.creer_description_profil_btn = QPushButton("Créer votre profil")
+        self.attente_label = creer_QLabel_centre(wordWrap=True)
+        self.attente_label.hide()
+        self.creer_description_profil_btn.clicked.connect(self.creer_descriptif)
+        layout_temp.addWidget(self.creer_description_profil_btn)
+        layout_temp.addWidget(self.attente_label)
+        layout_temp.addLayout(self.layout_description_profil)
+        self.groupbox_description_profil.setLayout(layout_temp)
 
         layout = QVBoxLayout()
         layout.addWidget(self.groupbox_description_profil)
@@ -94,12 +109,21 @@ class ProfilVoyageur(QWidget):
         self.groupbox_description_profil.setTitle(
             self.fonction_traduction("groupbox_description_profil")
         )
+        self.creer_description_profil_btn.setText(
+            self.fonction_traduction("creer_description_profil_btn")
+        )
+        self.attente_label.setText(
+            self.fonction_traduction("attente_label_4_6", prefixe="🔮 ", suffixe="...")
+        )
 
     def set_voyages(self, voyages: dict):
 
         self.voyages = compacter_voyages(voyages)
 
     def creer_descriptif(self):
+
+        self.creer_description_profil_btn.hide()
+        self.attente_label.show()
 
         vider_layout(layout=self.layout_description_profil)
 
@@ -108,7 +132,7 @@ class ProfilVoyageur(QWidget):
             profil_LLM = LLMClient(
                 model=self.modele,
                 url="http://localhost:11434/api/generate",
-                timeout=300,
+                timeout=None,
                 contexte=self.contexte,
                 temperature=0.5,
             )
@@ -174,3 +198,6 @@ class ProfilVoyageur(QWidget):
         except Exception as e:
             print(e)
             pass
+
+        self.creer_description_profil_btn.show()
+        self.attente_label.hide()

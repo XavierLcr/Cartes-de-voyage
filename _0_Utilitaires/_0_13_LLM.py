@@ -38,12 +38,14 @@ class LLMClient:
         url="http://localhost:11434/api/generate",
         timeout=300,
         temperature=0.7,
+        contexte=8192,
     ):
         self.model = model
         self.url = url
         self.timeout = timeout
         self.langue = "français"
         self.temperature = temperature
+        self.contexte = contexte
 
         self.data = None
         self.prompt = None
@@ -90,19 +92,20 @@ class LLMClient:
         contenu = self.prompt
 
         # Ajout de la langue
-        contenu = (
-            f"{contenu}"
+        contenu += (
             "\n\n"
             f"Langue de production du texte : {self.langue}. "
             "Utilise l'anglais si tu ne connais pas celle-ci."
-            "\n"
         )
 
         if self.data is not None:
-            contenu += "\n\nDonnées :\n"
-            contenu = (
-                json.dumps(self.data, ensure_ascii=False, indent=0) + "\n\n"
-                f"{contenu}"
+            contenu += (
+                "\n\n"
+                "Voici les données du voyageur à analyser :\n"
+                "----- DÉBUT DES DONNÉES -----\n"
+                f"{json.dumps(self.data, ensure_ascii=False, indent=2)}\n"
+                "----- FIN DES DONNÉES -----\n\n"
+                "Base ton analyse du profil du voyageur uniquement sur ces données."
             )
 
         self.prompt = contenu
@@ -121,13 +124,15 @@ class LLMClient:
         if self.prompt is None:
             raise RuntimeError("Aucun prompt défini.")
 
+        print(self.prompt)
+
         payload = {
             "model": self.model,
             "prompt": self.prompt,
             "stream": False,
             "think": False,
             "options": {
-                "num_ctx": 8192,
+                "num_ctx": self.contexte,
                 "temperature": self.temperature,
             },
         }

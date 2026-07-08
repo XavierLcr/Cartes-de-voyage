@@ -295,6 +295,9 @@ class ProfilVoyageurIA(QGroupBox):
         layout_temp.addWidget(label_temp)
         self.layout_description_profil.addWidget(creer_scroll(layout_temp))
 
+        self.creer_description_profil_btn.show()
+        self.attente_label.hide()
+
     def initialiser_onglet(self):
 
         vider_layout(layout=self.layout_description_profil)

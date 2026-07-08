@@ -255,6 +255,7 @@ class OngletTopPays(QWidget):
 
     def initialiser_onglet(self, **kwargs):
         self.recommandations.initialiser_onglet(**kwargs)
+        self.profil_voyageur.initialiser_onglet(**kwargs)
 
     def set_hemicycle_position(self, val: int):
         self.hemicycle.set_points_visites_position(position=val)

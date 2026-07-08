@@ -43,3 +43,6 @@ class OngletPortrait(QWidget):
 
         self.voyages = voyages
         self.description_IA.set_voyages(voyages=voyages)
+
+    def initialiser_onglet(self, **kwargs):
+        self.description_IA.initialiser_onglet()

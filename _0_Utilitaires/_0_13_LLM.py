@@ -154,3 +154,47 @@ class LLMClient:
         resultat = response.json()
 
         return resultat.get("response", "")
+
+
+# 2 -- Fonction de tests des disponibilités d'Ollama ---------------------------
+
+
+def tester_ollama(url="http://localhost:11434"):
+    """
+    Teste la présence d'Ollama et récupère les modèles disponibles.
+
+    Retourne :
+        {
+            "disponible": True/False,
+            "modeles": [...],
+            "erreur": "..."
+        }
+    """
+
+    resultat = {"disponible": False, "modeles": [], "erreur": None}
+
+    try:
+        # Test du serveur Ollama
+        reponse = requests.get(f"{url}/api/tags", timeout=3)
+
+        if reponse.status_code != 200:
+            resultat["erreur"] = f"Ollama répond avec le code {reponse.status_code}"
+            return resultat
+
+        donnees = reponse.json()
+
+        resultat["disponible"] = True
+
+        # Extraction des modèles
+        resultat["modeles"] = [modele["name"] for modele in donnees.get("models", [])]
+
+    except requests.exceptions.ConnectionError:
+        resultat["erreur"] = "Ollama n'est pas lancé"
+
+    except requests.exceptions.Timeout:
+        resultat["erreur"] = "Ollama ne répond pas"
+
+    except Exception as e:
+        resultat["erreur"] = str(e)
+
+    return resultat

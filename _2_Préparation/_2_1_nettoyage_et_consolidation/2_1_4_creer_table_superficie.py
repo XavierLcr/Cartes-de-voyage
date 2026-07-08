@@ -50,11 +50,10 @@ def calculer_superficie(gdf, epsg):
             superficie_par_pays=lambda x: x.groupby("name_0")["superficie"].transform(
                 "sum"
             ),
-            pct_superficie_dans_pays=lambda x: x["superficie"]
-            / x["superficie_par_pays"],
+            pct_superficie_pays=lambda x: x["superficie"] / x["superficie_par_pays"],
         )
         # Suppression de colonnes inutiles
-        .drop(columns=["geometry", "superficie_par_pays"])
+        .drop(columns=["geometry"])
     )
 
 

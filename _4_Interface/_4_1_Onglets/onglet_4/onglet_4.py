@@ -26,9 +26,9 @@ from _4_Interface._4_1_Onglets.onglet_4 import (
     onglet_4_3_recommendations,
     onglet_4_4_n_visites,
     onglet_4_5_derniere_periode,
-    onglet_4_6_resume,
 )
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_2 import onglet_4_2_classement
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6 import onglet_4_6_1_IA
 
 # 1 -- Classe de l'onglet contenant les statistiques ---------------------------
 
@@ -85,7 +85,7 @@ class OngletTopPays(QWidget):
         )
 
         # Profil de voyageur
-        self.profil_voyageur = onglet_4_6_resume.ProfilVoyageur(
+        self.profil_voyageur = onglet_4_6_1_IA.ProfilVoyageur(
             fct_traduction=fct_traduction, parent=None
         )
 

@@ -18,7 +18,6 @@ from PyQt6.QtWidgets import (
     QPushButton,
     QStackedWidget,
 )
-from PyQt6.QtCore import Qt
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import voyages_vers_destinations
 from _0_Utilitaires._0_2_fonctions_graphiques import renvoyer_couleur_texte
@@ -87,7 +86,7 @@ class OngletTopPays(QWidget):
 
         # Profil de voyageur
         self.profil_voyageur = onglet_4_6.OngletPortrait(
-            fct_traduction=fct_traduction, parent=None
+            fct_traduction=fct_traduction, parent=None, constantes=constantes
         )
 
         # Mise en page des sous-onglets
@@ -108,46 +107,46 @@ class OngletTopPays(QWidget):
             btn_layout = QVBoxLayout()
             self.btn_hemicycle = QPushButton("Hémicycle")
             self.btn_hemicycle.setStyleSheet("""
-    QPushButton {
-        text-align: left;
-        padding-left: 10px;
-    }
-""")
+                QPushButton {
+                    text-align: left;
+                    padding-left: 10px;
+                }
+            """)
             self.btn_top_pays = QPushButton("Top Pays")
             self.btn_top_pays.setStyleSheet("""
-    QPushButton {
-        text-align: left;
-        padding-left: 10px;
-    }
-""")
+                QPushButton {
+                    text-align: left;
+                    padding-left: 10px;
+                }
+            """)
             self.btn_recommandations = QPushButton("Suggestions")
             self.btn_top_pays.setStyleSheet("""
-    QPushButton {
-        text-align: left;
-        padding-left: 10px;
-    }
-""")
+                QPushButton {
+                    text-align: left;
+                    padding-left: 10px;
+                }
+            """)
             self.btn_pays_souvent_visites = QPushButton("Pays fréquents")
             self.btn_pays_souvent_visites.setStyleSheet("""
-    QPushButton {
-        text-align: left;
-        padding-left: 10px;
-    }
-""")
+                QPushButton {
+                    text-align: left;
+                    padding-left: 10px;
+                }
+            """)
             self.btn_calendrier = QPushButton("Dernières destinations")
             self.btn_calendrier.setStyleSheet("""
-    QPushButton {
-        text-align: left;
-        padding-left: 10px;
-    }
-""")
+                QPushButton {
+                    text-align: left;
+                    padding-left: 10px;
+                }
+            """)
             self.btn_profil_voyageur = QPushButton("Votre profil")
             self.btn_profil_voyageur.setStyleSheet("""
-    QPushButton {
-        text-align: left;
-        padding-left: 10px;
-    }
-""")
+                QPushButton {
+                    text-align: left;
+                    padding-left: 10px;
+                }
+            """)
             btn_layout.addWidget(self.btn_hemicycle)
             btn_layout.addWidget(self.btn_top_pays)
             btn_layout.addWidget(self.btn_recommandations)
@@ -279,6 +278,9 @@ class OngletTopPays(QWidget):
         # Graphiques
         self.pays_souvent_visites.set_style(style=style, teinte=teinte, nuances=nuances)
         self.calendrier_visites.set_style(style=style, teinte=teinte, nuances=nuances)
+
+        # Onglet de portrait
+        self.profil_voyageur.set_style(style=style, teintes=teinte, nuances=nuances)
 
     def set_dicts_granu(self, dict_nv):
         # Attention, la màj de self.classement_widget se fait dans cliquer_bouton_onglet

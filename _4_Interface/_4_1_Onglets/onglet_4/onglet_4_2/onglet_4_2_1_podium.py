@@ -64,11 +64,11 @@ class Podium(QWidget):
 
     def set_donnees(self, donnees):
         """
-        donnees : liste de dicts {"nom_pays": str, "pct_superficie_dans_pays": float, "pct_superficie_dans_pays_label":str}
+        donnees : liste de dicts {"nom_pays": str, "pct_superficie_pays": float, "pct_superficie_pays_label":str}
         Seuls les 3 premiers (triés par score décroissant) sont affichés.
         """
         self._donnees = sorted(
-            donnees, key=lambda d: d["pct_superficie_dans_pays"], reverse=True
+            donnees, key=lambda d: d["pct_superficie_pays"], reverse=True
         )[:3]
         self._anim_progress = 0.0
         self._timer.start(15)
@@ -172,7 +172,7 @@ class Podium(QWidget):
                     y,
                     largeur_bloc,
                     hauteur_marche,
-                    pays["pct_superficie_dans_pays_label"],
+                    pays["pct_superficie_pays_label"],
                     alpha,
                 )
 

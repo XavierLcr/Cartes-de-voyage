@@ -51,28 +51,26 @@ def creer_classement_pays(
             right_on=["name_0", f"name_{granularite}"],
         )
         # Somme par pays des superficies visitées
-        .groupby("pays")[["pct_superficie_dans_pays", "superficie"]]
+        .groupby("pays")[["pct_superficie_pays", "superficie"]]
         .sum()
         .reset_index()
         # Tri des valeurs par ordre décroissant
-        .sort_values(
-            by=["pct_superficie_dans_pays", "superficie"], ascending=[False, False]
-        )
+        .sort_values(by=["pct_superficie_pays", "superficie"], ascending=[False, False])
         # Arrondi de la valeur
         .assign(
-            pct_superficie_dans_pays=lambda x: x["pct_superficie_dans_pays"].apply(
+            pct_superficie_pays=lambda x: x["pct_superficie_pays"].apply(
                 lambda x: round(100 * (x or 0), ndigits=ndigits)
             )
         )
         .assign(
             # Mise en forme du pourcentage
-            pct_superficie_dans_pays_label=lambda x: x[
-                "pct_superficie_dans_pays"
-            ].apply(lambda x: f"{x} %".replace(".", ",")),
-            # Récupération du nom du pays dans la langue utilisée
-            nom_pays=lambda x: x["pays"].apply(
-                lambda y: pays_traductions.get(y, {}).get(langue, y)
+            pct_superficie_pays_label=lambda x: x["pct_superficie_pays"].apply(
+                lambda x: f"{x} %".replace(".", ",")
             ),
+            # Récupération du nom du pays dans la langue utilisée
+            nom_pays=lambda x: x["pays"]
+            .map({k: v.get(langue, k) for k, v in pays_traductions.items()})
+            .fillna(x["pays"]),
         )
         .reset_index()
     )
@@ -87,7 +85,7 @@ def creer_classement_pays(
         df_temp = df_temp.head(top_n)
 
     # Pays avec un pourcentage arrondi non nul ou dans les trois premières lignes
-    df_temp = df_temp[(df_temp["pct_superficie_dans_pays"] > 0) | (df_temp.index < 3)]
+    df_temp = df_temp[(df_temp["pct_superficie_pays"] > 0) | (df_temp.index < 3)]
 
     return df_temp
 
@@ -99,7 +97,7 @@ def agreger_top_pays(df: pd.DataFrame, top_n_lignes_min: int | None):
 
     df_temp = df.copy()
 
-    top_n_lignes = (df_temp["pct_superficie_dans_pays"] == 100).sum()
+    top_n_lignes = (df_temp["pct_superficie_pays"] == 100).sum()
 
     # Agrégation des pays à 100 % (si souhaité)
     if top_n_lignes_min is not None and top_n_lignes >= top_n_lignes_min:
@@ -110,12 +108,10 @@ def agreger_top_pays(df: pd.DataFrame, top_n_lignes_min: int | None):
                     {
                         "classement": [df_temp["classement"].iloc[0]],
                         "nom_pays": [", ".join(df_temp.head(top_n_lignes)["nom_pays"])],
-                        "pct_superficie_dans_pays_label": [
-                            df_temp["pct_superficie_dans_pays_label"].iloc[0]
+                        "pct_superficie_pays_label": [
+                            df_temp["pct_superficie_pays_label"].iloc[0]
                         ],
-                        "pct_superficie_dans_pays": [
-                            df_temp["pct_superficie_dans_pays"].iloc[0]
-                        ],
+                        "pct_superficie_pays": [df_temp["pct_superficie_pays"].iloc[0]],
                     }
                 ),
                 # reste de la table
@@ -123,8 +119,8 @@ def agreger_top_pays(df: pd.DataFrame, top_n_lignes_min: int | None):
                     [
                         "classement",
                         "nom_pays",
-                        "pct_superficie_dans_pays",
-                        "pct_superficie_dans_pays_label",
+                        "pct_superficie_pays",
+                        "pct_superficie_pays_label",
                     ]
                 ],
             ],
@@ -153,7 +149,7 @@ def creer_label_pays(ligne):
             "<br>"
             f"{ligne['nom_pays']}"
             "<br>"
-            f"{ligne['pct_superficie_dans_pays_label']}"
+            f"{ligne['pct_superficie_pays_label']}"
         ),
         wordWrap=True,
         alignement=Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignTop,
@@ -163,7 +159,6 @@ def creer_label_pays(ligne):
 # 2 -- Classe affichant les pays les plus visités ------------------------------
 
 
-# Quatrième onglet
 class ClassementPays(QWidget):
     def __init__(
         self,
@@ -195,7 +190,7 @@ class ClassementPays(QWidget):
     def creer_layout_classement(self, df: pd.DataFrame, vbox: QVBoxLayout):
         """
         Affiche le classement des pays dans un QGridLayout (vbox).
-        - df : DataFrame contenant 'Pays' et 'pct_superficie_dans_pays'
+        - df : DataFrame contenant 'Pays' et 'pct_superficie_pays'
         - vbox : QVBoxLayout où ajouter les QLabel
         """
 

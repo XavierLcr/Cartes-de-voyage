@@ -18,6 +18,7 @@ from PyQt6.QtWidgets import (
     QPushButton,
     QStackedWidget,
 )
+from PyQt6.QtCore import Qt
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import voyages_vers_destinations
 from _0_Utilitaires._0_2_fonctions_graphiques import renvoyer_couleur_texte
@@ -106,11 +107,47 @@ class OngletTopPays(QWidget):
             # === Barre de boutons (navigation) ===
             btn_layout = QVBoxLayout()
             self.btn_hemicycle = QPushButton("Hémicycle")
+            self.btn_hemicycle.setStyleSheet("""
+    QPushButton {
+        text-align: left;
+        padding-left: 10px;
+    }
+""")
             self.btn_top_pays = QPushButton("Top Pays")
+            self.btn_top_pays.setStyleSheet("""
+    QPushButton {
+        text-align: left;
+        padding-left: 10px;
+    }
+""")
             self.btn_recommandations = QPushButton("Suggestions")
+            self.btn_top_pays.setStyleSheet("""
+    QPushButton {
+        text-align: left;
+        padding-left: 10px;
+    }
+""")
             self.btn_pays_souvent_visites = QPushButton("Pays fréquents")
+            self.btn_pays_souvent_visites.setStyleSheet("""
+    QPushButton {
+        text-align: left;
+        padding-left: 10px;
+    }
+""")
             self.btn_calendrier = QPushButton("Dernières destinations")
+            self.btn_calendrier.setStyleSheet("""
+    QPushButton {
+        text-align: left;
+        padding-left: 10px;
+    }
+""")
             self.btn_profil_voyageur = QPushButton("Votre profil")
+            self.btn_profil_voyageur.setStyleSheet("""
+    QPushButton {
+        text-align: left;
+        padding-left: 10px;
+    }
+""")
             btn_layout.addWidget(self.btn_hemicycle)
             btn_layout.addWidget(self.btn_top_pays)
             btn_layout.addWidget(self.btn_recommandations)
@@ -167,27 +204,27 @@ class OngletTopPays(QWidget):
 
         texte_onglet_1 = self.fonction_traduction(
             "titre_sous_onglet_4_1",
-            suffixe=(" 🗺️"),
+            prefixe=("🗺️ "),
         )
         texte_onglet_2 = self.fonction_traduction(
             "titre_sous_onglet_4_2",
-            suffixe=(" 🏆"),
+            prefixe=("🏆 "),
         )
         texte_onglet_3 = self.fonction_traduction(
             "titre_sous_onglet_4_3",
-            suffixe=(" 🚂​"),
+            prefixe=("🚂 ​"),
         )
         texte_onglet_4 = self.fonction_traduction(
             "titre_sous_onglet_4_4",
-            suffixe=(" ⚓​​"),
+            prefixe=("⚓ ​​"),
         )
         texte_onglet_5 = self.fonction_traduction(
             "titre_sous_onglet_4_5",
-            suffixe=(" 📅"),
+            prefixe=("📅 "),
         )
         texte_onglet_6 = self.fonction_traduction(
             "titre_sous_onglet_4_6",
-            suffixe=(" 🫆​"),
+            prefixe=("🫆 ​"),
         )
 
         if self.mise_en_page == 0:

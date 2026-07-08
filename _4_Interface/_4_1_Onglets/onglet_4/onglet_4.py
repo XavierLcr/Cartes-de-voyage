@@ -28,7 +28,7 @@ from _4_Interface._4_1_Onglets.onglet_4 import (
     onglet_4_5_derniere_periode,
 )
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_2 import onglet_4_2_classement
-from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6 import onglet_4_6_1_IA
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6 import onglet_4_6
 
 # 1 -- Classe de l'onglet contenant les statistiques ---------------------------
 
@@ -85,7 +85,7 @@ class OngletTopPays(QWidget):
         )
 
         # Profil de voyageur
-        self.profil_voyageur = onglet_4_6_1_IA.ProfilVoyageur(
+        self.profil_voyageur = onglet_4_6.OngletPortrait(
             fct_traduction=fct_traduction, parent=None
         )
 
@@ -152,6 +152,7 @@ class OngletTopPays(QWidget):
             self.sous_onglets.addTab(self.recommandations, "Suggestions")
             self.sous_onglets.addTab(self.pays_souvent_visites, "Pays fréquents")
             self.sous_onglets.addTab(self.calendrier_visites, "Calendrier")
+            self.sous_onglets.addTab(self.profil_voyageur, "Votre portrait")
 
             ## === Layout principal ===
             layout.addWidget(self.sous_onglets)
@@ -218,6 +219,9 @@ class OngletTopPays(QWidget):
             )
             self.sous_onglets.setTabText(
                 self.sous_onglets.indexOf(self.calendrier_visites), texte_onglet_5
+            )
+            self.sous_onglets.setTabText(
+                self.sous_onglets.indexOf(self.profil_voyageur), texte_onglet_6
             )
 
     def set_style(self, style: int, teinte, nuances):

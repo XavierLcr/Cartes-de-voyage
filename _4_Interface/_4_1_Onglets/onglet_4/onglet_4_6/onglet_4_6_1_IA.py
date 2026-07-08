@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
 # _4_Interface/_4_1_Onglets/onglet_4                                           #
-# Onglet 4.6 – Onglet de résumé de profil                                      #
+# Onglet 4.6.1 – Groupbox de création d'un portrait IA du profil               #
 ################################################################################
 
 
@@ -11,7 +11,7 @@
 import re
 from textwrap import dedent
 
-from PyQt6.QtWidgets import QWidget, QVBoxLayout, QGroupBox, QPushButton
+from PyQt6.QtWidgets import QVBoxLayout, QGroupBox, QPushButton
 from PyQt6.QtCore import Qt, QThread, pyqtSignal
 
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
@@ -157,10 +157,10 @@ class ProfilLLMWorker(QThread):
             self.erreur.emit(str(e))
 
 
-# 3 -- Classe PyQt6 ------------------------------------------------------------
+# 3 -- Classe du GroupBox PyQt6 ------------------------------------------------
 
 
-class ProfilVoyageur(QWidget):
+class ProfilVoyageurIA(QGroupBox):
 
     langue = "français"
     contexte = 32768
@@ -174,7 +174,6 @@ class ProfilVoyageur(QWidget):
         self.fonction_traduction = fct_traduction
         test_ollama = tester_ollama(url=re.match(r"^([^\d]*\d*)", self.url).group(1))
 
-        self.groupbox_description_profil = QGroupBox()
         layout_temp = QVBoxLayout()
         self.layout_description_profil = QVBoxLayout()
         self.initialiser_onglet()
@@ -206,10 +205,7 @@ class ProfilVoyageur(QWidget):
             layout_temp.addWidget(self.attente_label)
             layout_temp.addLayout(self.layout_description_profil)
 
-        self.groupbox_description_profil.setLayout(layout_temp)
-        layout = QVBoxLayout()
-        layout.addWidget(self.groupbox_description_profil)
-        self.setLayout(layout)
+        self.setLayout(layout_temp)
 
     def choisir_modele(self, liste_modeles_dispo):
         """
@@ -230,9 +226,7 @@ class ProfilVoyageur(QWidget):
     def set_langue(self, langue):
         self.langue = langue
 
-        self.groupbox_description_profil.setTitle(
-            self.fonction_traduction("groupbox_description_profil")
-        )
+        self.setTitle(self.fonction_traduction("groupbox_description_profil"))
         self.creer_description_profil_btn.setText(
             self.fonction_traduction("creer_description_profil_btn")
         )

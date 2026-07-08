@@ -124,8 +124,6 @@ class LLMClient:
         if self.prompt is None:
             raise RuntimeError("Aucun prompt défini.")
 
-        print(self.prompt)
-
         payload = {
             "model": self.model,
             "prompt": self.prompt,

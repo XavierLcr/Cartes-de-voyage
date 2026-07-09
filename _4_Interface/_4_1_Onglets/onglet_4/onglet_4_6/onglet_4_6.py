@@ -11,11 +11,14 @@
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import voyages_vers_destinations
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6.onglet_4_6_1_IA import (
+    ProfilVoyageurIA,
+)
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6.onglet_4_6_2_nb_pays_visites import (
     CompteurCirculaireWidget,
 )
-from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6.onglet_4_6_1_IA import (
-    ProfilVoyageurIA,
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6.onglet_4_6_3_n_voyages import (
+    NombreVoyagesAnnu,
 )
 
 # 1 -- Onglet du portrait client -----------------------------------------------
@@ -37,8 +40,14 @@ class OngletPortrait(QWidget):
             fonction_traduction=fct_traduction,
         )
 
+        # Compteur de voyages
+        self.n_voyages_histo = NombreVoyagesAnnu(
+            fonction_traduction=fct_traduction,
+        )
+
         layout_temp = QHBoxLayout()
         layout_temp.addWidget(self.compteur_pays)
+        layout_temp.addWidget(self.n_voyages_histo)
         layout_temp.addStretch()
         layout.addLayout(layout_temp)
 
@@ -55,11 +64,13 @@ class OngletPortrait(QWidget):
         self.langue = langue
         self.description_IA.set_langue(langue=langue)
         self.compteur_pays.set_langue()
+        self.n_voyages_histo.set_langue()
 
     def set_voyages(self, voyages):
 
         self.voyages = voyages
         self.description_IA.set_voyages(voyages=voyages)
+        self.n_voyages_histo.set_voyages(voyages=voyages)
 
         destinations_temp = voyages_vers_destinations(dict_voyages=voyages)
         destinations_temp = set(
@@ -74,3 +85,4 @@ class OngletPortrait(QWidget):
     def set_style(self, style, nuances, teintes):
 
         self.compteur_pays.set_style(style=style, nuances=nuances, teintes=teintes)
+        self.n_voyages_histo.set_style(style=style, nuances=nuances, teintes=teintes)

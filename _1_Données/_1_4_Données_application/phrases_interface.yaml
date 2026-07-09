@@ -153,6 +153,7 @@ creer_description_profil_btn : Quel voyageur êtes-vous ?
 attente_label_4_6 : La génération de votre portrait peut prendre plusieurs minutes  
 probleme_label_4_6_ollama : Pour utiliser cette fonctionnalité, Ollama doit être installé et au moins un des modèles suivants doit être disponible
 probleme_label_4_6_modele : Ollama est détecté, mais il manque un modèle compatible. Installez l'un des modèles suivants pour activer cette fonctionnalité
+4_6_3_voyages_effectues : Voyages effectués
 
 # Onglet 5
 sous_titre_description_application : Création de cartes de voyages

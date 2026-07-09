@@ -148,7 +148,7 @@ class CompteurCirculaireWidget(QWidget):
         self._start_angle = 90  # l'arc démarre en haut du cercle
         self._glow_opacity = 0.0
 
-        self.setMinimumSize(140, 140)
+        self.setMinimumSize(100, 100)
         self.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
 

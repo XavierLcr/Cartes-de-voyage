@@ -1,6 +1,6 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
-# _4_Interface/_4_1_Onglets/onglet_4                                           #
+# _4_Interface/_4_1_Onglets/onglet_4/onglet_4_6                                #
 # Onglet 4.6.1 – Groupbox de création d'un portrait IA du profil               #
 ################################################################################
 

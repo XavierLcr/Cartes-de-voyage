@@ -11,7 +11,14 @@
 import re
 from textwrap import dedent
 
-from PyQt6.QtWidgets import QVBoxLayout, QGroupBox, QPushButton
+from PyQt6.QtWidgets import (
+    QVBoxLayout,
+    QHBoxLayout,
+    QGroupBox,
+    QPushButton,
+    QComboBox,
+    QWidget,
+)
 from PyQt6.QtCore import Qt, QThread, pyqtSignal
 
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
@@ -174,13 +181,19 @@ class ProfilVoyageurIA(QGroupBox):
         self.fonction_traduction = fct_traduction
         test_ollama = tester_ollama(url=re.match(r"^([^\d]*\d*)", self.url).group(1))
 
+        self.widget_lancement = QWidget()
+        layout_lancement = QHBoxLayout(self.widget_lancement)
+        self.creer_description_profil_btn = QPushButton("Créer votre profil")
+        self.creer_description_profil_btn.clicked.connect(self.creer_descriptif)
+        self.modele = QComboBox()
+        layout_lancement.addWidget(self.creer_description_profil_btn, stretch=4)
+        layout_lancement.addWidget(self.modele, stretch=1)
+
         layout_temp = QVBoxLayout()
         self.layout_description_profil = QVBoxLayout()
         self.initialiser_onglet()
-        self.creer_description_profil_btn = QPushButton("Créer votre profil")
         self.attente_label = creer_QLabel_centre(wordWrap=True)
         self.attente_label.hide()
-        self.creer_description_profil_btn.clicked.connect(self.creer_descriptif)
         self.probleme_label = creer_QLabel_centre(
             wordWrap=True,
             alignement=Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignLeft,
@@ -192,7 +205,7 @@ class ProfilVoyageurIA(QGroupBox):
             layout_temp.addWidget(self.probleme_label)
 
         elif (
-            self.choisir_modele(liste_modeles_dispo=test_ollama.get("modeles", []))
+            self.lister_modeles(liste_modeles_dispo=test_ollama.get("modeles", []))
             == False
         ):
 
@@ -201,27 +214,29 @@ class ProfilVoyageurIA(QGroupBox):
             layout_temp.addStretch()
 
         else:
-            layout_temp.addWidget(self.creer_description_profil_btn)
+            layout_temp.addWidget(self.widget_lancement)
             layout_temp.addWidget(self.attente_label)
             layout_temp.addLayout(self.layout_description_profil)
 
         self.setLayout(layout_temp)
 
-    def choisir_modele(self, liste_modeles_dispo):
+    def lister_modeles(self, liste_modeles_dispo):
         """
         Sélectionne automatiquement le meilleur modèle disponible.
         """
 
-        self.modele = None
+        modele_temp = []
         modeles_dispo = set(liste_modeles_dispo)
+        ok_temp = False
 
         for liste_modeles in modeles_compatibles_ollama.values():
             for modele in liste_modeles:
                 if modele in modeles_dispo:
-                    self.modele = modele
-                    return True
+                    modele_temp.append(modele)
+                    ok_temp = True
 
-        return False
+        self.modele.addItems(modele_temp)
+        return ok_temp
 
     def set_langue(self, langue):
         self.langue = langue
@@ -256,11 +271,11 @@ class ProfilVoyageurIA(QGroupBox):
 
     def creer_descriptif(self):
 
-        self.creer_description_profil_btn.hide()
+        self.widget_lancement.hide()
         self.attente_label.show()
 
         self.thread_profil = ProfilLLMWorker(
-            modele=self.modele,
+            modele=self.modele.currentText(),
             contexte=self.contexte,
             langue=self.langue,
             voyages=self.voyages,
@@ -295,7 +310,7 @@ class ProfilVoyageurIA(QGroupBox):
         layout_temp.addWidget(label_temp)
         self.layout_description_profil.addWidget(creer_scroll(layout_temp))
 
-        self.creer_description_profil_btn.show()
+        self.widget_lancement.show()
         self.attente_label.hide()
 
     def initialiser_onglet(self):

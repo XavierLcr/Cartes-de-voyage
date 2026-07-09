@@ -25,6 +25,7 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     vider_layout,
     creer_QLabel_centre,
     creer_scroll,
+    creer_ligne_verticale,
 )
 from _0_Utilitaires._0_13_LLM import LLMClient, tester_ollama
 from clefs_et_mots_de_passe import modeles_compatibles_ollama
@@ -187,6 +188,7 @@ class ProfilVoyageurIA(QGroupBox):
         self.creer_description_profil_btn.clicked.connect(self.creer_descriptif)
         self.modele = QComboBox()
         layout_lancement.addWidget(self.creer_description_profil_btn, stretch=4)
+        layout_lancement.addWidget(creer_ligne_verticale())
         layout_lancement.addWidget(self.modele, stretch=1)
 
         layout_temp = QVBoxLayout()

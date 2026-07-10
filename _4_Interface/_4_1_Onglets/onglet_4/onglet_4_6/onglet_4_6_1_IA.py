@@ -267,6 +267,10 @@ class ProfilVoyageurIA(QGroupBox):
             )
         )
 
+        self.modele.setToolTip(
+            self.fonction_traduction("modele_4_6_1_tooltip", suffixe=f" :{texte_temp}")
+        )
+
     def set_voyages(self, voyages: dict):
 
         self.voyages = compacter_voyages(voyages)

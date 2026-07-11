@@ -20,6 +20,9 @@ from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6.onglet_4_6_2_nb_pays_visites 
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6.onglet_4_6_3_n_voyages import (
     NombreVoyagesAnnu,
 )
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6.onglet_4_6_4_jours_par_mois import (
+    JoursVoyagesParMoisWidget,
+)
 
 # 1 -- Onglet du portrait client -----------------------------------------------
 
@@ -45,18 +48,26 @@ class OngletPortrait(QWidget):
             fonction_traduction=fct_traduction,
         )
 
+        # Compteur de jours
+        self.n_jours_voyages = JoursVoyagesParMoisWidget(
+            fonction_traduction=fct_traduction
+        )
+
         layout_temp = QHBoxLayout()
-        layout_temp.addWidget(self.compteur_pays)
-        layout_temp.addWidget(self.n_voyages_histo)
-        layout_temp.addStretch()
+        layout_temp.addWidget(self.n_voyages_histo, stretch=1)
+        layout_temp.addWidget(self.n_jours_voyages, stretch=1)
+        # layout_temp.addStretch()
         layout.addLayout(layout_temp)
 
         # Agent IA
+        layout_temp = QHBoxLayout()
         self.description_IA = ProfilVoyageurIA(
             fct_traduction=fct_traduction, parent=self
         )
 
-        layout.addWidget(self.description_IA)
+        layout_temp.addWidget(self.compteur_pays, stretch=1)
+        layout_temp.addWidget(self.description_IA, stretch=2)
+        layout.addLayout(layout_temp)
         self.setLayout(layout)
 
     def set_langue(self, langue):
@@ -71,6 +82,7 @@ class OngletPortrait(QWidget):
         self.voyages = voyages
         self.description_IA.set_voyages(voyages=voyages)
         self.n_voyages_histo.set_voyages(voyages=voyages)
+        self.n_jours_voyages.set_voyages(voyages=voyages)
 
         destinations_temp = voyages_vers_destinations(dict_voyages=voyages)
         destinations_temp = set(
@@ -86,3 +98,4 @@ class OngletPortrait(QWidget):
 
         self.compteur_pays.set_style(style=style, nuances=nuances, teintes=teintes)
         self.n_voyages_histo.set_style(style=style, nuances=nuances, teintes=teintes)
+        self.n_jours_voyages.set_style(style=style, nuances=nuances, teintes=teintes)

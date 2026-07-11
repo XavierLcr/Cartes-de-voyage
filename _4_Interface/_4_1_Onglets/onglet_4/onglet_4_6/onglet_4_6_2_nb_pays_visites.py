@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
 # _4_Interface/_4_1_Onglets/onglet_4/onglet_4_6                                #
-# Onglet 4.6.2 – Compteur de pays visistés                                     #
+# Onglet 4.6.2 – Compteur de pays visités (harmonisé avec le widget 4.6.3)     #
 ################################################################################
 
 
@@ -9,10 +9,12 @@
 
 
 from __future__ import annotations
+import math
 from typing import Optional, Tuple
 
 from PyQt6.QtCore import (
     QEasingCurve,
+    QPointF,
     QPropertyAnimation,
     QRectF,
     Qt,
@@ -24,6 +26,7 @@ from PyQt6.QtGui import (
     QConicalGradient,
     QFont,
     QPainter,
+    QPainterPath,
     QPen,
 )
 from PyQt6.QtWidgets import QGraphicsDropShadowEffect, QSizePolicy, QWidget
@@ -38,7 +41,14 @@ from _4_Interface._4_2_Style._4_2_1_style_principal import (
 
 
 class CompteurTheme:
-    """Palette de couleurs du widget compteur, générée depuis le style de l'appli."""
+    """
+    Palette de couleurs du widget compteur.
+
+    Reprend la structure de `ThemeCarte` (onglet 4.6.3) : même fond de
+    carte, même convention d'ombre, mêmes appels de style — mais avec son
+    propre accent turquoise (sarcelle -> cyan), pour se démarquer un peu
+    de la carte voisine tout en restant cohérent dans la construction.
+    """
 
     def __init__(
         self,
@@ -52,62 +62,83 @@ class CompteurTheme:
         },
         limite_essais=20,
     ):
-        # Fond : identique au fond général de l'appli
-        self.background = QColor(
+        # Fond de carte : identiques aux valeurs utilisées par ThemeCarte,
+        # pour que les deux widgets soient posés sur le même "papier".
+        self.fond = QColor(
             renvoyer_couleur_widget(
                 style=style,
                 teinte=teinte,
                 nuances=nuances,
-                clair="#E5E7EC",
-                sombre="#07215E",
+                clair="#ffffff",
+                sombre="#12141c",
             )
         )
-        self.text = QColor(
-            str(renvoyer_couleur_texte(style=style, couleur=self.background.name()))
+        self.texte = QColor(
+            str(renvoyer_couleur_texte(style=style, couleur=self.fond.name()))
             if style != 1
-            else "#07215E"
+            else "#1c1f2b"
         )
 
-        # Piste : dérivée du texte, très diluée
-        self.track = QColor(self.text)
-        self.track.setAlpha(30 if style == "clair" else 25)
+        # Piste (arc de fond) : dérivée du texte, très diluée, même alpha
+        # que la barre du mini-graphique de la carte voisine.
+        self.piste = QColor(self.texte)
+        self.piste.setAlpha(30 if style == "clair" else 25)
 
-        # Dégradé de progression
-        self.progress_start = QColor(
+        # Dégradé de progression : turquoise sarcelle -> cyan, un accent
+        # propre au compteur plutôt qu'un simple recopiage du badge voisin.
+        self.progression_debut = QColor(
             renvoyer_couleur_widget(
                 style=style,
                 teinte=teinte,
                 nuances=nuances,
-                clair="#3F51B5",
-                sombre="#3F51B5",
+                clair="#15DDCC",
+                sombre="#14B8A6",
             )
         )
-        self.progress_end = QColor(
+        self.progression_fin = QColor(
             renvoyer_couleur_widget_differente(
                 style=style,
                 teinte=teinte,
                 nuances=nuances,
-                clair="#1696A9",
-                sombre="#26C6DA",
-                reference=self.progress_start.name(),
+                clair="#22D3EE",
+                sombre="#67E8F9",
+                reference=self.progression_debut.name(),
                 essais=limite_essais,
             )
         )
 
         # Sous-texte
-        self.subtext = QColor(self.text)
-        self.subtext.setAlpha(140)
+        self.sous_texte = QColor(self.texte)
+        self.sous_texte.setAlpha(140)
 
-        # Halo "objectif atteint"
-        self.complete = QColor(
-            renvoyer_couleur_widget(
-                style=style,
-                teinte=teinte,
-                nuances=nuances,
-                clair="#26C6DA",
-                sombre="#26C6DA",
-            )
-        )
+        # Halo "objectif atteint" : teinte reprise du dégradé plutôt qu'une
+        # couleur teal indépendante.
+        self.complete = QColor(self.progression_fin)
+
+        # Ombre portée : même convention que ThemeCarte (dérivée du texte).
+        self.ombre = QColor(self.texte)
+        self.ombre.setAlpha(60 if style == "clair" else 120)
+
+    @staticmethod
+    def _blend_hsv(c1: QColor, c2: QColor, t: float) -> QColor:
+        """Interpole deux couleurs en espace HSV (transition plus vivante qu'en RGB)."""
+        h1, s1, v1, _ = c1.getHsvF()
+        h2, s2, v2, _ = c2.getHsvF()
+        if h1 < 0:
+            h1 = h2
+        if h2 < 0:
+            h2 = h1
+        if abs(h2 - h1) > 0.5:
+            if h1 < h2:
+                h1 += 1.0
+            else:
+                h2 += 1.0
+        h = (h1 + (h2 - h1) * t) % 1.0
+        s = s1 + (s2 - s1) * t
+        v = v1 + (v2 - v1) * t
+        blended = QColor()
+        blended.setHsvF(h, min(1.0, s), min(1.0, v))
+        return blended
 
 
 # 2 -- Classe du compteur  -----------------------------------------------------
@@ -115,14 +146,18 @@ class CompteurTheme:
 
 class CompteurCirculaireWidget(QWidget):
     """
-    Compteur circulaire animé (ex. "Pays visités : 42 / 200").
+    Compteur circulaire animé (ex. "Pays visités : 42 / 200"), présenté
+    dans une carte à coins arrondis identique à celle du widget "Nombre
+    de voyages" (même rayon, même ombre, même typographie), pour que les
+    deux widgets forment un ensemble cohérent sur le tableau de bord.
 
     Fonctionnalités :
     - Animation fluide et interruptible (pas de glitch si on change la
       valeur pendant l'animation en cours).
-    - Dégradé conique sur l'arc de progression, dont la teinte évolue avec
-      le pourcentage atteint.
-    - Ombre portée douce + halo pulsé lorsque l'objectif est atteint.
+    - Dégradé conique turquoise qui s'intensifie avec le pourcentage
+      (interpolation HSV), avec un petit curseur lumineux en bout d'arc.
+    - Pourcentage affiché dans une bulle discrète.
+    - Ombre portée + léger halo lorsque l'objectif est atteint.
     - Entièrement redimensionnable (rien n'est codé en dur en pixels).
     - Thème personnalisable via CompteurTheme.
     """
@@ -143,7 +178,7 @@ class CompteurCirculaireWidget(QWidget):
         self.set_langue()
         self.theme = CompteurTheme(style=0)
 
-        self._arc_width = 14
+        self._arc_width_ratio = 0.09  # épaisseur de l'arc / diamètre du cercle
         self._start_angle = 90  # l'arc démarre en haut du cercle
         self._glow_opacity = 0.0
 
@@ -151,11 +186,13 @@ class CompteurCirculaireWidget(QWidget):
         self.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
 
-        shadow = QGraphicsDropShadowEffect(self)
-        shadow.setBlurRadius(35)
-        shadow.setOffset(0, 8)
-        shadow.setColor(QColor(0, 0, 0, 120))
-        self.setGraphicsEffect(shadow)
+        # Ombre portée : mêmes réglages que la carte "Nombre de voyages"
+        # (blur 30, décalage (0, 8), couleur dérivée du texte).
+        self._ombre_effet = QGraphicsDropShadowEffect(self)
+        self._ombre_effet.setBlurRadius(30)
+        self._ombre_effet.setOffset(0, 8)
+        self._ombre_effet.setColor(self.theme.ombre)
+        self.setGraphicsEffect(self._ombre_effet)
 
         self._value_anim = QPropertyAnimation(self, b"animatedValue", self)
         self._value_anim.setEasingCurve(QEasingCurve.Type.OutCubic)
@@ -225,97 +262,146 @@ class CompteurCirculaireWidget(QWidget):
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
         painter.setRenderHint(QPainter.RenderHint.TextAntialiasing)
 
-        side = min(self.width(), self.height())
-        margin = self._arc_width / 2 + 6
+        w, h = self.width(), self.height()
+
+        # --- carte à coins arrondis : même formule que la carte voisine ---
+        rect_carte = QRectF(0, 0, w, h).adjusted(2, 2, -2, -2)
+        rayon = min(24, min(w, h) * 0.18)
+        chemin_carte = QPainterPath()
+        chemin_carte.addRoundedRect(rect_carte, rayon, rayon)
+        painter.fillPath(chemin_carte, QBrush(self.theme.fond))
+        painter.setClipPath(chemin_carte)
+
+        # --- anneau de progression, centré dans la carte ---
+        side = min(w, h)
+        arc_width = max(6.0, side * self._arc_width_ratio)
+        marge = side * 0.14
         rect = QRectF(
-            (self.width() - side) / 2 + margin,
-            (self.height() - side) / 2 + margin,
-            side - 2 * margin,
-            side - 2 * margin,
+            (w - side) / 2 + marge,
+            (h - side) / 2 + marge,
+            side - 2 * marge,
+            side - 2 * marge,
         )
 
         percent = self._value / self.maximum if self.maximum else 0.0
         percent = max(0.0, min(1.0, percent))
 
-        # --- disque de fond ---
-        painter.setPen(Qt.PenStyle.NoPen)
-        painter.setBrush(QBrush(self.theme.background))
-        painter.drawEllipse(
-            rect.adjusted(-margin * 0.4, -margin * 0.4, margin * 0.4, margin * 0.4)
-        )
-
-        # --- halo pulsé quand l'objectif est atteint ---
+        # --- halo discret quand l'objectif est atteint ---
         if self._glow_opacity > 0:
             glow_color = QColor(self.theme.complete)
-            glow_color.setAlphaF(0.35 * self._glow_opacity)
+            glow_color.setAlphaF(0.22 * self._glow_opacity)
+            painter.setPen(Qt.PenStyle.NoPen)
             painter.setBrush(QBrush(glow_color))
-            expand = 10 * self._glow_opacity
+            expand = side * 0.05 * self._glow_opacity
             painter.drawEllipse(rect.adjusted(-expand, -expand, expand, expand))
 
         # --- piste (arc de fond, toujours complet) ---
-        pen = QPen(self.theme.track)
-        pen.setWidth(self._arc_width)
+        pen = QPen(self.theme.piste)
+        pen.setWidthF(arc_width)
         pen.setCapStyle(Qt.PenCapStyle.RoundCap)
         painter.setPen(pen)
         painter.setBrush(Qt.BrushStyle.NoBrush)
         painter.drawArc(rect, 0, 360 * 16)
 
-        # --- arc de progression, dégradé conique ---
+        # --- arc de progression : dégradé qui s'intensifie avec le pourcentage ---
         if percent > 0:
             gradient = QConicalGradient(rect.center(), self._start_angle)
-            c1, c2 = self._interpolated_colors(percent)
-            gradient.setColorAt(0.0, c1)
-            gradient.setColorAt(1.0, c2)
+            c_debut, c_milieu, c_fin = self._couleurs_intensifiees(percent)
+            gradient.setColorAt(0.0, c_debut)
+            gradient.setColorAt(0.55, c_milieu)
+            gradient.setColorAt(1.0, c_fin)
 
-            pen = QPen(QBrush(gradient), self._arc_width)
+            pen = QPen(QBrush(gradient), arc_width)
             pen.setCapStyle(Qt.PenCapStyle.RoundCap)
             painter.setPen(pen)
 
             span = int(360 * percent * 16)
             painter.drawArc(rect, self._start_angle * 16, -span)
 
-        # --- valeur centrale ---
-        painter.setPen(self.theme.text)
-        value_font = QFont("Segoe UI", max(10, int(side * 0.16)), QFont.Weight.Bold)
-        painter.setFont(value_font)
-        value_str = f"{int(round(self._value))}"
-        value_rect = rect.adjusted(0, -side * 0.05, 0, -side * 0.05)
-        painter.drawText(value_rect, Qt.AlignmentFlag.AlignCenter, value_str)
+            # --- petit curseur lumineux à l'extrémité de l'arc ---
+            point_fin = self._point_sur_arc(rect, self._start_angle, percent)
+            halo_curseur = QColor(c_fin)
+            halo_curseur.setAlpha(85)
+            painter.setPen(Qt.PenStyle.NoPen)
+            painter.setBrush(QBrush(halo_curseur))
+            r_halo = arc_width * 0.58
+            painter.drawEllipse(point_fin, r_halo, r_halo)
+            painter.setBrush(QBrush(QColor("#FFFFFF")))
+            r_coeur = arc_width * 0.22
+            painter.drawEllipse(point_fin, r_coeur, r_coeur)
+
+        # --- valeur centrale : même famille/graisse que la carte voisine ---
+        painter.setPen(self.theme.texte)
+        police_valeur = QFont("Segoe UI", max(10, int(side * 0.15)), QFont.Weight.Bold)
+        painter.setFont(police_valeur)
+        valeur_str = f"{int(round(self._value))}"
+        rect_valeur = rect.adjusted(0, -side * 0.07, 0, -side * 0.07)
+        painter.drawText(rect_valeur, Qt.AlignmentFlag.AlignCenter, valeur_str)
 
         # --- légende ---
-        painter.setPen(self.theme.subtext)
-        label_font = QFont("Segoe UI", max(7, int(side * 0.06)))
-        painter.setFont(label_font)
-        label_rect = rect.adjusted(0, side * 0.22, 0, side * 0.22)
-        painter.drawText(label_rect, Qt.AlignmentFlag.AlignCenter, self.label_text)
+        painter.setPen(self.theme.sous_texte)
+        police_etiquette = QFont("Segoe UI", max(7, int(side * 0.052)))
+        painter.setFont(police_etiquette)
+        rect_etiquette = rect.adjusted(0, side * 0.15, 0, side * 0.15)
+        painter.drawText(rect_etiquette, Qt.AlignmentFlag.AlignCenter, self.label_text)
 
-        # --- pourcentage discret ---
-        painter.setPen(self.theme.subtext)
-        pct_font = QFont("Segoe UI", max(6, int(side * 0.045)))
-        painter.setFont(pct_font)
-        pct_rect = rect.adjusted(0, side * 0.32, 0, side * 0.32)
-        painter.drawText(
-            pct_rect, Qt.AlignmentFlag.AlignCenter, f"{int(percent * 100)}%"
+        # --- pourcentage dans une petite bulle ---
+        pct_texte = f"{int(percent * 100)}%"
+        police_pct = QFont("Segoe UI", max(6, int(side * 0.04)), QFont.Weight.DemiBold)
+        painter.setFont(police_pct)
+        fm = painter.fontMetrics()
+        largeur_bulle = fm.horizontalAdvance(pct_texte) + side * 0.055
+        hauteur_bulle = fm.height() * 1.2
+        rect_bulle = QRectF(0, 0, largeur_bulle, hauteur_bulle)
+        rect_bulle.moveCenter(
+            QPointF(rect.center().x(), rect.center().y() + side * 0.255)
         )
 
-    def _interpolated_colors(self, percent: float) -> Tuple[QColor, QColor]:
-        """Fait évoluer la teinte du dégradé selon la progression."""
-        start = self.theme.progress_start
-        end = self.theme.progress_end
-        mixed = QColor(
-            int(start.red() + (end.red() - start.red()) * percent),
-            int(start.green() + (end.green() - start.green()) * percent),
-            int(start.blue() + (end.blue() - start.blue()) * percent),
-        )
-        return start, mixed
+        chemin_bulle = QPainterPath()
+        chemin_bulle.addRoundedRect(rect_bulle, hauteur_bulle / 2, hauteur_bulle / 2)
+        couleur_bulle = QColor(self.theme.progression_debut)
+        couleur_bulle.setAlpha(28)
+        painter.setPen(Qt.PenStyle.NoPen)
+        painter.setBrush(QBrush(couleur_bulle))
+        painter.drawPath(chemin_bulle)
+
+        painter.setPen(self.theme.sous_texte)
+        painter.drawText(rect_bulle, Qt.AlignmentFlag.AlignCenter, pct_texte)
+
+    @staticmethod
+    def _point_sur_arc(
+        rect: QRectF, angle_depart_deg: float, percent: float
+    ) -> QPointF:
+        """Calcule le point sur le cercle correspondant à l'extrémité de l'arc."""
+        angle_deg = angle_depart_deg - percent * 360.0
+        angle_rad = math.radians(angle_deg)
+        cx, cy = rect.center().x(), rect.center().y()
+        rx, ry = rect.width() / 2, rect.height() / 2
+        return QPointF(cx + rx * math.cos(angle_rad), cy - ry * math.sin(angle_rad))
+
+    def _couleurs_intensifiees(self, percent: float) -> Tuple[QColor, QColor, QColor]:
+        """
+        Renvoie 3 arrêts de couleur pour le dégradé conique : la fin de
+        l'arc devient progressivement plus saturée/vive à mesure que le
+        pourcentage augmente, pour donner une sensation de progression
+        "qui s'intensifie" plutôt qu'un dégradé statique.
+        """
+        debut = self.theme.progression_debut
+        cible_fin = self.theme.progression_fin
+        fin = CompteurTheme._blend_hsv(debut, cible_fin, 0.35 + 0.65 * percent)
+        milieu = CompteurTheme._blend_hsv(debut, fin, 0.5)
+        return debut, milieu, fin
 
     def set_langue(self):
         self.label_text = self.fonction_traduction("granularite_pays_visites")
         self.update()
 
     def set_style(self, style, nuances, teintes):
-
         self.theme = CompteurTheme(
             style=style, nuances=nuances, teinte=teintes, limite_essais=20
         )
+        # L'ombre portée dépend du thème (couleur dérivée du texte) : on la
+        # remet à jour pour rester cohérent avec la carte voisine si le
+        # style change (mode clair / sombre).
+        self._ombre_effet.setColor(self.theme.ombre)
         self.update()

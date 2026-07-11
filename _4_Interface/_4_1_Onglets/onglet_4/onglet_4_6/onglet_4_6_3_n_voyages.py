@@ -446,7 +446,7 @@ class NombreVoyagesAnnu(QWidget):
 
         voyages_temp = nombre_voyages_par_annee(data=self.voyages, n_annees=5)
 
-        self.definir_valeur(nombre=sum(voyages_temp))
+        self.definir_valeur(nombre=len(self.voyages))
         self.definir_historique(historique=voyages_temp)
         self.definir_tendance(
             tendance=voyages_temp[-1] - voyages_temp[-2],

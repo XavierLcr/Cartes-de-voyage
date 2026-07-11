@@ -201,7 +201,7 @@ class NombreVoyagesAnnu(QWidget):
         self.texte_etiquette = etiquette
         self.historique: List[int] = list(historique) if historique else []
         self.tendance = tendance
-        self.etiquette_tendance = f"vs {datetime.now().year-1}"
+        self.etiquette_tendance = f"{datetime.now().year} vs {datetime.now().year-1}"
 
         self.theme = ThemeCarte(style=1)
 
@@ -446,7 +446,7 @@ class NombreVoyagesAnnu(QWidget):
 
         voyages_temp = nombre_voyages_par_annee(data=self.voyages, n_annees=5)
 
-        self.definir_valeur(nombre=voyages_temp[-1])
+        self.definir_valeur(nombre=sum(voyages_temp))
         self.definir_historique(historique=voyages_temp)
         self.definir_tendance(
             tendance=voyages_temp[-1] - voyages_temp[-2],

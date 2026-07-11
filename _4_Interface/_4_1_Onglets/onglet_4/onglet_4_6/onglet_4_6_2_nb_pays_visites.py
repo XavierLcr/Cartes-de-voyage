@@ -132,7 +132,6 @@ class CompteurCirculaireWidget(QWidget):
         fonction_traduction,
         value: int = 0,
         maximum: int = 200,
-        theme: Optional[CompteurTheme] = None,
         parent: Optional[QWidget] = None,
     ) -> None:
         super().__init__(parent)

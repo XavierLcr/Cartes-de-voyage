@@ -105,13 +105,13 @@ class MesVoyagesApplication(QWidget):
         profile_layout.addWidget(self.nom_individu)
         # Bouton d'ajout d'un profil
         self.bouton_ajout = QPushButton()
-        self.bouton_ajout.setText("➕")
+        self.bouton_ajout.setText(" ➕ ")
         self.bouton_ajout.setFixedWidth(40)
         self.bouton_ajout.clicked.connect(self.ajouter_profil)
         profile_layout.addWidget(self.bouton_ajout)
         # Bouton de réinitialisation
         self.reinit_parametres = QPushButton()
-        self.reinit_parametres.setText("🧹")
+        self.reinit_parametres.setText(" 🧹 ")
         self.reinit_parametres.setFixedWidth(40)
         self.reinit_parametres.clicked.connect(
             lambda: self.initialiser_sauvegarde(reinitialiser=True)

@@ -71,7 +71,6 @@ parametres_application_defaut = {
     "qualite_min": 200,
     "qualite_max": 4000,
     # Onglet 4
-    "onglet_4_mise_en_page": 0,
     ## Classement
     "top_n_pays": None,
     "pct_ndigits": None,

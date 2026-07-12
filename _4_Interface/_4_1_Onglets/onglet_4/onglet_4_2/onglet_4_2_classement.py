@@ -149,9 +149,7 @@ def agreger_top_pays(df: pd.DataFrame, top_n_lignes_min: int | None):
 
 def creer_label_pays(
     ligne,
-    style: int,
-    teintes: list | None,
-    nuances: dict,
+    style,
 ):
     """
     Renvoie une carte (CarteClassementPays) pour une ligne du classement
@@ -165,8 +163,6 @@ def creer_label_pays(
         nom_pays=str(ligne["nom_pays"]),
         pct_label=str(ligne["pct_superficie_pays_label"]),
         style=style,
-        teintes=teintes,
-        nuances=nuances,
     )
 
 
@@ -203,7 +199,7 @@ class ThemeCarteClassement:
                 style=style,
                 teinte=teinte,
                 nuances=nuances,
-                clair="#defdff",
+                clair="#eaf6f7",
                 sombre="#4658a1",
             )
         )
@@ -221,7 +217,7 @@ class ThemeCarteClassement:
                 style=style,
                 teinte=teinte,
                 nuances=nuances,
-                clair="#9AECE5",
+                clair="#B6EEE9",
                 sombre="#24A5A5",
             )
         )
@@ -230,7 +226,7 @@ class ThemeCarteClassement:
                 style=style,
                 teinte=teinte,
                 nuances=nuances,
-                clair="#179C95",
+                clair="#55E4DD",
                 sombre="#1F971F",
                 reference=self.badge_debut.name(),
                 essais=limite_essais,
@@ -262,9 +258,7 @@ class CarteClassementPays(QWidget):
         classement: str,
         nom_pays: str,
         pct_label: str,
-        style: int,
-        teintes: list | None,
-        nuances: dict,
+        style,
         parent=None,
     ) -> None:
 
@@ -277,9 +271,7 @@ class CarteClassementPays(QWidget):
         # Thème par défaut (clair) — mis à jour via `set_style` si le
         # widget parent (ClassementPays / OngletTopPays) est un jour
         # branché sur le système de thème clair/sombre de l'appli.
-        self.theme = ThemeCarteClassement(
-            style=style, teinte=teintes, nuances=nuances, limite_essais=20
-        )
+        self.theme = style
 
         # Même police que le podium (méthode réutilisée depuis Podium
         # pour ne pas dupliquer la liste de polices candidates).
@@ -466,7 +458,9 @@ class ClassementPays(QWidget):
         n_lignes = 3 if df_temp["agreg"].sum() == 0 else 1
 
         podium_temp = Podium()
+        podium_temp.set_style(style_parent=self.style)
         podium_temp.set_donnees(df_temp.head(n=n_lignes).to_dict(orient="records"))
+
         layout_temp.addWidget(podium_temp)
 
         # Ajout au layout
@@ -490,8 +484,6 @@ class ClassementPays(QWidget):
             layout_temp.addWidget(
                 creer_label_pays(
                     ligne=ligne,
-                    nuances=self.nuances,
-                    teintes=self.teintes,
                     style=self.style,
                 ),
                 i // n_col_temp,
@@ -609,7 +601,7 @@ class ClassementPays(QWidget):
         self.lancer_classement_par_region_departement()
 
     def set_style(self, style, nuances, teintes):
-        self.style = style
-        self.teintes = teintes
-        self.nuances = nuances
+        self.style = ThemeCarteClassement(
+            style=style, teinte=teintes, nuances=nuances, limite_essais=20
+        )
         self.lancer_classement_par_region_departement()

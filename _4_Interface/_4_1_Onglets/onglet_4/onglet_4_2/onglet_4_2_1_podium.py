@@ -54,7 +54,7 @@ class Podium(QWidget):
 
         # Couleurs de la carte (fond / texte), dans la même convention
         # que les widgets du tableau de bord.
-        self.couleur_fond = QColor("#ffffff")
+        self.couleur_fond = QColor("#fcfcfc")
         self.couleur_texte = QColor("#1c1f2b")
         self.couleur_sous_texte = QColor("#1c1f2b")
         self.couleur_sous_texte.setAlpha(140)
@@ -412,3 +412,10 @@ class Podium(QWidget):
     def heightForWidth(self, width):
         ratio = 300 / 420
         return int(width * ratio)
+
+    def set_style(self, style_parent):
+
+        self.couleur_fond = style_parent.fond
+        self.couleur_texte = style_parent.texte
+        self.couleur_sous_texte = style_parent.texte
+        self.couleur_sous_texte.setAlpha(140)

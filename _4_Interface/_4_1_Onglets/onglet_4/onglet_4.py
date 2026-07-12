@@ -240,6 +240,9 @@ class OngletTopPays(QWidget):
             )
         )
 
+        # Pays les plus visités
+        self.classement_widget.set_style(style=style, teintes=teinte, nuances=nuances)
+
         # Onglet 4.3
         self.recommandations.set_bouton_recommandation(
             style=style, teinte=teinte, nuances=nuances

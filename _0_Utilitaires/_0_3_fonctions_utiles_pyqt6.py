@@ -18,8 +18,10 @@ from PyQt6.QtWidgets import (
     QApplication,
     QScrollArea,
     QSizePolicy,
+    QGraphicsDropShadowEffect,
 )
 from PyQt6.QtCore import Qt, QTimer
+from PyQt6.QtGui import QColor
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 
 from _0_Utilitaires._0_2_fonctions_graphiques import (
@@ -187,32 +189,7 @@ def set_emoji_sauvegarde(widget: QPushButton, temps_ms: int):
 ## 6.1 -- Conteneur simple -----------------------------------------------------
 
 
-def conteneur_graphique_simple(fig, style, teinte, nuances):
-
-    container = QFrame()
-    couleur = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#C9D6E0", sombre="#26C6DA"
-    )
-    container.setStyleSheet(f"""
-        QFrame {{
-            background: white;
-            border: 3px solid {couleur};
-            border-radius: 10px;
-            padding: 12px;
-        }}
-    """)
-
-    # Ajouter le canvas au conteneur
-    container_layout = QVBoxLayout(container)
-    container_layout.setContentsMargins(0, 0, 0, 0)
-
-    canvas = FigureCanvas(fig)
-    canvas.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-    container_layout.addWidget(canvas)
-
-    _activer_infobulles_survol(fig=fig, canvas=canvas)
-
-    return container
+### Extension d'annotations ----------------------------------------------------
 
 
 def _activer_infobulles_survol(fig, canvas):
@@ -251,6 +228,57 @@ def _activer_infobulles_survol(fig, canvas):
                     canvas.draw_idle()
 
         canvas.mpl_connect("motion_notify_event", on_move)
+
+
+### Fonction générique ---------------------------------------------------------
+
+
+def conteneur_graphique_simple(fig, style, teinte, nuances):
+
+    container = QFrame()
+
+    # Fond de carte : même convention que les widgets du tableau de bord.
+    couleur_fond = renvoyer_couleur_widget(
+        style=style,
+        teinte=teinte,
+        nuances=nuances,
+        clair="#FFFFFF",
+        sombre="#FFFFFF",
+    )
+    # Bordure fine et discrète (au lieu d'une bordure épaisse).
+    couleur_bordure = renvoyer_couleur_widget(
+        style=style, teinte=teinte, nuances=nuances, clair="#E4E9F0", sombre="#26C6DA"
+    )
+
+    container.setStyleSheet(f"""
+        QFrame {{
+            background: {couleur_fond};
+            border: 1px solid {couleur_bordure};
+            border-radius: 20px;
+            padding: 18px;
+        }}
+    """)
+
+    # Ombre portée : même réglage que les cartes (blur 30, offset (0, 8)).
+    ombre = QGraphicsDropShadowEffect(container)
+    ombre.setBlurRadius(30)
+    ombre.setOffset(0, 8)
+    couleur_ombre = QColor("#000000")
+    couleur_ombre.setAlpha(60 if style == "clair" else 120)
+    ombre.setColor(couleur_ombre)
+    container.setGraphicsEffect(ombre)
+
+    # Ajouter le canvas au conteneur
+    container_layout = QVBoxLayout(container)
+    container_layout.setContentsMargins(0, 0, 0, 0)
+
+    canvas = FigureCanvas(fig)
+    canvas.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+    container_layout.addWidget(canvas)
+
+    _activer_infobulles_survol(fig=fig, canvas=canvas)
+
+    return container
 
 
 # 7 -- Création d'un scroll ----------------------------------------------------

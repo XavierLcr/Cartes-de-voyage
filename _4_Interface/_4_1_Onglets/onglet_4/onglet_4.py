@@ -13,7 +13,6 @@ import copy
 from PyQt6.QtWidgets import (
     QWidget,
     QVBoxLayout,
-    QTabWidget,
     QHBoxLayout,
     QPushButton,
     QStackedWidget,
@@ -29,8 +28,27 @@ from _4_Interface._4_1_Onglets.onglet_4 import (
 )
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_2 import onglet_4_2_classement
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6 import onglet_4_6
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_7_portrait_IA import (
+    ProfilVoyageurIA,
+)
 
-# 1 -- Classe de l'onglet contenant les statistiques ---------------------------
+# 1 -- Fonction de renvoi d'un bouton ------------------------------------------
+
+
+def creer_bouton(texte: str):
+
+    btn_temp = QPushButton(texte)
+    btn_temp.setStyleSheet("""
+        QPushButton {
+            text-align: left;
+            padding-left: 10px;
+        }
+    """)
+
+    return btn_temp
+
+
+# 2 -- Classe de l'onglet contenant les statistiques ---------------------------
 
 
 class OngletTopPays(QWidget):
@@ -46,9 +64,6 @@ class OngletTopPays(QWidget):
     ):
         super().__init__(parent)
 
-        self.mise_en_page = constantes.parametres_application.get(
-            "onglet_4_mise_en_page"
-        )
         self.fonction_traduction = fct_traduction
 
         # Hémicycle
@@ -84,114 +99,90 @@ class OngletTopPays(QWidget):
             fct_traduction=fct_traduction, parent=None
         )
 
-        # Profil de voyageur
-        self.profil_voyageur = onglet_4_6.OngletPortrait(
+        # Tableau de bord
+        self.tableau_de_bord = onglet_4_6.OngletTableauDeBord(
             fct_traduction=fct_traduction, parent=None, constantes=constantes
         )
+
+        self.portrait_IA = ProfilVoyageurIA(fct_traduction=fct_traduction, parent=self)
 
         # Mise en page des sous-onglets
         layout = QHBoxLayout(self)
 
-        if self.mise_en_page == 0:
+        ## === Stack (remplace QTabWidget) ===
+        self.pages = QStackedWidget()
+        self.pages.addWidget(self.tableau_de_bord)
+        self.pages.addWidget(page_hemicycle)
+        self.pages.addWidget(self.classement_widget)
+        self.pages.addWidget(self.recommandations)
+        self.pages.addWidget(self.pays_souvent_visites)
+        self.pages.addWidget(self.calendrier_visites)
+        self.pages.addWidget(self.portrait_IA)
 
-            ## === Stack (remplace QTabWidget) ===
-            self.pages = QStackedWidget()
-            self.pages.addWidget(page_hemicycle)
-            self.pages.addWidget(self.classement_widget)
-            self.pages.addWidget(self.recommandations)
-            self.pages.addWidget(self.pays_souvent_visites)
-            self.pages.addWidget(self.calendrier_visites)
-            self.pages.addWidget(self.profil_voyageur)
+        # === Barre de boutons (navigation) ===
+        self.btn_hemicycle = creer_bouton("Hémicycle")
+        self.btn_top_pays = creer_bouton("Top Pays")
+        self.btn_recommandations = creer_bouton("Suggestions")
+        self.btn_pays_souvent_visites = creer_bouton("Pays fréquents")
+        self.btn_calendrier = creer_bouton("Dernières destinations")
+        self.btn_tableau_de_bord = creer_bouton("Votre tableau de bord")
+        self.btn_portrait_IA = creer_bouton("Votre portrait")
 
-            # === Barre de boutons (navigation) ===
-            btn_layout = QVBoxLayout()
-            self.btn_hemicycle = QPushButton("Hémicycle")
-            self.btn_hemicycle.setStyleSheet("""
-                QPushButton {
-                    text-align: left;
-                    padding-left: 10px;
-                }
-            """)
-            self.btn_top_pays = QPushButton("Top Pays")
-            self.btn_top_pays.setStyleSheet("""
-                QPushButton {
-                    text-align: left;
-                    padding-left: 10px;
-                }
-            """)
-            self.btn_recommandations = QPushButton("Suggestions")
-            self.btn_top_pays.setStyleSheet("""
-                QPushButton {
-                    text-align: left;
-                    padding-left: 10px;
-                }
-            """)
-            self.btn_pays_souvent_visites = QPushButton("Pays fréquents")
-            self.btn_pays_souvent_visites.setStyleSheet("""
-                QPushButton {
-                    text-align: left;
-                    padding-left: 10px;
-                }
-            """)
-            self.btn_calendrier = QPushButton("Dernières destinations")
-            self.btn_calendrier.setStyleSheet("""
-                QPushButton {
-                    text-align: left;
-                    padding-left: 10px;
-                }
-            """)
-            self.btn_profil_voyageur = QPushButton("Votre profil")
-            self.btn_profil_voyageur.setStyleSheet("""
-                QPushButton {
-                    text-align: left;
-                    padding-left: 10px;
-                }
-            """)
-            btn_layout.addWidget(self.btn_hemicycle)
-            btn_layout.addWidget(self.btn_top_pays)
-            btn_layout.addWidget(self.btn_recommandations)
-            btn_layout.addWidget(self.btn_pays_souvent_visites)
-            btn_layout.addWidget(self.btn_calendrier)
-            btn_layout.addWidget(self.btn_profil_voyageur)
-            btn_layout.addStretch()
+        btn_layout = QVBoxLayout()
+        btn_layout.addWidget(self.btn_tableau_de_bord)
+        btn_layout.addWidget(self.btn_hemicycle)
+        btn_layout.addWidget(self.btn_top_pays)
+        btn_layout.addWidget(self.btn_recommandations)
+        btn_layout.addWidget(self.btn_pays_souvent_visites)
+        btn_layout.addWidget(self.btn_calendrier)
+        btn_layout.addWidget(self.btn_portrait_IA)
+        btn_layout.addStretch()
 
-            # Connexions
-            self.btn_hemicycle.clicked.connect(
-                lambda: self.cliquer_bouton_onglet(num_onglet=0)
+        # Connexions
+        # Chaque bouton doit chercher l'index de SA page (le widget affiché
+        # dans le stack), pas l'index d'un autre bouton : c'est ce qui
+        # faisait échouer "Dernières destinations" et "Votre tableau de
+        # bord" (indexOf() cherchait le bouton lui-même dans le stack, où
+        # il n'a jamais été ajouté, et renvoyait -1).
+        self.btn_hemicycle.clicked.connect(
+            lambda: self.cliquer_bouton_onglet(
+                num_onglet=self.pages.indexOf(page_hemicycle)
             )
-            self.btn_top_pays.clicked.connect(
-                lambda: self.cliquer_bouton_onglet(num_onglet=1)
+        )
+        self.btn_top_pays.clicked.connect(
+            lambda: self.cliquer_bouton_onglet(
+                num_onglet=self.pages.indexOf(self.classement_widget)
             )
-            self.btn_recommandations.clicked.connect(
-                lambda: self.cliquer_bouton_onglet(num_onglet=2)
+        )
+        self.btn_recommandations.clicked.connect(
+            lambda: self.cliquer_bouton_onglet(
+                num_onglet=self.pages.indexOf(self.recommandations)
             )
-            self.btn_pays_souvent_visites.clicked.connect(
-                lambda: self.cliquer_bouton_onglet(num_onglet=3)
+        )
+        self.btn_pays_souvent_visites.clicked.connect(
+            lambda: self.cliquer_bouton_onglet(
+                num_onglet=self.pages.indexOf(self.pays_souvent_visites)
             )
-            self.btn_calendrier.clicked.connect(
-                lambda: self.cliquer_bouton_onglet(num_onglet=4)
+        )
+        self.btn_calendrier.clicked.connect(
+            lambda: self.cliquer_bouton_onglet(
+                num_onglet=self.pages.indexOf(self.calendrier_visites)
             )
-            self.btn_profil_voyageur.clicked.connect(
-                lambda: self.cliquer_bouton_onglet(num_onglet=5)
+        )
+        self.btn_tableau_de_bord.clicked.connect(
+            lambda: self.cliquer_bouton_onglet(
+                num_onglet=self.pages.indexOf(self.tableau_de_bord)
             )
+        )
+        self.btn_portrait_IA.clicked.connect(
+            lambda: self.cliquer_bouton_onglet(
+                num_onglet=self.pages.indexOf(self.portrait_IA)
+            )
+        )
 
-            # Layout principal
-            layout.addLayout(btn_layout)
-            layout.addWidget(self.pages)
-
-        elif self.mise_en_page == 1:
-
-            ## === Création du QTabWidget ===
-            self.sous_onglets = QTabWidget()
-            self.sous_onglets.addTab(page_hemicycle, "Hémicycle")
-            self.sous_onglets.addTab(self.classement_widget, "Top Pays")
-            self.sous_onglets.addTab(self.recommandations, "Suggestions")
-            self.sous_onglets.addTab(self.pays_souvent_visites, "Pays fréquents")
-            self.sous_onglets.addTab(self.calendrier_visites, "Calendrier")
-            self.sous_onglets.addTab(self.profil_voyageur, "Votre portrait")
-
-            ## === Layout principal ===
-            layout.addWidget(self.sous_onglets)
+        # Layout principal
+        layout.addLayout(btn_layout)
+        layout.addWidget(self.pages)
 
     def set_langue(self, nouvelle_langue):
         self.hemicycle.set_langue(langue=nouvelle_langue)
@@ -199,7 +190,8 @@ class OngletTopPays(QWidget):
         self.recommandations.set_langue(langue=nouvelle_langue)
         self.pays_souvent_visites.set_langue(langue=nouvelle_langue)
         self.calendrier_visites.set_langue(langue=nouvelle_langue)
-        self.profil_voyageur.set_langue(langue=nouvelle_langue)
+        self.tableau_de_bord.set_langue(langue=nouvelle_langue)
+        self.portrait_IA.set_langue(langue=nouvelle_langue)
 
         texte_onglet_1 = self.fonction_traduction(
             "titre_sous_onglet_4_1",
@@ -211,11 +203,11 @@ class OngletTopPays(QWidget):
         )
         texte_onglet_3 = self.fonction_traduction(
             "titre_sous_onglet_4_3",
-            prefixe=("🚂 ​"),
+            prefixe=("🚂 "),
         )
         texte_onglet_4 = self.fonction_traduction(
             "titre_sous_onglet_4_4",
-            prefixe=("⚓ ​​"),
+            prefixe=("⚓ "),
         )
         texte_onglet_5 = self.fonction_traduction(
             "titre_sous_onglet_4_5",
@@ -223,42 +215,23 @@ class OngletTopPays(QWidget):
         )
         texte_onglet_6 = self.fonction_traduction(
             "titre_sous_onglet_4_6",
-            prefixe=("🫆 ​"),
+            prefixe=("📰 "),
+        )
+        texte_onglet_7 = self.fonction_traduction(
+            "titre_sous_onglet_4_7",
+            prefixe=("🫆 "),
         )
 
-        if self.mise_en_page == 0:
-            self.btn_hemicycle.setText(texte_onglet_1)
-            self.btn_top_pays.setText(texte_onglet_2)
-            self.btn_top_pays.setToolTip(
-                self.fonction_traduction("description_onglet_4", suffixe=".")
-            )
-            self.btn_recommandations.setText(texte_onglet_3)
-            self.btn_pays_souvent_visites.setText(texte_onglet_4)
-            self.btn_calendrier.setText(texte_onglet_5)
-            self.btn_profil_voyageur.setText(texte_onglet_6)
-        elif self.mise_en_page == 1:
-            self.sous_onglets.setTabText(
-                self.sous_onglets.indexOf(self.hemicycle.parentWidget()), texte_onglet_1
-            )
-            self.sous_onglets.setTabText(
-                self.sous_onglets.indexOf(self.classement_widget), texte_onglet_2
-            )
-            self.sous_onglets.setTabToolTip(
-                self.sous_onglets.indexOf(self.classement_widget),
-                self.fonction_traduction("description_onglet_4", suffixe="."),
-            )
-            self.sous_onglets.setTabText(
-                self.sous_onglets.indexOf(self.recommandations), texte_onglet_3
-            )
-            self.sous_onglets.setTabText(
-                self.sous_onglets.indexOf(self.pays_souvent_visites), texte_onglet_4
-            )
-            self.sous_onglets.setTabText(
-                self.sous_onglets.indexOf(self.calendrier_visites), texte_onglet_5
-            )
-            self.sous_onglets.setTabText(
-                self.sous_onglets.indexOf(self.profil_voyageur), texte_onglet_6
-            )
+        self.btn_hemicycle.setText(texte_onglet_1)
+        self.btn_top_pays.setText(texte_onglet_2)
+        self.btn_top_pays.setToolTip(
+            self.fonction_traduction("description_onglet_4", suffixe=".")
+        )
+        self.btn_recommandations.setText(texte_onglet_3)
+        self.btn_pays_souvent_visites.setText(texte_onglet_4)
+        self.btn_calendrier.setText(texte_onglet_5)
+        self.btn_tableau_de_bord.setText(texte_onglet_6)
+        self.btn_portrait_IA.setText(texte_onglet_7)
 
     def set_style(self, style: int, teinte, nuances):
 
@@ -279,8 +252,8 @@ class OngletTopPays(QWidget):
         self.pays_souvent_visites.set_style(style=style, teinte=teinte, nuances=nuances)
         self.calendrier_visites.set_style(style=style, teinte=teinte, nuances=nuances)
 
-        # Onglet de portrait
-        self.profil_voyageur.set_style(style=style, teintes=teinte, nuances=nuances)
+        # Onglet de tableau de bord
+        self.tableau_de_bord.set_style(style=style, teintes=teinte, nuances=nuances)
 
     def set_dicts_granu(self, dict_nv):
         # Attention, la màj de self.classement_widget se fait dans cliquer_bouton_onglet
@@ -290,11 +263,12 @@ class OngletTopPays(QWidget):
         self.recommandations.set_dicts_granu(dict_nv=dict_temp)
         self.pays_souvent_visites.set_voyages(voyages=copy.deepcopy(dict_nv))
         self.calendrier_visites.set_voyages(voyages=copy.deepcopy(dict_nv))
-        self.profil_voyageur.set_voyages(voyages=copy.deepcopy(dict_nv))
+        self.tableau_de_bord.set_voyages(voyages=copy.deepcopy(dict_nv))
+        self.portrait_IA.set_voyages(voyages=copy.deepcopy(dict_nv))
 
     def initialiser_onglet(self, **kwargs):
         self.recommandations.initialiser_onglet(**kwargs)
-        self.profil_voyageur.initialiser_onglet(**kwargs)
+        self.portrait_IA.initialiser_onglet()
 
     def set_hemicycle_position(self, val: int):
         self.hemicycle.set_points_visites_position(position=val)
@@ -318,10 +292,7 @@ class OngletTopPays(QWidget):
 
         self.pages.setCurrentIndex(num_onglet)
 
-        if num_onglet == 1:
+        if num_onglet == self.pages.indexOf(self.classement_widget):
             self.classement_widget.set_dicts_granu(
                 dict_nv=voyages_vers_destinations(copy.deepcopy(self.dict_voyages))
             )
-
-        if num_onglet == 5:
-            self.profil_voyageur.compteur_pays.set_value(value=None, animate=True)

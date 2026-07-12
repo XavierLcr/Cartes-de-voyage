@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
 # _4_Interface/_4_1_Onglets/onglet_4/onglet_4_6                                #
-# Onglet 4.6.5 – Continent favori                                              #
+# Onglet 4.6.4 – Continent favori                                              #
 ################################################################################
 
 
@@ -239,7 +239,7 @@ class ContinentFavoriWidget(QWidget):
 
         self.theme = ThemeContinentFavori(style=1)
 
-        self.setMinimumSize(320, 230)
+        self.setMinimumSize(320, 130)
         self.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
 

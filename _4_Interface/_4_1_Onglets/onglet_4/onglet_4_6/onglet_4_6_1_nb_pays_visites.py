@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
 # _4_Interface/_4_1_Onglets/onglet_4/onglet_4_6                                #
-# Onglet 4.6.2 – Compteur de pays visités (harmonisé avec le widget 4.6.3)     #
+# Onglet 4.6.1 – Compteur de pays visités (harmonisé avec le widget 4.6.3)     #
 ################################################################################
 
 

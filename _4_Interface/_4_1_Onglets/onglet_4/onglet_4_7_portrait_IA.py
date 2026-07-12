@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
-# _4_Interface/_4_1_Onglets/onglet_4/onglet_4_6                                #
-# Onglet 4.6.1 – Groupbox de création d'un portrait IA du profil               #
+# _4_Interface/_4_1_Onglets/onglet_4/                                          #
+# Onglet 4.7 – Groupbox de création d'un portrait IA du profil                 #
 ################################################################################
 
 
@@ -174,7 +174,7 @@ class ProfilVoyageurIA(QGroupBox):
     contexte = 32768
     voyages = {}
     url = "http://localhost:11434/api/generate"
-    clef_probleme = "probleme_label_4_6_ollama"
+    clef_probleme = "probleme_label_4_7_ollama"
 
     def __init__(self, fct_traduction, parent=None):
         super().__init__(parent=parent)
@@ -203,7 +203,7 @@ class ProfilVoyageurIA(QGroupBox):
 
         if test_ollama.get("disponible", False) == False:
 
-            self.clef_probleme = "probleme_label_4_6_ollama"
+            self.clef_probleme = "probleme_label_4_7_ollama"
             layout_temp.addWidget(self.probleme_label)
 
         elif (
@@ -211,7 +211,7 @@ class ProfilVoyageurIA(QGroupBox):
             == False
         ):
 
-            self.clef_probleme = "probleme_label_4_6_modele"
+            self.clef_probleme = "probleme_label_4_7_modele"
             layout_temp.addWidget(self.probleme_label)
             layout_temp.addStretch()
 
@@ -248,7 +248,7 @@ class ProfilVoyageurIA(QGroupBox):
             self.fonction_traduction("creer_description_profil_btn")
         )
         self.attente_label.setText(
-            self.fonction_traduction("attente_label_4_6", prefixe="🔮 ", suffixe="...")
+            self.fonction_traduction("attente_label_4_7", prefixe="🔮 ", suffixe="...")
         )
 
         texte_temp = ""
@@ -268,7 +268,7 @@ class ProfilVoyageurIA(QGroupBox):
         )
 
         self.modele.setToolTip(
-            self.fonction_traduction("modele_4_6_1_tooltip", suffixe=f" :{texte_temp}")
+            self.fonction_traduction("modele_4_7_tooltip", suffixe=f" :{texte_temp}")
         )
 
     def set_voyages(self, voyages: dict):

@@ -11,26 +11,24 @@
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import voyages_vers_destinations
-from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6.onglet_4_6_1_IA import (
-    ProfilVoyageurIA,
-)
-from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6.onglet_4_6_2_nb_pays_visites import (
+
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6.onglet_4_6_1_nb_pays_visites import (
     CompteurCirculaireWidget,
 )
-from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6.onglet_4_6_3_n_voyages import (
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6.onglet_4_6_2_n_voyages import (
     NombreVoyagesAnnu,
 )
-from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6.onglet_4_6_4_jours_par_mois import (
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6.onglet_4_6_3_jours_par_mois import (
     JoursVoyagesParMoisWidget,
 )
-from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6.onglet_4_6_5_continent_favori import (
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6.onglet_4_6_4_continent_favori import (
     ContinentFavoriWidget,
 )
 
 # 1 -- Onglet du portrait client -----------------------------------------------
 
 
-class OngletPortrait(QWidget):
+class OngletTableauDeBord(QWidget):
 
     langue = "français"
     voyages = {}
@@ -73,25 +71,19 @@ class OngletPortrait(QWidget):
         layout_temp.addStretch()
         layout.addLayout(layout_temp, stretch=1)
 
-        # Agent IA
-        self.description_IA = ProfilVoyageurIA(
-            fct_traduction=fct_traduction, parent=self
-        )
-        layout.addWidget(self.description_IA)
-
         self.setLayout(layout)
 
     def set_langue(self, langue):
 
         self.langue = langue
-        self.description_IA.set_langue(langue=langue)
         self.compteur_pays.set_langue()
         self.n_voyages_histo.set_langue()
+        self.n_jours_voyages.set_langue()
+        self.continent_favori.set_langue()
 
     def set_voyages(self, voyages):
 
         self.voyages = voyages
-        self.description_IA.set_voyages(voyages=voyages)
         self.n_voyages_histo.set_voyages(voyages=voyages)
         self.n_jours_voyages.set_voyages(voyages=voyages)
         self.continent_favori.set_voyages(voyages=voyages)
@@ -102,9 +94,6 @@ class OngletPortrait(QWidget):
             + list((destinations_temp.get("dep") or {}).keys())
         )
         self.compteur_pays.set_value(value=len(destinations_temp))
-
-    def initialiser_onglet(self, **kwargs):
-        self.description_IA.initialiser_onglet()
 
     def set_style(self, style, nuances, teintes):
 

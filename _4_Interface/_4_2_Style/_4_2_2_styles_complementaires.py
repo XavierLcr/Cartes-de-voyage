@@ -79,21 +79,23 @@ def style_bouton_ajout_profil(style: int, teinte, nuances):
         style=style,
         teinte=teinte,
         nuances=nuances,
-        clair="transparent",
+        clair="#D6F0EE",
         sombre="#14689C",
     )
 
     bg_couleur_survol = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#D6F0EE", sombre="#79E3DA"
+        style=style, teinte=teinte, nuances=nuances, clair="#B1DDD9", sombre="#79E3DA"
     )
 
     return f"""
         QPushButton {{
             font-weight: bold;
             background-color: {bg_couleur};
+            color: #8B0000;  /* rouge foncé */
             border: none;
             font-size: 12px;
             border-radius: 10px;
+            font-weight: bold;
 
         }}
         QPushButton:hover {{

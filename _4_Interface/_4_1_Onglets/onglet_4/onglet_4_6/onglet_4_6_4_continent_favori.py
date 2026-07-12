@@ -44,18 +44,6 @@ from _4_Interface._4_1_Onglets.onglet_4.onglet_4_1_hemicycle import table_pays_v
 
 # 1 -- Répartition des pays visités par continent -------------------------------
 
-# Traduction des libellés de continent (le DataFrame renvoyé par
-# `table_pays_visites` utilise les noms anglais des continents).
-NOMS_CONTINENTS_FR: Dict[str, str] = {
-    "Africa": "Afrique",
-    "Asia": "Asie",
-    "Europe": "Europe",
-    "North America": "Amérique du Nord",
-    "South America": "Amérique du Sud",
-    "Oceania": "Océanie",
-    "Antarctica": "Antarctique",
-}
-
 
 def repartition_continents_depuis_table(
     df_pays_visites, continents_trad: dict, langue: str
@@ -341,6 +329,7 @@ class ContinentFavoriWidget(QWidget):
     def set_langue(self, langue):
         """Mise à jour de la langue."""
         self.langue = langue
+        self.set_valeurs()
         self.update()
 
     def set_style(self, style, nuances, teintes):

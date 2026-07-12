@@ -351,7 +351,7 @@ class CompteurCirculaireWidget(QWidget):
         painter.drawText(rect_etiquette, Qt.AlignmentFlag.AlignCenter, self.label_text)
 
         # --- pourcentage dans une petite bulle ---
-        pct_texte = f"{int(percent * 100)}%"
+        pct_texte = f"{int(percent * 100)} %"
         police_pct = QFont("Segoe UI", max(6, int(side * 0.04)), QFont.Weight.DemiBold)
         painter.setFont(police_pct)
         fm = painter.fontMetrics()

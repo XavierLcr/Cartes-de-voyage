@@ -116,16 +116,25 @@ def style_dynamique_application(
 
     # Sliders
     couleur_slider = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#C7DEE7", sombre="#26C6DA"
+        style=style, teinte=teinte, nuances=nuances, clair="#C7DEE7", sombre="#2B29A5"
     )
     couleur_slider_hover = renvoyer_couleur_widget_differente(
         style=style,
         teinte=teinte,
         nuances=nuances,
-        clair="#ADCEDB",
-        sombre="#4DD0E1",
+        clair="#72BAD6",
+        sombre="#1FA4B6",
         reference=couleur_slider,
         essais=limite_essais,
+    )
+    couleur_slider_rempli = renvoyer_couleur_widget(
+        style=style, teinte=teinte, nuances=nuances, clair="#31ABD8", sombre="#26C6DA"
+    )
+    couleur_slider_handle_survol = renvoyer_couleur_widget(
+        style=style, teinte=teinte, nuances=nuances, clair="#186A87", sombre="#22B3C7"
+    )
+    couleur_slider_handle_presse = renvoyer_couleur_widget(
+        style=style, teinte=teinte, nuances=nuances, clair="#125571", sombre="#1D9BAC"
     )
 
     # Onglet actuel
@@ -277,15 +286,43 @@ def style_dynamique_application(
 
             QSlider::groove:horizontal {{
                 background: {couleur_slider};
-                height: 8px;
-                border-radius: 4px;
+                height: 6px;
+                border-radius: 3px;
             }}
+
+            QSlider::sub-page:horizontal {{
+                background: {couleur_slider_rempli};
+                height: 6px;
+                border-radius: 3px;
+            }}
+
+            QSlider::add-page:horizontal {{
+                background: {couleur_slider};
+                height: 6px;
+                border-radius: 3px;
+            }}
+
             QSlider::handle:horizontal {{
                 background: {couleur_slider_hover};
-                width: 20px;
-                border-radius: 12px;
-                margin: -5px 0;
+                width: 18px;
+                height: 18px;
+                border-radius: 9px;
+                margin: -6px 0;
+                
             }}
+
+            QSlider::handle:horizontal:hover {{
+                background: {couleur_slider_handle_survol};
+            }}
+
+            QSlider::handle:horizontal:pressed {{
+                background: {couleur_slider_handle_presse};
+                width: 20px;
+                height: 20px;
+                border-radius: 10px;
+                margin: -7px -1px;
+            }}
+
             QGroupBox {{
                 border: 2px solid {couleur_groupbox};
                 border-radius: 14px;

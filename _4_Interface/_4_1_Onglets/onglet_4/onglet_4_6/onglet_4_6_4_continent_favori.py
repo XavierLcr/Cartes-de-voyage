@@ -58,40 +58,54 @@ NOMS_CONTINENTS_FR: Dict[str, str] = {
 
 
 def repartition_continents_depuis_table(
-    df_pays_visites,
-) -> Tuple[Dict[str, int], Optional[str], int]:
+    df_pays_visites, continents_trad: dict, langue: str
+) -> Tuple[Dict[str, int], Optional[str], int, Dict[str, int]]:
     """
     Calcule la répartition des pays visités par continent, à partir de la
     table renvoyée par `table_pays_visites` (colonnes "continent", "pays",
     "visite").
 
-    Ne compte que les lignes où `visite` vaut True. Les libellés de
-    continent sont traduits en français via `NOMS_CONTINENTS_FR` (nom
-    anglais d'origine conservé tel quel si absent de la table).
-
-    Renvoie (compte_par_continent, continent_favori, total) :
-    - compte_par_continent : dict {continent (FR): nombre de pays visités}.
-    - continent_favori     : nom (FR) du continent avec le plus de pays
-                              visités, ou None si aucun pays visité.
-    - total                : nombre total de pays visités, tous
-                              continents confondus.
+    Renvoie (compte_visites, continent_favori, total_visites, compte_total) :
+    - compte_visites : dict {continent (EN): nombre de pays visités}.
+    - continent_favori : nom (EN) du continent avec le plus de pays
+                          visités, ou None si aucun pays visité.
+    - total_visites : nombre total de pays visités, tous continents
+                       confondus.
+    - compte_total : dict {continent (EN): nombre total de pays,
+                      visités ou non}. Sert à calculer le taux de
+                      couverture par continent.
     """
     if df_pays_visites is None or df_pays_visites.empty:
-        return {}, None, 0
+        return {}, None, 0, {}
 
-    df_visites = df_pays_visites[df_pays_visites["visite"] == True]  # noqa: E712
-    if df_visites.empty:
-        return {}, None, 0
+    df_temp = (
+        df_pays_visites.copy()
+        .groupby("continent")["visite"]
+        .agg(visites="sum", total="count")
+        .assign(
+            pct_pays=lambda x: x["visites"] / x["total"],
+            # continent=lambda x: x["continent"].map(
+            #     lambda c: continents_trad.get(c, {}).get(langue, c)
+            # ),
+        )
+    )
 
-    compte_brut = df_visites.groupby("continent")["pays"].count().to_dict()
-    compte = {
-        NOMS_CONTINENTS_FR.get(continent, continent): nombre
-        for continent, nombre in compte_brut.items()
-    }
+    # Traduction appliquée sur l'index (continent reste la clé partout).
+    df_temp.index = df_temp.index.map(
+        lambda c: continents_trad.get(c, {}).get(langue, c)
+    )
 
-    favori = max(compte, key=compte.get)
-    total = sum(compte.values())
-    return compte, favori, total
+    compte_total = df_temp["total"].to_dict()
+    compte_visites = (
+        df_temp.loc[df_temp["visites"] > 0, "visites"].astype(int).to_dict()
+    )
+
+    if not compte_visites:
+        return {}, None, 0, compte_total
+
+    favori = max(compte_visites, key=compte_visites.get)
+    total_visites = sum(compte_visites.values())
+    return compte_visites, favori, total_visites, compte_total
 
 
 # 2 -- Classe de création des couleurs -----------------------------------------
@@ -205,14 +219,13 @@ class ContinentFavoriWidget(QWidget):
         constantes,
         repartition: Optional[Dict[str, int]] = None,
         continent_favori: Optional[str] = None,
-        etiquette: str = "Continent favori",
         parent: Optional[QWidget] = None,
     ) -> None:
         super().__init__(parent)
 
         self.table_pays_visites = None
         self.fonction_traduction = fonction_traduction
-        self.texte_etiquette = etiquette
+        self.traductions_pays = constantes.pays_differentes_langues
         self.repartition: Dict[str, int] = dict(repartition) if repartition else {}
         self.continent_favori: Optional[str] = continent_favori
         self._pourcentage = 0.0
@@ -220,6 +233,7 @@ class ContinentFavoriWidget(QWidget):
         self._progression_barres = 0.0
         self.valeur_claire = constantes.parametres_application.get("lighter_value")
         self.continents = constantes.liste_regions_monde
+
         # Couleurs pour chaque continent
         self.couleurs_continents = constantes.parametres_application.get(
             "couleurs_continents"
@@ -259,7 +273,7 @@ class ContinentFavoriWidget(QWidget):
 
         self._recalculer_pourcentage(animer=False)
         self.definir_repartition(self.repartition, self.continent_favori, animer=False)
-        self.set_langue()
+        self.set_langue(langue="français")
 
     # ---------------------------------------------------------------
     # Propriétés animables Qt
@@ -324,9 +338,9 @@ class ContinentFavoriWidget(QWidget):
         self._animation_pourcentage.setEndValue(pourcentage)
         self._animation_pourcentage.start()
 
-    def set_langue(self):
+    def set_langue(self, langue):
         """Mise à jour de la langue."""
-        self.texte_etiquette = self.fonction_traduction("4_6_5_continent_favori")
+        self.langue = langue
         self.update()
 
     def set_style(self, style, nuances, teintes):
@@ -347,12 +361,16 @@ class ContinentFavoriWidget(QWidget):
             continents=self.continents,
             palette=self.couleurs_continents,
             clair_indice=self.valeur_claire,
-        )
+        )[["continent", "pays", "visite"]]
         self.set_valeurs()
 
     def set_valeurs(self) -> None:
-        repartition, favori, _total = repartition_continents_depuis_table(
-            self.table_pays_visites
+        repartition, favori, _total, _compte_total = (
+            repartition_continents_depuis_table(
+                self.table_pays_visites,
+                continents_trad=self.traductions_pays,
+                langue=self.langue,
+            )
         )
         self.definir_repartition(repartition, favori)
 
@@ -405,7 +423,7 @@ class ContinentFavoriWidget(QWidget):
         painter.drawText(
             rect_etiquette,
             Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter,
-            self.texte_etiquette,
+            self.fonction_traduction("4_6_5_continent_favori"),
         )
 
         # --- bulle de pourcentage ---
@@ -492,7 +510,9 @@ class ContinentFavoriWidget(QWidget):
 
     def _dessiner_bulle_pourcentage(self, painter: QPainter, zone: QRectF) -> None:
         """Petite pastille : "42% des pays visités", dans la teinte du thème."""
-        texte = f"{int(round(self._pourcentage))}% des pays visités"
+        texte = f"{int(round(self._pourcentage))} % " + self.fonction_traduction(
+            "4_6_4_pays_visites"
+        )
         police = QFont(
             "Segoe UI", max(6, int(zone.height() * 0.55)), QFont.Weight.DemiBold
         )

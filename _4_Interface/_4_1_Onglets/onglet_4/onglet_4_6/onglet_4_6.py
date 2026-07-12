@@ -79,7 +79,7 @@ class OngletTableauDeBord(QWidget):
         self.compteur_pays.set_langue()
         self.n_voyages_histo.set_langue()
         self.n_jours_voyages.set_langue()
-        self.continent_favori.set_langue()
+        self.continent_favori.set_langue(langue=langue)
 
     def set_voyages(self, voyages):
 

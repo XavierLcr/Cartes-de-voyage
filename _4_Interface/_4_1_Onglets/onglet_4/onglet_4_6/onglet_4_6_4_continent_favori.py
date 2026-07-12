@@ -141,7 +141,7 @@ class ThemeContinentFavori:
 
         # Barres "normales" du classement : dérivées du texte, très diluées.
         self.barre = QColor(self.texte)
-        self.barre.setAlpha(30 if style == "clair" else 25)
+        self.barre.setAlpha(30 if style == 1 else 25)
 
         # Dégradé du badge (icône globe) : émeraude -> vert clair.
         self.badge_debut = QColor(
@@ -180,7 +180,7 @@ class ThemeContinentFavori:
 
         # Ombre portée : même convention que les widgets voisins.
         self.ombre = QColor(self.texte)
-        self.ombre.setAlpha(60 if style == "clair" else 120)
+        self.ombre.setAlpha(60 if style == 1 else 120)
 
 
 # 3 -- Classe du widget ----------------------------------------------------------

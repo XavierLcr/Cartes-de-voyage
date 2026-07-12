@@ -82,7 +82,7 @@ class CompteurTheme:
         # Piste (arc de fond) : dérivée du texte, très diluée, même alpha
         # que la barre du mini-graphique de la carte voisine.
         self.piste = QColor(self.texte)
-        self.piste.setAlpha(30 if style == "clair" else 25)
+        self.piste.setAlpha(30 if style == 1 else 25)
 
         # Dégradé de progression : turquoise sarcelle -> cyan, un accent
         # propre au compteur plutôt qu'un simple recopiage du badge voisin.
@@ -117,7 +117,7 @@ class CompteurTheme:
 
         # Ombre portée : même convention que ThemeCarte (dérivée du texte).
         self.ombre = QColor(self.texte)
-        self.ombre.setAlpha(60 if style == "clair" else 120)
+        self.ombre.setAlpha(60 if style == 1 else 120)
 
     @staticmethod
     def _blend_hsv(c1: QColor, c2: QColor, t: float) -> QColor:

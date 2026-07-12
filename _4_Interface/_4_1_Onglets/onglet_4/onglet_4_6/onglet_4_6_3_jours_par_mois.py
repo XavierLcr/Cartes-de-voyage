@@ -152,7 +152,7 @@ class ThemeJoursVoyages:
         # Barres "normales" du graphique mensuel : dérivées du texte, très
         # diluées, même alpha que les widgets voisins.
         self.barre = QColor(self.texte)
-        self.barre.setAlpha(30 if style == "clair" else 25)
+        self.barre.setAlpha(30 if style == 1 else 25)
 
         # Dégradé du badge (icône calendrier) : indigo -> violet.
         self.badge_debut = QColor(
@@ -193,7 +193,7 @@ class ThemeJoursVoyages:
 
         # Ombre portée : même convention que les widgets voisins.
         self.ombre = QColor(self.texte)
-        self.ombre.setAlpha(60 if style == "clair" else 120)
+        self.ombre.setAlpha(60 if style == 1 else 120)
 
 
 # 3 -- Classe du widget ----------------------------------------------------------

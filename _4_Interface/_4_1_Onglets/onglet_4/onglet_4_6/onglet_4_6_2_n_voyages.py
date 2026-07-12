@@ -101,7 +101,7 @@ class ThemeCarte:
         )
         # Barre (fond des mini-barres du graphique) : dérivée du texte, très diluée
         self.barre = QColor(self.texte)
-        self.barre.setAlpha(30 if style == "clair" else 25)
+        self.barre.setAlpha(30 if style == 1 else 25)
         # Dégradé du badge (pin de destination)
         self.badge_debut = QColor(
             renvoyer_couleur_widget(
@@ -159,7 +159,7 @@ class ThemeCarte:
         )
         # Ombre portée de la carte
         self.ombre = QColor(self.texte)
-        self.ombre.setAlpha(60 if style == "clair" else 120)
+        self.ombre.setAlpha(60 if style == 1 else 120)
 
 
 # 3 -- Classe du compteur  -----------------------------------------------------
@@ -435,6 +435,7 @@ class NombreVoyagesAnnu(QWidget):
         self.theme = ThemeCarte(
             style=style, nuances=nuances, teinte=teintes, limite_essais=20
         )
+        self._ombre_effet.setColor(self.theme.ombre)
         self.update()
 
     def set_voyages(self, voyages):

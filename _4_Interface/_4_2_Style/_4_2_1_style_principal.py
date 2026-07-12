@@ -109,6 +109,10 @@ def style_dynamique_application(
     couleur_line_bord = renvoyer_couleur_widget(
         style=style, teinte=teinte, nuances=nuances, clair="#D4D4D8", sombre="#32475B"
     )
+    couleur_line_selection = "rgba(30, 127, 163, 0.35)"
+    couleur_line_placeholder = renvoyer_couleur_widget(
+        style=style, teinte=teinte, nuances=nuances, clair="#9AA5B1", sombre="#5F6472"
+    )
 
     # Sliders
     couleur_slider = renvoyer_couleur_widget(
@@ -152,8 +156,11 @@ def style_dynamique_application(
     )
 
     # Barre de progression
-    couleur_barre_progression = renvoyer_couleur_widget(
+    couleur_barre_progression_debut = renvoyer_couleur_widget(
         style=style, teinte=teinte, nuances=nuances, clair="#ADCEDB", sombre="#26C6DA"
+    )
+    couleur_barre_progression_fin = renvoyer_couleur_widget(
+        style=style, teinte=teinte, nuances=nuances, clair="#1E7FA3", sombre="#0891A8"
     )
 
     # Checkboxes
@@ -255,13 +262,19 @@ def style_dynamique_application(
                 padding: 5px;
                 border-radius: 5px;
             }}
+
             QLineEdit {{
                 background-color: {couleur_line};
                 color: {couleur_line_texte};
                 border: 1px solid {couleur_line_bord};
-                padding: 5px;
-                border-radius: 5px;
+                padding: 8px 12px;
+                border-radius: 10px;
+                selection-background-color: {couleur_line_selection};
             }}
+            QLineEdit::placeholder {{
+                color: {couleur_line_placeholder};
+            }}
+
             QSlider::groove:horizontal {{
                 background: {couleur_slider};
                 height: 8px;
@@ -275,8 +288,10 @@ def style_dynamique_application(
             }}
             QGroupBox {{
                 border: 2px solid {couleur_groupbox};
-                border-radius: 5px;
-                padding: 10px;
+                border-radius: 14px;
+                margin-top: 7px;
+                padding: 18px 14px 14px 14px;
+                font-weight: 500;
             }}
             QTabBar::tab {{
                 background: {onglet_fond};
@@ -359,6 +374,7 @@ def style_dynamique_application(
                 background-color: {couleur_checkbox_cochee_fond};  /* laisse Qt dessiner le tick */
                 border: 1px solid {couleur_checkbox_bord};
             }}
+
             QProgressBar {{
                 border: none; 
                 text-align: right;
@@ -369,9 +385,13 @@ def style_dynamique_application(
                 border-radius: 5px;
             }}
             QProgressBar::chunk {{
-                background-color: {couleur_barre_progression};
-                width: 8px;
-                margin: 0.5px;
+                border-radius: 12px;
+                background-color: qlineargradient(
+                    x1: 0, y1: 0, x2: 1, y2: 0,
+                    stop: 0 {couleur_barre_progression_debut},
+                    stop: 1 {couleur_barre_progression_fin}
+                );
+                margin: 0px;
             }}
             QListWidget {{
                 background-color: {couleur_widget_list_fond}; /* Très proche de ton fond principal, mais un peu plus lumineux */

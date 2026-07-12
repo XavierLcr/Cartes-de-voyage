@@ -78,7 +78,7 @@ def limiter_nombre_pays(df: pd.DataFrame, n: int, type: bool, agreger: bool):
     else:
         df_temp = df_temp.head(n)
 
-    if agreger:
+    if agreger and len(df_temp) > n + 1:
         df_temp = (
             (
                 df_temp.groupby("voyages")["pays_traduction"]

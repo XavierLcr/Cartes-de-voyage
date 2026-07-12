@@ -8,7 +8,7 @@
 # 0 -- Initialisation ----------------------------------------------------------
 
 
-from PyQt6.QtWidgets import QWidget
+from PyQt6.QtWidgets import QWidget, QGraphicsDropShadowEffect
 from PyQt6.QtCore import Qt, QRectF, QPointF, QTimer, QSize
 from PyQt6.QtGui import (
     QPainter,
@@ -18,7 +18,6 @@ from PyQt6.QtGui import (
     QRadialGradient,
     QPainterPath,
     QPen,
-    QPolygonF,
     QFontInfo,
 )
 
@@ -26,39 +25,68 @@ from PyQt6.QtGui import (
 
 
 class Podium(QWidget):
+    """
+    Podium des 3 pays les plus visités (par % de superficie).
 
-    # (couleur claire, couleur sombre, couleur du liseré)
+    Style flat, dans le même esprit que les cartes du tableau de bord
+    (onglet 4.6) : carte à coins arrondis, ombre douce, colonnes en
+    dégradé plat à coins arrondis (comme les mini-graphiques en barres),
+    badge circulaire numéroté, typographie plus joyeuse (avec repli
+    automatique si la police n'est pas installée).
+    """
+
+    # Dégradés "médaille" (début -> fin), plats, sans relief ni reflet —
+    # même logique que les dégradés de badge utilisés ailleurs dans le
+    # tableau de bord.
     COULEURS = {
-        # Or
-        1: (QColor(255, 224, 102), QColor(198, 150, 20), QColor(255, 245, 200)),
-        # Argent
-        2: (
-            QColor(220, 220, 225),
-            QColor(150, 150, 158),
-            QColor(245, 245, 248),
-        ),
-        # Bronze
-        3: (
-            QColor(224, 155, 100),
-            QColor(160, 95, 45),
-            QColor(250, 210, 175),
-        ),
-    }
-
-    MEDAILLE = {
-        1: QColor(255, 205, 60),
-        2: QColor(205, 205, 210),
-        3: QColor(210, 140, 80),
+        1: (QColor("#FBBF24"), QColor("#F59E0B")),  # or
+        2: (QColor("#CBD5E1"), QColor("#94A3B8")),  # argent
+        3: (QColor("#F0B27A"), QColor("#C2703D")),  # bronze
     }
 
     def __init__(self):
         super().__init__()
         self.setMinimumSize(220, 100)
-        # self.setMaximumWidth(500)
         self._donnees = []
         self._anim_progress = 0.0  # 0 -> 1, pour l'animation de montée
         self._timer = QTimer(self)
         self._timer.timeout.connect(self._anim_step)
+
+        # Couleurs de la carte (fond / texte), dans la même convention
+        # que les widgets du tableau de bord.
+        self.couleur_fond = QColor("#ffffff")
+        self.couleur_texte = QColor("#1c1f2b")
+        self.couleur_sous_texte = QColor("#1c1f2b")
+        self.couleur_sous_texte.setAlpha(140)
+
+        self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
+        self._ombre_effet = QGraphicsDropShadowEffect(self)
+        self._ombre_effet.setBlurRadius(30)
+        self._ombre_effet.setOffset(0, 8)
+        self._ombre_effet.setColor(QColor(0, 0, 0, 60))
+        self.setGraphicsEffect(self._ombre_effet)
+
+        # Police un peu plus joyeuse que Segoe UI, avec repli automatique
+        # sur une police sûre si aucune de la liste n'est installée.
+        self.police_principale = self._trouver_police_disponible(
+            [
+                "Baloo 2",
+                "Fredoka",
+                "Quicksand",
+                "Century Gothic",
+                "Comic Sans MS",
+                "Segoe UI",
+            ]
+        )
+
+    @staticmethod
+    def _trouver_police_disponible(candidats):
+        """Renvoie le premier nom de police réellement installé parmi
+        `candidats` (le dernier élément sert de repli garanti)."""
+        for nom in candidats[:-1]:
+            if QFontInfo(QFont(nom)).exactMatch():
+                return nom
+        return candidats[-1]
 
     # ========= API PUBLIQUE =========
 
@@ -101,9 +129,8 @@ class Podium(QWidget):
         self._dessiner_fond(painter, w, h)
 
         if not self._donnees:
-            painter.setPen(QColor(150, 150, 150))
-            font = QFont()
-            font.setPointSize(12)
+            painter.setPen(self.couleur_sous_texte)
+            font = QFont(self.police_principale, 11)
             painter.setFont(font)
             painter.drawText(
                 QRectF(0, 0, w, h),
@@ -129,44 +156,27 @@ class Podium(QWidget):
         largeur_bloc = largeur_marche * 0.72
 
         hauteur_relative = {1: 0.7, 2: 0.5, 3: 0.36}
-        zone_texte_haut = h * 0.20
-        base_y = h * 0.90
-        profondeur_3d = largeur_marche * 0.16  # profondeur du bloc 3D
+        zone_texte_haut = h * 0.22
+        base_y = h * 0.88
 
         for i, (rang, pays) in enumerate(ordre_affichage):
             x = marge_h + i * largeur_marche + (largeur_marche - largeur_bloc) / 2
 
-            hauteur_max = (
-                (base_y - zone_texte_haut)
-                * hauteur_relative[rang]
-                / max(hauteur_relative.values())
-            )
             hauteur_max = (h - zone_texte_haut - (h - base_y)) * hauteur_relative[rang]
             hauteur_marche = hauteur_max * self._ease_out_back(self._anim_progress)
             hauteur_marche = max(hauteur_marche, 2)
 
             y = base_y - hauteur_marche
 
-            couleur_claire, couleur_sombre, couleur_lisere = self.COULEURS[rang]
+            couleur_debut, couleur_fin = self.COULEURS[rang]
 
-            self._dessiner_ombre_portee(
-                painter, x, base_y, largeur_bloc, hauteur_marche + 4
-            )
-            self._dessiner_marche_3d(
-                painter,
-                x,
-                y,
-                largeur_bloc,
-                hauteur_marche,
-                profondeur_3d,
-                couleur_claire,
-                couleur_sombre,
-                couleur_lisere,
+            self._dessiner_colonne(
+                painter, x, y, largeur_bloc, hauteur_marche, couleur_debut, couleur_fin
             )
 
             if self._anim_progress > 0.55:
                 alpha = min(1.0, (self._anim_progress - 0.55) / 0.45)
-                self._dessiner_rang(
+                self._dessiner_valeur(
                     painter,
                     x,
                     y,
@@ -180,16 +190,18 @@ class Podium(QWidget):
                 alpha = min(1.0, (self._anim_progress - 0.7) / 0.3)
                 zone_texte_y = y - zone_texte_haut
 
-                if rang == 1:
-                    self._dessiner_couronne(
-                        painter,
-                        x + largeur_bloc / 2,
-                        zone_texte_y - zone_texte_haut * 0.25,
-                        zone_texte_haut * 0.22,
-                        alpha,
-                    )
+                self._dessiner_badge_rang(
+                    painter,
+                    x + largeur_bloc / 2,
+                    zone_texte_y + zone_texte_haut * 0.20,
+                    zone_texte_haut * 0.18,
+                    rang,
+                    couleur_debut,
+                    couleur_fin,
+                    alpha,
+                )
 
-                self._dessiner_texte_personne(
+                self._dessiner_nom_pays(
                     painter,
                     x,
                     zone_texte_y,
@@ -202,223 +214,125 @@ class Podium(QWidget):
     # ========= COMPOSANTS DE DESSIN =========
 
     def _dessiner_fond(self, painter, w, h):
-        degrade = QLinearGradient(0, 0, 0, h)
-        degrade.setColorAt(0.0, QColor(250, 250, 253))
-        degrade.setColorAt(1.0, QColor(232, 234, 240))
+        """Carte à coins arrondis, fond plat — même formule que les autres
+        widgets du tableau de bord."""
+        rayon = min(24, min(w, h) * 0.12)
+        chemin = QPainterPath()
+        chemin.addRoundedRect(QRectF(0, 0, w, h), rayon, rayon)
         painter.setPen(Qt.PenStyle.NoPen)
-        painter.setBrush(degrade)
-        painter.drawRoundedRect(QRectF(0, 0, w, h), 14, 14)
+        painter.setBrush(self.couleur_fond)
+        painter.drawPath(chemin)
+        painter.setClipPath(chemin)
 
-        # ligne de sol légèrement ombrée
-        sol = QRectF(0, h * 0.90, w, h * 0.02)
-        degrade_sol = QLinearGradient(sol.topLeft(), sol.bottomLeft())
-        degrade_sol.setColorAt(0.0, QColor(0, 0, 0, 35))
-        degrade_sol.setColorAt(1.0, QColor(0, 0, 0, 0))
-        painter.setBrush(degrade_sol)
-        painter.drawRect(sol)
-
-    def _dessiner_ombre_portee(self, painter, x, base_y, largeur, hauteur):
-        ombre = QRectF(
-            x + largeur * 0.06, base_y - hauteur * 0.06, largeur * 0.9, hauteur * 0.14
-        )
-        degrade = QRadialGradient(ombre.center(), largeur * 0.5)
-        degrade.setColorAt(0.0, QColor(0, 0, 0, 60))
-        degrade.setColorAt(1.0, QColor(0, 0, 0, 0))
-        painter.setPen(Qt.PenStyle.NoPen)
-        painter.setBrush(degrade)
-        painter.drawEllipse(ombre)
-
-    def _dessiner_marche_3d(
-        self,
-        painter,
-        x,
-        y,
-        largeur,
-        hauteur,
-        profondeur,
-        couleur_claire,
-        couleur_sombre,
-        couleur_lisere,
+    def _dessiner_colonne(
+        self, painter, x, y, largeur, hauteur, couleur_debut, couleur_fin
     ):
-        """
-        Dessine un vrai bloc isométrique : la profondeur part du coin
-        supérieur droit vers l'arrière (haut/droite), comme un pavé vu
-        légèrement de dessus. Les trois faces (avant, dessus, côté) sont
-        calculées à partir des MÊMES points, donc elles s'emboîtent
-        parfaitement, sans décalage ni chevauchement.
-        """
-        dx = profondeur
-        dy = profondeur * 0.35
+        """Colonne à coins arrondis avec un dégradé à 3 arrêts (un peu de
+        relief) et un léger reflet en haut — un entre-deux entre le plat
+        pur et le bloc 3D isométrique d'origine."""
+        rect_colonne = QRectF(x, y, largeur, hauteur)
+        rayon = min(largeur * 0.22, hauteur * 0.22, 14)
+        chemin = QPainterPath()
+        chemin.addRoundedRect(rect_colonne, rayon, rayon)
 
-        # Coins de la face avant
-        tl = QPointF(x, y)
-        tr = QPointF(x + largeur, y)
-        bl = QPointF(x, y + hauteur)
-        br = QPointF(x + largeur, y + hauteur)
-
-        # Coins "arrière" (même points décalés vers le haut-droit)
-        tl_back = QPointF(tl.x() + dx, tl.y() - dy)
-        tr_back = QPointF(tr.x() + dx, tr.y() - dy)
-        br_back = QPointF(br.x() + dx, br.y() - dy)
-
+        degrade = QLinearGradient(rect_colonne.topLeft(), rect_colonne.bottomLeft())
+        degrade.setColorAt(0.0, couleur_debut.lighter(114))
+        degrade.setColorAt(0.55, couleur_debut)
+        degrade.setColorAt(1.0, couleur_fin.darker(112))
         painter.setPen(Qt.PenStyle.NoPen)
+        painter.setBrush(degrade)
+        painter.drawPath(chemin)
 
-        # ---- Côté droit (face la plus sombre, dans l'ombre) ----
-        cote = QPolygonF([tr, tr_back, br_back, br])
-        degrade_cote = QLinearGradient(tr, br_back)
-        degrade_cote.setColorAt(0.0, couleur_sombre.darker(105))
-        degrade_cote.setColorAt(1.0, couleur_sombre.darker(135))
-        painter.setBrush(degrade_cote)
-        painter.drawPolygon(cote)
-
-        # ---- Dessus (face la plus claire, éclairée d'en haut) ----
-        dessus = QPolygonF([tl, tr, tr_back, tl_back])
-        degrade_dessus = QLinearGradient(tl, tr_back)
-        degrade_dessus.setColorAt(0.0, couleur_claire.lighter(140))
-        degrade_dessus.setColorAt(1.0, couleur_claire.lighter(112))
-        painter.setBrush(degrade_dessus)
-        painter.drawPolygon(dessus)
-
-        # ---- Face avant (dégradé vertical + reflet glossy) ----
-        face_avant = QRectF(tl, br)
-        degrade_face = QLinearGradient(face_avant.topLeft(), face_avant.bottomLeft())
-        degrade_face.setColorAt(0.0, couleur_claire)
-        degrade_face.setColorAt(1.0, couleur_sombre)
-        painter.setBrush(degrade_face)
-        painter.drawRect(face_avant)
-
-        # Liseré lumineux fin, juste sous l'arête dessus/avant
-        liseret = QRectF(
-            face_avant.x(), face_avant.y(), face_avant.width(), max(3.0, hauteur * 0.05)
+        # reflet doux en haut de la colonne (touche de profondeur, sans
+        # reflet diagonal "verre" comme dans la version 3D d'origine)
+        painter.save()
+        painter.setClipPath(chemin, Qt.ClipOperation.IntersectClip)
+        rect_reflet = QRectF(
+            rect_colonne.x(),
+            rect_colonne.y(),
+            rect_colonne.width(),
+            rect_colonne.height() * 0.4,
         )
-        painter.setBrush(couleur_lisere)
-        painter.drawRect(liseret)
-
-        # Reflet glossy diagonal sur la face avant, sur la partie gauche
-        reflet = QPainterPath()
-        reflet.moveTo(
-            face_avant.left() + face_avant.width() * 0.06, face_avant.top() + 2
+        degrade_reflet = QLinearGradient(
+            rect_reflet.topLeft(), rect_reflet.bottomLeft()
         )
-        reflet.lineTo(
-            face_avant.left() + face_avant.width() * 0.32, face_avant.top() + 2
-        )
-        reflet.lineTo(
-            face_avant.left() + face_avant.width() * 0.16, face_avant.bottom() - 2
-        )
-        reflet.lineTo(
-            face_avant.left() + face_avant.width() * 0.02, face_avant.bottom() - 2
-        )
-        reflet.closeSubpath()
-        painter.setBrush(QColor(255, 255, 255, 50))
-        painter.drawPath(reflet)
-
-        # ---- Arêtes fines pour bien définir les 3 faces (discrètes) ----
-        pen_arete = QPen(
-            QColor(
-                couleur_sombre.darker(140).red(),
-                couleur_sombre.darker(140).green(),
-                couleur_sombre.darker(140).blue(),
-                90,
-            )
-        )
-        pen_arete.setWidthF(0.8)
-        painter.setPen(pen_arete)
-        painter.setBrush(Qt.BrushStyle.NoBrush)
-        painter.drawLine(tl, tr)  # arête avant/dessus
-        painter.drawLine(tr, br)  # arête avant/côté
-        painter.drawLine(tr, tr_back)  # arête dessus/côté
+        degrade_reflet.setColorAt(0.0, QColor(255, 255, 255, 75))
+        degrade_reflet.setColorAt(1.0, QColor(255, 255, 255, 0))
         painter.setPen(Qt.PenStyle.NoPen)
+        painter.setBrush(degrade_reflet)
+        painter.drawRect(rect_reflet)
+        painter.restore()
 
-    def _dessiner_rang(self, painter, x, y, largeur, hauteur, texte, alpha):
+    def _dessiner_valeur(self, painter, x, y, largeur, hauteur, texte, alpha):
+        """Pourcentage affiché dans la colonne, en texte plat (pas de
+        gravure/ombre décorative)."""
         painter.save()
         painter.setOpacity(alpha)
 
-        font_rang = QFont("Parisienne")  # essaie une police manuscrite
-        if not QFontInfo(font_rang).exactMatch():
-            font_rang = QFont("Arial")  # fallback si Parisienne absente
-        font_rang.setPointSize(max(10, int(hauteur * 0.15 + 5)))
-        font_rang.setBold(True)
-        painter.setFont(font_rang)
+        font_valeur = QFont(
+            self.police_principale, max(9, int(hauteur * 0.13 + 4)), QFont.Weight.Bold
+        )
+        painter.setFont(font_valeur)
 
-        largeur_texte = largeur * 0.90
+        rect_valeur = QRectF(x, y + hauteur * 0.42, largeur, hauteur * 0.5)
+        painter.setPen(self.couleur_texte)
+        painter.drawText(rect_valeur, Qt.AlignmentFlag.AlignCenter, str(texte))
+        painter.restore()
+
+    def _dessiner_badge_rang(
+        self, painter, cx, cy, rayon, rang, couleur_debut, couleur_fin, alpha
+    ):
+        """Badge circulaire numéroté, avec un peu de relief (ombre douce,
+        liseré blanc, petit reflet) — remplace la couronne."""
+        painter.save()
+        painter.setOpacity(alpha)
+
+        # ombre douce sous le badge
         rect_ombre = QRectF(
-            x + (largeur - largeur_texte) / 2,
-            y + hauteur * 0.42,
-            largeur_texte,
-            hauteur * 0.5,
+            cx - rayon * 1.15, cy - rayon * 0.9, rayon * 2.3, rayon * 2.3
         )
-        painter.setPen(QColor(0, 0, 0, 70))
-        painter.drawText(
-            rect_ombre.translated(1, 1), Qt.AlignmentFlag.AlignCenter, str(texte)
-        )
-        painter.setPen(QColor(255, 255, 255))
-        painter.drawText(rect_ombre, Qt.AlignmentFlag.AlignCenter, str(texte))
-        painter.restore()
-
-    def _dessiner_couronne(self, painter, cx, cy, taille, alpha):
-        painter.save()
-        painter.setOpacity(alpha)
-        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
-
-        # --- Silhouette de la couronne (5 pointes, à-plat) ---
-        pts = [
-            QPointF(cx - taille, cy + taille * 0.5),
-            QPointF(cx - taille, cy - taille * 0.1),
-            QPointF(cx - taille * 0.5, cy + taille * 0.2),
-            QPointF(cx - taille * 0.25, cy - taille * 0.45),
-            QPointF(cx, cy + taille * 0.1),
-            QPointF(cx + taille * 0.25, cy - taille * 0.45),
-            QPointF(cx + taille * 0.5, cy + taille * 0.2),
-            QPointF(cx + taille, cy - taille * 0.1),
-            QPointF(cx + taille, cy + taille * 0.5),
-        ]
-
-        pen_contour = QPen(QColor(180, 130, 30), max(1.0, taille * 0.025))
-        pen_contour.setJoinStyle(Qt.PenJoinStyle.RoundJoin)
-
-        painter.setPen(pen_contour)
-        painter.setBrush(QColor(255, 205, 60))
-        painter.drawPolygon(QPolygonF(pts))
-
-        # --- Bandeau de base ---
-        bandeau = QRectF(cx - taille, cy + taille * 0.35, taille * 2, taille * 0.3)
-        painter.setPen(pen_contour)
-        painter.setBrush(QColor(255, 215, 90))
-        painter.drawRoundedRect(bandeau, taille * 0.05, taille * 0.05)
-
-        # --- Petites perles le long du bandeau ---
+        degrade_ombre = QRadialGradient(QPointF(cx, cy + rayon * 0.3), rayon * 1.2)
+        degrade_ombre.setColorAt(0.0, QColor(0, 0, 0, 55))
+        degrade_ombre.setColorAt(1.0, QColor(0, 0, 0, 0))
         painter.setPen(Qt.PenStyle.NoPen)
-        painter.setBrush(QColor(255, 240, 190))
-        nb_perles = 5
-        for i in range(nb_perles):
-            x = cx - taille + (2 * taille) * (i + 0.5) / nb_perles
-            y = cy + taille * 0.5
-            painter.drawEllipse(QPointF(x, y), taille * 0.05, taille * 0.05)
+        painter.setBrush(degrade_ombre)
+        painter.drawEllipse(rect_ombre)
 
-        # --- Gemmes sur les pointes (à-plat, couleurs variées) ---
-        sommets = [pts[1], pts[3], pts[5], pts[7]]
-        couleurs_gemmes = [
-            QColor(80, 140, 230),  # saphir
-            QColor(210, 60, 60),  # rubis
-            QColor(210, 60, 60),  # rubis
-            QColor(80, 140, 230),  # saphir
-        ]
-        rayon_gemme = taille * 0.10
+        rect_badge = QRectF(cx - rayon, cy - rayon, rayon * 2, rayon * 2)
+        degrade = QLinearGradient(rect_badge.topLeft(), rect_badge.bottomRight())
+        degrade.setColorAt(0.0, couleur_debut.lighter(110))
+        degrade.setColorAt(1.0, couleur_fin)
+        painter.setBrush(degrade)
+        painter.drawEllipse(rect_badge)
 
-        for p, couleur in zip(sommets, couleurs_gemmes):
-            painter.setBrush(couleur)
-            painter.drawEllipse(p, rayon_gemme, rayon_gemme)
-            # petit point de brillance, à-plat lui aussi
-            painter.setBrush(QColor(255, 255, 255, 200))
-            painter.drawEllipse(
-                QPointF(p.x() - rayon_gemme * 0.3, p.y() - rayon_gemme * 0.3),
-                rayon_gemme * 0.3,
-                rayon_gemme * 0.3,
-            )
+        # liseré blanc fin
+        pen_contour = QPen(QColor(255, 255, 255, 200))
+        pen_contour.setWidthF(max(1.0, rayon * 0.09))
+        painter.setPen(pen_contour)
+        painter.setBrush(Qt.BrushStyle.NoBrush)
+        painter.drawEllipse(rect_badge)
+
+        # petit reflet, coin haut-gauche
+        rect_reflet = QRectF(
+            cx - rayon * 0.55, cy - rayon * 0.75, rayon * 0.9, rayon * 0.6
+        )
+        degrade_reflet = QRadialGradient(rect_reflet.center(), rayon * 0.5)
+        degrade_reflet.setColorAt(0.0, QColor(255, 255, 255, 110))
+        degrade_reflet.setColorAt(1.0, QColor(255, 255, 255, 0))
+        painter.setPen(Qt.PenStyle.NoPen)
+        painter.setBrush(degrade_reflet)
+        painter.drawEllipse(rect_reflet)
+
+        font_rang = QFont(
+            self.police_principale, max(7, int(rayon * 0.9)), QFont.Weight.Bold
+        )
+        painter.setFont(font_rang)
+        painter.setPen(QColor("#FFFFFF"))
+        painter.drawText(rect_badge, Qt.AlignmentFlag.AlignCenter, str(rang))
 
         painter.restore()
 
-    def _dessiner_texte_personne(
+    def _dessiner_nom_pays(
         self, painter, x, y_zone, largeur, hauteur_zone, pays, alpha
     ):
         painter.save()
@@ -426,16 +340,14 @@ class Podium(QWidget):
 
         zone_nom = QRectF(
             x - largeur * 0.15,
-            y_zone + hauteur_zone * 0.32,
+            y_zone + hauteur_zone * 0.52,
             largeur * 1.3,
-            hauteur_zone * 0.4,
+            hauteur_zone * 0.5,
         )
 
-        font_nom = QFont()
-        font_nom.setPointSize(11)
-        font_nom.setBold(True)
+        font_nom = QFont(self.police_principale, 10, QFont.Weight.DemiBold)
         painter.setFont(font_nom)
-        painter.setPen(QColor(35, 35, 40))
+        painter.setPen(self.couleur_texte)
 
         self._dessiner_texte_wrap(painter, zone_nom, str(pays["nom_pays"]))
 

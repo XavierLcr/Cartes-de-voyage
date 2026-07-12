@@ -17,6 +17,7 @@ from PyQt6.QtWidgets import (
     QPushButton,
     QApplication,
     QScrollArea,
+    QSizePolicy,
 )
 from PyQt6.QtCore import Qt, QTimer
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
@@ -204,9 +205,52 @@ def conteneur_graphique_simple(fig, style, teinte, nuances):
     # Ajouter le canvas au conteneur
     container_layout = QVBoxLayout(container)
     container_layout.setContentsMargins(0, 0, 0, 0)
-    container_layout.addWidget(FigureCanvas(fig))
+
+    canvas = FigureCanvas(fig)
+    canvas.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+    container_layout.addWidget(canvas)
+
+    _activer_infobulles_survol(fig=fig, canvas=canvas)
 
     return container
+
+
+def _activer_infobulles_survol(fig, canvas):
+    """
+    Active une infobulle au survol de la souris pour tout axe de `fig`
+    portant les attributs `infos_survol_gantt` (liste de tuples
+    (patch, label)) et `annotation_gantt` (objet Annotation matplotlib).
+    Ne fait rien si ces attributs sont absents (graphique sans infobulle).
+    """
+    for ax in fig.axes:
+        infos = getattr(ax, "infos_survol_gantt", None)
+        annotation = getattr(ax, "annotation_gantt", None)
+        if not infos or annotation is None:
+            continue
+
+        def on_move(event, ax=ax, infos=infos, annotation=annotation):
+            if event.inaxes != ax:
+                if annotation.get_visible():
+                    annotation.set_visible(False)
+                    canvas.draw_idle()
+                return
+
+            for patch, label, couleur in infos:
+                contient, _ = patch.contains(event)
+                if contient:
+                    annotation.xy = (event.xdata, event.ydata)
+                    annotation.set_text(label)
+                    annotation.get_bbox_patch().set_edgecolor(couleur)
+                    annotation.arrow_patch.set_color(couleur)
+                    annotation.set_visible(True)
+                    canvas.draw_idle()
+                    break
+            else:
+                if annotation.get_visible():
+                    annotation.set_visible(False)
+                    canvas.draw_idle()
+
+        canvas.mpl_connect("motion_notify_event", on_move)
 
 
 # 7 -- Création d'un scroll ----------------------------------------------------

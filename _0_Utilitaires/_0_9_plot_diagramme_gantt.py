@@ -26,7 +26,6 @@ def plot_diagramme_gantt(
     date_min: str | None = None,
     date_max: str | None = None,
     titre: str = "",
-    label_taille_max=30,
 ):
 
     fig = Figure(figsize=(10, 5))
@@ -37,11 +36,7 @@ def plot_diagramme_gantt(
     # nettoyage
     for _, item in data.items():
 
-        label_temp = textwrap.shorten(
-            item.get(voyage_label, ""),
-            width=max(label_taille_max, 10),
-            placeholder="...",
-        )
+        label_temp = item.get(voyage_label, "")
         deb_temp = item.get(date_min_label)
         fin_temp = item.get(date_max_label)
 
@@ -66,9 +61,11 @@ def plot_diagramme_gantt(
     # Tri
     liste_temp.sort(key=lambda x: (x["deb_temp"], x["fin_temp"], x["label_temp"]))
 
-    # Ajout des barres
+    # Ajout des barres (on garde une référence patch <-> label <-> couleur)
+    infos_survol = []
     for i, item in enumerate(liste_temp):
-        ax.barh(
+        couleur_barre = palette_couleurs[i % len(palette_couleurs)]
+        barre = ax.barh(
             y=i,
             width=max(
                 item["fin_temp"] - item["deb_temp"],
@@ -77,12 +74,13 @@ def plot_diagramme_gantt(
             left=item["deb_temp"],
             height=0.4,
             align="center",
-            color=palette_couleurs[i % len(palette_couleurs)],
+            color=couleur_barre,
         )
+        infos_survol.append((barre[0], item["label_temp"], couleur_barre))
 
-    # Y axis
-    ax.set_yticks(range(len(liste_temp)))
-    ax.set_yticklabels([d["label_temp"] for d in liste_temp])
+    # Y axis : plus de labels d'événement, juste les traits
+    ax.set_yticks([])
+    ax.spines["left"].set_visible(False)
 
     if date_min is not None:
         ax.set_xlim(left=pd.to_datetime(date_min))
@@ -99,6 +97,38 @@ def plot_diagramme_gantt(
     ax.spines["right"].set_visible(False)
 
     ax.set_title(titre)
+
+    # Annotation "infobulle", invisible tant qu'on ne survole rien
+    annotation = ax.annotate(
+        "",
+        xy=(0, 0),
+        xytext=(16, 14),
+        textcoords="offset points",
+        fontsize=9.5,
+        fontfamily="Segoe UI",
+        color="#1c1f2b",
+        bbox=dict(
+            boxstyle="round,pad=0.55,rounding_size=0.6",
+            facecolor="white",
+            edgecolor="#10B981",
+            linewidth=1.1,
+            alpha=0.97,
+        ),
+        arrowprops=dict(
+            arrowstyle="-",
+            color="#10B981",
+            linewidth=1.1,
+            shrinkA=0,
+            shrinkB=6,
+            connectionstyle="arc3,rad=0.15",
+        ),
+        zorder=10,
+    )
+    annotation.set_visible(False)
+
+    # Métadonnées exploitées par conteneur_graphique_simple pour le survol
+    ax.infos_survol_gantt = infos_survol
+    ax.annotation_gantt = annotation
 
     plt.gcf().autofmt_xdate()
     plt.tight_layout()

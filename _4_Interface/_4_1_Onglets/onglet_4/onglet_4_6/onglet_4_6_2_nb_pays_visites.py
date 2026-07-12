@@ -230,10 +230,15 @@ class CompteurCirculaireWidget(QWidget):
     # ---------------------------------------------------------------
     # API publique
     # ---------------------------------------------------------------
-    def set_value(self, value: int, animate: bool = True, duration: int = 1200) -> None:
+    def set_value(
+        self, value: int | None, animate: bool = True, duration: int = 1200
+    ) -> None:
         """Met à jour la valeur affichée, avec ou sans animation."""
-        value = max(0, min(value, self.maximum))
-        self.target_value = value
+        if value is not None:
+            value = max(0, min(value, self.maximum))
+            self.target_value = value
+        else:
+            value = self.target_value
 
         self._value_anim.stop()  # évite les à-coups si on change en plein vol
         self._value_anim.setDuration(duration if animate else 0)

@@ -322,3 +322,6 @@ class OngletTopPays(QWidget):
             self.classement_widget.set_dicts_granu(
                 dict_nv=voyages_vers_destinations(copy.deepcopy(self.dict_voyages))
             )
+
+        if num_onglet == 5:
+            self.profil_voyageur.compteur_pays.set_value(value=None, animate=True)

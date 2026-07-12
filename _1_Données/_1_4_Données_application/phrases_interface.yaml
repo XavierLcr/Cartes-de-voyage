@@ -156,6 +156,8 @@ probleme_label_4_6_ollama : Pour utiliser cette fonctionnalité, Ollama doit êt
 probleme_label_4_6_modele : Ollama est détecté, mais il manque un modèle compatible. Installez l'un des modèles suivants pour activer cette fonctionnalité
 4_6_3_voyages_effectues : Voyages effectués
 4_6_4_jours_voyages : Jours voyagés (année glissante)
+4_6_5_aucun_continent : Aucun voyage effectué à ce jour
+4_6_5_continent_favori : Votre continent favori
 
 # Onglet 5
 sous_titre_description_application : Création de cartes de voyages

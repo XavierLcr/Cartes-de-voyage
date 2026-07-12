@@ -264,7 +264,7 @@ def conteneur_graphique_simple(fig, style, teinte, nuances):
     ombre.setBlurRadius(30)
     ombre.setOffset(0, 8)
     couleur_ombre = QColor("#000000")
-    couleur_ombre.setAlpha(60 if style == "clair" else 120)
+    couleur_ombre.setAlpha(60 if style == 1 else 120)
     ombre.setColor(couleur_ombre)
     container.setGraphicsEffect(ombre)
 

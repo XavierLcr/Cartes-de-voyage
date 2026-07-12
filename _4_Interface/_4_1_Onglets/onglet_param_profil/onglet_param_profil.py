@@ -161,15 +161,18 @@ class OngletParametresProfil(QWidget):
         self.hemicycle_position_gauche = QRadioButton()
         self.hemicycle_position_alea = QRadioButton()
         self.hemicycle_position_droite = QRadioButton()
+        self.hemicycle_position_alphabet = QRadioButton()
         self.hemicycle_position = QButtonGroup(self)
         self.hemicycle_position.addButton(self.hemicycle_position_gauche, -1)
         self.hemicycle_position.addButton(self.hemicycle_position_alea, 0)
         self.hemicycle_position.addButton(self.hemicycle_position_droite, 1)
+        self.hemicycle_position.addButton(self.hemicycle_position_alphabet, 2)
         self.hemicycle_position.buttonClicked.connect(self.get_hemicycle_position)
         hemicycle_position_layout.addWidget(self.hemicycle_position_label)
         hemicycle_position_layout.addWidget(self.hemicycle_position_gauche)
         hemicycle_position_layout.addWidget(self.hemicycle_position_alea)
         hemicycle_position_layout.addWidget(self.hemicycle_position_droite)
+        hemicycle_position_layout.addWidget(self.hemicycle_position_alphabet)
         hemicycle_layout.addLayout(hemicycle_position_layout)
         self.hemicycle_groupbox.setLayout(hemicycle_layout)
         self.hemicycle_position_gauche.setChecked(True)
@@ -303,6 +306,12 @@ class OngletParametresProfil(QWidget):
         self.hemicycle_position_droite.setText(
             self.fonction_traduction("hemicycle_position_droite", prefixe="→ ")
         )
+        self.hemicycle_position_alphabet.setText(
+            self.fonction_traduction("hemicycle_position_alphabet")
+        )
+        self.hemicycle_position_alphabet.setStyleSheet(
+            "font-family: 'Lucida Handwriting';"
+        )
 
         # Bouton de sauvegarde
         self.bouton_sauvegarde.setText("💾")
@@ -355,6 +364,7 @@ class OngletParametresProfil(QWidget):
                 self.hemicycle_position_gauche: -1,
                 self.hemicycle_position_alea: 0,
                 self.hemicycle_position_droite: 1,
+                self.hemicycle_position_alphabet: 2,
             }.get(self.hemicycle_position.checkedButton(), defaut)
         )
 
@@ -362,10 +372,8 @@ class OngletParametresProfil(QWidget):
         {
             0: self.hemicycle_position_alea,
             1: self.hemicycle_position_droite,
-        }.get(
-            val,
-            self.hemicycle_position_gauche,
-        ).setChecked(True)
+            2: self.hemicycle_position_alphabet,
+        }.get(val, self.hemicycle_position_gauche,).setChecked(True)
         self.signal_hemicyle_position.emit(val)
 
     def set_sortir_cartes_granu_inf(self, sortir):

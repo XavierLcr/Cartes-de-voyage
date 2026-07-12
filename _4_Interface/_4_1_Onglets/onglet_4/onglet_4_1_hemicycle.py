@@ -149,6 +149,13 @@ def ajouter_coordonnees(df: pd.DataFrame, coordonnees: list, alignement: int):
             ascending=(True, alignement == 1),
         ).reset_index(drop=True)
 
+    elif alignement == 2:
+        df_temp.sort_values(
+            by=["continent_cat", "pays"],
+            inplace=False,
+            ascending=(True, True),
+        ).reset_index(drop=True)
+
     else:
 
         df_temp = (

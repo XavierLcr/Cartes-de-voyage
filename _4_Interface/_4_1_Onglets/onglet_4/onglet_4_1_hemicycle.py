@@ -11,7 +11,7 @@
 import math, copy, random, time
 import pandas as pd
 from PyQt6.QtCore import QPointF
-from PyQt6.QtWidgets import QWidget
+from PyQt6.QtWidgets import QWidget, QToolTip
 from PyQt6.QtGui import QPainter, QPen, QColor, QBrush
 from _0_Utilitaires._0_5_isid import isid
 
@@ -200,6 +200,10 @@ class HemicycleWidget(QWidget):
     ):
 
         super().__init__()
+
+        self.setMouseTracking(True)
+        self.points_hover = []
+
         self.pays_visites = {"region": {}, "dep": {}}
         self.continents = constantes.liste_regions_monde
         self.traductions_pays = constantes.pays_differentes_langues
@@ -326,6 +330,8 @@ class HemicycleWidget(QWidget):
         # Coefficient d'éloignement du texte
         rayon_texte = 0
 
+        self.points_hover = []
+
         # Ajout des points
         for row in df.itertuples(index=False):
 
@@ -343,6 +349,8 @@ class HemicycleWidget(QWidget):
                 self.diametre_point,
                 self.diametre_point,
             )
+
+            self.points_hover.append((x, y, self.diametre_point, row.pays_trad))
 
             # Calcul du rayon du texte
             rayon_texte = max(rayon_texte, abs(y - self.center_y()))
@@ -498,3 +506,16 @@ class HemicycleWidget(QWidget):
 
         self.couleur_texte = couleur[0] if isinstance(couleur, tuple) else couleur
         self.creer_hemicycle()
+
+    def mouseMoveEvent(self, event):
+
+        pos = event.position()  # QPointF, coordonnées locales au widget
+
+        for x, y, rayon, nom in self.points_hover:
+            distance = math.hypot(pos.x() - x, pos.y() - y)
+            # Marge de tolérance un peu plus large que le point lui-même
+            if distance <= rayon * 1.1:
+                QToolTip.showText(event.globalPosition().toPoint(), nom, self)
+                return
+
+        QToolTip.hideText()

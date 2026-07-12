@@ -70,9 +70,6 @@ class OngletTopPays(QWidget):
         self.hemicycle = onglet_4_1_hemicycle.HemicycleWidget(
             constantes=constantes,
         )
-        page_hemicycle = QWidget()
-        layout_hemicycle = QVBoxLayout(page_hemicycle)
-        layout_hemicycle.addWidget(self.hemicycle)
 
         # Pays les plus visités (en %)
         self.classement_widget = onglet_4_2_classement.ClassementPays(
@@ -112,7 +109,7 @@ class OngletTopPays(QWidget):
         ## === Stack (remplace QTabWidget) ===
         self.pages = QStackedWidget()
         self.pages.addWidget(self.tableau_de_bord)
-        self.pages.addWidget(page_hemicycle)
+        self.pages.addWidget(self.hemicycle)
         self.pages.addWidget(self.classement_widget)
         self.pages.addWidget(self.recommandations)
         self.pages.addWidget(self.pays_souvent_visites)
@@ -146,7 +143,7 @@ class OngletTopPays(QWidget):
         # il n'a jamais été ajouté, et renvoyait -1).
         self.btn_hemicycle.clicked.connect(
             lambda: self.cliquer_bouton_onglet(
-                num_onglet=self.pages.indexOf(page_hemicycle)
+                num_onglet=self.pages.indexOf(self.hemicycle)
             )
         )
         self.btn_top_pays.clicked.connect(

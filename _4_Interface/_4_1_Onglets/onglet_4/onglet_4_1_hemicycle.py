@@ -122,21 +122,34 @@ def table_pays_visites(
 ## 1.3 -- Fonction d'ajout des coordonnées -------------------------------------
 
 
-def ajouter_coordonnees(df: pd.DataFrame, coordonnees: list, alignement: int):
+def ajouter_coordonnees(
+    df: pd.DataFrame, coordonnees: list, alignement: int, traduction: dict, langue: str
+):
 
-    df_temp = df.copy().assign(
-        continent_cat=lambda x: pd.Categorical(
-            x["continent"],
-            categories=[
-                "Antarctica",
-                "Africa",
-                "Europe",
-                "Asia",
-                "Oceania",
-                "North America",
-                "South America",
-            ],
-            ordered=True,
+    df_temp = (
+        df.copy()
+        .assign(
+            continent_cat=lambda x: pd.Categorical(
+                x["continent"],
+                categories=[
+                    "Antarctica",
+                    "Africa",
+                    "Europe",
+                    "Asia",
+                    "Oceania",
+                    "North America",
+                    "South America",
+                ],
+                ordered=True,
+            )
+        )
+        .assign(
+            continent_trad=lambda x: x["continent"].map(
+                lambda c: traduction.get(c, {}).get(langue, c)
+            ),
+            pays_trad=lambda x: x["pays"].map(
+                lambda c: traduction.get(c, {}).get(langue, c)
+            ),
         )
     )
 
@@ -151,7 +164,7 @@ def ajouter_coordonnees(df: pd.DataFrame, coordonnees: list, alignement: int):
 
     elif alignement == 2:
         df_temp.sort_values(
-            by=["continent_cat", "pays"],
+            by=["continent_cat", "pays_trad"],
             inplace=False,
             ascending=(True, True),
         ).reset_index(drop=True)
@@ -302,6 +315,8 @@ class HemicycleWidget(QWidget):
                     df=x,
                     coordonnees=self.creer_coordonnées(),
                     alignement=self.points_visites_position,
+                    traduction=self.traductions_pays,
+                    langue=self.langue,
                 )
             )
         )
@@ -317,7 +332,6 @@ class HemicycleWidget(QWidget):
             # Récupération des informations du point
             x = row.x
             y = row.y
-            continent = row.continent
             couleur_bord = row.couleur_bord
             couleur_centre = row.couleur_centre
 
@@ -353,9 +367,7 @@ class HemicycleWidget(QWidget):
                 continue
 
             # Nom du continent
-            nom_affiche = self.traductions_pays.get(continent, {}).get(
-                self.langue, continent
-            )
+            nom_affiche = df_temp["continent_trad"].unique()[0]
 
             # Calcul de l'angle du point par rapport au centre
             theta = math.atan2(

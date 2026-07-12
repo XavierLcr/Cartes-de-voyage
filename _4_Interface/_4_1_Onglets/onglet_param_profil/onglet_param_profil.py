@@ -307,10 +307,10 @@ class OngletParametresProfil(QWidget):
             self.fonction_traduction("hemicycle_position_droite", prefixe="→ ")
         )
         self.hemicycle_position_alphabet.setText(
-            self.fonction_traduction("hemicycle_position_alphabet")
-        )
-        self.hemicycle_position_alphabet.setStyleSheet(
-            "font-family: 'Lucida Handwriting';"
+            self.fonction_traduction(
+                "hemicycle_position_alphabet",
+                prefixe="𝒶𝒷 ",
+            )
         )
 
         # Bouton de sauvegarde

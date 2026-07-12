@@ -11,7 +11,6 @@
 from __future__ import annotations
 from datetime import datetime, timedelta
 from typing import List, Optional, Sequence, Tuple
-
 from PyQt6.QtCore import QEasingCurve, QPropertyAnimation, QRectF, Qt, pyqtProperty
 from PyQt6.QtGui import (
     QBrush,
@@ -21,11 +20,7 @@ from PyQt6.QtGui import (
     QPainter,
     QPainterPath,
 )
-from PyQt6.QtWidgets import (
-    QGraphicsDropShadowEffect,
-    QSizePolicy,
-    QWidget,
-)
+from PyQt6.QtWidgets import QGraphicsDropShadowEffect, QSizePolicy, QWidget, QToolTip
 
 from _4_Interface._4_2_Style._4_2_1_style_principal import (
     renvoyer_couleur_widget,
@@ -230,6 +225,9 @@ class JoursVoyagesParMoisWidget(QWidget):
         n_mois         : profondeur du graphique mensuel (12 par défaut).
         """
         super().__init__(parent)
+
+        self.setMouseTracking(True)
+        self.points_hover = []
 
         self.voyages = {}
         self.fonction_traduction = fonction_traduction
@@ -465,8 +463,12 @@ class JoursVoyagesParMoisWidget(QWidget):
     def _dessiner_graphique_mensuel(
         self, painter: QPainter, rect_barres: QRectF, rect_etiquettes: QRectF
     ) -> None:
+
         valeurs = self.historique_jours
         n = len(valeurs)
+
+        self.points_hover = []
+
         if n == 0:
             return
 
@@ -496,6 +498,14 @@ class JoursVoyagesParMoisWidget(QWidget):
             chemin.addRoundedRect(
                 rect_barre, largeur_barre * 0.35, largeur_barre * 0.35
             )
+
+            self.points_hover.append(
+                {
+                    "rect": rect_barre,
+                    "valeur": v,
+                }
+            )
+
             painter.drawPath(chemin)
 
             # étiquette du mois, centrée sous la barre
@@ -512,3 +522,18 @@ class JoursVoyagesParMoisWidget(QWidget):
                 )
                 painter.drawText(rect_mois, Qt.AlignmentFlag.AlignCenter, texte_mois)
                 painter.setPen(Qt.PenStyle.NoPen)
+
+    def mouseMoveEvent(self, event):
+
+        pos = event.position()
+
+        for point in self.points_hover:
+            if point["rect"].contains(pos):
+                QToolTip.showText(
+                    event.globalPosition().toPoint(),
+                    f"{point['valeur']}",
+                    self,
+                )
+                return
+
+        QToolTip.hideText()

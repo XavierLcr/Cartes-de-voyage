@@ -203,7 +203,7 @@ class ThemeCarteClassement:
                 style=style,
                 teinte=teinte,
                 nuances=nuances,
-                clair="#ffffff",
+                clair="#defdff",
                 sombre="#4658a1",
             )
         )
@@ -221,8 +221,8 @@ class ThemeCarteClassement:
                 style=style,
                 teinte=teinte,
                 nuances=nuances,
-                clair="#939EFD",
-                sombre="#818CF8",
+                clair="#9AECE5",
+                sombre="#24A5A5",
             )
         )
         self.badge_fin = QColor(
@@ -230,8 +230,8 @@ class ThemeCarteClassement:
                 style=style,
                 teinte=teinte,
                 nuances=nuances,
-                clair="#6366F1",
-                sombre="#4F46E5",
+                clair="#179C95",
+                sombre="#1F971F",
                 reference=self.badge_debut.name(),
                 essais=limite_essais,
             )

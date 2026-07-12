@@ -85,6 +85,26 @@ def style_dynamique_application(
         style=style,
         couleur=couleur_push_hover,
     )
+    couleur_push_presse = renvoyer_couleur_widget_differente(
+        style=style,
+        teinte=teinte,
+        nuances=nuances,
+        clair="#C3B9DE",
+        sombre="#5A3FA0",
+        reference=couleur_push_hover,
+        essais=limite_essais,
+    )
+    couleur_push_texte_presse = renvoyer_couleur_texte(
+        style=style,
+        couleur=couleur_push_presse,
+    )
+    couleur_push_desactive = renvoyer_couleur_widget(
+        style=style, teinte=teinte, nuances=nuances, clair="#E4E9F0", sombre="#2A2E3D"
+    )
+    couleur_push_texte_desactive = renvoyer_couleur_texte(
+        style=style,
+        couleur=couleur_push_desactive,
+    )
 
     # Boites
     couleur_box = renvoyer_couleur_widget(
@@ -256,9 +276,18 @@ def style_dynamique_application(
             QPushButton {{
                 background-color: {couleur_push};
                 color: {couleur_push_texte};
-                border-radius: 5px;
-                padding: 8px;
-                border-color:none;
+                border: none;
+                border-radius: 10px;
+                padding: 9px 18px;
+            }}
+            QPushButton:pressed {{
+                background-color: {couleur_push_presse};
+                color: {couleur_push_texte_presse};
+                padding: 10px 18px 8px 18px;
+            }}
+            QPushButton:disabled {{
+                background-color: {couleur_push_desactive};
+                color: {couleur_push_texte_desactive};
             }}
             QPushButton:hover {{
                 background-color: {couleur_push_hover};
@@ -269,7 +298,7 @@ def style_dynamique_application(
                 color: {couleur_box_texte};
                 border: 1px solid {couleur_box_bord};
                 padding: 5px;
-                border-radius: 5px;
+                border-radius: 10px;
             }}
 
             QLineEdit {{

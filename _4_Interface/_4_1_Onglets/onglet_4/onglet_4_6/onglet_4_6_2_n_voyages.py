@@ -23,11 +23,7 @@ from PyQt6.QtGui import (
     QPainter,
     QPainterPath,
 )
-from PyQt6.QtWidgets import (
-    QGraphicsDropShadowEffect,
-    QSizePolicy,
-    QWidget,
-)
+from PyQt6.QtWidgets import QGraphicsDropShadowEffect, QSizePolicy, QWidget, QToolTip
 
 from _4_Interface._4_2_Style._4_2_1_style_principal import (
     renvoyer_couleur_widget,
@@ -194,6 +190,9 @@ class NombreVoyagesAnnu(QWidget):
         """
         super().__init__(parent)
 
+        self.setMouseTracking(True)
+        self.points_hover = []
+
         self.voyages = {}
         self.fonction_traduction = fonction_traduction
         self._nombre = 0.0
@@ -202,6 +201,7 @@ class NombreVoyagesAnnu(QWidget):
         self.historique: List[int] = list(historique) if historique else []
         self.tendance = tendance
         self.etiquette_tendance = f"{datetime.now().year} vs {datetime.now().year-1}"
+        self.n_annees_histo = 6
 
         self.theme = ThemeCarte(style=1)
 
@@ -399,6 +399,9 @@ class NombreVoyagesAnnu(QWidget):
         )
 
     def _dessiner_graphique_barres(self, painter: QPainter, rect: QRectF) -> None:
+
+        self.points_hover = []
+
         valeurs = self.historique[-8:]  # 8 dernières périodes max, pour rester lisible
         if not valeurs:
             return
@@ -425,6 +428,13 @@ class NombreVoyagesAnnu(QWidget):
             chemin.addRoundedRect(rect_barre, largeur_barre * 0.3, largeur_barre * 0.3)
             painter.drawPath(chemin)
 
+            self.points_hover.append(
+                {
+                    "rect": rect_barre,
+                    "valeur": v,
+                }
+            )
+
     def set_langue(self):
         """Mise à jour de la langue"""
         self.texte_etiquette = self.fonction_traduction("4_6_3_voyages_effectues")
@@ -445,7 +455,9 @@ class NombreVoyagesAnnu(QWidget):
 
     def set_valeurs(self):
 
-        voyages_temp = nombre_voyages_par_annee(data=self.voyages, n_annees=5)
+        voyages_temp = nombre_voyages_par_annee(
+            data=self.voyages, n_annees=self.n_annees_histo
+        )
 
         self.definir_valeur(nombre=len(self.voyages))
         self.definir_historique(historique=voyages_temp)
@@ -453,3 +465,18 @@ class NombreVoyagesAnnu(QWidget):
             tendance=voyages_temp[-1] - voyages_temp[-2],
             etiquette_tendance=self.etiquette_tendance,
         )
+
+    def mouseMoveEvent(self, event):
+
+        pos = event.position()
+
+        for point in self.points_hover:
+            if point["rect"].contains(pos):
+                QToolTip.showText(
+                    event.globalPosition().toPoint(),
+                    f"{point['valeur']}",
+                    self,
+                )
+                return
+
+        QToolTip.hideText()

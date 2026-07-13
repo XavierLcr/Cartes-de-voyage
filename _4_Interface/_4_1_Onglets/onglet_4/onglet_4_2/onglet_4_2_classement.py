@@ -10,15 +10,7 @@
 
 import pandas as pd
 from PyQt6.QtCore import Qt, QRectF, QPointF
-from PyQt6.QtGui import (
-    QPainter,
-    QColor,
-    QFont,
-    QLinearGradient,
-    QPainterPath,
-    QBrush,
-    QPen,
-)
+from PyQt6.QtGui import QPainter, QColor, QFont, QLinearGradient, QPainterPath, QBrush
 from PyQt6.QtWidgets import (
     QWidget,
     QHBoxLayout,
@@ -407,32 +399,24 @@ class TitreClassement(QWidget):
     """
     Carte titre pour les sections de classement du tableau de bord.
 
-    Le fond de la carte est entièrement occupé par une petite carte
-    stylisée : un semis de points génère un pavage bas-poly façon
-    "régions" (cellules de type Voronoi, remplies de teintes très
-    discrètes dérivées du thème, séparées par des frontières
-    irrégulières). Pour `granularite=2`, un second semis, plus dense,
-    ajoute des frontières supplémentaires plus fines par-dessus,
-    évoquant un découpage plus fin (départements). Le titre et le
-    sous-titre sont affichés dans un panneau arrondi centré, avec le
-    dégradé bleu-violet du thème, qui se détache de la carte en fond.
+    Reprend le vocabulaire visuel de `CarteClassementPays` : carte à
+    coins arrondis, ombre douce, même police "joyeuse" que le podium
+    (avec repli automatique). Le badge n'est plus un emoji mais un
+    médaillon vectoriel (anneau + étoile) dans les couleurs du thème.
     """
 
-    def __init__(
-        self, titre, sous_titre="", granularite: int = 1, style=None, parent=None
-    ):
+    def __init__(self, titre, sous_titre="", style=None, parent=None):
         super().__init__(parent)
 
         self.titre = titre
         self.sous_titre = sous_titre
-        self.granularite = granularite
         self.theme = style
 
         # Même police que le podium / les cartes de classement.
         self.police_principale = Podium._trouver_police_disponible(
             [
-                "Fredoka",
                 "CormorantGaramond",
+                "Fredoka",
                 "Quicksand",
                 "Century Gothic",
                 "Segoe UI",
@@ -448,174 +432,31 @@ class TitreClassement(QWidget):
         self.ombre.setColor(self.theme.ombre)
         self.setGraphicsEffect(self.ombre)
 
-        # --- Grilles de la fausse carte (fixées à l'initialisation) ---
-
-        # Semis "régions" : peu de points, répartis régulièrement (grille
-        # jitterée) pour obtenir des zones larges et bien réparties,
-        # plutôt qu'un nuage aléatoire pouvant se regrouper localement.
-        self._semis_regions = self._generer_semis(
-            graine=101, n_lignes=3, n_colonnes=4, jitter=0.32
-        )
-        # Grille de cellules utilisée pour peindre/tracer les "régions".
-        self._grille_regions = (14, 6)  # (colonnes, lignes)
-
-        # Semis "départements" : uniquement si granularite == 2, plus
-        # dense, pour ajouter des frontières plus fines par-dessus.
-        if granularite == 2:
-            self._semis_departements = self._generer_semis(
-                graine=202, n_lignes=6, n_colonnes=9, jitter=0.4
-            )
-            self._grille_departements = (34, 14)
-        else:
-            self._semis_departements = None
-            self._grille_departements = None
-
-    # -- Génération du semis de points (grille régulière jitterée) -----
-
     @staticmethod
-    def _generer_semis(graine, n_lignes, n_colonnes, jitter):
-        """
-        Renvoie une liste de points (x, y) fractionnaires dans [0, 1] x
-        [0, 1], un par case d'une grille `n_lignes` x `n_colonnes`,
-        légèrement décalés aléatoirement (`jitter`, en fraction de la
-        case) pour éviter un aspect trop régulier tout en gardant une
-        répartition homogène façon "régions" d'un pays.
-        """
-        import random
+    def _chemin_etoile(
+        centre: QPointF, rayon_ext: float, rayon_int: float, pointes: int = 5
+    ):
+        """Construit un QPainterPath d'étoile à `pointes` branches, centrée
+        sur `centre`, pointe vers le haut."""
+        import math
 
-        rng = random.Random(graine)
-        points = []
-        for j in range(n_lignes):
-            for i in range(n_colonnes):
-                cx = (i + 0.5) / n_colonnes
-                cy = (j + 0.5) / n_lignes
-                cx += (rng.random() - 0.5) * jitter / n_colonnes
-                cy += (rng.random() - 0.5) * jitter / n_lignes
-                points.append((min(max(cx, 0.0), 1.0), min(max(cy, 0.0), 1.0)))
-        return points
+        chemin = QPainterPath()
+        angle_pas = math.pi / pointes
+        angle_depart = -math.pi / 2
 
-    @staticmethod
-    def _plus_proche(fx, fy, semis):
-        """Indice du point du `semis` le plus proche de (fx, fy)
-        (distance euclidienne au carré, en coordonnées fractionnaires)."""
-        meilleur_i, meilleure_dist = 0, None
-        for i, (sx, sy) in enumerate(semis):
-            dist = (fx - sx) ** 2 + (fy - sy) ** 2
-            if meilleure_dist is None or dist < meilleure_dist:
-                meilleur_i, meilleure_dist = i, dist
-        return meilleur_i
-
-    def _assignation_cellules(self, semis, colonnes, lignes):
-        """Renvoie une grille [lignes][colonnes] contenant, pour chaque
-        cellule, l'indice du point du `semis` le plus proche de son
-        centre (pavage façon Voronoi discrétisé)."""
-        return [
-            [
-                self._plus_proche((i + 0.5) / colonnes, (j + 0.5) / lignes, semis)
-                for i in range(colonnes)
-            ]
-            for j in range(lignes)
-        ]
-
-    def _dessiner_fausse_carte(self, painter, rect: QRectF):
-        """Peint la fausse carte (remplissage + frontières) dans `rect`,
-        en superposant la couche "régions" puis, si disponible, la
-        couche "départements" (frontières fines uniquement)."""
-
-        largeur, hauteur = rect.width(), rect.height()
-
-        # --- Couche "régions" : remplissage + frontières ---
-        colonnes, lignes = self._grille_regions
-        assignation = self._assignation_cellules(self._semis_regions, colonnes, lignes)
-
-        # Petite palette de teintes très proches du fond, dérivées du
-        # thème, pour un effet chloropléthe discret.
-        palette = [
-            self.theme.fond,
-            self.theme.fond.lighter(106),
-            self.theme.fond.darker(104),
-        ]
-
-        largeur_cellule = largeur / colonnes
-        hauteur_cellule = hauteur / lignes
-
-        painter.setPen(Qt.PenStyle.NoPen)
-        for j in range(lignes):
-            for i in range(colonnes):
-                couleur = palette[assignation[j][i] % len(palette)]
-                painter.setBrush(couleur)
-                painter.drawRect(
-                    QRectF(
-                        rect.x() + i * largeur_cellule,
-                        rect.y() + j * hauteur_cellule,
-                        largeur_cellule + 0.5,
-                        hauteur_cellule + 0.5,
-                    )
-                )
-
-        couleur_frontiere_region = QColor(self.theme.sous_texte)
-        couleur_frontiere_region.setAlpha(120)
-        painter.setPen(
-            QPen(
-                couleur_frontiere_region,
-                max(1.0, min(largeur, hauteur) * 0.006),
-                Qt.PenStyle.SolidLine,
-                Qt.PenCapStyle.RoundCap,
+        for i in range(pointes * 2):
+            rayon = rayon_ext if i % 2 == 0 else rayon_int
+            angle = angle_depart + i * angle_pas
+            point = QPointF(
+                centre.x() + rayon * math.cos(angle),
+                centre.y() + rayon * math.sin(angle),
             )
-        )
-        for j in range(lignes):
-            for i in range(colonnes):
-                # Frontière verticale (avec la cellule à droite)
-                if i + 1 < colonnes and assignation[j][i] != assignation[j][i + 1]:
-                    x = rect.x() + (i + 1) * largeur_cellule
-                    painter.drawLine(
-                        QPointF(x, rect.y() + j * hauteur_cellule),
-                        QPointF(x, rect.y() + (j + 1) * hauteur_cellule),
-                    )
-                # Frontière horizontale (avec la cellule du dessous)
-                if j + 1 < lignes and assignation[j][i] != assignation[j + 1][i]:
-                    y = rect.y() + (j + 1) * hauteur_cellule
-                    painter.drawLine(
-                        QPointF(rect.x() + i * largeur_cellule, y),
-                        QPointF(rect.x() + (i + 1) * largeur_cellule, y),
-                    )
-
-        # --- Couche "départements" (frontières fines uniquement) ---
-        if self._semis_departements and self._grille_departements:
-            colonnes2, lignes2 = self._grille_departements
-            assignation2 = self._assignation_cellules(
-                self._semis_departements, colonnes2, lignes2
-            )
-            largeur_cellule2 = largeur / colonnes2
-            hauteur_cellule2 = hauteur / lignes2
-
-            couleur_frontiere_dep = QColor(self.theme.sous_texte)
-            couleur_frontiere_dep.setAlpha(65)
-            painter.setPen(
-                QPen(
-                    couleur_frontiere_dep,
-                    max(0.6, min(largeur, hauteur) * 0.0025),
-                    Qt.PenStyle.SolidLine,
-                    Qt.PenCapStyle.RoundCap,
-                )
-            )
-            for j in range(lignes2):
-                for i in range(colonnes2):
-                    if (
-                        i + 1 < colonnes2
-                        and assignation2[j][i] != assignation2[j][i + 1]
-                    ):
-                        x = rect.x() + (i + 1) * largeur_cellule2
-                        painter.drawLine(
-                            QPointF(x, rect.y() + j * hauteur_cellule2),
-                            QPointF(x, rect.y() + (j + 1) * hauteur_cellule2),
-                        )
-                    if j + 1 < lignes2 and assignation2[j][i] != assignation2[j + 1][i]:
-                        y = rect.y() + (j + 1) * hauteur_cellule2
-                        painter.drawLine(
-                            QPointF(rect.x() + i * largeur_cellule2, y),
-                            QPointF(rect.x() + (i + 1) * largeur_cellule2, y),
-                        )
+            if i == 0:
+                chemin.moveTo(point)
+            else:
+                chemin.lineTo(point)
+        chemin.closeSubpath()
+        return chemin
 
     def paintEvent(self, event):
         painter = QPainter(self)
@@ -626,107 +467,87 @@ class TitreClassement(QWidget):
         rect = QRectF(2, 2, w - 4, h - 4)
         rayon_carte = min(22, h * 0.26)
 
+        # --- carte à coins arrondis, dégradé diagonal ---
         chemin_carte = QPainterPath()
         chemin_carte.addRoundedRect(rect, rayon_carte, rayon_carte)
 
-        # --- fond de carte + fausse carte, contenus dans les coins arrondis ---
-        painter.save()
-        painter.setClipPath(chemin_carte)
+        degrade = QLinearGradient(rect.topLeft(), rect.bottomRight())
+        degrade.setColorAt(0, self.theme.badge_debut)
+        degrade.setColorAt(1, self.theme.badge_fin)
 
         painter.setPen(Qt.PenStyle.NoPen)
-        painter.setBrush(self.theme.fond)
-        painter.drawRect(rect)
+        painter.setBrush(QBrush(degrade))
+        painter.drawPath(chemin_carte)
 
-        self._dessiner_fausse_carte(painter, rect)
+        # --- médaillon (badge de rang, vectoriel) ---
+        rayon_badge = h * 0.24
+        centre = QPointF(w * 0.15, h * 0.5)
 
-        painter.restore()
+        # disque de fond, légèrement plus clair que le texte
+        painter.setBrush(QColor(255, 255, 255, 235))
+        painter.drawEllipse(centre, rayon_badge, rayon_badge)
 
-        # --- panneau central (titre / sous-titre), au-dessus de la carte ---
-        police_titre = QFont(
-            self.police_principale, max(10, int(h * 0.14)), QFont.Weight.DemiBold
+        painter.setPen(QColor(255, 255, 255, 255))
+        painter.setBrush(Qt.BrushStyle.NoBrush)
+        painter.drawEllipse(centre, rayon_badge * 0.86, rayon_badge * 0.86)
+
+        # étoile centrale, couleur badge_fin (contraste net sur le disque clair)
+        chemin_etoile = self._chemin_etoile(
+            centre, rayon_ext=rayon_badge * 0.55, rayon_int=rayon_badge * 0.24
         )
-        police_sous_titre = QFont(self.police_principale, max(7, int(h * 0.1)))
+        painter.setPen(Qt.PenStyle.NoPen)
+        painter.setBrush(self.theme.badge_fin)
+        painter.drawPath(chemin_etoile)
 
+        # --- zone de texte (titre + sous-titre), centrée verticalement ---
+        marge_apres_badge = (
+            rayon_badge * 0.9
+        )  # espace entre le bord du badge et le texte
+        x_texte = centre.x() + rayon_badge + marge_apres_badge
+        zone_texte = QRectF(x_texte, 0, w - x_texte - w * 0.04, h)
+
+        police_titre = QFont(
+            self.police_principale, max(10, int(h * 0.13)), QFont.Weight.DemiBold
+        )
         painter.setFont(police_titre)
         metrics_titre = painter.fontMetrics()
-        largeur_max_texte = w * 0.8
         titre_affiche = metrics_titre.elidedText(
-            self.titre, Qt.TextElideMode.ElideRight, int(largeur_max_texte)
+            self.titre, Qt.TextElideMode.ElideRight, int(zone_texte.width())
         )
-        largeur_titre = metrics_titre.horizontalAdvance(titre_affiche)
-        hauteur_titre = metrics_titre.height()
 
-        largeur_sous_titre = 0
+        police_sous_titre = QFont(self.police_principale, max(7, int(h * 0.1)))
         hauteur_sous_titre = 0
-        sous_titre_affiche = ""
         if self.sous_titre:
             painter.setFont(police_sous_titre)
-            metrics_sous_titre = painter.fontMetrics()
-            sous_titre_affiche = metrics_sous_titre.elidedText(
-                self.sous_titre, Qt.TextElideMode.ElideRight, int(largeur_max_texte)
-            )
-            largeur_sous_titre = metrics_sous_titre.horizontalAdvance(
-                sous_titre_affiche
-            )
-            hauteur_sous_titre = metrics_sous_titre.height()
+            hauteur_sous_titre = painter.fontMetrics().height()
 
-        pad_h, pad_v, espace = 22, 12, 2
-        largeur_panneau = min(
-            w * 0.86, max(largeur_titre, largeur_sous_titre) + pad_h * 2
-        )
-        hauteur_panneau = (
-            hauteur_titre
-            + hauteur_sous_titre
-            + (espace if self.sous_titre else 0)
-            + pad_v * 2
-        )
+        hauteur_titre = metrics_titre.height()
+        espace = 3 if self.sous_titre else 0
+        hauteur_bloc = hauteur_titre + espace + hauteur_sous_titre
+        y_depart = zone_texte.y() + max(0.0, (h - hauteur_bloc) / 2)
 
-        rect_panneau = QRectF(
-            w / 2 - largeur_panneau / 2,
-            h / 2 - hauteur_panneau / 2,
-            largeur_panneau,
-            hauteur_panneau,
-        )
-        rayon_panneau = min(16, hauteur_panneau * 0.3)
-
-        degrade_panneau = QLinearGradient(
-            rect_panneau.topLeft(), rect_panneau.bottomRight()
-        )
-        degrade_panneau.setColorAt(0, self.theme.badge_debut)
-        degrade_panneau.setColorAt(1, self.theme.badge_fin)
-
-        chemin_panneau = QPainterPath()
-        chemin_panneau.addRoundedRect(rect_panneau, rayon_panneau, rayon_panneau)
-
-        painter.setPen(Qt.PenStyle.NoPen)
-        painter.setBrush(QBrush(degrade_panneau))
-        painter.drawPath(chemin_panneau)
-
-        contour = QColor(255, 255, 255, 90)
-        painter.setPen(QPen(contour, 1.2))
-        painter.setBrush(Qt.BrushStyle.NoBrush)
-        painter.drawPath(chemin_panneau)
-
-        y_depart = rect_panneau.y() + pad_v
         painter.setFont(police_titre)
-        painter.setPen(QColor(255, 255, 255, 255))
+        painter.setPen(self.theme.texte)
         painter.drawText(
-            QRectF(rect_panneau.x(), y_depart, rect_panneau.width(), hauteur_titre),
-            Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter,
+            QRectF(zone_texte.x(), y_depart, zone_texte.width(), hauteur_titre),
+            Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft,
             titre_affiche,
         )
 
         if self.sous_titre:
             painter.setFont(police_sous_titre)
-            painter.setPen(QColor(255, 255, 255, 210))
+            painter.setPen(self.theme.sous_texte)
+            sous_titre_affiche = painter.fontMetrics().elidedText(
+                self.sous_titre, Qt.TextElideMode.ElideRight, int(zone_texte.width())
+            )
             painter.drawText(
                 QRectF(
-                    rect_panneau.x(),
+                    zone_texte.x(),
                     y_depart + hauteur_titre + espace,
-                    rect_panneau.width(),
+                    zone_texte.width(),
                     hauteur_sous_titre,
                 ),
-                Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter,
+                Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft,
                 sous_titre_affiche,
             )
 
@@ -841,9 +662,8 @@ class ClassementPays(QWidget):
         layout_final.addWidget(
             TitreClassement(
                 titre=titre,
-                sous_titre="",
+                sous_titre="Les territoires les plus explorés",
                 style=self.style,
-                granularite=granularite,
             )
         )
 

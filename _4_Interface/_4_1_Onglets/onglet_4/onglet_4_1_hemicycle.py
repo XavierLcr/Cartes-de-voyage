@@ -312,13 +312,13 @@ class HemicycleWidget(QWidget):
         self.points_hover = []
 
         # Ajout des points
-        for row in df.itertuples(index=False):
+        for ligne_temp in df.itertuples(index=False):
 
             # Récupération des informations du point
-            x = row.x
-            y = row.y
-            couleur_bord = row.couleur_bord
-            couleur_centre = row.couleur_centre
+            x = ligne_temp.x
+            y = ligne_temp.y
+            couleur_bord = ligne_temp.couleur_bord
+            couleur_centre = ligne_temp.couleur_centre
 
             # Dessiner le point
             painter.setBrush(QBrush(couleur_centre))
@@ -329,7 +329,7 @@ class HemicycleWidget(QWidget):
                 self.diametre_point,
             )
 
-            self.points_hover.append((x, y, self.diametre_point, row.pays_trad))
+            self.points_hover.append((x, y, self.diametre_point, ligne_temp.pays_trad))
 
             # Calcul du rayon du texte
             rayon_texte = max(rayon_texte, abs(y - self.center_y()))

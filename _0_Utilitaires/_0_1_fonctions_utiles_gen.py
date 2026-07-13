@@ -8,7 +8,7 @@
 # 0 -- Initialisation ----------------------------------------------------------
 
 
-import os, pickle, yaml, time, numba, subprocess, platform
+import os, pickle, yaml, time, numba, subprocess, platform, json
 import pandas as pd
 import geopandas as gpd
 import numpy as np
@@ -335,6 +335,11 @@ def ouvrir_fichier(
                 return gpd.GeoDataFrame(df, geometry="geometry")
             else:
                 return df
+
+        elif extention == ".geojson":
+
+            with open(nom_fichier, "r", encoding="utf-8") as f:
+                return json.load(f)
 
     except Exception as e:
 

@@ -251,31 +251,40 @@ class OngletResumeDestinations(QWidget):
 
         for granularite in range(1, 3):
 
+            # Récupération du dictionnaire
+            dict_temp = (
+                self.dicts_granu.get("region", {})
+                if granularite == 1
+                else self.dicts_granu.get("dep", {})
+            )
+
+            # Titre
             clef_temp = (
                 "titre_regions_visitees"
                 if granularite == 1
                 else "titre_departements_visites"
             )
-            dict_temp = (
-                self.dicts_granu.get("region", {})
-                if granularite == 1
-                else filtrer_hierarchie(
-                    dico_plat=self.dicts_granu.get("dep", {}),
-                    dico_hier=self.liste_pays,
+
+            if dict_temp:
+
+                # Dictionnaire à utiliser
+                if granularite > 1:
+                    dict_temp = filtrer_hierarchie(
+                        dico_plat=dict_temp,
+                        dico_hier=self.liste_pays,
+                    )
+
+                # Création de l'arbre
+                res_temp = self.ajouter_partie_a_layout(
+                    granu=clef_temp,
+                    pays_donnees=dict_temp,
                 )
-            )
 
-            # Création de l'arbre
-            res_temp = self.ajouter_partie_a_layout(
-                granu=clef_temp,
-                pays_donnees=dict_temp,
-            )
+                # Mise en scroll
+                res_temp = creer_scroll(layout=res_temp)
 
-            # Mise en scroll
-            res_temp = creer_scroll(layout=res_temp)
-
-            # Ajout au layout
-            self.layout_resume_pays.addWidget(res_temp)
+                # Ajout au layout
+                self.layout_resume_pays.addWidget(res_temp)
 
     def replier_deplier(self, replier):
         self.arbre_groupe = replier

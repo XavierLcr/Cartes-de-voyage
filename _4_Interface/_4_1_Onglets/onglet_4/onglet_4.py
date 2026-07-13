@@ -10,16 +10,23 @@
 
 import copy
 
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QColor
 from PyQt6.QtWidgets import (
     QWidget,
     QVBoxLayout,
     QHBoxLayout,
     QPushButton,
     QStackedWidget,
+    QButtonGroup,
+)
+
+from _0_Utilitaires._0_2_fonctions_graphiques import (
+    renvoyer_couleur_widget,
+    renvoyer_couleur_texte,
 )
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import voyages_vers_destinations
-from _0_Utilitaires._0_2_fonctions_graphiques import renvoyer_couleur_texte
 from _4_Interface._4_1_Onglets.onglet_4 import (
     onglet_4_1_hemicycle,
     onglet_4_3_recommendations,
@@ -32,20 +39,50 @@ from _4_Interface._4_1_Onglets.onglet_4.onglet_4_7_portrait_IA import (
     ProfilVoyageurIA,
 )
 
-# 1 -- Fonction de renvoi d'un bouton ------------------------------------------
+# 1 -- Fonctions annexes --------------------------------------------------------
+
+
+## 1.1 -- Fonction de renvoi d'un bouton ----------------------------------------
 
 
 def creer_bouton(texte: str):
 
     btn_temp = QPushButton(texte)
-    btn_temp.setStyleSheet("""
-        QPushButton {
-            text-align: left;
-            padding-left: 10px;
-        }
-    """)
+    btn_temp.setObjectName("bouton_nav")
+    btn_temp.setCheckable(True)
+    btn_temp.setCursor(Qt.CursorShape.PointingHandCursor)
+    btn_temp.setMinimumHeight(38)
 
     return btn_temp
+
+
+## 1.2 -- Fonction de calcul de la couleur d'accent de la navigation -----------
+
+
+def renvoyer_couleur_accent(style, teinte, nuances):
+    """Convertit `teinte` (couleur, chaîne, ou liste/tuple de couleurs) en QColor.
+    Si le format n'est pas reconnu, renvoie une couleur d'accent par défaut."""
+
+    couleur_defaut = QColor(
+        renvoyer_couleur_widget(
+            style=style,
+            teinte=teinte,
+            nuances=nuances,
+            clair="#6C4AB6",
+            sombre="#52F5E7",
+        )
+    )
+
+    try:
+        if isinstance(teinte, (list, tuple)) and len(teinte) > 0:
+            teinte = teinte[0]
+
+        couleur = teinte if isinstance(teinte, QColor) else QColor(teinte)
+
+        return couleur if couleur.isValid() else couleur_defaut
+
+    except Exception:
+        return couleur_defaut
 
 
 # 2 -- Classe de l'onglet contenant les statistiques ---------------------------
@@ -125,7 +162,28 @@ class OngletTopPays(QWidget):
         self.btn_tableau_de_bord = creer_bouton("Votre tableau de bord")
         self.btn_portrait_IA = creer_bouton("Votre portrait")
 
+        # Association page <-> bouton, utilisée pour mettre en évidence le
+        # bouton actif (y compris quand la navigation est déclenchée sans
+        # passer par un clic, ex: initialiser_onglet)
+        self._boutons_pages = [
+            (self.tableau_de_bord, self.btn_tableau_de_bord),
+            (self.hemicycle, self.btn_hemicycle),
+            (self.classement_widget, self.btn_top_pays),
+            (self.recommandations, self.btn_recommandations),
+            (self.pays_souvent_visites, self.btn_pays_souvent_visites),
+            (self.calendrier_visites, self.btn_calendrier),
+            (self.portrait_IA, self.btn_portrait_IA),
+        ]
+
+        # Un seul bouton actif à la fois (mise en évidence visuelle de la page courante)
+        self.groupe_navigation = QButtonGroup(self)
+        self.groupe_navigation.setExclusive(True)
+        for _, bouton in self._boutons_pages:
+            self.groupe_navigation.addButton(bouton)
+
         btn_layout = QVBoxLayout()
+        btn_layout.setContentsMargins(10, 14, 10, 14)
+        btn_layout.setSpacing(4)
         btn_layout.addWidget(self.btn_tableau_de_bord)
         btn_layout.addWidget(self.btn_hemicycle)
         btn_layout.addWidget(self.btn_top_pays)
@@ -134,6 +192,15 @@ class OngletTopPays(QWidget):
         btn_layout.addWidget(self.btn_calendrier)
         btn_layout.addWidget(self.btn_portrait_IA)
         btn_layout.addStretch()
+
+        # Panneau contenant la barre de navigation, pour pouvoir le styliser
+        # comme un vrai panneau latéral (fond, séparateur) plutôt qu'un simple layout
+        self.panneau_navigation = QWidget()
+        self.panneau_navigation.setObjectName("panneau_navigation")
+        self.panneau_navigation.setLayout(btn_layout)
+
+        # Style par défaut, avant qu'un thème ne soit appliqué via set_style
+        self.styliser_navigation(style=1, teinte=None, nuances={})
 
         # Connexions
         # Chaque bouton doit chercher l'index de SA page (le widget affiché
@@ -178,8 +245,51 @@ class OngletTopPays(QWidget):
         )
 
         # Layout principal
-        layout.addLayout(btn_layout)
+        layout.addWidget(self.panneau_navigation)
         layout.addWidget(self.pages)
+
+    def styliser_navigation(self, style, teinte, nuances):
+        """Applique un style « panneau latéral » moderne et plat aux boutons de
+        navigation, avec une couleur d'accent pour le bouton de la page active."""
+
+        accent = renvoyer_couleur_accent(style=style, teinte=teinte, nuances=nuances)
+        r, g, b = accent.red(), accent.green(), accent.blue()
+
+        self.panneau_navigation.setStyleSheet(f"""
+            QWidget#panneau_navigation {{
+                background-color: rgba(0, 0, 0, 10);
+                border-right: 1px solid rgba(0, 0, 0, 22);
+                border-radius: 8px;
+            }}
+            QPushButton#bouton_nav {{
+                text-align: left;
+                padding: 9px 12px;
+                border: none;
+                border-left: 3px solid transparent;
+                border-radius: 8px;
+                background-color: transparent;
+                color: {renvoyer_couleur_texte(style=style, couleur=renvoyer_couleur_widget(
+                    style=style,
+                    teinte=teinte,
+                    nuances=nuances,
+                    clair="#FCFCFC",
+                    sombre="#161B1B",
+                ))};
+                font-size: 13px;
+            }}
+            QPushButton#bouton_nav:hover {{
+                background-color: rgba(0, 0, 0, 18);
+            }}
+            QPushButton#bouton_nav:pressed {{
+                background-color: rgba(0, 0, 0, 30);
+            }}
+            QPushButton#bouton_nav:checked {{
+                background-color: rgba({r}, {g}, {b}, 38);
+                border-left: 3px solid rgb({r}, {g}, {b});
+                color: rgb({r}, {g}, {b});
+                font-weight: 600;
+            }}
+        """)
 
     def set_langue(self, nouvelle_langue):
         self.hemicycle.set_langue(langue=nouvelle_langue)
@@ -192,31 +302,31 @@ class OngletTopPays(QWidget):
 
         texte_onglet_1 = self.fonction_traduction(
             "titre_sous_onglet_4_1",
-            prefixe=("🗺️ "),
+            prefixe=("🗺️ "),
         )
         texte_onglet_2 = self.fonction_traduction(
             "titre_sous_onglet_4_2",
-            prefixe=("🏆 "),
+            prefixe=("🏆 "),
         )
         texte_onglet_3 = self.fonction_traduction(
             "titre_sous_onglet_4_3",
-            prefixe=("🚂 "),
+            prefixe=("🚂 "),
         )
         texte_onglet_4 = self.fonction_traduction(
             "titre_sous_onglet_4_4",
-            prefixe=("⚓ "),
+            prefixe=("⚓ "),
         )
         texte_onglet_5 = self.fonction_traduction(
             "titre_sous_onglet_4_5",
-            prefixe=("📅 "),
+            prefixe=("📅 "),
         )
         texte_onglet_6 = self.fonction_traduction(
             "titre_sous_onglet_4_6",
-            prefixe=("📰 "),
+            prefixe=("📰 "),
         )
         texte_onglet_7 = self.fonction_traduction(
             "titre_sous_onglet_4_7",
-            prefixe=("🫆 "),
+            prefixe=("🫆 "),
         )
 
         self.btn_hemicycle.setText(texte_onglet_1)
@@ -239,6 +349,9 @@ class OngletTopPays(QWidget):
                 couleur=self.palette().color(self.backgroundRole()).name(),
             )
         )
+
+        # Style de la barre de navigation (accent basé sur la teinte de l'appli)
+        self.styliser_navigation(style=style, teinte=teinte, nuances=nuances)
 
         # Pays les plus visités
         self.classement_widget.set_style(style=style, teintes=teinte, nuances=nuances)
@@ -293,6 +406,13 @@ class OngletTopPays(QWidget):
     def cliquer_bouton_onglet(self, num_onglet: int):
 
         self.pages.setCurrentIndex(num_onglet)
+
+        # Met en évidence le bouton correspondant à la page affichée, même
+        # quand cette méthode est appelée sans passer par un clic
+        for page, bouton in self._boutons_pages:
+            if self.pages.indexOf(page) == num_onglet:
+                bouton.setChecked(True)
+                break
 
         if num_onglet == self.pages.indexOf(self.classement_widget):
             self.classement_widget.lancer_classement_par_region_departement()

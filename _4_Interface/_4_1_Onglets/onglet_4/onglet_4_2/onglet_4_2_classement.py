@@ -666,8 +666,12 @@ class ClassementPays(QWidget):
                 self.table_superficie.loc[mask, "name_1"].unique().tolist()
             )
 
-        layout_final = QVBoxLayout()
+        if (granularite == 1 and dict_regions == {}) or (
+            granularite == 2 and dict_departements == {}
+        ):
+            return None
 
+        layout_final = QVBoxLayout()
         titre = self.fonction_traduction(
             f"classement_selon_{'regions' if granularite==1 else 'departements'}"
         )
@@ -723,8 +727,7 @@ class ClassementPays(QWidget):
             )
 
         except Exception as e:
-            print(e)
-            pass
+            return None
 
         layout_final.addStretch()
 
@@ -736,14 +739,25 @@ class ClassementPays(QWidget):
         # Nettoyage du layout
         vider_layout(self.layout)
 
-        # Ajout des classements
-        for i in range(1, 3):
+        # Création des layouts
+        res_regions = self.lancer_classement_pays(
+            granularite=1,
+        )
+        res_departements = self.lancer_classement_pays(
+            granularite=2,
+        )
 
-            self.layout.addWidget(
-                self.lancer_classement_pays(
-                    granularite=i,
-                )
-            )
+        # Choix de self.n_colonnes
+        if res_regions is None or res_departements is None:
+            self.n_colonnes = 6
+        else:
+            self.n_colonnes = 3
+
+        # Ajout des layouts
+        if res_regions is not None:
+            self.layout.addWidget(res_regions)
+        if res_departements is not None:
+            self.layout.addWidget(res_departements)
 
     def set_dicts_granu(self, dict_nv):
         self.dicts_granu = dict_nv

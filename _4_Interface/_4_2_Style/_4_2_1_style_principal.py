@@ -197,7 +197,7 @@ def style_dynamique_application(
         style=style,
         teinte=teinte,
         nuances=nuances,
-        clair="#6C7780",
+        clair="#90AAB4",
         sombre="#2C3A82",
         reference=couleur_widget,
         essais=limite_essais,
@@ -437,19 +437,25 @@ def style_dynamique_application(
             }}
 
             QCheckBox {{
+                spacing: 8px;
+                color: {couleur_widget_texte};
+            }}
+            QCheckBox {{
                 spacing: 6px;  /* 👈 espace entre la boîte et le texte */
                 padding-left: 0px;  /* marge interne à gauche du tout */
             }}
 
             QCheckBox::indicator {{
-                border: 1px solid {couleur_checkbox_bord}; /* couleur du cadre */
+                width: 18px;
+                height: 18px;
+                border: 2px solid {couleur_checkbox_bord}; /* couleur du cadre */
                 background-color: transparent; 
-                border-radius: 3px;
+                border-radius: 5px;
             }}
 
             QCheckBox::indicator:checked {{
                 background-color: {couleur_checkbox_cochee_fond};  /* laisse Qt dessiner le tick */
-                border: 1px solid {couleur_checkbox_bord};
+                border: 2px solid {couleur_checkbox_bord};
             }}
 
             QProgressBar {{

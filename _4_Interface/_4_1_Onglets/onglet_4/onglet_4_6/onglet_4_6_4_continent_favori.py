@@ -584,8 +584,8 @@ class ContinentFavoriWidget(QWidget):
         painter.restore()
 
     def _dessiner_bulle_pourcentage(self, painter: QPainter, zone: QRectF) -> None:
-        """Petite pastille : "42% des pays visités", dans la teinte du thème."""
-        texte = f"{int(round(self._pourcentage))} % " + self.fonction_traduction(
+        """Petite pastille : "42 % des pays visités", dans la teinte du thème."""
+        texte = f"{int(round(self._pourcentage))} % " + self.fonction_traduction(
             "4_6_4_pays_visites"
         )
         police = QFont(

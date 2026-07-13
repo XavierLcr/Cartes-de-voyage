@@ -296,3 +296,6 @@ class OngletTopPays(QWidget):
 
         if num_onglet == self.pages.indexOf(self.classement_widget):
             self.classement_widget.lancer_classement_par_region_departement()
+
+        if num_onglet == self.pages.indexOf(self.tableau_de_bord):
+            self.tableau_de_bord.update_widgets()

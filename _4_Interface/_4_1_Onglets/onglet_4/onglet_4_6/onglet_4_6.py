@@ -101,3 +101,9 @@ class OngletTableauDeBord(QWidget):
         self.n_voyages_histo.set_style(style=style, nuances=nuances, teintes=teintes)
         self.n_jours_voyages.set_style(style=style, nuances=nuances, teintes=teintes)
         self.continent_favori.set_style(style=style, nuances=nuances, teintes=teintes)
+
+    def update_widgets(self):
+        self.compteur_pays.update()
+        self.n_voyages_histo.update()
+        self.n_jours_voyages.update()
+        self.continent_favori.update()

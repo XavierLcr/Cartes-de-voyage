@@ -24,6 +24,7 @@ from PyQt6.QtWidgets import (
     QSpinBox,
     QGraphicsDropShadowEffect,
     QSizePolicy,
+    QSpacerItem,
 )
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import distance_haversine
@@ -819,7 +820,11 @@ class PaysAVisiter(QWidget):
                             style=self.style,
                         )
                     )
-                    self.corps_recommandations.addWidget(QLabel(""))
+                    self.corps_recommandations.addSpacerItem(
+                        QSpacerItem(
+                            0, 5, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed
+                        )
+                    )
 
                 self.corps_recommandations.addStretch()
 

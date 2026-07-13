@@ -108,7 +108,7 @@ def style_dynamique_application(
 
     # Boites
     couleur_box = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#E5F1E3", sombre="#1696A9"
+        style=style, teinte=teinte, nuances=nuances, clair="#F7EAD3", sombre="#1696A9"
     )
     couleur_box_texte = renvoyer_couleur_texte(
         style=style,
@@ -428,19 +428,6 @@ def style_dynamique_application(
             QScrollArea > QWidget > QWidget {{
                 background-color: {couleur_scroll_area_fond};
             }}
-            QScrollBar:vertical {{
-                background: {couleur_scroll_area_barre_partie}; /* cohérent avec couleur_box */
-                width: 12px;
-                margin: 2px;
-                border-radius: 0px;
-            }}
-            QScrollBar::handle:vertical, QScrollBar::handle:horizontal {{
-                background: {couleur_scroll_area_barre}; 
-                border-radius: 0px;
-            }}
-            QScrollBar::handle:vertical:hover, QScrollBar::handle:horizontal:hover {{
-                background: {couleur_scroll_area_barre_survol}; /* slider : bleu-vert doux */
-            }}
 
             QCheckBox {{
                 spacing: 8px;
@@ -450,7 +437,6 @@ def style_dynamique_application(
                 spacing: 6px;  /* 👈 espace entre la boîte et le texte */
                 padding-left: 0px;  /* marge interne à gauche du tout */
             }}
-
             QCheckBox::indicator {{
                 width: 18px;
                 height: 18px;
@@ -458,12 +444,10 @@ def style_dynamique_application(
                 background-color: transparent; 
                 border-radius: 5px;
             }}
-
             QCheckBox::indicator:checked {{
                 background-color: {couleur_checkbox_cochee_fond};  /* laisse Qt dessiner le tick */
                 border: 2px solid {couleur_checkbox_bord};
             }}
-
             QProgressBar {{
                 border: none; 
                 text-align: right;
@@ -473,6 +457,7 @@ def style_dynamique_application(
                 background-color: transparent;
                 border-radius: 5px;
             }}
+
             QProgressBar::chunk {{
                 border-radius: 12px;
                 background-color: qlineargradient(
@@ -507,6 +492,24 @@ def style_dynamique_application(
                 background-color: {couleur_widget_list_survol_fond};
                 color: {couleur_widget_list_texte};
             }}
+
+            QScrollBar:vertical {{
+                background: transparent;
+                width: 15px;
+                margin: 3px;
+            }}
+            QScrollBar::handle:vertical {{
+                border-radius: 5px;
+                margin: 2px;
+                min-height: 35px;
+            }}
+            QScrollBar::handle:vertical, QScrollBar::handle:horizontal {{
+                background: {couleur_scroll_area_barre}; 
+                border-radius: 0px;
+            }}
+            QScrollBar::handle:vertical:hover, QScrollBar::handle:horizontal:hover {{
+                background: {couleur_scroll_area_barre_survol}; /* slider : bleu-vert doux */
+            }}
             QScrollBar::add-line:vertical,
             QScrollBar::sub-line:vertical {{
                 background: none;
@@ -526,6 +529,7 @@ def style_dynamique_application(
             QScrollBar::sub-page:horizontal {{
                 background: none;
             }}
+
             QRadioButton {{
                 border: 1px solid transparent;
                 border-radius: 4px;
@@ -547,7 +551,6 @@ def style_dynamique_application(
                 border: 0px transparent;
                 background-color: transparent;
             }}
-
             QRadioButton::indicator:hover {{
                 border: transparent;
             }}
@@ -558,5 +561,4 @@ def style_dynamique_application(
                 border: 0px transparent; /* bordure du rond sélectionné */
                 background-color: transparent;  /* couleur du centre */
             }}
-
         """

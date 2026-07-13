@@ -204,7 +204,6 @@ class HemicycleWidget(QWidget):
         self.setMouseTracking(True)
         self.points_hover = []
 
-        self.pays_visites = {"region": {}, "dep": {}}
         self.continents = constantes.liste_regions_monde
         self.traductions_pays = constantes.pays_differentes_langues
         self.liste_pays = list(constantes.hierarchie_par_pays.keys())
@@ -257,6 +256,7 @@ class HemicycleWidget(QWidget):
             }.items()
         }
 
+        self.set_pays_visites(pays_visites={"region": {}, "dep": {}})
         self.creer_hemicycle()
 
     def center_x(self):
@@ -303,27 +303,6 @@ class HemicycleWidget(QWidget):
 
         # Renvoi
         return coords_angles
-
-    def creer_table_pays_coordonnees(self):
-
-        return (
-            # Création de la table des pays
-            table_pays_visites(
-                dict_granu=self.pays_visites,
-                continents=copy.copy(self.continents),
-                palette=self.continent_colors,
-                clair_indice=self.lighter_value,
-            ).pipe(
-                # Ajout des coordonnées
-                lambda x: ajouter_coordonnees(
-                    df=x,
-                    coordonnees=self.creer_coordonnées(),
-                    alignement=self.points_visites_position,
-                    traduction=self.traductions_pays,
-                    langue=self.langue,
-                )
-            )
-        )
 
     def peindre_points(self, painter, df: pd.DataFrame):
 
@@ -463,7 +442,16 @@ class HemicycleWidget(QWidget):
         self.diametre_point = int(min(self.width(), self.height()) * 0.023 - 2)
 
         # Création de la table des points
-        df_temp = self.creer_table_pays_coordonnees()
+        df_temp = self.df_pays.pipe(
+            # Ajout des coordonnées
+            lambda x: ajouter_coordonnees(
+                df=x,
+                coordonnees=self.creer_coordonnées(),
+                alignement=self.points_visites_position,
+                traduction=self.traductions_pays,
+                langue=self.langue,
+            )
+        )
 
         # Test de cohérence entre les pays
         assert len(set(self.liste_pays) - set(df_temp["pays"])) == 0
@@ -492,8 +480,14 @@ class HemicycleWidget(QWidget):
         self.update()
 
     def set_pays_visites(self, pays_visites):
-        """Met à jour la liste des pays visités."""
-        self.pays_visites = pays_visites
+        """Met à jour la table des pays visités."""
+        # Création de la table des pays
+        self.df_pays = table_pays_visites(
+            dict_granu=pays_visites,
+            continents=copy.copy(self.continents),
+            palette=self.continent_colors,
+            clair_indice=self.lighter_value,
+        )
         random.seed(int(time.time()))
         self.creer_hemicycle()
 

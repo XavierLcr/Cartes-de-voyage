@@ -359,6 +359,14 @@ def style_dynamique_application(
                 padding: 18px 14px 14px 14px;
                 font-weight: 500;
             }}
+            QGroupBox::title {{
+                subcontrol-origin: margin;
+                subcontrol-position: top left;
+
+                left: 14px;
+                padding: 0px 8px;
+
+            }}
             QTabBar::tab {{
                 background: {onglet_fond};
                 color: {onglet_texte};

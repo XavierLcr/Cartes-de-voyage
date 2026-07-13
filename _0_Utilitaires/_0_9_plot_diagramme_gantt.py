@@ -8,7 +8,6 @@
 # 0 -- Initialisation ----------------------------------------------------------
 
 
-from matplotlib.patches import FancyBboxPatch
 import matplotlib.pyplot as plt
 import pandas as pd
 import matplotlib.dates as mdates

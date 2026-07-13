@@ -10,7 +10,6 @@
 
 from __future__ import annotations
 from typing import Dict, Optional, Tuple
-import datetime, math
 
 from PyQt6.QtCore import (
     QEasingCurve,
@@ -24,7 +23,6 @@ from PyQt6.QtGui import (
     QBrush,
     QColor,
     QFont,
-    QLinearGradient,
     QPainter,
     QRadialGradient,
     QPainterPath,

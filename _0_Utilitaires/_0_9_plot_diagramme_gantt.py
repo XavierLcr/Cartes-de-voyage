@@ -8,7 +8,7 @@
 # 0 -- Initialisation ----------------------------------------------------------
 
 
-import textwrap
+from matplotlib.patches import FancyBboxPatch
 import matplotlib.pyplot as plt
 import pandas as pd
 import matplotlib.dates as mdates
@@ -72,7 +72,7 @@ def plot_diagramme_gantt(
                 pd.Timedelta(days=0.8),
             ),
             left=item["deb_temp"],
-            height=0.4,
+            height=0.9,
             align="center",
             color=couleur_barre,
         )

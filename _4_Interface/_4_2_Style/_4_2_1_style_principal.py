@@ -108,14 +108,14 @@ def style_dynamique_application(
 
     # Boites
     couleur_box = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#EBF0F2", sombre="#1696A9"
+        style=style, teinte=teinte, nuances=nuances, clair="#E5F1E3", sombre="#1696A9"
     )
     couleur_box_texte = renvoyer_couleur_texte(
         style=style,
         couleur=couleur_box,
     )
-    couleur_box_bord = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#C9D6E0", sombre="#1696A9"
+    couleur_QComboBox_hover = renvoyer_couleur_widget(
+        style=style, teinte=teinte, nuances=nuances, clair="#919191", sombre="#5599A3"
     )
 
     # Lignes
@@ -293,13 +293,6 @@ def style_dynamique_application(
                 background-color: {couleur_push_hover};
                 color: {couleur_push_hover_texte};
             }}
-            QComboBox {{
-                background-color: {couleur_box};
-                color: {couleur_box_texte};
-                border: 1px solid {couleur_box_bord};
-                padding: 5px;
-                border-radius: 10px;
-            }}
 
             QLineEdit {{
                 background-color: {couleur_line};
@@ -397,13 +390,18 @@ def style_dynamique_application(
                 top: -1px;
             }}
 
-            QComboBox QAbstractItemView {{
-                border: none;
-                outline: none;
+            QComboBox {{
+                background-color: {couleur_box};
+                color: {couleur_box_texte};
+                border: 1px solid rgba(255,255,255,40);
+                padding: 7px 12px;
+                border-radius: 12px;
             }}
-            QComboBox QAbstractItemView::item {{
-                padding: 5px;
-                height: 20px;  /* Hauteur de chaque élément de la liste */
+            QComboBox QAbstractItemView {{ 
+                border: none; outline: none; 
+            }} 
+            QComboBox QAbstractItemView::item {{ 
+                padding: 5px; height: 20px; /* Hauteur de chaque élément de la liste */ 
             }}
             QComboBox::drop-down {{
                 border: 0px;
@@ -411,8 +409,8 @@ def style_dynamique_application(
                 height: 20px;
             }}
             QComboBox::down-arrow {{
-                width: 10px;
-                height: 10px;
+                width: 32px;
+                border: none;
             }}
 
             QScrollArea {{

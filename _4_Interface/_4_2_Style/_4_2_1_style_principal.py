@@ -362,22 +362,33 @@ def style_dynamique_application(
             QTabBar::tab {{
                 background: {onglet_fond};
                 color: {onglet_texte};
-                padding: 8px 16px;
-                border: none;
+                padding: 8px 18px;
+                margin-right: 4px;
+                border: 1px solid rgba(255,255,255,25);
                 border-bottom: none;
-                border-top-left-radius: 3px;
-                border-top-right-radius: 3px;
+                border-top-left-radius: 8px;
+                border-top-right-radius: 8px;
             }}
 
             QTabBar::tab:selected {{
                 background: {onglet_actuel};
                 color: {onglet_actuel_texte};
-                font-weight: bold;
-            }}
+                font-weight: 600;
 
+                border: 1px solid rgba(255,255,255,45);
+                border-bottom: 2px solid {onglet_actuel};
+                margin-bottom: -1px;
+            }}
             QTabBar::tab:hover {{
                 background: {onglet_hover};
             }}
+            QTabWidget::pane {{
+                border: 1px solid rgba(255,255,255,0);
+                border-radius: 10px;
+                
+                top: -1px;
+            }}
+
             QComboBox QAbstractItemView {{
                 border: none;
                 outline: none;

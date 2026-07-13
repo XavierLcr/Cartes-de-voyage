@@ -9,8 +9,8 @@
 
 
 import pandas as pd
-from PyQt6.QtCore import Qt, QRectF
-from PyQt6.QtGui import QPainter, QColor, QFont, QLinearGradient, QPainterPath
+from PyQt6.QtCore import Qt, QRectF, QPointF
+from PyQt6.QtGui import QPainter, QColor, QFont, QLinearGradient, QPainterPath, QBrush
 from PyQt6.QtWidgets import (
     QWidget,
     QHBoxLayout,
@@ -21,8 +21,6 @@ from PyQt6.QtWidgets import (
 )
 
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
-    creer_QLabel_centre,
-    creer_ligne_horizontale,
     vider_layout,
     creer_scroll,
 )
@@ -397,6 +395,163 @@ class CarteClassementPays(QWidget):
             painter.drawText(rect_ligne, Qt.AlignmentFlag.AlignCenter, ligne)
 
 
+class TitreClassement(QWidget):
+    """
+    Carte titre pour les sections de classement du tableau de bord.
+
+    Reprend le vocabulaire visuel de `CarteClassementPays` : carte à
+    coins arrondis, ombre douce, même police "joyeuse" que le podium
+    (avec repli automatique). Le badge n'est plus un emoji mais un
+    médaillon vectoriel (anneau + étoile) dans les couleurs du thème.
+    """
+
+    def __init__(self, titre, sous_titre="", style=None, parent=None):
+        super().__init__(parent)
+
+        self.titre = titre
+        self.sous_titre = sous_titre
+        self.theme = style
+
+        # Même police que le podium / les cartes de classement.
+        self.police_principale = Podium._trouver_police_disponible(
+            [
+                "CormorantGaramond",
+                "Fredoka",
+                "Quicksand",
+                "Century Gothic",
+                "Segoe UI",
+            ]
+        )
+
+        self.setMinimumHeight(92)
+        self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
+
+        self.ombre = QGraphicsDropShadowEffect(self)
+        self.ombre.setBlurRadius(26)
+        self.ombre.setOffset(0, 7)
+        self.ombre.setColor(self.theme.ombre)
+        self.setGraphicsEffect(self.ombre)
+
+    @staticmethod
+    def _chemin_etoile(
+        centre: QPointF, rayon_ext: float, rayon_int: float, pointes: int = 5
+    ):
+        """Construit un QPainterPath d'étoile à `pointes` branches, centrée
+        sur `centre`, pointe vers le haut."""
+        import math
+
+        chemin = QPainterPath()
+        angle_pas = math.pi / pointes
+        angle_depart = -math.pi / 2
+
+        for i in range(pointes * 2):
+            rayon = rayon_ext if i % 2 == 0 else rayon_int
+            angle = angle_depart + i * angle_pas
+            point = QPointF(
+                centre.x() + rayon * math.cos(angle),
+                centre.y() + rayon * math.sin(angle),
+            )
+            if i == 0:
+                chemin.moveTo(point)
+            else:
+                chemin.lineTo(point)
+        chemin.closeSubpath()
+        return chemin
+
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+        painter.setRenderHint(QPainter.RenderHint.TextAntialiasing)
+
+        w, h = self.width(), self.height()
+        rect = QRectF(2, 2, w - 4, h - 4)
+        rayon_carte = min(22, h * 0.26)
+
+        # --- carte à coins arrondis, dégradé diagonal ---
+        chemin_carte = QPainterPath()
+        chemin_carte.addRoundedRect(rect, rayon_carte, rayon_carte)
+
+        degrade = QLinearGradient(rect.topLeft(), rect.bottomRight())
+        degrade.setColorAt(0, self.theme.badge_debut)
+        degrade.setColorAt(1, self.theme.badge_fin)
+
+        painter.setPen(Qt.PenStyle.NoPen)
+        painter.setBrush(QBrush(degrade))
+        painter.drawPath(chemin_carte)
+
+        # --- médaillon (badge de rang, vectoriel) ---
+        rayon_badge = h * 0.24
+        centre = QPointF(w * 0.15, h * 0.5)
+
+        # disque de fond, légèrement plus clair que le texte
+        painter.setBrush(QColor(255, 255, 255, 235))
+        painter.drawEllipse(centre, rayon_badge, rayon_badge)
+
+        painter.setPen(QColor(255, 255, 255, 255))
+        painter.setBrush(Qt.BrushStyle.NoBrush)
+        painter.drawEllipse(centre, rayon_badge * 0.86, rayon_badge * 0.86)
+
+        # étoile centrale, couleur badge_fin (contraste net sur le disque clair)
+        chemin_etoile = self._chemin_etoile(
+            centre, rayon_ext=rayon_badge * 0.55, rayon_int=rayon_badge * 0.24
+        )
+        painter.setPen(Qt.PenStyle.NoPen)
+        painter.setBrush(self.theme.badge_fin)
+        painter.drawPath(chemin_etoile)
+
+        # --- zone de texte (titre + sous-titre), centrée verticalement ---
+        marge_apres_badge = (
+            rayon_badge * 0.9
+        )  # espace entre le bord du badge et le texte
+        x_texte = centre.x() + rayon_badge + marge_apres_badge
+        zone_texte = QRectF(x_texte, 0, w - x_texte - w * 0.04, h)
+
+        police_titre = QFont(
+            self.police_principale, max(10, int(h * 0.13)), QFont.Weight.DemiBold
+        )
+        painter.setFont(police_titre)
+        metrics_titre = painter.fontMetrics()
+        titre_affiche = metrics_titre.elidedText(
+            self.titre, Qt.TextElideMode.ElideRight, int(zone_texte.width())
+        )
+
+        police_sous_titre = QFont(self.police_principale, max(7, int(h * 0.1)))
+        hauteur_sous_titre = 0
+        if self.sous_titre:
+            painter.setFont(police_sous_titre)
+            hauteur_sous_titre = painter.fontMetrics().height()
+
+        hauteur_titre = metrics_titre.height()
+        espace = 3 if self.sous_titre else 0
+        hauteur_bloc = hauteur_titre + espace + hauteur_sous_titre
+        y_depart = zone_texte.y() + max(0.0, (h - hauteur_bloc) / 2)
+
+        painter.setFont(police_titre)
+        painter.setPen(self.theme.texte)
+        painter.drawText(
+            QRectF(zone_texte.x(), y_depart, zone_texte.width(), hauteur_titre),
+            Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft,
+            titre_affiche,
+        )
+
+        if self.sous_titre:
+            painter.setFont(police_sous_titre)
+            painter.setPen(self.theme.sous_texte)
+            sous_titre_affiche = painter.fontMetrics().elidedText(
+                self.sous_titre, Qt.TextElideMode.ElideRight, int(zone_texte.width())
+            )
+            painter.drawText(
+                QRectF(
+                    zone_texte.x(),
+                    y_depart + hauteur_titre + espace,
+                    zone_texte.width(),
+                    hauteur_sous_titre,
+                ),
+                Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft,
+                sous_titre_affiche,
+            )
+
+
 # 4 -- Classe affichant les pays les plus visités ------------------------------
 
 
@@ -513,19 +668,17 @@ class ClassementPays(QWidget):
 
         layout_final = QVBoxLayout()
 
-        # Création du layout
-        layout_final.addWidget(
-            creer_QLabel_centre(
-                text=self.fonction_traduction(
-                    f"classement_selon_{'regions' if granularite==1 else 'departements'}",
-                    prefixe="<b>",
-                    suffixe="</b>",
-                )
-            )
+        titre = self.fonction_traduction(
+            f"classement_selon_{'regions' if granularite==1 else 'departements'}"
         )
 
-        layout_final.addWidget(creer_ligne_horizontale())
-        layout_final.addWidget(creer_QLabel_centre())
+        layout_final.addWidget(
+            TitreClassement(
+                titre=titre,
+                sous_titre="Les territoires les plus explorés",
+                style=self.style,
+            )
+        )
 
         try:
 

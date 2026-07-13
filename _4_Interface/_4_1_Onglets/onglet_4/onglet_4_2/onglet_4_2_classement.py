@@ -747,7 +747,6 @@ class ClassementPays(QWidget):
 
     def set_dicts_granu(self, dict_nv):
         self.dicts_granu = dict_nv
-        self.lancer_classement_par_region_departement()
 
     def set_langue(self, nouvelle_langue):
         self.langue_utilisee = nouvelle_langue

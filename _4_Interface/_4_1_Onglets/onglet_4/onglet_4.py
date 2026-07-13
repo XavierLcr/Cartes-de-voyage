@@ -260,6 +260,7 @@ class OngletTopPays(QWidget):
         dict_temp = voyages_vers_destinations(copy.deepcopy(dict_nv))
         self.dict_voyages = copy.deepcopy(dict_nv)
         self.hemicycle.set_pays_visites(pays_visites=dict_temp)
+        self.classement_widget.set_dicts_granu(dict_nv=dict_temp)
         self.recommandations.set_dicts_granu(dict_nv=dict_temp)
         self.pays_souvent_visites.set_voyages(voyages=copy.deepcopy(dict_nv))
         self.calendrier_visites.set_voyages(voyages=copy.deepcopy(dict_nv))
@@ -294,6 +295,4 @@ class OngletTopPays(QWidget):
         self.pages.setCurrentIndex(num_onglet)
 
         if num_onglet == self.pages.indexOf(self.classement_widget):
-            self.classement_widget.set_dicts_granu(
-                dict_nv=voyages_vers_destinations(copy.deepcopy(self.dict_voyages))
-            )
+            self.classement_widget.lancer_classement_par_region_departement()

@@ -562,6 +562,10 @@ class MesVoyagesApplication(QWidget):
             self.nom_individu.blockSignals(False)
             sauv = {}
 
+        self.liste_onglets.setCurrentIndex(
+            self.liste_onglets.indexOf(self.onglet_parametres)
+        )
+
         # Onglet des paramètres du profil
         self.onglet_param_profil.initialiser_param_profil(**sauv)
 

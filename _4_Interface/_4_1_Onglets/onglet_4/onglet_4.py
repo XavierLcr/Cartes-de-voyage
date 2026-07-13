@@ -267,6 +267,7 @@ class OngletTopPays(QWidget):
         self.portrait_IA.set_voyages(voyages=copy.deepcopy(dict_nv))
 
     def initialiser_onglet(self, **kwargs):
+        self.cliquer_bouton_onglet(num_onglet=self.pages.indexOf(self.tableau_de_bord))
         self.recommandations.initialiser_onglet(**kwargs)
         self.portrait_IA.initialiser_onglet()
 

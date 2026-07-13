@@ -507,6 +507,43 @@ class JoursVoyagesParMoisWidget(QWidget):
         couleur_fin = QColor.fromHsv(teinte_fin, saturation_fin, valeur_fin, alpha_fin)
         return couleur_debut, couleur_fin
 
+    # -- Teinte de base par saison, réutilisée pour les barres du graphique
+    #    mensuel (une seule teinte représentative par saison, contrairement
+    #    au dégradé à deux teintes du badge).
+    _TEINTE_SAISON_HIVER = 215
+    _TEINTE_SAISON_PRINTEMPS = 130
+    _TEINTE_SAISON_ETE = 35
+    _TEINTE_SAISON_AUTOMNE = 15
+
+    def _teinte_saison(self, mois: int) -> int:
+        """Renvoie la teinte (0-359) associée au mois donné, en réutilisant
+        le découpage saisonnier de `_couleurs_saison`."""
+        if mois in (12, 1, 2):
+            return self._TEINTE_SAISON_HIVER
+        elif mois in (3, 4, 5):
+            return self._TEINTE_SAISON_PRINTEMPS
+        elif mois in (6, 7, 8):
+            return self._TEINTE_SAISON_ETE
+        else:
+            return self._TEINTE_SAISON_AUTOMNE
+
+    def _couleur_barre_saison(self, mois: int) -> QColor:
+        """Couleur (pâle) d'une barre du graphique mensuel, teintée selon la
+        saison de `mois`. Reste nettement moins saturée/visible que
+        `barre_surbrillance` (réservée au mois en cours), pour que ce
+        dernier continue à ressortir clairement."""
+        teinte = self._teinte_saison(mois)
+
+        # on ancre la luminosité sur le fond de la carte, pour rester
+        # cohérent avec le thème clair/sombre actuel
+        mois_actuel = datetime.now().month == mois
+        valeur = 200 if mois_actuel else 235
+        saturation = saturation = 160 if mois_actuel else 130
+
+        couleur = QColor.fromHsv(teinte, saturation, valeur)
+        couleur.setAlpha(130 if mois_actuel else 55)
+        return couleur
+
     def _dessiner_scene_saison(
         self, painter: QPainter, rect_scene: QRectF, mois: int
     ) -> None:
@@ -893,10 +930,10 @@ class JoursVoyagesParMoisWidget(QWidget):
             hauteur_barre = hauteur_pleine * self._progression_barres
             y = rect_barres.bottom() - hauteur_barre
 
-            est_mois_courant = i == n - 1
-            couleur = (
-                self.theme.barre_surbrillance if est_mois_courant else self.theme.barre
-            )
+            if i < len(self.mois_numeros):
+                couleur = self._couleur_barre_saison(self.mois_numeros[i])
+            else:
+                couleur = self.theme.barre
             painter.setBrush(QBrush(couleur))
             rect_barre = QRectF(x, y, largeur_barre, hauteur_barre)
             chemin = QPainterPath()
@@ -914,14 +951,11 @@ class JoursVoyagesParMoisWidget(QWidget):
             painter.drawPath(chemin)
 
             # étiquette du mois, centrée sous la barre
+            couleur.setAlpha(255)
             if i < len(self.mois_numeros):
                 numero_mois = self.mois_numeros[i]
                 texte_mois = NOMS_MOIS_INITIALES[(numero_mois - 1) % 12]
-                painter.setPen(
-                    self.theme.sous_texte
-                    if not est_mois_courant
-                    else self.theme.barre_surbrillance
-                )
+                painter.setPen(self.theme.sous_texte if not (i == n - 1) else couleur)
                 rect_mois = QRectF(
                     x, rect_etiquettes.top(), largeur_barre, rect_etiquettes.height()
                 )

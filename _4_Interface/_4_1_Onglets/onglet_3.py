@@ -236,7 +236,7 @@ class OngletResumeDestinations(QWidget):
 
             ajouter_elements(tree.invisibleRootItem(), pays_donnees, niveau=1)
 
-            tree.collapseAll() if self.liste_pays else tree.expandAll()
+            tree.collapseAll() if self.arbre_groupe else tree.expandAll()
             vbox.addWidget(tree)
         else:
             vbox.addWidget(creer_QLabel_centre(text="⏳🚝"))
@@ -252,7 +252,9 @@ class OngletResumeDestinations(QWidget):
         for granularite in range(1, 3):
 
             clef_temp = (
-                f"titre_{'regions' if granularite==1 else 'departements'}_visitees"
+                "titre_regions_visitees"
+                if granularite == 1
+                else "titre_departements_visites"
             )
             dict_temp = (
                 self.dicts_granu.get("region", {})

@@ -652,24 +652,7 @@ class ClassementPays(QWidget):
         if layout_necessaire:
             vbox.addLayout(layout_temp)
 
-    def lancer_classement_pays(self, granularite: int):
-
-        # Complétion des régions à partir des départements
-        dict_regions = self.dicts_granu.get("region") or {}
-        dict_departements = self.dicts_granu.get("dep") or {}
-
-        for pays, deps in dict_departements.items():
-            mask = (self.table_superficie["name_0"] == pays) & (
-                self.table_superficie["name_2"].isin(deps)
-            )
-            dict_regions[pays] = (
-                self.table_superficie.loc[mask, "name_1"].unique().tolist()
-            )
-
-        if (granularite == 1 and dict_regions == {}) or (
-            granularite == 2 and dict_departements == {}
-        ):
-            return None
+    def lancer_classement_pays(self, granularite: int, dict_territoire: dict):
 
         layout_final = QVBoxLayout()
         titre = self.fonction_traduction(
@@ -688,15 +671,7 @@ class ClassementPays(QWidget):
 
             # Création de la table des lieux visités
             df_temp = pd.DataFrame(
-                [
-                    (k, v)
-                    for k, lst in (
-                        dict_regions.items()
-                        if granularite == 1
-                        else dict_departements.items()
-                    )
-                    for v in (lst or [])
-                ],
+                [(k, v) for k, lst in (dict_territoire.items()) for v in (lst or [])],
                 columns=["pays", "subdivision"],
             )
 
@@ -739,25 +714,36 @@ class ClassementPays(QWidget):
         # Nettoyage du layout
         vider_layout(self.layout)
 
-        # Création des layouts
-        res_regions = self.lancer_classement_pays(
-            granularite=1,
-        )
-        res_departements = self.lancer_classement_pays(
-            granularite=2,
-        )
+        # Création des dictionnaires
+        dict_regions = self.dicts_granu.get("region") or {}
+        dict_departements = self.dicts_granu.get("dep") or {}
+
+        for pays, deps in dict_departements.items():
+            mask = (self.table_superficie["name_0"] == pays) & (
+                self.table_superficie["name_2"].isin(deps)
+            )
+            dict_regions[pays] = (
+                self.table_superficie.loc[mask, "name_1"].unique().tolist()
+            )
 
         # Choix de self.n_colonnes
-        if res_regions is None or res_departements is None:
+        if (dict_regions == {}) or (dict_departements == {}):
             self.n_colonnes = 6
         else:
             self.n_colonnes = 3
 
-        # Ajout des layouts
-        if res_regions is not None:
-            self.layout.addWidget(res_regions)
-        if res_departements is not None:
-            self.layout.addWidget(res_departements)
+        for granu, dict_temp in {1: dict_regions, 2: dict_departements}.items():
+
+            if dict_temp:
+
+                # Création du layout
+                res_temp = self.lancer_classement_pays(
+                    granularite=granu, dict_territoire=dict_temp
+                )
+
+                # Ajout
+                if res_temp is not None:
+                    self.layout.addWidget(res_temp)
 
     def set_dicts_granu(self, dict_nv):
         self.dicts_granu = dict_nv

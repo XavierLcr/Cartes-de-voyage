@@ -52,7 +52,7 @@ def style_dynamique_application(
 
     # Cas général
     couleur_widget = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#F3F4F8", sombre="#10141C"
+        style=style, teinte=teinte, nuances=nuances, clair="#F5F5FA", sombre="#10141C"
     )
     couleur_widget_texte = renvoyer_couleur_texte(
         style=style,
@@ -108,7 +108,7 @@ def style_dynamique_application(
 
     # Boites
     couleur_box = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#DCE6F5", sombre="#1696A9"
+        style=style, teinte=teinte, nuances=nuances, clair="#E8EEE1", sombre="#1696A9"
     )
     couleur_box_texte = renvoyer_couleur_texte(
         style=style,
@@ -271,7 +271,8 @@ def style_dynamique_application(
                 background-color: {couleur_widget};
                 color: {couleur_widget_texte};
                 font-size: {font_size}px;
-                font-family: Sylfaen;
+                font-family: Nunito;
+                
             }}
             QPushButton {{
                 background-color: {couleur_push};

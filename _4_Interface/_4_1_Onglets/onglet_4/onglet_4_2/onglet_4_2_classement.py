@@ -415,11 +415,10 @@ class TitreClassement(QWidget):
         # Même police que le podium / les cartes de classement.
         self.police_principale = Podium._trouver_police_disponible(
             [
-                "CormorantGaramond",
+                "Segoe UI",
                 "Fredoka",
                 "Quicksand",
                 "Century Gothic",
-                "Segoe UI",
             ]
         )
 

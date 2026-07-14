@@ -69,14 +69,14 @@ def transformer_couleur_texte(bg_color):
     – bg_color (str) : La couleur de fond en format hexadécimal (par exemple, "#RRGGBB").
 
     Retourne :
-    – str : La couleur de texte recommandée en format hexadécimal, soit "#FFFFFF" pour blanc, soit "#2C2C2C" pour noir.
+    – str : La couleur de texte recommandée en format hexadécimal, soit "#E5E9F0" pour blanc, soit "#2C2C2C" pour noir.
     """
 
     # Convertir une couleur hexadécimale en RGB
     r, g, b = [int(bg_color[i : i + 2], 16) for i in (1, 3, 5)]
 
     # Si la luminosité est faible, mettre du texte blanc, sinon du texte noir
-    return "#FFFFFF" if 0.299 * r + 0.587 * g + 0.114 * b < 128 else "#2C2C2C"
+    return "#E5E9F0" if 0.299 * r + 0.587 * g + 0.114 * b < 128 else "#2C2C2C"
 
 
 # 3 -- Fonction de couleur du texte selon la siutation -------------------------
@@ -86,9 +86,9 @@ def renvoyer_couleur_texte(style, couleur):
     if style == 0:
         return transformer_couleur_texte(couleur)
     elif style == 1:
-        return ("#2C2C2C",)
+        return transformer_couleur_texte("#FFFFFF")
     else:
-        return "#FFFFFF"
+        return transformer_couleur_texte("#000000")
 
 
 # 4 -- Renvoyer une couleur selon les paramètres de l'application --------------

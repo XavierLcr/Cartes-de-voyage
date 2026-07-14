@@ -11,23 +11,29 @@
 from _0_Utilitaires._0_2_fonctions_graphiques import (
     renvoyer_couleur_widget,
     renvoyer_couleur_texte,
+    transformer_couleur_texte,
 )
 
 # 1 -- Génération du style des boutons de suppression et de réinitialisation ---
 
 
 def style_bouton_de_suppression(sombre: bool):
+
+    couleur_fond = "#5C2028" if sombre else "#f8d7da"
+    couleur_texte = transformer_couleur_texte(bg_color=couleur_fond)
+    couleur_hover = "#74282F" if sombre else "#f5c6cb"
+
     return f"""
         QPushButton {{
-            background-color:{"#430404" if sombre else "#f8d7da"};
-            color: {"#E6E6E6" if sombre else "#2C2C2C"};
+            background-color:{couleur_fond};
+            color: {couleur_texte};
             font-size: 12px;
             border: none;
             border-radius: 10px;
             padding: 8px;
         }}
         QPushButton:hover {{
-            background-color: {"#85040d" if sombre else "#f5c6cb"};
+            background-color: {couleur_hover};
         }}
     """
 
@@ -38,32 +44,32 @@ def style_bouton_de_suppression(sombre: bool):
 def style_bouton_recommandation(style: int, teinte, nuances):
 
     bg_couleur = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#C8E6C9", sombre="#512B52"
+        style=style, teinte=teinte, nuances=nuances, clair="#C8E6C9", sombre="#146B82"
     )
     bg_couleur_survol = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#B7E4C7", sombre="#A01C6E"
+        style=style, teinte=teinte, nuances=nuances, clair="#B7E4C7", sombre="#1D84A0"
     )
     bg_couleur_click = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#77B0AD", sombre="#000000"
+        style=style, teinte=teinte, nuances=nuances, clair="#77B0AD", sombre="#0E4E5F"
     )
 
     return f"""
         QPushButton {{
-            background-color: {bg_couleur};  /* pastel bleu-vert */
-            color: {renvoyer_couleur_texte(style=style, couleur=bg_couleur)};              /* texte bleu foncé pour contraste doux */
+            background-color: {bg_couleur};
+            color: {renvoyer_couleur_texte(style=style, couleur=bg_couleur)};
             border-radius: 12px;
             padding: 10px 22px;
             font-size: 14px;
             font-weight: bold;
-            border:  none;   /* bord subtil légèrement plus clair */
+            border:  none; 
         }}
         QPushButton:hover {{
-            background-color: {bg_couleur_survol};   /* légèrement plus saturé au survol */
+            background-color: {bg_couleur_survol};
             color: {renvoyer_couleur_texte(style=style, couleur=bg_couleur_survol)};  
             border-color: none;
         }}
         QPushButton:pressed {{
-            background-color: {bg_couleur_click};   /* un peu plus foncé à l’appui */
+            background-color: {bg_couleur_click};
             color: {renvoyer_couleur_texte(style=style, couleur=bg_couleur_click)};   
             border-color: none;
         }}

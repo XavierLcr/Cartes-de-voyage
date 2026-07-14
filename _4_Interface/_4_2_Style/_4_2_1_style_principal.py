@@ -52,7 +52,7 @@ def style_dynamique_application(
 
     # Cas général
     couleur_widget = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#F3F4F8", sombre="#07215E"
+        style=style, teinte=teinte, nuances=nuances, clair="#F3F4F8", sombre="#10141C"
     )
     couleur_widget_texte = renvoyer_couleur_texte(
         style=style,
@@ -61,12 +61,12 @@ def style_dynamique_application(
 
     # Groupboxes
     couleur_groupbox = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#E6E4F2", sombre="#2C3A82"
+        style=style, teinte=teinte, nuances=nuances, clair="#E6E4F2", sombre="#1C4E5E"
     )
 
     # Boutons
     couleur_push = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#D6E4F0", sombre="#3F51B5"
+        style=style, teinte=teinte, nuances=nuances, clair="#D6E4F0", sombre="#1C7A94"
     )
     couleur_push_texte = renvoyer_couleur_texte(
         style=style,
@@ -77,7 +77,7 @@ def style_dynamique_application(
         teinte=teinte,
         nuances=nuances,
         clair="#DAD3EB",
-        sombre="#6A4FB3",
+        sombre="#24A0BD",
         reference=couleur_push,
         essais=limite_essais,
     )
@@ -90,7 +90,7 @@ def style_dynamique_application(
         teinte=teinte,
         nuances=nuances,
         clair="#C3B9DE",
-        sombre="#5A3FA0",
+        sombre="#14586E",
         reference=couleur_push_hover,
         essais=limite_essais,
     )
@@ -136,7 +136,7 @@ def style_dynamique_application(
 
     # Sliders
     couleur_slider = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#C7DEE7", sombre="#2B29A5"
+        style=style, teinte=teinte, nuances=nuances, clair="#C7DEE7", sombre="#16495A"
     )
     couleur_slider_hover = renvoyer_couleur_widget_differente(
         style=style,
@@ -159,7 +159,7 @@ def style_dynamique_application(
 
     # Onglet actuel
     onglet_actuel = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#C2D4E8", sombre="#2D3D80"
+        style=style, teinte=teinte, nuances=nuances, clair="#C2D4E8", sombre="#1C7A94"
     )
     onglet_actuel_texte = couleur_line_texte = renvoyer_couleur_texte(
         style=style,
@@ -179,7 +179,7 @@ def style_dynamique_application(
         teinte=teinte,
         nuances=nuances,
         clair="#CFC4E2",
-        sombre="#6A4FB3",
+        sombre="#2C5A6C",
         reference=[onglet_actuel, onglet_fond],
         essais=limite_essais,
     )
@@ -198,7 +198,7 @@ def style_dynamique_application(
         teinte=teinte,
         nuances=nuances,
         clair="#90AAB4",
-        sombre="#2C3A82",
+        sombre="#2C5A6C",
         reference=couleur_widget,
         essais=limite_essais,
     )
@@ -214,7 +214,7 @@ def style_dynamique_application(
 
     # Scroll area
     couleur_scroll_area_fond = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#F3F4F8", sombre="#07215E"
+        style=style, teinte=teinte, nuances=nuances, clair="#F3F4F8", sombre="#10141C"
     )
     couleur_scroll_area_texte = renvoyer_couleur_texte(
         style=style,
@@ -224,7 +224,7 @@ def style_dynamique_application(
         style=style, teinte=teinte, nuances=nuances, clair="#C9D6E0", sombre="#2C3A4F"
     )
     couleur_scroll_area_barre = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#ADCEDB", sombre="#3F7DDC"
+        style=style, teinte=teinte, nuances=nuances, clair="#ADCEDB", sombre="#1FA4B6"
     )
     couleur_scroll_area_barre_partie = renvoyer_couleur_widget_differente(
         style=style,
@@ -240,7 +240,7 @@ def style_dynamique_application(
         teinte=teinte,
         nuances=nuances,
         clair="#C7DEE7",
-        sombre="#5C9EFF",
+        sombre="#26C6DA",
         reference=[couleur_scroll_area_barre, couleur_scroll_area_barre_partie],
         essais=limite_essais,
     )
@@ -254,14 +254,14 @@ def style_dynamique_application(
         couleur=couleur_widget_list_fond,
     )
     couleur_widget_list_select = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#D6E4F0", sombre="#3F7DDC"
+        style=style, teinte=teinte, nuances=nuances, clair="#D6E4F0", sombre="#1C7A94"
     )
     couleur_widget_list_survol_fond = renvoyer_couleur_widget_differente(
         style=style,
         teinte=teinte,
         nuances=nuances,
         clair="#E0EBF5",
-        sombre="#2F456A",
+        sombre="#24384A",
         reference=[couleur_widget_list_select, couleur_widget_list_fond],
         essais=limite_essais,
     )

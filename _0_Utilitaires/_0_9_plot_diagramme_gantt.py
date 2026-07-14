@@ -11,6 +11,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import matplotlib.dates as mdates
+from matplotlib.ticker import MaxNLocator
 from matplotlib.figure import Figure
 
 # 1 -- Fonction ----------------------------------------------------------------
@@ -88,7 +89,8 @@ def plot_diagramme_gantt(
         ax.set_xlim(right=pd.to_datetime(date_max))
 
     # X axis plus propre
-    ax.xaxis.set_major_locator(mdates.AutoDateLocator())
+    locator = mdates.AutoDateLocator(minticks=4, maxticks=6)
+    ax.xaxis.set_major_locator(locator)
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
 
     # Suppression des bords droit et supérieur

@@ -18,7 +18,9 @@ from PyQt6.QtWidgets import (
     QPushButton,
     QComboBox,
     QWidget,
+    QGraphicsDropShadowEffect,
 )
+from PyQt6.QtGui import QColor
 from PyQt6.QtCore import Qt, QThread, pyqtSignal
 
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
@@ -176,6 +178,16 @@ class ProfilVoyageurIA(QGroupBox):
     url = "http://localhost:11434/api/generate"
     clef_probleme = "probleme_label_4_7_ollama"
 
+    # Palette « papier ancien » pour l'affichage du portrait sous forme de lettre
+    couleur_fond_pupitre = "#EFE3C8"  # Fond derrière la feuille (léger contraste)
+    couleur_papier = "#F5ECD7"  # Couleur de la feuille elle-même
+    couleur_bord_papier = "#D8C6A1"  # Bordure sépia de la feuille
+    couleur_encre = "#3B2B20"  # Couleur du texte, façon encre brune
+    police_script = (
+        '"Segoe Script", "Lucida Handwriting", "Segoe Print", '
+        '"Brush Script MT", "Bradley Hand", "Comic Sans MS", cursive'
+    )
+
     def __init__(self, fct_traduction, parent=None):
         super().__init__(parent=parent)
 
@@ -248,7 +260,7 @@ class ProfilVoyageurIA(QGroupBox):
             self.fonction_traduction("creer_description_profil_btn")
         )
         self.attente_label.setText(
-            self.fonction_traduction("attente_label_4_7", prefixe="🔮 ", suffixe="...")
+            self.fonction_traduction("attente_label_4_7", prefixe="🔮 ", suffixe="...")
         )
 
         texte_temp = ""
@@ -262,13 +274,13 @@ class ProfilVoyageurIA(QGroupBox):
         self.probleme_label.setText(
             self.fonction_traduction(
                 clef=self.clef_probleme,
-                prefixe="⚠️ ",
+                prefixe="⚠️ ",
                 suffixe=texte_temp,
             )
         )
 
         self.modele.setToolTip(
-            self.fonction_traduction("modele_4_7_tooltip", suffixe=f" :{texte_temp}")
+            self.fonction_traduction("modele_4_7_tooltip", suffixe=f" :{texte_temp}")
         )
 
     def set_voyages(self, voyages: dict):
@@ -298,23 +310,50 @@ class ProfilVoyageurIA(QGroupBox):
 
         vider_layout(layout=self.layout_description_profil)
 
+        # -- La "feuille de lettre" : le texte du portrait, en encre sur papier --
         label_temp = creer_QLabel_centre(
             text=descriptif,
             wordWrap=True,
             alignement=Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignLeft,
         )
-        label_temp.setStyleSheet("""
-                QLabel {
-                    font-family: "Segoe UI";
-                    font-size: 14px;
-                    font-weight: 400;
-                    color: #333333;
-                    padding: 10px;
-                }
-                """)
+        label_temp.setStyleSheet(f"""
+            QLabel {{
+                font-family: {self.police_script};
+                font-size: 19px;
+                font-weight: 400;
+                color: {self.couleur_encre};
+                background-color: {self.couleur_papier};
+                border: 1px solid {self.couleur_bord_papier};
+                border-radius: 2px;
+                padding: 30px 36px;
+            }}
+        """)
+
+        # Ombre légère et diffuse, pour donner l'impression d'une feuille
+        # posée sur le pupitre plutôt qu'un simple bloc de couleur
+        ombre = QGraphicsDropShadowEffect(label_temp)
+        ombre.setBlurRadius(20)
+        ombre.setOffset(0, 3)
+        ombre.setColor(QColor(0, 0, 0, 55))
+        label_temp.setGraphicsEffect(ombre)
+
         layout_temp = QVBoxLayout()
+        layout_temp.setContentsMargins(18, 18, 18, 18)
         layout_temp.addWidget(label_temp)
-        self.layout_description_profil.addWidget(creer_scroll(layout_temp))
+
+        # -- Le "pupitre" : fond derrière la feuille, y compris hors du texte --
+        scroll_temp = creer_scroll(layout_temp)
+        scroll_temp.setStyleSheet(f"""
+            QScrollArea {{
+                background-color: {self.couleur_fond_pupitre};
+                border: none;
+            }}
+            QScrollArea > QWidget > QWidget {{
+                background-color: {self.couleur_fond_pupitre};
+            }}
+        """)
+
+        self.layout_description_profil.addWidget(scroll_temp)
 
         self.widget_lancement.show()
         self.attente_label.hide()

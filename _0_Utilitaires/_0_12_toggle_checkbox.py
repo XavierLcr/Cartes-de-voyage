@@ -22,6 +22,7 @@ from PyQt6.QtWidgets import QCheckBox
 from _0_Utilitaires._0_2_fonctions_graphiques import (
     renvoyer_couleur_texte,
     generer_couleur_aleatoire_hex,
+    transformer_couleur_texte,
 )
 
 # 1 -- Toggle plus joli qu'une QCheckBox ---------------------------------------
@@ -116,11 +117,14 @@ class ToggleSwitch(QCheckBox):
             couleur = "#0C808F"
 
         texte_temp = str(renvoyer_couleur_texte(style=style, couleur=couleur))
-        poignet_temp = str(
-            renvoyer_couleur_texte({1: 2, 2: 1}.get(style, 0), couleur=texte_temp)
-        )
+        poignee_temp = {
+            1: "#FFFFFF",
+            2: transformer_couleur_texte(bg_color="#000000"),
+            0: generer_couleur_aleatoire_hex(preset=preset, teintes_autorisees=teintes),
+        }.get(style, "#FFFFFF")
+
         self._color_on = QColor(couleur)
-        self._color_knob = QColor(poignet_temp)
+        self._color_knob = QColor(poignee_temp)
         self._color_text = QColor(texte_temp)
 
     # --- rendu personnalisé : piste + knob + texte ---

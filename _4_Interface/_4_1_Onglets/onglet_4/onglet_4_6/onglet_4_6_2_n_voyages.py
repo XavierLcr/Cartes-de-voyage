@@ -153,6 +153,16 @@ class ThemeCarte:
                 sombre="#ff6b6b",
             )
         )
+        self.neutre = QColor(
+            renvoyer_couleur_widget(
+                style=style,
+                teinte=teinte,
+                nuances=nuances,
+                clair="#5A595A",
+                sombre="#d2d1d2",
+            )
+        )
+
         # Ombre portée de la carte
         self.ombre = QColor(self.texte)
         self.ombre.setAlpha(60 if style == 1 else 120)
@@ -370,10 +380,18 @@ class NombreVoyagesAnnu(QWidget):
         )
 
     def _dessiner_tendance(self, painter: QPainter, rect: QRectF) -> None:
-        positif = self.tendance >= 0
-        couleur = self.theme.positif if positif else self.theme.negatif
-        fleche = "▲" if positif else "▼"
-        signe = "+" if positif else ""
+        if self.tendance > 0:
+            couleur = self.theme.positif
+            fleche = "▲"
+            signe = "+"
+        elif self.tendance < 0:
+            couleur = self.theme.negatif
+            fleche = "▼"
+            signe = ""
+        else:
+            couleur = self.theme.neutre
+            fleche = "⚖"  # ou "→", "▬", voire ""
+            signe = "+"
 
         police = QFont(
             "Segoe UI", max(6, int(rect.height() * 0.55)), QFont.Weight.DemiBold

@@ -370,15 +370,16 @@ class OngletTopPays(QWidget):
 
     def set_dicts_granu(self, dict_nv):
         # Attention, la màj de self.classement_widget se fait dans cliquer_bouton_onglet
-        dict_temp = voyages_vers_destinations(copy.deepcopy(dict_nv))
-        self.dict_voyages = copy.deepcopy(dict_nv)
+        dict_copy = copy.deepcopy(dict_nv)
+        self.dict_voyages = dict_copy
+        dict_temp = voyages_vers_destinations(dict_copy)
         self.hemicycle.set_pays_visites(pays_visites=dict_temp)
         self.classement_widget.set_dicts_granu(dict_nv=dict_temp)
         self.recommandations.set_dicts_granu(dict_nv=dict_temp)
-        self.pays_souvent_visites.set_voyages(voyages=copy.deepcopy(dict_nv))
-        self.calendrier_visites.set_voyages(voyages=copy.deepcopy(dict_nv))
-        self.tableau_de_bord.set_voyages(voyages=copy.deepcopy(dict_nv))
-        self.portrait_IA.set_voyages(voyages=copy.deepcopy(dict_nv))
+        self.pays_souvent_visites.set_voyages(voyages=dict_copy)
+        self.calendrier_visites.set_voyages(voyages=dict_copy)
+        self.tableau_de_bord.set_voyages(voyages=dict_copy)
+        self.portrait_IA.set_voyages(voyages=dict_copy)
 
     def initialiser_onglet(self, **kwargs):
         self.cliquer_bouton_onglet(num_onglet=self.pages.indexOf(self.tableau_de_bord))

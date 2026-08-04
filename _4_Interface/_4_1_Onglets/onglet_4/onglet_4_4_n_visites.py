@@ -136,7 +136,7 @@ class PaysLesPlusVisites(QWidget):
             )
 
             couleur_temp = generer_couleur_aleatoire_hex(
-                preset=self.nuances, teintes_autorisees=self.teinte
+                preset=self.nuances, teintes_autorisees=[couleur_temp]
             )
 
             fig = plot_diagramme_barre(

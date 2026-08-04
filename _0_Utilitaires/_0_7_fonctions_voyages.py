@@ -8,7 +8,9 @@
 # 0 -- Initialisation ----------------------------------------------------------
 
 
-import re
+import re, copy
+from collections import Counter
+import pandas as pd
 from datetime import datetime, date
 from typing import Literal, List
 
@@ -220,3 +222,53 @@ def destinations_vers_voyages(
 
     # Renvoi
     return voyages_temp
+
+
+# 7 -- Comptage des voyages ----------------------------------------------------
+
+
+def compter_occurences_destinations_une_granu(dict_voyages: dict, granu: int):
+    compteur_temp = Counter()
+
+    for voyage in dict_voyages.values():
+
+        # Comptage par pays
+        if granu == 0:
+            for niveau in ("region", "dep"):
+                if niveau not in voyage:
+                    continue
+
+                for pays in voyage[niveau].keys():
+                    compteur_temp[pays] += 1
+
+        # Comptage par région
+        elif granu == 1:
+            if "region" not in voyage:
+                continue
+
+            for pays, regions in voyage["region"].items():
+                for region in regions:
+                    compteur_temp[(pays, region)] += 1
+
+        # Comptage par département
+        elif granu == 2:
+            if "dep" not in voyage:
+                continue
+
+            for pays, deps in voyage["dep"].items():
+                for dep in deps:
+                    compteur_temp[(pays, dep)] += 1
+
+    # Conversion en DataFrame
+    if granu == 0:
+        df = pd.DataFrame(
+            [(pays, n) for pays, n in compteur_temp.items()], columns=["pays", "N"]
+        )
+
+    else:
+        df = pd.DataFrame(
+            [(pays, lieu, n) for (pays, lieu), n in compteur_temp.items()],
+            columns=["pays", "subdivision", "N"],
+        )
+
+    return df.sort_values("N", ascending=False).reset_index(drop=True)

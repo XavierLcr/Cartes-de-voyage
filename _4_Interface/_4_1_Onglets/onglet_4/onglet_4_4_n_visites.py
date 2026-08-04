@@ -10,12 +10,14 @@
 
 import textwrap
 import pandas as pd
-from collections import defaultdict
 from PyQt6.QtWidgets import QWidget, QVBoxLayout
 
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     vider_layout,
     conteneur_graphique_simple,
+)
+from _0_Utilitaires._0_7_fonctions_voyages import (
+    compter_occurences_destinations_une_granu,
 )
 from _0_Utilitaires._0_8_plot_diagramme_barres import plot_diagramme_barre
 
@@ -29,35 +31,17 @@ def compter_voyages_par_pays(
     dictionnaire_voyages: dict, traductions: dict, langue: str
 ):
 
-    comptage_pays = defaultdict(int)
-
-    for voyage_id, voyage in dictionnaire_voyages.items():
-
-        # Ensemble pour éviter les doublons dans un même voyage
-        pays_visites = set()
-
-        # Boucle sur region/dep
-        for granu in ["dep", "region"]:
-
-            # Ajouter les pays présents
-            for pays in voyage.get(granu, {}).keys():
-                pays_visites.add(pays)
-
-        # Incrémenter le compteur pour chaque pays unique du voyage
-        for pays in pays_visites:
-            comptage_pays[pays] += 1
-
-    # Trier par ordre décroissant de voyages
     return (
-        pd.DataFrame(list(comptage_pays.items()), columns=["pays", "voyages"])
-        # Ajout de la traduction des pays
+        compter_occurences_destinations_une_granu(
+            dict_voyages=dictionnaire_voyages, granu=0
+        )
         .assign(
             pays_traduction=lambda x: x["pays"].apply(
                 lambda y: traductions.get(y, {}).get(langue, y)
             )
         )
         .sort_values(
-            by=["voyages", "pays_traduction"], ascending=(False, True), inplace=False
+            by=["N", "pays_traduction"], ascending=(False, True), inplace=False
         )
         .reset_index(drop=True, inplace=False)
     )
@@ -74,17 +58,15 @@ def limiter_nombre_pays(df: pd.DataFrame, n: int, type: bool, agreger: bool):
 
     # Conservation du top pays
     if type and len(df_temp) > n:
-        df_temp = df_temp[df_temp["voyages"] >= df_temp.iloc[n - 1]["voyages"]]
+        df_temp = df_temp[df_temp["N"] >= df_temp.iloc[n - 1]["N"]]
     else:
         df_temp = df_temp.head(n)
 
     if agreger and len(df_temp) > n + 1:
         df_temp = (
             (
-                df_temp.groupby("voyages")["pays_traduction"]
-                .agg(", ".join)
-                .reset_index()
-            ).sort_values(by="voyages", ascending=False, inplace=False)
+                df_temp.groupby("N")["pays_traduction"].agg(", ".join).reset_index()
+            ).sort_values(by="N", ascending=False, inplace=False)
             # Mise en forme
             .assign(
                 pays_traduction=lambda x: x["pays_traduction"].apply(
@@ -143,16 +125,18 @@ class PaysLesPlusVisites(QWidget):
         if self.voyages:
 
             fig = plot_diagramme_barre(
-                df=limiter_nombre_pays(
-                    df=compter_voyages_par_pays(
-                        self.voyages, traductions=self.pays_trad, langue=self.langue
-                    ),
+                df=compter_voyages_par_pays(
+                    self.voyages,
+                    traductions=self.pays_trad,
+                    langue=self.langue,
+                ).pipe(
+                    limiter_nombre_pays,
                     n=self.n_pays,
                     type=self.n_pays_limite_type,
                     agreger=self.agreger,
                 ),
                 var_x="pays_traduction",
-                var_y="voyages",
+                var_y="N",
                 var_color=None,
                 var_wrap=None,
                 titre=self.fct_traduction(

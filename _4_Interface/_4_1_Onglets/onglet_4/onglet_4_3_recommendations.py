@@ -8,7 +8,7 @@
 # 0 -- Initialisation ----------------------------------------------------------
 
 
-import copy, numba
+import numba
 import numpy as np
 import pandas as pd
 from PyQt6.QtCore import Qt, QThread, pyqtSignal, QObject, QRectF, QSize
@@ -30,7 +30,6 @@ from PyQt6.QtWidgets import (
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     distance_haversine,
-    voyages_vers_destinations,
 )
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     vider_layout,
@@ -102,6 +101,7 @@ def calculer_score_region(
     vals_visite,
     na_visite,
     superficie_visite,
+    N_visite,
     lats_reste,
     lons_reste,
     vals_reste,
@@ -111,8 +111,8 @@ def calculer_score_region(
     n_reste = lats_reste.shape[0]
     n_visite = lats_visite.shape[0]
     scores = np.zeros(n_reste)
-    superficie_visitee_totale = np.sum(superficie_visite)
-    poids_visite = superficie_visite * (1 - na_visite)
+    pond_visite = superficie_visite * N_visite**alpha * (1 - na_visite)
+    pond_visite_total = np.sum(pond_visite) / 100
     for i in numba.prange(n_reste):
         s = 0.0
         na_reste_i = 1 - na_reste[i]
@@ -131,38 +131,55 @@ def calculer_score_region(
                     ** alpha
                 )
                 # Pondération par la superficie et les NA
-                * poids_visite[j]
+                * pond_visite[j]
                 * na_reste_i
             )
 
             # Pondération par la superficie
-        scores[i] = (100 * s / superficie_visitee_totale) if n_visite > 0 else 0.0
+        scores[i] = (s / pond_visite_total) if n_visite > 0 else 0.0
     return scores
 
 
 ## 1.3 -- Fonction renvoyant les régions recommandées, à l'aide des scores -----
 
 
-def calculer_recommandation(
-    df, dict_visite, top_n=10, alpha=1 / 3, par_pays: bool = False, n_par_pays: int = 3
+def calculer_recommandations(
+    df_caracteristiques: pd.DataFrame,
+    df_voyages: pd.DataFrame,
+    top_n: int = 10,
+    alpha: float = 1 / 3,
+    par_pays: bool = False,
+    n_par_pays: int = 3,
 ):
 
-    # Séparer les colonnes
-    mask_visite = np.array(
-        [
-            (row[0], row[1])
-            in {(p, r) for p, regions in dict_visite.items() for r in regions}
-            for row in df[["name_0", "name_1"]].values
-        ]
+    # Tests de granularité
+    assert isid(df=df_caracteristiques, colonnes=["name_0", "name_1"], blabla=1)
+    assert isid(df=df_voyages, colonnes=["pays", "subdivision"], blabla=1)
+
+    # Ajout du nombre de visites à la table des caractéristiques
+    df_temp = (
+        df_caracteristiques.merge(
+            right=df_voyages,
+            left_on=["name_0", "name_1"],
+            right_on=["pays", "subdivision"],
+            how="left",
+        )
+        .assign(
+            # Complétion des subdivisions sans visite
+            N=lambda x: x["N"].fillna(0)
+        )
+        .drop(columns=["pays", "subdivision"])
     )
 
-    df_visite = df.iloc[mask_visite]
-    df_reste = df.iloc[~mask_visite]
+    # Séparer les colonnes
+    mask_visite = df_temp["N"] > 0
+    df_visite = df_temp[mask_visite]
+    df_reste = df_temp[~mask_visite]
 
     # Extraire arrays NumPy
     cols_val = [
         c
-        for c in df.columns
+        for c in df_temp.columns
         if c
         not in [
             "name_0",
@@ -171,6 +188,7 @@ def calculer_recommandation(
             "latitude",
             "longitude",
             "superficie",
+            "N",
             "population",
             "nombre_na",
         ]
@@ -185,6 +203,7 @@ def calculer_recommandation(
                 vals_visite=df_visite[cols_val].to_numpy(),
                 na_visite=df_visite["nombre_na"].to_numpy(),
                 superficie_visite=df_visite["superficie"].to_numpy(),
+                N_visite=df_visite["N"].to_numpy(),
                 lats_reste=np.radians(df_reste["latitude"].to_numpy()),
                 lons_reste=np.radians(df_reste["longitude"].to_numpy()),
                 vals_reste=df_reste[cols_val].to_numpy(),
@@ -639,36 +658,47 @@ class WorkerRecommandation(QObject):
         self,
         top_n: int,
         alpha: float,
-        df,
-        dict_visite,
+        df_caracteristiques: pd.DataFrame,
+        df_superficie: pd.DataFrame,
+        dict_voyages: dict,
         par_pays: bool,
         n_par_pays: int,
     ):
         super().__init__()
-        self.df = df
-        self.dict_visite = dict_visite
+        self.df_caracteristiques = df_caracteristiques
+        self.df_superficie = df_superficie
+        self.dict_voyages = dict_voyages
 
         self.top_n = top_n
         self.alpha = alpha
         self.par_pays = par_pays
         self.n_par_pays = n_par_pays
 
+    def creer_df_recommandations(self):
+
+        # Table de comptage des visites
+        df_temp = nombre_visites_par_region(
+            dict_voyages=self.dict_voyages, df_superficie=self.df_superficie
+        )
+
+        # Table des recommandations
+        df_temp = calculer_recommandations(
+            df_caracteristiques=self.df_caracteristiques,
+            df_voyages=df_temp,
+            top_n=self.top_n,
+            alpha=self.alpha,
+            par_pays=self.par_pays,
+            n_par_pays=self.n_par_pays,
+        )
+
+        # Renvoi
+        return df_temp
+
     def calculer(self):
         """Méthode exécutée dans le thread."""
-
-        df = (
-            calculer_recommandation(
-                df=self.df,
-                dict_visite=self.dict_visite,
-                top_n=self.top_n,
-                alpha=self.alpha,
-                par_pays=self.par_pays,
-                n_par_pays=self.n_par_pays,
-            )
-            if self.dict_visite != {}
-            else None
-        )
-        self.finished.emit(df)  # Émet le résultat
+        self.finished.emit(
+            self.creer_df_recommandations() if self.dict_voyages else None
+        )  # Émet le résultat
 
 
 # 4 -- Classe de recommandations (déclenchement des calcul et affichage) -------
@@ -750,46 +780,14 @@ class PaysAVisiter(QWidget):
 
         vider_layout(self.corps_recommandations)
 
-        essai_temp = nombre_visites_par_region(
-            dict_voyages=self.dict_voyages, df_superficie=self.table_superficie
-        ).sort_values(by=["pays", "subdivision"])
-        print(essai_temp)
-
-        # Liste des destinations
-        destinations_temp = voyages_vers_destinations(self.dict_voyages)
-
-        # Copie du dictionnaire pour éviter tout problème
-        dict_temp = copy.deepcopy(destinations_temp.get("region"))
-
-        for pays, groupe in self.table_superficie[
-            # Ajout des régions des départements
-            self.table_superficie.apply(
-                lambda row: (row["name_0"], row["name_2"])
-                in {
-                    (p, r)
-                    for p, dep in (destinations_temp.get("dep") or {}).items()
-                    for r in dep
-                },
-                axis=1,
-            )
-        ].groupby("name_0"):
-            regions = groupe["name_1"].tolist()
-            if pays in dict_temp:
-                # Ajouter les nouvelles régions sans doublons
-                dict_temp[pays] = list(set(dict_temp[pays]) | set(regions))
-            else:
-                # Ajouter le pays s'il n'existait pas encore
-                dict_temp[pays] = regions
-
         self.thread_temp = QThread()
         self.worker_temp = WorkerRecommandation(
-            df=self.df_caracteristiques,
+            df_caracteristiques=self.df_caracteristiques,
+            df_superficie=self.table_superficie,
             alpha=self.alpha,
             top_n=self.get_recommandations_nb(),
             par_pays=self.get_recommandations_par_pays(),
-            dict_visite={
-                k: list(dict.fromkeys(v)) for k, v in dict_temp.items() if v is not None
-            },
+            dict_voyages=self.dict_voyages,
             n_par_pays=self.n_par_pays,
         )
         self.worker_temp.moveToThread(self.thread_temp)

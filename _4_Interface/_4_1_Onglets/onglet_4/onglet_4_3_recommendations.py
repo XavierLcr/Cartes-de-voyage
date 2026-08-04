@@ -10,6 +10,7 @@
 
 import copy, numba
 import numpy as np
+import pandas as pd
 from PyQt6.QtCore import Qt, QThread, pyqtSignal, QObject, QRectF, QSize
 from PyQt6.QtGui import QPainter, QColor, QFont, QLinearGradient, QPainterPath
 from PyQt6.QtWidgets import (
@@ -34,6 +35,11 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     vider_layout,
 )
+from _0_Utilitaires._0_5_isid import isid
+from _0_Utilitaires._0_7_fonctions_voyages import (
+    compter_occurences_destinations_une_granu,
+    compter_occurrences_regions_depuis_departements,
+)
 
 from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
     style_bouton_recommandation,
@@ -49,7 +55,44 @@ from _4_Interface._4_2_Style._4_2_1_style_principal import (
 # 1 -- Fonctions ---------------------------------------------------------------
 
 
-## 1.1 -- Fonction de calcul des scores entre régions --------------------------
+## 1.1 -- Fonction de comptage du nombre de visites par région -----------------
+
+
+def nombre_visites_par_region(dict_voyages: dict, df_superficie: pd.DataFrame):
+
+    # Création des tables départementales et régionales
+    df_temp = compter_occurences_destinations_une_granu(
+        dict_voyages=dict_voyages, granu=1
+    )
+    df_dep = compter_occurrences_regions_depuis_departements(
+        dict_voyages=dict_voyages, df_superficie=df_superficie
+    )
+
+    # Tests de granularité
+    assert isid(df=df_temp, colonnes=["pays", "subdivision"], blabla=1)
+    assert isid(df=df_dep, colonnes=["pays", "subdivision"], blabla=1)
+
+    # Jointure des tables régionale et départementale
+    df_temp = (
+        df_temp.merge(
+            right=df_dep, on=["pays", "subdivision"], how="outer", suffixes=("_1", "_2")
+        )
+        .reset_index(drop=False)
+        .assign(
+            N_1=lambda x: x["N_1"].fillna(0),
+            N_2=lambda x: x["N_2"].fillna(0),
+            N=lambda x: x["N_1"] + x["N_2"],
+        )[
+            # Sélection des variables
+            ["pays", "subdivision", "N"]
+        ]
+    )
+
+    # Renvoi
+    return df_temp
+
+
+## 1.2 -- Fonction de calcul des scores entre régions --------------------------
 
 
 @numba.njit(parallel=True)
@@ -97,7 +140,7 @@ def calculer_score_region(
     return scores
 
 
-## 1.2 -- Fonction renvoyant les régions recommandées, à l'aide des scores -----
+## 1.3 -- Fonction renvoyant les régions recommandées, à l'aide des scores -----
 
 
 def calculer_recommandation(
@@ -706,6 +749,11 @@ class PaysAVisiter(QWidget):
     def calculer_prochaine_destination(self):
 
         vider_layout(self.corps_recommandations)
+
+        essai_temp = nombre_visites_par_region(
+            dict_voyages=self.dict_voyages, df_superficie=self.table_superficie
+        ).sort_values(by=["pays", "subdivision"])
+        print(essai_temp)
 
         # Liste des destinations
         destinations_temp = voyages_vers_destinations(self.dict_voyages)

@@ -14,6 +14,7 @@ import pandas as pd
 from datetime import datetime, date
 from typing import Literal, List
 
+from _0_Utilitaires._0_5_isid import isid
 from _0_Utilitaires._0_6_fonctions_utiles_traductions import traduire_pays
 from constantes import hierarchie_par_pays, pays_differentes_langues
 
@@ -227,6 +228,9 @@ def destinations_vers_voyages(
 # 7 -- Comptage des voyages ----------------------------------------------------
 
 
+## 7.1 -- Même granularité -----------------------------------------------------
+
+
 def compter_occurences_destinations_une_granu(dict_voyages: dict, granu: int):
     compteur_temp = Counter()
 
@@ -272,3 +276,60 @@ def compter_occurences_destinations_une_granu(dict_voyages: dict, granu: int):
         )
 
     return df.sort_values("N", ascending=False).reset_index(drop=True)
+
+
+## 7.2 -- Départements vers régions --------------------------------------------
+
+
+def compter_occurrences_regions_depuis_departements(
+    dict_voyages: dict, df_superficie: pd.DataFrame
+):
+    """
+    Compte le nombre de voyages contenant chaque région à partir des
+    départements visités.
+
+    Si plusieurs départements d'une même région sont visités lors d'un
+    même voyage, la région n'est comptée qu'une seule fois.
+
+    Renvoie un DataFrame avec les colonnes :
+        - pays
+        - subdivision (région)
+        - N
+    """
+
+    # Test de granularité
+    assert isid(df=df_superficie, colonnes=["name_0", "name_2"], blabla=1)
+
+    compteur = Counter()
+
+    for voyage in dict_voyages.values():
+
+        if "dep" not in voyage:
+            continue
+
+        for pays, deps in voyage["dep"].items():
+
+            regions = (
+                pd.DataFrame(
+                    {
+                        "pays": pays,
+                        "subdivision": deps,
+                    }
+                )
+                .merge(
+                    df_superficie,
+                    left_on=["pays", "subdivision"],
+                    right_on=["name_0", "name_2"],
+                    how="left",
+                )["name_1"]
+                .dropna()
+                .unique()
+            )
+
+            for region in regions:
+                compteur[(pays, region)] += 1
+
+    return pd.DataFrame(
+        [(pays, region, n) for (pays, region), n in compteur.items()],
+        columns=["pays", "subdivision", "N"],
+    )

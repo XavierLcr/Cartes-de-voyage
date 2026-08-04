@@ -375,7 +375,7 @@ class OngletTopPays(QWidget):
         dict_temp = voyages_vers_destinations(dict_copy)
         self.hemicycle.set_pays_visites(pays_visites=dict_temp)
         self.classement_widget.set_dicts_granu(dict_nv=dict_temp)
-        self.recommandations.set_dicts_granu(dict_nv=dict_temp)
+        self.recommandations.set_dicts_granu(dict_nv=dict_copy)
         self.pays_souvent_visites.set_voyages(voyages=dict_copy)
         self.calendrier_visites.set_voyages(voyages=dict_copy)
         self.tableau_de_bord.set_voyages(voyages=dict_copy)

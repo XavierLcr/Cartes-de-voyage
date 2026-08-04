@@ -27,7 +27,10 @@ from PyQt6.QtWidgets import (
     QSpacerItem,
 )
 
-from _0_Utilitaires._0_1_fonctions_utiles_gen import distance_haversine
+from _0_Utilitaires._0_1_fonctions_utiles_gen import (
+    distance_haversine,
+    voyages_vers_destinations,
+)
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     vider_layout,
 )
@@ -651,7 +654,7 @@ class PaysAVisiter(QWidget):
 
         # Paramètres utilisateur
         self.langue = "français"
-        self.dict_granu = {"region": {}, "dep": {}}
+        self.dict_voyages = {}
         self.recommandations_par_pays = True
         self.df = None
 
@@ -704,8 +707,11 @@ class PaysAVisiter(QWidget):
 
         vider_layout(self.corps_recommandations)
 
+        # Liste des destinations
+        destinations_temp = voyages_vers_destinations(self.dict_voyages)
+
         # Copie du dictionnaire pour éviter tout problème
-        dict_temp = copy.deepcopy(self.dict_granu.get("region"))
+        dict_temp = copy.deepcopy(destinations_temp.get("region"))
 
         for pays, groupe in self.table_superficie[
             # Ajout des régions des départements
@@ -713,7 +719,7 @@ class PaysAVisiter(QWidget):
                 lambda row: (row["name_0"], row["name_2"])
                 in {
                     (p, r)
-                    for p, dep in (self.dict_granu.get("dep") or {}).items()
+                    for p, dep in (destinations_temp.get("dep") or {}).items()
                     for r in dep
                 },
                 axis=1,
@@ -828,8 +834,8 @@ class PaysAVisiter(QWidget):
 
     def set_dicts_granu(self, dict_nv: dict):
         """Permet de mettre à jour les sélections de destinations."""
-        self.dict_granu = dict_nv
-        if self.dict_granu == {"region": {}, "dep": {}}:
+        self.dict_voyages = dict_nv
+        if self.dict_voyages == {}:
             self.df = None
             self.afficher_recommandation()
 

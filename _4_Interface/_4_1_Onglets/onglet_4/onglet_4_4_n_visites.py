@@ -8,10 +8,15 @@
 # 0 -- Initialisation ----------------------------------------------------------
 
 
-import textwrap
+import textwrap, colorsys
 import pandas as pd
 from PyQt6.QtWidgets import QWidget, QVBoxLayout
 
+from _0_Utilitaires._0_2_fonctions_graphiques import (
+    hex_to_rgb,
+    rgb_to_hex,
+    generer_couleur_aleatoire_hex,
+)
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     vider_layout,
     conteneur_graphique_simple,
@@ -96,6 +101,7 @@ class PaysLesPlusVisites(QWidget):
         self.n_pays_limite_type = True
         self.pays_trad = constantes.pays_differentes_langues
         self.agreger = True
+        self.couleur = "#ADCEDB"
 
         # Style par défaut
         self.style = 1
@@ -124,6 +130,15 @@ class PaysLesPlusVisites(QWidget):
 
         if self.voyages:
 
+            # Héxa -> RGB -> HSV
+            couleur_temp, _, _ = colorsys.rgb_to_hsv(
+                *(c / 255 for c in hex_to_rgb(self.couleur))
+            )
+
+            couleur_temp = generer_couleur_aleatoire_hex(
+                preset=self.nuances, teintes_autorisees=self.teinte
+            )
+
             fig = plot_diagramme_barre(
                 df=compter_voyages_par_pays(
                     self.voyages,
@@ -148,7 +163,7 @@ class PaysLesPlusVisites(QWidget):
                 ),
                 color_label="",
                 palette=[
-                    "#ADCEDB",
+                    couleur_temp,
                 ],
                 figsize=(6, 3),
                 wrap_ncol=3,

@@ -197,7 +197,7 @@ class ThemeCarteClassement:
                 style=style,
                 teinte=teinte,
                 nuances=nuances,
-                clair="#eaf6f7",
+                clair="#f7eaf3",
                 sombre="#4658a1",
             )
         )
@@ -215,7 +215,7 @@ class ThemeCarteClassement:
                 style=style,
                 teinte=teinte,
                 nuances=nuances,
-                clair="#B6EEE9",
+                clair="#EDA4C2",
                 sombre="#24A5A5",
             )
         )
@@ -224,7 +224,7 @@ class ThemeCarteClassement:
                 style=style,
                 teinte=teinte,
                 nuances=nuances,
-                clair="#46BEB8",
+                clair="#C190D1",
                 sombre="#1F971F",
                 reference=self.badge_debut.name(),
                 essais=limite_essais,

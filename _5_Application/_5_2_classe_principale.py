@@ -32,9 +32,9 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import creer_QLabel_centre
 from _0_Utilitaires._0_7_fonctions_voyages import destinations_vers_voyages
 from _0_Utilitaires._0_11_classes_pop_up import PopupInfo, PopupOuiNon, PopupSaisieTexte
 from _4_Interface._4_1_Onglets.onglet_1 import onglet_1
-from _4_Interface._4_1_Onglets.onglet_2 import onglet_2
+from _4_Interface._4_1_Onglets.onglet_2 import onglet_2, onglet_2_arbre_destinations
 from _4_Interface._4_1_Onglets.onglet_4 import onglet_4
-from _4_Interface._4_1_Onglets import onglet_3, onglet_info
+from _4_Interface._4_1_Onglets import onglet_info
 from _4_Interface._4_1_Onglets.onglet_param_profil import onglet_param_profil
 from _4_Interface._4_2_Style._4_2_1_style_principal import style_dynamique_application
 from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
@@ -162,10 +162,12 @@ class MesVoyagesApplication(QWidget):
 
         # === Troisième onglet ===
 
-        self.onglet_resume_destinations = onglet_3.OngletResumeDestinations(
-            traduire_depuis_id=self.traduire_depuis_id,
-            constantes=self.constantes,
-            parent=None,
+        self.onglet_resume_destinations = (
+            onglet_2_arbre_destinations.OngletResumeDestinations(
+                traduire_depuis_id=self.traduire_depuis_id,
+                constantes=self.constantes,
+                parent=None,
+            )
         )
 
         # === Quatrième onglet ===

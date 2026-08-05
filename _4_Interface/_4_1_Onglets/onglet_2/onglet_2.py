@@ -52,6 +52,7 @@ from _0_Utilitaires._0_7_fonctions_voyages import (
 )
 from _0_Utilitaires._0_11_classes_pop_up import PopupInfo
 from _4_Interface._4_1_Onglets.onglet_2.onglet_2_ajout_voyage import CreerVoyage
+from _4_Interface._4_1_Onglets.onglet_2.onglet_2_arbre_voyages import ArbreVoyages
 
 # 1 -- Classe de sélection des destinations ------------------------------------
 
@@ -130,8 +131,14 @@ class OngletSelectionnerDestinations(QWidget):
             QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding
         )
 
-        self.liste_voyage = self._creer_scroll()
-        self.liste_voyage_layout.addWidget(self.liste_voyage)
+        self.couleurs = {}
+        self.arbre = ArbreVoyages(
+            constantes=self.constantes,
+            fonction_traduire=self.fonction_traduire,
+            parent=self,
+        )
+        self.arbre.voyage_double_clique.connect(self.creer_voyage_ui)
+        self.liste_voyage_layout.addWidget(self.arbre)
 
         # Layout complet
         layout.addLayout(layout_boutons)
@@ -383,132 +390,18 @@ class OngletSelectionnerDestinations(QWidget):
 
         self.afficher_voyages(vbox=self.liste_voyage_layout)
 
-    def _creer_scroll(self):
-        scroll = QScrollArea()
-        scroll.setWidgetResizable(True)
+    def afficher_voyages(self, vbox=None):
+        """Met à jour l'arbre avec le contenu de self.voyages."""
 
-        # Layout interne propre pour le scroll
-        container = QWidget()
-        container_layout = QVBoxLayout(container)
-        scroll.setWidget(container)
+        clefs_temp = trier_voyages(
+            dictionnaire=self.voyages,
+            tri=self.dict_correspondances_tri.get(self.options_tri.currentText()),
+        )
 
-        # On garde une référence vers container si besoin pour ajouter dynamiquement
-        scroll.container_layout = container_layout
-        scroll.container_widget = container
-
-        return scroll
-
-    def afficher_voyages(self, vbox):
-        """Affiche self.voyages dans un QTreeWidget avec un affichage simplifié."""
-
-        def ajouter_voyage_elements(parent_item, data, niveau=1):
-            """Ajoute récursivement les éléments de self.voyages à l'arbre."""
-            if isinstance(data, dict):
-                for cle, valeur in data.items():
-
-                    if cle in ["nom"]:
-                        pass
-                    elif cle in ["date_debut", "date_fin"]:
-                        if valeur:
-                            child = QTreeWidgetItem(
-                                parent_item,
-                                [
-                                    f"{self.fonction_traduire(f'voyage_{cle}')} : "
-                                    f"{datetime.strptime(str(valeur), '%Y-%m-%d').strftime('%d/%m/%Y')}"
-                                ],
-                            )
-                            child.setBackground(
-                                0,
-                                QtGui.QBrush(
-                                    QtGui.QColor(self.couleurs.get(niveau, "#FFFFFF"))
-                                ),
-                            )
-                    # Pour "region" et "dep", garder le comportement complexe
-                    elif cle in ["region", "dep"]:
-                        if valeur:
-                            child = QTreeWidgetItem(
-                                parent_item,
-                                [
-                                    self.constantes.parametres_traduits.get(
-                                        "granularite", {}
-                                    )
-                                    .get(self.langue, {})
-                                    .get(
-                                        "Départements"
-                                        if str(cle) == "dep"
-                                        else "Régions"
-                                    )
-                                ],
-                            )
-                            child.setBackground(
-                                0,
-                                QtGui.QBrush(
-                                    QtGui.QColor(self.couleurs.get(niveau, "#FFFFFF"))
-                                ),
-                            )
-                            ajouter_voyage_elements(child, valeur, niveau + 1)
-                    else:
-                        # Pour les autres clés (si jamais il y en a)
-                        child = QTreeWidgetItem(parent_item, [str(cle)])
-                        child.setBackground(
-                            0,
-                            QtGui.QBrush(
-                                QtGui.QColor(self.couleurs.get(niveau, "#FFFFFF"))
-                            ),
-                        )
-                        ajouter_voyage_elements(child, valeur, niveau + 1)
-            elif isinstance(data, list):
-                # Pour les listes (ex: ["Alice", "Bob"])
-                for item in data:
-                    child = QTreeWidgetItem(parent_item, [f"• {str(item)}"])
-                    child.setBackground(
-                        0, QtGui.QBrush(QtGui.QColor(Qt.GlobalColor.transparent))
-                    )
-            else:
-                # Pour les valeurs simples (ex: "Paris", "01/01/2026")
-                child = QTreeWidgetItem(parent_item, [str(data)])
-                child.setBackground(
-                    0, QtGui.QBrush(QtGui.QColor(Qt.GlobalColor.transparent))
-                )
-
-        # Nettoie le layout
-        vider_layout(vbox)
-
-        # Création de l'arbre
-        if self.voyages:
-            tree = QTreeWidget()
-            tree.setHeaderHidden(True)
-            tree.setColumnCount(1)
-            tree.setIndentation(20)
-            tree.setExpandsOnDoubleClick(True)
-
-            # Connecte le signal de double-clic
-            tree.itemDoubleClicked.connect(self.voyage_double_clique)
-
-            clefs_temp = trier_voyages(
-                dictionnaire=self.voyages,
-                tri=self.dict_correspondances_tri.get(self.options_tri.currentText()),
-            )
-
-            # Remplit l'arbre avec les données
-            for voyage_ident in clefs_temp:
-
-                voyage_temp = self.voyages.get(voyage_ident, {})
-                # Crée un item pour chaque voyage (ex: "Voyage 1")
-                voyage_item = QTreeWidgetItem(
-                    tree.invisibleRootItem(),
-                    [voyage_temp.get("nom") or voyage_ident],
-                )
-                voyage_item.setBackground(
-                    0, QtGui.QBrush(QtGui.QColor(self.couleurs.get(1, "#FFFFFF")))
-                )
-                voyage_item.setData(0, Qt.ItemDataRole.UserRole, voyage_ident)
-                ajouter_voyage_elements(voyage_item, voyage_temp, niveau=2)
-
-            # Affiche tout replié
-            tree.collapseAll()
-
-            vbox.addWidget(tree)
+        self.arbre.set_langue(self.langue)
+        self.arbre.set_couleurs(self.couleurs)
+        self.arbre.peupler(voyages=self.voyages, ordre_clefs=clefs_temp)
+        self.arbre.setVisible(bool(self.voyages))
 
     def voyage_double_clique(self, item, column):
         """Gère le double-clic sur un voyage."""

@@ -17,17 +17,19 @@ from PyQt6.QtWidgets import (
     QTreeWidgetItem,
     QPushButton,
     QSpacerItem,
+    QGroupBox,
 )
 
+from _0_Utilitaires._0_2_fonctions_graphiques import (
+    renvoyer_couleur_widget,
+)
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     creer_QLabel_centre,
     creer_ligne_horizontale,
     vider_layout,
     creer_scroll,
 )
-from _0_Utilitaires._0_2_fonctions_graphiques import (
-    renvoyer_couleur_widget,
-)
+from _0_Utilitaires._0_7_fonctions_voyages import creer_liste_destinations
 
 # 1 -- Fonctions utiles --------------------------------------------------------
 
@@ -93,7 +95,8 @@ class OngletResumeDestinations(QWidget):
         self.langue_utilisee = "français"
 
         # Layout des pays visités
-        self.layout_resume_pays = QHBoxLayout()
+        self.groupbox_resume_pays = QGroupBox()
+        self.layout_resume_pays = QHBoxLayout(self.groupbox_resume_pays)
 
         # Boutons de mise en forme
         layout_boutons = QHBoxLayout()
@@ -108,7 +111,7 @@ class OngletResumeDestinations(QWidget):
 
         # Layout final
         layout = QVBoxLayout()
-        layout.addLayout(self.layout_resume_pays)
+        layout.addWidget(self.groupbox_resume_pays)
         layout.addLayout(layout_boutons)
         self.setLayout(layout)
 
@@ -120,6 +123,7 @@ class OngletResumeDestinations(QWidget):
     def set_langue(self, nouvelle_langue):
         """Permet de mettre à jour la langue."""
         self.langue_utilisee = nouvelle_langue
+        self.groupbox_resume_pays.setTitle(self.traduire_depuis_id("titre_onglet_3"))
         self.deplier.setText("📖​")
         self.replier.setText("📘​")
         self.maj_layout_resume()
@@ -145,7 +149,7 @@ class OngletResumeDestinations(QWidget):
 
         self.maj_layout_resume()
 
-    def ajouter_partie_a_layout(self, granu, pays_donnees):
+    def ajouter_partie_a_layout(self, vbox, pays_donnees):
         """Affiche les données hiérarchiques (pays_donnees) dans un QTreeWidget.
 
         Args:
@@ -212,18 +216,6 @@ class OngletResumeDestinations(QWidget):
                     0, QtGui.QBrush(QtGui.QColor(QtCore.Qt.GlobalColor.transparent))
                 )
 
-        # --- Nettoyage de la zone ---
-        vbox = QVBoxLayout()
-
-        # --- Titre de section ---
-        vbox.addWidget(
-            creer_QLabel_centre(
-                text=self.traduire_depuis_id(clef=granu, prefixe="<b>", suffixe="</b>")
-            )
-        )
-        vbox.addWidget(creer_ligne_horizontale())
-        vbox.addSpacerItem(QSpacerItem(0, 10))
-
         # --- Création de l'arbre ---
         if pays_donnees:
             tree = QTreeWidget()
@@ -249,42 +241,21 @@ class OngletResumeDestinations(QWidget):
 
         vider_layout(self.layout_resume_pays)
 
-        for granularite in range(1, 3):
+        liste_temp = creer_liste_destinations(
+            dict_regions=self.dicts_granu.get("region", {}),
+            dict_dep=self.dicts_granu.get("dep", {}),
+        )
 
-            # Récupération du dictionnaire
-            dict_temp = (
-                self.dicts_granu.get("region", {})
-                if granularite == 1
-                else self.dicts_granu.get("dep", {})
+        dict_temp = (liste_temp[0] or {}) | filtrer_hierarchie(
+            dico_plat=(liste_temp[1] or {}),
+            dico_hier=self.liste_pays,
+        )
+
+        if dict_temp:
+            self.ajouter_partie_a_layout(
+                vbox=self.layout_resume_pays,
+                pays_donnees=dict_temp,
             )
-
-            # Titre
-            clef_temp = (
-                "titre_regions_visitees"
-                if granularite == 1
-                else "titre_departements_visites"
-            )
-
-            if dict_temp:
-
-                # Dictionnaire à utiliser
-                if granularite > 1:
-                    dict_temp = filtrer_hierarchie(
-                        dico_plat=dict_temp,
-                        dico_hier=self.liste_pays,
-                    )
-
-                # Création de l'arbre
-                res_temp = self.ajouter_partie_a_layout(
-                    granu=clef_temp,
-                    pays_donnees=dict_temp,
-                )
-
-                # Mise en scroll
-                res_temp = creer_scroll(layout=res_temp)
-
-                # Ajout au layout
-                self.layout_resume_pays.addWidget(res_temp)
 
     def replier_deplier(self, replier):
         self.arbre_groupe = replier

@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
-# _4_Interface/_4_1_Onglets/                                                   #
-# Onglet 3 – Résumé des pays visités                                           #
+# _4_Interface/_4_1_Onglets/onglet_2                                           #
+# Onglet 2 – Résumé des destinations visitées                                  #
 ################################################################################
 
 
@@ -16,7 +16,6 @@ from PyQt6.QtWidgets import (
     QTreeWidget,
     QTreeWidgetItem,
     QPushButton,
-    QSpacerItem,
     QGroupBox,
 )
 
@@ -25,9 +24,7 @@ from _0_Utilitaires._0_2_fonctions_graphiques import (
 )
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     creer_QLabel_centre,
-    creer_ligne_horizontale,
     vider_layout,
-    creer_scroll,
 )
 from _0_Utilitaires._0_7_fonctions_voyages import creer_liste_destinations
 

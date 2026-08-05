@@ -10,7 +10,6 @@
 
 from PyQt6 import QtGui, QtCore
 from PyQt6.QtWidgets import (
-    QWidget,
     QHBoxLayout,
     QVBoxLayout,
     QTreeWidget,
@@ -75,7 +74,7 @@ def filtrer_hierarchie(dico_plat, dico_hier):
 # 2 -- Classe de l'onglet de récapitulation des pays visités -------------------
 
 
-class OngletResumeDestinations(QWidget):
+class OngletResumeDestinations(QGroupBox):
     def __init__(
         self,
         traduire_depuis_id,
@@ -92,8 +91,7 @@ class OngletResumeDestinations(QWidget):
         self.langue_utilisee = "français"
 
         # Layout des pays visités
-        self.groupbox_resume_pays = QGroupBox()
-        self.layout_resume_pays = QHBoxLayout(self.groupbox_resume_pays)
+        self.layout_resume_pays = QHBoxLayout()
 
         # Boutons de mise en forme
         layout_boutons = QHBoxLayout()
@@ -106,11 +104,10 @@ class OngletResumeDestinations(QWidget):
         layout_boutons.addStretch(3)
         layout_boutons.addWidget(self.replier, stretch=1)
 
-        # Layout final
-        layout = QVBoxLayout()
-        layout.addWidget(self.groupbox_resume_pays)
+        # Layout final (directement sur self, qui EST le groupbox)
+        layout = QVBoxLayout(self)
+        layout.addLayout(self.layout_resume_pays)
         layout.addLayout(layout_boutons)
-        self.setLayout(layout)
 
     def set_dicts_granu(self, dict_nv: dict):
         """Permet de mettre à jour les sélections de destinations."""
@@ -120,7 +117,7 @@ class OngletResumeDestinations(QWidget):
     def set_langue(self, nouvelle_langue):
         """Permet de mettre à jour la langue."""
         self.langue_utilisee = nouvelle_langue
-        self.groupbox_resume_pays.setTitle(self.traduire_depuis_id("titre_onglet_3"))
+        self.setTitle(self.traduire_depuis_id("titre_onglet_3"))
         self.deplier.setText("📖​")
         self.replier.setText("📘​")
         self.maj_layout_resume()

@@ -162,12 +162,10 @@ class MesVoyagesApplication(QWidget):
 
         # === Troisième onglet ===
 
-        self.onglet_resume_destinations = (
-            onglet_2_arbre_destinations.OngletResumeDestinations(
-                traduire_depuis_id=self.traduire_depuis_id,
-                constantes=self.constantes,
-                parent=None,
-            )
+        self.onglet_resume_destinations = onglet_2_arbre_destinations.ArbreDestinations(
+            traduire_depuis_id=self.traduire_depuis_id,
+            constantes=self.constantes,
+            parent=None,
         )
 
         # === Quatrième onglet ===

@@ -9,11 +9,9 @@
 
 
 import yaml
-from datetime import datetime
 
 # PyQt6
 from PyQt6.QtCore import Qt, QTimer, pyqtSignal
-from PyQt6 import QtGui
 
 from PyQt6.QtWidgets import (
     QWidget,
@@ -25,9 +23,6 @@ from PyQt6.QtWidgets import (
     QFileDialog,
     QSizePolicy,
     QDialog,
-    QScrollArea,
-    QTreeWidgetItem,
-    QTreeWidget,
     QComboBox,
 )
 
@@ -37,7 +32,6 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
 )
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     set_emoji_sauvegarde,
-    vider_layout,
     reset_combo,
     creer_ligne_verticale,
 )
@@ -53,6 +47,9 @@ from _0_Utilitaires._0_7_fonctions_voyages import (
 from _0_Utilitaires._0_11_classes_pop_up import PopupInfo
 from _4_Interface._4_1_Onglets.onglet_2.onglet_2_ajout_voyage import CreerVoyage
 from _4_Interface._4_1_Onglets.onglet_2.onglet_2_arbre_voyages import ArbreVoyages
+from _4_Interface._4_1_Onglets.onglet_2.onglet_2_arbre_destinations import (
+    ArbreDestinations,
+)
 
 # 1 -- Classe de sélection des destinations ------------------------------------
 
@@ -132,13 +129,13 @@ class OngletSelectionnerDestinations(QWidget):
         )
 
         self.couleurs = {}
-        self.arbre = ArbreVoyages(
+        self.arbre_voyages = ArbreVoyages(
             constantes=self.constantes,
             fonction_traduire=self.fonction_traduire,
             parent=self,
         )
-        self.arbre.voyage_double_clique.connect(self.creer_voyage_ui)
-        self.liste_voyage_layout.addWidget(self.arbre)
+        self.arbre_voyages.voyage_double_clique.connect(self.creer_voyage_ui)
+        self.liste_voyage_layout.addWidget(self.arbre_voyages)
 
         # Layout complet
         layout.addLayout(layout_boutons)
@@ -398,10 +395,10 @@ class OngletSelectionnerDestinations(QWidget):
             tri=self.dict_correspondances_tri.get(self.options_tri.currentText()),
         )
 
-        self.arbre.set_langue(self.langue)
-        self.arbre.set_couleurs(self.couleurs)
-        self.arbre.peupler(voyages=self.voyages, ordre_clefs=clefs_temp)
-        self.arbre.setVisible(bool(self.voyages))
+        self.arbre_voyages.set_langue(self.langue)
+        self.arbre_voyages.set_couleurs(self.couleurs)
+        self.arbre_voyages.peupler(voyages=self.voyages, ordre_clefs=clefs_temp)
+        self.arbre_voyages.setVisible(bool(self.voyages))
 
     def voyage_double_clique(self, item, column):
         """Gère le double-clic sur un voyage."""

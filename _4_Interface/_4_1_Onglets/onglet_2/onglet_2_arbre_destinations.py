@@ -74,7 +74,7 @@ def filtrer_hierarchie(dico_plat, dico_hier):
 # 2 -- Classe de l'onglet de récapitulation des pays visités -------------------
 
 
-class OngletResumeDestinations(QGroupBox):
+class ArbreDestinations(QGroupBox):
     def __init__(
         self,
         traduire_depuis_id,

@@ -31,10 +31,13 @@ class ArbreVoyages(QTreeWidget):
         self.langue = "français"
         self.couleurs = {}
 
+        # Configuration de l'arbre
         self.setHeaderHidden(True)
         self.setColumnCount(1)
         self.setIndentation(20)
         self.setExpandsOnDoubleClick(True)
+        self.setAlternatingRowColors(False)
+        self.setAnimated(True)
 
         self.itemDoubleClicked.connect(self._on_double_clique)
 

@@ -32,7 +32,7 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import creer_QLabel_centre
 from _0_Utilitaires._0_7_fonctions_voyages import destinations_vers_voyages
 from _0_Utilitaires._0_11_classes_pop_up import PopupInfo, PopupOuiNon, PopupSaisieTexte
 from _4_Interface._4_1_Onglets.onglet_1 import onglet_1
-from _4_Interface._4_1_Onglets.onglet_2 import onglet_2, onglet_2_arbre_destinations
+from _4_Interface._4_1_Onglets.onglet_2 import onglet_2
 from _4_Interface._4_1_Onglets.onglet_4 import onglet_4
 from _4_Interface._4_1_Onglets import onglet_info
 from _4_Interface._4_1_Onglets.onglet_param_profil import onglet_param_profil

@@ -562,4 +562,44 @@ def style_dynamique_application(
                 border: 0px transparent; /* bordure du rond sélectionné */
                 background-color: transparent;  /* couleur du centre */
             }}
+
+            QToolBar {{
+                background: transparent;
+                border: none;
+                spacing: 5px;
+                padding: 2px;
+            }}
+
+            QToolBar::separator {{
+                width: 1px;
+                background: #D0D5DD;
+                margin: 4px 6px;
+            }}
+
+            QToolButton {{
+                background: transparent;
+                border: 1px solid transparent;
+                border-radius: 8px;
+                padding: 6px 10px;
+                color: #2F3A4A;
+                font-size: 10pt;
+            }}
+
+            QToolButton:hover {{
+                background: #EEF5FF;
+                border: 1px solid #B8D4FF;
+            }}
+
+            QToolButton:pressed {{
+                background: #D8E9FF;
+            }}
+
+            QToolButton:checked {{
+                background: #C7E0FF;
+                border: 1px solid #6AA9FF;
+            }}
+
+            QToolButton:disabled {{
+                color: #A0A0A0;
+            }}
         """

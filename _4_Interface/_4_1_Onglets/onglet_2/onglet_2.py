@@ -12,7 +12,7 @@ import yaml
 
 # PyQt6
 from PyQt6.QtCore import Qt, QTimer, pyqtSignal
-
+from PyQt6.QtGui import QAction
 from PyQt6.QtWidgets import (
     QWidget,
     QVBoxLayout,
@@ -24,6 +24,7 @@ from PyQt6.QtWidgets import (
     QSizePolicy,
     QDialog,
     QComboBox,
+    QToolBar,
 )
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
@@ -83,8 +84,8 @@ class OngletSelectionnerDestinations(QWidget):
         layout.addWidget(self.avertissement_prio)
 
         # Bouton d'ajout de voyages
-        self.ajouter_voyage_bouton = QPushButton()
-        self.ajouter_voyage_bouton.clicked.connect(
+        self.ajouter_voyage_bouton = QAction("Ajouter voyages", self)
+        self.ajouter_voyage_bouton.triggered.connect(
             lambda x: self.creer_voyage_ui(clef=None)
         )
 
@@ -95,30 +96,38 @@ class OngletSelectionnerDestinations(QWidget):
         )
 
         # Bouton d'export des YAML
-        self.telecharger_lieux_visites = QPushButton()
-        self.telecharger_lieux_visites.clicked.connect(self.exporter_yamls_visites)
+        self.telecharger_lieux_visites = QAction("Exporter", self)
+        self.telecharger_lieux_visites.triggered.connect(self.exporter_yamls_visites)
 
         # Bouton d'import d'un YAML
-        self.chargement_yaml_bouton = QPushButton()
-        self.chargement_yaml_bouton.clicked.connect(self.charger_yaml)
+        self.chargement_yaml_bouton = QAction("Importer", self)
+        self.chargement_yaml_bouton.triggered.connect(self.charger_yaml)
 
         # Bouton de sauvegarde
-        self.bouton_sauvegarde = QPushButton()
-        self.bouton_sauvegarde.clicked.connect(
+        self.bouton_sauvegarde = QAction("Sauvegarder", self)
+        self.bouton_sauvegarde.triggered.connect(
             lambda: fct_sauvegarde(date_publication=False)
         )
-        self.bouton_sauvegarde.clicked.connect(
+        self.bouton_sauvegarde.triggered.connect(
             lambda: set_emoji_sauvegarde(self.bouton_sauvegarde, 3000)
         )
 
+        # Barre d'outils
+        spacer = QWidget()
+        spacer.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
+        toolbar_temp = QToolBar()
+        toolbar_temp.setMovable(False)  # On ne peut pas la déplacer
+        toolbar_temp.setFloatable(False)
+        toolbar_temp.addAction(self.ajouter_voyage_bouton)
+        toolbar_temp.addAction(self.bouton_sauvegarde)
+        toolbar_temp.addAction(self.telecharger_lieux_visites)
+        toolbar_temp.addAction(self.chargement_yaml_bouton)
+        toolbar_temp.addWidget(spacer)
+        toolbar_temp.addWidget(self.options_tri)
+
         # Ligne des boutons
         layout_boutons = QHBoxLayout()
-        layout_boutons.addWidget(self.ajouter_voyage_bouton, stretch=3)
-        layout_boutons.addWidget(self.options_tri, stretch=3)
-        layout_boutons.addWidget(self.bouton_sauvegarde, stretch=1)
-        layout_boutons.addWidget(creer_ligne_verticale())
-        layout_boutons.addWidget(self.telecharger_lieux_visites, stretch=1)
-        layout_boutons.addWidget(self.chargement_yaml_bouton, stretch=1)
+        layout_boutons.addWidget(toolbar_temp, stretch=3)
 
         # Voyages effectués
         self.liste_voyage_groupbox = QGroupBox()

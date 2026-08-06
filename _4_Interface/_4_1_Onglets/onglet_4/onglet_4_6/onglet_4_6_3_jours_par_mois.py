@@ -220,7 +220,6 @@ class JoursVoyagesParMoisWidget(QWidget):
         fonction_traduction,
         jours: Optional[Sequence[int]] = None,
         mois_numeros: Optional[Sequence[int]] = None,
-        etiquette: str = "Jours voyagés",
         n_mois: int = 12,
         parent: Optional[QWidget] = None,
     ) -> None:
@@ -243,7 +242,8 @@ class JoursVoyagesParMoisWidget(QWidget):
         self.n_mois = n_mois
         self._total = 0.0
         self.total_cible = 0
-        self.texte_etiquette = etiquette
+        self.texte_etiquette_principal = ""
+        self.texte_etiquette_secondaire = ""
         self.historique_jours: List[int] = list(jours) if jours else [0] * n_mois
         self.mois_numeros: List[int] = (
             list(mois_numeros) if mois_numeros else self._mois_par_defaut()
@@ -341,7 +341,10 @@ class JoursVoyagesParMoisWidget(QWidget):
 
     def set_langue(self):
         """Mise à jour de la langue."""
-        self.texte_etiquette = self.fonction_traduction("4_6_4_jours_voyages")
+        self.texte_etiquette_principal = self.fonction_traduction("4_6_4_jours_voyages")
+        self.texte_etiquette_secondaire = self.fonction_traduction(
+            "4_6_4_annee_glissante"
+        )
         self.update()
 
     def set_style(self, style, nuances, teintes):
@@ -402,14 +405,25 @@ class JoursVoyagesParMoisWidget(QWidget):
             f"{int(round(self._total))}",
         )
 
-        police_etiquette = QFont("Segoe UI", max(7, int(h * 0.075)))
-        painter.setFont(police_etiquette)
+        # --- étiquette : deux lignes, deuxième plus petite ---
         painter.setPen(self.theme.sous_texte)
-        rect_etiquette = QRectF(x_texte, h * 0.27, largeur_texte, h * 0.14)
+
+        police_etiquette_1 = QFont("Segoe UI", max(7, int(h * 0.075)))
+        rect_ligne_1 = QRectF(x_texte, h * 0.26, largeur_texte, h * 0.13)
+        painter.setFont(police_etiquette_1)
         painter.drawText(
-            rect_etiquette,
+            rect_ligne_1,
             Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter,
-            self.texte_etiquette,
+            self.texte_etiquette_principal,
+        )
+
+        police_etiquette_2 = QFont("Segoe UI", max(6, int(h * 0.06)))
+        rect_ligne_2 = QRectF(x_texte, h * 0.37, largeur_texte, h * 0.09)
+        painter.setFont(police_etiquette_2)
+        painter.drawText(
+            rect_ligne_2,
+            Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter,
+            self.texte_etiquette_secondaire,
         )
 
         # --- graphique en barres mensuel + étiquettes des mois ---

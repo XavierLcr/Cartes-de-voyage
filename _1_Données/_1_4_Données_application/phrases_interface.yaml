@@ -145,7 +145,8 @@ titre_graphique_calendrier_voyages : Voyages effectués au cours de la période 
 # Tableau de bord de l'individu
 titre_sous_onglet_4_6 : Votre tableau de bord
 4_6_3_voyages_effectues : Voyages effectués
-4_6_4_jours_voyages : Jours voyagés (année glissante)
+4_6_4_jours_voyages : Jours voyagés
+4_6_4_annee_glissante : Année glissante
 4_6_5_aucun_continent : Aucun voyage effectué à ce jour
 4_6_5_continent_favori : Votre continent favori
 4_6_4_pays_visites : des pays visités

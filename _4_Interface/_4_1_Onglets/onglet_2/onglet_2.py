@@ -89,9 +89,7 @@ class OngletSelectionnerDestinations(QWidget):
 
         # Liste des options de tri
         self.options_tri = QComboBox()
-        self.options_tri.currentTextChanged.connect(
-            lambda x: self.afficher_voyages(vbox=self.liste_voyage_layout)
-        )
+        self.options_tri.currentTextChanged.connect(lambda x: self.afficher_voyages())
 
         # Bouton d'export des YAML
         self.telecharger_lieux_visites = QAction("Exporter", self)
@@ -133,8 +131,7 @@ class OngletSelectionnerDestinations(QWidget):
 
         # Voyages effectués
         self.liste_voyage_groupbox = QGroupBox()
-        self.liste_voyage_layout = QVBoxLayout()
-        self.liste_voyage_groupbox.setLayout(self.liste_voyage_layout)
+        liste_voyage_layout = QVBoxLayout(self.liste_voyage_groupbox)
         self.liste_voyage_groupbox.setSizePolicy(
             QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding
         )
@@ -146,11 +143,19 @@ class OngletSelectionnerDestinations(QWidget):
             parent=self,
         )
         self.arbre_voyages.voyage_double_clique.connect(self.creer_voyage_ui)
-        self.liste_voyage_layout.addWidget(self.arbre_voyages)
+        liste_voyage_layout.addWidget(self.arbre_voyages)
+
+        # Destinations visitées
+        self.liste_destinations_groupbox = QGroupBox()
+
+        # Layout des voyages et destinations
+        layout_temp = QHBoxLayout()
+        layout_temp.addWidget(self.liste_voyage_groupbox, stretch=1)
+        layout_temp.addWidget(self.liste_destinations_groupbox, stretch=1)
 
         # Layout complet
         layout.addWidget(toolbar_temp)
-        layout.addWidget(self.liste_voyage_groupbox)
+        layout.addLayout(layout_temp)
 
         self.setLayout(layout)
 
@@ -278,7 +283,7 @@ class OngletSelectionnerDestinations(QWidget):
 
     def set_voyages(self, dictionnaire: dict):
         self.voyages = dictionnaire
-        self.afficher_voyages(vbox=self.liste_voyage_layout)
+        self.afficher_voyages()
 
     def set_langue(self, langue):
 
@@ -289,6 +294,9 @@ class OngletSelectionnerDestinations(QWidget):
         # Mise à jour de l'interface
         self.liste_voyage_groupbox.setTitle(
             self.fonction_traduire("titre_liste_voyages")
+        )
+        self.liste_destinations_groupbox.setTitle(
+            self.fonction_traduire("titre_liste_destinations")
         )
 
         # Avertissement
@@ -334,7 +342,7 @@ class OngletSelectionnerDestinations(QWidget):
         self.deplier.setText("📖​")
         self.replier.setText("📘​")
 
-        self.afficher_voyages(vbox=self.liste_voyage_layout)
+        self.afficher_voyages()
 
     def set_style(self, style, teinte, nuances):
 
@@ -364,7 +372,7 @@ class OngletSelectionnerDestinations(QWidget):
             ),
         }
 
-        self.afficher_voyages(vbox=self.liste_voyage_layout)
+        self.afficher_voyages()
 
     def initialiser_onglet(self, nom: str | None):
 
@@ -400,9 +408,9 @@ class OngletSelectionnerDestinations(QWidget):
 
             self.dict_modif.emit(self.voyages)
 
-        self.afficher_voyages(vbox=self.liste_voyage_layout)
+        self.afficher_voyages()
 
-    def afficher_voyages(self, vbox=None):
+    def afficher_voyages(self):
         """Met à jour l'arbre avec le contenu de self.voyages."""
 
         clefs_temp = trier_voyages(

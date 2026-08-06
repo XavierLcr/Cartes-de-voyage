@@ -8,7 +8,7 @@
 # 0 -- Initialisation ----------------------------------------------------------
 
 
-import os, textwrap, math, unicodedata
+import os, textwrap, math
 import pandas as pd
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QSizePolicy
 from PyQt6.QtCore import (
@@ -123,8 +123,15 @@ def resoudre_chemin_drapeau(dossier: str, nom_pays: str) -> str:
 
 class _MatPavillon(QWidget):
     """Un mât avec un drapeau qui "monte" jusqu'à une hauteur proportionnelle
-    à sa valeur (comme une levée de drapeau de cérémonie), puis se met à
-    flotter doucement (léger balancement vertical continu)."""
+    à sa valeur (comme une levée de drapeau de cérémonie), puis ondule
+    doucement comme un vrai tissu au vent (bandes verticales décalées selon
+    une sinusoïde, amplitude nulle côté mât et maximale côté libre)."""
+
+    # Réglages de l'ondulation, modifiables si besoin
+    N_BANDES = 26
+    AMPLITUDE_RATIO = 0.07  # proportion de la hauteur du drapeau
+    N_ONDES = 1.6  # nombre de "vagues" visibles sur la largeur
+    VITESSE_ONDULATION = 2.2  # vitesse d'animation (multiplicateur de phase)
 
     def __init__(
         self,
@@ -144,6 +151,7 @@ class _MatPavillon(QWidget):
         self._phase = 0.0
 
         self.pixmap = None
+        self._pixmap_haute_res = None
         if chemin_image:
             pm = QPixmap(chemin_image)
             if not pm.isNull():
@@ -185,8 +193,10 @@ class _MatPavillon(QWidget):
             self.anim.setStartValue(0.0)
             self.anim.setEndValue(self.ratio * plage_max)
             self.anim.setEasingCurve(QEasingCurve.Type.OutCubic)
-            self.anim.finished.connect(self._timer_flottement.start)
             self.anim.start()
+            # L'ondulation démarre dès que le drapeau commence à monter,
+            # pas seulement une fois le hissage terminé.
+            self._timer_flottement.start()
 
         if delai_ms:
             QTimer.singleShot(delai_ms, demarrer)
@@ -196,6 +206,71 @@ class _MatPavillon(QWidget):
     def _avancer_flottement(self):
         self._phase += 0.12
         self.update()
+
+    # Dessin du drapeau, en bandes verticales ondulées -----------------------
+    def _dessiner_drapeau_ondule(self, painter: QPainter, rect_drapeau: QRectF):
+        x0 = rect_drapeau.left()
+        y0 = rect_drapeau.top()
+        w = rect_drapeau.width()
+        h = rect_drapeau.height()
+
+        n_bandes = self.N_BANDES
+        largeur_bande = w / n_bandes
+        amplitude_max = h * self.AMPLITUDE_RATIO
+
+        if self.pixmap is not None:
+            # On travaille sur une version un peu suréchantillonnée pour
+            # limiter les artefacts de découpe en bandes fines.
+            if self._pixmap_haute_res is None or self._pixmap_haute_res.width() < w * 2:
+                self._pixmap_haute_res = self.pixmap.scaled(
+                    max(int(w * 2), 1),
+                    max(int(h * 2), 1),
+                    Qt.AspectRatioMode.KeepAspectRatioByExpanding,
+                    Qt.TransformationMode.SmoothTransformation,
+                )
+            pm = self._pixmap_haute_res
+            source_w = pm.width() / n_bandes
+
+            for i in range(n_bandes):
+                t = i / (n_bandes - 1)  # 0 = côté mât, 1 = côté libre
+                amplitude = amplitude_max * t
+                decalage = amplitude * math.sin(
+                    t * 2 * math.pi * self.N_ONDES
+                    - self._phase * self.VITESSE_ONDULATION
+                )
+                dest = QRectF(
+                    x0 + i * largeur_bande,
+                    y0 + decalage,
+                    largeur_bande + 0.6,  # léger recouvrement anti-liseré
+                    h,
+                )
+                src = QRectF(i * source_w, 0, source_w, pm.height())
+                painter.drawPixmap(dest, pm, src)
+        else:
+            # Pas d'image : on ondule un aplat de couleur avec un contour
+            # continu plutôt que des bandes.
+            painter.setPen(Qt.PenStyle.NoPen)
+            painter.setBrush(self.couleur_repli)
+            chemin = QPainterPath()
+            n_pts = 24
+            points_haut = []
+            points_bas = []
+            for i in range(n_pts + 1):
+                t = i / n_pts
+                amplitude = amplitude_max * t
+                decalage = amplitude * math.sin(
+                    t * 2 * math.pi * self.N_ONDES
+                    - self._phase * self.VITESSE_ONDULATION
+                )
+                points_haut.append((x0 + t * w, y0 + decalage))
+                points_bas.append((x0 + t * w, y0 + h + decalage))
+            chemin.moveTo(*points_haut[0])
+            for p in points_haut[1:]:
+                chemin.lineTo(*p)
+            for p in reversed(points_bas):
+                chemin.lineTo(*p)
+            chemin.closeSubpath()
+            painter.drawPath(chemin)
 
     def paintEvent(self, event):
         painter = QPainter(self)
@@ -222,14 +297,13 @@ class _MatPavillon(QWidget):
         painter.setBrush(QColor("#B5B5B5"))
         painter.drawRoundedRect(QRectF(pole_x - 10, pole_bottom - 2, 20, 5), 2, 2)
 
-        # Position du drapeau (léger flottement vertical une fois hissé)
-        bob = math.sin(self._phase) * 2.2 if self._timer_flottement.isActive() else 0.0
-        flag_bottom_y = pole_bottom - self._hauteur_actuelle + bob
+        # Position (fixe désormais) du cadre du drapeau selon la hauteur hissée
+        flag_bottom_y = pole_bottom - self._hauteur_actuelle
         flag_top_y = flag_bottom_y - flag_h
         rect_drapeau = QRectF(pole_x, flag_top_y, flag_w, flag_h)
 
         if self._hauteur_actuelle > 1:
-            # Attaches mât/drapeau
+            # Attaches mât/drapeau (sur la position de référence, non ondulée)
             painter.setPen(QColor("#8E8E8E"))
             painter.drawLine(
                 int(pole_x - 1),
@@ -244,26 +318,20 @@ class _MatPavillon(QWidget):
                 int(flag_bottom_y - 3),
             )
 
+            # La zone de clip est élargie verticalement pour laisser passer
+            # l'amplitude de l'ondulation sans rogner le haut/bas du drapeau.
+            amplitude_max = flag_h * self.AMPLITUDE_RATIO
+            zone_clip = QRectF(
+                rect_drapeau.left() - 1,
+                rect_drapeau.top() - amplitude_max - 1,
+                rect_drapeau.width() + 2,
+                rect_drapeau.height() + 2 * amplitude_max + 2,
+            )
             chemin = QPainterPath()
-            chemin.addRoundedRect(rect_drapeau, 2, 2)
+            chemin.addRoundedRect(zone_clip, 2, 2)
             painter.setClipPath(chemin)
 
-            if self.pixmap is not None:
-                pm = self.pixmap.scaled(
-                    int(flag_w),
-                    int(flag_h),
-                    Qt.AspectRatioMode.KeepAspectRatioByExpanding,
-                    Qt.TransformationMode.SmoothTransformation,
-                )
-                painter.drawPixmap(
-                    int(rect_drapeau.left() + (flag_w - pm.width()) / 2),
-                    int(rect_drapeau.top() + (flag_h - pm.height()) / 2),
-                    pm,
-                )
-            else:
-                painter.setPen(Qt.PenStyle.NoPen)
-                painter.setBrush(self.couleur_repli)
-                painter.drawRect(rect_drapeau)
+            self._dessiner_drapeau_ondule(painter, rect_drapeau)
 
             painter.setClipping(False)
 

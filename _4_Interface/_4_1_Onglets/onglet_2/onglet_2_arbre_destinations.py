@@ -93,21 +93,9 @@ class ArbreDestinations(QGroupBox):
         # Layout des pays visités
         self.layout_resume_pays = QHBoxLayout()
 
-        # Boutons de mise en forme
-        layout_boutons = QHBoxLayout()
-        self.arbre_groupe = True
-        self.deplier = QPushButton()
-        self.deplier.clicked.connect(lambda: self.replier_deplier(False))
-        self.replier = QPushButton()
-        self.replier.clicked.connect(lambda: self.replier_deplier(True))
-        layout_boutons.addWidget(self.deplier, stretch=1)
-        layout_boutons.addStretch(3)
-        layout_boutons.addWidget(self.replier, stretch=1)
-
         # Layout final (directement sur self, qui EST le groupbox)
         layout = QVBoxLayout(self)
         layout.addLayout(self.layout_resume_pays)
-        layout.addLayout(layout_boutons)
 
     def set_dicts_granu(self, dict_nv: dict):
         """Permet de mettre à jour les sélections de destinations."""
@@ -118,8 +106,6 @@ class ArbreDestinations(QGroupBox):
         """Permet de mettre à jour la langue."""
         self.langue_utilisee = nouvelle_langue
         self.setTitle(self.traduire_depuis_id("titre_onglet_3"))
-        self.deplier.setText("📖​")
-        self.replier.setText("📘​")
         self.maj_layout_resume()
 
     def set_style(self, style, teinte, nuances):
@@ -222,7 +208,6 @@ class ArbreDestinations(QGroupBox):
 
             ajouter_elements(tree.invisibleRootItem(), pays_donnees, niveau=1)
 
-            tree.collapseAll() if self.arbre_groupe else tree.expandAll()
             vbox.addWidget(tree)
         else:
             vbox.addWidget(creer_QLabel_centre(text="⏳🚝"))
@@ -250,7 +235,3 @@ class ArbreDestinations(QGroupBox):
                 vbox=self.layout_resume_pays,
                 pays_donnees=dict_temp,
             )
-
-    def replier_deplier(self, replier):
-        self.arbre_groupe = replier
-        self.maj_layout_resume()

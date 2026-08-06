@@ -14,6 +14,7 @@ from PyQt6.QtWidgets import (
     QWidget,
     QVBoxLayout,
     QHBoxLayout,
+    QGridLayout,
     QLabel,
     QSizePolicy,
     QFrame,
@@ -345,33 +346,23 @@ class _MatPavillon(QWidget):
         painter.end()
 
 
-## 2.3 -- Carte : mât + libellés -----------------------------------------------
+## 2.3 -- Libellés d'une carte pays (nom + valeur) ------------------------------
 
 
-class _CartePavillon(QWidget):
-    def __init__(self, label: str, valeur: float, mat: _MatPavillon, parent=None):
-        super().__init__(parent=parent)
-        layout = QVBoxLayout(self)
-        layout.setSpacing(4)
-        layout.setContentsMargins(2, 0, 2, 0)
-        layout.setAlignment(
-            Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignBottom
-        )
+def _creer_label_nom(texte: str, largeur: int) -> QLabel:
+    label = QLabel(texte)
+    label.setStyleSheet("font-size: 11px; font-weight: 600;")
+    label.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignTop)
+    label.setFixedWidth(largeur)
+    label.setWordWrap(True)
+    return label
 
-        layout.addWidget(mat, alignment=Qt.AlignmentFlag.AlignHCenter)
 
-        label_nom = QLabel(label)
-        label_nom.setStyleSheet("font-size: 11px; font-weight: 600;")
-        label_nom.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        label_nom.setFixedWidth(mat.largeur + 10)
-        label_nom.setWordWrap(True)
-
-        label_valeur = QLabel(f"{int(valeur)} voyage{'s' if valeur > 1 else ''}")
-        label_valeur.setStyleSheet("font-size: 10px; color: #888;")
-        label_valeur.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-        layout.addWidget(label_nom)
-        layout.addWidget(label_valeur)
+def _creer_label_valeur(valeur: float) -> QLabel:
+    label = QLabel(f"{int(valeur)} voyage{'s' if valeur > 1 else ''}")
+    label.setStyleSheet("font-size: 10px; color: #888;")
+    label.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignTop)
+    return label
 
 
 ## 2.4 -- Widget principal : titre + rangée de mâts ----------------------------
@@ -425,7 +416,7 @@ class LeveeDrapeaux(QWidget):
 
             self.label_titre = QLabel(titre.upper())
             police_titre = self.label_titre.font()
-            police_titre.setPointSize(17)
+            police_titre.setPointSize(12)
             police_titre.setWeight(QFont.Weight.DemiBold)
             police_titre.setLetterSpacing(QFont.SpacingType.PercentageSpacing, 115)
             self.label_titre.setFont(police_titre)
@@ -433,7 +424,7 @@ class LeveeDrapeaux(QWidget):
             self.label_titre.setAlignment(Qt.AlignmentFlag.AlignHCenter)
 
             ligne_titre = QFrame()
-            ligne_titre.setFixedSize(46, 2)
+            ligne_titre.setFixedSize(46, 3)
             ligne_titre.setStyleSheet(
                 f"background-color: {self.couleur_accent}; border-radius: 1px;"
             )
@@ -446,12 +437,16 @@ class LeveeDrapeaux(QWidget):
             )
 
         self.conteneur = QWidget()
-        self.layout_rangee = QHBoxLayout(self.conteneur)
-        self.layout_rangee.setSpacing(18)
-        self.layout_rangee.setAlignment(
-            Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignHCenter
+        self.layout_rangee = QGridLayout(self.conteneur)
+        self.layout_rangee.setHorizontalSpacing(18)
+        self.layout_rangee.setVerticalSpacing(4)
+        # Chaque ligne (mâts / noms / valeurs) se dimensionne indépendamment :
+        # un nom sur deux lignes n'agrandit que la ligne 1, jamais la ligne 0
+        # (les mâts), donc les drapeaux restent alignés entre eux.
+        self.layout_rangee.setRowStretch(0, 0)
+        self.layout_principal.addWidget(
+            self.conteneur, alignment=Qt.AlignmentFlag.AlignHCenter
         )
-        self.layout_principal.addWidget(self.conteneur)
 
     def _vider(self):
         while self.layout_rangee.count():
@@ -482,8 +477,19 @@ class LeveeDrapeaux(QWidget):
                 hauteur_mat=self.hauteur_mat,
                 largeur=self.largeur_mat,
             )
-            carte = _CartePavillon(label=str(traduction), valeur=valeur, mat=mat)
-            self.layout_rangee.addWidget(carte)
+            label_nom = _creer_label_nom(
+                str(traduction), largeur=int(self.largeur_mat + 10)
+            )
+            label_valeur = _creer_label_valeur(valeur)
+
+            self.layout_rangee.addWidget(
+                mat,
+                0,
+                i,
+                alignment=Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignBottom,
+            )
+            self.layout_rangee.addWidget(label_nom, 1, i)
+            self.layout_rangee.addWidget(label_valeur, 2, i)
 
             mat.lancer_animation(delai_ms=i * 0)
             # mat.lancer_animation(delai_ms=i * 150)

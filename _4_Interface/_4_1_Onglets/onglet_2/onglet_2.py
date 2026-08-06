@@ -19,7 +19,6 @@ from PyQt6.QtWidgets import (
     QHBoxLayout,
     QLabel,
     QGroupBox,
-    QPushButton,
     QFileDialog,
     QSizePolicy,
     QDialog,
@@ -34,7 +33,6 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     set_emoji_sauvegarde,
     reset_combo,
-    creer_ligne_verticale,
 )
 from _0_Utilitaires._0_2_fonctions_graphiques import (
     renvoyer_couleur_widget,
@@ -133,10 +131,6 @@ class OngletSelectionnerDestinations(QWidget):
         toolbar_temp.addAction(self.deplier)
         toolbar_temp.addAction(self.replier)
 
-        # Ligne des boutons
-        layout_boutons = QHBoxLayout()
-        layout_boutons.addWidget(toolbar_temp, stretch=3)
-
         # Voyages effectués
         self.liste_voyage_groupbox = QGroupBox()
         self.liste_voyage_layout = QVBoxLayout()
@@ -155,7 +149,7 @@ class OngletSelectionnerDestinations(QWidget):
         self.liste_voyage_layout.addWidget(self.arbre_voyages)
 
         # Layout complet
-        layout.addLayout(layout_boutons)
+        layout.addWidget(toolbar_temp)
         layout.addWidget(self.liste_voyage_groupbox)
 
         self.setLayout(layout)

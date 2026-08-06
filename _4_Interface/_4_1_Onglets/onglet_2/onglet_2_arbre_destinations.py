@@ -104,7 +104,7 @@ class ArbreDestinations(QGroupBox):
     def set_langue(self, nouvelle_langue):
         """Permet de mettre à jour la langue."""
         self.langue_utilisee = nouvelle_langue
-        self.setTitle(self.traduire_depuis_id("titre_onglet_3"))
+        self.setTitle(self.traduire_depuis_id("titre_liste_destinations"))
         self.maj_layout_resume()
 
     def set_style(self, style, teinte, nuances):

@@ -6,7 +6,6 @@ titre_application : Outil de création de cartes
 titre_onglet_1 : Cartes
 description_onglet_1 : Paramètres de création des cartes
 titre_onglet_2 : Voyages effectués
-titre_onglet_3 : Résumé des lieux visités
 titre_onglet_4 : Statistiques
 description_onglet_4 : En termes de pourcentage de la superficie visitée pour chaque pays
 titre_onglet_param_profil : Paramètres du profil
@@ -108,6 +107,7 @@ voyage_date_fin : Date de fin
 tri_ordre_creation_voyages : Trier par ordre de création des voyages
 tri_nom_voyages : Trier par nom des voyages
 tri_dates_debut_voyages : Trier par date des voyages
+titre_liste_destinations : Résumé des lieux visités
 
 # Création des voyages de l'onlget 2
 general_voyage_groupbox : Contexte du voyage
@@ -122,11 +122,6 @@ titre_choix_destinations_visitees : Sélection des lieux visités
 # Chargement des YAMLs
 description_titre_chargement_yaml : Cela permet de charger la liste des voyages effectués. L'ancien format avec les listes de régions ou départements par pays est également supporté.
 pop_up_yaml : Charger un fichier YAML
-
-# Onglets 3
-titre_regions_visitees : Régions visitées
-titre_departements_visites : Départements visités
-mise_en_forme_onglet_3 : Affichage regroupé
 
 # Onglet 4
 ## Hémicycle

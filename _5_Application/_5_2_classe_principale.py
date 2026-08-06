@@ -307,7 +307,7 @@ class MesVoyagesApplication(QWidget):
         self.liste_onglets.setTabText(
             self.liste_onglets.indexOf(self.onglet_resume_destinations),
             self.traduire_depuis_id(
-                "titre_onglet_3",
+                "titre_liste_destinations",
                 suffixe=(" 🧭"),
             ),
         )

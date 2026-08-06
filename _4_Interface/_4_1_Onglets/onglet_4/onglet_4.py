@@ -420,3 +420,6 @@ class OngletTopPays(QWidget):
 
         if num_onglet == self.pages.indexOf(self.tableau_de_bord):
             self.tableau_de_bord.update_widgets()
+
+        if num_onglet == self.pages.indexOf(self.pays_souvent_visites):
+            self.pays_souvent_visites.creer_graphique()

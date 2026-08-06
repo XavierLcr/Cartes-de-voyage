@@ -209,12 +209,17 @@ class _MatPavillon(QWidget):
             self.anim.setEndValue(self.ratio * plage_max)
             self.anim.setEasingCurve(QEasingCurve.Type.OutCubic)
             self.anim.start()
-            # L'ondulation démarre dès que le drapeau commence à monter,
-            # pas seulement une fois le hissage terminé.
             self._timer_flottement.start()
 
         if delai_ms:
-            QTimer.singleShot(delai_ms, demarrer)
+            # QTimer parenté à self : détruit automatiquement en même temps
+            # que le widget, contrairement à QTimer.singleShot qui n'est
+            # rattaché à rien et peut déclencher demarrer() sur un widget
+            # déjà supprimé.
+            self._timer_hissage = QTimer(self)
+            self._timer_hissage.setSingleShot(True)
+            self._timer_hissage.timeout.connect(demarrer)
+            self._timer_hissage.start(delai_ms)
         else:
             demarrer()
 
@@ -511,8 +516,7 @@ class LeveeDrapeaux(QWidget):
             self.layout_rangee.addWidget(label_nom, 1, i)
             self.layout_rangee.addWidget(label_valeur, 2, i)
 
-            mat.lancer_animation(delai_ms=i * 0)
-            # mat.lancer_animation(delai_ms=i * 150)
+            mat.lancer_animation(delai_ms=i * 200)
 
 
 # 3 -- Classe principale -------------------------------------------------------

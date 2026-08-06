@@ -160,14 +160,6 @@ class MesVoyagesApplication(QWidget):
             self.set_dictionnaire_destinations
         )
 
-        # === Troisième onglet ===
-
-        self.onglet_resume_destinations = onglet_2_arbre_destinations.ArbreDestinations(
-            traduire_depuis_id=self.traduire_depuis_id,
-            constantes=self.constantes,
-            parent=None,
-        )
-
         # === Quatrième onglet ===
 
         self.onglet_statistiques = onglet_4.OngletTopPays(
@@ -224,7 +216,6 @@ class MesVoyagesApplication(QWidget):
         self.liste_onglets.setUsesScrollButtons(False)
         self.liste_onglets.addTab(self.onglet_parametres, "Cartes")
         self.liste_onglets.addTab(self.onglet_selection_destinations, "Voyages")
-        self.liste_onglets.addTab(self.onglet_resume_destinations, "Résumé")
         self.liste_onglets.addTab(self.onglet_statistiques, "Statistiques")
         self.liste_onglets.addTab(self.onglet_param_profil, "⚙️")
         self.liste_onglets.addTab(self.onglet_description_application, "ℹ️")
@@ -302,16 +293,6 @@ class MesVoyagesApplication(QWidget):
             ),
         )
         self.onglet_selection_destinations.set_langue(langue=self.langue)
-
-        # Onglet 3
-        self.liste_onglets.setTabText(
-            self.liste_onglets.indexOf(self.onglet_resume_destinations),
-            self.traduire_depuis_id(
-                "titre_liste_destinations",
-                suffixe=(" 🧭"),
-            ),
-        )
-        self.onglet_resume_destinations.set_langue(nouvelle_langue=self.langue)
 
         # Onglet des statistiques
         self.liste_onglets.setTabText(
@@ -461,11 +442,6 @@ class MesVoyagesApplication(QWidget):
             style=style_temp, teinte=teinte_temp, nuances=theme_temp
         )
 
-        # Onglet 3
-        self.onglet_resume_destinations.set_style(
-            style=style_temp, teinte=teinte_temp, nuances=theme_temp
-        )
-
         # Onglet de statistiques
         self.onglet_statistiques.set_style(
             style=style_temp, teinte=teinte_temp, nuances=theme_temp
@@ -519,17 +495,10 @@ class MesVoyagesApplication(QWidget):
         bool_temp = dict_temp != {"region": {}, "dep": {}}
 
         self.liste_onglets.setTabVisible(
-            self.liste_onglets.indexOf(self.onglet_resume_destinations),
-            bool_temp,
-        )
-        self.liste_onglets.setTabVisible(
             self.liste_onglets.indexOf(self.onglet_statistiques),
             bool_temp,
         )
 
-        self.onglet_resume_destinations.set_dicts_granu(
-            dict_nv=copy.deepcopy(dict_temp)
-        )
         self.onglet_statistiques.set_dicts_granu(dict_nv=copy.deepcopy(dictionnaire))
 
     def publier_cartes(self):

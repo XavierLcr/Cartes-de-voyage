@@ -29,6 +29,7 @@ from PyQt6.QtWidgets import (
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     exporter_fichier,
     formater_temps_actuel,
+    voyages_vers_destinations,
 )
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     set_emoji_sauvegarde,
@@ -359,10 +360,10 @@ class OngletSelectionnerDestinations(QWidget):
 
         # Arbre des voyages
         self.arbre_voyages.set_langue(self.langue)
+        self.arbre_destinations.set_langue(nouvelle_langue=self.langue)
         self.afficher_voyages()
 
         # Arbre de destinations
-        self.arbre_destinations.set_langue(nouvelle_langue=self.langue)
 
     def set_style(self, style, teinte, nuances):
 
@@ -370,12 +371,10 @@ class OngletSelectionnerDestinations(QWidget):
         self.teinte = teinte
         self.nuances = nuances
 
-        # Arbre des voyages
+        # Arbres des voyages
         self.arbre_voyages.set_style(style=style, teinte=teinte, nuances=nuances)
-        self.afficher_voyages()
-
-        # Arbre de destinations
         self.arbre_destinations.set_style(style=style, teinte=teinte, nuances=nuances)
+        self.afficher_voyages()
 
     def initialiser_onglet(self, nom: str | None):
 
@@ -424,6 +423,11 @@ class OngletSelectionnerDestinations(QWidget):
         self.arbre_voyages.peupler(voyages=self.voyages, ordre_clefs=clefs_temp)
         self.arbre_voyages.setVisible(bool(self.voyages))
 
+        self.arbre_destinations.set_dicts_granu(
+            dict_nv=voyages_vers_destinations(self.voyages)
+        )
+        self.arbre_destinations.setVisible(bool(self.voyages))
+
     def voyage_double_clique(self, item, column):
         """Gère le double-clic sur un voyage."""
         # Récupère la clé du voyage stockée dans UserRole
@@ -438,3 +442,4 @@ class OngletSelectionnerDestinations(QWidget):
     def replier_deplier_arbres(self, replier: bool):
 
         self.replier_deplier_arbre(arbre=self.arbre_voyages, replier=replier)
+        self.replier_deplier_arbre(arbre=self.arbre_destinations, replier=replier)

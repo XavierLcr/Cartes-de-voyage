@@ -106,7 +106,6 @@ class ArbreDestinations(QTreeWidget):
     def set_langue(self, nouvelle_langue):
         """Met à jour la langue."""
         self.langue_utilisee = nouvelle_langue
-        self.maj_layout_resume()
 
     def set_style(self, style, teinte, nuances):
         self.couleurs = {
@@ -125,8 +124,6 @@ class ArbreDestinations(QTreeWidget):
                 sombre="#7E0E5C",
             ),
         }
-
-        self.maj_layout_resume()
 
     def remplir_arbre(self, pays_donnees):
         """Construit l'arbre des destinations."""

@@ -112,6 +112,12 @@ class OngletSelectionnerDestinations(QWidget):
             lambda: set_emoji_sauvegarde(self.bouton_sauvegarde, 3000)
         )
 
+        # Bouton de dépliage
+        self.deplier = QAction("Déplier", self)
+        self.deplier.triggered.connect(lambda: self.replier_deplier_arbres(False))
+        self.replier = QAction("Replier", self)
+        self.replier.triggered.connect(lambda: self.replier_deplier_arbres(True))
+
         # Barre d'outils
         spacer = QWidget()
         spacer.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
@@ -124,6 +130,8 @@ class OngletSelectionnerDestinations(QWidget):
         toolbar_temp.addAction(self.chargement_yaml_bouton)
         toolbar_temp.addWidget(spacer)
         toolbar_temp.addWidget(self.options_tri)
+        toolbar_temp.addAction(self.deplier)
+        toolbar_temp.addAction(self.replier)
 
         # Ligne des boutons
         layout_boutons = QHBoxLayout()
@@ -328,6 +336,10 @@ class OngletSelectionnerDestinations(QWidget):
             list(self.dict_correspondances_tri.keys()),
         )
 
+        # Dépliage et repliage des arbres
+        self.deplier.setText("📖​")
+        self.replier.setText("📘​")
+
         self.afficher_voyages(vbox=self.liste_voyage_layout)
 
     def set_style(self, style, teinte, nuances):
@@ -416,3 +428,10 @@ class OngletSelectionnerDestinations(QWidget):
         if voyage_identifiant:
             # Appelle creer_voyage_ui avec la clé du voyage
             self.creer_voyage_ui(voyage_identifiant)
+
+    def replier_deplier_arbre(self, arbre, replier: bool):
+        arbre.collapseAll() if replier else arbre.expandAll()
+
+    def replier_deplier_arbres(self, replier: bool):
+
+        self.replier_deplier_arbre(arbre=self.arbre_voyages, replier=replier)

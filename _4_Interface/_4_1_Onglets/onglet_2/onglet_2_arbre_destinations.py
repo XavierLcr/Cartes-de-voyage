@@ -73,7 +73,7 @@ def filtrer_hierarchie(dico_plat, dico_hier):
 # 2 -- Classe de l'onglet de récapitulation des pays visités -------------------
 
 
-class ArbreDestinations(QGroupBox):
+class ArbreDestinations(QTreeWidget):
     def __init__(
         self,
         traduire_depuis_id,
@@ -88,27 +88,27 @@ class ArbreDestinations(QGroupBox):
         self.liste_pays = constantes.hierarchie_par_pays
         self.dicts_granu = {"region": {}, "dep": {}}
         self.langue_utilisee = "français"
+        self.couleurs = {}
 
-        # Layout des pays visités
-        self.layout_resume_pays = QHBoxLayout()
-
-        # Layout final (directement sur self, qui EST le groupbox)
-        layout = QVBoxLayout(self)
-        layout.addLayout(self.layout_resume_pays)
+        # Configuration de l'arbre
+        self.setHeaderHidden(True)
+        self.setAlternatingRowColors(False)
+        self.setColumnCount(1)
+        self.setIndentation(20)
+        self.setExpandsOnDoubleClick(True)
+        self.setAnimated(True)
 
     def set_dicts_granu(self, dict_nv: dict):
-        """Permet de mettre à jour les sélections de destinations."""
+        """Met à jour les destinations sélectionnées."""
         self.dicts_granu = dict_nv
         self.maj_layout_resume()
 
     def set_langue(self, nouvelle_langue):
-        """Permet de mettre à jour la langue."""
+        """Met à jour la langue."""
         self.langue_utilisee = nouvelle_langue
-        self.setTitle(self.traduire_depuis_id("titre_liste_destinations"))
         self.maj_layout_resume()
 
     def set_style(self, style, teinte, nuances):
-
         self.couleurs = {
             1: renvoyer_couleur_widget(
                 style=style,
@@ -128,24 +128,13 @@ class ArbreDestinations(QGroupBox):
 
         self.maj_layout_resume()
 
-    def ajouter_partie_a_layout(self, vbox, pays_donnees):
-        """Affiche les données hiérarchiques (pays_donnees) dans un QTreeWidget.
+    def remplir_arbre(self, pays_donnees):
+        """Construit l'arbre des destinations."""
 
-        Args:
-            granu (str): Nom de la granularité (ex: 'régions', 'départements', etc.)
-            pays_donnees (dict): Dictionnaire hiérarchique {pays: {région: [lieux], ...}}
-            vbox (QVBoxLayout): Layout dans lequel insérer le widget.
-        """
+        self.clear()
 
         def ajouter_elements(parent_item, data, niveau=1):
-            """
-            Ajoute récursivement les éléments dans l'arbre avec couleurs de fond par niveau.
-            Le dernier niveau (les listes) reste transparent.
-            Coloration inclut le premier niveau (top-level) maintenant.
-            """
-
             if isinstance(data, dict):
-
                 for cle, valeur in sorted(
                     data.items(),
                     key=lambda x: (
@@ -156,17 +145,16 @@ class ArbreDestinations(QGroupBox):
                         else str(x[0])
                     ),
                 ):
-                    # créer l'item pour ce niveau
-
                     nom = str(cle)
+
                     if niveau == 1:
                         nom = self.noms_pays.get(cle, {}).get(self.langue_utilisee, nom)
+
                     if cle in self.emojis_pays:
                         nom += f" {self.emojis_pays[cle]}"
 
                     child = QTreeWidgetItem(parent_item, [nom])
 
-                    # colorier le fond si ce n'est pas une liste (dernier niveau)
                     child.setBackground(
                         0,
                         QtGui.QBrush(
@@ -174,51 +162,34 @@ class ArbreDestinations(QGroupBox):
                         ),
                     )
 
-                    # récursion pour les niveaux suivants
                     ajouter_elements(child, valeur, niveau + 1)
 
             elif isinstance(data, list):
-                # dernier niveau → transparent
                 for item in data:
-                    nom = f"• {str(item)}"
+                    nom = f"• {item}"
+
                     if item in self.emojis_pays:
                         nom += f" {self.emojis_pays[item]}"
+
                     child = QTreeWidgetItem(parent_item, [nom])
                     child.setBackground(
-                        0, QtGui.QBrush(QtGui.QColor(QtCore.Qt.GlobalColor.transparent))
+                        0,
+                        QtGui.QBrush(QtGui.QColor(QtCore.Qt.GlobalColor.transparent)),
                     )
 
             else:
-                # valeur simple → feuille
                 child = QTreeWidgetItem(parent_item, [str(data)])
                 child.setBackground(
-                    0, QtGui.QBrush(QtGui.QColor(QtCore.Qt.GlobalColor.transparent))
+                    0,
+                    QtGui.QBrush(QtGui.QColor(QtCore.Qt.GlobalColor.transparent)),
                 )
 
-        # --- Création de l'arbre ---
         if pays_donnees:
-            tree = QTreeWidget()
-            tree.setHeaderHidden(True)
-            tree.setAlternatingRowColors(False)
-            tree.setColumnCount(1)
-            tree.setIndentation(20)
-            tree.setExpandsOnDoubleClick(True)
-            tree.setAnimated(True)
-
-            ajouter_elements(tree.invisibleRootItem(), pays_donnees, niveau=1)
-
-            vbox.addWidget(tree)
+            ajouter_elements(self.invisibleRootItem(), pays_donnees)
         else:
-            vbox.addWidget(creer_QLabel_centre(text="⏳🚝"))
-            vbox.addStretch()
-
-        # Renvoi
-        return vbox
+            self.addTopLevelItem(QTreeWidgetItem(["⏳🚝"]))
 
     def maj_layout_resume(self):
-
-        vider_layout(self.layout_resume_pays)
-
         liste_temp = creer_liste_destinations(
             dict_regions=self.dicts_granu.get("region", {}),
             dict_dep=self.dicts_granu.get("dep", {}),
@@ -229,8 +200,4 @@ class ArbreDestinations(QGroupBox):
             dico_hier=self.liste_pays,
         )
 
-        if dict_temp:
-            self.ajouter_partie_a_layout(
-                vbox=self.layout_resume_pays,
-                pays_donnees=dict_temp,
-            )
+        self.remplir_arbre(dict_temp)

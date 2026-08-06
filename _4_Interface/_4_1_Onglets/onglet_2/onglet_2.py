@@ -34,9 +34,6 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     set_emoji_sauvegarde,
     reset_combo,
 )
-from _0_Utilitaires._0_2_fonctions_graphiques import (
-    renvoyer_couleur_widget,
-)
 from _0_Utilitaires._0_7_fonctions_voyages import (
     detecter_type_yaml,
     voyage_id,
@@ -147,6 +144,7 @@ class OngletSelectionnerDestinations(QWidget):
 
         # Destinations visitées
         self.liste_destinations_groupbox = QGroupBox()
+        layout_liste_destinations = QHBoxLayout(self.liste_destinations_groupbox)
 
         # Layout des voyages et destinations
         layout_temp = QHBoxLayout()
@@ -342,35 +340,17 @@ class OngletSelectionnerDestinations(QWidget):
         self.deplier.setText("📖​")
         self.replier.setText("📘​")
 
+        # Arbre des voyages
+        self.arbre_voyages.set_langue(self.langue)
         self.afficher_voyages()
 
     def set_style(self, style, teinte, nuances):
 
         self.style = style
+        self.teinte = teinte
+        self.nuances = nuances
 
-        self.couleurs = {
-            1: renvoyer_couleur_widget(
-                style=style,
-                teinte=teinte,
-                nuances=nuances,
-                clair="#C1D9EE",
-                sombre="#1A3B9B",
-            ),
-            2: renvoyer_couleur_widget(
-                style=style,
-                teinte=teinte,
-                nuances=nuances,
-                clair="#D6E4F0",
-                sombre="#2A5BB8",
-            ),
-            3: renvoyer_couleur_widget(
-                style=style,
-                teinte=teinte,
-                nuances=nuances,
-                clair="#E2F0FD",
-                sombre="#3A7BD5",
-            ),
-        }
+        self.arbre_voyages.set_style(style=style, teinte=teinte, nuances=nuances)
 
         self.afficher_voyages()
 
@@ -418,8 +398,6 @@ class OngletSelectionnerDestinations(QWidget):
             tri=self.dict_correspondances_tri.get(self.options_tri.currentText()),
         )
 
-        self.arbre_voyages.set_langue(self.langue)
-        self.arbre_voyages.set_couleurs(self.couleurs)
         self.arbre_voyages.peupler(voyages=self.voyages, ordre_clefs=clefs_temp)
         self.arbre_voyages.setVisible(bool(self.voyages))
 

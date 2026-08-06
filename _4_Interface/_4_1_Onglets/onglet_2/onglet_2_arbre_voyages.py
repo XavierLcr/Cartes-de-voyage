@@ -14,6 +14,10 @@ from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6 import QtGui
 from PyQt6.QtWidgets import QTreeWidget, QTreeWidgetItem
 
+from _0_Utilitaires._0_2_fonctions_graphiques import (
+    renvoyer_couleur_widget,
+)
+
 # 1 -- Classe de création de l'arbre des voyages -------------------------------
 
 
@@ -46,8 +50,31 @@ class ArbreVoyages(QTreeWidget):
     def set_langue(self, langue):
         self.langue = langue
 
-    def set_couleurs(self, couleurs: dict):
-        self.couleurs = couleurs
+    def set_style(self, style, teinte, nuances):
+
+        self.couleurs = {
+            1: renvoyer_couleur_widget(
+                style=style,
+                teinte=teinte,
+                nuances=nuances,
+                clair="#C1D9EE",
+                sombre="#1A3B9B",
+            ),
+            2: renvoyer_couleur_widget(
+                style=style,
+                teinte=teinte,
+                nuances=nuances,
+                clair="#D6E4F0",
+                sombre="#2A5BB8",
+            ),
+            3: renvoyer_couleur_widget(
+                style=style,
+                teinte=teinte,
+                nuances=nuances,
+                clair="#E2F0FD",
+                sombre="#3A7BD5",
+            ),
+        }
 
     # -- Interactions ----------------------------------------------------
 

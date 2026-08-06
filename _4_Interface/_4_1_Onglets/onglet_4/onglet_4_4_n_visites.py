@@ -8,9 +8,16 @@
 # 0 -- Initialisation ----------------------------------------------------------
 
 
-import os, textwrap, math
+import os, textwrap, math, unicodedata
 import pandas as pd
-from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QSizePolicy
+from PyQt6.QtWidgets import (
+    QWidget,
+    QVBoxLayout,
+    QHBoxLayout,
+    QLabel,
+    QSizePolicy,
+    QFrame,
+)
 from PyQt6.QtCore import (
     Qt,
     QRectF,
@@ -19,7 +26,7 @@ from PyQt6.QtCore import (
     pyqtProperty,
     QTimer,
 )
-from PyQt6.QtGui import QPainter, QColor, QPixmap, QPainterPath, QLinearGradient
+from PyQt6.QtGui import QPainter, QColor, QPixmap, QPainterPath, QLinearGradient, QFont
 
 from _0_Utilitaires._0_2_fonctions_graphiques import (
     hex_to_rgb,
@@ -387,12 +394,14 @@ class LeveeDrapeaux(QWidget):
         hauteur_mat: float = 190,
         largeur_mat: float = 92,
         palette_repli: list | None = None,
+        couleur_accent: str = "#4A90A4",
         parent=None,
     ):
         super().__init__(parent=parent)
         self.dossier_drapeaux = dossier_drapeaux
         self.hauteur_mat = hauteur_mat
         self.largeur_mat = largeur_mat
+        self.couleur_accent = couleur_accent
         self.palette_repli = palette_repli or [
             "#7DC8E8",
             "#E15759",
@@ -404,19 +413,43 @@ class LeveeDrapeaux(QWidget):
 
         self.layout_principal = QVBoxLayout(self)
         self.layout_principal.setContentsMargins(12, 12, 12, 12)
-        self.layout_principal.setSpacing(10)
+        self.layout_principal.setSpacing(14)
 
         self.label_titre = None
         if titre:
-            self.label_titre = QLabel(titre)
-            self.label_titre.setStyleSheet("font-weight: 600; font-size: 14px;")
-            self.layout_principal.addWidget(self.label_titre)
+            conteneur_titre = QWidget()
+            layout_titre = QVBoxLayout(conteneur_titre)
+            layout_titre.setContentsMargins(0, 0, 0, 0)
+            layout_titre.setSpacing(6)
+            layout_titre.setAlignment(Qt.AlignmentFlag.AlignHCenter)
+
+            self.label_titre = QLabel(titre.upper())
+            police_titre = self.label_titre.font()
+            police_titre.setPointSize(17)
+            police_titre.setWeight(QFont.Weight.DemiBold)
+            police_titre.setLetterSpacing(QFont.SpacingType.PercentageSpacing, 115)
+            self.label_titre.setFont(police_titre)
+            self.label_titre.setStyleSheet("color: #4A5A66;")
+            self.label_titre.setAlignment(Qt.AlignmentFlag.AlignHCenter)
+
+            ligne_titre = QFrame()
+            ligne_titre.setFixedSize(46, 2)
+            ligne_titre.setStyleSheet(
+                f"background-color: {self.couleur_accent}; border-radius: 1px;"
+            )
+
+            layout_titre.addWidget(self.label_titre)
+            layout_titre.addWidget(ligne_titre, alignment=Qt.AlignmentFlag.AlignHCenter)
+
+            self.layout_principal.addWidget(
+                conteneur_titre, alignment=Qt.AlignmentFlag.AlignHCenter
+            )
 
         self.conteneur = QWidget()
         self.layout_rangee = QHBoxLayout(self.conteneur)
         self.layout_rangee.setSpacing(18)
         self.layout_rangee.setAlignment(
-            Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignLeft
+            Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignHCenter
         )
         self.layout_principal.addWidget(self.conteneur)
 

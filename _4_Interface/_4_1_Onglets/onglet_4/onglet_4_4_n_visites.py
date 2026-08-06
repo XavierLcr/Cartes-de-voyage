@@ -13,7 +13,6 @@ import pandas as pd
 from PyQt6.QtWidgets import (
     QWidget,
     QVBoxLayout,
-    QHBoxLayout,
     QGridLayout,
     QLabel,
     QSizePolicy,
@@ -27,7 +26,15 @@ from PyQt6.QtCore import (
     pyqtProperty,
     QTimer,
 )
-from PyQt6.QtGui import QPainter, QColor, QPixmap, QPainterPath, QLinearGradient, QFont
+from PyQt6.QtGui import (
+    QPainter,
+    QColor,
+    QPixmap,
+    QPainterPath,
+    QLinearGradient,
+    QFont,
+    QFontMetrics,
+)
 
 from _0_Utilitaires._0_2_fonctions_graphiques import (
     hex_to_rgb,
@@ -409,19 +416,32 @@ class LeveeDrapeaux(QWidget):
         self.label_titre = None
         if titre:
             conteneur_titre = QWidget()
+            conteneur_titre.setContentsMargins(0, 0, 0, 0)
             layout_titre = QVBoxLayout(conteneur_titre)
             layout_titre.setContentsMargins(0, 0, 0, 0)
-            layout_titre.setSpacing(6)
+            layout_titre.setSpacing(2)
             layout_titre.setAlignment(Qt.AlignmentFlag.AlignHCenter)
 
-            self.label_titre = QLabel(titre.upper())
+            texte_titre = titre.upper()
+
+            self.label_titre = QLabel(texte_titre)
             police_titre = self.label_titre.font()
             police_titre.setPointSize(12)
             police_titre.setWeight(QFont.Weight.DemiBold)
             police_titre.setLetterSpacing(QFont.SpacingType.PercentageSpacing, 115)
             self.label_titre.setFont(police_titre)
-            self.label_titre.setStyleSheet("color: #4A5A66;")
+            self.label_titre.setStyleSheet("color: #4A5A66; margin: 0px; padding: 0px;")
             self.label_titre.setAlignment(Qt.AlignmentFlag.AlignHCenter)
+            self.label_titre.setContentsMargins(0, 0, 0, 0)
+
+            # On force la hauteur du label à celle du texte réel, au lieu de
+            # laisser Qt utiliser le "line height" natif de la police (souvent
+            # bien plus grand que le texte affiché, d'où le grand espace visible
+            # avant la barre).
+            metrics_titre = QFontMetrics(police_titre)
+            self.label_titre.setFixedHeight(
+                metrics_titre.boundingRect(texte_titre).height()
+            )
 
             ligne_titre = QFrame()
             ligne_titre.setFixedSize(46, 3)

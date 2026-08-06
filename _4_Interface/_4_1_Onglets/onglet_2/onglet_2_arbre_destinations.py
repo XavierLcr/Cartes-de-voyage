@@ -186,8 +186,6 @@ class ArbreDestinations(QTreeWidget):
 
         if pays_donnees:
             ajouter_elements(self.invisibleRootItem(), pays_donnees)
-        else:
-            self.addTopLevelItem(QTreeWidgetItem(["⏳🚝"]))
 
     def maj_layout_resume(self):
         liste_temp = creer_liste_destinations(

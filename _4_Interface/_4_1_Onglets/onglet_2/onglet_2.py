@@ -144,7 +144,6 @@ class OngletSelectionnerDestinations(QWidget):
             QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding
         )
 
-        self.couleurs = {}
         self.arbre_voyages = ArbreVoyages(
             constantes=self.constantes,
             fonction_traduire=self.fonction_traduire,
@@ -157,6 +156,12 @@ class OngletSelectionnerDestinations(QWidget):
         self.liste_destinations_groupbox = QGroupBox()
         self.liste_destinations_groupbox.setStyleSheet(style_QGroupBox_ajustements())
         layout_liste_destinations = QHBoxLayout(self.liste_destinations_groupbox)
+        self.arbre_destinations = ArbreDestinations(
+            traduire_depuis_id=self.fonction_traduire,
+            constantes=constantes,
+            parent=self,
+        )
+        layout_liste_destinations.addWidget(self.arbre_destinations)
 
         # Layout des voyages et destinations
         layout_temp = QHBoxLayout()
@@ -356,15 +361,21 @@ class OngletSelectionnerDestinations(QWidget):
         self.arbre_voyages.set_langue(self.langue)
         self.afficher_voyages()
 
+        # Arbre de destinations
+        self.arbre_destinations.set_langue(nouvelle_langue=self.langue)
+
     def set_style(self, style, teinte, nuances):
 
         self.style = style
         self.teinte = teinte
         self.nuances = nuances
 
+        # Arbre des voyages
         self.arbre_voyages.set_style(style=style, teinte=teinte, nuances=nuances)
-
         self.afficher_voyages()
+
+        # Arbre de destinations
+        self.arbre_destinations.set_style(style=style, teinte=teinte, nuances=nuances)
 
     def initialiser_onglet(self, nom: str | None):
 

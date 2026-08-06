@@ -47,7 +47,17 @@ from _4_Interface._4_1_Onglets.onglet_2.onglet_2_arbre_destinations import (
     ArbreDestinations,
 )
 
-# 1 -- Classe de sélection des destinations ------------------------------------
+# 1 -- Ajustements du style des QGroupBox --------------------------------------
+
+
+def style_QGroupBox_ajustements():
+
+    return """QGroupBox {
+                padding: 5px 4px 4px 4px;
+            }"""
+
+
+# 2 -- Classe de sélection des destinations ------------------------------------
 
 
 class OngletSelectionnerDestinations(QWidget):
@@ -128,6 +138,7 @@ class OngletSelectionnerDestinations(QWidget):
 
         # Voyages effectués
         self.liste_voyage_groupbox = QGroupBox()
+        self.liste_voyage_groupbox.setStyleSheet(style_QGroupBox_ajustements())
         liste_voyage_layout = QVBoxLayout(self.liste_voyage_groupbox)
         self.liste_voyage_groupbox.setSizePolicy(
             QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding
@@ -144,6 +155,7 @@ class OngletSelectionnerDestinations(QWidget):
 
         # Destinations visitées
         self.liste_destinations_groupbox = QGroupBox()
+        self.liste_destinations_groupbox.setStyleSheet(style_QGroupBox_ajustements())
         layout_liste_destinations = QHBoxLayout(self.liste_destinations_groupbox)
 
         # Layout des voyages et destinations

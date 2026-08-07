@@ -322,7 +322,7 @@ class OngletSelectionnerDestinations(QWidget):
 
         # Boutons
         self.ajouter_voyage_bouton.setText(
-            self.fonction_traduire("bouton_ajouter_voyage")
+            self.fonction_traduire("bouton_ajouter_voyage", prefixe="🧭 ")
         )
 
         self.telecharger_lieux_visites.setText("📥")
@@ -356,7 +356,9 @@ class OngletSelectionnerDestinations(QWidget):
 
         # Dépliage et repliage des arbres
         self.deplier.setText("📖​")
+        self.deplier.setToolTip(self.fonction_traduire("arbre_deplier"))
         self.replier.setText("📘​")
+        self.replier.setToolTip(self.fonction_traduire("arbre_replier"))
 
         # Arbre des voyages
         self.arbre_voyages.set_langue(self.langue)

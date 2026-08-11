@@ -352,26 +352,18 @@ class HemicycleWidget(QWidget):
         # Renvoi
         return rayon_texte
 
-    def peindre_noms_continents(self, painter, df: pd.DataFrame, rayon: int):
-
+    def _peindre_texte_par_continent(self, painter, df, rayon, taille_police, texte_fn):
         font = painter.font()
-        font.setPointSize(self.calculer_taille_police())
+        font.setPointSize(taille_police)
         painter.setFont(font)
-
-        # Taille du texte
         font_metrics = painter.fontMetrics()
 
-        for continent in list(df["continent"].unique()):
-
-            df_temp = df[df["continent"] == continent].copy()
-
-            if len(df_temp) == 0:
+        for continent in df["continent"].unique():
+            df_temp = df[df["continent"] == continent]
+            if df_temp.empty:
                 continue
 
-            # Nom du continent
-            nom_affiche = df_temp["continent_trad"].unique()[0]
-
-            # Calcul de l'angle du point par rapport au centre
+            texte = texte_fn(df_temp)
             theta = math.atan2(
                 df_temp["y"].mean() - self.center_y(),
                 df_temp["x"].mean() - self.center_x(),
@@ -382,61 +374,33 @@ class HemicycleWidget(QWidget):
                 self.center_x() + rayon * math.cos(theta),
                 self.center_y() + rayon * math.sin(theta),
             )
-            # Angle en degrés
             painter.rotate(math.degrees(theta) + 90)
-
-            # Décaler légèrement le texte pour qu’il ne touche pas ce qu'il y a en dessous
             painter.drawText(
                 QPointF(
-                    -font_metrics.horizontalAdvance(nom_affiche) / 2,
+                    -font_metrics.horizontalAdvance(texte) / 2,
                     -font_metrics.height() / 2,
                 ),
-                nom_affiche,
+                texte,
             )
             painter.restore()
 
-    def peindre_ratios_visites(self, painter, df: pd.DataFrame, rayon: int):
+    def peindre_noms_continents(self, painter, df, rayon):
+        self._peindre_texte_par_continent(
+            painter,
+            df,
+            rayon,
+            self.calculer_taille_police(),
+            lambda d: d["continent_trad"].unique()[0],
+        )
 
-        font = painter.font()
-        font.setPointSize(max(self.calculer_taille_police() - 1, 1))
-        painter.setFont(font)
-
-        # Taille du texte
-        font_metrics = painter.fontMetrics()
-
-        for continent in list(df["continent"].unique()):
-
-            df_temp = df[df["continent"] == continent].copy()
-
-            if len(df_temp) == 0:
-                continue
-
-            # Ratio de pays visité pour ce continent
-            texte_temp = f"{df_temp['visite'].sum()}/{len(df_temp)}"
-
-            # Calcul de l'angle du point par rapport au centre
-            theta = math.atan2(
-                df_temp["y"].mean() - self.center_y(),
-                df_temp["x"].mean() - self.center_x(),
-            )
-
-            painter.save()
-            painter.translate(
-                self.center_x() + rayon * math.cos(theta),
-                self.center_y() + rayon * math.sin(theta),
-            )
-            # Angle en degrés
-            painter.rotate(math.degrees(theta) + 90)
-
-            # Décaler légèrement le texte pour qu’il ne touche pas le point
-            painter.drawText(
-                QPointF(
-                    -font_metrics.horizontalAdvance(texte_temp) / 2,
-                    -font_metrics.height() / 2,
-                ),
-                texte_temp,
-            )
-            painter.restore()
+    def peindre_ratios_visites(self, painter, df, rayon):
+        self._peindre_texte_par_continent(
+            painter,
+            df,
+            rayon,
+            max(self.calculer_taille_police() - 1, 1),
+            lambda d: f"{d['visite'].sum()}/{len(d)}",
+        )
 
     def calculer_taille_police(self):
         return max(int(7 + self.level_distance / 8), 1)

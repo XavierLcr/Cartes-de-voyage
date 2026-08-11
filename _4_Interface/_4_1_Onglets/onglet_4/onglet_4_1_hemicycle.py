@@ -12,7 +12,7 @@ import math, copy, random, time
 import pandas as pd
 from PyQt6.QtCore import QPointF
 from PyQt6.QtWidgets import QWidget, QToolTip
-from PyQt6.QtGui import QPainter, QPen, QColor, QBrush
+from PyQt6.QtGui import QPainter, QPen, QColor, QBrush, QRadialGradient
 from _0_Utilitaires._0_5_isid import isid
 
 # 1 -- Fonctions ---------------------------------------------------------------
@@ -317,7 +317,8 @@ class HemicycleWidget(QWidget):
 
         self.points_hover = []
 
-        # Ajout des points
+        epaisseur_bord = int(self.diametre_point * 1 / 3)
+
         for ligne_temp in df.itertuples(index=False):
 
             # Récupération des informations du point
@@ -326,9 +327,17 @@ class HemicycleWidget(QWidget):
             couleur_bord = ligne_temp.couleur_bord
             couleur_centre = ligne_temp.couleur_centre
 
+            # Dégradé radial très subtil, juste pour donner un peu de volume
+            gradient = QRadialGradient(
+                QPointF(x - self.diametre_point * 0.25, y - self.diametre_point * 0.25),
+                self.diametre_point * 1.3,
+            )
+            gradient.setColorAt(0.0, couleur_centre.lighter(120))
+            gradient.setColorAt(1.0, couleur_centre)
+
             # Dessiner le point
-            painter.setBrush(QBrush(couleur_centre))
-            painter.setPen(QPen(couleur_bord, int(self.diametre_point * 1 / 3)))
+            painter.setBrush(QBrush(gradient))
+            painter.setPen(QPen(couleur_bord, epaisseur_bord))
             painter.drawEllipse(
                 QPointF(x, y),
                 self.diametre_point,

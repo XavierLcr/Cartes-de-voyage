@@ -33,36 +33,38 @@ def table_pays_visites(
     continents: dict,
     palette: dict,
     clair_indice: float,
-    a_supprimer: dict = {
-        "Africa": [
-            "French Southern Territories",
-            "Portugal",
-            "Saint Helena, Ascension and Tris",
-            "Spain",
-        ],
-        "Asia": [
-            "Akrotiri and Dhekelia",
-            "Armenia",
-            "Azerbaijan",
-            "Cyprus",
-            "Egypt",
-            "Georgia",
-            "Northern Cyprus",
-            "Turkey",
-        ],
-        "Oceania": ["Indonesia"],
-        "North America": [
-            "United States Minor Outlying Isl",
-            "Grenada",
-        ],
-        "South America": [
-            "Bonaire, Sint Eustatius and Saba",
-            "Panama",
-        ],
-    },
+    a_supprimer: dict | None = None,
 ):
 
     continents = continents.copy()
+    if a_supprimer is None:
+        a_supprimer = {
+            "Africa": [
+                "French Southern Territories",
+                "Portugal",
+                "Saint Helena, Ascension and Tris",
+                "Spain",
+            ],
+            "Asia": [
+                "Akrotiri and Dhekelia",
+                "Armenia",
+                "Azerbaijan",
+                "Cyprus",
+                "Egypt",
+                "Georgia",
+                "Northern Cyprus",
+                "Turkey",
+            ],
+            "Oceania": ["Indonesia"],
+            "North America": [
+                "United States Minor Outlying Isl",
+                "Grenada",
+            ],
+            "South America": [
+                "Bonaire, Sint Eustatius and Saba",
+                "Panama",
+            ],
+        }
 
     # Suppression du Moyen-Orient
     if "Middle East" in continents:
@@ -177,8 +179,8 @@ def ajouter_coordonnees(
     else:
 
         df_temp = (
-            df_temp.groupby("continent_cat", group_keys=False)
-            .apply(lambda x: x.sample(frac=1, random_state=graine))
+            df_temp.sample(frac=1, random_state=graine)
+            .sort_values("continent_cat", kind="stable")
             .reset_index(drop=True)
         )
 
@@ -467,9 +469,9 @@ class HemicycleWidget(QWidget):
             continents=copy.copy(self.continents),
             palette=self.continent_colors,
             clair_indice=self.lighter_value,
+            a_supprimer=None,
         )
-        random.seed(int(time.time()))
-        self.graine_ordre = random.randint(0, 1_000_000)
+        self.graine_ordre = random.Random(int(time.time())).randint(0, 1_000_000)
         self.creer_hemicycle()
 
     def set_langue(self, langue):

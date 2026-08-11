@@ -350,7 +350,7 @@ class HemicycleWidget(QWidget):
     def get_points_visites_position(self):
         return self.points_visites_position
 
-    def creer_coordonnées(self):
+    def creer_coordonnees(self):
 
         coords_angles = []
 
@@ -491,14 +491,14 @@ class HemicycleWidget(QWidget):
             45 + min(self.width(), self.height()) * 0.15
         )  # Rayon de base pour le premier niveau
         self.level_distance = max(1, int(min(self.width(), self.height()) * 0.09) - 10)
-        self.diametre_point = int(min(self.width(), self.height()) * 0.023 - 2)
+        self.diametre_point = max(int(min(self.width(), self.height()) * 0.023 - 2), 1)
 
         # Création de la table des points
         df_temp = self.df_pays.pipe(
             # Ajout des coordonnées
             lambda x: ajouter_coordonnees(
                 df=x,
-                coordonnees=self.creer_coordonnées(),
+                coordonnees=self.creer_coordonnees(),
                 alignement=self.points_visites_position,
                 traduction=self.traductions_pays,
                 langue=self.langue,

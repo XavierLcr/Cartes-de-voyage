@@ -123,7 +123,12 @@ def table_pays_visites(
 
 
 def ajouter_coordonnees(
-    df: pd.DataFrame, coordonnees: list, alignement: int, traduction: dict, langue: str
+    df: pd.DataFrame,
+    coordonnees: list,
+    alignement: int,
+    traduction: dict,
+    langue: str,
+    graine: int = None,
 ):
 
     df_temp = (
@@ -173,7 +178,7 @@ def ajouter_coordonnees(
 
         df_temp = (
             df_temp.groupby("continent_cat", group_keys=False)
-            .apply(lambda x: x.sample(frac=1))
+            .apply(lambda x: x.sample(frac=1, random_state=graine))
             .reset_index(drop=True)
         )
 
@@ -208,6 +213,7 @@ class HemicycleWidget(QWidget):
         self.traductions_pays = constantes.pays_differentes_langues
         self.liste_pays = list(constantes.hierarchie_par_pays.keys())
         self.langue = "français"
+        self.graine_ordre = None
 
         # Nombre de niveaux dans l'hémicycle
         self.num_levels = max(
@@ -450,6 +456,7 @@ class HemicycleWidget(QWidget):
                 alignement=self.points_visites_position,
                 traduction=self.traductions_pays,
                 langue=self.langue,
+                graine=self.graine_ordre,
             )
         )
 
@@ -489,6 +496,7 @@ class HemicycleWidget(QWidget):
             clair_indice=self.lighter_value,
         )
         random.seed(int(time.time()))
+        self.graine_ordre = random.randint(0, 1_000_000)
         self.creer_hemicycle()
 
     def set_langue(self, langue):

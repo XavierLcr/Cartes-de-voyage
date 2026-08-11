@@ -33,6 +33,14 @@ class Podium(QWidget):
     dégradé plat à coins arrondis (comme les mini-graphiques en barres),
     badge circulaire numéroté, typographie plus joyeuse (avec repli
     automatique si la police n'est pas installée).
+
+    Petites touches visuelles ajoutées, pour rester cohérent avec les
+    cartes de classement voisines (rang 4+) :
+    - liseré fin autour de la carte, pour la détacher du fond
+    - reflet glacé en haut de la carte (en plus de celui, déjà présent,
+      sur chaque colonne)
+    - ligne de base légèrement soulignée sous les colonnes, comme un
+      "sol" sur lequel repose le podium
     """
 
     # Dégradés "médaille" (début -> fin), plats, sans relief ni reflet —
@@ -87,6 +95,13 @@ class Podium(QWidget):
             if QFontInfo(QFont(nom)).exactMatch():
                 return nom
         return candidats[-1]
+
+    @staticmethod
+    def _avec_alpha(couleur: QColor, alpha: int) -> QColor:
+        """Retourne une copie de `couleur` avec un canal alpha donné (0-255)."""
+        c = QColor(couleur)
+        c.setAlpha(alpha)
+        return c
 
     # ========= API PUBLIQUE =========
 
@@ -159,6 +174,9 @@ class Podium(QWidget):
         zone_texte_haut = h * 0.22
         base_y = h * 0.88
 
+        # ligne de "sol" discrète sous les colonnes
+        self._dessiner_ligne_base(painter, marge_h, w - marge_h, base_y)
+
         for i, (rang, pays) in enumerate(ordre_affichage):
             x = marge_h + i * largeur_marche + (largeur_marche - largeur_bloc) / 2
 
@@ -214,15 +232,40 @@ class Podium(QWidget):
     # ========= COMPOSANTS DE DESSIN =========
 
     def _dessiner_fond(self, painter, w, h):
-        """Carte à coins arrondis, fond plat — même formule que les autres
-        widgets du tableau de bord."""
+        """Carte à coins arrondis, fond plat, avec un liseré fin et un
+        reflet glacé en haut — même vocabulaire visuel que les cartes de
+        classement (rang 4+) voisines."""
         rayon = min(24, min(w, h) * 0.12)
         chemin = QPainterPath()
         chemin.addRoundedRect(QRectF(0, 0, w, h), rayon, rayon)
+
         painter.setPen(Qt.PenStyle.NoPen)
         painter.setBrush(self.couleur_fond)
         painter.drawPath(chemin)
+
+        # liseré fin, dans la teinte "or" du 1er badge, très transparent
+        pen_contour = QPen(self._avec_alpha(self.COULEURS[1][0], 55))
+        pen_contour.setWidthF(1.1)
+        painter.setPen(pen_contour)
+        painter.setBrush(Qt.BrushStyle.NoBrush)
+        painter.drawPath(chemin)
+
         painter.setClipPath(chemin)
+
+        # reflet glacé, discret, sur le tiers supérieur de la carte
+        degrade_reflet = QLinearGradient(0, 0, 0, h * 0.45)
+        degrade_reflet.setColorAt(0.0, self._avec_alpha(QColor("#FFFFFF"), 35))
+        degrade_reflet.setColorAt(1.0, self._avec_alpha(QColor("#FFFFFF"), 0))
+        painter.setPen(Qt.PenStyle.NoPen)
+        painter.setBrush(degrade_reflet)
+        painter.drawRect(QRectF(0, 0, w, h * 0.45))
+
+    def _dessiner_ligne_base(self, painter, x_gauche, x_droite, y):
+        """Ligne fine sous les colonnes, façon socle du podium."""
+        pen_base = QPen(self._avec_alpha(self.couleur_sous_texte, 90))
+        pen_base.setWidthF(1.2)
+        painter.setPen(pen_base)
+        painter.drawLine(QPointF(x_gauche, y), QPointF(x_droite, y))
 
     def _dessiner_colonne(
         self, painter, x, y, largeur, hauteur, couleur_debut, couleur_fin
@@ -261,6 +304,16 @@ class Podium(QWidget):
         painter.setPen(Qt.PenStyle.NoPen)
         painter.setBrush(degrade_reflet)
         painter.drawRect(rect_reflet)
+        painter.restore()
+
+        # fin liseré clair sur le contour de la colonne, pour la détacher
+        # légèrement du fond de carte (cohérent avec le liseré de la carte)
+        painter.save()
+        pen_contour_colonne = QPen(self._avec_alpha(QColor("#FFFFFF"), 90))
+        pen_contour_colonne.setWidthF(1.0)
+        painter.setPen(pen_contour_colonne)
+        painter.setBrush(Qt.BrushStyle.NoBrush)
+        painter.drawPath(chemin)
         painter.restore()
 
     def _dessiner_valeur(self, painter, x, y, largeur, hauteur, texte, alpha):

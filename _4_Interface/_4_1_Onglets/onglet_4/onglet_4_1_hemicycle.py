@@ -168,7 +168,7 @@ def ajouter_coordonnees(
         ).reset_index(drop=True)
 
     elif alignement == 2:
-        df_temp.sort_values(
+        df_temp = df_temp.sort_values(
             by=["continent_cat", "pays_trad"],
             inplace=False,
             ascending=(True, True),

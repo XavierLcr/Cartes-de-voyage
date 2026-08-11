@@ -235,6 +235,9 @@ class HemicycleWidget(QWidget):
         self.couleur_texte = "#2C2C2C"
         self.points_visites_position = -1
 
+        # Pays actuellement survolé par la souris
+        self.pays_survole = None
+
         # Ajustement du nombre de points par ligne
         self.decalage = len(self.liste_pays) - somme_filee(
             lignes=self.num_levels, a=self.base_points, b=self.points_increment
@@ -321,6 +324,9 @@ class HemicycleWidget(QWidget):
 
         epaisseur_bord = int(self.diametre_point * 1 / 3)
 
+        # Facteur d'agrandissement appliqué au point survolé
+        facteur_survol = 1.4
+
         for ligne_temp in df.itertuples(index=False):
 
             # Récupération des informations du point
@@ -329,10 +335,18 @@ class HemicycleWidget(QWidget):
             couleur_bord = ligne_temp.couleur_bord
             couleur_centre = ligne_temp.couleur_centre
 
+            # Grossissement du point si celui-ci est survolé par la souris
+            est_survole = ligne_temp.pays_trad == self.pays_survole
+            diametre_affiche = (
+                self.diametre_point * facteur_survol
+                if est_survole
+                else self.diametre_point
+            )
+
             # Dégradé radial très subtil, juste pour donner un peu de volume
             gradient = QRadialGradient(
-                QPointF(x - self.diametre_point * 0.25, y - self.diametre_point * 0.25),
-                self.diametre_point * 1.3,
+                QPointF(x - diametre_affiche * 0.25, y - diametre_affiche * 0.25),
+                diametre_affiche * 1.3,
             )
             gradient.setColorAt(0.0, couleur_centre.lighter(120))
             gradient.setColorAt(1.0, couleur_centre)
@@ -342,10 +356,12 @@ class HemicycleWidget(QWidget):
             painter.setPen(QPen(couleur_bord, epaisseur_bord))
             painter.drawEllipse(
                 QPointF(x, y),
-                self.diametre_point,
-                self.diametre_point,
+                diametre_affiche,
+                diametre_affiche,
             )
 
+            # On garde le diamètre "normal" pour la zone de détection, afin que
+            # le grossissement visuel ne fasse pas bouger la zone de survol.
             self.points_hover.append((x, y, self.diametre_point, ligne_temp.pays_trad))
 
             # Calcul du rayon du texte
@@ -487,12 +503,21 @@ class HemicycleWidget(QWidget):
     def mouseMoveEvent(self, event):
 
         pos = event.position()  # QPointF, coordonnées locales au widget
+        nouveau_survol = None
 
         for x, y, rayon, nom in self.points_hover:
             distance = math.hypot(pos.x() - x, pos.y() - y)
             # Marge de tolérance un peu plus large que le point lui-même
             if distance <= rayon * 1.1:
                 QToolTip.showText(event.globalPosition().toPoint(), nom, self)
-                return
+                nouveau_survol = nom
+                break
 
-        QToolTip.hideText()
+        if nouveau_survol is None:
+            QToolTip.hideText()
+
+        # Redessiner uniquement si le pays survolé a changé, pour éviter
+        # de redessiner l'hémicycle à chaque micro-mouvement de la souris
+        if nouveau_survol != self.pays_survole:
+            self.pays_survole = nouveau_survol
+            self.creer_hemicycle()

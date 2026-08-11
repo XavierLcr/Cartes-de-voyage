@@ -196,7 +196,75 @@ def ajouter_coordonnees(
     return df_temp.drop(columns=["angle", "niveau"], inplace=False)
 
 
-# 2 -- Classe de création de l'hémicycle des pays visités ----------------------
+# 2 -- Classe représentant un point de l'hémicycle (un pays) -------------------
+
+
+class PointPays:
+    """
+    Représente un point de l'hémicycle correspondant à un pays donné.
+
+    Cette classe porte à la fois les données du point (position, couleurs,
+    nom traduit, etc.) et la logique qui lui est propre : dessin et
+    détection du survol par la souris.
+    """
+
+    def __init__(
+        self,
+        x: float,
+        y: float,
+        pays: str,
+        pays_trad: str,
+        continent: str,
+        visite: bool,
+        couleur_bord: QColor,
+        couleur_centre: QColor,
+    ):
+        self.x = x
+        self.y = y
+        self.pays = pays
+        self.pays_trad = pays_trad
+        self.continent = continent
+        self.visite = visite
+        self.couleur_bord = couleur_bord
+        self.couleur_centre = couleur_centre
+
+    def est_survole(
+        self, pos_x: float, pos_y: float, diametre: float, tolerance: float = 1.1
+    ) -> bool:
+        """Indique si la position (pos_x, pos_y) se trouve dans la zone de survol du point."""
+        distance = math.hypot(pos_x - self.x, pos_y - self.y)
+        return distance <= diametre * tolerance
+
+    def peindre(
+        self,
+        painter: QPainter,
+        diametre: float,
+        epaisseur_bord: float,
+        survole: bool = False,
+        facteur_survol: float = 1.4,
+    ):
+        """Dessine le point sur le painter fourni, en le grossissant si survole=True."""
+
+        diametre_affiche = diametre * facteur_survol if survole else diametre
+
+        # Dégradé radial très subtil, juste pour donner un peu de volume
+        gradient = QRadialGradient(
+            QPointF(self.x - diametre_affiche * 0.25, self.y - diametre_affiche * 0.25),
+            diametre_affiche * 1.3,
+        )
+        gradient.setColorAt(0.0, self.couleur_centre.lighter(120))
+        gradient.setColorAt(1.0, self.couleur_centre)
+
+        painter.setBrush(QBrush(gradient))
+        painter.setPen(QPen(self.couleur_bord, epaisseur_bord))
+        painter.drawEllipse(
+            QPointF(self.x, self.y),
+            diametre_affiche,
+            diametre_affiche,
+        )
+
+
+# 3 -- Classe de création de l'hémicycle des pays visités ----------------------
 
 
 class HemicycleWidget(QWidget):
@@ -209,7 +277,7 @@ class HemicycleWidget(QWidget):
         super().__init__()
 
         self.setMouseTracking(True)
-        self.points_hover = []
+        self.points = []  # Liste d'objets PointPays affichés au dernier paintEvent
 
         self.continents = constantes.liste_regions_monde
         self.traductions_pays = constantes.pays_differentes_langues
@@ -315,57 +383,44 @@ class HemicycleWidget(QWidget):
         # Renvoi
         return coords_angles
 
+    def creer_points(self, df: pd.DataFrame) -> list:
+        """Construit la liste des objets PointPays à partir de la table de données."""
+
+        return [
+            PointPays(
+                x=ligne_temp.x,
+                y=ligne_temp.y,
+                pays=ligne_temp.pays,
+                pays_trad=ligne_temp.pays_trad,
+                continent=ligne_temp.continent,
+                visite=ligne_temp.visite,
+                couleur_bord=ligne_temp.couleur_bord,
+                couleur_centre=ligne_temp.couleur_centre,
+            )
+            for ligne_temp in df.itertuples(index=False)
+        ]
+
     def peindre_points(self, painter, df: pd.DataFrame):
 
         # Coefficient d'éloignement du texte
         rayon_texte = 0
 
-        self.points_hover = []
+        # Construction des points à partir de la table
+        self.points = self.creer_points(df=df)
 
         epaisseur_bord = int(self.diametre_point * 1 / 3)
 
-        # Facteur d'agrandissement appliqué au point survolé
-        facteur_survol = 1.4
+        for point in self.points:
 
-        for ligne_temp in df.itertuples(index=False):
-
-            # Récupération des informations du point
-            x = ligne_temp.x
-            y = ligne_temp.y
-            couleur_bord = ligne_temp.couleur_bord
-            couleur_centre = ligne_temp.couleur_centre
-
-            # Grossissement du point si celui-ci est survolé par la souris
-            est_survole = ligne_temp.pays_trad == self.pays_survole
-            diametre_affiche = (
-                self.diametre_point * facteur_survol
-                if est_survole
-                else self.diametre_point
+            point.peindre(
+                painter=painter,
+                diametre=self.diametre_point,
+                epaisseur_bord=epaisseur_bord,
+                survole=(point.pays_trad == self.pays_survole),
             )
-
-            # Dégradé radial très subtil, juste pour donner un peu de volume
-            gradient = QRadialGradient(
-                QPointF(x - diametre_affiche * 0.25, y - diametre_affiche * 0.25),
-                diametre_affiche * 1.3,
-            )
-            gradient.setColorAt(0.0, couleur_centre.lighter(120))
-            gradient.setColorAt(1.0, couleur_centre)
-
-            # Dessiner le point
-            painter.setBrush(QBrush(gradient))
-            painter.setPen(QPen(couleur_bord, epaisseur_bord))
-            painter.drawEllipse(
-                QPointF(x, y),
-                diametre_affiche,
-                diametre_affiche,
-            )
-
-            # On garde le diamètre "normal" pour la zone de détection, afin que
-            # le grossissement visuel ne fasse pas bouger la zone de survol.
-            self.points_hover.append((x, y, self.diametre_point, ligne_temp.pays_trad))
 
             # Calcul du rayon du texte
-            rayon_texte = max(rayon_texte, abs(y - self.center_y()))
+            rayon_texte = max(rayon_texte, abs(point.y - self.center_y()))
 
         # Renvoi
         return rayon_texte
@@ -505,12 +560,12 @@ class HemicycleWidget(QWidget):
         pos = event.position()  # QPointF, coordonnées locales au widget
         nouveau_survol = None
 
-        for x, y, rayon, nom in self.points_hover:
-            distance = math.hypot(pos.x() - x, pos.y() - y)
-            # Marge de tolérance un peu plus large que le point lui-même
-            if distance <= rayon * 1.1:
-                QToolTip.showText(event.globalPosition().toPoint(), nom, self)
-                nouveau_survol = nom
+        for point in self.points:
+            if point.est_survole(pos.x(), pos.y(), self.diametre_point):
+                QToolTip.showText(
+                    event.globalPosition().toPoint(), point.pays_trad, self
+                )
+                nouveau_survol = point.pays_trad
                 break
 
         if nouveau_survol is None:

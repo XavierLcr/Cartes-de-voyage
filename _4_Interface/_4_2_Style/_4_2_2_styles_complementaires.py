@@ -44,13 +44,13 @@ def style_bouton_de_suppression(sombre: bool):
 def style_bouton_recommandation(style: int, teinte, nuances):
 
     bg_couleur = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#C8E6C9", sombre="#D9576F"
+        style=style, teinte=teinte, nuances=nuances, clair="#F7CC76", sombre="#D9576F"
     )
     bg_couleur_survol = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#B7E4C7", sombre="#E67A4F"
+        style=style, teinte=teinte, nuances=nuances, clair="#F46363", sombre="#E67A4F"
     )
     bg_couleur_click = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#77B0AD", sombre="#A83E56"
+        style=style, teinte=teinte, nuances=nuances, clair="#EE77AC", sombre="#A83E56"
     )
 
     return f"""

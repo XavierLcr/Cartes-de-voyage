@@ -364,8 +364,8 @@ class ThemeRecommandation:
                 style=style,
                 teinte=teinte,
                 nuances=nuances,
-                clair="#E7F0E4",
-                sombre="#211E28",
+                clair="#F3E6A5",
+                sombre="#050505",
             )
         )
         self.texte = QColor(
@@ -381,7 +381,7 @@ class ThemeRecommandation:
                 style=style,
                 teinte=teinte,
                 nuances=nuances,
-                clair="#8FBF8A",
+                clair="#F8D136",
                 sombre="#E0607E",  # rose-corail
             )
         )
@@ -390,7 +390,7 @@ class ThemeRecommandation:
                 style=style,
                 teinte=teinte,
                 nuances=nuances,
-                clair="#E8B94A",
+                clair="#E84A4A",
                 sombre="#F0954A",  # orange ambré
                 reference=self.badge_debut.name(),
                 essais=limite_essais,
@@ -404,8 +404,8 @@ class ThemeRecommandation:
                 style=style,
                 teinte=teinte,
                 nuances=nuances,
-                clair="#D7E8CE",
-                sombre="#2E293A",
+                clair="#6DD7AC",
+                sombre="#7E2102",
             )
         )
         self.texte_chip = QColor(

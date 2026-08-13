@@ -176,17 +176,6 @@ def creer_label_pays(
 
 
 class ThemeCarteClassement:
-    """
-    Palette de couleurs de la carte de classement (rang 4 et plus).
-
-    Reprend la même structure que `ThemeJoursVoyages` (onglet 4.6.4) et
-    les autres thèmes du tableau de bord — même fond de carte, même
-    convention d'ombre, mêmes appels de style (`renvoyer_couleur_widget`,
-    `renvoyer_couleur_texte`, `renvoyer_couleur_widget_differente`) —
-    avec son propre accent bleu-violet pour le badge de rang, distinct
-    des médailles or/argent/bronze du podium voisin.
-    """
-
     def __init__(
         self,
         style,
@@ -199,32 +188,34 @@ class ThemeCarteClassement:
         },
         limite_essais=20,
     ):
-        # Fond de carte : identique aux autres widgets du tableau de bord.
+        # Fond de carte : légèrement plus clair/blanc que le fond d'appli
+        # (clair), légèrement plus clair que le quasi-noir de fond (sombre)
+        # — la carte doit se détacher sans jurer avec le fond général.
         self.fond = QColor(
             renvoyer_couleur_widget(
                 style=style,
                 teinte=teinte,
                 nuances=nuances,
-                clair="#f7eaf3",
-                sombre="#4658a1",
+                clair="#D8FEED",
+                sombre="#1B2130",  # bleu-gris sombre, un cran au-dessus de #10141C
             )
         )
         self.texte = QColor(
             str(renvoyer_couleur_texte(style=style, couleur=self.fond.name()))
         )
-        # Sous-texte
         self.sous_texte = QColor(self.texte)
         self.sous_texte.setAlpha(140)
 
-        # Dégradé du badge de rang : bleu-violet, neutre par rapport aux
-        # médailles or/argent/bronze du podium.
+        # Dégradé du badge de rang : indigo doux sur fond clair, turquoise
+        # lumineux sur fond très sombre — contraste net dans les deux cas,
+        # sans concurrencer l'or/argent/bronze du podium.
         self.badge_debut = QColor(
             renvoyer_couleur_widget(
                 style=style,
                 teinte=teinte,
                 nuances=nuances,
-                clair="#EDA4C2",
-                sombre="#24A5A5",
+                clair="#8B7FD6",  # indigo doux
+                sombre="#3DD6C6",  # turquoise clair
             )
         )
         self.badge_fin = QColor(
@@ -232,15 +223,17 @@ class ThemeCarteClassement:
                 style=style,
                 teinte=teinte,
                 nuances=nuances,
-                clair="#C190D1",
-                sombre="#1F971F",
+                clair="#5E54B0",  # indigo plus profond
+                sombre="#1F9E92",  # turquoise plus profond
                 reference=self.badge_debut.name(),
                 essais=limite_essais,
             )
         )
 
-        # Ombre portée : même convention que les widgets voisins.
-        self.ombre = QColor(self.texte)
+        # Ombre toujours foncée, quel que soit le style — une ombre
+        # blanche/claire rend mal, l'effet de profondeur ne fonctionne
+        # que sur une teinte sombre.
+        self.ombre = QColor("#000000")
         self.ombre.setAlpha(60 if style == 1 else 120)
 
 

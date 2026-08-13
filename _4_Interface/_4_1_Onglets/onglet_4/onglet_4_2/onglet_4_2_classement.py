@@ -196,7 +196,7 @@ class ThemeCarteClassement:
                 style=style,
                 teinte=teinte,
                 nuances=nuances,
-                clair="#D8FEED",
+                clair="#EAFED8",
                 sombre="#1B2130",  # bleu-gris sombre, un cran au-dessus de #10141C
             )
         )
@@ -214,7 +214,7 @@ class ThemeCarteClassement:
                 style=style,
                 teinte=teinte,
                 nuances=nuances,
-                clair="#8B7FD6",  # indigo doux
+                clair="#FFF49F",  # indigo doux
                 sombre="#3DD6C6",  # turquoise clair
             )
         )
@@ -223,7 +223,7 @@ class ThemeCarteClassement:
                 style=style,
                 teinte=teinte,
                 nuances=nuances,
-                clair="#5E54B0",  # indigo plus profond
+                clair="#FFB764",  # indigo plus profond
                 sombre="#1F9E92",  # turquoise plus profond
                 reference=self.badge_debut.name(),
                 essais=limite_essais,

@@ -336,12 +336,12 @@ class ThemeRecommandation:
     Palette de couleurs des cartes de recommandation, propre à l'onglet
     4.3. Le style clair garde une tonalité "nouvelle destination" :
     fond sauge apaisant, dégradé badge/bannière vert -> or. Le style
-    sombre repose sur un fond ardoise profond et neutre, avec un
-    dégradé teal -> cuivre ambré en accent, pour une ambiance chaleureuse
-    sans les tons trop saturés de la version précédente. L'ombre portée
-    est toujours sombre (indépendante de la couleur du texte) : une
-    ombre reprenant la couleur du texte devenait blanchâtre en mode
-    sombre, ce qui cassait l'effet de profondeur recherché.
+    sombre évoque un ciel de fin de journée : fond ardoise profond et
+    neutre, avec un dégradé "soleil couchant" corail -> orange ambré en
+    accent. L'ombre portée est toujours sombre (indépendante de la
+    couleur du texte) : une ombre reprenant la couleur du texte
+    devenait blanchâtre en mode sombre, ce qui cassait l'effet de
+    profondeur recherché.
     """
 
     def __init__(
@@ -356,15 +356,16 @@ class ThemeRecommandation:
         },
         limite_essais=20,
     ):
-        # Fond de carte : sauge doux en clair, ardoise profond et
-        # neutre en sombre (plus élégant que le bleu-pétrole précédent).
+        # Fond de carte : sauge doux en clair, ardoise bleu-gris neutre
+        # en sombre — reste discret pour laisser le dégradé "coucher de
+        # soleil" du badge être le vrai point d'accent chaud.
         self.fond = QColor(
             renvoyer_couleur_widget(
                 style=style,
                 teinte=teinte,
                 nuances=nuances,
                 clair="#E7F0E4",
-                sombre="#8B51D6",
+                sombre="#211E28",
             )
         )
         self.texte = QColor(
@@ -374,14 +375,14 @@ class ThemeRecommandation:
         self.sous_texte.setAlpha(140)
 
         # Dégradé badge/bannière : vert tendre -> or en clair,
-        # teal profond -> cuivre ambré en sombre.
+        # corail -> orange ambré ("soleil couchant") en sombre.
         self.badge_debut = QColor(
             renvoyer_couleur_widget(
                 style=style,
                 teinte=teinte,
                 nuances=nuances,
                 clair="#8FBF8A",
-                sombre="#831515",
+                sombre="#E0607E",  # rose-corail
             )
         )
         self.badge_fin = QColor(
@@ -390,13 +391,13 @@ class ThemeRecommandation:
                 teinte=teinte,
                 nuances=nuances,
                 clair="#E8B94A",
-                sombre="#70184B",
+                sombre="#F0954A",  # orange ambré
                 reference=self.badge_debut.name(),
                 essais=limite_essais,
             )
         )
 
-        # Chips de région : version plus douce/claire du fond, pour
+        # Chips de région : version plus douce/sombre du fond, pour
         # rester lisible sans concurrencer le dégradé du badge.
         self.fond_chip = QColor(
             renvoyer_couleur_widget(
@@ -404,7 +405,7 @@ class ThemeRecommandation:
                 teinte=teinte,
                 nuances=nuances,
                 clair="#D7E8CE",
-                sombre="#212091",
+                sombre="#2E293A",
             )
         )
         self.texte_chip = QColor(

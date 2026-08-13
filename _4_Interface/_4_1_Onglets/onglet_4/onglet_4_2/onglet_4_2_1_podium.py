@@ -19,6 +19,7 @@ from PyQt6.QtGui import (
     QPainterPath,
     QPen,
     QFontInfo,
+    QBrush,
 )
 
 # 1 -- Classe du podium --------------------------------------------------------
@@ -171,7 +172,7 @@ class Podium(QWidget):
         largeur_bloc = largeur_marche * 0.72
 
         hauteur_relative = {1: 0.7, 2: 0.5, 3: 0.36}
-        zone_texte_haut = h * 0.22
+        zone_texte_haut = h * 0.35  # était 0.22 — un peu plus de marge en haut
         base_y = h * 0.88
 
         # ligne de "sol" discrète sous les colonnes
@@ -208,11 +209,28 @@ class Podium(QWidget):
                 alpha = min(1.0, (self._anim_progress - 0.7) / 0.3)
                 zone_texte_y = y - zone_texte_haut
 
+                cx = x + largeur_bloc / 2
+                cy = zone_texte_y + zone_texte_haut * 0.30
+                rayon_badge = zone_texte_haut * 0.16
+
+                self._dessiner_anneau_progression(
+                    painter,
+                    cx,
+                    cy,
+                    rayon_badge,
+                    pays["pct_superficie_pays"],
+                    couleur_debut,
+                    couleur_fin,
+                    alpha,
+                )
+
                 self._dessiner_badge_rang(
                     painter,
                     x + largeur_bloc / 2,
-                    zone_texte_y + zone_texte_haut * 0.20,
-                    zone_texte_haut * 0.18,
+                    zone_texte_y
+                    + zone_texte_haut
+                    * 0.30,  # était 0.20 — badge un peu plus bas dans SA zone
+                    zone_texte_haut * 0.16,  # était 0.18 — badge légèrement plus petit
                     rang,
                     couleur_debut,
                     couleur_fin,
@@ -220,13 +238,7 @@ class Podium(QWidget):
                 )
 
                 self._dessiner_nom_pays(
-                    painter,
-                    x,
-                    zone_texte_y,
-                    largeur_bloc,
-                    zone_texte_haut,
-                    pays,
-                    alpha,
+                    painter, x, zone_texte_y, largeur_bloc, zone_texte_haut, pays, alpha
                 )
 
     # ========= COMPOSANTS DE DESSIN =========
@@ -472,3 +484,81 @@ class Podium(QWidget):
         self.couleur_texte = style_parent.texte
         self.couleur_sous_texte = style_parent.texte
         self.couleur_sous_texte.setAlpha(140)
+
+    def _dessiner_anneau_progression(
+        self,
+        painter,
+        cx,
+        cy,
+        rayon_badge,
+        valeur_pct,
+        couleur_debut,
+        couleur_fin,
+        alpha,
+    ):
+        """Anneau de progression circulaire autour du badge de rang,
+        représentant le pourcentage de superficie visitée, avec une
+        poignée (point) marquant la valeur exacte en bout d'arc."""
+        painter.save()
+        painter.setOpacity(alpha)
+
+        rayon_anneau = rayon_badge * 1.55
+        epaisseur = max(2.0, rayon_badge * 0.16)
+        rect_anneau = QRectF(
+            cx - rayon_anneau, cy - rayon_anneau, rayon_anneau * 2, rayon_anneau * 2
+        )
+
+        # piste de fond
+        pen_fond = QPen(self._avec_alpha(QColor("#FFFFFF"), 130))
+        pen_fond.setWidthF(epaisseur)
+        pen_fond.setCapStyle(Qt.PenCapStyle.RoundCap)
+        painter.setPen(pen_fond)
+        painter.setBrush(Qt.BrushStyle.NoBrush)
+        painter.drawArc(rect_anneau, 0, 360 * 16)
+
+        # arc de progression
+        valeur = max(0.0, min(100.0, valeur_pct))
+        angle_deg = 360 * (valeur / 100.0)
+        angle_parcouru = int(16 * angle_deg)
+        if angle_parcouru > 0:
+            degrade_arc = QLinearGradient(
+                rect_anneau.topLeft(), rect_anneau.bottomRight()
+            )
+            degrade_arc.setColorAt(0.0, couleur_debut.lighter(125))
+            degrade_arc.setColorAt(1.0, couleur_fin.lighter(115))
+            pen_arc = QPen(QBrush(degrade_arc), epaisseur)
+            pen_arc.setCapStyle(Qt.PenCapStyle.RoundCap)
+            painter.setPen(pen_arc)
+            painter.drawArc(rect_anneau, 90 * 16, -angle_parcouru)
+
+            # --- poignée : petit point plein au bout de l'arc ---
+            import math
+
+            angle_rad = math.radians(
+                90 - angle_deg
+            )  # même convention que Qt (0° = 3h, sens anti-horaire)
+            px = cx + rayon_anneau * math.cos(angle_rad)
+            py = cy - rayon_anneau * math.sin(angle_rad)
+
+            rayon_poignee = epaisseur * 0.62
+
+            # petite ombre douce sous la poignée
+            painter.setPen(Qt.PenStyle.NoPen)
+            painter.setBrush(self._avec_alpha(QColor("#000000"), 45))
+            painter.drawEllipse(
+                QPointF(px, py + rayon_poignee * 0.15), rayon_poignee, rayon_poignee
+            )
+
+            # poignée blanche avec liseré de la couleur de fin du dégradé
+            painter.setBrush(QColor("#FFFFFF"))
+            painter.drawEllipse(QPointF(px, py), rayon_poignee, rayon_poignee)
+
+            pen_liseré = QPen(couleur_fin.lighter(110))
+            pen_liseré.setWidthF(max(1.0, rayon_poignee * 0.35))
+            painter.setPen(pen_liseré)
+            painter.setBrush(Qt.BrushStyle.NoBrush)
+            painter.drawEllipse(
+                QPointF(px, py), rayon_poignee * 0.75, rayon_poignee * 0.75
+            )
+
+        painter.restore()

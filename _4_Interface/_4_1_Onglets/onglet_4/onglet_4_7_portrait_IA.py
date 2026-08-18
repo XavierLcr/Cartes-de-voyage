@@ -262,7 +262,7 @@ class ProfilVoyageurIA(QGroupBox):
             texte_temp += (
                 f"\n  • {self.fonction_traduction(categorie, depuis_id=False)}\n"
             )
-            texte_temp += "\n".join(f"      - {modele}" for modele in modeles)
+            texte_temp += "\n".join(f"      – {modele}" for modele in modeles)
             texte_temp += "\n"
         self.probleme_label.setText(
             self.fonction_traduction(

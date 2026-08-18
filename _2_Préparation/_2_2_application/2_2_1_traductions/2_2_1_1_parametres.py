@@ -32,7 +32,34 @@ from clefs_et_mots_de_passe import clef_api_gemini, modeles_google, liste_langue
 # 1 -- Fonctions ---------------------------------------------------------------
 
 
-## 1.1 -- Fonction de traduction d'un lot de paramètres ------------------------
+## 1.1 -- Fonction de création du prompt ---------------------------------------
+
+
+def prompt(langue: str, texte: str):
+
+    return f"""
+    Traduis ce libellé d'interface utilisateur du français vers {langue} :
+
+    "{texte}"
+
+    Règles impératives :
+    - Retourne uniquement le libellé traduit, sans explication ni commentaire.
+    - N'ajoute aucune ponctuation.
+    - Ne mets pas de guillemets.
+    - Le texte source est toujours en français.
+    - Utilise une formulation naturelle et idiomatique pour une interface logicielle.
+    - Privilégie une traduction courte et concise, adaptée à un menu déroulant,
+    un paramètre ou une statistique.
+    - Conserve exactement le sens du libellé.
+    - Commence par une majuscule lorsque cela est naturel dans la langue cible.
+    - Si plusieurs traductions sont possibles, choisis celle qui est la plus
+    naturelle dans une application de voyages.
+
+    Réponds uniquement avec la traduction finale.
+    """
+
+
+## 1.2 -- Fonction de traduction d'un lot de paramètres ------------------------
 
 
 def creer_liste_parametres_multilangue(
@@ -75,11 +102,7 @@ def creer_liste_parametres_multilangue(
 
                 try:
                     resultat[i][j] = client.models.generate_content(
-                        model=modele,
-                        contents=f"Traduis le mot ou l'expression suivante en {i} : '{j}'. "
-                        "Ne donne que la traduction, strictement rien d'autre - et aucune ponctuation. "
-                        "Le mot à traduire est à l'origine en français. "
-                        "N'oublie pas la majuscule en début d'expression quand c'est possible.",
+                        model=modele, contents=prompt(langue=i, texte=j)
                     ).text.strip(" .'\n")
                 except Exception as e:
                     print(f"Erreur : {e}")
@@ -154,63 +177,63 @@ param_traduits = ouvrir_fichier(
 # 3 -- Traductions -------------------------------------------------------------
 
 
-for modele in modeles_google:
+# for modele in modeles_google:
 
-    # Appel API
-    api_jour_modele = int(api_dict.get(date_jour, {}).get(modele["modèle"], 0))
+#     # Appel API
+#     api_jour_modele = int(api_dict.get(date_jour, {}).get(modele["modèle"], 0))
 
-    # Granularité
-    param_traduits = creer_liste_parametres_multilangue(
-        liste_parametres=[
-            "Pays",
-            "Région",
-            "Département",
-            "Amusant",
-            "Régions",
-            "Départements",
-        ],
-        ## Traduction déjà existante des paramètres
-        liste_deja_existante=param_traduits,
-        nom_bouton="granularite",
-        modele_dict=modele,
-        liste_langues=liste_langues,
-        blabla=1,
-    )
+#     # Granularité
+#     param_traduits = creer_liste_parametres_multilangue(
+#         liste_parametres=[
+#             "Pays",
+#             "Région",
+#             "Département",
+#             "Amusant",
+#             "Régions",
+#             "Départements",
+#         ],
+#         ## Traduction déjà existante des paramètres
+#         liste_deja_existante=param_traduits,
+#         nom_bouton="granularite",
+#         modele_dict=modele,
+#         liste_langues=liste_langues,
+#         blabla=1,
+#     )
 
-    # Ambiances
-    param_traduits = creer_liste_parametres_multilangue(
-        liste_parametres=list(liste_ambiances.keys()),
-        liste_deja_existante=param_traduits,
-        nom_bouton="themes_cartes",
-        modele_dict=modele,
-        liste_langues=liste_langues,
-        blabla=2,
-    )
+#     # Ambiances
+#     param_traduits = creer_liste_parametres_multilangue(
+#         liste_parametres=list(liste_ambiances.keys()),
+#         liste_deja_existante=param_traduits,
+#         nom_bouton="themes_cartes",
+#         modele_dict=modele,
+#         liste_langues=liste_langues,
+#         blabla=2,
+#     )
 
-    # Teintes
-    param_traduits = creer_liste_parametres_multilangue(
-        liste_parametres=list(liste_couleurs.keys()),
-        liste_deja_existante=param_traduits,
-        nom_bouton="teintes_couleurs",
-        modele_dict=modele,
-        liste_langues=liste_langues,
-        blabla=2,
-    )
+#     # Teintes
+#     param_traduits = creer_liste_parametres_multilangue(
+#         liste_parametres=list(liste_couleurs.keys()),
+#         liste_deja_existante=param_traduits,
+#         nom_bouton="teintes_couleurs",
+#         modele_dict=modele,
+#         liste_langues=liste_langues,
+#         blabla=1,
+#     )
 
-    # Arrière-plans
-    param_traduits = creer_liste_parametres_multilangue(
-        liste_parametres=list(dictionnaire_arriere_plans.keys()),
-        liste_deja_existante=param_traduits,
-        nom_bouton="arrière_plans",
-        modele_dict=modele,
-        liste_langues=liste_langues,
-        blabla=2,
-    )
+#     # Arrière-plans
+#     param_traduits = creer_liste_parametres_multilangue(
+#         liste_parametres=list(dictionnaire_arriere_plans.keys()),
+#         liste_deja_existante=param_traduits,
+#         nom_bouton="arrière_plans",
+#         modele_dict=modele,
+#         liste_langues=liste_langues,
+#         blabla=1,
+#     )
 
-    # Appels API
-    if not date_jour in list(api_dict.keys()):
-        api_dict[date_jour] = {}
-    api_dict[date_jour][modele["modèle"]] = api_jour_modele
+#     # Appels API
+#     if not date_jour in list(api_dict.keys()):
+#         api_dict[date_jour] = {}
+#     api_dict[date_jour][modele["modèle"]] = api_jour_modele
 
 
 # 4 -- Export ------------------------------------------------------------------

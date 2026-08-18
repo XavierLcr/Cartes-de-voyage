@@ -1061,6 +1061,7 @@ teintes_couleurs:
     Aurore boréale: Noorderlig
     Baroque: Barok
     Champ de lavande: Laventelveld
+    Couleurs du drapeau: Vlagkleure
     Crépuscule: Skemering
     Fantaisie: Fantasie
     Jungle: Jungle
@@ -1072,6 +1073,7 @@ teintes_couleurs:
     Printemps: Lente
     Teintes automnales: Herfskleure
     Teintes bohèmes: Boheemse kleure
+    Teintes du drapeau: Skakerings van die vlagkleure
     Teintes estivales: Somerkleure
     Teintes florales: Blomskakerings
     Teintes hivernales: Winterkleure
@@ -1083,6 +1085,7 @@ teintes_couleurs:
     Aurore boréale: Dritat e Veriut
     Baroque: Barok
     Champ de lavande: Fusha e lavandës
+    Couleurs du drapeau: Ngjyrat e flamurit
     Crépuscule: Perëndim
     Fantaisie: Fantazi
     Jungle: Xhungël
@@ -1094,6 +1097,7 @@ teintes_couleurs:
     Printemps: Pranverë
     Teintes automnales: Ngjyrat e vjeshtës
     Teintes bohèmes: Ngjyra boheme
+    Teintes du drapeau: Ngjyrat e flamurit
     Teintes estivales: Ngjyra verore
     Teintes florales: Ngjyra lulesh
     Teintes hivernales: Ngjyra dimërore
@@ -1105,6 +1109,7 @@ teintes_couleurs:
     Aurore boréale: Nordlicht
     Baroque: Barock
     Champ de lavande: Lavendelfeld
+    Couleurs du drapeau: Flaggenfarben
     Crépuscule: Dämmerung
     Fantaisie: Fantasie
     Jungle: Dschungel
@@ -1116,6 +1121,7 @@ teintes_couleurs:
     Printemps: Frühling
     Teintes automnales: Herbstfarben
     Teintes bohèmes: Bohème-Töne
+    Teintes du drapeau: Flaggenfarben
     Teintes estivales: Sommertöne
     Teintes florales: Florale Farbtöne
     Teintes hivernales: Winterliche Farbtöne
@@ -1127,6 +1133,7 @@ teintes_couleurs:
     Aurore boréale: Northern Lights
     Baroque: Baroque
     Champ de lavande: Lavender field
+    Couleurs du drapeau: Flag colors
     Crépuscule: Twilight
     Fantaisie: Fantasy
     Jungle: Jungle
@@ -1138,6 +1145,7 @@ teintes_couleurs:
     Printemps: Spring
     Teintes automnales: Autumn hues
     Teintes bohèmes: Bohemian hues
+    Teintes du drapeau: Flag colors
     Teintes estivales: Summer hues
     Teintes florales: Floral hues
     Teintes hivernales: Winter hues
@@ -1149,6 +1157,7 @@ teintes_couleurs:
     Aurore boréale: الشفق القطبي
     Baroque: باروكي
     Champ de lavande: حقل الخزامى
+    Couleurs du drapeau: ألوان العلم
     Crépuscule: غسق
     Fantaisie: خيال
     Jungle: غابة
@@ -1160,6 +1169,7 @@ teintes_couleurs:
     Printemps: الربيع
     Teintes automnales: ألوان الخريف
     Teintes bohèmes: ألوان بوهيمية
+    Teintes du drapeau: ألوان العلم
     Teintes estivales: ألوان صيفية
     Teintes florales: ألوان الأزهار
     Teintes hivernales: ألوان شتوية
@@ -1171,6 +1181,7 @@ teintes_couleurs:
     Aurore boréale: Հյուսիսափայլ
     Baroque: Բարոկկո
     Champ de lavande: Նարդոսի դաշտ
+    Couleurs du drapeau: Դրոշի գույները
     Crépuscule: Մթնշաղ
     Fantaisie: Երևակայություն
     Jungle: Ջունգլի
@@ -1182,6 +1193,7 @@ teintes_couleurs:
     Printemps: Գարուն
     Teintes automnales: Աշնանային երանգներ
     Teintes bohèmes: Բոհեմական երանգներ
+    Teintes du drapeau: Դրոշի գույները
     Teintes estivales: Ամառային երանգներ
     Teintes florales: Ծաղկային երանգներ
     Teintes hivernales: Ձմեռային երանգներ
@@ -1193,6 +1205,7 @@ teintes_couleurs:
     Aurore boréale: Ipar argiak
     Baroque: Barroko
     Champ de lavande: Izpilikien eremu
+    Couleurs du drapeau: Banderaren koloreak
     Crépuscule: Ilunabar
     Fantaisie: Irudimena
     Jungle: Oihan
@@ -1204,6 +1217,7 @@ teintes_couleurs:
     Printemps: Udaberri
     Teintes automnales: Udazkeneko koloreak
     Teintes bohèmes: Bohemiar koloreak
+    Teintes du drapeau: Banderaren tonuak
     Teintes estivales: Udako koloreak
     Teintes florales: Lore koloreak
     Teintes hivernales: Neguko koloreak
@@ -1215,6 +1229,7 @@ teintes_couleurs:
     Aurore boréale: উত্তর মেরু আলো
     Baroque: বারোক
     Champ de lavande: ল্যাভেন্ডার ক্ষেত্র
+    Couleurs du drapeau: পতাকার রং
     Crépuscule: গোধূলি
     Fantaisie: কল্পনা
     Jungle: জঙ্গল
@@ -1226,6 +1241,7 @@ teintes_couleurs:
     Printemps: বসন্ত
     Teintes automnales: শরতের রং
     Teintes bohèmes: বোহেমিয়ান শেডস
+    Teintes du drapeau: পতাকার রং
     Teintes estivales: গরমের রঙ
     Teintes florales: ফুলের আভা
     Teintes hivernales: শীতের আভা
@@ -1237,6 +1253,7 @@ teintes_couleurs:
     Aurore boréale: မြောက်အရုဏ်
     Baroque: ဘာရော့ခ်
     Champ de lavande: ပန်းခရမ်းပြာခင်း
+    Couleurs du drapeau: အလံအရောင်များ
     Crépuscule: နေဝင်ချိန်
     Fantaisie: စိတ်ကူးယဉ်
     Jungle: တော
@@ -1248,6 +1265,7 @@ teintes_couleurs:
     Printemps: နွေဦး
     Teintes automnales: ဆောင်းဦးအရောင်များ
     Teintes bohèmes: ဘိုဟီးမီးအရောင်များ
+    Teintes du drapeau: အလံအရောင်များ၏ အရောင်အဆင်းများ
     Teintes estivales: နွေရာသီအရောင်အသွေးများ
     Teintes florales: ပန်းရောင်အဆင်း
     Teintes hivernales: ဆောင်းရာသီအရောင်
@@ -1259,6 +1277,7 @@ teintes_couleurs:
     Aurore boréale: Gouloù-hanternoz
     Baroque: Barok
     Champ de lavande: Park eoul-bleuñv
+    Couleurs du drapeau: Liivioù ar vaner
     Crépuscule: Tarzh-an-noz
     Fantaisie: Faltazi
     Jungle: Jondrez
@@ -1270,6 +1289,7 @@ teintes_couleurs:
     Printemps: Nevezamzer
     Teintes automnales: Livioù an diskar-amzer
     Teintes bohèmes: Livrioù bohem
+    Teintes du drapeau: Livioù ar vaner
     Teintes estivales: Livioù hañv
     Teintes florales: Livou bleuniek
     Teintes hivernales: Livioù goañv
@@ -1281,6 +1301,7 @@ teintes_couleurs:
     Aurore boréale: Северно сияние
     Baroque: Барок
     Champ de lavande: Лавандово поле
+    Couleurs du drapeau: Цветове на флага
     Crépuscule: Здрач
     Fantaisie: Фантазия
     Jungle: Джунгла
@@ -1292,6 +1313,7 @@ teintes_couleurs:
     Printemps: Пролет
     Teintes automnales: Есенни багри
     Teintes bohèmes: Бохемски нюанси
+    Teintes du drapeau: Нюанси на цветовете на флага
     Teintes estivales: Летни нюанси
     Teintes florales: Флорални нюанси
     Teintes hivernales: Зимни нюанси
@@ -1303,6 +1325,7 @@ teintes_couleurs:
     Aurore boréale: Aurora boreal
     Baroque: Barroc
     Champ de lavande: Camp de lavanda
+    Couleurs du drapeau: Colors de la bandera
     Crépuscule: Crepuscle
     Fantaisie: Fantasia
     Jungle: Selva
@@ -1314,6 +1337,7 @@ teintes_couleurs:
     Printemps: Primavera
     Teintes automnales: Tons de tardor
     Teintes bohèmes: Tonalitats bohèmies
+    Teintes du drapeau: Tons de la bandera
     Teintes estivales: Tints estivals
     Teintes florales: Tons florals
     Teintes hivernales: Tintes hivernals
@@ -1325,6 +1349,7 @@ teintes_couleurs:
     Aurore boréale: Alba boreale
     Baroque: Baroccu
     Champ de lavande: Cunfinu di lavanda
+    Couleurs du drapeau: Culori di a bandiera
     Crépuscule: Crepusculu
     Fantaisie: Fantasia
     Jungle: Macchia
@@ -1336,6 +1361,7 @@ teintes_couleurs:
     Printemps: Primavera
     Teintes automnales: Tinte d'autunnu
     Teintes bohèmes: Tinte boemie
+    Teintes du drapeau: Sfumature di i culori di a bandiera
     Teintes estivales: Tonalità estivale
     Teintes florales: Tinte fiurali
     Teintes hivernales: Culori invernali
@@ -1347,6 +1373,7 @@ teintes_couleurs:
     Aurore boréale: 북극광
     Baroque: 바로크
     Champ de lavande: 라벤더 밭
+    Couleurs du drapeau: 국기 색상
     Crépuscule: 황혼
     Fantaisie: 판타지
     Jungle: 정글
@@ -1358,6 +1385,7 @@ teintes_couleurs:
     Printemps: 봄
     Teintes automnales: 가을빛
     Teintes bohèmes: 보헤미안 색조
+    Teintes du drapeau: 국기 색상의 색조
     Teintes estivales: 여름 색조
     Teintes florales: 꽃무늬 색상
     Teintes hivernales: 겨울 색조
@@ -1369,6 +1397,7 @@ teintes_couleurs:
     Aurore boréale: Nordlys
     Baroque: Barok
     Champ de lavande: Lavendelmark
+    Couleurs du drapeau: Flagfarver
     Crépuscule: Skumring
     Fantaisie: Fantasi
     Jungle: Jungle
@@ -1380,6 +1409,7 @@ teintes_couleurs:
     Printemps: Forår
     Teintes automnales: Efterårsfarver
     Teintes bohèmes: Bohème Farver
+    Teintes du drapeau: Nuancer af flagfarverne
     Teintes estivales: Sommerfarver
     Teintes florales: Blomsterfarver
     Teintes hivernales: Vinterfarver
@@ -1391,6 +1421,7 @@ teintes_couleurs:
     Aurore boréale: Aurora boreal
     Baroque: Barroco
     Champ de lavande: Campo de lavanda
+    Couleurs du drapeau: Colores de la bandera
     Crépuscule: Crepúsculo
     Fantaisie: Fantasía
     Jungle: Selva
@@ -1402,6 +1433,7 @@ teintes_couleurs:
     Printemps: Primavera
     Teintes automnales: Tonos otoñales
     Teintes bohèmes: Tintes bohemios
+    Teintes du drapeau: Tonos de los colores de la bandera
     Teintes estivales: Tonos estivales
     Teintes florales: Tonos florales
     Teintes hivernales: Tonos invernales
@@ -1413,6 +1445,7 @@ teintes_couleurs:
     Aurore boréale: Aŭroro Boreala
     Baroque: Baroko
     Champ de lavande: Lavendocampo
+    Couleurs du drapeau: Flagokoloroj
     Crépuscule: Krepusko
     Fantaisie: Fantazio
     Jungle: Ĝangalo
@@ -1424,6 +1457,7 @@ teintes_couleurs:
     Printemps: Printempo
     Teintes automnales: Aŭtunaj Koloroj
     Teintes bohèmes: Bohemaj Nuancoj
+    Teintes du drapeau: Nuancoj de la flagokoloroj
     Teintes estivales: Somertonoj
     Teintes florales: Floraj nuancoj
     Teintes hivernales: Vintrotuŝoj
@@ -1435,6 +1469,7 @@ teintes_couleurs:
     Aurore boréale: Põhjatuled
     Baroque: Barokk
     Champ de lavande: Lavendlipõld
+    Couleurs du drapeau: Lipu värvid
     Crépuscule: Videvik
     Fantaisie: Fantaasia
     Jungle: Džungel
@@ -1446,6 +1481,7 @@ teintes_couleurs:
     Printemps: Kevad
     Teintes automnales: Sügisesed toonid
     Teintes bohèmes: Boheemlaslikud toonid
+    Teintes du drapeau: Lipuvärvide toonid
     Teintes estivales: Suvised toonid
     Teintes florales: Lilletoonid
     Teintes hivernales: Talvised toonid
@@ -1457,6 +1493,7 @@ teintes_couleurs:
     Aurore boréale: Revontulet
     Baroque: Barokki
     Champ de lavande: Laventelipelto
+    Couleurs du drapeau: Lippuvärit
     Crépuscule: Hämärä
     Fantaisie: Fantasia
     Jungle: Viidakko
@@ -1468,6 +1505,7 @@ teintes_couleurs:
     Printemps: Kevät
     Teintes automnales: Syksyn värit
     Teintes bohèmes: Boheemiset sävyt
+    Teintes du drapeau: Lipun värit
     Teintes estivales: Kesäiset sävyt
     Teintes florales: Kukkien värit
     Teintes hivernales: Talviset värit
@@ -1479,6 +1517,7 @@ teintes_couleurs:
     Aurore boréale: Aurore boréale
     Baroque: Baroque
     Champ de lavande: Champ de lavande
+    Couleurs du drapeau: Couleurs du drapeau
     Crépuscule: Crépuscule
     Fantaisie: Fantaisie
     Jungle: Jungle
@@ -1490,12 +1529,11 @@ teintes_couleurs:
     Printemps: Printemps
     Teintes automnales: Teintes automnales
     Teintes bohèmes: Teintes bohèmes
+    Teintes du drapeau: Nuances des couleurs du drapeau
     Teintes estivales: Teintes estivales
     Teintes florales: Teintes florales
     Teintes hivernales: Teintes hivernales
     Terre: Terre
-    Thème Pays n°1: Thème Pays n°1
-    Thème Pays n°2: Thème Pays n°2
     Écailles de sirène: Écailles de sirène
   gallois:
     Arc en ciel: Yr Enfys
@@ -1503,6 +1541,7 @@ teintes_couleurs:
     Aurore boréale: Goleuadau Gogledd
     Baroque: Baróc
     Champ de lavande: Maes lafant
+    Couleurs du drapeau: Lliwiau'r faner
     Crépuscule: Cyfnos
     Fantaisie: Dychymyg
     Jungle: Jyngl
@@ -1525,6 +1564,7 @@ teintes_couleurs:
     Aurore boréale: Βόρειο Σέλας
     Baroque: Μπαρόκ
     Champ de lavande: Πεδίο λεβάντας
+    Couleurs du drapeau: Χρώματα της σημαίας
     Crépuscule: Δειλινό
     Fantaisie: Φαντασία
     Jungle: Ζούγκλα
@@ -1547,6 +1587,7 @@ teintes_couleurs:
     Aurore boréale: Βόρειον Σέλας
     Baroque: Βαρόκ
     Champ de lavande: Λεβάντου χωρίον
+    Couleurs du drapeau: Χρώματα σήματος
     Crépuscule: Ἑσπέρα
     Fantaisie: Φαντασία
     Jungle: ὕλη
@@ -1558,6 +1599,7 @@ teintes_couleurs:
     Printemps: ἔαρ
     Teintes automnales: Φθινοπωριναί χρῶς
     Teintes bohèmes: Βοημικαί χροιαι
+    Teintes du drapeau: Χρώματα τῆς σημαίας
     Teintes estivales: Θέρους Χρώματα
     Teintes florales: Ἄνθεων χρῶμα
     Teintes hivernales: Χειμεριναὶ Χροιὰ
@@ -1569,6 +1611,7 @@ teintes_couleurs:
     Aurore boréale: ჩრდილოეთის ციალი
     Baroque: ბაროკო
     Champ de lavande: ლავანდის ველი
+    Couleurs du drapeau: დროშის ფერები
     Crépuscule: ბინდი
     Fantaisie: ფანტაზია
     Jungle: ჯუნგლები
@@ -1580,6 +1623,7 @@ teintes_couleurs:
     Printemps: გაზაფხული
     Teintes automnales: შემოდგომის ფერები
     Teintes bohèmes: ბოჰემური ელფერი
+    Teintes du drapeau: დროშის ფერების ტონები
     Teintes estivales: ზაფხულის ფერები
     Teintes florales: ყვავილოვანი ელფერი
     Teintes hivernales: ზამთრის ფერები
@@ -1591,6 +1635,7 @@ teintes_couleurs:
     Aurore boréale: उत्तरी ध्रुवीय ज्योति
     Baroque: बरोक
     Champ de lavande: लैवेंडर का खेत
+    Couleurs du drapeau: झंडे के रंग
     Crépuscule: गोधूलि
     Fantaisie: कल्पना
     Jungle: जंगल
@@ -1602,6 +1647,7 @@ teintes_couleurs:
     Printemps: वसंत
     Teintes automnales: शरद ऋतु के रंग
     Teintes bohèmes: बोहेमियन रंग
+    Teintes du drapeau: झंडे के रंगों के शेड्स
     Teintes estivales: गर्मियों के रंग
     Teintes florales: पुष्प रंग
     Teintes hivernales: सर्दी के रंग
@@ -1613,6 +1659,7 @@ teintes_couleurs:
     Aurore boréale: Sarki fény
     Baroque: Barokk
     Champ de lavande: Levendulamező
+    Couleurs du drapeau: Zászló színei
     Crépuscule: Alkonyat
     Fantaisie: Fantázia
     Jungle: Dzsungel
@@ -1624,6 +1671,7 @@ teintes_couleurs:
     Printemps: Tavasz
     Teintes automnales: Őszi színek
     Teintes bohèmes: Bohém árnyalatok
+    Teintes du drapeau: A zászló színárnyalatai
     Teintes estivales: Nyári színek
     Teintes florales: Virágos árnyalatok
     Teintes hivernales: Téli színek
@@ -1635,6 +1683,7 @@ teintes_couleurs:
     Aurore boréale: Aurora Borealis
     Baroque: Barok
     Champ de lavande: Ladang lavender
+    Couleurs du drapeau: Warna bendera
     Crépuscule: Senja
     Fantaisie: Fantasi
     Jungle: Hutan
@@ -1646,6 +1695,7 @@ teintes_couleurs:
     Printemps: Musim semi
     Teintes automnales: Warna Musim Gugur
     Teintes bohèmes: Warna-warna bohemia
+    Teintes du drapeau: Warna bendera
     Teintes estivales: Nuansa musim panas
     Teintes florales: Warna Bunga
     Teintes hivernales: Warna musim dingin
@@ -1657,6 +1707,7 @@ teintes_couleurs:
     Aurore boréale: Soilse Thuaiscirt
     Baroque: Barócach
     Champ de lavande: Réimse lavender
+    Couleurs du drapeau: Dathanna an bhrata
     Crépuscule: An Tráthnóna
     Fantaisie: Samhailteachas
     Jungle: Féithleog
@@ -1668,6 +1719,7 @@ teintes_couleurs:
     Printemps: An tEarrach
     Teintes automnales: Dathanna an fhómhair
     Teintes bohèmes: Dathanna Bóithéimeacha
+    Teintes du drapeau: Dathanna an bhratach
     Teintes estivales: Dathanna Samhraidh
     Teintes florales: Dathanna bláthanna
     Teintes hivernales: Dathanna geimhridh
@@ -1679,6 +1731,7 @@ teintes_couleurs:
     Aurore boréale: Norðurljós
     Baroque: Barokkstíll
     Champ de lavande: Lavendelakur
+    Couleurs du drapeau: Fánalitir
     Crépuscule: Hrímsvala
     Fantaisie: Fantasía
     Jungle: Frumskógur
@@ -1690,6 +1743,7 @@ teintes_couleurs:
     Printemps: Vor
     Teintes automnales: Haustlitir
     Teintes bohèmes: Bóhemískar litbrigði
+    Teintes du drapeau: Fánalitir
     Teintes estivales: Sumarlitir
     Teintes florales: Blómalitir
     Teintes hivernales: Vetrarlitir
@@ -1701,6 +1755,7 @@ teintes_couleurs:
     Aurore boréale: Aurora boreale
     Baroque: Barocco
     Champ de lavande: Campo di lavanda
+    Couleurs du drapeau: Colori della bandiera
     Crépuscule: Crepuscolo
     Fantaisie: Fantasia
     Jungle: Giungla
@@ -1712,6 +1767,7 @@ teintes_couleurs:
     Printemps: Primavera
     Teintes automnales: Tinte autunnali
     Teintes bohèmes: Tinte bohémiennes
+    Teintes du drapeau: Tonalità della bandiera
     Teintes estivales: Tonalità estive
     Teintes florales: Tonalità floreali
     Teintes hivernales: Tonalità invernali
@@ -1723,6 +1779,7 @@ teintes_couleurs:
     Aurore boréale: オーロラ
     Baroque: バロック
     Champ de lavande: ラベンダー畑
+    Couleurs du drapeau: 国旗の色
     Crépuscule: 夕暮れ
     Fantaisie: ファンタジー
     Jungle: ジャングル
@@ -1734,6 +1791,7 @@ teintes_couleurs:
     Printemps: 春
     Teintes automnales: 紅葉
     Teintes bohèmes: ボヘミアンテイスト
+    Teintes du drapeau: 国旗の色
     Teintes estivales: 夏の色彩
     Teintes florales: フローラルカラー
     Teintes hivernales: 冬の色合い
@@ -1745,6 +1803,7 @@ teintes_couleurs:
     Aurore boréale: Солтүстік алауы
     Baroque: Барокко
     Champ de lavande: Лаванда алаңы
+    Couleurs du drapeau: Ту түстері
     Crépuscule: Күн батар
     Fantaisie: қиял
     Jungle: Орман
@@ -1756,6 +1815,7 @@ teintes_couleurs:
     Printemps: Көктем
     Teintes automnales: Күзгі реңктер
     Teintes bohèmes: Богемдік реңктер
+    Teintes du drapeau: Ту реңктері
     Teintes estivales: Жазғы реңдер
     Teintes florales: Гүл реңктері
     Teintes hivernales: Қысқы реңктер
@@ -1767,6 +1827,7 @@ teintes_couleurs:
     Aurore boréale: Түндүк жарык
     Baroque: Барокко
     Champ de lavande: Лаванда талаасы
+    Couleurs du drapeau: Желектин түстөрү
     Crépuscule: Күүгүм
     Fantaisie: Элестөө
     Jungle: Токой
@@ -1778,6 +1839,7 @@ teintes_couleurs:
     Printemps: Жаз
     Teintes automnales: Күзгү түстөр
     Teintes bohèmes: Богемалык тондор
+    Teintes du drapeau: Желектин түстөрү
     Teintes estivales: Жайкы түстөр
     Teintes florales: Гүл түстөрү
     Teintes hivernales: Кышкы түстөр
@@ -1789,6 +1851,7 @@ teintes_couleurs:
     Aurore boréale: Rojhilata bakur
     Baroque: Barok
     Champ de lavande: Zeviya lavendê
+    Couleurs du drapeau: Rengên alayê
     Crépuscule: Êvar
     Fantaisie: Xeyal
     Jungle: Daristan
@@ -1800,6 +1863,7 @@ teintes_couleurs:
     Printemps: Bihar
     Teintes automnales: Rengên payîzê
     Teintes bohèmes: Rengên bohemî
+    Teintes du drapeau: Rengên alayê
     Teintes estivales: Rengên havînê
     Teintes florales: Rengên kulîlkan
     Teintes hivernales: Rengên zivistanê
@@ -1811,6 +1875,7 @@ teintes_couleurs:
     Aurore boréale: Aurora Borealis
     Baroque: Barocus
     Champ de lavande: Campus lavandulae
+    Couleurs du drapeau: Colores vexilli
     Crépuscule: Crepusculum
     Fantaisie: Phantasia
     Jungle: Silva obscura
@@ -1822,6 +1887,7 @@ teintes_couleurs:
     Printemps: Ver
     Teintes automnales: Autumnales Colorationes
     Teintes bohèmes: Tincturae Bohemicae
+    Teintes du drapeau: Nuances colorum vexilli
     Teintes estivales: Aestivae coloris
     Teintes florales: Flores colorum
     Teintes hivernales: Colores hiemales
@@ -1833,6 +1899,7 @@ teintes_couleurs:
     Aurore boréale: Ziemeļblāzma
     Baroque: Baroks
     Champ de lavande: Lavandas lauks
+    Couleurs du drapeau: Karogas krāsas
     Crépuscule: Krēsla
     Fantaisie: Fantāzija
     Jungle: Džungļi
@@ -1844,6 +1911,7 @@ teintes_couleurs:
     Printemps: Pavasaris
     Teintes automnales: Rudens krāsas
     Teintes bohèmes: Bohēmiski toņi
+    Teintes du drapeau: Karoga toņi
     Teintes estivales: Vasaras toņi
     Teintes florales: Ziedu toņi
     Teintes hivernales: Ziemas toņi
@@ -1855,6 +1923,7 @@ teintes_couleurs:
     Aurore boréale: Šiaurės pašvaistė
     Baroque: Barokas
     Champ de lavande: Levandų laukas
+    Couleurs du drapeau: Vėliavos spalvos
     Crépuscule: Saulėlydis
     Fantaisie: Fantazija
     Jungle: Džiunglės
@@ -1866,6 +1935,7 @@ teintes_couleurs:
     Printemps: Pavasaris
     Teintes automnales: Rudenio spalvos
     Teintes bohèmes: Bohemiškos spalvos
+    Teintes du drapeau: Vėliavos spalvų atspalviai
     Teintes estivales: Vasaros spalvos
     Teintes florales: Gėlių atspalviai
     Teintes hivernales: Žiemos spalvos
@@ -1877,6 +1947,7 @@ teintes_couleurs:
     Aurore boréale: Polarluucht
     Baroque: Barock
     Champ de lavande: Lavendelsfeld
+    Couleurs du drapeau: Flaggfaarwen
     Crépuscule: Dämmerung
     Fantaisie: Fantasi
     Jungle: Dschungel
@@ -1888,6 +1959,7 @@ teintes_couleurs:
     Printemps: Fréijoer
     Teintes automnales: Hierschtfaarwen
     Teintes bohèmes: Bohème Faarwen
+    Teintes du drapeau: Flaggefaarwen
     Teintes estivales: Summerfaarwen
     Teintes florales: Blummenuancen
     Teintes hivernales: Wanterfaarwen
@@ -1899,6 +1971,7 @@ teintes_couleurs:
     Aurore boréale: Aurora borealis
     Baroque: Барок
     Champ de lavande: Поле на лаванда
+    Couleurs du drapeau: Бои на знамето
     Crépuscule: Зора
     Fantaisie: Фантазија
     Jungle: Џунгла
@@ -1910,6 +1983,7 @@ teintes_couleurs:
     Printemps: Пролет
     Teintes automnales: Есенски нијанси
     Teintes bohèmes: Боемски нијанси
+    Teintes du drapeau: Нијанси на боите на знамето
     Teintes estivales: Летни нијанси
     Teintes florales: Цветни нијанси
     Teintes hivernales: Зимски нијанси
@@ -1921,6 +1995,7 @@ teintes_couleurs:
     Aurore boréale: Cahaya Aurora
     Baroque: Barok
     Champ de lavande: Ladang Lavender
+    Couleurs du drapeau: Warna bendera
     Crépuscule: Senja
     Fantaisie: Fantasi
     Jungle: Hutan
@@ -1932,6 +2007,7 @@ teintes_couleurs:
     Printemps: Musim bunga
     Teintes automnales: Warna Musim Luruh
     Teintes bohèmes: Warna Bohemia
+    Teintes du drapeau: Nuansa warna bendera
     Teintes estivales: Warna-warna musim panas
     Teintes florales: Warna Bunga
     Teintes hivernales: Warna Musim Sejuk
@@ -1943,6 +2019,7 @@ teintes_couleurs:
     Aurore boréale: Tara-pahazavana avaratra
     Baroque: Baroka
     Champ de lavande: Sahan'ny lavandrà
+    Couleurs du drapeau: Lokon'ny saina
     Crépuscule: Hariva
     Fantaisie: Sitrana
     Jungle: Ala
@@ -1954,6 +2031,7 @@ teintes_couleurs:
     Printemps: Lohataona
     Teintes automnales: Loko fahalavo
     Teintes bohèmes: Loko bohemiàna
+    Teintes du drapeau: Aloky ny lokon'ny saina
     Teintes estivales: Loko fahavaratra
     Teintes florales: Loko voninkazo
     Teintes hivernales: Loko ririnina
@@ -1965,6 +2043,7 @@ teintes_couleurs:
     Aurore boréale: Dwal tax-Xlokk
     Baroque: Barokk
     Champ de lavande: Għalqa tal-lavanda
+    Couleurs du drapeau: Kuluri tal-bandiera
     Crépuscule: Għabex
     Fantaisie: Fantasija
     Jungle: Ġungla
@@ -1976,6 +2055,7 @@ teintes_couleurs:
     Printemps: Rebbiegħa
     Teintes automnales: Kuluri tal-Ħarifa
     Teintes bohèmes: Kuluri Boemjani
+    Teintes du drapeau: Ilwien tal-kuluri tal-bandiera
     Teintes estivales: Kuluri sajfin
     Teintes florales: Kuluri tal-fjuri
     Teintes hivernales: Dell-xitwa
@@ -1987,6 +2067,7 @@ teintes_couleurs:
     Aurore boréale: 北极光
     Baroque: 巴洛克
     Champ de lavande: 薰衣草田
+    Couleurs du drapeau: 国旗颜色
     Crépuscule: 暮色
     Fantaisie: 幻想
     Jungle: 丛林
@@ -1998,6 +2079,7 @@ teintes_couleurs:
     Printemps: 春天
     Teintes automnales: 秋色
     Teintes bohèmes: 波西米亚风情
+    Teintes du drapeau: 国旗颜色的色调
     Teintes estivales: 夏日色调
     Teintes florales: 花色
     Teintes hivernales: 冬日色调
@@ -2009,6 +2091,7 @@ teintes_couleurs:
     Aurore boréale: Хойд туйлын туяа
     Baroque: Барокко
     Champ de lavande: Лаванда цэцгийн тал
+    Couleurs du drapeau: Тугийн өнгө
     Crépuscule: Үдшийн бүрий
     Fantaisie: Уран зөгнөл
     Jungle: Ойн
@@ -2020,6 +2103,7 @@ teintes_couleurs:
     Printemps: Хавар
     Teintes automnales: Намрын өнгө
     Teintes bohèmes: Бохемийн өнгө
+    Teintes du drapeau: Тугны өнгө
     Teintes estivales: Зуны өнгө
     Teintes florales: Цэцгийн өнгө
     Teintes hivernales: Өвлийн өнгө
@@ -2031,6 +2115,7 @@ teintes_couleurs:
     Aurore boréale: Nordlys
     Baroque: Barok
     Champ de lavande: Lavendelmark
+    Couleurs du drapeau: Flaggfarger
     Crépuscule: Skumring
     Fantaisie: Fantasi
     Jungle: Jungel
@@ -2042,6 +2127,7 @@ teintes_couleurs:
     Printemps: Vår
     Teintes automnales: Høstfarger
     Teintes bohèmes: Bohême farger
+    Teintes du drapeau: Nyanser av flaggfargene
     Teintes estivales: Sommerfarger
     Teintes florales: Blomsterfarger
     Teintes hivernales: Vintertoner
@@ -2053,6 +2139,7 @@ teintes_couleurs:
     Aurore boréale: Noorderlicht
     Baroque: Barok
     Champ de lavande: Lavendelveld
+    Couleurs du drapeau: Vlagkleuren
     Crépuscule: Schemering
     Fantaisie: Fantasie
     Jungle: Jungle
@@ -2064,6 +2151,7 @@ teintes_couleurs:
     Printemps: Lente
     Teintes automnales: Herfsttinten
     Teintes bohèmes: Boheemse tinten
+    Teintes du drapeau: Tinten van de vlagkleuren
     Teintes estivales: Zomertinten
     Teintes florales: Bloemkleuren
     Teintes hivernales: Wintertinten
@@ -2075,6 +2163,7 @@ teintes_couleurs:
     Aurore boréale: उत्तरी ध्रुवीय ज्योति
     Baroque: बरोक
     Champ de lavande: लभेन्डरको खेत
+    Couleurs du drapeau: झण्डाको रङ
     Crépuscule: अस्ताउँदो घाम
     Fantaisie: कल्पना
     Jungle: जङ्गल
@@ -2086,6 +2175,7 @@ teintes_couleurs:
     Printemps: वसन्त
     Teintes automnales: शरद ऋतुका रंगहरू
     Teintes bohèmes: बोहेमियन रंगहरु
+    Teintes du drapeau: झण्डाका रङ्गहरू
     Teintes estivales: गर्मीको रंगहरू
     Teintes florales: फूल रंग
     Teintes hivernales: हिउँदे रंगहरु
@@ -2097,6 +2187,7 @@ teintes_couleurs:
     Aurore boréale: شفق قطبی
     Baroque: باروک
     Champ de lavande: Lavendar ka maidaan
+    Couleurs du drapeau: جھنڈے کے رنگ
     Crépuscule: غروب آفتاب
     Fantaisie: خیال
     Jungle: جنگل
@@ -2108,6 +2199,7 @@ teintes_couleurs:
     Printemps: بہار
     Teintes automnales: خزاں کے رنگ
     Teintes bohèmes: بوهیمیائی رنگ
+    Teintes du drapeau: جھنڈے کے رنگوں کے شیڈز
     Teintes estivales: موسمی رنگ
     Teintes florales: پھولوں کے رنگ
     Teintes hivernales: سرد موسم کے رنگ
@@ -2119,6 +2211,7 @@ teintes_couleurs:
     Aurore boréale: Shimoliy nur
     Baroque: Barokko
     Champ de lavande: Lavanda dalasi
+    Couleurs du drapeau: Bayroq ranglari
     Crépuscule: Quyosh botishi
     Fantaisie: Hayol
     Jungle: O'rmon
@@ -2130,6 +2223,7 @@ teintes_couleurs:
     Printemps: Bahor
     Teintes automnales: Kuzgi ranglar
     Teintes bohèmes: Bohemcha ranglar
+    Teintes du drapeau: Bayroq ranglarining tuslari
     Teintes estivales: Yozgi ranglar
     Teintes florales: Gullar ranglari
     Teintes hivernales: Qish ranglari
@@ -2141,6 +2235,7 @@ teintes_couleurs:
     Aurore boréale: د شمالي رڼا
     Baroque: باروک
     Champ de lavande: د لېونډو ګیاه کروندې
+    Couleurs du drapeau: د بیرغ رنګونه
     Crépuscule: ماښام
     Fantaisie: خیال
     Jungle: ځنګل
@@ -2152,6 +2247,7 @@ teintes_couleurs:
     Printemps: پسرلی
     Teintes automnales: د مني رنګونه
     Teintes bohèmes: بوهيمي رنګونه
+    Teintes du drapeau: د بیرغ د رنګونو سیوري
     Teintes estivales: د اوړي رنګونه
     Teintes florales: د ګلونو رنګونه
     Teintes hivernales: ژمني رنګونه
@@ -2163,6 +2259,7 @@ teintes_couleurs:
     Aurore boréale: شفق قطبی
     Baroque: باروک
     Champ de lavande: مزرعه اسطوخودوس
+    Couleurs du drapeau: رنگ‌های پرچم
     Crépuscule: غروب
     Fantaisie: خیال‌پردازی
     Jungle: جنگل
@@ -2174,6 +2271,7 @@ teintes_couleurs:
     Printemps: بهار
     Teintes automnales: رنگ‌های پاییزی
     Teintes bohèmes: رنگ‌های بوهمیایی
+    Teintes du drapeau: طیف‌های رنگی پرچم
     Teintes estivales: رنگ های تابستانی
     Teintes florales: رنگ های گلی
     Teintes hivernales: رنگ‌های زمستانی
@@ -2185,6 +2283,7 @@ teintes_couleurs:
     Aurore boréale: Aurora borealis
     Baroque: Barok
     Champ de lavande: Pole lawendy
+    Couleurs du drapeau: Kolory flagi
     Crépuscule: Zmierzch
     Fantaisie: Fantazja
     Jungle: Dżungla
@@ -2196,6 +2295,7 @@ teintes_couleurs:
     Printemps: Wiosna
     Teintes automnales: Jesienne barwy
     Teintes bohèmes: Bohemskie odcienie
+    Teintes du drapeau: Odcienie kolorów flagi
     Teintes estivales: Letnie barwy
     Teintes florales: Kwiatowe odcienie
     Teintes hivernales: Zimowe odcienie
@@ -2207,6 +2307,7 @@ teintes_couleurs:
     Aurore boréale: Aurora boreal
     Baroque: Barroco
     Champ de lavande: Campo de lavanda
+    Couleurs du drapeau: Cores da bandeira
     Crépuscule: Crepúsculo
     Fantaisie: Fantasia
     Jungle: Selva
@@ -2218,6 +2319,7 @@ teintes_couleurs:
     Printemps: Primavera
     Teintes automnales: Tons de Outono
     Teintes bohèmes: Tons boêmios
+    Teintes du drapeau: Tons das cores da bandeira
     Teintes estivales: Tons de Verão
     Teintes florales: Tons florais
     Teintes hivernales: Tons de Inverno
@@ -2229,6 +2331,7 @@ teintes_couleurs:
     Aurore boréale: Aurora boreală
     Baroque: Baroc
     Champ de lavande: Câmp de lavandă
+    Couleurs du drapeau: Culorile steagului
     Crépuscule: Amurg
     Fantaisie: Fantezie
     Jungle: Junglă
@@ -2240,6 +2343,7 @@ teintes_couleurs:
     Printemps: Primăvară
     Teintes automnales: Culori de toamnă
     Teintes bohèmes: Nuante boeme
+    Teintes du drapeau: Nuanțe ale steagului
     Teintes estivales: Nuanțe estivale
     Teintes florales: Nuanțe florale
     Teintes hivernales: Tonuri hibernale
@@ -2251,6 +2355,7 @@ teintes_couleurs:
     Aurore boréale: Северное сияние
     Baroque: Барокко
     Champ de lavande: Ландовое поле
+    Couleurs du drapeau: Цвета флага
     Crépuscule: Сумерки
     Fantaisie: Фантазия
     Jungle: Джунгли
@@ -2262,6 +2367,7 @@ teintes_couleurs:
     Printemps: Весна
     Teintes automnales: Осенние тона
     Teintes bohèmes: Богемные оттенки
+    Teintes du drapeau: Оттенки флага
     Teintes estivales: Летние оттенки
     Teintes florales: Цветочные оттенки
     Teintes hivernales: Зимние тона
@@ -2273,6 +2379,7 @@ teintes_couleurs:
     Aurore boréale: Polarna svjetlost
     Baroque: Barok
     Champ de lavande: Polje lavande
+    Couleurs du drapeau: Boje zastave
     Crépuscule: Sumrak
     Fantaisie: Fantazija
     Jungle: Džungla
@@ -2284,6 +2391,7 @@ teintes_couleurs:
     Printemps: Proleće
     Teintes automnales: Jesenje boje
     Teintes bohèmes: Boemske nijanse
+    Teintes du drapeau: Nijanse boja zastave
     Teintes estivales: Letnje boje
     Teintes florales: Cvetni tonovi
     Teintes hivernales: Zimske nijanse
@@ -2295,6 +2403,7 @@ teintes_couleurs:
     Aurore boréale: Polárna žiara
     Baroque: Barok
     Champ de lavande: Levanduľové pole
+    Couleurs du drapeau: Farby vlajky
     Crépuscule: Súmrak
     Fantaisie: Fantázia
     Jungle: Džungľa
@@ -2306,6 +2415,7 @@ teintes_couleurs:
     Printemps: Jar
     Teintes automnales: Jesenné farby
     Teintes bohèmes: Bohémske tóny
+    Teintes du drapeau: Odtiene farieb vlajky
     Teintes estivales: Letné odtiene
     Teintes florales: Kvetinové tóny
     Teintes hivernales: Zimné tóny
@@ -2317,6 +2427,7 @@ teintes_couleurs:
     Aurore boréale: Severni sij
     Baroque: Barok
     Champ de lavande: Polje sivke
+    Couleurs du drapeau: Barve zastave
     Crépuscule: Somrak
     Fantaisie: Domišljija
     Jungle: Džungla
@@ -2328,6 +2439,7 @@ teintes_couleurs:
     Printemps: Pomlad
     Teintes automnales: Jesenski odtenki
     Teintes bohèmes: Boemski odtenki
+    Teintes du drapeau: Odtenki barv zastave
     Teintes estivales: Poletne barve
     Teintes florales: Cvetlični toni
     Teintes hivernales: Zimske barve
@@ -2339,6 +2451,7 @@ teintes_couleurs:
     Aurore boréale: Norrsken
     Baroque: Barock
     Champ de lavande: Lavendelfält
+    Couleurs du drapeau: Flaggfärger
     Crépuscule: Skymning
     Fantaisie: Fantasi
     Jungle: Djungel
@@ -2350,6 +2463,7 @@ teintes_couleurs:
     Printemps: Vår
     Teintes automnales: Höstfärger
     Teintes bohèmes: Bohemiska toner
+    Teintes du drapeau: Flaggans färger
     Teintes estivales: Sommarfärger
     Teintes florales: Blommiga nyanser
     Teintes hivernales: Vintertoner
@@ -2361,6 +2475,7 @@ teintes_couleurs:
     Aurore boréale: Mwangaza wa Kaskazini
     Baroque: Baroki
     Champ de lavande: Shamba la lavanda
+    Couleurs du drapeau: Rangi za bendera
     Crépuscule: Mchana
     Fantaisie: Ndoto
     Jungle: Msitu
@@ -2372,6 +2487,7 @@ teintes_couleurs:
     Printemps: Masika
     Teintes automnales: Rangi za vuli
     Teintes bohèmes: Rangi za kibohémien
+    Teintes du drapeau: Vivuli vya rangi za bendera
     Teintes estivales: Rangi za kiangazi
     Teintes florales: Rangi za maua
     Teintes hivernales: Rangi za majira ya baridi
@@ -2383,6 +2499,7 @@ teintes_couleurs:
     Aurore boréale: Гӯшпоракҳои Шимолӣ
     Baroque: Барок
     Champ de lavande: Лавандаи замин
+    Couleurs du drapeau: Рангҳои парчам
     Crépuscule: Нимишаб
     Fantaisie: Хайёл
     Jungle: Ҷангал
@@ -2394,6 +2511,7 @@ teintes_couleurs:
     Printemps: Баҳор
     Teintes automnales: Рангҳои тирамоҳӣ
     Teintes bohèmes: Рангҳои богема
+    Teintes du drapeau: Нозукиҳои рангҳои парчам
     Teintes estivales: Рангҳои тобистона
     Teintes florales: Рангҳои гул
     Teintes hivernales: Рангҳои зимистонӣ
@@ -2405,6 +2523,7 @@ teintes_couleurs:
     Aurore boréale: வடதுருவ ஒளி
     Baroque: பரொக்
     Champ de lavande: லாவெண்டர் வயல்
+    Couleurs du drapeau: கொடி நிறங்கள்
     Crépuscule: அந்திவேளை
     Fantaisie: கற்பனை
     Jungle: காடு
@@ -2416,6 +2535,7 @@ teintes_couleurs:
     Printemps: வசந்த காலம்
     Teintes automnales: இலை உதிர் கால நிறங்கள்
     Teintes bohèmes: போஹேமியன் வண்ணங்கள்
+    Teintes du drapeau: கொடியின் வண்ணங்கள்
     Teintes estivales: கோடை நிறங்கள்
     Teintes florales: பூவிதழ்கள்
     Teintes hivernales: குளிர்கால வண்ணங்கள்
@@ -2427,6 +2547,7 @@ teintes_couleurs:
     Aurore boréale: Polární záře
     Baroque: Baroko
     Champ de lavande: Levandulové pole
+    Couleurs du drapeau: Barvy vlajky
     Crépuscule: Soumrak
     Fantaisie: Fantazie
     Jungle: Džungle
@@ -2438,6 +2559,7 @@ teintes_couleurs:
     Printemps: Jaro
     Teintes automnales: Podzimní barvy
     Teintes bohèmes: Bohémské tóny
+    Teintes du drapeau: Odstíny barev vlajky
     Teintes estivales: Letní tóny
     Teintes florales: Květinové tóny
     Teintes hivernales: Zimní odstíny
@@ -2449,6 +2571,7 @@ teintes_couleurs:
     Aurore boréale: แสงเหนือ
     Baroque: บาโรก
     Champ de lavande: ทุ่งลาเวนเดอร์
+    Couleurs du drapeau: สีธง
     Crépuscule: สนธยา
     Fantaisie: แฟนตาซี
     Jungle: ป่า
@@ -2460,6 +2583,7 @@ teintes_couleurs:
     Printemps: ฤดูใบไม้ผลิ
     Teintes automnales: สีสันแห่งฤดูใบไม้ร่วง
     Teintes bohèmes: สีสันแบบโบฮีเมียน
+    Teintes du drapeau: เฉดสีธง
     Teintes estivales: สีสันฤดูร้อน
     Teintes florales: เฉดสีดอกไม้
     Teintes hivernales: สีสันฤดูหนาว
@@ -2471,6 +2595,7 @@ teintes_couleurs:
     Aurore boréale: བྱང་ཕྱོགས་ཀྱི་འོད་ཟེར
     Baroque: གཞན་དགའ་པོ།
     Champ de lavande: ལ་ཝན་དའི་ཞིང་ཁམས
+    Couleurs du drapeau: རྟེན་གྱི་ཚོན་རག
     Crépuscule: ཕྱི་དྲོ་
     Fantaisie: སེམས་འཆར་
     Jungle: དབེན་གནས་
@@ -2482,6 +2607,7 @@ teintes_couleurs:
     Printemps: དཔྱིད་ཀ
     Teintes automnales: དབྱིད་ཀྱི་མདངས་
     Teintes bohèmes: བོ་ཧེམ་གྱི་ཁ་དོག
+    Teintes du drapeau: རྟེན་གྱི་ཁ་དོག
     Teintes estivales: དབྱར་གྱི་མདངས་
     Teintes florales: མེ་ཏོག་གི་ཁ་དོག
     Teintes hivernales: དགུན་གྱི་ཁ་དོག
@@ -2493,6 +2619,7 @@ teintes_couleurs:
     Aurore boréale: Kutup Işıkları
     Baroque: Barok
     Champ de lavande: Lavanta tarlası
+    Couleurs du drapeau: Bayrak renkleri
     Crépuscule: Alacakaranlık
     Fantaisie: Fantezi
     Jungle: Orman
@@ -2504,6 +2631,7 @@ teintes_couleurs:
     Printemps: İlkbahar
     Teintes automnales: Sonbahar Renkleri
     Teintes bohèmes: Bohem Tarzı
+    Teintes du drapeau: Bayrak renklerinin tonları
     Teintes estivales: Yaz renkleri
     Teintes florales: Çiçeksi Tonlar
     Teintes hivernales: Kış Tonları
@@ -2515,6 +2643,7 @@ teintes_couleurs:
     Aurore boréale: Demirgazyk şöhleleri
     Baroque: Barokko
     Champ de lavande: Lawanda meýdany
+    Couleurs du drapeau: Baýragyň reňkleri
     Crépuscule: Garaňkylyk
     Fantaisie: Hyýal
     Jungle: Jeňňel
@@ -2526,6 +2655,7 @@ teintes_couleurs:
     Printemps: Ýaz
     Teintes automnales: Güz reňkleri
     Teintes bohèmes: Bohemçilik reňkleri
+    Teintes du drapeau: Baýrak reňkleri
     Teintes estivales: Yaz reňkleri
     Teintes florales: Gül reňkleri
     Teintes hivernales: Gyş reňkleri
@@ -2537,6 +2667,7 @@ teintes_couleurs:
     Aurore boréale: Північне сяйво
     Baroque: Бароко
     Champ de lavande: Поле лаванди
+    Couleurs du drapeau: Кольори прапора
     Crépuscule: Сутінки
     Fantaisie: Фантазія
     Jungle: Джунглі
@@ -2548,6 +2679,7 @@ teintes_couleurs:
     Printemps: Весна
     Teintes automnales: Осінні барви
     Teintes bohèmes: Богемні відтінки
+    Teintes du drapeau: Відтінки прапора
     Teintes estivales: Літні відтінки
     Teintes florales: Квіткові відтінки
     Teintes hivernales: Зимові відтінки
@@ -2559,6 +2691,7 @@ teintes_couleurs:
     Aurore boréale: Bắc Cực quang
     Baroque: Baroque
     Champ de lavande: Cánh đồng oải hương
+    Couleurs du drapeau: Màu sắc lá cờ
     Crépuscule: Hoàng hôn
     Fantaisie: Ảo mộng
     Jungle: Rừng rậm
@@ -2570,6 +2703,7 @@ teintes_couleurs:
     Printemps: Mùa Xuân
     Teintes automnales: Màu sắc mùa thu
     Teintes bohèmes: Màu bohemian
+    Teintes du drapeau: Màu quốc kỳ
     Teintes estivales: Màu hè
     Teintes florales: Màu hoa
     Teintes hivernales: Màu sắc mùa đông
@@ -2581,6 +2715,7 @@ teintes_couleurs:
     Aurore boréale: Ukukhanya okusenyakatho
     Baroque: I-Baroque
     Champ de lavande: Insimu lelavenda
+    Couleurs du drapeau: Imibala yefulegi
     Crépuscule: Ukushona kwelanga
     Fantaisie: Iphupho
     Jungle: Ihlathi
@@ -2592,6 +2727,7 @@ teintes_couleurs:
     Printemps: Intwasahlobo
     Teintes automnales: Imibala yasekwindla
     Teintes bohèmes: Izithunzi ze-bohemian
+    Teintes du drapeau: Amathoni ahlukahlukene ombala wefulegi
     Teintes estivales: Izithunzi zasehlobo
     Teintes florales: Izithunzi zezimbali
     Teintes hivernales: Imithunzi yasebusika

@@ -15,7 +15,6 @@ sys.path.append(os.getcwd())
 import worldmap as wm
 from translate import Translator
 
-
 # 1 -- Paramétrisation et import des données -----------------------------------
 
 
@@ -53,7 +52,7 @@ def cree_carte_pays(
         "Oman" if nom_pays == "Oman" else Translator(to_lang=langue).translate(nom_pays)
     )
     nom_fichier = f"{(personne + ' – ') if personne else ''}{nom_fichier}.svg"
-    if direction != None:
+    if direction is not None:
         nom_fichier = os.path.join(direction, nom_fichier)
 
     # Édition de la carte si cela est possible
@@ -95,7 +94,7 @@ def cree_toutes_les_cartes(
     nom_fichier = (
         f"{personne} – Carte du monde.svg" if personne else "Carte du monde.svg"
     )
-    if direction != None:
+    if direction is not None:
         nom_fichier = os.path.join(direction, nom_fichier)
 
     # Création du fichier

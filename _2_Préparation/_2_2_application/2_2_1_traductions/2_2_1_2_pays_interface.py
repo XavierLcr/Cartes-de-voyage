@@ -197,7 +197,7 @@ for modele in modeles_google:
     # Interface
     interface = creer_liste_pays_multilangue(
         liste_pays=list(phrases_interface.values())
-        + list(modeles_conseilles_ollama.values()),
+        + list(modeles_conseilles_ollama.keys()),
         modele_dict=modele,
         liste_deja_existante=interface,
         liste_langues=liste_langues,

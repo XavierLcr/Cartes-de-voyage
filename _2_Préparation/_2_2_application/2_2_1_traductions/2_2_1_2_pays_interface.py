@@ -186,7 +186,7 @@ for modele in modeles_google:
         liste_deja_existante=pays,
         liste_langues=liste_langues,
         version=0,
-        blabla=2,
+        blabla=1,
     )
 
     # Interface

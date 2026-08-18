@@ -2556,6 +2556,142 @@ Affichage regroupé:
   ukrainien: Групове відображення
   vietnamien: Hiển thị nhóm
   zoulou: Ukuhlanganiswa kwemibukiso
+Afin d'utiliser cette fonctionnalité, il est nécessaire d'installer Ollama et de télécharger au moins un modèle:
+  afrikaans: Om hierdie funksionaliteit te gebruik, is dit nodig om Ollama te installeer
+    en ten minste een model af te laai
+  albanais: Për të përdorur këtë funksionalitet, është e nevojshme të instaloni Ollama
+    dhe të shkarkoni të paktën një model
+  allemand: Um diese Funktion zu nutzen, ist es notwendig, Ollama zu installieren
+    und mindestens ein Modell herunterzuladen
+  anglais: To use this feature, it is necessary to install Ollama and download at
+    least one model
+  arabe: لاستخدام هذه الميزة، يجب تثبيت Ollama وتحميل نموذج واحد على الأقل
+  arménien: 'Այս գործառույթն օգտագործելու համար անհրաժեշտ է տեղադրել Ollama-ն և ներբեռնել
+    առնվազն մեկ մոդել:'
+  basque: Funtzionalitate hau erabiltzeko, Ollama instalatzea eta gutxienez modelo
+    bat deskargatzea da beharrezkoa
+  bengali: এই বৈশিষ্ট্যটি ব্যবহার করতে, Ollama ইনস্টল করা এবং অন্তত একটি মডেল ডাউনলোড
+    করা প্রয়োজন।
+  birman: ဤလုပ်ဆောင်ချက်ကို အသုံးပြုရန် Ollama ကို ထည့်သွင်းပြီး အနည်းဆုံး မော်ဒယ်တစ်ခုကို
+    ဒေါင်းလုဒ်လုပ်ရန် လိုအပ်ပါသည်။
+  breton: Er c'hwezh da d'izlañsañ ar fungsionez-mañ, bod eo da installañ Ollama ha
+    da dounloadañ un model d'ouzh
+  bulgare: За да използвате тази функционалност, е необходимо да инсталирате Ollama
+    и да изтеглите поне един модел
+  catalan: Per utilitzar aquesta funcionalitat, és necessari instal·lar Ollama i descarregar
+    almenys un model
+  corse: Per usà sta funziunalità, hè recessariu d'installà Ollama è di scaricà almenu
+    un mudellu
+  coréen: 이 기능을 사용하려면 Ollama를 설치하고 최소 하나 이상의 모델을 다운로드해야 합니다
+  danois: For at bruge denne funktion er det nødvendigt at installere Ollama og downloade
+    mindst én model
+  espagnol: Para utilizar esta funcionalidad, es necesario instalar Ollama y descargar
+    al menos un modelo
+  esperanto: Por uzi ĉi tiun funkcionon, estas necese instali Ollama kaj elŝuti almenaŭ
+    unu modelon
+  estonien: Selle funktsiooni kasutamiseks on vaja installida Ollama ja alla laadida
+    vähemalt üks mudel
+  finnois: Tämän toiminnon käyttämiseksi on asennettava Ollama ja ladattava vähintään
+    yksi malli
+  français: Afin d'utiliser cette fonctionnalité, il est nécessaire d'installer Ollama
+    et de télécharger au moins un modèle
+  gallois: Er mwyn defnyddio'r nodwedd hon, mae'n angen osod Ollama a lawrlwytho o
+    leiaf un model
+  grec: Για να χρησιμοποιήσετε αυτή τη λειτουργία, είναι απαραίτητο να εγκαταστήσετε
+    το Ollama και να κατεβάσετε τουλάχιστον ένα μοντέλο
+  grec ancien: εἰς τὸ χρᾶσθαι τῇδε τῇ δυνάμει, δεῖ τὸν Ollama καταστήσασθαι καὶ οὐκ
+    ἐλَّσον ἕνα τύπον καταφέρειν
+  géorgien: ამ ფუნქციონალის გამოსაყენებლად საჭიროა Ollama-ს დაინსტალირება და სულ მცირე
+    ერთი მოდელის ჩამოტვირთვა
+  hindi: इस सुविधा का उपयोग करने के लिए, Ollama इंस्टॉल करना और कम से कम एक मॉडल डाउनलोड
+    करना आवश्यक है।
+  hongrois: Ezen funkció használatához szükséges az Ollama telepítése és legalább
+    egy modell letöltése
+  indonésien: Untuk menggunakan fitur ini, Anda perlu menginstal Ollama dan mengunduh
+    setidaknya satu model
+  irlandais: Chun an gné seo a úsáid, tá sé riachtanach Ollama a installáil agus samhail
+    amháin ar a traeimh a íoslódáil
+  islandais: Til að nota þennan eiginleika þarf að uppsetja Ollama og hlaða niður
+    að minnsta kosti eitt líkan
+  italien: Per utilizzare questa funzionalità, è necessario installare Ollama e scaricare
+    almeno un modello
+  japonais: この機能を使用するには、Ollamaをインストールし、少なくとも1つのモデルをダウンロードする必要があります。
+  kazakh: Бұл функцияны пайдалану үшін Ollama-ны орнату және кемінде бір модельді
+    жүктеу қажет
+  kirghize: Бул функцияны колдонуу үчүн Ollamaны орнотуу жана жок дегенде бир моделди
+    жүктөп алуу зарыл
+  kurde: Ji bo bikaranîna vê taybetmendiyê, divê Ollama were sazkirin û herî kêm modelkek
+    were daxistin
+  latin: Ut hanc facultatem utaris, necesse est Ollama installare et salten unum exemplar
+    de sumere
+  letton: Lai izmantotu šo funkciju, ir nepieciešams instalēt Ollama un lejupielādēt
+    vismaz vienu modeli
+  lituanien: Norėdami naudoti šią funkciją, reikia įsidiegti „Ollama“ ir atsisiųsti
+    bent vieną modelį
+  luxembourgeois: Fir dës Funktionalitéit ze benotzen, ass et néideg, Ollama ze installéieren
+    an mindestens e Modell erofzelueden
+  macédonien: За да ја користите оваа функционалност, неопходно е да го инсталирате
+    Ollama и да преземете барем еден модел
+  malais: Untuk menggunakan ciri ini, anda perlu memasang Ollama dan memuat turun
+    sekurang-kurangnya satu model
+  malgache: Mba hampiasana ity fiasa ity, dia ilaina ny mametraka an'i Ollama sy misintona
+    modely iray farafahakeliny
+  maltais: Biex tuża din il-funzjonalità, huwa meħtieġ li tinstalla Ollama u tniżżel
+    mill-inqas mudell wieħed
+  mandarin standard: 为了使用此功能，需要安装 Ollama 并下载至少一个模型。
+  mongol: Энэ функцийг ашиглахын тулд Ollama-г суулгаж, ядаж нэг модель татаж авах
+    шаардлагатай
+  norvégien: For å bruke denne funksjonaliteten, er det nødvendig å installere Ollama
+    og laste ned minst én modell
+  néerlandais: Om deze functionaliteit te gebruiken, is het nodig om Ollama te installeren
+    en minstens één model te downloaden
+  népalais: यो सुविधा प्रयोग गर्नका लागि Ollama इन्स्टल गर्नु र कम्तिमा एउटा मोडल
+    डाउनलोड गर्नु आवश्यक छ।
+  ourdou: اس فیچر کو استعمال کرنے کے لیے، Ollama کو انسٹال کرنا اور کم از کم ایک ماڈل
+    ڈاؤن لوڈ کرنا ضروری ہے۔
+  ouzbek: Ushbu funksiyadan foydalanish uchun Ollama-ni o'rnatish va kamida bitta
+    modelni yuklab olish kerak
+  pachto: د دې قابلیت د کارولو لپاره، اړینه ده چې Ollama نصب کړئ او لږترلږه یو ماډل
+    ډاونلوډ کړئ
+  persan: برای استفاده از این قابلیت، لازم است Ollama را نصب کرده و حداقل یک مدل را
+    دانلود کنید
+  polonais: Aby korzystać z tej funkcji, należy zainstalować Ollama i pobrać przynajmniej
+    jeden model
+  portugais: Para utilizar esta funcionalidade, é necessário instalar o Ollama e baixar
+    pelo menos um modelo
+  roumain: Pentru a utiliza această funcționalitate, este necesară instalarea Ollama
+    și descărcarea cel puțin unui model
+  russe: Для использования этой функции необходимо установить Ollama и скачать хотя
+    бы одну модель
+  serbo-croate: Da biste koristili ovu funkcionalnost, potrebno je instalirati Ollama
+    i preuzeti barem jedan model
+  slovaque: Pre použitie tejto funkcie je potrebné nainštalovať Ollama a stiahnuť
+    aspoň jeden model
+  slovène: Za uporabo te funkcionalnosti je potrebno namestiti Ollama in prenesti
+    vsaj en model
+  suédois: För att använda den här funktionen behöver du installera Ollama och ladda
+    ner minst en modell
+  swahili: Ili kutumia kipengele hiki, ni lazima usakinishe Ollama na kupakua angalau
+    modeli moja
+  tadjik: Барои истифодаи ин имконият, насби Ollama ва боргирии ҳадди аққал як модел
+    зарур аст
+  tamoul: இந்த அம்சத்தைப் பயன்படுத்த, Ollama-வை நிறுவி குறைந்தபட்சம் ஒரு மாதிரியைப்
+    பதிவிறக்க வேண்டும்
+  tchèque: Pro použití této funkce je nutné nainstalovat Ollama a stáhnout alespoň
+    jeden model
+  thaï: เพื่อใช้งานฟีเจอร์นี้ จำเป็นต้องติดตั้ง Ollama และดาวน์โหลดโมเดลอย่างน้อยหนึ่งโมเดล
+  tibétain: འདི་གི་ནུས་པ་འདི་ប្រើསྤྱོད་བྱེད་ཆེད་ Ollama སྒྲིག་འཛུགས་བྱེད་པ་དང་ model
+    ཉུང་གུར་གཅིག་མར་ཕབ་བྱེད་དགོས།
+  turc: Bu özelliği kullanmak için Ollama'yı kurmanız ve en az bir model indirmeniz
+    gerekir
+  turkmène: Bu aýratynlygy ulanmak üçin Ollama-ny gurmak we azyndan bir modeli ýüklemek
+    gerek
+  ukrainien: Для використання цієї функції необхідно встановити Ollama та завантажити
+    принаймні одну модель
+  vietnamien: Để sử dụng tính năng này, bạn cần cài đặt Ollama và tải xuống ít nhất
+    một mô hình
+  zoulou: Ukuze usebenzise le nqubo, kumele ufake i-Ollama futhi ulande i-model eyodwa
+    noma ngaphezulu
 Afrique:
   afrikaans: Afrika
   albanais: Afrikë
@@ -2840,6 +2976,148 @@ Alignement des pays visités dans l'hémicycle:
   ukrainien: Вирівнювання країн, які відвідано, у півколі
   vietnamien: Sắp xếp các quốc gia đã ghé thăm trong hình bán nguyệt
   zoulou: Ukuqondaniswa kwamazwe avakashile esiteji
+Alphabétique:
+  afrikaans: Alfabeties
+  albanais: Alfabetik
+  allemand: Alphabetisch
+  anglais: Alphabetical
+  arabe: أبجدي
+  arménien: այբբենական
+  basque: alfabetiko
+  bengali: বর্ণানুক্রমিক
+  birman: အက္ခရာစဉ်
+  breton: Alfabetik
+  bulgare: Азбучен
+  catalan: Alfabètic
+  corse: Alfabeticu
+  coréen: 알파벳순
+  danois: Alfabetisk
+  espagnol: Alfabético
+  esperanto: Alfabetika
+  estonien: Alfabeetiline
+  finnois: Aakkosellinen
+  français: Alphabétique
+  gallois: Alfabetig
+  grec: αλφαβητικός
+  grec ancien: αλφαβητικός
+  géorgien: ანბანური
+  hindi: वर्णानुक्रम
+  hongrois: Alfabétikus
+  indonésien: Alfabetis
+  irlandais: Aifaibeatúil
+  islandais: Rafstafrænn
+  italien: Alfabetico
+  japonais: アルファベット順
+  kazakh: әліпбиі
+  kirghize: алфавиттик
+  kurde: Alfabetîk
+  latin: Alphabeticus
+  letton: Alfabētisks
+  lituanien: Abėcingas
+  luxembourgeois: alphabetesch
+  macédonien: Азбучен
+  malais: Alfabetik
+  malgache: Arak'abidy
+  maltais: alfabetiku
+  mandarin standard: 按字母顺序
+  mongol: Цагаан толгойн
+  norvégien: alfabetisk
+  néerlandais: Alfabetisch
+  népalais: वर्णानुक्रमिक
+  ourdou: ابجدی
+  ouzbek: Alifboviy
+  pachto: الفبايي
+  persan: الفبایی
+  polonais: alfabetyczny
+  portugais: Alfabético
+  roumain: Alfabetic
+  russe: Алфавитный
+  serbo-croate: Abecedni
+  slovaque: Abecedný
+  slovène: Abecedni
+  suédois: Alfabetisk
+  swahili: Kialfabeti
+  tadjik: Алфовиӣ
+  tamoul: அகர வரிசை
+  tchèque: abecední
+  thaï: ตามตัวอักษร
+  tibétain: གསལ་བྱེད་ཀྱི་
+  turc: Alfabetik
+  turkmène: Elipbiýly
+  ukrainien: Алфавітний
+  vietnamien: Theo bảng chữ cái
+  zoulou: Uhlelo lwezinhlamvu
+Alternatives:
+  afrikaans: Alternatiewe
+  albanais: Alternativat
+  allemand: Alternativen
+  anglais: Alternatives
+  arabe: بدائل
+  arménien: այլընտրանքներ
+  basque: Alternatibak
+  bengali: বিকল্প
+  birman: ရွေးချယ်စရာများ
+  breton: Kevnizhoù
+  bulgare: Алтернативи
+  catalan: Alternatives
+  corse: Alternativi
+  coréen: 대안
+  danois: Alternativer
+  espagnol: Alternativas
+  esperanto: Alternativoj
+  estonien: alternatiivid
+  finnois: Vaihtoehdot
+  français: Alternatives
+  gallois: Alternativau
+  grec: Εναλλακτικές
+  grec ancien: ἐπιλογαί
+  géorgien: ალტერნატივები
+  hindi: विकल्प
+  hongrois: Alternatívák
+  indonésien: Alternatif
+  irlandais: Roghanna eile
+  islandais: Kostir
+  italien: Alternative
+  japonais: 選択肢
+  kazakh: Баламалар
+  kirghize: Альтернативалар
+  kurde: Alternatîf
+  latin: Alternativae
+  letton: Alternatīvas
+  lituanien: Alternatyvos
+  luxembourgeois: Alternativen
+  macédonien: Алтернативи
+  malais: Alternatif
+  malgache: Safidy hafa
+  maltais: Alternativi
+  mandarin standard: 替代方案
+  mongol: Хувилбарууд
+  norvégien: Alternativer
+  néerlandais: Alternatieven
+  népalais: विकल्पहरू
+  ourdou: متبادل
+  ouzbek: Muqobillar
+  pachto: بدیلونه
+  persan: جایگزین‌ها
+  polonais: Alternatywy
+  portugais: Alternativas
+  roumain: Alternative
+  russe: Альтернативы
+  serbo-croate: Alternative
+  slovaque: Alternatívy
+  slovène: Alternative
+  suédois: Alternativ
+  swahili: Mbadala
+  tadjik: Алтернативаҳо
+  tamoul: மாற்றுகள்
+  tchèque: Alternativy
+  thaï: ทางเลือก
+  tibétain: གདེམ་ཁ།
+  turc: Alternatifler
+  turkmène: Alternatiwalar
+  ukrainien: Альтернативи
+  vietnamien: Các phương án thay thế
+  zoulou: Izinketho
 Aléatoire:
   afrikaans: Lukraak
   albanais: I rastësishëm
@@ -2982,6 +3260,77 @@ Amérique:
   ukrainien: Америка
   vietnamien: Hoa Kỳ
   zoulou: IMelika
+Année glissante:
+  afrikaans: Rollende jaar
+  albanais: Vit rrëshqitës
+  allemand: Gleitendes Jahr
+  anglais: Rolling year
+  arabe: سنة متحركة
+  arménien: Սահող տարի
+  basque: Urte mugikorra
+  bengali: রোলিং বছর
+  birman: ရွေ့လျားနှစ်
+  breton: Année glissante
+  bulgare: Пълзаща година
+  catalan: Any mòbil
+  corse: Année glissante
+  coréen: 이동 연도
+  danois: glidende år
+  espagnol: Año móvil
+  esperanto: Glitanta jaro
+  estonien: Liiguv aasta
+  finnois: liukuva vuosi
+  français: Année glissante
+  gallois: Blwyddyn rolio
+  grec: κυλιόμενο έτος
+  grec ancien: Année glissante
+  géorgien: მობილური წელი
+  hindi: रोलिंग वर्ष
+  hongrois: Guruló év
+  indonésien: Tahun bergulir
+  irlandais: Bliain rúil
+  islandais: Rennandi ár
+  italien: Anno mobile
+  japonais: 移動年
+  kazakh: жылжымалы жыл
+  kirghize: Жылдырылган жыл
+  kurde: Année glissante
+  latin: Annus labens
+  letton: Slīdošais gads
+  lituanien: Slydantys metai
+  luxembourgeois: Gleitend Joer
+  macédonien: Подвижна година
+  malais: Tahun bergerak
+  malgache: Année glissante
+  maltais: Année glissante
+  mandarin standard: 滚动年
+  mongol: Урсгал жил
+  norvégien: Rullende år
+  néerlandais: Rollend jaar
+  népalais: घुम्ने वर्ष
+  ourdou: رولنگ سال
+  ouzbek: Surg'uvchi yil
+  pachto: Année glissante
+  persan: سال متحرک
+  polonais: Rok kroczący
+  portugais: Ano móvel
+  roumain: An glisant
+  russe: Скользящий год
+  serbo-croate: Klizna godina
+  slovaque: Posuvný rok
+  slovène: drseče leto
+  suédois: Rullande år
+  swahili: Année glissante
+  tadjik: Соли ҳаракаткунанда
+  tamoul: உருளும் ஆண்டு
+  tchèque: Klouzavý rok
+  thaï: ปีแบบเลื่อน
+  tibétain: Année glissante
+  turc: Kayan yıl
+  turkmène: Syrgylyýan ýyl
+  ukrainien: Ковзний рік
+  vietnamien: Năm cuốn chiếu
+  zoulou: Année glissante
 Applique les paramètres esthétiques sélectionnés à l'application. Cela permet d'avoir un aperçu de leur rendu:
   afrikaans: Pas die geselekteerde estetiese parameters op die toepassing toe. Dit
     laat jou toe om 'n voorskou van hoe dit sal lyk, te sien
@@ -3518,6 +3867,77 @@ Aucun lieu n'a été coché. Veuillez cocher au minimum une destination afin que
     để lưu lại hành trình của bạn
   zoulou: Akukho kwenda kwaphawulwa. Sicela uphawule okungenani indawo eyodwa ukuze
     uhambo lwakho lungarekhodwe
+Aucun voyage effectué à ce jour:
+  afrikaans: Geen reise tot op hede onderneem nie
+  albanais: Asnjë udhëtim i kryer deri më sot
+  allemand: Bisher keine Reisen unternommen
+  anglais: No trips made to date
+  arabe: لم يتم إجراء أي رحلة حتى الآن
+  arménien: 'Մինչ այս օրը ոչ մի ուղևորություն չի կատարվել:'
+  basque: Gaur egunera arte bidaia bat ere ez
+  bengali: আজ পর্যন্ত কোনো ভ্রমণ করা হয়নি।
+  birman: ယနေ့အထိ ခရီးသွားလာမှု မရှိပါ။
+  breton: N'eo bet voyage greetet da hiz
+  bulgare: Няма извършени пътувания до момента
+  catalan: Cap viatge realitzat fins ara
+  corse: Nisun viaghju fattu à u ghjornu d'oghje
+  coréen: 현재까지 여행 기록 없음
+  danois: Ingen rejser foretaget til dato
+  espagnol: Ningún viaje realizado hasta la fecha
+  esperanto: Neniu vojaĝo efektigita ĝis nun
+  estonien: Seni ei ole tehtud ühtegi reisi
+  finnois: Ei tehtyjä matkoja tähän päivään mennessä
+  français: Aucun voyage effectué à ce jour
+  gallois: Dim taith wedi'i chyflawni hyd y dydd hwn
+  grec: Κανένα ταξίδι δεν πραγματοποιήθηκε μέχρι σήμερα
+  grec ancien: Οὐδεμία πορεία ἕως νῦν γέγονε
+  géorgien: დღემდე არანაირი მგზავრობა არ განხორციელებულა
+  hindi: अब तक कोई यात्रा नहीं की गई।
+  hongrois: Eddig nem történt utazás
+  indonésien: Belum ada perjalanan hingga saat ini
+  irlandais: Níornaíodh aon turas go dtí seo
+  islandais: Engar ferðir fram til dagsins
+  italien: Nessun viaggio effettuato a oggi
+  japonais: 現在まで旅行実績はありません。
+  kazakh: Бүгінгі күнге дейін ешбір саяхат жасалмады
+  kirghize: Бүгүнкү күнгө чейин эч кандай саякат жасалган жок
+  kurde: Heta îro tu geşt nehatiye kirin
+  latin: Nullum iter ad hunc diem factum
+  letton: Līdz šim brīdim nav veikts neviens ceļojums
+  lituanien: Iki šiol jokių kelionių neįvykdyta
+  luxembourgeois: Kee Rees bis haut gemaach
+  macédonien: Нема извршени патувања до денес
+  malais: Tiada perjalanan setakat ini
+  malgache: Tsy nisy dia natao hatramin'izao
+  maltais: Ebda vjaġġ magħmul sa dan il-ħin
+  mandarin standard: 至今无旅行记录
+  mongol: Одоог хүртэл аялал хийгээгүй
+  norvégien: Ingen reiser foretatt til dags dato
+  néerlandais: Geen reizen gemaakt tot op heden
+  népalais: अहिलेसम्म कुनै पनि यात्रा गरिएको छैन।
+  ourdou: اب تک کوئی سفر نہیں کیا گیا۔
+  ouzbek: Hozirgacha hech qanday sayohat amalga oshirilmagan
+  pachto: تر اوسه هیڅ سفر نه دی شوی
+  persan: تا به امروز هیچ سفری انجام نشده است
+  polonais: Brak odbytych podróży do dziś
+  portugais: Nenhuma viagem realizada até ao momento
+  roumain: Nicio călătorie efectuată până în prezent
+  russe: На сегодняшний день поездок не совершено
+  serbo-croate: Nema putovanja do danas
+  slovaque: Žiadne cesty uskutočnené do dnešného dňa
+  slovène: Do danes ni izvedenih potovanj
+  suédois: Inga resor gjorda hittills
+  swahili: Hakuna safari iliyofanyika hadi leo
+  tadjik: То имрӯз ҳеҷ сафаре сурат нагирифтааст
+  tamoul: இன்று வரை எந்தப் பயணமும் மேற்கொள்ளப்படவில்லை
+  tchèque: Žádné cesty k dnešnímu dni
+  thaï: ยังไม่มีการเดินทางจนถึงปัจจุบัน
+  tibétain: ད་བཅས་ ድረስའགྲུལ་བཞུད་གང་ཡང་མ་བྱུང་།
+  turc: Bugüne kadar hiç seyahat edilmedi
+  turkmène: Şu güne çenli hiç hili syýahat edilmedi
+  ukrainien: Жодної подорожі станом на сьогодні
+  vietnamien: Chưa có chuyến đi nào tính đến nay
+  zoulou: Akukho hambo olwenziwe kuze kube manje
 Aucun voyage n'a été enregistré. Essayez de créer un voyage associé à votre emplacement actuel !:
   afrikaans: Geen reis is geregistreer nie. Probeer 'n reis te skep wat met jou huidige
     ligging verband hou!
@@ -5957,6 +6377,77 @@ Départements visités:
   ukrainien: Відвідані департаменти
   vietnamien: Các sở đã đến
   zoulou: IMinyango Evakashile
+Déplier:
+  afrikaans: uitvou
+  albanais: Zhpalos
+  allemand: Aufklappen
+  anglais: Unfold
+  arabe: بَسَطَ
+  arménien: Բացել
+  basque: Zapatu
+  bengali: ভাঁজ খোলা
+  birman: ဖြန့်သည်
+  breton: Skarzhañ
+  bulgare: Разгъни
+  catalan: Desplegar
+  corse: Spiègà
+  coréen: 펼치다
+  danois: Fold ud
+  espagnol: Desplegar
+  esperanto: malplii
+  estonien: Lahti voltma
+  finnois: Avata
+  français: Déplier
+  gallois: datblygu
+  grec: ξεδιπλώνω
+  grec ancien: ἀνάλυω
+  géorgien: გაშლა
+  hindi: खोलना
+  hongrois: Kinyitni
+  indonésien: Membuka
+  irlandais: Leá
+  islandais: Uppbreiða
+  italien: Spiegare
+  japonais: 広げる
+  kazakh: Жайып салу
+  kirghize: Жайы
+  kurde: Veçolandin
+  latin: Expandere
+  letton: Izvērt
+  lituanien: išskleisti
+  luxembourgeois: ufalten
+  macédonien: Развиј
+  malais: Bentangkan
+  malgache: Mampivelatra
+  maltais: Iftaħ
+  mandarin standard: 展开
+  mongol: Дэлгэх
+  norvégien: Folde ut
+  néerlandais: Uitvouwen
+  népalais: खोल्नु
+  ourdou: کھولنا
+  ouzbek: Yoyish
+  pachto: خلاصول
+  persan: باز کردن
+  polonais: Rozłożyć
+  portugais: Desdobrar
+  roumain: A desface
+  russe: Развернуть
+  serbo-croate: Razložiti
+  slovaque: Rozložiť
+  slovène: razložiti
+  suédois: Veckla ut
+  swahili: Kufungua
+  tadjik: Кушодан
+  tamoul: விரி
+  tchèque: Rozložit
+  thaï: กาง
+  tibétain: རྒྱག་
+  turc: Açmak
+  turkmène: Ýaymak
+  ukrainien: Розгорнути
+  vietnamien: Mở ra
+  zoulou: Ukuvula
 En termes de pourcentage de la superficie visitée pour chaque pays:
   afrikaans: In terme van persentasie van die besoekte oppervlakte vir elke land
   albanais: Në përqindje të sipërfaqes së vizituar për çdo vend
@@ -9259,6 +9750,77 @@ Il est nécessaire de choisir un dossier de stockage des cartes valide:
   ukrainien: Необхідно вибрати дійсну папку для збереження карт
   vietnamien: Cần chọn một thư mục lưu trữ thẻ hợp lệ
   zoulou: Kuyadingeka ukukhetha ifolda yokugcina amabalazwe evumelekile
+Jours voyagés:
+  afrikaans: Reisdae
+  albanais: Ditë të udhëtuara
+  allemand: Reisetage
+  anglais: Travel days
+  arabe: أيام السفر
+  arménien: Ճամփորդած օրեր
+  basque: Bidaiatutako egunak
+  bengali: ভ্রমণের দিনগুলো
+  birman: ခရီးသွားရက်များ
+  breton: Deizhoù beizhet
+  bulgare: Пътувани дни
+  catalan: Dies viatjats
+  corse: Giorni viaggiati
+  coréen: 여행한 날들
+  danois: Rejsedage
+  espagnol: Días viajados
+  esperanto: Voyagitaj tagoj
+  estonien: Reisitud päevad
+  finnois: Matkustetut päivät
+  français: Jours voyagés
+  gallois: Dyddiau teithio
+  grec: Ημέρες ταξιδιού
+  grec ancien: Jours voyagés
+  géorgien: მოგზაურობის დღეები
+  hindi: यात्रा के दिन
+  hongrois: Utazott napok
+  indonésien: Hari perjalanan
+  irlandais: Laethanta taisteala
+  islandais: Ferðadagar
+  italien: Giorni viaggiati
+  japonais: 旅した日々
+  kazakh: Саяхат күндері
+  kirghize: Саякат күндөрү
+  kurde: Rojên geştê
+  latin: Dies peregrinati
+  letton: Ceļojuma dienas
+  lituanien: Kelionės dienos
+  luxembourgeois: Reisedaeg
+  macédonien: Патувани денови
+  malais: Hari perjalanan
+  malgache: Andro nandehanana
+  maltais: Ġurnati ta' vjaġġ
+  mandarin standard: 旅行天数
+  mongol: Аялсан хоногууд
+  norvégien: Reisedager
+  néerlandais: Reisdagen
+  népalais: यात्रा गरेका दिनहरू
+  ourdou: سفر کے دن
+  ouzbek: Safar kunlari
+  pachto: سفر کړې ورځې
+  persan: روزهای سفر
+  polonais: Dni podróży
+  portugais: Dias viajados
+  roumain: Zile de călătorie
+  russe: Дни в путешествии
+  serbo-croate: Dani putovanja
+  slovaque: Cestovné dni
+  slovène: Dnevi potovanja
+  suédois: Resedagar
+  swahili: Siku za safari
+  tadjik: Рӯзҳои сафар
+  tamoul: பயண நாட்கள்
+  tchèque: Cestovní dny
+  thaï: วันที่เดินทาง
+  tibétain: འགྲོ་ཉིན།
+  turc: Seyahat günleri
+  turkmène: Syýahat edilen günler
+  ukrainien: Дні в подорожі
+  vietnamien: Số ngày du lịch
+  zoulou: Izinsuku zohambo
 L'export n'a pas fonctionné. Veuillez réessayer plus tard:
   afrikaans: Die uitvoer het nie gewerk nie. Probeer asseblief later weer
   albanais: Eksporti nuk funksionoi. Ju lutemi, provoni përsëri më vonë
@@ -9331,6 +9893,266 @@ L'export n'a pas fonctionné. Veuillez réessayer plus tard:
   ukrainien: Експорт не вдався. Будь ласка, спробуйте пізніше
   vietnamien: Xuất không thành công. Vui lòng thử lại sau
   zoulou: Ukuthumela ngaphandle akusebenzanga. Sicela uzame futhi ngemva kwesikhashana
+? La création du portrait du voyageur se fait à l'aide de l'Intelligence artificielle.
+  Il est nécessaire d'avoir téléchargé sur Ollama ainsi qu'au moins un modèle. Voici
+  quelques modèles conseillés
+: afrikaans: Die skepping van die reisiger se portret word met die hulp van kunsmatige
+    intelligensie gedoen. Dit is nodig om Ollama sowel as ten minste een model afgelaai
+    te hê. Hier is 'n paar aanbevole modelle
+  albanais: Krijimi i portretit të udhëtarit bëhet me anë të Inteligjencës Artificiale.
+    Është e nevojshme të keni shkarkuar Ollama-n si dhe të paktën një model. Ja disa
+    modele të rekomanduara
+  allemand: Die Erstellung des Porträts des Reisenden erfolgt mithilfe von Künstlicher
+    Intelligenz. Es ist notwendig, Ollama sowie mindestens ein Modell heruntergeladen
+    zu haben. Hier sind einige empfohlene Modelle
+  anglais: The creation of the traveler's portrait is done using Artificial Intelligence.
+    It is necessary to have downloaded Ollama as well as at least one model. Here
+    are some recommended models
+  arabe: يتم إنشاء صورة المسافر باستخدام الذكاء الاصطناعي. من الضروري تحميل Ollama
+    ونموذج واحد على الأقل. إليكم بعض النماذج الموصى بها
+  arménien: Ճանապարհորի դիմանկարի ստեղծումը կատարվում է արհեստական բանականության օգնությամբ։
+    Անհրաժեշտ է ներբեռնել Ollama-ն, ինչպես նաև առնվազն մեկ մոդել։ Ահա մի քանի խորհուրդ
+    տրվող մոդելներ։
+  basque: Bidaiariaren erretratuaren sorkuntza Adimen Artifizialaren laguntzaz egiten
+    da. Beharrezkoa da Ollama deskargatu izatea, baita gutxienez modelo bat ere. Hona
+    hemen gomendatutako modelo batzuk
+  bengali: ভ্রমণকারীর প্রতিকৃতিটি কৃত্রিম বুদ্ধিমত্তার সাহায্যে তৈরি করা হয়। Ollama
+    এবং অন্তত একটি মডেল ডাউনলোড করা প্রয়োজন। এখানে কিছু প্রস্তাবিত মডেল দেওয়া হলো।
+  birman: ခရီးသွား၏ ပုံတူကို ဉာဏ်ရည်တု (AI) အသုံးပြု၍ ဖန်တီးပါသည်။ Ollama နှင့် အနည်းဆုံး
+    မော်ဒယ်တစ်ခုကို ဒေါင်းလုဒ်လုပ်ထားရန် လိုအပ်ပါသည်။ အကြံပြုထားသော မော်ဒယ်အချို့မှာ
+    အောက်ပါအတိုင်း ဖြစ်ပါသည်။
+  breton: Kreatezh ar portrait ar veger a zo ketet dre Inteligans Artifisiel. Ret
+    eo bezañ deskargaet Ollama hag un model oulal. Setu keiper model rekomandeet
+  bulgare: Създаването на портрета на пътешественика става с помощта на изкуствения
+    интелект. Необходимо е да сте изтеглили Ollama, както и поне един модел. Ето няколко
+    препоръчани модела
+  catalan: La creació del retrat del viatger es fa mitjançant la intel·ligència artificial.
+    És necessari haver descarregat Ollama, així com almenys un model. Aquí teniu alguns
+    models recomanats
+  corse: A creazione di u ritrattu di u viaghjatore si fa cù l'aiutu di l'Intelligenza
+    artificiale. Hè necessariu d'avè scaricatu Ollama è almeno un mudellu. Eccu alcuni
+    mudelli cunsigliati
+  coréen: 여행자의 초상화는 인공지능을 사용하여 생성됩니다. Ollama와 최소 하나 이상의 모델을 다운로드해야 합니다. 다음은 몇 가지 추천
+    모델입니다
+  danois: Oprettelsen af den rejsendes portræt sker ved hjælp af kunstig intelligens.
+    Det er nødvendigt at have downloadet Ollama samt mindst én model. Her er nogle
+    anbefalede modeller
+  espagnol: La creación del retrato del viajero se realiza mediante inteligencia artificial.
+    Es necesario haber descargado Ollama, así como al menos un modelo. Aquí tienes
+    algunos modelos recomendados
+  esperanto: La kreado de la portreto de la vojaĝisto okazas per Artefarita Inteligenteco.
+    Estas necese elŝuti Ollama-n kaj almenaŭ unu modelon. Jen kelkaj rekomendataj
+    modeloj
+  estonien: Reisija portree loomine toimub tehisintellekti abil. On vajalik alla laadida
+    Ollama ning vähemalt üks mudel. Siin on mõned soovitatud mudelid
+  finnois: Matkustajan muotokuvan luominen tapahtuu tekoälyn avulla. Ollama ja vähintään
+    yksi malli on ladattava. Tässä on muutamia suositeltuja malleja
+  français: La création du portrait du voyageur se fait à l'aide de l'Intelligence
+    artificielle. Il est nécessaire d'avoir téléchargé sur Ollama ainsi qu'au moins
+    un modèle. Voici quelques modèles conseillés
+  gallois: Creu portread y teithiwr sy'n cael ei wneud trwy ddefnyddio deallusrwydd
+    artifisial. Mae angen llawnsio Ollama, yn ogystal ag o fainn un model. Dyma rai
+    modelau a argymhellir
+  grec: Η δημιουργία του πορτρέτου του ταξιδιώτη γίνεται με τη βοήθεια της τεχνητής
+    νοημοσύνης. Είναι απαραίτητο να έχετε κατεβάσει το Ollama καθώς και τουλάχιστον
+    ένα μοντέλο. Ακολουθούν ορισμένα προτεινόμενα μοντέλα
+  grec ancien: ἡ τοῦ ὁδοπόρου εἰκονὸς ποίησις διὰ τῆς τεχνητῆς διανοίας γίνεται. δεῖ
+    download ἐπὶ Ollama καὶ ἕνα τουλάχιστον τύπον. ἰδοῦ τινες τύποι συμβουλευόμενοι
+  géorgien: მგზავრის პორტრეტის შექმნა ხდება ხელოვნური ინტელექტის მეშვეობით. აუცილებელია
+    Ollama-ს და სულ მცირე ერთი მოდელის გადმოწერა. აი, რამდენიმე რეკომენდებული მოდელი
+  hindi: यात्री के पोर्ट्रेट का निर्माण आर्टिफिशियल इंटेलिजेंस की सहायता से किया जाता
+    है। Ollama और कम से कम एक मॉडल डाउनलोड करना आवश्यक है। यहाँ कुछ अनुशंसित मॉडल
+    दिए गए हैं।
+  hongrois: A utazó portréjának létrehozása mesterséges intelligencia segítségével
+    történik. Szükséges az Ollama és legalább egy modell letöltése. Íme néhány javasolt
+    modell
+  indonésien: Pembuatan potret pelancong dilakukan dengan bantuan Kecerdasan Buatan.
+    Anda perlu mengunduh Ollama serta setidaknya satu model. Berikut adalah beberapa
+    model yang disarankan
+  irlandais: Déantar cruthú portrála an taighistí le cúnamh an Intleachta Shaorga.
+    Tá sé riachtanach Ollama a íoslódáil chomh maith le múnla amháin ar a laghad.
+    Seo cúpla múnla molta
+  islandais: Myndun portréts ferðalangsins er gerð með gervigreind. Það er nauðsynlegt
+    að hafa hlaðið niður Ollama ásamt að minnsta kosti einu líkani. Hér eru nokkur
+    líkön sem mælt er með
+  italien: La creazione del ritratto del viaggiatore avviene tramite l'intelligenza
+    artificiale. È necessario aver scaricato Ollama e almeno un modello. Ecco alcuni
+    modelli consigliati
+  japonais: 旅行者のポートレートは人工知能を用いて作成されます。Ollamaと少なくとも1つのモデルをダウンロードしておく必要があります。以下に推奨されるモデルをいくつか挙げます。
+  kazakh: Саяхатшы портреті жасанды интеллект көмегімен жасалады. Ollama-ны және кемінде
+    бір модельді жүктеп алу қажет. Міне, бірнеше ұсынылатын модельдер
+  kirghize: Саякатчынын портретин түзүү жасалма интеллекттин жардамы менен ишке ашырылат.
+    Ollama-ны жана жок дегенде бир моделди жүктөп алуу зарыл. Мына бир нече сунушталган
+    моделдер
+  kurde: Çêkirina portreya rêvî bi alîkariya Hişê Çêkirî tê kirin. Divê Ollama û herî
+    kêm modelkek bêne daxistin. Li vir çend modelên pêşniyarkirî hene
+  latin: Creatio effigiei viatoris Intelligentia Artificiali fit. Necesse est Ollama
+    et saltem unum exemplar downloadisse. Ecce nonnulla exemplaria commendata
+  letton: Ceļotāja portreta izveide tiek veikta ar mākslīgā intelekta palīdzību. Nepieciešams
+    lejupielādēt Ollama, kā arī vismaz vienu modeli. Lūk, daži ieteicamie modeļi
+  lituanien: Keliautojo portretas kuriamas naudojant dirbtinį intelektą. Būtina atsisiųsti
+    „Ollama“ bei bent vieną modelį. Štai keli rekomenduojami modeliai
+  luxembourgeois: D'Erstellung vum Portrait vum Reisenden geschitt mat der Hëllef
+    vun der kënschtlecher Intelligenz. Et ass néideg, Ollama souwéi op mannerstens
+    e Modell erofzelueden. Hei sinn e puer recommandé Modeller
+  macédonien: Креирањето на портретот на патникот се прави со помош на вештачка интелигенција.
+    Потребно е да се преземе Ollama, како и барем еден модел. Еве неколку препорачани
+    модели
+  malais: Penghasilan potret pengembara dilakukan dengan bantuan Kecerdasan Buatan.
+    Anda perlu memuat turun Ollama serta sekurang-kurangnya satu model. Berikut adalah
+    beberapa model yang disyorkan
+  malgache: Ny famoronana ny sarin'ny mpivahiny dia atao amin'ny alalan'ny Intelligence
+    artificielle. Ilaina ny mampidina an'i Ollama sy modely iray farafahakeliny. Ireto
+    misy modely vitsivitsy soso-kevitra
+  maltais: Il-kriazzjoni tar-ritratt tal-vjaġġatur tissir b'għajnuna tal-Intelligenza
+    Artifiċjali. Huwa meħtieġ li tkun niżżelt Ollama kif ukoll mill-inqas mudell wieħed.
+    Hawn huma xi mudelli rakkomandati
+  mandarin standard: 旅行者肖像的创建是通过人工智能实现的。需要下载 Ollama 以及至少一个模型。以下是一些推荐的模型。
+  mongol: Аялагчийн хөргийг хиймэл оюун ухааны тусламжтайгаар бүтээдэг. Ollama болон
+    дор хаяж нэг загварыг татаж авсан байх шаардлагатай. Зөвлөж буй зарим загварууд
+    энд байна
+  norvégien: Opprettelsen av den reisendes portrett gjøres ved hjelp av kunstig intelligens.
+    Det er nødvendig å ha lastet ned Ollama samt minst én modell. Her er noen anbefalte
+    modeller
+  néerlandais: De creatie van het portret van de reiziger gebeurt met behulp van kunstmatige
+    intelligentie. Het is noodzakelijk om Ollama te hebben gedownload, evenals minstens
+    één model. Hier zijn enkele aanbevolen modellen
+  népalais: यात्रीको पोर्ट्रेटको निर्माण कृत्रिम बौद्धिकताको सहायताले गरिन्छ। Ollama
+    र कम्तीमा एउटा मोडेल डाउनलोड गर्नु आवश्यक छ। यहाँ केही सिफारिस गरिएका मोडेलहरू
+    छन्।
+  ourdou: مسافر کے پورٹریٹ کی تخلیق مصنوعی ذہانت کی مدد سے کی جاتی ہے۔ Ollama اور
+    کم از کم ایک ماڈل ڈاؤن لوڈ کرنا ضروری ہے۔ یہاں کچھ تجویز کردہ ماڈلز ہیں۔
+  ouzbek: Sayohatchi portretini yaratish sun'iy intellekt yordamida amalga oshiriladi.
+    Ollama va kamida bitta model yuklab olingan bo'lishi kerak. Mana tavsiya etilgan
+    ba'zi modellar
+  pachto: د مسافر د عکس جوړول د مصنوعي ذهانت په مرسته کېږي. اړینه ده چې په Ollama
+    کې لږترلږه یو ماډل ډاونلوډ شوی وي. دلته ځینې وړاندیز شوي ماډلونه دي
+  persan: ساخت پرتره مسافر با کمک هوش مصنوعی انجام می‌شود. لازم است Ollama و همچنین
+    حداقل یک مدل را دانلود کرده باشید. در اینجا چند مدل پیشنهادی آورده شده است
+  polonais: Tworzenie portretu podróżnika odbywa się za pomocą sztucznej inteligencji.
+    Konieczne jest pobranie programu Ollama oraz przynajmniej jednego modelu. Oto
+    kilka polecanych modeli
+  portugais: A criação do retrato do viajante é feita com a ajuda da Inteligência
+    Artificial. É necessário ter baixado o Ollama, bem como pelo menos um modelo.
+    Aqui estão alguns modelos recomendados
+  roumain: Crearea portretului călătorului se realizează cu ajutorul Inteligenței
+    Artificiale. Este necesară descărcarea Ollama, precum și a cel puțin unui model.
+    Iată câteva modele recomandate
+  russe: Создание портрета путешественника осуществляется с помощью искусственного
+    интеллекта. Необходимо установить Ollama, а также скачать хотя бы одну модель.
+    Вот несколько рекомендуемых моделей
+  serbo-croate: Kreiranje portreta putnika vrši se pomoću veštačke inteligencije.
+    Neophodno je preuzeti Ollamu kao i najmanje jedan model. Evo nekoliko preporučenih
+    modela
+  slovaque: Tvorba portrétu cestovateľa prebieha pomocou umelej inteligencie. Je potrebné
+    mať stiahnutý Ollama ako aj aspoň jeden model. Tu je niekoľko odporúčaných modelov
+  slovène: Ustvarjanje portreta potnika se opravi s pomočjo umetne inteligence. Potrebno
+    je prenestite Ollama ter vsaj en model. Tukaj je nekaj priporočenih modelov
+  suédois: Skapandet av resenärens porträtt sker med hjälp av artificiell intelligens.
+    Det är nödvändigt att ha laddat ner Ollama samt minst en modell. Här är några
+    rekommenderade modeller
+  swahili: Uundaji wa picha ya msafiri unafanywa kwa msaada wa Akili Mnemba. Inahitajika
+    kuwa umepakua Ollama pamoja na angalau modeli moja. Hapa kuna baadhi ya modeli
+    zinazopendekezwa
+  tadjik: Сохтани портрети саёҳ бо ёрии зеҳни сунъӣ амалӣ карда мешавад. Зарур аст,
+    ки Ollama ва ҳадди ақал як моделро бор кунед. Инҳо чанд модели тавсияшаванда ҳастанд
+  tamoul: பயணியின் உருவப்பட உருவாக்கம் செயற்கை நுண்ணறிவு உதவியுடன் செய்யப்படுகிறது.
+    Ollama மற்றும் குறைந்தபட்சம் ஒரு மாதிரியையும் பதிவிறக்கம் செய்திருக்க வேண்டும்.
+    இதோ சில பரிந்துரைக்கப்பட்ட மாதிரிகள்
+  tchèque: Vytváření portrétu cestovatele probíhá pomocí umělé inteligence. Je nutné
+    mít staženo Ollama a alespoň jeden model. Zde je několik doporučených modelů
+  thaï: การสร้างภาพพอร์ตเทรตของนักเดินทางทำโดยใช้ปัญญาประดิษฐ์ จำเป็นต้องดาวน์โหลด
+    Ollama และโมเดลอย่างน้อยหนึ่งโมเดล นี่คือโมเดลบางส่วนที่แนะนำ
+  tibétain: འགྲུལ་བཞུད་པའི་རູບརིས་བཟོ་བ་ནི་ Artificial Intelligence བེད་སྤྱོད་བརྒྱུད་ནས་བྱེད་ཀྱི་རེད།
+    Ollama དང་ model ཉུང་གི་མར་གཅིག་ཕབ་ထားདགོས། འདི་ནི་ལམ་སྟོན་བྱས་པའི་ model འགའ་ཤིས།
+  turc: Gezgin portresinin oluşturulması yapay zeka yardımıyla gerçekleştirilir. Ollama'nın
+    ve en az bir modelin indirilmiş olması gerekir. İşte önerilen bazı modeller
+  turkmène: Syýahatçynyň portretiniň döredilmegi emeli intellektiň kömegi bilen amala
+    aşyrylýar. Ollama-ny we azyndan bir modeli ýükläp almak zerurdyr. Ine, maslahat
+    berilýän käbir modeller
+  ukrainien: Створення портрета мандрівника здійснюється за допомогою штучного інтелекту.
+    Необхідно завантажити Ollama, а також принаймні одну модель. Ось кілька рекомендованих
+    моделей
+  vietnamien: Việc tạo chân dung người du hành được thực hiện bằng Trí tuệ nhân tạo.
+    Cần phải tải Ollama cũng như ít nhất một mô hình. Dưới đây là một số mô hình được
+    khuyên dùng
+  zoulou: Ukwakhiwa komdwebo womhambi kwenziwa ngokusebenzisa i-Artificial Intelligence.
+    Kudingeka ukuthi ube selande i-Ollama kanye nobuncane beyimodeli eyodwa. Nazi
+    izimodeli ezicebiswayo
+? La création du portrait du voyageur se fait à l'aide de l'Intelligence artificielle.
+  Il est nécessaire d'avoir téléchargé sur Ollama un des modèles suivants
+: {}
+La génération de votre portrait peut prendre plusieurs minutes:
+  afrikaans: Die generering van u portret kan verskeie minute neem
+  albanais: Gjenerimi i portretit tuaj mund të zgjasë disa minuta
+  allemand: Die Erstellung Ihres Porträts kann mehrere Minuten dauern
+  anglais: Generating your portrait may take several minutes
+  arabe: قد يستغرق توليد صورتك الشخصية عدة دقائق
+  arménien: 'Ձեր դիմանկարի ստեղծումը կարող է տևել մի քանի րոպե:'
+  basque: Zure erretratua sortzeak minutu batzuk hartu ditzake
+  bengali: আপনার পোর্ট্রেট তৈরি করতে কয়েক মিনিট সময় লাগতে পারে।
+  birman: သင်၏ပုံတူကို ဖန်တီးရန် မိနစ်အနည်းငယ် ကြာနိုင်ပါသည်။
+  breton: Gall e lasted pezek minut kreateb oc'h bortret
+  bulgare: Генерирането на вашия портрет може да отнеме няколко минути
+  catalan: La generació del seu retrat pot trigar diversos minuts
+  corse: A generazione di u vostru ritrattu pò durà diversi minuti
+  coréen: 초상화 생성에 몇 분 정도 소요될 수 있습니다
+  danois: Genereringen af dit portræt kan tage flere minutter
+  espagnol: La generación de su retrato puede tardar varios minutos
+  esperanto: La kreado de via portreto povas daŭri plurajn minutojn
+  estonien: Teie portree loomine võib võtta mitu minutit
+  finnois: Muotokuvanne generointi voi kestää useita minuutteja
+  français: La génération de votre portrait peut prendre plusieurs minutes
+  gallois: Gall cynhyrchu eich portread gymryd sawl munud
+  grec: Η δημιουργία του πορτρέτου σας μπορεί να διαρκέσει αρκετά λεπτά
+  grec ancien: Ἡ τῆς ὑμῶν εἰκόνος ποίησις ὀλίγους χρόνους δύναται δεῖσθαι
+  géorgien: თქვენი პორტრეტის გენერირებას შესაძლოა რამდენიმე წუთი დასჭირდეს
+  hindi: आपके पोर्ट्रेट को तैयार होने में कुछ मिनट लग सकते हैं।
+  hongrois: A portréje generálása több percig is eltarthat
+  indonésien: Pembuatan potret Anda dapat memakan waktu beberapa menit
+  irlandais: D'fhéadfadh cruthú do phortráite roinnt nóiméad a thógáil
+  islandais: Myndun portretts þíns getur tekið nokkrar mínútur
+  italien: La generazione del vostro ritratto può richiedere diversi minuti
+  japonais: ポートレートの生成には数分かかる場合があります。
+  kazakh: Портретіңіздің жасалуы бірнеше минут алуы мүмкін
+  kirghize: Сиздин портретиңизди жаратуу бир нече мүнөт алышы мүмкүн
+  kurde: Çêkirina portreya we dikare çend xulekan bigire
+  latin: Creatio imaginis tuae plures minuta sumere potest
+  letton: Jūsu portreta ģenerēšana var aizņemt dažas minūtes
+  lituanien: Jūsų portreto generavimas gali užtrukti kelias minutes
+  luxembourgeois: D'Generatioun vun Ärem Porträt kann e puer Minutten daueren
+  macédonien: Генерирањето на вашиот портрет може да потрае неколку минути
+  malais: Penghasilan potret anda mungkin mengambil masa beberapa minit
+  malgache: Mety haharitra minitra vitsivitsy ny famoronana ny sarinao
+  maltais: Il-ġenerazzjoni tar-ritratt tiegħek tista' tieħu diversi minuti
+  mandarin standard: 生成您的肖像可能需要几分钟。
+  mongol: Таны хөрөг зургийг үүсгэхэд хэдэн минут хугацаа шаардаж магадгүй
+  norvégien: Genereringen av portrettet ditt kan ta flere minutter
+  néerlandais: Het genereren van uw portret kan enkele minuten duren
+  népalais: तपाईंको पोर्ट्रेट निर्माण गर्न केही मिनेट लाग्न सक्छ।
+  ourdou: آپ کے پورٹریٹ کی تیاری میں کئی منٹ لگ سکتے ہیں۔
+  ouzbek: Portretingizni yaratish bir necha daqiqa vaqt olishi mumkin
+  pachto: ستاسو د تصویر جوړول څو دقیقې وخت کیدی شي
+  persan: تولید پرتره شما ممکن است چند دقیقه زمان ببرد
+  polonais: Generowanie Twojego portretu może zająć kilka minut
+  portugais: A geração do seu retrato pode levar vários minutos
+  roumain: Generarea portretului dumneavoastră poate dura câteva minute
+  russe: Генерация вашего портрета может занять несколько минут
+  serbo-croate: Generisanje vašeg portreta može potrajati nekoliko minuta
+  slovaque: Generovanie vášho portrétu môže trvať niekoľko minút
+  slovène: Generiranje vašega portreta lahko traja nekaj minut
+  suédois: Genereringen av ditt porträtt kan ta flera minuter
+  swahili: Utengenezaji wa picha yako unaweza kuchukua dakika kadhaa
+  tadjik: Сохтани портрети шумо метавонад чанд дақиқа вақт гирад
+  tamoul: உங்கள் உருவப்படத்தை உருவாக்க சில நிமிடங்கள் ஆகலாம்
+  tchèque: Generování vašeho portrétu může trvat několik minut
+  thaï: การสร้างภาพพอร์ตเทรตของคุณอาจใช้เวลาหลายนาที
+  tibétain: ཁྱེད་ཀྱི་རູບརིས་བཟོ་བར་སྐར་མ་འགའ་དགོས་སྲིད།
+  turc: Portrenizin oluşturulması birkaç dakika sürebilir
+  turkmène: Portretiňizi döretmek birnäçe minut alyp biler
+  ukrainien: Генерація вашого портрета може зайняти кілька хвилин
+  vietnamien: Việc tạo chân dung của bạn có thể mất vài phút
+  zoulou: Ukukhiqizwa komfanekiso wakho kungathatha imizuzu eminingi
 Labelliser les territoires:
   afrikaans: Etiketteer die gebiede
   albanais: Certifikimi i territorëve
@@ -9473,6 +10295,77 @@ Langue:
   ukrainien: Мова
   vietnamien: Ngôn ngữ
   zoulou: Ulimi
+Le voyageur que vous êtes:
+  afrikaans: Die reisiger wat u is
+  albanais: Udhëtari që jeni
+  allemand: Der Reisende, der Sie sind
+  anglais: The traveler you are
+  arabe: المسافر الذي أنتم عليه
+  arménien: 'Ճամփորդը, որ դուք եք:'
+  basque: Zuek bidaiaria zarete
+  bengali: আপনি যে যাত্রী।
+  birman: ခရီးသွားဖြစ်သော သင်
+  breton: Ar daouger oc'h eo
+  bulgare: Пътешественикът, който сте
+  catalan: El viatger que sou
+  corse: U viaghjatore chì site
+  coréen: 당신이라는 여행자
+  danois: Den rejsende, som du er
+  espagnol: El viajero que es usted
+  esperanto: La vojaĝisto, kiun vi estas
+  estonien: Teie, kui reisija
+  finnois: Matkustaja, joka olette
+  français: Le voyageur que vous êtes
+  gallois: Y teithiwr sydd chi
+  grec: Ο ταξιδιώτης που είστε
+  grec ancien: ὁ ὁδοιπόρος ὃς ἐστέ
+  géorgien: მოგზაური, რომელიც ხართ
+  hindi: वह यात्री जो आप हैं।
+  hongrois: Az az utazó, aki Ön
+  indonésien: Pengembara seperti Anda
+  irlandais: An taighiste atá sibh
+  islandais: Ferðalangurinn sem þú ert
+  italien: Il viaggiatore che siete
+  japonais: 旅人であるあなた
+  kazakh: Сіз сияқты жолаушы
+  kirghize: Сиз болгон саяхатчы
+  kurde: Rêvîyê ku hûn ne
+  latin: Viator quem estis
+  letton: Ceļotājs, kurš jūs esat
+  lituanien: Keliautojas, kuriuo jūs esate
+  luxembourgeois: De Reisende, deen Dir sidd
+  macédonien: Патникот што сте
+  malais: Pengembara seperti anda
+  malgache: Ilay mpivahiny ianao
+  maltais: Il-vjaġġjatur li inti
+  mandarin standard: 您这样的旅行者
+  mongol: Та гэдэг аялагч
+  norvégien: Den reisende du er
+  néerlandais: De reiziger die u bent
+  népalais: तपाईं जुन यात्री हुनुहुन्छ।
+  ourdou: آپ جو مسافر ہیں
+  ouzbek: Sizdek sayohatchi
+  pachto: هغه مسافر چې تاسو یاست
+  persan: مسافری که هستید
+  polonais: Podróżnik, którym jesteście
+  portugais: O viajante que você é
+  roumain: Călătorul pe care sunteți
+  russe: Путешественник, которым вы являетесь
+  serbo-croate: Putnik koji ste
+  slovaque: Cestovateľ, ktorým ste
+  slovène: Potnik, ki ste
+  suédois: Resenären som ni är
+  swahili: Msafiri uliye
+  tadjik: Мусофире, ки шумо ҳастед
+  tamoul: நீங்கள் எனும் பயணி
+  tchèque: Cestovatel, kterým jste
+  thaï: นักเดินทางที่คุณเป็น
+  tibétain: ཁྱེད་རང་འགྲེམ་པོ་དེ།
+  turc: Olduğunuz yolcu
+  turkmène: Syýahatçy bolan siz
+  ukrainien: Мандрівник, яким ви є
+  vietnamien: Người lữ hành như bạn
+  zoulou: Umhambi onguwe
 Les cartes ont été créées avec succès !:
   afrikaans: Die kaarte is suksesvol geskep!
   albanais: Kartat u krijuan me sukses!
@@ -10186,6 +11079,145 @@ Nouveau profil ajouté avec succès:
   ukrainien: Успішно додано новий профіль
   vietnamien: Đã thêm hồ sơ mới thành công
   zoulou: Iphrofili entsha kuye wongezwa ngempumelelo
+Ollama est détecté, mais aucun modèle ne semble installé. Voici une liste de modèles conseillés:
+  afrikaans: Ollama is gedetekteer, maar geen model lyk geïnstalleer nie. Hier is
+    'n lys van aanbevole modelle
+  albanais: Ollama është detektuar, por asnjë model nuk duket i instaluar. Ja një
+    listë modelesh të rekomanduara
+  allemand: Ollama wurde erkannt, aber es scheint kein Modell installiert zu sein.
+    Hier ist eine Liste empfohlener Modelle
+  anglais: Ollama is detected, but no models seem to be installed. Here is a list
+    of recommended models
+  arabe: تم اكتشاف Ollama، ولكن يبدو أنه لم يتم تثبيت أي نموذج. إليك قائمة بالنماذج
+    الموصى بها
+  arménien: 'Ollama-ն հայտնաբերված է, բայց ոչ մի մոդել տեղադրված չի թվում: Ահա խորհուրդ
+    տրվող մոդելների ցուցակը:'
+  basque: Ollama detektatuta dago, baina ez dirudi modeloik instalatuta daudela. Hona
+    hemen gomendatutako modeloen zerrenda bat
+  bengali: Ollama শনাক্ত করা হয়েছে, কিন্তু মনে হচ্ছে কোনো মডেল ইনস্টল করা নেই। এখানে
+    কিছু প্রস্তাবিত মডেলের তালিকা দেওয়া হলো।
+  birman: Ollama ကို တွေ့ရှိသော်လည်း မည်သည့်မော်ဒယ်မှ ထည့်သွင်းထားပုံမရပါ။ အကြံပြုထားသော
+    မော်ဒယ်များစာရင်းမှာ အောက်ပါအတိုင်းဖြစ်သည်။
+  breton: Ollama a zo detektet, met n'est kein model a seeml setlet. Se eo ur lisv
+    modeloù rekomandez
+  bulgare: Ollama е открит, но изглежда, че няма инсталирани модели. Ето списък с
+    препоръчани модели
+  catalan: S'ha detectat Ollama, però no sembla que hi hagi cap model instal·lat.
+    Aquí teniu una llista de models recomanats
+  corse: Ollama è detectatu, ma nisun mudellu nun pare installatu. Eccu una lista
+    di mudelli cunsigliati
+  coréen: Ollama가 감지되었지만 설치된 모델이 없는 것 같습니다. 추천 모델 목록입니다
+  danois: Ollama er detekteret, men ingen modeller ser ud til at være installeret.
+    Her er en liste over anbefalede modeller
+  espagnol: Ollama ha sido detectado, pero no parece haber ningún modelo instalado.
+    Aquí tienes una lista de modelos recomendados
+  esperanto: Ollama estas detektita, sed neniu modelo ŝajnas instalita. Jen listo
+    de rekomendataj modeloj
+  estonien: Ollama on tuvastatud, kuid ükski mudel ei näi olevat installitud. Siin
+    on nimekiri soovitatud mudelitest
+  finnois: Ollama on havaittu, mutta yhtään mallia ei näytä olevan asennettuna. Tässä
+    on lista suositelluista malleista
+  français: Ollama est détecté, mais aucun modèle ne semble installé. Voici une liste
+    de modèles conseillés
+  gallois: Mae Ollama wedi'i ddetecto, ond nid yw unrhyw fodel yn ymddangos wedi'i
+    gosod. Dyma restr o fodelau a argymellir
+  grec: Το Ollama ανιχνεύθηκε, αλλά κανένα μοντέλο δεν φαίνεται να είναι εγκατεστημένο.
+    Ακολουθεί μια λίστα με προτεινόμενα μοντέλα
+  grec ancien: Ollama γνωρίζεται, ἀλλὰ οὐδείς τύπος φαίνεται ἐμβεβλημένος. ἰδοὺ κατάλογος
+    τύπων συστατικῶν
+  géorgien: Ollama აღმოჩენილია, მაგრამ არცერთი მოდელი არ ჩანს დაინსტალირებული. აი
+    რეკომენდებული მოდელების სია
+  hindi: Ollama का पता चला है, लेकिन ऐसा लगता है कि कोई मॉडल इंस्टॉल नहीं है। यहाँ
+    अनुशंसित मॉडलों की सूची है।
+  hongrois: Az Ollama detektálva, de úgy tűnik, egyetlen modell sincs telepítve. Íme
+    a javasolt modellek listája
+  indonésien: Ollama terdeteksi, tetapi sepertinya tidak ada model yang terinstal.
+    Berikut adalah daftar model yang disarankan
+  irlandais: Tá Ollama aimseartha, ach ní cosnaíonn sé go bhfuil aon mhódel suite.
+    Seo liosta de mhóidil molta
+  islandais: Ollama er greindur, en engin líkön virðast vera uppsett. Hér er listi
+    yfir mælt líkön
+  italien: Ollama è stato rilevato, ma nessun modello sembra essere installato. Ecco
+    un elenco di modelli consigliati
+  japonais: Ollamaは検出されましたが、モデルがインストールされていないようです。以下は推奨モデルのリストです。
+  kazakh: Ollama анықталды, бірақ ешқандай модель орнатылмаған сияқты. Міне, ұсынылған
+    модельдердің тізімі
+  kirghize: Ollama аныкталды, бирок эч кандай модель орнотулган жок окшойт. Сунушталган
+    моделдердин тизмеси бул жерде
+  kurde: Ollama hat tespîtkirin, lê xuya dike ku tu model nehatine sazkirin. Li vir
+    lîsteyek modelên pêşniyarkirî heye
+  latin: Ollama agnoscitur, sed nullum exemplar instalatum videtur. Ecce index exemplariorum
+    commendatorum
+  letton: Ollama ir detektēts, bet šķiet, ka nav instalēts nevains modelis. Šeit ir
+    ieteikto modeļu saraksts
+  lituanien: Ollama aptiktas, bet atrodo, kad jokie modeliai nėra įdiegti. Štai rekomenduojamų
+    modelių sąrašas
+  luxembourgeois: Ollama gëtt erkannt, mee keen Modell schéngt installé ze sinn. Hei
+    ass eng Lëscht vun empfoulen Modeller
+  macédonien: Ollama е детектиран, но изгледа дека не е инсталиран никаков модел.
+    Еве листа на препорачани модели
+  malais: Ollama dikesan, tetapi tiada model yang kelihatan dipasang. Berikut adalah
+    senarai model yang disyorkan
+  malgache: Hita i Ollama, saingy toa tsy misy modely tafapetraka. Indro ny lisitry
+    ny modely soso-kevitra
+  maltais: Ollama huwa detektat, iżda ma jidherx li hemm alkun modell installat. Hawn
+    hu lista ta' modelli rakkomandati
+  mandarin standard: 检测到 Ollama，但似乎没有安装任何模型。以下是推荐模型列表。
+  mongol: Ollama илэрлээ, гэвч ямар ч загвар суулгаагүй бололтой. Санал болгох загваруудын
+    жагсаалтыг энд орууллаа
+  norvégien: Ollama er oppdaget, men ingen modeller ser ut til å være installert.
+    Her er en liste over anbefalte modeller
+  néerlandais: Ollama is gedetecteerd, maar er lijken geen modellen geïnstalleerd
+    te zijn. Hier is een lijst met aanbevolen modellen
+  népalais: Ollama फेला पर्यो, तर कुनै पनि मोडल встановित भएको देखिँदैन। यहाँ सिफारिस
+    गरिएका मोडलहरूको सूची छ।
+  ourdou: Ollama ڈیٹیکٹ ہو گیا ہے، لیکن ایسا لگتا ہے کہ کوئی ماڈل انسٹال نہیں ہے۔
+    یہ تجویز کردہ ماڈلز کی ایک فہرست ہے۔
+  ouzbek: Ollama aniqlandi, lekin hech bir model o'rnatilmaganga o'xshaydi. Mana tavsiya
+    etilgan modellar ro'yxati
+  pachto: Ollama تشخیص شوی دی، خو داسې ښکاري چې هیڅ ماډل نصب نه دی. دلته د وړاندیز
+    شويو ماډلونو یو لست دی
+  persan: Ollama شناسایی شد، اما به نظر می‌رسد هیچ مدلی نصب نشده است. در اینجا لیستی
+    از مدل‌های پیشنهادی آمده است
+  polonais: Wykryto Ollamę, ale wydaje się, że żaden model nie jest zainstalowany.
+    Oto lista polecanych modeli
+  portugais: O Ollama foi detectado, mas nenhum modelo parece estar instalado. Aqui
+    está uma lista de modelos recomendados
+  roumain: Ollama a fost detectat, dar niciun model nu pare a fi instalat. Iată o
+    listă de modele recomandate
+  russe: Ollama обнаружен, но, похоже, ни одна модель не установлена. Вот список рекомендуемых
+    моделей
+  serbo-croate: Ollama je detektovan, ali čini se da nijedan model nije instaliran.
+    Evo liste preporučenih modela
+  slovaque: Ollama bol detegovaný, ale nezdá sa, že by bol nainštalovaný žiadny model.
+    Tu je zoznam odporúčaných modelov
+  slovène: Ollama je zaznan, vendar se zdi, da ni nameščenega nobenega modela. Tukaj
+    je seznam priporočenih modelov
+  suédois: Ollama upptäcktes, men ingen modell verkar vara installerad. Här är en
+    lista över rekommenderade modeller
+  swahili: Ollama imegundulika, lakini hakuna modeli inayonekana imesakinishwa. Hii
+    hapa ni orodha ya modeli zinazopendekezwa
+  tadjik: Ollama ёфт шуд, вале ҳеҷ моделе насб нашуда менамояд. Ин рӯйхати моделҳои
+    тавсияшуда аст
+  tamoul: Ollama கண்டறியப்பட்டது, ஆனால் எந்த மாதிரியும் நிறுவப்பட்டதாகத் தெரியவில்லை.
+    பரிந்துரைக்கப்பட்ட மாதிரிகளின் பட்டியல் இதோ
+  tchèque: Ollama byl detekován, ale nezdá se, že je nainstalován žádný model. Zde
+    je seznam doporučených modelů
+  thaï: พบ Ollama แล้ว แต่ดูเหมือนว่าจะยังไม่ได้ติดตั้งโมเดลใดๆ นี่คือรายการโมเดลที่แนะนำ
+  tibétain: Ollama རྙེད་འདུག འོན་ཀྱང་ མོ་ཌེལ་གང་འདྲ་ཞིག་ཀྱང་སྒྲིག་མེད་པ་འདྲ། འདི་ནི་ལམ་སྟོན་བྱས་པའི་མོ་ཌེལ་གྱི་རེའུ་མིག་ཅིག་ཡིན།
+  turc: Ollama tespit edildi, ancak yüklü hiçbir model görünmüyor. İşte önerilen modellerin
+    listesi
+  turkmène: Ollama anyklandy, ýöne hiç hili model gurnalan ýaly görünmeýär. Maslahat
+    berilýän modelleriň sanawy şu ýerde
+  ukrainien: Ollama виявлено, але, схоже, жодна модель не встановлена. Ось список
+    рекомендованих моделей
+  vietnamien: Ollama được phát hiện, nhưng có vẻ như chưa có mô hình nào được cài
+    đặt. Dưới đây là danh sách các mô hình được khuyên dùng
+  zoulou: Kutholakale i-Ollama, kodwa akukho namodeli obonakala efakwe. Nansi uhlu
+    lwemodeli ezilulekile
+? Ollama est détecté, mais il manque un modèle compatible. Installez l'un des modèles
+  suivants pour activer cette fonctionnalité
+: {}
 Oui:
   afrikaans: Ja
   albanais: Po
@@ -12067,6 +13099,77 @@ Permet d'ajouter le nom des territoires sur la carte:
   zoulou: Ivumela ukuthi kukhethwe ukuthi ngabe kufanele yini ukushicilela wonke amamephu
     noma labo kuphela abanegranularity oyifunayo. Ngokwesibonelo, ingabe sifuna ukushicilela
     imephu ekhona kuphela ezingeni lesifunda uma sifuna amamephu ezingeni lesifunda?
+Pour les PC puissants:
+  afrikaans: Vir kragtige PC's
+  albanais: Për PC-të e fuqishëm
+  allemand: Für leistungsstarke PCs
+  anglais: For powerful PCs
+  arabe: لأجهزة الكمبيوتر القوية
+  arménien: Հզոր համակարգիչների համար
+  basque: PC potentziotsuentzat
+  bengali: শক্তিশালী পিসির জন্য।
+  birman: စွမ်းဆောင်ရည်မြင့် PC များအတွက်
+  breton: Evit PC'iad pouezus
+  bulgare: За мощни компютри
+  catalan: Per a PC potents
+  corse: Per li PC putenti
+  coréen: 고성능 PC용
+  danois: Til kraftige pc'er
+  espagnol: Para PC potentes
+  esperanto: Por potencaj komputiloj
+  estonien: Võimsatele arvutitele
+  finnois: Tehokkaille tietokoneille
+  français: Pour les PC puissants
+  gallois: Ar gyfer PCiau pwerus
+  grec: Για ισχυρούς PC
+  grec ancien: πρὸς τοὺς ἰσχυροὺς PC
+  géorgien: მძლავრი კომპიუტერებისთვის
+  hindi: शक्तिशाली पीसी के लिए
+  hongrois: Erős számgépeknek
+  indonésien: Untuk PC berperforma tinggi
+  irlandais: Do na ríomhairí cumhachtacha
+  islandais: Fyrir öflugar tölvur
+  italien: Per i PC potenti
+  japonais: 高性能PC向け
+  kazakh: Қуатты компьютерлер үшін
+  kirghize: Кубаттуу компьютерлер үчүн
+  kurde: Ji bo komputerên bihêz
+  latin: Pro PC potentibus
+  letton: Spēcīgiem datoriem
+  lituanien: Galingiems PC
+  luxembourgeois: Fir staark PC
+  macédonien: За моќните компјутери
+  malais: Untuk PC berkuasa tinggi
+  malgache: Ho an'ny PC mahery
+  maltais: Għal PCs qawwija
+  mandarin standard: 适用于高性能电脑
+  mongol: Хүчирхэг компьютеруудад
+  norvégien: For kraftige PC-er
+  néerlandais: Voor krachtige pc's
+  népalais: शक्तिशाली PC हरूको लागि
+  ourdou: طاقتور پی سیز کے لیے
+  ouzbek: Kuchli kompyuterlar uchun
+  pachto: د قوي پي سي ګانو لپاره
+  persan: برای کامپیوترهای قدرتمند
+  polonais: Dla wydajnych komputerów PC
+  portugais: Para PCs potentes
+  roumain: Pentru PC-uri puternice
+  russe: Для мощных ПК
+  serbo-croate: Za snažne računare
+  slovaque: Pre výkonné PC
+  slovène: Za zmogljive računalnike
+  suédois: För kraftfulla datorer
+  swahili: Kwa PC zenye nguvu
+  tadjik: Барои компютерҳои пурқувват
+  tamoul: சக்திவாய்ந்த கணினிகளுக்காக
+  tchèque: Pro výkonné PC
+  thaï: สำหรับพีซีสเปกสูง
+  tibétain: ནུས་པ་ཆེན་པོའི་གློག་རྩེฟཆེད་དུ།
+  turc: Güçlü PC'ler için
+  turkmène: Kuwwatly kompýuterler üçin
+  ukrainien: Для потужних ПК
+  vietnamien: Dành cho PC cấu hình cao
+  zoulou: Kuma-PC anamandla
 ? Pour un pays donné, si des départements sont cochés, ils sont prioritaires sur les
   régions cochées. Dans ce cas, la liste des régions visitées est automatiquement
   reconstituée à partir de la liste des départements. Il n'est donc plus nécessaire
@@ -12377,6 +13480,7 @@ Permet d'ajouter le nom des territoires sur la carte:
     ezimakiwe. Kulokhu, uhlu lwezifunda ezivakashelwayo lwakhiwa kabusha ngokuzenzakalelayo
     kusuka ohlwini lweminyango. Ngakho-ke akusadingeki ukuthi kumakwe izifunda ezivakashelwayo
     (izifunda zingahlala zimakiwe kodwa ngeke zicatshangelwe)
+Pour utiliser cette fonctionnalité, Ollama doit être installé et au moins un des modèles suivants doit être disponible: {}
 Problème:
   afrikaans: Probleem
   albanais: Problem
@@ -12874,6 +13978,77 @@ Qualité de l'image:
   ukrainien: Якість зображення
   vietnamien: Chất lượng hình ảnh
   zoulou: Ikhwalithi yesithombe
+Quel voyageur êtes-vous ?:
+  afrikaans: Watter tipe reisiger is jy?
+  albanais: Çfarë lloj udhëtuesi jeni?
+  allemand: Was für ein Reisender sind Sie?
+  anglais: What kind of traveler are you?
+  arabe: أي نوع من المسافرين أنت؟
+  arménien: 'Ինչպիսի՞ ճամփորդ եք դուք:'
+  basque: Zein bidaiaria zara?
+  bengali: আপনি কেমন পর্যটক?
+  birman: သင်ဟာ ဘယ်လိုခရီးသွားမျိုးလဲ။
+  breton: Pe menezour oc'h eo ?
+  bulgare: Какъв пътник сте?
+  catalan: Quin viatger és vostè?
+  corse: Quale viajàtore site ?
+  coréen: 당신은 어떤 여행자인가요?
+  danois: Hvilken type rejsende er du?
+  espagnol: ¿Qué tipo de viajero es usted?
+  esperanto: Kia vojaĝisto vi estas?
+  estonien: Milline reisija olete?
+  finnois: Millainen matkailija olette?
+  français: Quel voyageur êtes-vous ?
+  gallois: Pa deithiwr ydych chi?
+  grec: Ποιος ταξιδιώτης είστε;
+  grec ancien: Ποῖος ξένος ἐστέ;
+  géorgien: როგორი მოგზაური ხართ?
+  hindi: आप किस तरह के यात्री हैं?
+  hongrois: Milyen utazó vagy?
+  indonésien: Tipe pelancong seperti apa Anda?
+  irlandais: Cén cineál taistealaí atá tú?
+  islandais: Hvaða ferðalangur ert þú?
+  italien: Che tipo di viaggiatore è?
+  japonais: あなたはどのような旅行者ですか？
+  kazakh: Сіз қандай саяхатшысыз?
+  kirghize: Сиз кандай саякатчысыз?
+  kurde: Hûn çi cure geştiyar in?
+  latin: Qualis viator es?
+  letton: Kāds ceļotājs jūs esat?
+  lituanien: Koks jūs keliautojas?
+  luxembourgeois: Wat fir eng Reisende sidd Dir?
+  macédonien: Каков патник сте?
+  malais: Apakah jenis pengembara anda?
+  malgache: Mpivahiny manao ahoana ianao ?
+  maltais: Liema tip ta' vjaġġatur int?
+  mandarin standard: 你是什么样的旅行者？
+  mongol: Та ямар аялагч вэ?
+  norvégien: Hva slags reisende er du?
+  néerlandais: Wat voor reiziger bent u?
+  népalais: तपाईं कस्तो यात्री हुनुहुन्छ?
+  ourdou: آپ کس طرح کے مسافر ہیں؟
+  ouzbek: Siz qanday sayohatchisiz?
+  pachto: تاسو کوم مسافر یئ؟
+  persan: چه جور مسافری هستید؟
+  polonais: Jakim podróżnikiem jesteś?
+  portugais: Que tipo de viajante você é?
+  roumain: Ce tip de călător sunteți?
+  russe: Какой вы путешественник?
+  serbo-croate: Kakav ste putnik?
+  slovaque: Aký ste cestovateľ?
+  slovène: Kakšen potnik ste?
+  suédois: Vilken resenär är du?
+  swahili: Wewe ni msafiri wa aina gani?
+  tadjik: Шумо чӣ гуна саёҳ ҳастед?
+  tamoul: நீங்கள் எந்த வகையான பயணி?
+  tchèque: Jaký jste cestovatel?
+  thaï: คุณเป็นนักเดินทางแบบไหน?
+  tibétain: ཁྱེད་རང་འགྲུལ་པོ་རིགས་གང་ཡིན།
+  turc: Siz nasıl bir gezginsiniz?
+  turkmène: Siz nähili syýahatçy?
+  ukrainien: Який ви мандрівник?
+  vietnamien: Bạn là kiểu khách du lịch nào?
+  zoulou: Unguhlobo luni lomhambi?
 Quinze cartes:
   afrikaans: Vyftien kaarte
   albanais: Pesëmbëdhjetë letra
@@ -12945,6 +14120,148 @@ Quinze cartes:
   ukrainien: П'ятнадцять карток
   vietnamien: Mười lăm lá bài
   zoulou: Amashumi amahlanu nanhlanu amakhadi
+Recommandé (qualité):
+  afrikaans: Aanbeveel (kwaliteit)
+  albanais: I rekomanduar (cilësia)
+  allemand: Empfohlen (Qualität)
+  anglais: Recommended (quality)
+  arabe: موصى به (جودة)
+  arménien: նիրդեշված (որակ)
+  basque: Gomendatua (kalitatea)
+  bengali: সুপারিশকৃত (গুণমান)
+  birman: အကြံပြုထားသော (အရည်အသွေး)
+  breton: Kekomendet (kaledez)
+  bulgare: Препоръчано (качество)
+  catalan: Recomanat (qualitat)
+  corse: Raccomandatu (qualità)
+  coréen: 추천 (품질)
+  danois: Anbefalet (kvalitet)
+  espagnol: Recomendado (calidad)
+  esperanto: Rekomendita (kvalito)
+  estonien: Soovitatav (kvaliteet)
+  finnois: Suositeltu (laatu)
+  français: Recommandé (qualité)
+  gallois: Argymellir (ansawdd)
+  grec: Συνιστώμενο (ποιότητα)
+  grec ancien: Ἐπαινομένος (ποιότης)
+  géorgien: რეკომენდირებული (ხარისხი)
+  hindi: अनुशंसित (गुणवत्ता)
+  hongrois: Ajánlott (minőség)
+  indonésien: Direkomendasikan (kualitas)
+  irlandais: Mholta (cáilíocht)
+  islandais: Mælt með (gæði)
+  italien: Consigliato (qualità)
+  japonais: おすすめ（品質）
+  kazakh: Ұсынылады (сапа)
+  kirghize: Сунушталат (сапат)
+  kurde: Pêşniyar kirî (kalîte)
+  latin: Commendatus (qualitas)
+  letton: Ieteikts (kvalitāte)
+  lituanien: Rekomenduojama (kokybė)
+  luxembourgeois: Empfoult (Qualitéit)
+  macédonien: Препорачано (квалитет)
+  malais: Disyorkan (kualiti)
+  malgache: Atolotra (kalitao)
+  maltais: Rakkomandat (kwalità)
+  mandarin standard: 推荐 (质量)
+  mongol: Санал болгосон (чанар)
+  norvégien: Anbefalt (kvalitet)
+  néerlandais: Aanbevolen (kwaliteit)
+  népalais: सिफारिस गरिएको (गुणस्तर)
+  ourdou: سفارش کردہ (معیار)
+  ouzbek: Tavsiya etiladi (sifat)
+  pachto: و وړاندیز شوی (کیفیت)
+  persan: توصیه شده (کیفیت)
+  polonais: Polecane (jakość)
+  portugais: Recomendado (qualidade)
+  roumain: Recomandat (calitate)
+  russe: Рекомендовано (качество)
+  serbo-croate: Preporučeno (kvalitet)
+  slovaque: Odporúčané (kvalita)
+  slovène: Priporočeno (kakovost)
+  suédois: Rekommenderad (kvalitet)
+  swahili: Inapendekezwa (ubora)
+  tadjik: Тавсияшаванда (сифат)
+  tamoul: பரிந்துரைக்கப்பட்டது (தரம்)
+  tchèque: Doporučeno (kvalita)
+  thaï: แนะนำ (คุณภาพ)
+  tibétain: བསུ་བའི་ (སྤུས་ཚད)
+  turc: Önerilen (kalite)
+  turkmène: Maslahat berilýär (hili)
+  ukrainien: Рекомендовано (якість)
+  vietnamien: Khuyến nghị (chất lượng)
+  zoulou: Kunelulekile (Ikhwalithi)
+Recommandé (rapide):
+  afrikaans: Aanbeveel (vinnig)
+  albanais: E rekomanduar (e shpejtë)
+  allemand: Empfohlen (schnell)
+  anglais: Recommended (fast)
+  arabe: مُوصى به (سريع)
+  arménien: Խորհուրդ տրվող (արագ)
+  basque: Gomendatua (azkarra)
+  bengali: সুপারিশকৃত (দ্রুত)
+  birman: အကြံပြုထားသည် (မြန်ဆန်သော)
+  breton: Kevredet (suraol)
+  bulgare: Препоръчително (бързо)
+  catalan: Recomanat (ràpid)
+  corse: Cunsigliatu (rapidu)
+  coréen: 추천 (빠름)
+  danois: Anbefalet (hurtig)
+  espagnol: Recomendado (rápido)
+  esperanto: Rekomendita (rapida)
+  estonien: Soovitatav (kiire)
+  finnois: Suositeltu (nopea)
+  français: Recommandé (rapide)
+  gallois: Argymellir (cyflym)
+  grec: Προτεινόμενο (γρήγορο)
+  grec ancien: Συστατόν (ταχές)
+  géorgien: რეკომენდირებული (სწრაფი)
+  hindi: अनुशंसित (तेज़)
+  hongrois: Ajánlott (gyors)
+  indonésien: Direkomendasikan (cepat)
+  irlandais: Mholta (tapa)
+  islandais: Mælt með (hraðvirkt)
+  italien: Consigliato (veloce)
+  japonais: おすすめ（高速）
+  kazakh: Ұсынылған (жылдам)
+  kirghize: Сунушталат (тез)
+  kurde: Pêşniyarkirî (bilez)
+  latin: Commendatus (celer)
+  letton: Ieteicamts (ātrs)
+  lituanien: Rekomenduojama (greita)
+  luxembourgeois: Empfoulen (séier)
+  macédonien: Препорачано (брзо)
+  malais: Disyorkan (pantas)
+  malgache: Soso-kevitra (haingana)
+  maltais: Rakkomandat (malajr)
+  mandarin standard: 推荐 (快速)
+  mongol: Санал болгосон (хурдан)
+  norvégien: Anbefalt (rask)
+  néerlandais: Aanbevolen (snel)
+  népalais: सिफारिस गरिएको (छिटो)
+  ourdou: تجویز کردہ (تیز)
+  ouzbek: Tavsiya etiladi (tezkor)
+  pachto: وړاندیز شوی (چټک)
+  persan: توصیه شده (سریع)
+  polonais: Zalecane (szybkie)
+  portugais: Recomendado (rápido)
+  roumain: Recomandat (rapid)
+  russe: Рекомендуется (быстро)
+  serbo-croate: Preporučeno (brzo)
+  slovaque: Odporúčané (rýchle)
+  slovène: Priporočeno (hitro)
+  suédois: Rekommenderas (snabb)
+  swahili: Inapendekezwa (haraka)
+  tadjik: Тавсияшаванда (тез)
+  tamoul: பரிந்துரைக்கப்பட்டது (விரைவானது)
+  tchèque: Doporučeno (rychle)
+  thaï: แนะนำ (รวดเร็ว)
+  tibétain: ལམ་སྟོན་བྱས་པ། (མགྱོགས།)
+  turc: Önerilen (hızlı)
+  turkmène: Maslahat berilýär (çalt)
+  ukrainien: Рекомендовано (швидкий)
+  vietnamien: Được đề xuất (nhanh)
+  zoulou: Kunconywa (okusheshayo)
 Regrouper par pays:
   afrikaans: Groepeer per land
   albanais: Grupo sipas vendit
@@ -13016,6 +14333,77 @@ Regrouper par pays:
   ukrainien: Згрупувати за країною
   vietnamien: Nhóm theo quốc gia
   zoulou: Hlunga ngokuya ngelizwe
+Replier:
+  afrikaans: Vou
+  albanais: Palos
+  allemand: Zusammenfalten
+  anglais: Fold
+  arabe: طي
+  arménien: ծալել
+  basque: Tostu
+  bengali: ভাঁজ করা
+  birman: ခေါက်ပါ။
+  breton: Plegañ
+  bulgare: Сгъни
+  catalan: Plegar
+  corse: Riplegà
+  coréen: 접다
+  danois: Folde
+  espagnol: Plegar
+  esperanto: Repleji
+  estonien: Voltima
+  finnois: Taittaa
+  français: Replier
+  gallois: Plygu
+  grec: Διπλώνω
+  grec ancien: διπλοῦν
+  géorgien: დაკეცვა
+  hindi: मोड़ना
+  hongrois: Összehajtani
+  indonésien: Melipat
+  irlandais: Pleg
+  islandais: Fella saman
+  italien: Ripiegare
+  japonais: 折りたたむ
+  kazakh: бүктеу
+  kirghize: бүктөө
+  kurde: Çandîn
+  latin: Replicare
+  letton: Salikt
+  lituanien: Sulankstyti
+  luxembourgeois: Zammeklappen
+  macédonien: Склопи
+  malais: Lipat
+  malgache: Manoritra
+  maltais: Itwi
+  mandarin standard: 折叠
+  mongol: Нугалах
+  norvégien: Brette
+  néerlandais: Inklappen
+  népalais: पट्याउनु
+  ourdou: تہہ کرنا
+  ouzbek: Yig'ish
+  pachto: شنډول
+  persan: تا کردن
+  polonais: Złożyć
+  portugais: Dobrar
+  roumain: Pliază
+  russe: Свернуть
+  serbo-croate: Sklopiti
+  slovaque: Složiť
+  slovène: Zložiti
+  suédois: Fälla ihop
+  swahili: Kukunja
+  tadjik: Таҷамъ кардан
+  tamoul: மடி
+  tchèque: Sklopit
+  thaï: พับ
+  tibétain: ལེན་པ
+  turc: Katlamak
+  turkmène: Gatlamak
+  ukrainien: Згорнути
+  vietnamien: Gấp
+  zoulou: Ukugoba
 Régions visitées:
   afrikaans: Besoekte streke
   albanais: Rajone të vizituara
@@ -15661,6 +17049,219 @@ Vos pays de prédilection:
   ukrainien: Ваші улюблені країни
   vietnamien: Các quốc gia yêu thích của bạn
   zoulou: Izwe labathandayo
+Votre continent favori:
+  afrikaans: Jou gunstelingkontinent
+  albanais: Kontinenti juaj i preferuar
+  allemand: Ihr Lieblingskontinent
+  anglais: Your favorite continent
+  arabe: قارتكم المفضلة
+  arménien: Ձեր սիրելի մայրցամաքը
+  basque: Zure kontinentu gogokoena
+  bengali: আপনার প্রিয় মহাদেশ।
+  birman: သင်တို့အကြိုက်ဆုံးတိုက်
+  breton: Ho kontinent karitet
+  bulgare: Вашият любим континент
+  catalan: El vostre continent preferit
+  corse: U vostru continentu preferitu
+  coréen: 가장 좋아하는 대륙
+  danois: Dit yndlingskontinent
+  espagnol: Su continente favorito
+  esperanto: Via preferata kontinento
+  estonien: Teie lemmikkontinent
+  finnois: Lempimanterenne
+  français: Votre continent favori
+  gallois: Eich cyntinent hoff
+  grec: Η αγαπημένη σας ήπειρος
+  grec ancien: ὑμῶν φίλιστος continent
+  géorgien: თქვენი საყვარელი კონტინენტი
+  hindi: आपका पसंदीदा महाद्वीप
+  hongrois: Kedvenc kontinense
+  indonésien: Benua favorit Anda
+  irlandais: An cóiréis is fearr agaibh
+  islandais: Uppáhaldsheimsálfan ykkar
+  italien: Il vostro continente preferito
+  japonais: あなたの好きな大陸
+  kazakh: Сіздің сүйікті құрлығыңыз
+  kirghize: Сиздин сүйүктүү континентиңиз
+  kurde: Qîteya we ya herî hezkirî
+  latin: Vester continens praedilectus
+  letton: Jūsu mīļākais kontinents
+  lituanien: Jūsų mėgstamiausias kontinentas
+  luxembourgeois: Ären Lieblingskontinent
+  macédonien: Вашиот омилен континент
+  malais: Benua kegemaran anda
+  malgache: Ny kaontinanta tianareo indrindra
+  maltais: Il-kontinent favorit tiegħelkom
+  mandarin standard: 您最喜欢的大洲。
+  mongol: Таны дуртай тив
+  norvégien: Ditt favorittkontinent
+  néerlandais: Uw favoriete continent
+  népalais: तपाईंको मनपर्ने महाद्वीप
+  ourdou: آپ کا پسندیدہ براعظم
+  ouzbek: Sizning sevimli qit'angiz
+  pachto: ستاسو د خوښې قاره
+  persan: قاره مورد علاقه شما
+  polonais: Twój ulubiony kontynent
+  portugais: Seu continente favorito
+  roumain: Continentul vostru preferat
+  russe: Ваш любимый континент
+  serbo-croate: Vaš omiljeni kontinent
+  slovaque: Vaš obľúbený kontinent
+  slovène: Vaš najljubši kontinent
+  suédois: Din favoritkontinent
+  swahili: Bara lenu pendwa
+  tadjik: Қитъаи дӯстдоштаи шумо
+  tamoul: உங்கள் விருப்பமான கண்டம்
+  tchèque: Váš oblíbený kontinent
+  thaï: ทวีปโปรดของคุณ
+  tibétain: ཁྱེད་རང་ཆེས་དགའ་བའི་মহাদেশ།
+  turc: En sevdiğiniz kıta
+  turkmène: Siziň iň söýýän materigiňiz
+  ukrainien: Ваш улюблений континент
+  vietnamien: Lục địa yêu thích của bạn
+  zoulou: Ikontinenti enithandayo
+Votre portrait:
+  afrikaans: U portret
+  albanais: Portreti juaj
+  allemand: Ihr Porträt
+  anglais: Your portrait
+  arabe: صورتكم الشخصية
+  arménien: Ձեր դիմանկարը
+  basque: Zure erretratua
+  bengali: আপনার প্রতিকৃতি
+  birman: သင်၏ပုံတူ
+  breton: Portret oc'h
+  bulgare: Вашият портрет
+  catalan: El vostre retrat
+  corse: U vostru ritrattu
+  coréen: 당신의 초상화
+  danois: Dit portræt
+  espagnol: Su retrato
+  esperanto: Via portreto
+  estonien: Teie portret
+  finnois: Teidän muotokuvanne
+  français: Votre portrait
+  gallois: Eich portret
+  grec: Το πορτρέτό σας
+  grec ancien: ὑμῶν εἰκὼν
+  géorgien: თქვენი პორტრეტი
+  hindi: आपका चित्र
+  hongrois: Az Ön portréje
+  indonésien: Potret Anda
+  irlandais: Bhur phortráit
+  islandais: Þitt portrett
+  italien: Il vostro ritratto
+  japonais: あなたの肖像画
+  kazakh: Сіздің портретіңіз
+  kirghize: Сиздин портретиңиз
+  kurde: Portreya we
+  latin: Vestra imago
+  letton: Jūsu portrets
+  lituanien: Jūsų portretas
+  luxembourgeois: Äre Porträt
+  macédonien: Вашиот портрет
+  malais: Potret Anda
+  malgache: Ny sarinareo
+  maltais: Ir-ritratt tiegħkom
+  mandarin standard: 您的肖像
+  mongol: Таны хөрөг
+  norvégien: Ditt portrett
+  néerlandais: Uw portret
+  népalais: तपाईंको तस्विर
+  ourdou: آپ کی تصویر
+  ouzbek: Sizning portretingiz
+  pachto: ستاسو تصویر
+  persan: پرتره شما
+  polonais: Państwa portret
+  portugais: Seu retrato
+  roumain: Portretul dumneavoastră
+  russe: Ваш портрет
+  serbo-croate: Vaš portret
+  slovaque: Vaš portrét
+  slovène: Vaš portret
+  suédois: Ditt porträtt
+  swahili: Picha yenu
+  tadjik: Портрети шумо
+  tamoul: உங்கள் உருவப்படம்
+  tchèque: Váš portrét
+  thaï: ภาพเหมือนของคุณ
+  tibétain: ཁྱེད་རང་གི་རូបརིས།
+  turc: Portreniz
+  turkmène: Siziň portretiňiz
+  ukrainien: Ваш портрет
+  vietnamien: Chân dung của bạn
+  zoulou: Isithombe senu
+Votre tableau de bord:
+  afrikaans: Jou dashboard
+  albanais: Paneli juaj i kontrollit
+  allemand: Ihr Dashboard
+  anglais: Your dashboard
+  arabe: لوحة التحكم الخاصة بك
+  arménien: Ձեր կառավարման վահանակը
+  basque: Zure panela
+  bengali: আপনার ড্যাশবোর্ড
+  birman: သင်၏ ဒက်ရှ်ဘုတ်
+  breton: Ho tablo'r-stiran
+  bulgare: Вашето табло
+  catalan: El vostre tauler de control
+  corse: U vostru tableau di bordu
+  coréen: 당신의 대시보드
+  danois: Dit dashboard
+  espagnol: Su panel de control
+  esperanto: Via kontrolpanelo
+  estonien: Teie armtuplaus
+  finnois: Hallintapaneelinne
+  français: Votre tableau de bord
+  gallois: Eich panel rheoli
+  grec: Ο πίνακας ελέγχου σας
+  grec ancien: Votre tableau de bord
+  géorgien: თქვენი მართვის პანელი
+  hindi: आपका डैशबोर्ड
+  hongrois: Az Ön kezelőpanele
+  indonésien: Dasbor Anda
+  irlandais: Do doiridheach
+  islandais: Þitt stjórnborð
+  italien: La vostra dashboard
+  japonais: あなたのダッシュボード
+  kazakh: Сіздің басқару панеліңіз
+  kirghize: Сиздин башкаруу панелиңиз
+  kurde: Tabloya we ya kontrolê
+  latin: Vestra tabula instrumentorum
+  letton: Jūsu kontrolpanelis
+  lituanien: Jūsų valdybimo skydelis
+  luxembourgeois: Äre Dashboard
+  macédonien: Вашата контролна табла
+  malais: Papan pemuka anda
+  malgache: Ny takelaka fanaraha-maso anao
+  maltais: Id-dashboard tiegħek
+  mandarin standard: 您的仪表盘
+  mongol: Таны хянах самбар
+  norvégien: Ditt dashbord
+  néerlandais: Uw dashboard
+  népalais: तपाईंको ड्यासबोर्ड
+  ourdou: آپ کا ڈیش بورڈ
+  ouzbek: Sizning boshqaruv panelingiz
+  pachto: ستاسو ډشبورډ
+  persan: داشبورد شما
+  polonais: Twój panel sterowania
+  portugais: Seu painel
+  roumain: Tabloul dumneavoastră de bord
+  russe: Ваша панель управления
+  serbo-croate: Vaša kontrolna ploča
+  slovaque: Váš kontrolný panel
+  slovène: Vaša nadzorna plošča
+  suédois: Din instrumentpanel
+  swahili: Dashibodi yako
+  tadjik: Панели назорати шумо
+  tamoul: உங்கள் கட்டுப்பாட்டுப் பலகை
+  tchèque: Váš ovládací panel
+  thaï: แดชบอร์ดของคุณ
+  tibétain: Votre tableau de bord
+  turc: Kontrol paneliniz
+  turkmène: Başkarma paneliňiz
+  ukrainien: Ваша панель керування
+  vietnamien: Bảng điều khiển của bạn
+  zoulou: Idashibodi yakho
 Voyages effectués:
   afrikaans: Voltooide reise
   albanais: Udhëtime të kryera
@@ -15803,6 +17404,77 @@ Voyages effectués au cours de la période sélectionnée:
   ukrainien: Подорожі, здійснені протягом обраного періоду
   vietnamien: Các chuyến đi đã thực hiện trong khoảng thời gian đã chọn
   zoulou: Ohambo athathiwe ngesikhathi esikhethiwe
+des pays visités:
+  afrikaans: besoekte lande
+  albanais: vende të vizituara
+  allemand: besuchte Länder
+  anglais: visited countries
+  arabe: بلدان تمت زيارتها
+  arménien: այցելած երկրներ
+  basque: bisitatutako herrialdeak
+  bengali: পরিদর্শিত দেশসমূহ
+  birman: လည်ပတ်ခဲ့သော နိုင်ငံများ
+  breton: Broioù kitaourdaet
+  bulgare: посетени страни
+  catalan: països visitats
+  corse: di paesi visitati
+  coréen: 방문한 나라들
+  danois: besøgte lande
+  espagnol: países visitados
+  esperanto: vizitataj landoj
+  estonien: külastatud riigid
+  finnois: vieraillut maat
+  français: des pays visités
+  gallois: Gwledydd a ybud
+  grec: επισκεφθείσες χώρες
+  grec ancien: χώραι ἐπισκεπτόμεναι
+  géorgien: ნასტუმრებული ქვეყნები
+  hindi: देखे गए देश
+  hongrois: látogatott országok
+  indonésien: negara-negara yang dikunjungi
+  irlandais: Tíortha cuairtithe
+  islandais: Heimsökin lönd
+  italien: paesi visitati
+  japonais: 訪問した国
+  kazakh: араланған елдер
+  kirghize: барган өлкөлөр
+  kurde: Welatên serdan kirî
+  latin: Terrae visitae
+  letton: apmeklētas valstis
+  lituanien: lankytos šalys
+  luxembourgeois: besicht Länner
+  macédonien: посетени држави
+  malais: Negara-negara yang dilawati
+  malgache: firenena notsidihina
+  maltais: pajjiżijiet żarut
+  mandarin standard: 去过的国家
+  mongol: зочилсон улсууд
+  norvégien: besøkte land
+  néerlandais: bezochte landen
+  népalais: भ्रमण गरिएका देशहरू
+  ourdou: سیر کیے گئے ممالک
+  ouzbek: Tashrif buyurilgan mamlakatlar
+  pachto: لیدل شوي هېوادونه
+  persan: کشورهای بازدید شده
+  polonais: odwiedzone kraje
+  portugais: países visitados
+  roumain: țări vizitate
+  russe: Посещённые страны
+  serbo-croate: Posjećene zemlje
+  slovaque: navštívené krajiny
+  slovène: obiskane države
+  suédois: besökta länder
+  swahili: nchi zilizotembelewa
+  tadjik: кишварҳои диданшуда
+  tamoul: பார்வையிடப்பட்ட நாடுகள்
+  tchèque: navštívené země
+  thaï: ประเทศที่เคยไป
+  tibétain: སྐོར་བའི་རྒྱལ་ཁབ་
+  turc: Ziyaret edilen ülkeler
+  turkmène: ziýaret edilen ýurtlar
+  ukrainien: відвідані країни
+  vietnamien: Các quốc gia đã thăm
+  zoulou: amazwe avakashelwe
 ou charger manuellement un fichier YAML contenant la liste des lieux visités:
   afrikaans: of laai handmatig 'n YAML-lêer op wat die lys van besoekte plekke bevat
   albanais: ose kodoni manualisht një skedar YAML që përmban listën e vendeve të vizituara
@@ -15969,6 +17641,148 @@ recommandations:
   ukrainien: рекомендації
   vietnamien: khuyến nghị
   zoulou: izincomo
+voyage:
+  afrikaans: reis
+  albanais: udhëtim
+  allemand: Reise
+  anglais: Travel
+  arabe: سفر
+  arménien: ճանապարհորդություն
+  basque: bidaia
+  bengali: ভ্রমণ
+  birman: ခရီးသွားခြင်း
+  breton: menezhad
+  bulgare: пътуване
+  catalan: viatge
+  corse: viaghju
+  coréen: 여행
+  danois: rejse
+  espagnol: viaje
+  esperanto: vojaĝo
+  estonien: reis
+  finnois: matka
+  français: voyage
+  gallois: Taith
+  grec: Ταξίδι
+  grec ancien: ὁδός
+  géorgien: მოგზაურობა
+  hindi: यात्रा
+  hongrois: utazás
+  indonésien: perjalanan
+  irlandais: Turas
+  islandais: ferð
+  italien: viaggio
+  japonais: 旅行
+  kazakh: саяхат
+  kirghize: саякат
+  kurde: geşt
+  latin: Iter
+  letton: ceļojums
+  lituanien: kelionė
+  luxembourgeois: Reis
+  macédonien: патување
+  malais: Perjalanan
+  malgache: dia
+  maltais: vjaġġ
+  mandarin standard: 旅行
+  mongol: аялал
+  norvégien: Reise
+  néerlandais: reis
+  népalais: यात्रा
+  ourdou: سفر
+  ouzbek: sayohat
+  pachto: سفر
+  persan: سفر
+  polonais: podróż
+  portugais: viagem
+  roumain: călătorie
+  russe: путешествие
+  serbo-croate: Putovanje
+  slovaque: Cesta
+  slovène: potovanje
+  suédois: resa
+  swahili: safari
+  tadjik: сафар
+  tamoul: பயணம்
+  tchèque: cesta
+  thaï: การเดินทาง
+  tibétain: ལམ་འགྲོ།
+  turc: Yolculuk
+  turkmène: syýahat
+  ukrainien: подорож
+  vietnamien: du lịch
+  zoulou: uhambo
+voyages:
+  afrikaans: reise
+  albanais: udhëtime
+  allemand: Reisen
+  anglais: Travels
+  arabe: رحلات
+  arménien: ճանապարհորդություններ
+  basque: bidaiak
+  bengali: ভ্রমণ
+  birman: ခရီးစဉ်များ
+  breton: voyages
+  bulgare: пътувания
+  catalan: viatges
+  corse: viaghjii
+  coréen: 여행
+  danois: rejser
+  espagnol: viajes
+  esperanto: vojaĝoj
+  estonien: reisid
+  finnois: matkat
+  français: voyages
+  gallois: Teithiau
+  grec: ταξίδια
+  grec ancien: πορεύσεις
+  géorgien: მოგზაურობები
+  hindi: यात्राएं
+  hongrois: utazások
+  indonésien: perjalanan
+  irlandais: Turais
+  islandais: ferðalög
+  italien: viaggi
+  japonais: 旅行
+  kazakh: саяхаттар
+  kirghize: саякаттар
+  kurde: geşt
+  latin: itineres
+  letton: ceļojumi
+  lituanien: kelionės
+  luxembourgeois: Reisen
+  macédonien: патувања
+  malais: perjalanan
+  malgache: dia
+  maltais: vjaġġijiet
+  mandarin standard: 旅行
+  mongol: Аяллууд
+  norvégien: reiser
+  néerlandais: reizen
+  népalais: यात्रा
+  ourdou: سفر
+  ouzbek: Sayohatlar
+  pachto: سفرونه
+  persan: سفرها
+  polonais: podróże
+  portugais: viagens
+  roumain: călătorii
+  russe: путешествия
+  serbo-croate: Putovanja
+  slovaque: Cesty
+  slovène: potovanja
+  suédois: resor
+  swahili: safari
+  tadjik: сафарҳо
+  tamoul: பயணங்கள்
+  tchèque: cesty
+  thaï: การเดินทาง
+  tibétain: འགྲུལ་བཞུད་
+  turc: Seyahatler
+  turkmène: syýahatlar
+  ukrainien: подорожі
+  vietnamien: du lịch
+  zoulou: izohambo
 À vos passeports, prêts, voyagez !:
   afrikaans: Paspoorte gereed, begin!
   albanais: Tek pasaportat, gati, udhëtoni!

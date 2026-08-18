@@ -756,13 +756,7 @@ class ClassementPays(QWidget):
             f"classement_selon_{'regions' if granularite==1 else 'departements'}"
         )
 
-        layout_final.addWidget(
-            TitreClassement(
-                titre=titre,
-                sous_titre="Les territoires les plus explorés",
-                style=self.style,
-            )
-        )
+        layout_final.addWidget(TitreClassement(titre=titre, style=self.style))
 
         try:
 

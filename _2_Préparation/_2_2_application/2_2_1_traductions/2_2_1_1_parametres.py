@@ -177,63 +177,63 @@ param_traduits = ouvrir_fichier(
 # 3 -- Traductions -------------------------------------------------------------
 
 
-# for modele in modeles_google:
+for modele in modeles_google:
 
-#     # Appel API
-#     api_jour_modele = int(api_dict.get(date_jour, {}).get(modele["modèle"], 0))
+    # Appel API
+    api_jour_modele = int(api_dict.get(date_jour, {}).get(modele["modèle"], 0))
 
-#     # Granularité
-#     param_traduits = creer_liste_parametres_multilangue(
-#         liste_parametres=[
-#             "Pays",
-#             "Région",
-#             "Département",
-#             "Amusant",
-#             "Régions",
-#             "Départements",
-#         ],
-#         ## Traduction déjà existante des paramètres
-#         liste_deja_existante=param_traduits,
-#         nom_bouton="granularite",
-#         modele_dict=modele,
-#         liste_langues=liste_langues,
-#         blabla=1,
-#     )
+    # Granularité
+    param_traduits = creer_liste_parametres_multilangue(
+        liste_parametres=[
+            "Pays",
+            "Région",
+            "Département",
+            "Amusant",
+            "Régions",
+            "Départements",
+        ],
+        ## Traduction déjà existante des paramètres
+        liste_deja_existante=param_traduits,
+        nom_bouton="granularite",
+        modele_dict=modele,
+        liste_langues=liste_langues,
+        blabla=1,
+    )
 
-#     # Ambiances
-#     param_traduits = creer_liste_parametres_multilangue(
-#         liste_parametres=list(liste_ambiances.keys()),
-#         liste_deja_existante=param_traduits,
-#         nom_bouton="themes_cartes",
-#         modele_dict=modele,
-#         liste_langues=liste_langues,
-#         blabla=2,
-#     )
+    # Ambiances
+    param_traduits = creer_liste_parametres_multilangue(
+        liste_parametres=list(liste_ambiances.keys()),
+        liste_deja_existante=param_traduits,
+        nom_bouton="themes_cartes",
+        modele_dict=modele,
+        liste_langues=liste_langues,
+        blabla=2,
+    )
 
-#     # Teintes
-#     param_traduits = creer_liste_parametres_multilangue(
-#         liste_parametres=list(liste_couleurs.keys()),
-#         liste_deja_existante=param_traduits,
-#         nom_bouton="teintes_couleurs",
-#         modele_dict=modele,
-#         liste_langues=liste_langues,
-#         blabla=1,
-#     )
+    # Teintes
+    param_traduits = creer_liste_parametres_multilangue(
+        liste_parametres=list(liste_couleurs.keys()),
+        liste_deja_existante=param_traduits,
+        nom_bouton="teintes_couleurs",
+        modele_dict=modele,
+        liste_langues=liste_langues,
+        blabla=2,
+    )
 
-#     # Arrière-plans
-#     param_traduits = creer_liste_parametres_multilangue(
-#         liste_parametres=list(dictionnaire_arriere_plans.keys()),
-#         liste_deja_existante=param_traduits,
-#         nom_bouton="arrière_plans",
-#         modele_dict=modele,
-#         liste_langues=liste_langues,
-#         blabla=1,
-#     )
+    # Arrière-plans
+    param_traduits = creer_liste_parametres_multilangue(
+        liste_parametres=list(dictionnaire_arriere_plans.keys()),
+        liste_deja_existante=param_traduits,
+        nom_bouton="arrière_plans",
+        modele_dict=modele,
+        liste_langues=liste_langues,
+        blabla=1,
+    )
 
-#     # Appels API
-#     if not date_jour in list(api_dict.keys()):
-#         api_dict[date_jour] = {}
-#     api_dict[date_jour][modele["modèle"]] = api_jour_modele
+    # Appels API
+    if not date_jour in list(api_dict.keys()):
+        api_dict[date_jour] = {}
+    api_dict[date_jour][modele["modèle"]] = api_jour_modele
 
 
 # 4 -- Export ------------------------------------------------------------------

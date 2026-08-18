@@ -155,9 +155,9 @@ titre_sous_onglet_4_7 : Votre portrait
 groupbox_description_profil : Le voyageur que vous êtes
 creer_description_profil_btn : Quel voyageur êtes-vous ?
 attente_label_4_7 : La génération de votre portrait peut prendre plusieurs minutes  
-modele_4_7_tooltip : La création du portrait du voyageur se fait à l'aide de l'Intelligence artificielle. Il est nécessaire d'avoir téléchargé sur Ollama un des modèles suivants
-probleme_label_4_7_ollama : Pour utiliser cette fonctionnalité, Ollama doit être installé et au moins un des modèles suivants doit être disponible
-probleme_label_4_7_modele : Ollama est détecté, mais il manque un modèle compatible. Installez l'un des modèles suivants pour activer cette fonctionnalité
+modele_4_7_tooltip : La création du portrait du voyageur se fait à l'aide de l'Intelligence artificielle. Il est nécessaire d'avoir téléchargé sur Ollama ainsi qu'au moins un modèle. Voici quelques modèles conseillés
+probleme_label_4_7_ollama : Afin d'utiliser cette fonctionnalité, il est nécessaire d'installer Ollama et de télécharger au moins un modèle
+probleme_label_4_7_modele : Ollama est détecté, mais aucun modèle ne semble installé. Voici une liste de modèles conseillés
 
 # Onglet 5
 sous_titre_description_application : Création de cartes de voyages

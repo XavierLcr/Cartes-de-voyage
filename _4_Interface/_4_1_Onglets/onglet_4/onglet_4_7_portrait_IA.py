@@ -239,18 +239,11 @@ class ProfilVoyageurIA(QGroupBox):
         Sélectionne automatiquement le meilleur modèle disponible.
         """
 
-        modele_temp = []
-        modeles_dispo = set(liste_modeles_dispo)
-        ok_temp = False
-
-        for liste_modeles in modeles_compatibles_ollama.values():
-            for modele in liste_modeles:
-                if modele in modeles_dispo:
-                    modele_temp.append(modele)
-                    ok_temp = True
-
+        # Ajout de la liste de modèles
+        modele_temp = list(set(liste_modeles_dispo))
         self.modele.addItems(modele_temp)
-        return ok_temp
+
+        return len(modele_temp) > 0
 
     def set_langue(self, langue):
         self.langue = langue

@@ -1073,7 +1073,6 @@ teintes_couleurs:
     Printemps: Lente
     Teintes automnales: Herfskleure
     Teintes bohèmes: Boheemse kleure
-    Teintes du drapeau: Skakerings van die vlagkleure
     Teintes estivales: Somerkleure
     Teintes florales: Blomskakerings
     Teintes hivernales: Winterkleure
@@ -1097,7 +1096,6 @@ teintes_couleurs:
     Printemps: Pranverë
     Teintes automnales: Ngjyrat e vjeshtës
     Teintes bohèmes: Ngjyra boheme
-    Teintes du drapeau: Ngjyrat e flamurit
     Teintes estivales: Ngjyra verore
     Teintes florales: Ngjyra lulesh
     Teintes hivernales: Ngjyra dimërore
@@ -1121,7 +1119,6 @@ teintes_couleurs:
     Printemps: Frühling
     Teintes automnales: Herbstfarben
     Teintes bohèmes: Bohème-Töne
-    Teintes du drapeau: Flaggenfarben
     Teintes estivales: Sommertöne
     Teintes florales: Florale Farbtöne
     Teintes hivernales: Winterliche Farbtöne
@@ -1145,7 +1142,6 @@ teintes_couleurs:
     Printemps: Spring
     Teintes automnales: Autumn hues
     Teintes bohèmes: Bohemian hues
-    Teintes du drapeau: Flag colors
     Teintes estivales: Summer hues
     Teintes florales: Floral hues
     Teintes hivernales: Winter hues
@@ -1169,7 +1165,6 @@ teintes_couleurs:
     Printemps: الربيع
     Teintes automnales: ألوان الخريف
     Teintes bohèmes: ألوان بوهيمية
-    Teintes du drapeau: ألوان العلم
     Teintes estivales: ألوان صيفية
     Teintes florales: ألوان الأزهار
     Teintes hivernales: ألوان شتوية
@@ -1193,7 +1188,6 @@ teintes_couleurs:
     Printemps: Գարուն
     Teintes automnales: Աշնանային երանգներ
     Teintes bohèmes: Բոհեմական երանգներ
-    Teintes du drapeau: Դրոշի գույները
     Teintes estivales: Ամառային երանգներ
     Teintes florales: Ծաղկային երանգներ
     Teintes hivernales: Ձմեռային երանգներ
@@ -1217,7 +1211,6 @@ teintes_couleurs:
     Printemps: Udaberri
     Teintes automnales: Udazkeneko koloreak
     Teintes bohèmes: Bohemiar koloreak
-    Teintes du drapeau: Banderaren tonuak
     Teintes estivales: Udako koloreak
     Teintes florales: Lore koloreak
     Teintes hivernales: Neguko koloreak
@@ -1241,7 +1234,6 @@ teintes_couleurs:
     Printemps: বসন্ত
     Teintes automnales: শরতের রং
     Teintes bohèmes: বোহেমিয়ান শেডস
-    Teintes du drapeau: পতাকার রং
     Teintes estivales: গরমের রঙ
     Teintes florales: ফুলের আভা
     Teintes hivernales: শীতের আভা
@@ -1265,7 +1257,6 @@ teintes_couleurs:
     Printemps: နွေဦး
     Teintes automnales: ဆောင်းဦးအရောင်များ
     Teintes bohèmes: ဘိုဟီးမီးအရောင်များ
-    Teintes du drapeau: အလံအရောင်များ၏ အရောင်အဆင်းများ
     Teintes estivales: နွေရာသီအရောင်အသွေးများ
     Teintes florales: ပန်းရောင်အဆင်း
     Teintes hivernales: ဆောင်းရာသီအရောင်
@@ -1289,7 +1280,6 @@ teintes_couleurs:
     Printemps: Nevezamzer
     Teintes automnales: Livioù an diskar-amzer
     Teintes bohèmes: Livrioù bohem
-    Teintes du drapeau: Livioù ar vaner
     Teintes estivales: Livioù hañv
     Teintes florales: Livou bleuniek
     Teintes hivernales: Livioù goañv
@@ -1313,7 +1303,6 @@ teintes_couleurs:
     Printemps: Пролет
     Teintes automnales: Есенни багри
     Teintes bohèmes: Бохемски нюанси
-    Teintes du drapeau: Нюанси на цветовете на флага
     Teintes estivales: Летни нюанси
     Teintes florales: Флорални нюанси
     Teintes hivernales: Зимни нюанси
@@ -1337,7 +1326,6 @@ teintes_couleurs:
     Printemps: Primavera
     Teintes automnales: Tons de tardor
     Teintes bohèmes: Tonalitats bohèmies
-    Teintes du drapeau: Tons de la bandera
     Teintes estivales: Tints estivals
     Teintes florales: Tons florals
     Teintes hivernales: Tintes hivernals
@@ -1361,7 +1349,6 @@ teintes_couleurs:
     Printemps: Primavera
     Teintes automnales: Tinte d'autunnu
     Teintes bohèmes: Tinte boemie
-    Teintes du drapeau: Sfumature di i culori di a bandiera
     Teintes estivales: Tonalità estivale
     Teintes florales: Tinte fiurali
     Teintes hivernales: Culori invernali
@@ -1385,7 +1372,6 @@ teintes_couleurs:
     Printemps: 봄
     Teintes automnales: 가을빛
     Teintes bohèmes: 보헤미안 색조
-    Teintes du drapeau: 국기 색상의 색조
     Teintes estivales: 여름 색조
     Teintes florales: 꽃무늬 색상
     Teintes hivernales: 겨울 색조
@@ -1409,7 +1395,6 @@ teintes_couleurs:
     Printemps: Forår
     Teintes automnales: Efterårsfarver
     Teintes bohèmes: Bohème Farver
-    Teintes du drapeau: Nuancer af flagfarverne
     Teintes estivales: Sommerfarver
     Teintes florales: Blomsterfarver
     Teintes hivernales: Vinterfarver
@@ -1433,7 +1418,6 @@ teintes_couleurs:
     Printemps: Primavera
     Teintes automnales: Tonos otoñales
     Teintes bohèmes: Tintes bohemios
-    Teintes du drapeau: Tonos de los colores de la bandera
     Teintes estivales: Tonos estivales
     Teintes florales: Tonos florales
     Teintes hivernales: Tonos invernales
@@ -1457,7 +1441,6 @@ teintes_couleurs:
     Printemps: Printempo
     Teintes automnales: Aŭtunaj Koloroj
     Teintes bohèmes: Bohemaj Nuancoj
-    Teintes du drapeau: Nuancoj de la flagokoloroj
     Teintes estivales: Somertonoj
     Teintes florales: Floraj nuancoj
     Teintes hivernales: Vintrotuŝoj
@@ -1481,7 +1464,6 @@ teintes_couleurs:
     Printemps: Kevad
     Teintes automnales: Sügisesed toonid
     Teintes bohèmes: Boheemlaslikud toonid
-    Teintes du drapeau: Lipuvärvide toonid
     Teintes estivales: Suvised toonid
     Teintes florales: Lilletoonid
     Teintes hivernales: Talvised toonid
@@ -1505,7 +1487,6 @@ teintes_couleurs:
     Printemps: Kevät
     Teintes automnales: Syksyn värit
     Teintes bohèmes: Boheemiset sävyt
-    Teintes du drapeau: Lipun värit
     Teintes estivales: Kesäiset sävyt
     Teintes florales: Kukkien värit
     Teintes hivernales: Talviset värit
@@ -1529,7 +1510,6 @@ teintes_couleurs:
     Printemps: Printemps
     Teintes automnales: Teintes automnales
     Teintes bohèmes: Teintes bohèmes
-    Teintes du drapeau: Nuances des couleurs du drapeau
     Teintes estivales: Teintes estivales
     Teintes florales: Teintes florales
     Teintes hivernales: Teintes hivernales
@@ -1599,7 +1579,6 @@ teintes_couleurs:
     Printemps: ἔαρ
     Teintes automnales: Φθινοπωριναί χρῶς
     Teintes bohèmes: Βοημικαί χροιαι
-    Teintes du drapeau: Χρώματα τῆς σημαίας
     Teintes estivales: Θέρους Χρώματα
     Teintes florales: Ἄνθεων χρῶμα
     Teintes hivernales: Χειμεριναὶ Χροιὰ
@@ -1623,7 +1602,6 @@ teintes_couleurs:
     Printemps: გაზაფხული
     Teintes automnales: შემოდგომის ფერები
     Teintes bohèmes: ბოჰემური ელფერი
-    Teintes du drapeau: დროშის ფერების ტონები
     Teintes estivales: ზაფხულის ფერები
     Teintes florales: ყვავილოვანი ელფერი
     Teintes hivernales: ზამთრის ფერები
@@ -1647,7 +1625,6 @@ teintes_couleurs:
     Printemps: वसंत
     Teintes automnales: शरद ऋतु के रंग
     Teintes bohèmes: बोहेमियन रंग
-    Teintes du drapeau: झंडे के रंगों के शेड्स
     Teintes estivales: गर्मियों के रंग
     Teintes florales: पुष्प रंग
     Teintes hivernales: सर्दी के रंग
@@ -1671,7 +1648,6 @@ teintes_couleurs:
     Printemps: Tavasz
     Teintes automnales: Őszi színek
     Teintes bohèmes: Bohém árnyalatok
-    Teintes du drapeau: A zászló színárnyalatai
     Teintes estivales: Nyári színek
     Teintes florales: Virágos árnyalatok
     Teintes hivernales: Téli színek
@@ -1695,7 +1671,6 @@ teintes_couleurs:
     Printemps: Musim semi
     Teintes automnales: Warna Musim Gugur
     Teintes bohèmes: Warna-warna bohemia
-    Teintes du drapeau: Warna bendera
     Teintes estivales: Nuansa musim panas
     Teintes florales: Warna Bunga
     Teintes hivernales: Warna musim dingin
@@ -1719,7 +1694,6 @@ teintes_couleurs:
     Printemps: An tEarrach
     Teintes automnales: Dathanna an fhómhair
     Teintes bohèmes: Dathanna Bóithéimeacha
-    Teintes du drapeau: Dathanna an bhratach
     Teintes estivales: Dathanna Samhraidh
     Teintes florales: Dathanna bláthanna
     Teintes hivernales: Dathanna geimhridh
@@ -1743,7 +1717,6 @@ teintes_couleurs:
     Printemps: Vor
     Teintes automnales: Haustlitir
     Teintes bohèmes: Bóhemískar litbrigði
-    Teintes du drapeau: Fánalitir
     Teintes estivales: Sumarlitir
     Teintes florales: Blómalitir
     Teintes hivernales: Vetrarlitir
@@ -1767,7 +1740,6 @@ teintes_couleurs:
     Printemps: Primavera
     Teintes automnales: Tinte autunnali
     Teintes bohèmes: Tinte bohémiennes
-    Teintes du drapeau: Tonalità della bandiera
     Teintes estivales: Tonalità estive
     Teintes florales: Tonalità floreali
     Teintes hivernales: Tonalità invernali
@@ -1791,7 +1763,6 @@ teintes_couleurs:
     Printemps: 春
     Teintes automnales: 紅葉
     Teintes bohèmes: ボヘミアンテイスト
-    Teintes du drapeau: 国旗の色
     Teintes estivales: 夏の色彩
     Teintes florales: フローラルカラー
     Teintes hivernales: 冬の色合い
@@ -1815,7 +1786,6 @@ teintes_couleurs:
     Printemps: Көктем
     Teintes automnales: Күзгі реңктер
     Teintes bohèmes: Богемдік реңктер
-    Teintes du drapeau: Ту реңктері
     Teintes estivales: Жазғы реңдер
     Teintes florales: Гүл реңктері
     Teintes hivernales: Қысқы реңктер
@@ -1839,7 +1809,6 @@ teintes_couleurs:
     Printemps: Жаз
     Teintes automnales: Күзгү түстөр
     Teintes bohèmes: Богемалык тондор
-    Teintes du drapeau: Желектин түстөрү
     Teintes estivales: Жайкы түстөр
     Teintes florales: Гүл түстөрү
     Teintes hivernales: Кышкы түстөр
@@ -1863,7 +1832,6 @@ teintes_couleurs:
     Printemps: Bihar
     Teintes automnales: Rengên payîzê
     Teintes bohèmes: Rengên bohemî
-    Teintes du drapeau: Rengên alayê
     Teintes estivales: Rengên havînê
     Teintes florales: Rengên kulîlkan
     Teintes hivernales: Rengên zivistanê
@@ -1887,7 +1855,6 @@ teintes_couleurs:
     Printemps: Ver
     Teintes automnales: Autumnales Colorationes
     Teintes bohèmes: Tincturae Bohemicae
-    Teintes du drapeau: Nuances colorum vexilli
     Teintes estivales: Aestivae coloris
     Teintes florales: Flores colorum
     Teintes hivernales: Colores hiemales
@@ -1911,7 +1878,6 @@ teintes_couleurs:
     Printemps: Pavasaris
     Teintes automnales: Rudens krāsas
     Teintes bohèmes: Bohēmiski toņi
-    Teintes du drapeau: Karoga toņi
     Teintes estivales: Vasaras toņi
     Teintes florales: Ziedu toņi
     Teintes hivernales: Ziemas toņi
@@ -1935,7 +1901,6 @@ teintes_couleurs:
     Printemps: Pavasaris
     Teintes automnales: Rudenio spalvos
     Teintes bohèmes: Bohemiškos spalvos
-    Teintes du drapeau: Vėliavos spalvų atspalviai
     Teintes estivales: Vasaros spalvos
     Teintes florales: Gėlių atspalviai
     Teintes hivernales: Žiemos spalvos
@@ -1959,7 +1924,6 @@ teintes_couleurs:
     Printemps: Fréijoer
     Teintes automnales: Hierschtfaarwen
     Teintes bohèmes: Bohème Faarwen
-    Teintes du drapeau: Flaggefaarwen
     Teintes estivales: Summerfaarwen
     Teintes florales: Blummenuancen
     Teintes hivernales: Wanterfaarwen
@@ -1983,7 +1947,6 @@ teintes_couleurs:
     Printemps: Пролет
     Teintes automnales: Есенски нијанси
     Teintes bohèmes: Боемски нијанси
-    Teintes du drapeau: Нијанси на боите на знамето
     Teintes estivales: Летни нијанси
     Teintes florales: Цветни нијанси
     Teintes hivernales: Зимски нијанси
@@ -2007,7 +1970,6 @@ teintes_couleurs:
     Printemps: Musim bunga
     Teintes automnales: Warna Musim Luruh
     Teintes bohèmes: Warna Bohemia
-    Teintes du drapeau: Nuansa warna bendera
     Teintes estivales: Warna-warna musim panas
     Teintes florales: Warna Bunga
     Teintes hivernales: Warna Musim Sejuk
@@ -2031,7 +1993,6 @@ teintes_couleurs:
     Printemps: Lohataona
     Teintes automnales: Loko fahalavo
     Teintes bohèmes: Loko bohemiàna
-    Teintes du drapeau: Aloky ny lokon'ny saina
     Teintes estivales: Loko fahavaratra
     Teintes florales: Loko voninkazo
     Teintes hivernales: Loko ririnina
@@ -2055,7 +2016,6 @@ teintes_couleurs:
     Printemps: Rebbiegħa
     Teintes automnales: Kuluri tal-Ħarifa
     Teintes bohèmes: Kuluri Boemjani
-    Teintes du drapeau: Ilwien tal-kuluri tal-bandiera
     Teintes estivales: Kuluri sajfin
     Teintes florales: Kuluri tal-fjuri
     Teintes hivernales: Dell-xitwa
@@ -2079,7 +2039,6 @@ teintes_couleurs:
     Printemps: 春天
     Teintes automnales: 秋色
     Teintes bohèmes: 波西米亚风情
-    Teintes du drapeau: 国旗颜色的色调
     Teintes estivales: 夏日色调
     Teintes florales: 花色
     Teintes hivernales: 冬日色调
@@ -2103,7 +2062,6 @@ teintes_couleurs:
     Printemps: Хавар
     Teintes automnales: Намрын өнгө
     Teintes bohèmes: Бохемийн өнгө
-    Teintes du drapeau: Тугны өнгө
     Teintes estivales: Зуны өнгө
     Teintes florales: Цэцгийн өнгө
     Teintes hivernales: Өвлийн өнгө
@@ -2127,7 +2085,6 @@ teintes_couleurs:
     Printemps: Vår
     Teintes automnales: Høstfarger
     Teintes bohèmes: Bohême farger
-    Teintes du drapeau: Nyanser av flaggfargene
     Teintes estivales: Sommerfarger
     Teintes florales: Blomsterfarger
     Teintes hivernales: Vintertoner
@@ -2151,7 +2108,6 @@ teintes_couleurs:
     Printemps: Lente
     Teintes automnales: Herfsttinten
     Teintes bohèmes: Boheemse tinten
-    Teintes du drapeau: Tinten van de vlagkleuren
     Teintes estivales: Zomertinten
     Teintes florales: Bloemkleuren
     Teintes hivernales: Wintertinten
@@ -2175,7 +2131,6 @@ teintes_couleurs:
     Printemps: वसन्त
     Teintes automnales: शरद ऋतुका रंगहरू
     Teintes bohèmes: बोहेमियन रंगहरु
-    Teintes du drapeau: झण्डाका रङ्गहरू
     Teintes estivales: गर्मीको रंगहरू
     Teintes florales: फूल रंग
     Teintes hivernales: हिउँदे रंगहरु
@@ -2199,7 +2154,6 @@ teintes_couleurs:
     Printemps: بہار
     Teintes automnales: خزاں کے رنگ
     Teintes bohèmes: بوهیمیائی رنگ
-    Teintes du drapeau: جھنڈے کے رنگوں کے شیڈز
     Teintes estivales: موسمی رنگ
     Teintes florales: پھولوں کے رنگ
     Teintes hivernales: سرد موسم کے رنگ
@@ -2223,7 +2177,6 @@ teintes_couleurs:
     Printemps: Bahor
     Teintes automnales: Kuzgi ranglar
     Teintes bohèmes: Bohemcha ranglar
-    Teintes du drapeau: Bayroq ranglarining tuslari
     Teintes estivales: Yozgi ranglar
     Teintes florales: Gullar ranglari
     Teintes hivernales: Qish ranglari
@@ -2247,7 +2200,6 @@ teintes_couleurs:
     Printemps: پسرلی
     Teintes automnales: د مني رنګونه
     Teintes bohèmes: بوهيمي رنګونه
-    Teintes du drapeau: د بیرغ د رنګونو سیوري
     Teintes estivales: د اوړي رنګونه
     Teintes florales: د ګلونو رنګونه
     Teintes hivernales: ژمني رنګونه
@@ -2271,7 +2223,6 @@ teintes_couleurs:
     Printemps: بهار
     Teintes automnales: رنگ‌های پاییزی
     Teintes bohèmes: رنگ‌های بوهمیایی
-    Teintes du drapeau: طیف‌های رنگی پرچم
     Teintes estivales: رنگ های تابستانی
     Teintes florales: رنگ های گلی
     Teintes hivernales: رنگ‌های زمستانی
@@ -2295,7 +2246,6 @@ teintes_couleurs:
     Printemps: Wiosna
     Teintes automnales: Jesienne barwy
     Teintes bohèmes: Bohemskie odcienie
-    Teintes du drapeau: Odcienie kolorów flagi
     Teintes estivales: Letnie barwy
     Teintes florales: Kwiatowe odcienie
     Teintes hivernales: Zimowe odcienie
@@ -2319,7 +2269,6 @@ teintes_couleurs:
     Printemps: Primavera
     Teintes automnales: Tons de Outono
     Teintes bohèmes: Tons boêmios
-    Teintes du drapeau: Tons das cores da bandeira
     Teintes estivales: Tons de Verão
     Teintes florales: Tons florais
     Teintes hivernales: Tons de Inverno
@@ -2343,7 +2292,6 @@ teintes_couleurs:
     Printemps: Primăvară
     Teintes automnales: Culori de toamnă
     Teintes bohèmes: Nuante boeme
-    Teintes du drapeau: Nuanțe ale steagului
     Teintes estivales: Nuanțe estivale
     Teintes florales: Nuanțe florale
     Teintes hivernales: Tonuri hibernale
@@ -2367,7 +2315,6 @@ teintes_couleurs:
     Printemps: Весна
     Teintes automnales: Осенние тона
     Teintes bohèmes: Богемные оттенки
-    Teintes du drapeau: Оттенки флага
     Teintes estivales: Летние оттенки
     Teintes florales: Цветочные оттенки
     Teintes hivernales: Зимние тона
@@ -2391,7 +2338,6 @@ teintes_couleurs:
     Printemps: Proleće
     Teintes automnales: Jesenje boje
     Teintes bohèmes: Boemske nijanse
-    Teintes du drapeau: Nijanse boja zastave
     Teintes estivales: Letnje boje
     Teintes florales: Cvetni tonovi
     Teintes hivernales: Zimske nijanse
@@ -2415,7 +2361,6 @@ teintes_couleurs:
     Printemps: Jar
     Teintes automnales: Jesenné farby
     Teintes bohèmes: Bohémske tóny
-    Teintes du drapeau: Odtiene farieb vlajky
     Teintes estivales: Letné odtiene
     Teintes florales: Kvetinové tóny
     Teintes hivernales: Zimné tóny
@@ -2439,7 +2384,6 @@ teintes_couleurs:
     Printemps: Pomlad
     Teintes automnales: Jesenski odtenki
     Teintes bohèmes: Boemski odtenki
-    Teintes du drapeau: Odtenki barv zastave
     Teintes estivales: Poletne barve
     Teintes florales: Cvetlični toni
     Teintes hivernales: Zimske barve
@@ -2463,7 +2407,6 @@ teintes_couleurs:
     Printemps: Vår
     Teintes automnales: Höstfärger
     Teintes bohèmes: Bohemiska toner
-    Teintes du drapeau: Flaggans färger
     Teintes estivales: Sommarfärger
     Teintes florales: Blommiga nyanser
     Teintes hivernales: Vintertoner
@@ -2487,7 +2430,6 @@ teintes_couleurs:
     Printemps: Masika
     Teintes automnales: Rangi za vuli
     Teintes bohèmes: Rangi za kibohémien
-    Teintes du drapeau: Vivuli vya rangi za bendera
     Teintes estivales: Rangi za kiangazi
     Teintes florales: Rangi za maua
     Teintes hivernales: Rangi za majira ya baridi
@@ -2511,7 +2453,6 @@ teintes_couleurs:
     Printemps: Баҳор
     Teintes automnales: Рангҳои тирамоҳӣ
     Teintes bohèmes: Рангҳои богема
-    Teintes du drapeau: Нозукиҳои рангҳои парчам
     Teintes estivales: Рангҳои тобистона
     Teintes florales: Рангҳои гул
     Teintes hivernales: Рангҳои зимистонӣ
@@ -2535,7 +2476,6 @@ teintes_couleurs:
     Printemps: வசந்த காலம்
     Teintes automnales: இலை உதிர் கால நிறங்கள்
     Teintes bohèmes: போஹேமியன் வண்ணங்கள்
-    Teintes du drapeau: கொடியின் வண்ணங்கள்
     Teintes estivales: கோடை நிறங்கள்
     Teintes florales: பூவிதழ்கள்
     Teintes hivernales: குளிர்கால வண்ணங்கள்
@@ -2559,7 +2499,6 @@ teintes_couleurs:
     Printemps: Jaro
     Teintes automnales: Podzimní barvy
     Teintes bohèmes: Bohémské tóny
-    Teintes du drapeau: Odstíny barev vlajky
     Teintes estivales: Letní tóny
     Teintes florales: Květinové tóny
     Teintes hivernales: Zimní odstíny
@@ -2583,7 +2522,6 @@ teintes_couleurs:
     Printemps: ฤดูใบไม้ผลิ
     Teintes automnales: สีสันแห่งฤดูใบไม้ร่วง
     Teintes bohèmes: สีสันแบบโบฮีเมียน
-    Teintes du drapeau: เฉดสีธง
     Teintes estivales: สีสันฤดูร้อน
     Teintes florales: เฉดสีดอกไม้
     Teintes hivernales: สีสันฤดูหนาว
@@ -2607,7 +2545,6 @@ teintes_couleurs:
     Printemps: དཔྱིད་ཀ
     Teintes automnales: དབྱིད་ཀྱི་མདངས་
     Teintes bohèmes: བོ་ཧེམ་གྱི་ཁ་དོག
-    Teintes du drapeau: རྟེན་གྱི་ཁ་དོག
     Teintes estivales: དབྱར་གྱི་མདངས་
     Teintes florales: མེ་ཏོག་གི་ཁ་དོག
     Teintes hivernales: དགུན་གྱི་ཁ་དོག
@@ -2631,7 +2568,6 @@ teintes_couleurs:
     Printemps: İlkbahar
     Teintes automnales: Sonbahar Renkleri
     Teintes bohèmes: Bohem Tarzı
-    Teintes du drapeau: Bayrak renklerinin tonları
     Teintes estivales: Yaz renkleri
     Teintes florales: Çiçeksi Tonlar
     Teintes hivernales: Kış Tonları
@@ -2655,7 +2591,6 @@ teintes_couleurs:
     Printemps: Ýaz
     Teintes automnales: Güz reňkleri
     Teintes bohèmes: Bohemçilik reňkleri
-    Teintes du drapeau: Baýrak reňkleri
     Teintes estivales: Yaz reňkleri
     Teintes florales: Gül reňkleri
     Teintes hivernales: Gyş reňkleri
@@ -2679,7 +2614,6 @@ teintes_couleurs:
     Printemps: Весна
     Teintes automnales: Осінні барви
     Teintes bohèmes: Богемні відтінки
-    Teintes du drapeau: Відтінки прапора
     Teintes estivales: Літні відтінки
     Teintes florales: Квіткові відтінки
     Teintes hivernales: Зимові відтінки
@@ -2703,7 +2637,6 @@ teintes_couleurs:
     Printemps: Mùa Xuân
     Teintes automnales: Màu sắc mùa thu
     Teintes bohèmes: Màu bohemian
-    Teintes du drapeau: Màu quốc kỳ
     Teintes estivales: Màu hè
     Teintes florales: Màu hoa
     Teintes hivernales: Màu sắc mùa đông
@@ -2727,7 +2660,6 @@ teintes_couleurs:
     Printemps: Intwasahlobo
     Teintes automnales: Imibala yasekwindla
     Teintes bohèmes: Izithunzi ze-bohemian
-    Teintes du drapeau: Amathoni ahlukahlukene ombala wefulegi
     Teintes estivales: Izithunzi zasehlobo
     Teintes florales: Izithunzi zezimbali
     Teintes hivernales: Imithunzi yasebusika

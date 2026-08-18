@@ -28,7 +28,12 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     sleep_n_fois,
 )
 
-from clefs_et_mots_de_passe import clef_api_gemini, liste_langues, modeles_google
+from clefs_et_mots_de_passe import (
+    clef_api_gemini,
+    liste_langues,
+    modeles_google,
+    modeles_conseilles_ollama,
+)
 
 # 1 -- Fonctions ---------------------------------------------------------------
 
@@ -191,7 +196,8 @@ for modele in modeles_google:
 
     # Interface
     interface = creer_liste_pays_multilangue(
-        liste_pays=list(phrases_interface.values()),
+        liste_pays=list(phrases_interface.values())
+        + list(modeles_conseilles_ollama.values()),
         modele_dict=modele,
         liste_deja_existante=interface,
         liste_langues=liste_langues,

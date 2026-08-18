@@ -30,7 +30,7 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     creer_ligne_verticale,
 )
 from _0_Utilitaires._0_13_LLM import LLMClient, tester_ollama
-from clefs_et_mots_de_passe import modeles_compatibles_ollama
+from clefs_et_mots_de_passe import modeles_conseilles_ollama
 
 # 1 -- Fonction de simplification des voyages ----------------------------------
 
@@ -258,7 +258,7 @@ class ProfilVoyageurIA(QGroupBox):
 
         texte_temp = ""
 
-        for categorie, modeles in modeles_compatibles_ollama.items():
+        for categorie, modeles in modeles_conseilles_ollama.items():
             texte_temp += (
                 f"\n  • {self.fonction_traduction(categorie, depuis_id=False)}\n"
             )

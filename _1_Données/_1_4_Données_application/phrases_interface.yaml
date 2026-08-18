@@ -184,4 +184,6 @@ valider : Valider
 supprimer : Supprimer
 arbre_deplier : Déplier
 arbre_replier : Replier
+voyage : voyage
+voyages : voyages
 

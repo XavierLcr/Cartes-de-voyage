@@ -8,7 +8,7 @@
 # 0 -- Initialisation ----------------------------------------------------------
 
 
-import os, textwrap, math, unicodedata
+import os, textwrap, math
 import pandas as pd
 from PyQt6.QtWidgets import (
     QWidget,
@@ -36,19 +36,12 @@ from PyQt6.QtGui import (
     QFontMetrics,
 )
 
-from _0_Utilitaires._0_2_fonctions_graphiques import (
-    hex_to_rgb,
-    rgb_to_hex,
-    generer_couleur_aleatoire_hex,
-)
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     vider_layout,
-    conteneur_graphique_simple,
 )
 from _0_Utilitaires._0_7_fonctions_voyages import (
     compter_occurences_destinations_une_granu,
 )
-from _0_Utilitaires._0_8_plot_diagramme_barres import plot_diagramme_barre
 
 # 1 -- Fonctions de création du classement des pays ----------------------------
 
@@ -370,8 +363,8 @@ def _creer_label_nom(texte: str, largeur: int) -> QLabel:
     return label
 
 
-def _creer_label_valeur(valeur: float) -> QLabel:
-    label = QLabel(f"{int(valeur)} voyage{'s' if valeur > 1 else ''}")
+def _creer_label_valeur(valeur: float, voyage: str, voyages: str) -> QLabel:
+    label = QLabel(f"{int(valeur)} {voyage if valeur <= 1 else voyages}")
     label.setStyleSheet("font-size: 10px; color: #888;")
     label.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignTop)
     return label
@@ -393,7 +386,7 @@ class LeveeDrapeaux(QWidget):
     def __init__(
         self,
         dossier_drapeaux: str,
-        titre: str = "",
+        fct_traduction,
         hauteur_mat: float = 190,
         largeur_mat: float = 92,
         palette_repli: list | None = None,
@@ -401,6 +394,7 @@ class LeveeDrapeaux(QWidget):
         parent=None,
     ):
         super().__init__(parent=parent)
+        self.fct_traduction = fct_traduction
         self.dossier_drapeaux = dossier_drapeaux
         self.hauteur_mat = hauteur_mat
         self.largeur_mat = largeur_mat
@@ -419,6 +413,7 @@ class LeveeDrapeaux(QWidget):
         self.layout_principal.setSpacing(14)
 
         self.label_titre = None
+        titre = self.fct_traduction("titre_graphique_n_voyages")
         if titre:
             conteneur_titre = QWidget()
             conteneur_titre.setContentsMargins(0, 0, 0, 0)
@@ -495,7 +490,7 @@ class LeveeDrapeaux(QWidget):
         ):
             ratio = valeur / valeur_max if valeur_max > 0 else 0
 
-            mat = _MatPavillon(
+            mat_temp = _MatPavillon(
                 chemin_image=resoudre_chemin_drapeau(self.dossier_drapeaux, str(label)),
                 couleur_repli=self.palette_repli[i % len(self.palette_repli)],
                 ratio=ratio,
@@ -505,10 +500,14 @@ class LeveeDrapeaux(QWidget):
             label_nom = _creer_label_nom(
                 str(traduction), largeur=int(self.largeur_mat + 10)
             )
-            label_valeur = _creer_label_valeur(valeur)
+            label_valeur = _creer_label_valeur(
+                valeur=valeur,
+                voyage=self.fct_traduction("voyage"),
+                voyages=self.fct_traduction("voyages"),
+            )
 
             self.layout_rangee.addWidget(
-                mat,
+                mat_temp,
                 0,
                 i,
                 alignment=Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignBottom,
@@ -516,7 +515,7 @@ class LeveeDrapeaux(QWidget):
             self.layout_rangee.addWidget(label_nom, 1, i)
             self.layout_rangee.addWidget(label_valeur, 2, i)
 
-            mat.lancer_animation(delai_ms=i * 200)
+            mat_temp.lancer_animation(delai_ms=i * 200)
 
 
 # 3 -- Classe principale -------------------------------------------------------
@@ -537,7 +536,6 @@ class PaysLesPlusVisites(QWidget):
         self.pays_trad = constantes.pays_differentes_langues
         self.direction_donnees_drapeaux = constantes.direction_donnees_drapeaux
         self.agreger = True
-        self.couleur = "#ADCEDB"
 
         # Style par défaut
         self.style = 1
@@ -573,13 +571,13 @@ class PaysLesPlusVisites(QWidget):
                 agreger=self.agreger,
             )
 
-            widget = LeveeDrapeaux(
+            widget_temp = LeveeDrapeaux(
                 dossier_drapeaux=self.direction_donnees_drapeaux,
-                titre=self.fct_traduction("titre_graphique_n_voyages"),
+                fct_traduction=self.fct_traduction,
             )
-            widget.set_donnees(
+            widget_temp.set_donnees(
                 labels=df_temp["pays"].to_list(),
                 valeurs=df_temp["N"].to_list(),
                 traductions=df_temp["pays_traduction"].to_list(),
             )
-            self.layout.addWidget(widget)
+            self.layout.addWidget(widget_temp)

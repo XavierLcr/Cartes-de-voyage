@@ -1062,6 +1062,7 @@ teintes_couleurs:
     Baroque: Barok
     Champ de lavande: Laventelveld
     Couleurs du drapeau: Vlagkleure
+    Couleurs du drapeau (nuances): Vlagkleure (skakerings)
     Crépuscule: Skemering
     Fantaisie: Fantasie
     Jungle: Jungle
@@ -1085,6 +1086,7 @@ teintes_couleurs:
     Baroque: Barok
     Champ de lavande: Fusha e lavandës
     Couleurs du drapeau: Ngjyrat e flamurit
+    Couleurs du drapeau (nuances): Ngjyrat e flamurit (nuancat)
     Crépuscule: Perëndim
     Fantaisie: Fantazi
     Jungle: Xhungël
@@ -1108,6 +1110,7 @@ teintes_couleurs:
     Baroque: Barock
     Champ de lavande: Lavendelfeld
     Couleurs du drapeau: Flaggenfarben
+    Couleurs du drapeau (nuances): Flaggenfarben (Nuancen)
     Crépuscule: Dämmerung
     Fantaisie: Fantasie
     Jungle: Dschungel
@@ -1131,6 +1134,7 @@ teintes_couleurs:
     Baroque: Baroque
     Champ de lavande: Lavender field
     Couleurs du drapeau: Flag colors
+    Couleurs du drapeau (nuances): Flag colors (shades)
     Crépuscule: Twilight
     Fantaisie: Fantasy
     Jungle: Jungle
@@ -1154,6 +1158,7 @@ teintes_couleurs:
     Baroque: باروكي
     Champ de lavande: حقل الخزامى
     Couleurs du drapeau: ألوان العلم
+    Couleurs du drapeau (nuances): ألوان العلم (درجات)
     Crépuscule: غسق
     Fantaisie: خيال
     Jungle: غابة
@@ -1177,6 +1182,7 @@ teintes_couleurs:
     Baroque: Բարոկկո
     Champ de lavande: Նարդոսի դաշտ
     Couleurs du drapeau: Դրոշի գույները
+    Couleurs du drapeau (nuances): Դրոշի գույները (երանգները)
     Crépuscule: Մթնշաղ
     Fantaisie: Երևակայություն
     Jungle: Ջունգլի
@@ -1200,6 +1206,7 @@ teintes_couleurs:
     Baroque: Barroko
     Champ de lavande: Izpilikien eremu
     Couleurs du drapeau: Banderaren koloreak
+    Couleurs du drapeau (nuances): Bandera koloreak (tonuak)
     Crépuscule: Ilunabar
     Fantaisie: Irudimena
     Jungle: Oihan
@@ -1223,6 +1230,7 @@ teintes_couleurs:
     Baroque: বারোক
     Champ de lavande: ল্যাভেন্ডার ক্ষেত্র
     Couleurs du drapeau: পতাকার রং
+    Couleurs du drapeau (nuances): পতাকার রঙের শেড
     Crépuscule: গোধূলি
     Fantaisie: কল্পনা
     Jungle: জঙ্গল
@@ -1246,6 +1254,7 @@ teintes_couleurs:
     Baroque: ဘာရော့ခ်
     Champ de lavande: ပန်းခရမ်းပြာခင်း
     Couleurs du drapeau: အလံအရောင်များ
+    Couleurs du drapeau (nuances): အလံအရောင် အနုအရင့်
     Crépuscule: နေဝင်ချိန်
     Fantaisie: စိတ်ကူးယဉ်
     Jungle: တော
@@ -1269,6 +1278,7 @@ teintes_couleurs:
     Baroque: Barok
     Champ de lavande: Park eoul-bleuñv
     Couleurs du drapeau: Liivioù ar vaner
+    Couleurs du drapeau (nuances): Nuansaoù kouleuroù ar vanderiz
     Crépuscule: Tarzh-an-noz
     Fantaisie: Faltazi
     Jungle: Jondrez
@@ -1292,6 +1302,7 @@ teintes_couleurs:
     Baroque: Барок
     Champ de lavande: Лавандово поле
     Couleurs du drapeau: Цветове на флага
+    Couleurs du drapeau (nuances): Цветове на флага (нюанси)
     Crépuscule: Здрач
     Fantaisie: Фантазия
     Jungle: Джунгла
@@ -1315,6 +1326,7 @@ teintes_couleurs:
     Baroque: Barroc
     Champ de lavande: Camp de lavanda
     Couleurs du drapeau: Colors de la bandera
+    Couleurs du drapeau (nuances): Colors de la bandera (matisos)
     Crépuscule: Crepuscle
     Fantaisie: Fantasia
     Jungle: Selva
@@ -1338,6 +1350,7 @@ teintes_couleurs:
     Baroque: Baroccu
     Champ de lavande: Cunfinu di lavanda
     Couleurs du drapeau: Culori di a bandiera
+    Couleurs du drapeau (nuances): Colori di a bandiera (sfumature)
     Crépuscule: Crepusculu
     Fantaisie: Fantasia
     Jungle: Macchia
@@ -1361,6 +1374,7 @@ teintes_couleurs:
     Baroque: 바로크
     Champ de lavande: 라벤더 밭
     Couleurs du drapeau: 국기 색상
+    Couleurs du drapeau (nuances): 국기 색상 (색조)
     Crépuscule: 황혼
     Fantaisie: 판타지
     Jungle: 정글
@@ -1384,6 +1398,7 @@ teintes_couleurs:
     Baroque: Barok
     Champ de lavande: Lavendelmark
     Couleurs du drapeau: Flagfarver
+    Couleurs du drapeau (nuances): Flagfarver (nuancer)
     Crépuscule: Skumring
     Fantaisie: Fantasi
     Jungle: Jungle
@@ -1407,6 +1422,7 @@ teintes_couleurs:
     Baroque: Barroco
     Champ de lavande: Campo de lavanda
     Couleurs du drapeau: Colores de la bandera
+    Couleurs du drapeau (nuances): Colores de la bandera (tonos)
     Crépuscule: Crepúsculo
     Fantaisie: Fantasía
     Jungle: Selva
@@ -1430,6 +1446,7 @@ teintes_couleurs:
     Baroque: Baroko
     Champ de lavande: Lavendocampo
     Couleurs du drapeau: Flagokoloroj
+    Couleurs du drapeau (nuances): Flagkoloroj (nuancoj)
     Crépuscule: Krepusko
     Fantaisie: Fantazio
     Jungle: Ĝangalo
@@ -1453,6 +1470,7 @@ teintes_couleurs:
     Baroque: Barokk
     Champ de lavande: Lavendlipõld
     Couleurs du drapeau: Lipu värvid
+    Couleurs du drapeau (nuances): Lipu värvitoonid
     Crépuscule: Videvik
     Fantaisie: Fantaasia
     Jungle: Džungel
@@ -1476,6 +1494,7 @@ teintes_couleurs:
     Baroque: Barokki
     Champ de lavande: Laventelipelto
     Couleurs du drapeau: Lippuvärit
+    Couleurs du drapeau (nuances): Lipun värisävyt
     Crépuscule: Hämärä
     Fantaisie: Fantasia
     Jungle: Viidakko
@@ -1499,6 +1518,7 @@ teintes_couleurs:
     Baroque: Baroque
     Champ de lavande: Champ de lavande
     Couleurs du drapeau: Couleurs du drapeau
+    Couleurs du drapeau (nuances): Couleurs du drapeau (nuances)
     Crépuscule: Crépuscule
     Fantaisie: Fantaisie
     Jungle: Jungle
@@ -1522,6 +1542,7 @@ teintes_couleurs:
     Baroque: Baróc
     Champ de lavande: Maes lafant
     Couleurs du drapeau: Lliwiau'r faner
+    Couleurs du drapeau (nuances): Lliwiau'r baner (nwyadau)
     Crépuscule: Cyfnos
     Fantaisie: Dychymyg
     Jungle: Jyngl
@@ -1545,6 +1566,7 @@ teintes_couleurs:
     Baroque: Μπαρόκ
     Champ de lavande: Πεδίο λεβάντας
     Couleurs du drapeau: Χρώματα της σημαίας
+    Couleurs du drapeau (nuances): Χρώματα σημαίας (αποχρώσεις)
     Crépuscule: Δειλινό
     Fantaisie: Φαντασία
     Jungle: Ζούγκλα
@@ -1568,6 +1590,7 @@ teintes_couleurs:
     Baroque: Βαρόκ
     Champ de lavande: Λεβάντου χωρίον
     Couleurs du drapeau: Χρώματα σήματος
+    Couleurs du drapeau (nuances): Χρώματα τῆς σημαίας ἀποχρώσεις
     Crépuscule: Ἑσπέρα
     Fantaisie: Φαντασία
     Jungle: ὕλη
@@ -1591,6 +1614,7 @@ teintes_couleurs:
     Baroque: ბაროკო
     Champ de lavande: ლავანდის ველი
     Couleurs du drapeau: დროშის ფერები
+    Couleurs du drapeau (nuances): დროშის ფერების ტონები
     Crépuscule: ბინდი
     Fantaisie: ფანტაზია
     Jungle: ჯუნგლები
@@ -1614,6 +1638,7 @@ teintes_couleurs:
     Baroque: बरोक
     Champ de lavande: लैवेंडर का खेत
     Couleurs du drapeau: झंडे के रंग
+    Couleurs du drapeau (nuances): झंडे के रंगों के शेड्स
     Crépuscule: गोधूलि
     Fantaisie: कल्पना
     Jungle: जंगल
@@ -1637,6 +1662,7 @@ teintes_couleurs:
     Baroque: Barokk
     Champ de lavande: Levendulamező
     Couleurs du drapeau: Zászló színei
+    Couleurs du drapeau (nuances): Zászló színei (árnyalatok)
     Crépuscule: Alkonyat
     Fantaisie: Fantázia
     Jungle: Dzsungel
@@ -1660,6 +1686,7 @@ teintes_couleurs:
     Baroque: Barok
     Champ de lavande: Ladang lavender
     Couleurs du drapeau: Warna bendera
+    Couleurs du drapeau (nuances): Warna bendera (nuansa)
     Crépuscule: Senja
     Fantaisie: Fantasi
     Jungle: Hutan
@@ -1683,6 +1710,7 @@ teintes_couleurs:
     Baroque: Barócach
     Champ de lavande: Réimse lavender
     Couleurs du drapeau: Dathanna an bhrata
+    Couleurs du drapeau (nuances): Scáileanna dathanna an bhratach
     Crépuscule: An Tráthnóna
     Fantaisie: Samhailteachas
     Jungle: Féithleog
@@ -1706,6 +1734,7 @@ teintes_couleurs:
     Baroque: Barokkstíll
     Champ de lavande: Lavendelakur
     Couleurs du drapeau: Fánalitir
+    Couleurs du drapeau (nuances): Tónar fánalita
     Crépuscule: Hrímsvala
     Fantaisie: Fantasía
     Jungle: Frumskógur
@@ -1729,6 +1758,7 @@ teintes_couleurs:
     Baroque: Barocco
     Champ de lavande: Campo di lavanda
     Couleurs du drapeau: Colori della bandiera
+    Couleurs du drapeau (nuances): Colori della bandiera (sfumature)
     Crépuscule: Crepuscolo
     Fantaisie: Fantasia
     Jungle: Giungla
@@ -1752,6 +1782,7 @@ teintes_couleurs:
     Baroque: バロック
     Champ de lavande: ラベンダー畑
     Couleurs du drapeau: 国旗の色
+    Couleurs du drapeau (nuances): 国旗の色合い
     Crépuscule: 夕暮れ
     Fantaisie: ファンタジー
     Jungle: ジャングル
@@ -1775,6 +1806,7 @@ teintes_couleurs:
     Baroque: Барокко
     Champ de lavande: Лаванда алаңы
     Couleurs du drapeau: Ту түстері
+    Couleurs du drapeau (nuances): Ту түстері (реңктері)
     Crépuscule: Күн батар
     Fantaisie: қиял
     Jungle: Орман
@@ -1798,6 +1830,7 @@ teintes_couleurs:
     Baroque: Барокко
     Champ de lavande: Лаванда талаасы
     Couleurs du drapeau: Желектин түстөрү
+    Couleurs du drapeau (nuances): Желектин түстөрүнүн оттенктери
     Crépuscule: Күүгүм
     Fantaisie: Элестөө
     Jungle: Токой
@@ -1821,6 +1854,7 @@ teintes_couleurs:
     Baroque: Barok
     Champ de lavande: Zeviya lavendê
     Couleurs du drapeau: Rengên alayê
+    Couleurs du drapeau (nuances): Rengên alayê (derceje)
     Crépuscule: Êvar
     Fantaisie: Xeyal
     Jungle: Daristan
@@ -1844,6 +1878,7 @@ teintes_couleurs:
     Baroque: Barocus
     Champ de lavande: Campus lavandulae
     Couleurs du drapeau: Colores vexilli
+    Couleurs du drapeau (nuances): Colores vexilli varietates
     Crépuscule: Crepusculum
     Fantaisie: Phantasia
     Jungle: Silva obscura
@@ -1867,6 +1902,7 @@ teintes_couleurs:
     Baroque: Baroks
     Champ de lavande: Lavandas lauks
     Couleurs du drapeau: Karogas krāsas
+    Couleurs du drapeau (nuances): Karoga krāsu toņi
     Crépuscule: Krēsla
     Fantaisie: Fantāzija
     Jungle: Džungļi
@@ -1890,6 +1926,7 @@ teintes_couleurs:
     Baroque: Barokas
     Champ de lavande: Levandų laukas
     Couleurs du drapeau: Vėliavos spalvos
+    Couleurs du drapeau (nuances): Vėliavos spalvos (atspalviai)
     Crépuscule: Saulėlydis
     Fantaisie: Fantazija
     Jungle: Džiunglės
@@ -1913,6 +1950,7 @@ teintes_couleurs:
     Baroque: Barock
     Champ de lavande: Lavendelsfeld
     Couleurs du drapeau: Flaggfaarwen
+    Couleurs du drapeau (nuances): Flaggefaarwen Nuancen
     Crépuscule: Dämmerung
     Fantaisie: Fantasi
     Jungle: Dschungel
@@ -1936,6 +1974,7 @@ teintes_couleurs:
     Baroque: Барок
     Champ de lavande: Поле на лаванда
     Couleurs du drapeau: Бои на знамето
+    Couleurs du drapeau (nuances): Бои на знамето (нијанси)
     Crépuscule: Зора
     Fantaisie: Фантазија
     Jungle: Џунгла
@@ -1959,6 +1998,7 @@ teintes_couleurs:
     Baroque: Barok
     Champ de lavande: Ladang Lavender
     Couleurs du drapeau: Warna bendera
+    Couleurs du drapeau (nuances): Warna bendera (rona)
     Crépuscule: Senja
     Fantaisie: Fantasi
     Jungle: Hutan
@@ -1982,6 +2022,7 @@ teintes_couleurs:
     Baroque: Baroka
     Champ de lavande: Sahan'ny lavandrà
     Couleurs du drapeau: Lokon'ny saina
+    Couleurs du drapeau (nuances): Alon'ny lokon'ny sainam-pirenena
     Crépuscule: Hariva
     Fantaisie: Sitrana
     Jungle: Ala
@@ -2005,6 +2046,7 @@ teintes_couleurs:
     Baroque: Barokk
     Champ de lavande: Għalqa tal-lavanda
     Couleurs du drapeau: Kuluri tal-bandiera
+    Couleurs du drapeau (nuances): Kuluri tal-bandiera (tonijiet)
     Crépuscule: Għabex
     Fantaisie: Fantasija
     Jungle: Ġungla
@@ -2028,6 +2070,7 @@ teintes_couleurs:
     Baroque: 巴洛克
     Champ de lavande: 薰衣草田
     Couleurs du drapeau: 国旗颜色
+    Couleurs du drapeau (nuances): 国旗颜色 (色调)
     Crépuscule: 暮色
     Fantaisie: 幻想
     Jungle: 丛林
@@ -2051,6 +2094,7 @@ teintes_couleurs:
     Baroque: Барокко
     Champ de lavande: Лаванда цэцгийн тал
     Couleurs du drapeau: Тугийн өнгө
+    Couleurs du drapeau (nuances): Тугны өнгөний ялгаа
     Crépuscule: Үдшийн бүрий
     Fantaisie: Уран зөгнөл
     Jungle: Ойн
@@ -2074,6 +2118,7 @@ teintes_couleurs:
     Baroque: Barok
     Champ de lavande: Lavendelmark
     Couleurs du drapeau: Flaggfarger
+    Couleurs du drapeau (nuances): Flaggfarger (nyanser)
     Crépuscule: Skumring
     Fantaisie: Fantasi
     Jungle: Jungel
@@ -2097,6 +2142,7 @@ teintes_couleurs:
     Baroque: Barok
     Champ de lavande: Lavendelveld
     Couleurs du drapeau: Vlagkleuren
+    Couleurs du drapeau (nuances): Vlagkleuren (tinten)
     Crépuscule: Schemering
     Fantaisie: Fantasie
     Jungle: Jungle
@@ -2120,6 +2166,7 @@ teintes_couleurs:
     Baroque: बरोक
     Champ de lavande: लभेन्डरको खेत
     Couleurs du drapeau: झण्डाको रङ
+    Couleurs du drapeau (nuances): झण्डाका रङ्गहरू (शेड्स)
     Crépuscule: अस्ताउँदो घाम
     Fantaisie: कल्पना
     Jungle: जङ्गल
@@ -2143,6 +2190,7 @@ teintes_couleurs:
     Baroque: باروک
     Champ de lavande: Lavendar ka maidaan
     Couleurs du drapeau: جھنڈے کے رنگ
+    Couleurs du drapeau (nuances): جھنڈے کے رنگوں کے شیڈز
     Crépuscule: غروب آفتاب
     Fantaisie: خیال
     Jungle: جنگل
@@ -2166,6 +2214,7 @@ teintes_couleurs:
     Baroque: Barokko
     Champ de lavande: Lavanda dalasi
     Couleurs du drapeau: Bayroq ranglari
+    Couleurs du drapeau (nuances): Bayroq ranglari (tonlari)
     Crépuscule: Quyosh botishi
     Fantaisie: Hayol
     Jungle: O'rmon
@@ -2189,6 +2238,7 @@ teintes_couleurs:
     Baroque: باروک
     Champ de lavande: د لېونډو ګیاه کروندې
     Couleurs du drapeau: د بیرغ رنګونه
+    Couleurs du drapeau (nuances): د بیرغ رنګونه (ډولونه)
     Crépuscule: ماښام
     Fantaisie: خیال
     Jungle: ځنګل
@@ -2212,6 +2262,7 @@ teintes_couleurs:
     Baroque: باروک
     Champ de lavande: مزرعه اسطوخودوس
     Couleurs du drapeau: رنگ‌های پرچم
+    Couleurs du drapeau (nuances): رنگ‌های پرچم (طیف‌ها)
     Crépuscule: غروب
     Fantaisie: خیال‌پردازی
     Jungle: جنگل
@@ -2235,6 +2286,7 @@ teintes_couleurs:
     Baroque: Barok
     Champ de lavande: Pole lawendy
     Couleurs du drapeau: Kolory flagi
+    Couleurs du drapeau (nuances): Kolory flagi (odcienie)
     Crépuscule: Zmierzch
     Fantaisie: Fantazja
     Jungle: Dżungla
@@ -2258,6 +2310,7 @@ teintes_couleurs:
     Baroque: Barroco
     Champ de lavande: Campo de lavanda
     Couleurs du drapeau: Cores da bandeira
+    Couleurs du drapeau (nuances): Cores da bandeira (tons)
     Crépuscule: Crepúsculo
     Fantaisie: Fantasia
     Jungle: Selva
@@ -2281,6 +2334,7 @@ teintes_couleurs:
     Baroque: Baroc
     Champ de lavande: Câmp de lavandă
     Couleurs du drapeau: Culorile steagului
+    Couleurs du drapeau (nuances): Culorile steagului (nuanțe)
     Crépuscule: Amurg
     Fantaisie: Fantezie
     Jungle: Junglă
@@ -2304,6 +2358,7 @@ teintes_couleurs:
     Baroque: Барокко
     Champ de lavande: Ландовое поле
     Couleurs du drapeau: Цвета флага
+    Couleurs du drapeau (nuances): Оттенки цветов флага
     Crépuscule: Сумерки
     Fantaisie: Фантазия
     Jungle: Джунгли
@@ -2327,6 +2382,7 @@ teintes_couleurs:
     Baroque: Barok
     Champ de lavande: Polje lavande
     Couleurs du drapeau: Boje zastave
+    Couleurs du drapeau (nuances): Boje zastave (nijanse)
     Crépuscule: Sumrak
     Fantaisie: Fantazija
     Jungle: Džungla
@@ -2350,6 +2406,7 @@ teintes_couleurs:
     Baroque: Barok
     Champ de lavande: Levanduľové pole
     Couleurs du drapeau: Farby vlajky
+    Couleurs du drapeau (nuances): Farby vlajky (odtiene)
     Crépuscule: Súmrak
     Fantaisie: Fantázia
     Jungle: Džungľa
@@ -2373,6 +2430,7 @@ teintes_couleurs:
     Baroque: Barok
     Champ de lavande: Polje sivke
     Couleurs du drapeau: Barve zastave
+    Couleurs du drapeau (nuances): Barve zastave (odtenki)
     Crépuscule: Somrak
     Fantaisie: Domišljija
     Jungle: Džungla
@@ -2396,6 +2454,7 @@ teintes_couleurs:
     Baroque: Barock
     Champ de lavande: Lavendelfält
     Couleurs du drapeau: Flaggfärger
+    Couleurs du drapeau (nuances): Flaggfärger (nyanser)
     Crépuscule: Skymning
     Fantaisie: Fantasi
     Jungle: Djungel
@@ -2419,6 +2478,7 @@ teintes_couleurs:
     Baroque: Baroki
     Champ de lavande: Shamba la lavanda
     Couleurs du drapeau: Rangi za bendera
+    Couleurs du drapeau (nuances): Vivuli vya rangi za bendera
     Crépuscule: Mchana
     Fantaisie: Ndoto
     Jungle: Msitu
@@ -2442,6 +2502,7 @@ teintes_couleurs:
     Baroque: Барок
     Champ de lavande: Лавандаи замин
     Couleurs du drapeau: Рангҳои парчам
+    Couleurs du drapeau (nuances): Рангҳои парчам (нуансҳо)
     Crépuscule: Нимишаб
     Fantaisie: Хайёл
     Jungle: Ҷангал
@@ -2465,6 +2526,7 @@ teintes_couleurs:
     Baroque: பரொக்
     Champ de lavande: லாவெண்டர் வயல்
     Couleurs du drapeau: கொடி நிறங்கள்
+    Couleurs du drapeau (nuances): கொடி வண்ண நிழல்கள்
     Crépuscule: அந்திவேளை
     Fantaisie: கற்பனை
     Jungle: காடு
@@ -2488,6 +2550,7 @@ teintes_couleurs:
     Baroque: Baroko
     Champ de lavande: Levandulové pole
     Couleurs du drapeau: Barvy vlajky
+    Couleurs du drapeau (nuances): Barvy vlajky (odstíny)
     Crépuscule: Soumrak
     Fantaisie: Fantazie
     Jungle: Džungle
@@ -2511,6 +2574,7 @@ teintes_couleurs:
     Baroque: บาโรก
     Champ de lavande: ทุ่งลาเวนเดอร์
     Couleurs du drapeau: สีธง
+    Couleurs du drapeau (nuances): เฉดสีธง
     Crépuscule: สนธยา
     Fantaisie: แฟนตาซี
     Jungle: ป่า
@@ -2534,6 +2598,7 @@ teintes_couleurs:
     Baroque: གཞན་དགའ་པོ།
     Champ de lavande: ལ་ཝན་དའི་ཞིང་ཁམས
     Couleurs du drapeau: རྟེན་གྱི་ཚོན་རག
+    Couleurs du drapeau (nuances): རྒྱལ་རྟེན་གྱི་ཚོན་རིགས་ཁྱད་པར་
     Crépuscule: ཕྱི་དྲོ་
     Fantaisie: སེམས་འཆར་
     Jungle: དབེན་གནས་
@@ -2557,6 +2622,7 @@ teintes_couleurs:
     Baroque: Barok
     Champ de lavande: Lavanta tarlası
     Couleurs du drapeau: Bayrak renkleri
+    Couleurs du drapeau (nuances): Bayrak renkleri (tonlar)
     Crépuscule: Alacakaranlık
     Fantaisie: Fantezi
     Jungle: Orman
@@ -2580,6 +2646,7 @@ teintes_couleurs:
     Baroque: Barokko
     Champ de lavande: Lawanda meýdany
     Couleurs du drapeau: Baýragyň reňkleri
+    Couleurs du drapeau (nuances): Baýdagyň reňk öwüşginleri
     Crépuscule: Garaňkylyk
     Fantaisie: Hyýal
     Jungle: Jeňňel
@@ -2603,6 +2670,7 @@ teintes_couleurs:
     Baroque: Бароко
     Champ de lavande: Поле лаванди
     Couleurs du drapeau: Кольори прапора
+    Couleurs du drapeau (nuances): Кольори прапора (відтінки)
     Crépuscule: Сутінки
     Fantaisie: Фантазія
     Jungle: Джунглі
@@ -2626,6 +2694,7 @@ teintes_couleurs:
     Baroque: Baroque
     Champ de lavande: Cánh đồng oải hương
     Couleurs du drapeau: Màu sắc lá cờ
+    Couleurs du drapeau (nuances): Màu cờ (sắc độ)
     Crépuscule: Hoàng hôn
     Fantaisie: Ảo mộng
     Jungle: Rừng rậm
@@ -2649,6 +2718,7 @@ teintes_couleurs:
     Baroque: I-Baroque
     Champ de lavande: Insimu lelavenda
     Couleurs du drapeau: Imibala yefulegi
+    Couleurs du drapeau (nuances): Imibala yefulegi izinhlobo
     Crépuscule: Ukushona kwelanga
     Fantaisie: Iphupho
     Jungle: Ihlathi

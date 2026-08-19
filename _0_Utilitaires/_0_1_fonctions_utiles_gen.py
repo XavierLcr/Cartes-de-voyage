@@ -355,18 +355,26 @@ def ouvrir_fichier(
 
 def charger_gdfs(direction_base, max_niveau):
     """
-    Charge les fichiers pickle et remplit la liste_gdfs.
+    Charge les fichiers pickle des différents niveaux
+    de granularité.
     """
 
-    return [
-        ouvrir_fichier(
+    liste_gdfs = []
+
+    for i in range(max_niveau + 1):
+        gdf = ouvrir_fichier(
             direction_fichier=direction_base,
             nom_fichier=f"carte_monde_niveau_{i}.pkl",
             defaut=None,
             afficher_erreur=f"Base de granularité {i} introuvable.",
         )
-        for i in range(max_niveau + 1)
-    ]
+
+        if gdf is None:
+            return None
+
+        liste_gdfs.append(gdf)
+
+    return liste_gdfs
 
 
 ## 3.3 -- Fonction d'export de .yaml et de .pkl --------------------------------

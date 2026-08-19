@@ -103,7 +103,7 @@ def limiter_nombre_pays(df: pd.DataFrame, n: int, type: bool, agreger: bool):
             # Mise en forme du texte
             .assign(
                 pays_traduction=lambda x: x["pays_traduction"].apply(
-                    lambda y: textwrap.fill(y, width=20)
+                    lambda y: textwrap.fill(y, width=20, max_lines=3, placeholder="...")
                 )
             )
         )

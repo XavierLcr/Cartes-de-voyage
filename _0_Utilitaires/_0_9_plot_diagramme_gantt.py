@@ -11,7 +11,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import matplotlib.dates as mdates
-from matplotlib.ticker import MaxNLocator
 from matplotlib.figure import Figure
 
 # 1 -- Fonction ----------------------------------------------------------------
@@ -127,7 +126,6 @@ def plot_diagramme_gantt(
     )
     annotation.set_visible(False)
 
-    # Métadonnées exploitées par conteneur_graphique_simple pour le survol
     ax.infos_survol_gantt = infos_survol
     ax.annotation_gantt = annotation
 

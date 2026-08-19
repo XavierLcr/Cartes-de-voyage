@@ -8,6 +8,8 @@
 # 0 -- Introduction ------------------------------------------------------------
 
 
+import math
+
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtCore import (
     Qt,
@@ -19,7 +21,6 @@ from PyQt6.QtCore import (
     QSize,
     pyqtSignal,
 )
-import math
 from PyQt6.QtGui import QPainter, QColor, QPen, QRadialGradient
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import phase_lunaire

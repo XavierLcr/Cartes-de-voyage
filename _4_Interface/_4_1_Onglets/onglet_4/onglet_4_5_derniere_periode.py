@@ -1,14 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
-# Diagramme de Gantt natif PyQt6 (sans matplotlib)                             #
-#                                                                              #
-# Ce script remplace :                                                        #
-#   - _0_Utilitaires/_0_9_plot_diagramme_gantt.py                             #
-#   - _4_Interface/_4_1_Onglets/onglet_4 (classe CalendrierVisite)            #
-#                                                                              #
-# Le rendu se fait via QPainter directement sur un QWidget, ce qui évite      #
-# le passage par un backend matplotlib (Figure/FigureCanvas) et permet un     #
-# survol natif via QToolTip.                                                  #
+# _4_Interface/_4_1_Onglets/onglet_4/                                          #
+# 4.5 – Diagramme de Gantt                                                     #
 ################################################################################
 
 
@@ -23,7 +16,7 @@ from PyQt6.QtGui import QPainter, QColor, QFont, QPen, QMouseEvent
 from _0_Utilitaires._0_10_selecteur_date import SelecteurDate
 from _0_Utilitaires._0_2_fonctions_graphiques import generer_couleur_aleatoire_hex
 
-# 1 -- Widget de dessin du Gantt (remplace plot_diagramme_gantt) ---------------
+# 1 -- Widget de dessin du Gantt -----------------------------------------------
 
 
 class DiagrammeGantt(QWidget):

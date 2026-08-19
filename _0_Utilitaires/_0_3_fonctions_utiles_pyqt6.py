@@ -10,25 +10,16 @@
 
 from PyQt6.QtWidgets import (
     QHBoxLayout,
-    QVBoxLayout,
     QFrame,
     QLabel,
     QWidget,
     QPushButton,
     QApplication,
     QScrollArea,
-    QSizePolicy,
-    QGraphicsDropShadowEffect,
 )
 from PyQt6.QtCore import Qt, QTimer
-from PyQt6.QtGui import QColor
-from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 
-from _0_Utilitaires._0_2_fonctions_graphiques import (
-    renvoyer_couleur_widget,
-)
-
-# 1 -- Fonctions sur les combo -------------------------------------------------
+# 1 -- Fonctions sur les combos ------------------------------------------------
 
 
 ## 1.1 -- Fonction remplaçant l'entièreté des valeurs d'un combo ---------------
@@ -183,105 +174,7 @@ def set_emoji_sauvegarde(widget: QPushButton, temps_ms: int):
     QTimer.singleShot(temps_ms, lambda: widget.setText("💾"))
 
 
-# 6 -- Style d'insertion des graphiques ----------------------------------------
-
-
-## 6.1 -- Conteneur simple -----------------------------------------------------
-
-
-### Extension d'annotations ----------------------------------------------------
-
-
-def _activer_infobulles_survol(fig, canvas):
-    """
-    Active une infobulle au survol de la souris pour tout axe de `fig`
-    portant les attributs `infos_survol_gantt` (liste de tuples
-    (patch, label)) et `annotation_gantt` (objet Annotation matplotlib).
-    Ne fait rien si ces attributs sont absents (graphique sans infobulle).
-    """
-    for ax in fig.axes:
-        infos = getattr(ax, "infos_survol_gantt", None)
-        annotation = getattr(ax, "annotation_gantt", None)
-        if not infos or annotation is None:
-            continue
-
-        def on_move(event, ax=ax, infos=infos, annotation=annotation):
-            if event.inaxes != ax:
-                if annotation.get_visible():
-                    annotation.set_visible(False)
-                    canvas.draw_idle()
-                return
-
-            for patch, label, couleur in infos:
-                contient, _ = patch.contains(event)
-                if contient:
-                    annotation.xy = (event.xdata, event.ydata)
-                    annotation.set_text(label)
-                    annotation.get_bbox_patch().set_edgecolor(couleur)
-                    annotation.arrow_patch.set_color(couleur)
-                    annotation.set_visible(True)
-                    canvas.draw_idle()
-                    break
-            else:
-                if annotation.get_visible():
-                    annotation.set_visible(False)
-                    canvas.draw_idle()
-
-        canvas.mpl_connect("motion_notify_event", on_move)
-
-
-### Fonction générique ---------------------------------------------------------
-
-
-def conteneur_graphique_simple(fig, style, teinte, nuances):
-
-    container = QFrame()
-
-    # Fond de carte : même convention que les widgets du tableau de bord.
-    couleur_fond = renvoyer_couleur_widget(
-        style=style,
-        teinte=teinte,
-        nuances=nuances,
-        clair="#FFFFFF",
-        sombre="#FFFFFF",
-    )
-    # Bordure fine et discrète (au lieu d'une bordure épaisse).
-    couleur_bordure = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#E4E9F0", sombre="#26C6DA"
-    )
-
-    container.setStyleSheet(f"""
-        QFrame {{
-            background: {couleur_fond};
-            border: 1px solid {couleur_bordure};
-            border-radius: 20px;
-            padding: 18px;
-        }}
-    """)
-
-    # Ombre portée : même réglage que les cartes (blur 30, offset (0, 8)).
-    ombre = QGraphicsDropShadowEffect(container)
-    ombre.setBlurRadius(30)
-    ombre.setOffset(0, 8)
-    couleur_ombre = QColor("#000000")
-    couleur_ombre.setAlpha(60 if style == 1 else 120)
-    ombre.setColor(couleur_ombre)
-    container.setGraphicsEffect(ombre)
-
-    # Ajouter le canvas au conteneur
-    container_layout = QVBoxLayout(container)
-    container_layout.setContentsMargins(0, 0, 0, 0)
-
-    canvas = FigureCanvas(fig)
-    canvas.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-    container_layout.addWidget(canvas)
-
-    _activer_infobulles_survol(fig=fig, canvas=canvas)
-
-    return container
-
-
-# 7 -- Création d'un scroll ----------------------------------------------------
+# 6 -- Création d'un scroll ----------------------------------------------------
 
 
 def creer_scroll(layout):

@@ -8,14 +8,12 @@
 # 0 -- Initialisation ----------------------------------------------------------
 
 
-import sys
 import random
 from PyQt6.QtWidgets import QGraphicsView, QGraphicsScene, QGraphicsTextItem
 from PyQt6.QtCore import QTimer
 from PyQt6.QtGui import QFont
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QBrush, QColor
-
 
 # 1 -- Création de la classe ---------------------------------------------------
 

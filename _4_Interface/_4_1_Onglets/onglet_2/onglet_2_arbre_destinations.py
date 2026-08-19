@@ -9,20 +9,10 @@
 
 
 from PyQt6 import QtGui, QtCore
-from PyQt6.QtWidgets import (
-    QHBoxLayout,
-    QVBoxLayout,
-    QTreeWidget,
-    QTreeWidgetItem,
-    QGroupBox,
-)
+from PyQt6.QtWidgets import QTreeWidget, QTreeWidgetItem
 
 from _0_Utilitaires._0_2_fonctions_graphiques import (
     renvoyer_couleur_widget,
-)
-from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
-    creer_QLabel_centre,
-    vider_layout,
 )
 from _0_Utilitaires._0_7_fonctions_voyages import creer_liste_destinations
 

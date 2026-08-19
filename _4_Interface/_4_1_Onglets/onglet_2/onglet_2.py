@@ -10,7 +10,6 @@
 
 import yaml
 
-# PyQt6
 from PyQt6.QtCore import Qt, QTimer, pyqtSignal
 from PyQt6.QtGui import QAction
 from PyQt6.QtWidgets import (

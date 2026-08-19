@@ -72,8 +72,10 @@ class CreerCartes(QObject):
             "Couleurs du drapeau (nuances)": 2,
         }
 
-        if couleur_temp in correspondance_drapeau:
-            self.couleur_pays = correspondance_drapeau[couleur_temp]
+        if couleur_temp in list(correspondance_drapeau.keys()):
+            self.couleur_pays = (
+                correspondance_drapeau.get(couleur_temp) or self.couleur_pays
+            )
             self.parametres["couleur"] = "Multicolore"
 
     def recuperer_granularite(self, clef: str):

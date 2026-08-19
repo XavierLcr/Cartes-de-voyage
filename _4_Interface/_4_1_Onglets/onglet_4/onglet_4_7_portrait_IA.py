@@ -240,7 +240,7 @@ class ProfilVoyageurIA(QGroupBox):
         """
 
         # Ajout de la liste de modèles
-        modele_temp = list(set(liste_modeles_dispo))
+        modele_temp = sorted(list(set(liste_modeles_dispo)))
         self.modele.addItems(modele_temp)
 
         return len(modele_temp) > 0

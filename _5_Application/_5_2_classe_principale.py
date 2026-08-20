@@ -398,8 +398,8 @@ class MesVoyagesApplication(QWidget):
         if theme_temp is None or teinte_temp is None:
             self.onglet_parametres.utiliser_theme.setEnabled(False)
             self.onglet_parametres.utiliser_theme.setChecked(checked=False)
-            theme_temp = {}
-            teinte_temp = None
+            theme_temp = theme_temp or {}
+            teinte_temp = teinte_temp or None
         else:
             # Bouton de style
             self.onglet_parametres.utiliser_theme.setEnabled(True)

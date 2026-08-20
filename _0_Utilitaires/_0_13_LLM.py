@@ -110,7 +110,7 @@ class LLMClient:
 
         self.prompt = contenu
 
-    def generate(self):
+    def generate(self, reflexion=False):
         """
         Génère une réponse du LLM.
 
@@ -128,7 +128,7 @@ class LLMClient:
             "model": self.model,
             "prompt": self.prompt,
             "stream": False,
-            "think": False,
+            "think": reflexion,
             "options": {
                 "num_ctx": self.contexte,
                 "temperature": self.temperature,

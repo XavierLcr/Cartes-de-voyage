@@ -149,7 +149,7 @@ class ProfilLLMWorker(QThread):
                 Style :
                 - Adresse-toi directement au voyageur avec "vous".
                 - Ton chaleureux, positif et naturel.
-                - Texte fluide de 3 à 4 phrases.
+                - Texte fluide de 3 à 6 phrases.
                 - Pas de listes à puces.
                 - Reste factuel et nuancé.
 
@@ -173,7 +173,6 @@ class ProfilLLMWorker(QThread):
 class ProfilVoyageurIA(QGroupBox):
 
     langue = "français"
-    contexte = 32768
     voyages = {}
     url = "http://localhost:11434/api/generate"
     clef_probleme = "probleme_label_4_7_ollama"
@@ -188,10 +187,11 @@ class ProfilVoyageurIA(QGroupBox):
         '"Brush Script MT", "Bradley Hand", "Comic Sans MS", cursive'
     )
 
-    def __init__(self, fct_traduction, parent=None):
+    def __init__(self, fct_traduction, parent=None, contexte=32768):
         super().__init__(parent=parent)
 
         self.fonction_traduction = fct_traduction
+        self.contexte = contexte
         test_ollama = tester_ollama(url=re.match(r"^([^\d]*\d*)", self.url).group(1))
 
         self.widget_lancement = QWidget()

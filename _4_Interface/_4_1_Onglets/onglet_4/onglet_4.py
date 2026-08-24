@@ -138,7 +138,10 @@ class OngletTopPays(QWidget):
             fct_traduction=fct_traduction, parent=None, constantes=constantes
         )
 
-        self.portrait_IA = ProfilVoyageurIA(fct_traduction=fct_traduction, parent=self)
+        self.portrait_IA = ProfilVoyageurIA(
+            fct_traduction=fct_traduction,
+            parent=self,  # contexte=131072
+        )
 
         # Mise en page des sous-onglets
         layout = QHBoxLayout(self)

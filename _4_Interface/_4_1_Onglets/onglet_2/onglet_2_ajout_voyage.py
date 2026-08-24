@@ -401,15 +401,13 @@ class CreerVoyage(QDialog):
             for i, region in enumerate(sorted(data.keys())):
 
                 self.liste_endroits.addItem(
-                    self.liste_endroits.addItem(
-                        self.creer_item(
-                            texte=region,
-                            coche=None,
-                            gras=True,
-                            souligne=True,
-                            selectable=False,
-                            enabled=True,
-                        )
+                    self.creer_item(
+                        texte=region,
+                        coche=None,
+                        gras=True,
+                        souligne=True,
+                        selectable=False,
+                        enabled=True,
                     )
                 )
 

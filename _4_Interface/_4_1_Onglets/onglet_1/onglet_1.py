@@ -178,7 +178,6 @@ class OngletParametres(QWidget):
         # Choix du thème
         self.theme_label = creer_QLabel_centre()
         self.theme_combo = QComboBox()
-        # self.theme_combo.currentTextChanged.connect(self.maj_style)
         layout_theme = QHBoxLayout()
         layout_theme.addWidget(self.theme_label)
         layout_theme.addWidget(self.theme_combo)
@@ -186,7 +185,6 @@ class OngletParametres(QWidget):
         # Choix des couleurs
         self.color_label = creer_QLabel_centre()
         self.color_combo = QComboBox()
-        # self.color_combo.currentTextChanged.connect(self.maj_style)
         layout_couleurs = QHBoxLayout()
         layout_couleurs.addWidget(self.color_label)
         layout_couleurs.addWidget(self.color_combo)

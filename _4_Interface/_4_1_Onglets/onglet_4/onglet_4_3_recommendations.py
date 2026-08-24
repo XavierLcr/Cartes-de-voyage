@@ -107,11 +107,12 @@ def calculer_score_region(
     vals_reste,
     na_reste,
     alpha,
+    beta,
 ):
     n_reste = lats_reste.shape[0]
     n_visite = lats_visite.shape[0]
     scores = np.zeros(n_reste)
-    pond_visite = superficie_visite * N_visite**alpha * (1 - na_visite)
+    pond_visite = superficie_visite * N_visite**beta * (1 - na_visite)
     pond_visite_total = np.sum(pond_visite) / 100
     for i in numba.prange(n_reste):
         s = 0.0
@@ -148,6 +149,7 @@ def calculer_recommandations(
     df_voyages: pd.DataFrame,
     top_n: int = 10,
     alpha: float = 1 / 3,
+    beta: float = 1 / 3,
     par_pays: bool = False,
     n_par_pays: int = 3,
 ):
@@ -209,6 +211,7 @@ def calculer_recommandations(
                 vals_reste=df_reste[cols_val].to_numpy(),
                 na_reste=df_reste["nombre_na"].to_numpy(),
                 alpha=alpha,
+                beta=beta,
             )
         )
         # Tri
@@ -659,6 +662,7 @@ class WorkerRecommandation(QObject):
         self,
         top_n: int,
         alpha: float,
+        beta: float,
         df_caracteristiques: pd.DataFrame,
         df_superficie: pd.DataFrame,
         dict_voyages: dict,
@@ -672,6 +676,7 @@ class WorkerRecommandation(QObject):
 
         self.top_n = top_n
         self.alpha = alpha
+        self.beta = beta
         self.par_pays = par_pays
         self.n_par_pays = n_par_pays
 
@@ -688,6 +693,7 @@ class WorkerRecommandation(QObject):
             df_voyages=df_temp,
             top_n=self.top_n,
             alpha=self.alpha,
+            beta=self.beta,
             par_pays=self.par_pays,
             n_par_pays=self.n_par_pays,
         )
@@ -721,7 +727,12 @@ class PaysAVisiter(QWidget):
         self.table_superficie = table_superficie
         self.n_par_pays = 3
         self.recommandations_par_ligne = 3
-        self.alpha = constantes.parametres_application.get("coeff_distance", 0.05)
+        self.alpha = constantes.parametres_application.get(
+            "recommandations_alpha", 0.05
+        )
+        self.alpha = min(max(self.alpha, 0), 1)
+        self.beta = constantes.parametres_application.get("recommandations_beta", 1 / 3)
+        self.beta = min(max(self.beta, 0), 1)
         self.pays_traductions = constantes.pays_differentes_langues
         self.emojis_pays = constantes.emojis_pays
         self.fonction_traduire = fct_traduire
@@ -786,6 +797,7 @@ class PaysAVisiter(QWidget):
             df_caracteristiques=self.df_caracteristiques,
             df_superficie=self.table_superficie,
             alpha=self.alpha,
+            beta=self.beta,
             top_n=self.get_recommandations_nb(),
             par_pays=self.get_recommandations_par_pays(),
             dict_voyages=self.dict_voyages,

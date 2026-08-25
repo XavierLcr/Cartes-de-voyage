@@ -225,7 +225,7 @@ class ThemeCarteClassement:
                 style=style,
                 teinte=teinte,
                 nuances=nuances,
-                clair="#F86942",  # indigo plus profond
+                clair="#F54B1C",  # indigo plus profond
                 sombre="#1F9E92",  # turquoise plus profond
                 reference=self.badge_debut.name(),
                 essais=limite_essais,
@@ -562,7 +562,7 @@ class TitreClassement(QWidget):
 
         w, h = self.width(), self.height()
         rect = QRectF(2, 2, w - 4, h - 4)
-        rayon_carte = min(22, h * 0.26)
+        rayon_carte = min(22, h * 0.25)
 
         chemin_carte = QPainterPath()
         chemin_carte.addRoundedRect(rect, rayon_carte, rayon_carte)

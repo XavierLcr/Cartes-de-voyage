@@ -407,7 +407,7 @@ class ThemeRecommandation:
                 style=style,
                 teinte=teinte,
                 nuances=nuances,
-                clair="#6DD7AC",
+                clair="#C2D76D",
                 sombre="#7E2102",
             )
         )

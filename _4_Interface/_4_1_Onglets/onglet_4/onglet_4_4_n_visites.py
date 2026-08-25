@@ -136,10 +136,10 @@ class _MatPavillon(QWidget):
     une sinusoïde, amplitude nulle côté mât et maximale côté libre)."""
 
     # Réglages de l'ondulation, modifiables si besoin
-    N_BANDES = 26
+    N_BANDES = 100
     AMPLITUDE_RATIO = 0.07  # proportion de la hauteur du drapeau
     N_ONDES = 1.6  # nombre de "vagues" visibles sur la largeur
-    VITESSE_ONDULATION = 2.2  # vitesse d'animation (multiplicateur de phase)
+    VITESSE_ONDULATION = 2  # vitesse d'animation (multiplicateur de phase)
 
     def __init__(
         self,

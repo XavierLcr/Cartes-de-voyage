@@ -18,6 +18,8 @@ from PyQt6.QtGui import (
     QPainterPath,
     QBrush,
     QPen,
+    QRadialGradient,
+    QConicalGradient,
 )
 from PyQt6.QtWidgets import (
     QWidget,
@@ -493,14 +495,19 @@ class CarteClassementPays(QWidget):
             painter.drawText(rect_ligne, Qt.AlignmentFlag.AlignCenter, ligne)
 
 
+# 4 -- Classe du widget de titre -----------------------------------------------
+
+
 class TitreClassement(QWidget):
     """
     Carte titre pour les sections de classement du tableau de bord.
 
     Reprend le vocabulaire visuel de `CarteClassementPays` : carte à
     coins arrondis, ombre douce, même police "joyeuse" que le podium
-    (avec repli automatique). Le badge n'est plus un emoji mais un
-    médaillon vectoriel (anneau + étoile) dans les couleurs du thème.
+    (avec repli automatique). Le badge est un médaillon vectoriel en
+    forme de boussole (anneau gradué + aiguille bicolore) dans les
+    couleurs du thème, avec un dégradé de fond volontairement adouci
+    par transparence.
     """
 
     def __init__(self, titre, sous_titre="", style=None, parent=None):
@@ -530,32 +537,25 @@ class TitreClassement(QWidget):
         self.setGraphicsEffect(self.ombre)
 
     @staticmethod
-    def _chemin_etoile(
-        centre: QPointF, rayon_ext: float, rayon_int: float, pointes: int = 5
-    ):
-        """Construit un QPainterPath d'étoile à `pointes` branches, centrée
-        sur `centre`, pointe vers le haut."""
+    def _teinte_douce(couleur: QColor, alpha: int) -> QColor:
+        """Copie une QColor du thème avec une opacité réduite, pour ne
+        jamais muter les couleurs originales du thème."""
+        c = QColor(couleur)
+        c.setAlpha(alpha)
+        return c
+
+    @staticmethod
+    def _point_polaire(centre: QPointF, rayon: float, angle_rad: float) -> QPointF:
         import math
 
-        chemin = QPainterPath()
-        angle_pas = math.pi / pointes
-        angle_depart = -math.pi / 2
-
-        for i in range(pointes * 2):
-            rayon = rayon_ext if i % 2 == 0 else rayon_int
-            angle = angle_depart + i * angle_pas
-            point = QPointF(
-                centre.x() + rayon * math.cos(angle),
-                centre.y() + rayon * math.sin(angle),
-            )
-            if i == 0:
-                chemin.moveTo(point)
-            else:
-                chemin.lineTo(point)
-        chemin.closeSubpath()
-        return chemin
+        return QPointF(
+            centre.x() + rayon * math.cos(angle_rad),
+            centre.y() + rayon * math.sin(angle_rad),
+        )
 
     def paintEvent(self, event):
+        import math
+
         painter = QPainter(self)
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
         painter.setRenderHint(QPainter.RenderHint.TextAntialiasing)
@@ -564,48 +564,209 @@ class TitreClassement(QWidget):
         rect = QRectF(2, 2, w - 4, h - 4)
         rayon_carte = min(22, h * 0.26)
 
-        # --- carte à coins arrondis, dégradé diagonal ---
         chemin_carte = QPainterPath()
         chemin_carte.addRoundedRect(rect, rayon_carte, rayon_carte)
 
-        degrade = QLinearGradient(rect.topLeft(), rect.bottomRight())
-        degrade.setColorAt(0, self.theme.badge_debut)
-        degrade.setColorAt(1, self.theme.badge_fin)
-
+        # --- 1) aplat de base : le fond "carte" du thème, opaque ---
         painter.setPen(Qt.PenStyle.NoPen)
-        painter.setBrush(QBrush(degrade))
+        painter.setBrush(QBrush(self.theme.fond))
         painter.drawPath(chemin_carte)
 
-        # --- médaillon (badge de rang, vectoriel) ---
-        rayon_badge = h * 0.24
+        # --- 2) dégradé diagonal, mais adouci : on pose les couleurs du
+        # badge en semi-transparence sur l'aplat plutôt qu'en pleine
+        # opacité, pour un rendu plus feutré. ---
+        painter.save()
+        painter.setClipPath(chemin_carte)
+
+        degrade = QLinearGradient(rect.topLeft(), rect.bottomRight())
+        degrade.setColorAt(0, self._teinte_douce(self.theme.badge_debut, 150))
+        degrade.setColorAt(1, self._teinte_douce(self.theme.badge_fin, 150))
+        painter.setBrush(QBrush(degrade))
+        painter.drawRect(rect)
+
+        # --- 3) reflet "verre" en haut de carte : léger voile blanc qui
+        # s'estompe vers le bas, pour donner du volume sans durcir la
+        # teinte. ---
+        reflet = QLinearGradient(
+            rect.topLeft(), QPointF(rect.left(), rect.top() + h * 0.7)
+        )
+        reflet.setColorAt(0, QColor(255, 255, 255, 40))
+        reflet.setColorAt(1, QColor(255, 255, 255, 0))
+        painter.setBrush(QBrush(reflet))
+        painter.drawRect(rect)
+
+        painter.restore()
+
+        # --- 4) liseré fin qui détache la carte du fond général ---
+        painter.setPen(QPen(QColor(255, 255, 255, 45), 1))
+        painter.setBrush(Qt.BrushStyle.NoBrush)
+        painter.drawPath(chemin_carte)
+
+        # --- médaillon (badge de rang, en forme de boussole) ---
+        rayon_badge = h * 0.27
         centre = QPointF(w * 0.15, h * 0.5)
 
-        # disque de fond, légèrement plus clair que le texte
-        painter.setBrush(QColor(255, 255, 255, 235))
+        # ombre portée propre au médaillon (distincte de l'ombre du
+        # widget), pour le détacher nettement du dégradé de fond
+        painter.setPen(Qt.PenStyle.NoPen)
+        painter.setBrush(QColor(0, 0, 0, 40))
+        painter.drawEllipse(
+            QPointF(centre.x() + 1.2, centre.y() + 2.4),
+            rayon_badge * 1.02,
+            rayon_badge * 1.02,
+        )
+
+        # lunette extérieure "métal brossé" : dégradé conique qui fait
+        # tourner la lumière autour de l'anneau (badge_fin -> blanc ->
+        # badge_debut -> blanc), au lieu d'un anneau à couleur plate
+        degrade_lunette = QConicalGradient(centre, 90)
+        teinte_fin = self._teinte_douce(self.theme.badge_fin, 235)
+        teinte_debut = self._teinte_douce(self.theme.badge_debut, 235)
+        reflet_clair = QColor(255, 255, 255, 225)
+        degrade_lunette.setColorAt(0.00, teinte_fin)
+        degrade_lunette.setColorAt(0.22, reflet_clair)
+        degrade_lunette.setColorAt(0.50, teinte_debut)
+        degrade_lunette.setColorAt(0.78, reflet_clair)
+        degrade_lunette.setColorAt(1.00, teinte_fin)
+        painter.setBrush(QBrush(degrade_lunette))
         painter.drawEllipse(centre, rayon_badge, rayon_badge)
 
-        painter.setPen(QColor(255, 255, 255, 255))
-        painter.setBrush(Qt.BrushStyle.NoBrush)
-        painter.drawEllipse(centre, rayon_badge * 0.86, rayon_badge * 0.86)
-
-        # étoile centrale, couleur badge_fin (contraste net sur le disque clair)
-        chemin_etoile = self._chemin_etoile(
-            centre, rayon_ext=rayon_badge * 0.55, rayon_int=rayon_badge * 0.24
+        # cadran intérieur, légèrement décentré pour un dégradé radial
+        # asymétrique (source de lumière en haut-gauche) — plus vivant
+        # qu'un dégradé parfaitement concentrique
+        rayon_cadran = rayon_badge * 0.8
+        foyer = QPointF(
+            centre.x() - rayon_cadran * 0.3, centre.y() - rayon_cadran * 0.3
         )
+        degrade_cadran = QRadialGradient(centre, rayon_cadran * 1.15, foyer)
+        degrade_cadran.setColorAt(0.0, QColor(255, 255, 255, 250))
+        degrade_cadran.setColorAt(0.75, QColor(255, 255, 255, 228))
+        degrade_cadran.setColorAt(1.0, QColor(240, 242, 248, 205))
+        painter.setBrush(QBrush(degrade_cadran))
+        painter.drawEllipse(centre, rayon_cadran, rayon_cadran)
+
+        # ombre interne au bord du cadran : dégradé radial du transparent
+        # vers un léger noir, pour suggérer un rebord creusé sans tracer
+        # de trait dur
+        degrade_rebord = QRadialGradient(centre, rayon_cadran)
+        degrade_rebord.setColorAt(0.82, QColor(0, 0, 0, 0))
+        degrade_rebord.setColorAt(1.0, QColor(0, 0, 0, 38))
+        painter.setBrush(QBrush(degrade_rebord))
+        painter.drawEllipse(centre, rayon_cadran, rayon_cadran)
+
+        # repère nord : fin triangle "gravé" (ombre + lumière superposées,
+        # légèrement décalées) plutôt qu'un point ou un trait plat
+        pointe_repere = self._point_polaire(centre, rayon_cadran * 0.9, -math.pi / 2)
+        base_repere_g = self._point_polaire(
+            centre, rayon_cadran * 0.74, -math.pi / 2 - math.radians(5)
+        )
+        base_repere_d = self._point_polaire(
+            centre, rayon_cadran * 0.74, -math.pi / 2 + math.radians(5)
+        )
+
+        chemin_repere = QPainterPath()
+        chemin_repere.moveTo(pointe_repere)
+        chemin_repere.lineTo(base_repere_g)
+        chemin_repere.lineTo(base_repere_d)
+        chemin_repere.closeSubpath()
+
         painter.setPen(Qt.PenStyle.NoPen)
-        painter.setBrush(self.theme.badge_fin)
-        painter.drawPath(chemin_etoile)
+        painter.setBrush(QColor(0, 0, 0, 20))
+        painter.drawPath(chemin_repere.translated(0, 0.6))
+        painter.setBrush(self._teinte_douce(self.theme.badge_fin, 150))
+        painter.drawPath(chemin_repere.translated(0, -0.3))
+
+        # aiguille bicolore, légèrement inclinée pour du dynamisme
+        angle_aiguille = -math.pi / 2 - math.radians(16)
+        angle_oppose = angle_aiguille + math.pi
+        longueur_nord = rayon_cadran * 0.75
+        longueur_sud = rayon_cadran * 0.5
+        largeur_base = rayon_cadran * 0.075
+
+        pointe_nord = self._point_polaire(centre, longueur_nord, angle_aiguille)
+        pointe_sud = self._point_polaire(centre, longueur_sud, angle_oppose)
+        base_gauche = self._point_polaire(
+            centre, largeur_base, angle_aiguille + math.pi / 2
+        )
+        base_droite = self._point_polaire(
+            centre, largeur_base, angle_aiguille - math.pi / 2
+        )
+
+        # ombre portée de l'aiguille sur le cadran
+        painter.setPen(Qt.PenStyle.NoPen)
+        aiguille_ombre = QPainterPath()
+        aiguille_ombre.moveTo(pointe_nord + QPointF(0.8, 1.0))
+        aiguille_ombre.lineTo(base_gauche + QPointF(0.8, 1.0))
+        aiguille_ombre.lineTo(pointe_sud + QPointF(0.8, 1.0))
+        aiguille_ombre.lineTo(base_droite + QPointF(0.8, 1.0))
+        aiguille_ombre.closeSubpath()
+        painter.setBrush(QColor(0, 0, 0, 28))
+        painter.drawPath(aiguille_ombre)
+
+        # moitié nord : dégradé (pas une couleur plate) pour un effet de
+        # matière, du centre vers la pointe, plus un fin liseré sombre
+        moitie_nord = QPainterPath()
+        moitie_nord.moveTo(pointe_nord)
+        moitie_nord.lineTo(base_gauche)
+        moitie_nord.lineTo(centre)
+        moitie_nord.lineTo(base_droite)
+        moitie_nord.closeSubpath()
+
+        degrade_nord = QLinearGradient(centre, pointe_nord)
+        degrade_nord.setColorAt(0.0, self._teinte_douce(self.theme.badge_fin, 255))
+        degrade_nord.setColorAt(1.0, self._teinte_douce(self.theme.badge_fin, 195))
+        painter.setBrush(QBrush(degrade_nord))
+        painter.drawPath(moitie_nord)
+        painter.setPen(QPen(QColor(0, 0, 0, 35), 0.6))
+        painter.setBrush(Qt.BrushStyle.NoBrush)
+        painter.drawPath(moitie_nord)
+
+        # moitié sud : même logique, teinte claire, plus atténuée à la pointe
+        moitie_sud = QPainterPath()
+        moitie_sud.moveTo(pointe_sud)
+        moitie_sud.lineTo(base_gauche)
+        moitie_sud.lineTo(centre)
+        moitie_sud.lineTo(base_droite)
+        moitie_sud.closeSubpath()
+
+        degrade_sud = QLinearGradient(centre, pointe_sud)
+        degrade_sud.setColorAt(0.0, self._teinte_douce(self.theme.badge_debut, 245))
+        degrade_sud.setColorAt(1.0, self._teinte_douce(self.theme.badge_debut, 150))
+        painter.setPen(Qt.PenStyle.NoPen)
+        painter.setBrush(QBrush(degrade_sud))
+        painter.drawPath(moitie_sud)
+
+        # pivot central façon petite pierre sertie : disque à dégradé
+        # radial + minuscule reflet spéculaire décalé, pour un effet
+        # de brillance plutôt qu'un rond plat
+        rayon_pivot = rayon_badge * 0.1
+        degrade_pivot = QRadialGradient(
+            QPointF(centre.x() - rayon_pivot * 0.3, centre.y() - rayon_pivot * 0.3),
+            rayon_pivot * 1.4,
+        )
+        degrade_pivot.setColorAt(0.0, QColor(255, 255, 255, 255))
+        degrade_pivot.setColorAt(0.4, self._teinte_douce(self.theme.badge_fin, 255))
+        degrade_pivot.setColorAt(1.0, self._teinte_douce(self.theme.badge_fin, 220))
+        painter.setPen(Qt.PenStyle.NoPen)
+        painter.setBrush(QBrush(degrade_pivot))
+        painter.drawEllipse(centre, rayon_pivot, rayon_pivot)
+
+        painter.setBrush(QColor(255, 255, 255, 210))
+        painter.drawEllipse(
+            QPointF(centre.x() - rayon_pivot * 0.32, centre.y() - rayon_pivot * 0.32),
+            rayon_pivot * 0.3,
+            rayon_pivot * 0.3,
+        )
 
         # --- zone de texte (titre + sous-titre), centrée verticalement ---
-        marge_apres_badge = (
-            rayon_badge * 0.9
-        )  # espace entre le bord du badge et le texte
+        marge_apres_badge = rayon_badge * 0.85
         x_texte = centre.x() + rayon_badge + marge_apres_badge
         zone_texte = QRectF(x_texte, 0, w - x_texte - w * 0.04, h)
 
         police_titre = QFont(
             self.police_principale, max(10, int(h * 0.13)), QFont.Weight.DemiBold
         )
+        police_titre.setLetterSpacing(QFont.SpacingType.PercentageSpacing, 101)
         painter.setFont(police_titre)
         metrics_titre = painter.fontMetrics()
         titre_affiche = metrics_titre.elidedText(
@@ -613,6 +774,7 @@ class TitreClassement(QWidget):
         )
 
         police_sous_titre = QFont(self.police_principale, max(7, int(h * 0.1)))
+        police_sous_titre.setItalic(True)
         hauteur_sous_titre = 0
         if self.sous_titre:
             painter.setFont(police_sous_titre)
@@ -649,7 +811,7 @@ class TitreClassement(QWidget):
             )
 
 
-# 4 -- Classe affichant les pays les plus visités ------------------------------
+# 5 -- Classe affichant les pays les plus visités ------------------------------
 
 
 class ClassementPays(QWidget):

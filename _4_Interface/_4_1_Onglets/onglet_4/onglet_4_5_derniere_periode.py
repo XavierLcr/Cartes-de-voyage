@@ -9,7 +9,14 @@
 
 from datetime import date, datetime
 
-from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel, QHBoxLayout, QToolTip
+from PyQt6.QtWidgets import (
+    QWidget,
+    QVBoxLayout,
+    QLabel,
+    QHBoxLayout,
+    QToolTip,
+    QSizePolicy,
+)
 from PyQt6.QtCore import Qt, QRectF, QPointF
 from PyQt6.QtGui import QPainter, QColor, QFont, QPen, QMouseEvent
 
@@ -27,22 +34,23 @@ class DiagrammeGantt(QWidget):
     MARGE_HAUT = 50
     MARGE_BAS = 40
 
-    # Hauteur/espacement "confortables" utilisés tant qu'il y a peu de voyages
+    # Hauteur/espacement "confortables" utilisés quand la place ne manque pas
     HAUTEUR_BARRE_MAX = 22
     ESPACE_BARRE_MAX = 10
 
-    # En dessous de ces valeurs, on préfère laisser le widget grandir
-    # (et donc scroller) plutôt que de rendre les barres illisibles
+    # En dessous de ces valeurs, on ne réduit plus (le widget devient
+    # alors plus grand que l'espace disponible plutôt que de rendre
+    # les barres illisibles)
     HAUTEUR_BARRE_MIN = 6
     ESPACE_BARRE_MIN = 2
-
-    # Hauteur totale au-delà de laquelle on commence à affiner les barres
-    HAUTEUR_GRAPHIQUE_MAX = 400
 
     def __init__(self, parent=None):
         super().__init__(parent=parent)
         self.setMouseTracking(True)
         self.setMinimumHeight(200)
+        # Le widget s'adapte à la hauteur que lui donne le layout parent
+        # (voir resizeEvent) au lieu d'imposer une taille fixe.
+        self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
 
         self.barres = []  # liste de dicts : label, deb, fin, couleur, rect
         self.date_min = None
@@ -50,8 +58,8 @@ class DiagrammeGantt(QWidget):
         self.titre = ""
         self.barre_survolee = None
 
-        # Dimensions effectives des barres, recalculées selon le nombre
-        # de voyages à afficher (voir _calculer_dimensions_barres)
+        # Dimensions effectives des barres, recalculées à chaque
+        # redimensionnement (voir _mettre_a_jour_taille_barres)
         self.hauteur_barre = self.HAUTEUR_BARRE_MAX
         self.espace_barre = self.ESPACE_BARRE_MAX
 
@@ -134,40 +142,41 @@ class DiagrammeGantt(QWidget):
         self.update()
 
     def _calculer_dimensions_barres(self):
-        """Choisit la hauteur/espacement des barres pour que le graphique
-        reste sous HAUTEUR_GRAPHIQUE_MAX, en affinant les barres si besoin.
-        En dessous de HAUTEUR_BARRE_MIN/ESPACE_BARRE_MIN, on laisse plutôt
-        le widget grandir (et donc scroller) pour rester lisible."""
+        """Fixe uniquement le plancher de hauteur (lisibilité minimale
+        garantie), puis adapte la taille des barres à la hauteur
+        réellement disponible."""
 
         nb = max(len(self.barres), 1)
         marges = self.MARGE_HAUT + self.MARGE_BAS
+        unite_min = self.HAUTEUR_BARRE_MIN + self.ESPACE_BARRE_MIN
 
-        hauteur_confortable = marges + nb * (
-            self.HAUTEUR_BARRE_MAX + self.ESPACE_BARRE_MAX
-        )
+        hauteur_plancher = marges + nb * unite_min
+        self.setMinimumHeight(int(hauteur_plancher))
 
-        if hauteur_confortable <= self.HAUTEUR_GRAPHIQUE_MAX:
-            self.hauteur_barre = self.HAUTEUR_BARRE_MAX
-            self.espace_barre = self.ESPACE_BARRE_MAX
-            hauteur_finale = hauteur_confortable
-        else:
-            # Espace disponible pour une "unité" barre + espace
-            espace_disponible = self.HAUTEUR_GRAPHIQUE_MAX - marges
-            unite_max = self.HAUTEUR_BARRE_MAX + self.ESPACE_BARRE_MAX
-            unite_min = self.HAUTEUR_BARRE_MIN + self.ESPACE_BARRE_MIN
-            unite = max(espace_disponible / nb, unite_min)
+        self._mettre_a_jour_taille_barres()
 
-            # On garde le même ratio barre/espace que les valeurs "max"
-            ratio_barre = self.HAUTEUR_BARRE_MAX / unite_max
-            self.hauteur_barre = max(unite * ratio_barre, self.HAUTEUR_BARRE_MIN)
-            self.espace_barre = max(unite - self.hauteur_barre, self.ESPACE_BARRE_MIN)
+    def _mettre_a_jour_taille_barres(self):
+        """Calcule hauteur_barre/espace_barre en fonction de la hauteur
+        actuelle du widget : barres à taille max s'il y a assez de place,
+        rétrécies proportionnellement (jusqu'à MIN) sinon."""
 
-            hauteur_finale = marges + nb * (self.hauteur_barre + self.espace_barre)
-            hauteur_finale = min(
-                hauteur_finale, max(self.HAUTEUR_GRAPHIQUE_MAX, marges + unite_min)
-            )
+        nb = max(len(self.barres), 1)
+        marges = self.MARGE_HAUT + self.MARGE_BAS
+        hauteur_disponible = max(self.height() - marges, 0)
 
-        self.setMinimumHeight(int(hauteur_finale))
+        unite_max = self.HAUTEUR_BARRE_MAX + self.ESPACE_BARRE_MAX
+        unite_min = self.HAUTEUR_BARRE_MIN + self.ESPACE_BARRE_MIN
+
+        unite = hauteur_disponible / nb if nb else unite_max
+        unite = max(min(unite, unite_max), unite_min)
+
+        ratio_barre = self.HAUTEUR_BARRE_MAX / unite_max
+        self.hauteur_barre = max(unite * ratio_barre, self.HAUTEUR_BARRE_MIN)
+        self.espace_barre = max(unite - self.hauteur_barre, self.ESPACE_BARRE_MIN)
+
+    def resizeEvent(self, event):
+        self._mettre_a_jour_taille_barres()
+        super().resizeEvent(event)
 
     @staticmethod
     def _parse_date(valeur) -> date:
@@ -353,7 +362,7 @@ class CalendrierVisite(QWidget):
         # Layout principal
         self.layout = QVBoxLayout(self)
         self.layout.addLayout(layout_dates)
-        self.layout.addWidget(self.diagramme)
+        self.layout.addWidget(self.diagramme, stretch=1)
 
     def set_langue(self, langue: str):
         self.langue = langue

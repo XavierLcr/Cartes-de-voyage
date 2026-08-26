@@ -325,6 +325,7 @@ class CreerVoyage(QDialog):
         self.liste_des_pays.currentIndexChanged.connect(self.supprimer_filtre_pattern)
         self.liste_des_pays.currentIndexChanged.connect(self.maj_liste_reg_dep_pays)
         self.liste_niveaux = QComboBox()
+        self.liste_niveaux.addItems(["Régions", "Départements"])
         self.liste_niveaux.currentIndexChanged.connect(self.supprimer_filtre_pattern)
         self.liste_niveaux.currentIndexChanged.connect(self.maj_liste_reg_dep_pays)
         self.filtre_pattern = QLineEdit()
@@ -373,20 +374,24 @@ class CreerVoyage(QDialog):
 
         self.set_langue(langue=None)
 
-        self.liste_des_pays.setCurrentIndex(
-            self.liste_pays.index(
-                (
-                    sorted(
-                        [
-                            cle
-                            for granu in ["region", "dep"]
-                            for cle in self.visite_temp.get(granu, {}).keys()
-                        ]
+        for i, granu_temp in enumerate(["region", "dep"]):
+
+            # Granularité présente
+            if self.visite_temp.get(granu_temp):
+
+                # Sélection du pays
+                self.liste_des_pays.setCurrentIndex(
+                    self.liste_pays.index(
+                        sorted(self.visite_temp.get(granu_temp, {}).keys())[0]
                     )
-                    + [self.liste_pays[0]]
-                )[0]
-            )
-        )
+                )
+
+                # Sélection de la granularité
+                self.liste_niveaux.setCurrentIndex(i)
+
+                # Sortie de la boucle
+                break
+
         self.maj_liste_reg_dep_pays()
 
     def set_langue(self, langue: str | None):

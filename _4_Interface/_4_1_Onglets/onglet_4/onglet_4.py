@@ -66,6 +66,7 @@ class BoutonNav(QPushButton):
 
         # Icône : largeur fixe pour que tous les libellés démarrent alignés
         self.label_icone = QLabel(icone)
+        self.set_icone(icone=icone)
         self.label_icone.setObjectName("icone_nav")
         self.label_icone.setFixedWidth(22)
         self.label_icone.setAlignment(
@@ -76,8 +77,7 @@ class BoutonNav(QPushButton):
         # suffisante (cf. panneau_navigation.setMinimumWidth) il tient sur
         # une ligne ; le wordWrap sert de filet de sécurité si une traduction
         # est vraiment longue.
-        self.label_icone = QLabel()
-        self.set_icone(icone=icone)
+        self.label_texte = QLabel()
         self.label_texte.setObjectName("texte_nav")
         self.label_texte.setWordWrap(True)
 

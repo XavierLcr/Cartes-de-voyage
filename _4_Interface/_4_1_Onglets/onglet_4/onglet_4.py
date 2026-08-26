@@ -11,9 +11,10 @@
 import copy
 
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QColor
+from PyQt6.QtGui import QColor, QPixmap
 from PyQt6.QtWidgets import (
     QWidget,
+    QLabel,
     QVBoxLayout,
     QHBoxLayout,
     QPushButton,
@@ -39,21 +40,69 @@ from _4_Interface._4_1_Onglets.onglet_4.onglet_4_7_portrait_IA import (
     ProfilVoyageurIA,
 )
 
-# 1 -- Fonctions annexes --------------------------------------------------------
+# 1 -- Fonctions et widgets annexes ---------------------------------------------
 
 
-## 1.1 -- Fonction de renvoi d'un bouton ----------------------------------------
+## 1.1 -- Bouton de navigation avec icône dissociée du texte --------------------
 
 
-def creer_bouton(texte: str):
+class BoutonNav(QPushButton):
+    """Bouton de navigation composé d'une icône (à gauche, largeur fixe) et
+    d'un libellé (à droite, extensible). L'icône est aujourd'hui un emoji,
+    mais peut être remplacée à tout moment par un dessin maison via
+    `set_icone(QPixmap(...))`, sans toucher au texte ni au reste du style."""
 
-    btn_temp = QPushButton(texte)
-    btn_temp.setObjectName("bouton_nav")
-    btn_temp.setCheckable(True)
-    btn_temp.setCursor(Qt.CursorShape.PointingHandCursor)
-    btn_temp.setMinimumHeight(38)
+    def __init__(self, icone: str = "", texte: str = "", parent=None):
+        super().__init__(parent)
 
-    return btn_temp
+        self.setObjectName("bouton_nav")
+        self.setCheckable(True)
+        self.setCursor(Qt.CursorShape.PointingHandCursor)
+        self.setMinimumHeight(38)
+
+        layout = QHBoxLayout(self)
+        layout.setContentsMargins(12, 0, 12, 0)
+        layout.setSpacing(10)
+
+        # Icône : largeur fixe pour que tous les libellés démarrent alignés
+        self.label_icone = QLabel(icone)
+        self.label_icone.setObjectName("icone_nav")
+        self.label_icone.setFixedWidth(22)
+        self.label_icone.setAlignment(
+            Qt.AlignmentFlag.AlignCenter | Qt.AlignmentFlag.AlignVCenter
+        )
+
+        # Texte : ne doit jamais être tronqué. Avec une largeur de panneau
+        # suffisante (cf. panneau_navigation.setMinimumWidth) il tient sur
+        # une ligne ; le wordWrap sert de filet de sécurité si une traduction
+        # est vraiment longue.
+        self.label_texte = QLabel(texte)
+        self.label_texte.setObjectName("texte_nav")
+        self.label_texte.setWordWrap(True)
+
+        layout.addWidget(self.label_icone)
+        layout.addWidget(self.label_texte, 1)
+
+        # Les labels ne doivent jamais intercepter le clic : celui-ci doit
+        # rester géré par le QPushButton parent
+        self.label_icone.setAttribute(Qt.WidgetAttribute.WA_TransparentForMouseEvents)
+        self.label_texte.setAttribute(Qt.WidgetAttribute.WA_TransparentForMouseEvents)
+
+    def set_icone(self, icone):
+        """Accepte soit un emoji/texte (str), soit un QPixmap (dessin maison)."""
+        if isinstance(icone, QPixmap):
+            self.label_icone.setPixmap(icone)
+            self.label_icone.setText("")
+        else:
+            self.label_icone.setPixmap(QPixmap())
+            self.label_icone.setText(icone or "")
+
+    def set_texte(self, texte: str):
+        self.label_texte.setText(texte)
+
+    def set_couleur_texte(self, couleur: str, gras: bool = False):
+        poids = "600" if gras else "400"
+        self.label_texte.setStyleSheet(f"color: {couleur}; font-weight: {poids};")
 
 
 ## 1.2 -- Fonction de calcul de la couleur d'accent de la navigation -----------
@@ -157,13 +206,17 @@ class OngletTopPays(QWidget):
         self.pages.addWidget(self.portrait_IA)
 
         # === Barre de boutons (navigation) ===
-        self.btn_hemicycle = creer_bouton("Hémicycle")
-        self.btn_top_pays = creer_bouton("Top Pays")
-        self.btn_recommandations = creer_bouton("Suggestions")
-        self.btn_pays_souvent_visites = creer_bouton("Pays fréquents")
-        self.btn_calendrier = creer_bouton("Dernières destinations")
-        self.btn_tableau_de_bord = creer_bouton("Votre tableau de bord")
-        self.btn_portrait_IA = creer_bouton("Votre portrait")
+        # Les icônes sont fixées ici une fois pour toutes (elles ne dépendent
+        # pas de la langue) ; le texte, lui, est renseigné dans set_langue().
+        # Pour passer à des dessins maison, il suffira de remplacer la chaîne
+        # emoji par un appel à set_icone(QPixmap("chemin/icone.svg")).
+        self.btn_hemicycle = BoutonNav("🗺️")
+        self.btn_top_pays = BoutonNav("🏆")
+        self.btn_recommandations = BoutonNav("🚂")
+        self.btn_pays_souvent_visites = BoutonNav("⚓")
+        self.btn_calendrier = BoutonNav("📅")
+        self.btn_tableau_de_bord = BoutonNav("📰")
+        self.btn_portrait_IA = BoutonNav("🫆")
 
         # Association page <-> bouton, utilisée pour mettre en évidence le
         # bouton actif (y compris quand la navigation est déclenchée sans
@@ -184,6 +237,17 @@ class OngletTopPays(QWidget):
         for _, bouton in self._boutons_pages:
             self.groupe_navigation.addButton(bouton)
 
+        # Couleurs mémorisées pour pouvoir recolorier les libellés à chaque
+        # bascule de bouton (le QSS seul ne suffit pas à colorer de façon
+        # fiable des QLabel enfants selon l'état :checked du parent)
+        self._couleur_texte_defaut = "#161B1B"
+        self._couleur_accent = "#6C4AB6"
+
+        for _, bouton in self._boutons_pages:
+            bouton.toggled.connect(
+                lambda checked, b=bouton: self._maj_couleur_bouton(b, checked)
+            )
+
         btn_layout = QVBoxLayout()
         btn_layout.setContentsMargins(10, 14, 10, 14)
         btn_layout.setSpacing(4)
@@ -201,6 +265,10 @@ class OngletTopPays(QWidget):
         self.panneau_navigation = QWidget()
         self.panneau_navigation.setObjectName("panneau_navigation")
         self.panneau_navigation.setLayout(btn_layout)
+        # Largeur minimale généreuse : sans elle, le panneau se comprime au
+        # strict minimum et le texte des boutons (ex. "Votre tableau de
+        # bord", "Dernières destinations") se retrouve tronqué
+        self.panneau_navigation.setMinimumWidth(220)
 
         # Style par défaut, avant qu'un thème ne soit appliqué via set_style
         self.styliser_navigation(style=1, teinte=None, nuances={})
@@ -251,12 +319,34 @@ class OngletTopPays(QWidget):
         layout.addWidget(self.panneau_navigation)
         layout.addWidget(self.pages)
 
+    def _maj_couleur_bouton(self, bouton: BoutonNav, checked: bool):
+        """Recolore le libellé d'un bouton de navigation selon qu'il est
+        actif ou non. Appelé à chaque bascule (toggled), et donc aussi bien
+        pour le bouton qui devient actif que pour celui qui redevient inactif."""
+        couleur = self._couleur_accent if checked else self._couleur_texte_defaut
+        bouton.set_couleur_texte(couleur, gras=checked)
+
     def styliser_navigation(self, style, teinte, nuances):
         """Applique un style « panneau latéral » moderne et plat aux boutons de
         navigation, avec une couleur d'accent pour le bouton de la page active."""
 
         accent = renvoyer_couleur_accent(style=style, teinte=teinte, nuances=nuances)
         r, g, b = accent.red(), accent.green(), accent.blue()
+
+        couleur_texte_defaut = renvoyer_couleur_texte(
+            style=style,
+            couleur=renvoyer_couleur_widget(
+                style=style,
+                teinte=teinte,
+                nuances=nuances,
+                clair="#FCFCFC",
+                sombre="#161B1B",
+            ),
+        )
+
+        # Mémorisation pour les mises à jour dynamiques (cf. _maj_couleur_bouton)
+        self._couleur_texte_defaut = couleur_texte_defaut
+        self._couleur_accent = f"rgb({r}, {g}, {b})"
 
         self.panneau_navigation.setStyleSheet(f"""
             QWidget#panneau_navigation {{
@@ -265,20 +355,10 @@ class OngletTopPays(QWidget):
                 border-radius: 8px;
             }}
             QPushButton#bouton_nav {{
-                text-align: left;
-                padding: 9px 12px;
                 border: none;
                 border-left: 3px solid transparent;
                 border-radius: 8px;
                 background-color: transparent;
-                color: {renvoyer_couleur_texte(style=style, couleur=renvoyer_couleur_widget(
-                    style=style,
-                    teinte=teinte,
-                    nuances=nuances,
-                    clair="#FCFCFC",
-                    sombre="#161B1B",
-                ))};
-                font-size: 13px;
             }}
             QPushButton#bouton_nav:hover {{
                 background-color: rgba(0, 0, 0, 18);
@@ -289,10 +369,23 @@ class OngletTopPays(QWidget):
             QPushButton#bouton_nav:checked {{
                 background-color: rgba({r}, {g}, {b}, 38);
                 border-left: 3px solid rgb({r}, {g}, {b});
-                color: rgb({r}, {g}, {b});
-                font-weight: 600;
+            }}
+            QLabel#icone_nav {{
+                font-size: 15px;
+                background-color: transparent;
+            }}
+            QLabel#texte_nav {{
+                font-size: 13px;
+                background-color: transparent;
+                color: {couleur_texte_defaut};
             }}
         """)
+
+        # Réapplique la bonne couleur de texte à chaque bouton (checked ou non)
+        # puisque le QSS ci-dessus ne peut pas cibler fiablement un QLabel
+        # enfant en fonction de l'état :checked de son QPushButton parent.
+        for _, bouton in self._boutons_pages:
+            self._maj_couleur_bouton(bouton, bouton.isChecked())
 
     def set_langue(self, nouvelle_langue):
         self.hemicycle.set_langue(langue=nouvelle_langue)
@@ -303,45 +396,24 @@ class OngletTopPays(QWidget):
         self.tableau_de_bord.set_langue(langue=nouvelle_langue)
         self.portrait_IA.set_langue(langue=nouvelle_langue)
 
-        texte_onglet_1 = self.fonction_traduction(
-            "titre_sous_onglet_4_1",
-            prefixe=("🗺️ "),
-        )
-        texte_onglet_2 = self.fonction_traduction(
-            "titre_sous_onglet_4_2",
-            prefixe=("🏆 "),
-        )
-        texte_onglet_3 = self.fonction_traduction(
-            "titre_sous_onglet_4_3",
-            prefixe=("🚂 "),
-        )
-        texte_onglet_4 = self.fonction_traduction(
-            "titre_sous_onglet_4_4",
-            prefixe=("⚓ "),
-        )
-        texte_onglet_5 = self.fonction_traduction(
-            "titre_sous_onglet_4_5",
-            prefixe=("📅 "),
-        )
-        texte_onglet_6 = self.fonction_traduction(
-            "titre_sous_onglet_4_6",
-            prefixe=("📰 "),
-        )
-        texte_onglet_7 = self.fonction_traduction(
-            "titre_sous_onglet_4_7",
-            prefixe=("🫆 "),
-        )
+        texte_onglet_1 = self.fonction_traduction("titre_sous_onglet_4_1")
+        texte_onglet_2 = self.fonction_traduction("titre_sous_onglet_4_2")
+        texte_onglet_3 = self.fonction_traduction("titre_sous_onglet_4_3")
+        texte_onglet_4 = self.fonction_traduction("titre_sous_onglet_4_4")
+        texte_onglet_5 = self.fonction_traduction("titre_sous_onglet_4_5")
+        texte_onglet_6 = self.fonction_traduction("titre_sous_onglet_4_6")
+        texte_onglet_7 = self.fonction_traduction("titre_sous_onglet_4_7")
 
-        self.btn_hemicycle.setText(texte_onglet_1)
-        self.btn_top_pays.setText(texte_onglet_2)
+        self.btn_hemicycle.set_texte(texte_onglet_1)
+        self.btn_top_pays.set_texte(texte_onglet_2)
         self.btn_top_pays.setToolTip(
             self.fonction_traduction("description_onglet_4", suffixe=".")
         )
-        self.btn_recommandations.setText(texte_onglet_3)
-        self.btn_pays_souvent_visites.setText(texte_onglet_4)
-        self.btn_calendrier.setText(texte_onglet_5)
-        self.btn_tableau_de_bord.setText(texte_onglet_6)
-        self.btn_portrait_IA.setText(texte_onglet_7)
+        self.btn_recommandations.set_texte(texte_onglet_3)
+        self.btn_pays_souvent_visites.set_texte(texte_onglet_4)
+        self.btn_calendrier.set_texte(texte_onglet_5)
+        self.btn_tableau_de_bord.set_texte(texte_onglet_6)
+        self.btn_portrait_IA.set_texte(texte_onglet_7)
 
     def set_style(self, style: int, teinte, nuances):
 

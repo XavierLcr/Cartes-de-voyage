@@ -201,6 +201,7 @@ class OngletSelectionnerDestinations(QWidget):
                             nom=None,
                             date_deb=None,
                             date_fin=None,
+                            compagnons=None,
                             regions={clef: data.get(clef)} if type == "region" else {},
                             departements=(
                                 {clef: data.get(clef)} if type == "dep" else {}

@@ -152,6 +152,21 @@ class ArbreVoyages(QTreeWidget):
                         )
                         self._ajouter_elements(child, valeur, niveau + 1)
 
+                elif cle in ["compagnons"]:
+
+                    if valeur:
+                        child = QTreeWidgetItem(
+                            parent_item,
+                            [self.fonction_traduire(f"voyage_{cle}")],
+                        )
+                        child.setBackground(
+                            0,
+                            QtGui.QBrush(
+                                QtGui.QColor(self.couleurs.get(niveau, "#FFFFFF"))
+                            ),
+                        )
+                        self._ajouter_elements(child, valeur, niveau + 1)
+
                 else:
                     child = QTreeWidgetItem(parent_item, [str(cle)])
                     child.setBackground(
@@ -163,7 +178,7 @@ class ArbreVoyages(QTreeWidget):
                     self._ajouter_elements(child, valeur, niveau + 1)
 
         elif isinstance(data, list):
-            for item in data:
+            for item in sorted(data):
                 child = QTreeWidgetItem(parent_item, [f"• {str(item)}"])
                 child.setBackground(
                     0, QtGui.QBrush(QtGui.QColor(Qt.GlobalColor.transparent))

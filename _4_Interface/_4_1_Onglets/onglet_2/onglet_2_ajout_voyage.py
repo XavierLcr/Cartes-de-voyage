@@ -21,6 +21,7 @@ from PyQt6.QtWidgets import (
     QListWidget,
     QListWidgetItem,
     QLineEdit,
+    QWidget,
 )
 from PyQt6.QtCore import Qt, QSize
 
@@ -88,7 +89,122 @@ def creer_dictionnaire(
     )
 
 
-# 2 -- Pop-up d'ajout d'un voyage ----------------------------------------------
+# 2 -- Liste des compagnons de voyage ------------------------------------------
+
+
+class SaisieTags(QWidget):
+    def __init__(self, fct_traduction, tags_initiaux=None):
+        """Initialise le widget de saisie de tags.
+        Args:
+            tags_initiaux: Liste de chaînes à importer au démarrage (ex: ["Alice", "Bob"]).
+        """
+        super().__init__()
+        self.fct_traduction = fct_traduction
+
+        # --- Layout principal ---
+        layout = QVBoxLayout(self)
+        layout.setContentsMargins(0, 0, 0, 0)
+
+        # Champ de saisie
+        self.champ_saisie = QLineEdit()
+        self.champ_saisie.setPlaceholderText("Ajouter un voyageur...")
+        self.champ_saisie.returnPressed.connect(self.ajouter_tag)
+        layout.addWidget(self.champ_saisie)
+
+        # Conteneur pour les tags (horizontal)
+        self.conteneur_tags = QHBoxLayout()
+        self.conteneur_tags.setSpacing(6)
+        self.conteneur_tags.setContentsMargins(0, 4, 0, 0)
+        self.conteneur_tags.addStretch()  # pousse les tags à gauche
+        layout.addLayout(self.conteneur_tags)
+
+        # Import des tags initiaux (si fournis)
+        if tags_initiaux:
+            for tag in tags_initiaux:
+                self.ajouter_tag_manuel(tag)
+
+    def ajouter_tag_manuel(self, texte):
+        """Ajoute un tag sans vider le champ de saisie (pour l'import initial)."""
+        texte = texte.strip()
+        if not texte:
+            return
+
+        # --- Widget "pilule" englobant le tag ---
+        tag_widget = QWidget()
+        tag_widget.setStyleSheet("""
+            QWidget {
+                background-color: #e8e8e8;
+                border-radius: 10px;
+            }
+            """)
+
+        tag_layout = QHBoxLayout(tag_widget)
+        tag_layout.setContentsMargins(8, 2, 4, 2)
+        tag_layout.setSpacing(4)
+
+        # Label du nom
+        label = QLabel(texte)
+        label.setStyleSheet("background: transparent; border: none;")
+        tag_layout.addWidget(label)
+
+        # Bouton de suppression (plat, collé au texte)
+        btn_supprimer = QPushButton("✕")
+        btn_supprimer.setFlat(True)
+        btn_supprimer.setCursor(Qt.CursorShape.PointingHandCursor)
+        btn_supprimer.setFixedSize(16, 16)
+        btn_supprimer.setStyleSheet("""
+            QPushButton {
+                border: none;
+                background: transparent;
+                color: #555;
+                font-weight: bold;
+                padding: 1px 1px;
+            }
+            QPushButton:hover {
+                color: #c0392b;
+            }
+            """)
+        btn_supprimer.clicked.connect(lambda: self.supprimer_tag(tag_widget))
+        tag_layout.addWidget(btn_supprimer)
+
+        # Insère le tag juste avant le stretch final
+        self.conteneur_tags.insertWidget(self.conteneur_tags.count() - 1, tag_widget)
+
+    def ajouter_tag(self):
+        """Ajoute un tag depuis le champ de saisie."""
+        texte = self.champ_saisie.text().strip()
+        if texte:
+            self.ajouter_tag_manuel(texte)
+            self.champ_saisie.clear()  # Vide le champ après ajout
+
+    def supprimer_tag(self, tag_widget):
+        """Supprime un tag du conteneur."""
+        self.conteneur_tags.removeWidget(tag_widget)
+        tag_widget.deleteLater()
+
+    def obtenir_liste(self):
+        """Renvoie la liste des valeurs saisies (ex: ["Alice", "Bob", "Charlie"])."""
+        valeurs = []
+        for i in range(self.conteneur_tags.count()):
+            item = self.conteneur_tags.itemAt(i)
+            widget = item.widget()
+            if widget:  # ignore le stretch (qui n'a pas de widget)
+                label = widget.findChild(QLabel)
+                if label:
+                    valeurs.append(label.text())
+        return valeurs
+
+    def set_langue(self):
+
+        self.champ_saisie.setPlaceholderText(
+            self.fct_traduction("compagnons_liste_placeholder")
+        )
+        self.champ_saisie.setToolTip(
+            self.fct_traduction("compagnons_liste_tooltip", suffixe=".")
+        )
+
+
+# 3 -- Pop-up d'ajout d'un voyage ----------------------------------------------
 
 
 class CreerVoyage(QDialog):
@@ -154,6 +270,12 @@ class CreerVoyage(QDialog):
         self.utiliser_date = ToggleSwitch(style=style)
         self.utiliser_date.setChecked(self.visite_temp.get("date_fin") is not None)
 
+        # Ajout de compagnons de voyages
+        self.compagnons_liste = SaisieTags(
+            fct_traduction=self.fct_traduction,
+            tags_initiaux=self.visite_temp.get("compagnons"),
+        )
+
         # Layout principal du groupbox
         self.general_groupbox = QGroupBox()
         general_layout = QVBoxLayout()
@@ -184,6 +306,7 @@ class CreerVoyage(QDialog):
         # Ajout au layout principal
         general_layout.addLayout(ligne_nom)
         general_layout.addLayout(ligne_dates)
+        general_layout.addWidget(self.compagnons_liste)
 
         self.general_groupbox.setLayout(general_layout)
         layout.addWidget(self.general_groupbox)
@@ -223,6 +346,8 @@ class CreerVoyage(QDialog):
 
         # Bouton de validation
         bouton_valider = QPushButton(self.fct_traduction("valider", suffixe=""))
+        bouton_valider.setAutoDefault(False)
+        bouton_valider.setDefault(False)
         bouton_valider.clicked.connect(self.valider)
         layout.addWidget(bouton_valider)
 
@@ -230,6 +355,8 @@ class CreerVoyage(QDialog):
         self.bouton_supprimer = QPushButton(
             self.fct_traduction("supprimer", suffixe="")
         )
+        bouton_valider.setAutoDefault(False)
+        bouton_valider.setDefault(False)
         self.bouton_supprimer.clicked.connect(self.supprimer_voyage)
         self.bouton_supprimer.setStyleSheet(
             style_bouton_de_suppression(sombre=style > 1)
@@ -267,30 +394,35 @@ class CreerVoyage(QDialog):
         # Groupbox des infos générales
         self.general_groupbox.setTitle(self.fct_traduction("general_voyage_groupbox"))
         self.nom_voyage.setPlaceholderText(self.fct_traduction("general_voyage_nom"))
+
+        # Dates
         self.debut_voyage_label.setText(
             self.fct_traduction("general_voyage_debut", suffixe=" :")
         )
         self.fin_voyage_label.setText(
             self.fct_traduction("general_voyage_fin", suffixe=" :")
         )
+        self.utiliser_date.setText(self.fct_traduction("general_voyage_utiliser_date"))
+
+        # Compagnons de voyage
+        self.compagnons_liste.set_langue()
+
+        # Sélection des lieux
         self.groupe_selection_lieux.setTitle(
             self.fct_traduction("titre_choix_destinations_visitees")
         )
-        self.filtre_pattern.setPlaceholderText(
-            self.fct_traduction("onglet_2_filtre_pattern", suffixe="...")
-        )
-
-        self.utiliser_date.setText(self.fct_traduction("general_voyage_utiliser_date"))
-        self.liste_des_pays.setToolTip(
-            self.fct_traduction("precision_diplomatique_onglet_2", suffixe=".")
-        )
-
         reset_combo(
             self.liste_niveaux,
             [
                 self.granularite_traductions[self.langue][k]
                 for k in ["Régions", "Départements"]
             ],
+        )
+        self.filtre_pattern.setPlaceholderText(
+            self.fct_traduction("onglet_2_filtre_pattern", suffixe="...")
+        )
+        self.liste_des_pays.setToolTip(
+            self.fct_traduction("precision_diplomatique_onglet_2", suffixe=".")
         )
 
     def creer_item(
@@ -496,6 +628,7 @@ class CreerVoyage(QDialog):
             nom=self.nom_voyage.text(),
             date_deb=date_debut,
             date_fin=date_fin,
+            compagnons=self.compagnons_liste.obtenir_liste(),
             regions=self.dicts_granu.get("region", {}),
             departements=self.dicts_granu.get("dep", {}),
             langue=self.langue,
@@ -527,3 +660,10 @@ class CreerVoyage(QDialog):
 
     def supprimer_filtre_pattern(self):
         self.filtre_pattern.setText("")
+
+    def keyPressEvent(self, event):
+        if event.key() in (Qt.Key.Key_Return, Qt.Key.Key_Enter):
+            # On bloque le traitement par défaut de QDialog (qui cliquerait sur un bouton)
+            event.ignore()
+            return
+        super().keyPressEvent(event)

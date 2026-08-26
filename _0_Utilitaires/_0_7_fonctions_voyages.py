@@ -23,6 +23,7 @@ from constantes import hierarchie_par_pays, pays_differentes_langues
 
 def creer_voyage(
     nom: str | None,
+    compagnons: str | list | None,
     date_deb,
     date_fin,
     regions: dict,
@@ -31,9 +32,15 @@ def creer_voyage(
     referentiel: dict = pays_differentes_langues,
 ):
 
+    # Gestion des compagnons
+    if compagnons is not None:
+        if isinstance(compagnons, str) == True:
+            compagnons = [compagnons]
+
     # Création du voyage
     resultat = {
         "nom": nom,
+        "compagnons": compagnons,
         "date_debut": date_deb,
         "date_fin": date_fin,
         "region": regions,
@@ -198,6 +205,7 @@ def destinations_vers_voyages(
                 nom=None,
                 date_deb=None,
                 date_fin=None,
+                compagnons=None,
                 regions={pays: regions.get(pays)},
                 departements={},
                 langue=langue,
@@ -216,6 +224,7 @@ def destinations_vers_voyages(
                 nom=None,
                 date_deb=None,
                 date_fin=None,
+                compagnons=None,
                 regions={},
                 departements={pays: departements.get(pays)},
                 langue=langue,

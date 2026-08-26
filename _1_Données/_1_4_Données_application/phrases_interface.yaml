@@ -104,6 +104,7 @@ avertissement_onglet_2 : Pour un pays donné, si des départements sont cochés,
 lieux_sans_correspondance : Certains lieux provenant de votre fichier n'ont pas de correspondance
 voyage_date_debut : Date de début
 voyage_date_fin : Date de fin
+voyage_compagnons : Compagnon(s) de voyage
 tri_ordre_creation_voyages : Trier par ordre de création des voyages
 tri_nom_voyages : Trier par nom des voyages
 tri_dates_debut_voyages : Trier par date des voyages
@@ -118,6 +119,8 @@ precision_diplomatique_onglet_2 : Dans ce logiciel, le terme « pays » est empl
 general_voyage_fin : Date de fin
 general_voyage_utiliser_date : Utiliser la date pour ce voyage
 titre_choix_destinations_visitees : Sélection des lieux visités
+compagnons_liste_placeholder : Ajouter un nom de compagnon de voyage... (facultatif)
+compagnons_liste_tooltip : Il faut cliquer sur la touche Entrée afin de valider le nom saisi
 
 # Chargement des YAMLs
 description_titre_chargement_yaml : Cela permet de charger la liste des voyages effectués. L'ancien format avec les listes de régions ou départements par pays est également supporté.

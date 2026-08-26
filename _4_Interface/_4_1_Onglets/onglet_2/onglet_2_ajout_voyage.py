@@ -184,6 +184,10 @@ class SaisieTags(QWidget):
 
     def obtenir_liste(self):
         """Renvoie la liste des valeurs saisies (ex: ["Alice", "Bob", "Charlie"])."""
+
+        # Ajout du nom saisi actuel
+        self.ajouter_tag()
+
         valeurs = []
         for i in range(self.conteneur_tags.count()):
             item = self.conteneur_tags.itemAt(i)

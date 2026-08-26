@@ -8,6 +8,8 @@
 # 0 -- Initialisation ----------------------------------------------------------
 
 
+from PyQt6.QtGui import QColor
+
 from _0_Utilitaires._0_2_fonctions_graphiques import (
     renvoyer_couleur_widget,
     renvoyer_couleur_texte,
@@ -101,11 +103,19 @@ def style_dynamique_application(
     couleur_push_desactive = renvoyer_couleur_widget(
         style=style, teinte=teinte, nuances=nuances, clair="#E4E9F0", sombre="#2A2E3D"
     )
-    couleur_push_texte_desactive = renvoyer_couleur_texte(
-        style=style,
-        couleur=couleur_push_desactive,
+    couleur_push_texte_desactive = QColor(
+        renvoyer_couleur_texte(
+            style=style,
+            couleur=couleur_push_desactive,
+        )
     )
-
+    couleur_push_texte_desactive = (
+        f"rgba("
+        f"{couleur_push_texte_desactive.red()}, "
+        f"{couleur_push_texte_desactive.green()}, "
+        f"{couleur_push_texte_desactive.blue()}, "
+        f"127)"
+    )
     # Boites
     couleur_box = renvoyer_couleur_widget(
         style=style, teinte=teinte, nuances=nuances, clair="#E8EEE1", sombre="#1696A9"
@@ -447,7 +457,7 @@ def style_dynamique_application(
                 color: {couleur_box_texte};
                 border: 1px solid rgba(255,255,255,40);
                 padding: 7px 12px;
-                border-radius: 12px;
+                border-radius: 10px;
             }}
             QComboBox QAbstractItemView {{ 
                 border: none; outline: none; 
@@ -463,6 +473,10 @@ def style_dynamique_application(
             QComboBox::down-arrow {{
                 width: 32px;
                 border: none;
+            }}
+            QComboBox::disabled {{
+                background-color: {couleur_push_desactive};
+                color: {couleur_push_texte_desactive};
             }}
 
             QScrollArea {{

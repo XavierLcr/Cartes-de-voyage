@@ -118,7 +118,7 @@ def style_dynamique_application(
     )
     # Boites
     couleur_box = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#E8EEE1", sombre="#1696A9"
+        style=style, teinte=teinte, nuances=nuances, clair="#F5EEE6", sombre="#1696A9"
     )
     couleur_box_texte = renvoyer_couleur_texte(
         style=style,
@@ -456,7 +456,7 @@ def style_dynamique_application(
                 background-color: {couleur_box};
                 color: {couleur_box_texte};
                 border: 1px solid rgba(255,255,255,40);
-                padding: 7px 12px;
+                padding: 5px 10px;
                 border-radius: 10px;
             }}
             QComboBox QAbstractItemView {{ 

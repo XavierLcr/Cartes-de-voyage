@@ -37,6 +37,7 @@ from _4_Interface._4_1_Onglets.onglet_4.onglet_4_7_portrait_IA import (
     ProfilVoyageurIA,
 )
 from _4_Interface._4_3_Icones._4_3_9_podium import _dessiner_icone_podium
+from _4_Interface._4_3_Icones._4_3_10_hemicycle import _dessiner_icone_hemicycle
 
 # 1 -- Fonctions et widgets annexes ---------------------------------------------
 
@@ -146,9 +147,11 @@ class OngletTopPays(QWidget):
         # pas de la langue) ; le texte, lui, est renseigné dans set_langue().
         # Pour passer à des dessins maison, il suffira de remplacer la chaîne
         # emoji par un appel à set_icone(QPixmap("chemin/icone.svg")).
-        self.btn_hemicycle = BoutonNav("🗺️")
+        self.btn_hemicycle = BoutonNav(
+            _dessiner_icone_hemicycle,  # fond="#C0D2E6", fond_forme="carre_arrondi"
+        )
         self.btn_top_pays = BoutonNav(
-            _dessiner_icone_podium, fond="#C0D2E6", fond_forme="carre_arrondi"
+            _dessiner_icone_podium,  # fond="#C0D2E6", fond_forme="carre_arrondi"
         )
         self.btn_recommandations = BoutonNav("🚂")
         self.btn_pays_souvent_visites = BoutonNav("⚓")

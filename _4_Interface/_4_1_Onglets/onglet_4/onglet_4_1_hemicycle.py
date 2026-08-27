@@ -18,14 +18,7 @@ from _0_Utilitaires._0_5_isid import isid
 # 1 -- Fonctions ---------------------------------------------------------------
 
 
-## 1.1 -- Fonction de calcul de sommes de sommes croissantes -------------------
-
-
-def somme_filee(lignes, a, b):
-    return lignes * a + b * (lignes * (lignes - 1) // 2)
-
-
-## 1.2 -- Fonction de calcul du nombre de pays visités par continent -----------
+## 1.1 -- Fonction de calcul du nombre de pays visités par continent -----------
 
 
 def table_pays_visites(
@@ -121,7 +114,7 @@ def table_pays_visites(
     return df_temp
 
 
-## 1.3 -- Fonction d'ajout des coordonnées -------------------------------------
+## 1.2 -- Fonction d'ajout des coordonnées -------------------------------------
 
 
 def ajouter_coordonnees(
@@ -307,16 +300,12 @@ class HemicycleWidget(QWidget):
         self.pays_survole = None
 
         # Ajustement du nombre de points par ligne
-        self.decalage = len(self.liste_pays) - somme_filee(
-            lignes=self.num_levels, a=self.base_points, b=self.points_increment
-        )
+        self.decalage = len(self.liste_pays) - self.somme_filee()
         ## Si le total est trop haut
         while self.decalage < 0:
             self.base_points = max(self.base_points - 1, 10)
             self.points_increment = max(self.points_increment, 4)
-            self.decalage = len(self.liste_pays) - somme_filee(
-                lignes=self.num_levels, a=self.base_points, b=self.points_increment
-            )
+            self.decalage = len(self.liste_pays) - self.somme_filee()
 
         # Couleurs pour chaque continent
         self.continent_colors = constantes.parametres_application.get(
@@ -343,6 +332,16 @@ class HemicycleWidget(QWidget):
 
     def center_y(self):
         return self.height() * 0.9
+
+    def somme_filee(self):
+
+        # Récupération des valeurs
+        lignes = self.num_levels
+        a = self.base_points
+        b = self.points_increment
+
+        # Calcul et renvoi
+        return lignes * a + b * (lignes * (lignes - 1) // 2)
 
     def set_points_visites_position(self, position):
         self.points_visites_position = position

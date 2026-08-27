@@ -19,7 +19,6 @@ from PyQt6.QtGui import (
     QBrush,
     QColor,
     QFont,
-    QLinearGradient,
     QPainter,
     QPainterPath,
 )
@@ -30,6 +29,7 @@ from _4_Interface._4_2_Style._4_2_1_style_principal import (
     renvoyer_couleur_texte,
     renvoyer_couleur_widget_differente,
 )
+from _4_Interface._4_3_Icones._4_3_6_badge_pin import _dessiner_badge_pin
 
 # 1 -- Nombre de voyages par an ------------------------------------------------
 
@@ -298,7 +298,12 @@ class NombreVoyagesAnnu(QWidget):
 
         # --- badge (pin de destination) ---
         rect_badge = QRectF(marge, (h - taille_badge) / 2, taille_badge, taille_badge)
-        self._dessiner_badge_pin(painter, rect_badge)
+        _dessiner_badge_pin(
+            painter,
+            rect_badge,
+            badge_debut=self.theme.badge_debut,
+            badge_fin=self.theme.badge_fin,
+        )
 
         # --- zone texte à droite du badge ---
         x_texte = rect_badge.right() + marge * 0.8
@@ -334,50 +339,6 @@ class NombreVoyagesAnnu(QWidget):
         if self.historique:
             rect_graphique = QRectF(marge, h * 0.80, w - 2 * marge, h * 0.14)
             self._dessiner_graphique_barres(painter, rect_graphique)
-
-    def _dessiner_badge_pin(self, painter: QPainter, rect: QRectF) -> None:
-        """Badge circulaire dégradé avec une icône de pin de destination."""
-        degrade = QLinearGradient(rect.topLeft(), rect.bottomRight())
-        degrade.setColorAt(0.0, self.theme.badge_debut)
-        degrade.setColorAt(1.0, self.theme.badge_fin)
-        painter.setPen(Qt.PenStyle.NoPen)
-        painter.setBrush(QBrush(degrade))
-        painter.drawEllipse(rect)
-
-        # icône : pin (tête ronde + pointe), dessinée au centre du badge
-        cx, cy = rect.center().x(), rect.center().y()
-        s = rect.width()  # échelle de référence
-
-        chemin_pin = QPainterPath()
-        rayon_tete = s * 0.20
-        cy_tete = cy - s * 0.08
-        chemin_pin.addEllipse(
-            QRectF(
-                cx - rayon_tete, cy_tete - rayon_tete, rayon_tete * 2, rayon_tete * 2
-            )
-        )
-
-        pointe = (cx, cy + s * 0.28)
-        gauche = (cx - rayon_tete * 0.85, cy_tete + rayon_tete * 0.55)
-        droite = (cx + rayon_tete * 0.85, cy_tete + rayon_tete * 0.55)
-        triangle = QPainterPath()
-        triangle.moveTo(*gauche)
-        triangle.lineTo(*pointe)
-        triangle.lineTo(*droite)
-        triangle.closeSubpath()
-        chemin_pin = chemin_pin.united(triangle)
-
-        painter.setBrush(QBrush(QColor(255, 255, 255, 235)))
-        painter.drawPath(chemin_pin)
-
-        # petit trou au centre de la tête du pin
-        rayon_trou = rayon_tete * 0.4
-        painter.setBrush(QBrush(self.theme.badge_debut))
-        painter.drawEllipse(
-            QRectF(
-                cx - rayon_trou, cy_tete - rayon_trou, rayon_trou * 2, rayon_trou * 2
-            )
-        )
 
     def _dessiner_tendance(self, painter: QPainter, rect: QRectF) -> None:
         if self.tendance > 0:

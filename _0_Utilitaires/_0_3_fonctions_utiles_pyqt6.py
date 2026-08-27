@@ -209,7 +209,7 @@ def _trouver_police_disponible(candidats):
 ## 8.1 -- Renvoie une QColor avec un certain niveau de transparence ------------
 
 
-def _QColor_avec_transparence(couleur: QColor, alpha: int) -> QColor:
+def _QColor_avec_alpha(couleur: QColor, alpha: int) -> QColor:
     """Copie une QColor du thème avec une opacité réduite, pour ne
     jamais muter les couleurs originales du thème."""
     c = QColor(couleur)

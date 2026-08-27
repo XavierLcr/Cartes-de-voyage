@@ -23,7 +23,7 @@ from PyQt6.QtGui import (
 
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     _trouver_police_disponible,
-    _QColor_avec_transparence,
+    _QColor_avec_alpha,
 )
 
 # 1 -- Classe du podium --------------------------------------------------------
@@ -244,7 +244,7 @@ class Podium(QWidget):
         painter.drawPath(chemin)
 
         # liseré fin, dans la teinte "or" du 1er badge, très transparent
-        pen_contour = QPen(_QColor_avec_transparence(self.COULEURS[1][0], 55))
+        pen_contour = QPen(_QColor_avec_alpha(self.COULEURS[1][0], 55))
         pen_contour.setWidthF(1.1)
         painter.setPen(pen_contour)
         painter.setBrush(Qt.BrushStyle.NoBrush)
@@ -254,15 +254,15 @@ class Podium(QWidget):
 
         # reflet glacé, discret, sur le tiers supérieur de la carte
         degrade_reflet = QLinearGradient(0, 0, 0, h * 0.45)
-        degrade_reflet.setColorAt(0.0, _QColor_avec_transparence(QColor("#FFFFFF"), 35))
-        degrade_reflet.setColorAt(1.0, _QColor_avec_transparence(QColor("#FFFFFF"), 0))
+        degrade_reflet.setColorAt(0.0, _QColor_avec_alpha(QColor("#FFFFFF"), 35))
+        degrade_reflet.setColorAt(1.0, _QColor_avec_alpha(QColor("#FFFFFF"), 0))
         painter.setPen(Qt.PenStyle.NoPen)
         painter.setBrush(degrade_reflet)
         painter.drawRect(QRectF(0, 0, w, h * 0.45))
 
     def _dessiner_ligne_base(self, painter, x_gauche, x_droite, y):
         """Ligne fine sous les colonnes, façon socle du podium."""
-        pen_base = QPen(_QColor_avec_transparence(self.couleur_sous_texte, 90))
+        pen_base = QPen(_QColor_avec_alpha(self.couleur_sous_texte, 90))
         pen_base.setWidthF(1.2)
         painter.setPen(pen_base)
         painter.drawLine(QPointF(x_gauche, y), QPointF(x_droite, y))
@@ -309,7 +309,7 @@ class Podium(QWidget):
         # fin liseré clair sur le contour de la colonne, pour la détacher
         # légèrement du fond de carte (cohérent avec le liseré de la carte)
         painter.save()
-        pen_contour_colonne = QPen(_QColor_avec_transparence(QColor("#FFFFFF"), 90))
+        pen_contour_colonne = QPen(_QColor_avec_alpha(QColor("#FFFFFF"), 90))
         pen_contour_colonne.setWidthF(1.0)
         painter.setPen(pen_contour_colonne)
         painter.setBrush(Qt.BrushStyle.NoBrush)
@@ -497,7 +497,7 @@ class Podium(QWidget):
         )
 
         # piste de fond
-        pen_fond = QPen(_QColor_avec_transparence(QColor("#FFFFFF"), 130))
+        pen_fond = QPen(_QColor_avec_alpha(QColor("#FFFFFF"), 130))
         pen_fond.setWidthF(epaisseur)
         pen_fond.setCapStyle(Qt.PenCapStyle.RoundCap)
         painter.setPen(pen_fond)
@@ -532,7 +532,7 @@ class Podium(QWidget):
 
             # petite ombre douce sous la poignée
             painter.setPen(Qt.PenStyle.NoPen)
-            painter.setBrush(_QColor_avec_transparence(QColor("#000000"), 45))
+            painter.setBrush(_QColor_avec_alpha(QColor("#000000"), 45))
             painter.drawEllipse(
                 QPointF(px, py + rayon_poignee * 0.15), rayon_poignee, rayon_poignee
             )

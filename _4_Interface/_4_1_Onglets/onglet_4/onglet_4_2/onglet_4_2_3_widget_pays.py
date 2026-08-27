@@ -25,7 +25,7 @@ from PyQt6.QtWidgets import (
 
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     _trouver_police_disponible,
-    _QColor_avec_transparence,
+    _QColor_avec_alpha,
 )
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_2.onglet_4_2_1_style_visuel import (
     ThemeCarteClassement,
@@ -144,7 +144,7 @@ class CarteClassementPays(QWidget):
         # léger liseré pour détacher la carte du fond
         pen_contour = QPen(self.theme.badge_debut)
         pen_contour.setWidthF(1.1)
-        pen_contour.setColor(_QColor_avec_transparence(self.theme.badge_debut, 60))
+        pen_contour.setColor(_QColor_avec_alpha(self.theme.badge_debut, 60))
         painter.setPen(pen_contour)
         painter.setBrush(Qt.BrushStyle.NoBrush)
         painter.drawPath(chemin_carte)
@@ -153,8 +153,8 @@ class CarteClassementPays(QWidget):
 
         # reflet "glacé" discret en haut de la carte
         degrade_reflet = QLinearGradient(0, 0, 0, h * 0.5)
-        degrade_reflet.setColorAt(0.0, _QColor_avec_transparence(QColor("#FFFFFF"), 40))
-        degrade_reflet.setColorAt(1.0, _QColor_avec_transparence(QColor("#FFFFFF"), 0))
+        degrade_reflet.setColorAt(0.0, _QColor_avec_alpha(QColor("#FFFFFF"), 40))
+        degrade_reflet.setColorAt(1.0, _QColor_avec_alpha(QColor("#FFFFFF"), 0))
         painter.setPen(Qt.PenStyle.NoPen)
         painter.setBrush(degrade_reflet)
         painter.drawRect(QRectF(0, 0, w, h * 0.5))
@@ -174,7 +174,7 @@ class CarteClassementPays(QWidget):
         # petite ombre propre au badge, pour le détacher du fond de carte
         rect_ombre_badge = rect_badge.translated(0, rayon_badge * 0.12)
         painter.setPen(Qt.PenStyle.NoPen)
-        painter.setBrush(_QColor_avec_transparence(QColor("#000000"), 35))
+        painter.setBrush(_QColor_avec_alpha(QColor("#000000"), 35))
         painter.drawEllipse(rect_ombre_badge)
 
         degrade = QLinearGradient(rect_badge.topLeft(), rect_badge.bottomRight())
@@ -184,7 +184,7 @@ class CarteClassementPays(QWidget):
         painter.drawEllipse(rect_badge)
 
         # fin anneau clair sur le pourtour du badge, effet "médaille"
-        pen_anneau = QPen(_QColor_avec_transparence(QColor("#FFFFFF"), 90))
+        pen_anneau = QPen(_QColor_avec_alpha(QColor("#FFFFFF"), 90))
         pen_anneau.setWidthF(max(1.0, rayon_badge * 0.06))
         painter.setPen(pen_anneau)
         painter.setBrush(Qt.BrushStyle.NoBrush)
@@ -225,7 +225,7 @@ class CarteClassementPays(QWidget):
             rect_barre_fond, hauteur_barre / 2, hauteur_barre / 2
         )
         painter.setPen(Qt.PenStyle.NoPen)
-        painter.setBrush(_QColor_avec_transparence(self.theme.sous_texte, 45))
+        painter.setBrush(_QColor_avec_alpha(self.theme.sous_texte, 45))
         painter.drawPath(chemin_fond)
 
         largeur_remplie = largeur_barre * (self._pct_valeur / 100.0)

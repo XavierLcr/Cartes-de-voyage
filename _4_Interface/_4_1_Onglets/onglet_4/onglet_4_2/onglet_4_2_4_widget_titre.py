@@ -24,7 +24,7 @@ from PyQt6.QtWidgets import QWidget, QGraphicsDropShadowEffect
 
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     _trouver_police_disponible,
-    _QColor_avec_transparence,
+    _QColor_avec_alpha,
 )
 
 # 1 -- Classe de création du titre ---------------------------------------------
@@ -103,8 +103,8 @@ class TitreClassement(QWidget):
         painter.setClipPath(chemin_carte)
 
         degrade = QLinearGradient(rect.topLeft(), rect.bottomRight())
-        degrade.setColorAt(0, _QColor_avec_transparence(self.theme.badge_debut, 150))
-        degrade.setColorAt(1, _QColor_avec_transparence(self.theme.badge_fin, 150))
+        degrade.setColorAt(0, _QColor_avec_alpha(self.theme.badge_debut, 150))
+        degrade.setColorAt(1, _QColor_avec_alpha(self.theme.badge_fin, 150))
         painter.setBrush(QBrush(degrade))
         painter.drawRect(rect)
 
@@ -144,8 +144,8 @@ class TitreClassement(QWidget):
         # tourner la lumière autour de l'anneau (badge_fin -> blanc ->
         # badge_debut -> blanc), au lieu d'un anneau à couleur plate
         degrade_lunette = QConicalGradient(centre, 90)
-        teinte_fin = _QColor_avec_transparence(self.theme.badge_fin, 235)
-        teinte_debut = _QColor_avec_transparence(self.theme.badge_debut, 235)
+        teinte_fin = _QColor_avec_alpha(self.theme.badge_fin, 235)
+        teinte_debut = _QColor_avec_alpha(self.theme.badge_debut, 235)
         reflet_clair = QColor(255, 255, 255, 225)
         degrade_lunette.setColorAt(0.00, teinte_fin)
         degrade_lunette.setColorAt(0.22, reflet_clair)
@@ -197,7 +197,7 @@ class TitreClassement(QWidget):
         painter.setPen(Qt.PenStyle.NoPen)
         painter.setBrush(QColor(0, 0, 0, 20))
         painter.drawPath(chemin_repere.translated(0, 0.6))
-        painter.setBrush(_QColor_avec_transparence(self.theme.badge_fin, 150))
+        painter.setBrush(_QColor_avec_alpha(self.theme.badge_fin, 150))
         painter.drawPath(chemin_repere.translated(0, -0.3))
 
         # aiguille bicolore, légèrement inclinée pour du dynamisme
@@ -237,12 +237,8 @@ class TitreClassement(QWidget):
         moitie_nord.closeSubpath()
 
         degrade_nord = QLinearGradient(centre, pointe_nord)
-        degrade_nord.setColorAt(
-            0.0, _QColor_avec_transparence(self.theme.badge_fin, 255)
-        )
-        degrade_nord.setColorAt(
-            1.0, _QColor_avec_transparence(self.theme.badge_fin, 195)
-        )
+        degrade_nord.setColorAt(0.0, _QColor_avec_alpha(self.theme.badge_fin, 255))
+        degrade_nord.setColorAt(1.0, _QColor_avec_alpha(self.theme.badge_fin, 195))
         painter.setBrush(QBrush(degrade_nord))
         painter.drawPath(moitie_nord)
         painter.setPen(QPen(QColor(0, 0, 0, 35), 0.6))
@@ -258,12 +254,8 @@ class TitreClassement(QWidget):
         moitie_sud.closeSubpath()
 
         degrade_sud = QLinearGradient(centre, pointe_sud)
-        degrade_sud.setColorAt(
-            0.0, _QColor_avec_transparence(self.theme.badge_debut, 245)
-        )
-        degrade_sud.setColorAt(
-            1.0, _QColor_avec_transparence(self.theme.badge_debut, 150)
-        )
+        degrade_sud.setColorAt(0.0, _QColor_avec_alpha(self.theme.badge_debut, 245))
+        degrade_sud.setColorAt(1.0, _QColor_avec_alpha(self.theme.badge_debut, 150))
         painter.setPen(Qt.PenStyle.NoPen)
         painter.setBrush(QBrush(degrade_sud))
         painter.drawPath(moitie_sud)
@@ -277,12 +269,8 @@ class TitreClassement(QWidget):
             rayon_pivot * 1.4,
         )
         degrade_pivot.setColorAt(0.0, QColor(255, 255, 255, 255))
-        degrade_pivot.setColorAt(
-            0.4, _QColor_avec_transparence(self.theme.badge_fin, 255)
-        )
-        degrade_pivot.setColorAt(
-            1.0, _QColor_avec_transparence(self.theme.badge_fin, 220)
-        )
+        degrade_pivot.setColorAt(0.4, _QColor_avec_alpha(self.theme.badge_fin, 255))
+        degrade_pivot.setColorAt(1.0, _QColor_avec_alpha(self.theme.badge_fin, 220))
         painter.setPen(Qt.PenStyle.NoPen)
         painter.setBrush(QBrush(degrade_pivot))
         painter.drawEllipse(centre, rayon_pivot, rayon_pivot)

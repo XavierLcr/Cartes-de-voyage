@@ -30,11 +30,11 @@ from _0_Utilitaires._0_2_fonctions_graphiques import (
 from _0_Utilitaires._0_1_fonctions_utiles_gen import voyages_vers_destinations
 from _4_Interface._4_1_Onglets.onglet_4 import (
     onglet_4_1_hemicycle,
-    onglet_4_3_recommendations,
     onglet_4_4_n_visites,
     onglet_4_5_derniere_periode,
 )
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_2 import onglet_4_2_classement
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_3 import onglet_4_3_recommendations
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6 import onglet_4_6
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_7_portrait_IA import (
     ProfilVoyageurIA,

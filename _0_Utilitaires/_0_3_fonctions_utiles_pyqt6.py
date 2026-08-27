@@ -18,6 +18,7 @@ from PyQt6.QtWidgets import (
     QScrollArea,
 )
 from PyQt6.QtCore import Qt, QTimer
+from PyQt6.QtGui import QFontInfo, QFont
 
 # 1 -- Fonctions sur les combos ------------------------------------------------
 
@@ -188,3 +189,15 @@ def creer_scroll(layout):
     scroll_temp.setWidgetResizable(True)
     scroll_temp.setWidget(widget_temp)
     return scroll_temp
+
+
+# 7 -- Sélection d'une police disponible parmi une liste -----------------------
+
+
+def _trouver_police_disponible(candidats):
+    """Renvoie le premier nom de police réellement installé parmi
+    `candidats` (le dernier élément sert de repli garanti)."""
+    for nom in candidats[:-1]:
+        if QFontInfo(QFont(nom)).exactMatch():
+            return nom
+    return candidats[-1]

@@ -34,7 +34,7 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     vider_layout,
     creer_scroll,
 )
-from _4_Interface._4_1_Onglets.onglet_4.onglet_4_2.onglet_4_2_1_podium import Podium
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_2.onglet_4_2_2_podium import Podium
 
 from _4_Interface._4_2_Style._4_2_1_style_principal import (
     renvoyer_couleur_widget,
@@ -289,7 +289,7 @@ class CarteClassementPays(QWidget):
 
         # Même police que le podium (méthode réutilisée depuis Podium
         # pour ne pas dupliquer la liste de polices candidates).
-        self.police_principale = Podium._trouver_police_disponible(
+        self.police_principale = _trouver_police_disponible(
             [
                 "CormorantGaramond",
                 "Fredoka",
@@ -518,7 +518,7 @@ class TitreClassement(QWidget):
         self.theme = style
 
         # Même police que le podium / les cartes de classement.
-        self.police_principale = Podium._trouver_police_disponible(
+        self.police_principale = _trouver_police_disponible(
             [
                 "Segoe UI",
                 "Fredoka",

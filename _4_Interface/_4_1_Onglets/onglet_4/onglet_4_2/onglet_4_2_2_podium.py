@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
 # _4_Interface/_4_1_Onglets/onglet_4/onglet_4_2                                #
-# Onglet 4.2.1 – Widget du poduim pour le top 3 pays                           #
+# Onglet 4.2.2 – Widget du poduim pour le top 3 pays                           #
 ################################################################################
 
 
@@ -18,9 +18,10 @@ from PyQt6.QtGui import (
     QRadialGradient,
     QPainterPath,
     QPen,
-    QFontInfo,
     QBrush,
 )
+
+from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import _trouver_police_disponible
 
 # 1 -- Classe du podium --------------------------------------------------------
 
@@ -77,7 +78,7 @@ class Podium(QWidget):
 
         # Police un peu plus joyeuse que Segoe UI, avec repli automatique
         # sur une police sûre si aucune de la liste n'est installée.
-        self.police_principale = self._trouver_police_disponible(
+        self.police_principale = _trouver_police_disponible(
             [
                 "Baloo 2",
                 "Fredoka",
@@ -87,15 +88,6 @@ class Podium(QWidget):
                 "Segoe UI",
             ]
         )
-
-    @staticmethod
-    def _trouver_police_disponible(candidats):
-        """Renvoie le premier nom de police réellement installé parmi
-        `candidats` (le dernier élément sert de repli garanti)."""
-        for nom in candidats[:-1]:
-            if QFontInfo(QFont(nom)).exactMatch():
-                return nom
-        return candidats[-1]
 
     @staticmethod
     def _avec_alpha(couleur: QColor, alpha: int) -> QColor:

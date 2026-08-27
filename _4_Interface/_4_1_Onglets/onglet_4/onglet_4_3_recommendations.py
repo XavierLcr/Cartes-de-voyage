@@ -33,6 +33,7 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
 )
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     vider_layout,
+    _trouver_police_disponible,
 )
 from _0_Utilitaires._0_5_isid import isid
 from _0_Utilitaires._0_7_fonctions_voyages import (
@@ -44,7 +45,7 @@ from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
     style_bouton_recommandation,
 )
 
-from _4_Interface._4_1_Onglets.onglet_4.onglet_4_2.onglet_4_2_1_podium import Podium
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_2.onglet_4_2_2_podium import Podium
 from _4_Interface._4_2_Style._4_2_1_style_principal import (
     renvoyer_couleur_widget,
     renvoyer_couleur_texte,
@@ -556,7 +557,7 @@ class CarteRecommandationSimple(QWidget):
         self._ombre_effet.setColor(self.theme.ombre)
         self.setGraphicsEffect(self._ombre_effet)
 
-        self.police_principale = Podium._trouver_police_disponible(
+        self.police_principale = _trouver_police_disponible(
             ["CormorantGaramond", "Fredoka", "Quicksand", "Century Gothic", "Segoe UI"]
         )
 

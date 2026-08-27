@@ -20,9 +20,12 @@ from PyQt6.QtCore import (
 )
 from PyQt6.QtGui import QPainter, QColor
 from _4_Interface._4_3_Icones._4_3_7_soleil_brillant import _dessiner_soleil
-from _4_Interface._4_3_Icones._4_3_8_lune_avec_phase import _dessiner_lune
+from _4_Interface._4_3_Icones._4_3_8_lune_avec_phase import (
+    _dessiner_lune,
+    phase_lunaire,
+)
 
-from _0_Utilitaires._0_1_fonctions_utiles_gen import phase_lunaire
+# 1 -- Bouton Switch -----------------------------------------------------------
 
 
 class BoutonSwitch(QWidget):

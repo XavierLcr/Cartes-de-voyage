@@ -11,14 +11,13 @@
 from __future__ import annotations
 from datetime import datetime, timedelta
 from typing import List, Optional, Sequence, Tuple
-import math
 from PyQt6.QtCore import (
     QEasingCurve,
     QPropertyAnimation,
     QRectF,
     Qt,
-    pyqtProperty,
     QPointF,
+    pyqtProperty,
 )
 from PyQt6.QtGui import (
     QBrush,
@@ -27,7 +26,6 @@ from PyQt6.QtGui import (
     QLinearGradient,
     QPainter,
     QPainterPath,
-    QPen,
 )
 from PyQt6.QtWidgets import QGraphicsDropShadowEffect, QSizePolicy, QWidget, QToolTip
 
@@ -36,6 +34,10 @@ from _4_Interface._4_2_Style._4_2_1_style_principal import (
     renvoyer_couleur_texte,
     renvoyer_couleur_widget_differente,
 )
+from _4_Interface._4_3_Icones._4_3_1_soleil_souriant import _dessiner_icone_soleil
+from _4_Interface._4_3_Icones._4_3_2_flocon_neige import _dessiner_icone_flocon
+from _4_Interface._4_3_Icones._4_3_3_feuille_automne import _dessiner_icone_feuille
+from _4_Interface._4_3_Icones._4_3_4_jeune_pousse import _dessiner_icone_pousse
 
 # Initiales des mois, dans l'ordre calendaire (index 0 = janvier)
 NOMS_MOIS_INITIALES = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"]
@@ -585,336 +587,13 @@ class JoursVoyagesParMoisWidget(QWidget):
         taille_icone = rect_scene.height() * 0.9
 
         if mois in (12, 1, 2):
-            self._dessiner_icone_flocon(painter, centre_icone, taille_icone)
+            _dessiner_icone_flocon(painter, centre_icone, taille_icone)
         elif mois in (3, 4, 5):
-            self._dessiner_icone_pousse(painter, centre_icone, taille_icone)
+            _dessiner_icone_pousse(painter, centre_icone, taille_icone)
         elif mois in (6, 7, 8):
-            self._dessiner_icone_soleil(painter, centre_icone, taille_icone)
+            _dessiner_icone_soleil(painter, centre_icone, taille_icone)
         else:
-            self._dessiner_icone_feuille(painter, centre_icone, taille_icone)
-
-    @staticmethod
-    def _dessiner_icone_soleil(
-        painter: QPainter, centre: QPointF, taille: float
-    ) -> None:
-        """Icône été : disque plein avec halo, entouré de rayons alternés
-        (longs et courts), pour un rendu plus détaillé qu'un simple
-        cercle au contour."""
-        rayon = taille * 0.32  # disque plus grand qu'avant
-
-        # --- halo, derrière le disque ---
-        painter.setPen(Qt.PenStyle.NoPen)
-        painter.setBrush(QBrush(QColor(255, 255, 255, 55)))
-        painter.drawEllipse(centre, rayon * 1.55, rayon * 1.55)
-
-        # --- disque plein, légèrement dégradé pour un effet de galbe ---
-        degrade_disque = QLinearGradient(
-            QPointF(centre.x() - rayon, centre.y() - rayon),
-            QPointF(centre.x() + rayon, centre.y() + rayon),
-        )
-        degrade_disque.setColorAt(0.0, QColor(255, 255, 255, 245))
-        degrade_disque.setColorAt(1.0, QColor(255, 255, 255, 195))
-        painter.setBrush(QBrush(degrade_disque))
-        painter.drawEllipse(centre, rayon, rayon)
-
-        # --- rayons alternés : longs/fins et courts/épais ---
-        n_rayons = 12
-        for i in range(n_rayons):
-            angle = i * (2 * math.pi / n_rayons)
-            est_rayon_long = i % 2 == 0
-
-            depart = 1.22 if est_rayon_long else 1.30
-            fin = 1.85 if est_rayon_long else 1.55
-            largeur = taille * (0.045 if est_rayon_long else 0.032)
-            alpha = 235 if est_rayon_long else 170
-
-            p1 = QPointF(
-                centre.x() + math.cos(angle) * rayon * depart,
-                centre.y() + math.sin(angle) * rayon * depart,
-            )
-            p2 = QPointF(
-                centre.x() + math.cos(angle) * rayon * fin,
-                centre.y() + math.sin(angle) * rayon * fin,
-            )
-            painter.setPen(
-                QPen(
-                    QColor(255, 255, 255, alpha),
-                    max(1.1, largeur),
-                    Qt.PenStyle.SolidLine,
-                    Qt.PenCapStyle.RoundCap,
-                )
-            )
-            painter.drawLine(p1, p2)
-
-        # --- Petit visage discret, pour un peu de caractère ---
-        painter.setPen(Qt.PenStyle.NoPen)
-
-        rayon_oeil = rayon * 0.09
-        painter.setBrush(QBrush(QColor(230, 130, 20, 190)))
-        for signe in (-1, 1):
-            centre_oeil = QPointF(
-                centre.x() + signe * rayon * 0.32, centre.y() - rayon * 0.12
-            )
-            painter.drawEllipse(centre_oeil, rayon_oeil, rayon_oeil)
-
-        # petit sourire
-        rect_sourire = QRectF(
-            centre.x() - rayon * 0.28,
-            centre.y() - rayon * 0.05,
-            rayon * 0.56,
-            rayon * 0.4,
-        )
-        painter.setPen(
-            QPen(
-                QColor(230, 130, 20, 190),
-                max(0.9, rayon * 0.08),
-                Qt.PenStyle.SolidLine,
-                Qt.PenCapStyle.RoundCap,
-            )
-        )
-        painter.setBrush(Qt.BrushStyle.NoBrush)
-        painter.drawArc(rect_sourire, 200 * 16, 140 * 16)
-
-    @staticmethod
-    def _dessiner_icone_flocon(
-        painter: QPainter, centre: QPointF, taille: float
-    ) -> None:
-        """Icône hiver : flocon à 6 branches, avec petites ramifications."""
-        rayon = taille * 0.42
-        painter.setPen(
-            QPen(
-                QColor(255, 255, 255, 235),
-                max(1.3, taille * 0.045),
-                Qt.PenStyle.SolidLine,
-                Qt.PenCapStyle.RoundCap,
-            )
-        )
-
-        for i in range(3):
-            angle = i * math.pi / 3
-            dx, dy = math.cos(angle) * rayon, math.sin(angle) * rayon
-            p1 = QPointF(centre.x() - dx, centre.y() - dy)
-            p2 = QPointF(centre.x() + dx, centre.y() + dy)
-            painter.drawLine(p1, p2)
-
-            for signe in (1, -1):
-                base = QPointF(
-                    centre.x() + dx * 0.55 * signe, centre.y() + dy * 0.55 * signe
-                )
-                for decalage in (math.pi / 3.2, -math.pi / 3.2):
-                    a = angle + decalage
-                    embout = QPointF(
-                        base.x() + math.cos(a) * rayon * 0.3 * signe,
-                        base.y() + math.sin(a) * rayon * 0.3 * signe,
-                    )
-                    painter.drawLine(base, embout)
-
-    @staticmethod
-    def _dessiner_icone_pousse(
-        painter: QPainter, centre: QPointF, taille: float
-    ) -> None:
-        """Icône printemps : tige en léger S, deux feuilles asymétriques
-        attachées à des hauteurs différentes, et un petit bourgeon au
-        sommet."""
-        bas = QPointF(centre.x(), centre.y() + taille * 0.36)
-        haut = QPointF(centre.x() + taille * 0.03, centre.y() - taille * 0.30)
-
-        # --- tige, légère forme en S ---
-        tige = QPainterPath()
-        tige.moveTo(bas)
-        tige.cubicTo(
-            QPointF(bas.x() - taille * 0.09, bas.y() - taille * 0.32),
-            QPointF(haut.x() + taille * 0.09, haut.y() + taille * 0.30),
-            haut,
-        )
-        painter.setPen(
-            QPen(
-                QColor(255, 255, 255, 235),
-                max(1.3, taille * 0.045),
-                Qt.PenStyle.SolidLine,
-                Qt.PenCapStyle.RoundCap,
-            )
-        )
-        painter.setBrush(Qt.BrushStyle.NoBrush)
-        painter.drawPath(tige)
-
-        @staticmethod
-        def _point_sur_tige(t: float) -> QPointF:
-            """Point interpolé sur la courbe de tige (Bézier cubique), pour
-            attacher les feuilles bien sur le tracé plutôt qu'à côté."""
-            u = 1 - t
-            c1 = QPointF(bas.x() - taille * 0.09, bas.y() - taille * 0.32)
-            c2 = QPointF(haut.x() + taille * 0.09, haut.y() + taille * 0.30)
-            x = (
-                u**3 * bas.x()
-                + 3 * u**2 * t * c1.x()
-                + 3 * u * t**2 * c2.x()
-                + t**3 * haut.x()
-            )
-            y = (
-                u**3 * bas.y()
-                + 3 * u**2 * t * c1.y()
-                + 3 * u * t**2 * c2.y()
-                + t**3 * haut.y()
-            )
-            return QPointF(x, y)
-
-        def dessiner_feuille(
-            attache: QPointF, signe: int, echelle: float, rotation_deg: float
-        ) -> None:
-            """Dessine une feuille en forme de goutte (asymétrique), avec
-            une fine nervure centrale, attachée au point `attache` de la
-            tige et orientée par `signe` (gauche/droite) et `rotation_deg`."""
-            longueur = taille * 0.34 * echelle
-            largeur = taille * 0.16 * echelle
-            angle = math.radians(rotation_deg) * signe
-
-            # direction principale de la feuille (vers l'extérieur et le haut)
-            direction = QPointF(math.sin(angle) * signe, -math.cos(angle))
-            normale = QPointF(-direction.y(), direction.x())
-
-            pointe = QPointF(
-                attache.x() + direction.x() * longueur,
-                attache.y() + direction.y() * longueur,
-            )
-            # point le plus large de la feuille, décalé pour l'asymétrie
-            large = QPointF(
-                attache.x() + direction.x() * longueur * 0.42 + normale.x() * largeur,
-                attache.y() + direction.y() * longueur * 0.42 + normale.y() * largeur,
-            )
-
-            feuille = QPainterPath()
-            feuille.moveTo(attache)
-            feuille.quadTo(large, pointe)
-            feuille.quadTo(
-                QPointF(
-                    attache.x()
-                    + direction.x() * longueur * 0.5
-                    - normale.x() * largeur * 0.35,
-                    attache.y()
-                    + direction.y() * longueur * 0.5
-                    - normale.y() * largeur * 0.35,
-                ),
-                attache,
-            )
-            painter.setPen(Qt.PenStyle.NoPen)
-            painter.setBrush(QBrush(QColor(255, 255, 255, 225)))
-            painter.drawPath(feuille)
-
-            # nervure centrale, légèrement incurvée
-            nervure = QPainterPath()
-            nervure.moveTo(attache)
-            nervure.quadTo(large, pointe)
-            painter.setPen(QPen(QColor(255, 255, 255, 130), max(0.8, taille * 0.02)))
-            painter.setBrush(Qt.BrushStyle.NoBrush)
-            painter.drawPath(nervure)
-
-        # feuille basse, plus grande, penchée vers la gauche
-        dessiner_feuille(_point_sur_tige(0.42), signe=-1, echelle=1.0, rotation_deg=48)
-        # feuille haute, plus petite, penchée vers la droite
-        dessiner_feuille(_point_sur_tige(0.74), signe=1, echelle=0.75, rotation_deg=40)
-
-        # --- petit bourgeon au sommet de la tige ---
-        rayon_bourgeon = taille * 0.06
-        painter.setPen(Qt.PenStyle.NoPen)
-        painter.setBrush(QBrush(QColor(255, 255, 255, 235)))
-        painter.drawEllipse(haut, rayon_bourgeon, rayon_bourgeon)
-
-    @staticmethod
-    def _dessiner_icone_feuille(
-        painter: QPainter, centre: QPointF, taille: float
-    ) -> None:
-        """Icône automne : feuille tombante, agrandie, avec nervure
-        centrale et nervures secondaires "creusées" dans la feuille (la
-        transparence laisse apparaître le fond du badge, plutôt qu'un
-        trait dessiné par-dessus)."""
-        echelle = 1.2  # feuille légèrement plus grande qu'avant
-
-        haut = QPointF(centre.x(), centre.y() - taille * 0.34 * echelle)
-        bas = QPointF(centre.x(), centre.y() + taille * 0.30 * echelle)
-
-        feuille = QPainterPath()
-        feuille.moveTo(bas)
-        feuille.cubicTo(
-            QPointF(
-                centre.x() - taille * 0.32 * echelle,
-                centre.y() + taille * 0.12 * echelle,
-            ),
-            QPointF(
-                centre.x() - taille * 0.28 * echelle,
-                centre.y() - taille * 0.26 * echelle,
-            ),
-            haut,
-        )
-        feuille.cubicTo(
-            QPointF(
-                centre.x() + taille * 0.28 * echelle,
-                centre.y() - taille * 0.26 * echelle,
-            ),
-            QPointF(
-                centre.x() + taille * 0.32 * echelle,
-                centre.y() + taille * 0.12 * echelle,
-            ),
-            bas,
-        )
-        painter.setPen(Qt.PenStyle.NoPen)
-        painter.setBrush(QBrush(QColor(255, 255, 255, 225)))
-        painter.drawPath(feuille)
-
-        # petite tige, en dur (pas "creusée", pour rester bien visible)
-        painter.setPen(QPen(QColor(255, 255, 255, 150), max(1.0, taille * 0.035)))
-        painter.drawLine(
-            bas,
-            QPointF(
-                bas.x() + taille * 0.07 * echelle, bas.y() + taille * 0.1 * echelle
-            ),
-        )
-
-        # --- nervures "creusées" dans la feuille (transparence) ---
-        haut_nervure = QPointF(centre.x(), centre.y() - taille * 0.28 * echelle)
-        bas_nervure = QPointF(centre.x(), centre.y() + taille * 0.24 * echelle)
-
-        painter.save()
-        painter.setCompositionMode(
-            QPainter.CompositionMode.CompositionMode_DestinationOut
-        )
-
-        # nervure centrale
-        painter.setPen(
-            QPen(
-                QColor(255, 255, 255, 130),
-                max(0.9, taille * 0.028),
-                Qt.PenStyle.SolidLine,
-                Qt.PenCapStyle.RoundCap,
-            )
-        )
-        painter.drawLine(haut_nervure, bas_nervure)
-
-        # nervures secondaires, en épi le long de la nervure centrale
-        n_paires = 3
-        for i in range(1, n_paires + 1):
-            t = i / (n_paires + 1)
-            point_depart = QPointF(
-                haut_nervure.x(),
-                haut_nervure.y() + (bas_nervure.y() - haut_nervure.y()) * t,
-            )
-            longueur = taille * 0.16 * echelle * (1.0 - t * 0.35)
-            for signe in (-1, 1):
-                point_arrivee = QPointF(
-                    point_depart.x() + signe * longueur,
-                    point_depart.y() + longueur * 0.55,
-                )
-                painter.setPen(
-                    QPen(
-                        QColor(255, 255, 255, 100),
-                        max(0.7, taille * 0.02),
-                        Qt.PenStyle.SolidLine,
-                        Qt.PenCapStyle.RoundCap,
-                    )
-                )
-                painter.drawLine(point_depart, point_arrivee)
-
-        painter.restore()
+            _dessiner_icone_feuille(painter, centre_icone, taille_icone)
 
     def _dessiner_graphique_mensuel(
         self, painter: QPainter, rect_barres: QRectF, rect_etiquettes: QRectF

@@ -17,6 +17,9 @@ from PyQt6.QtGui import QPainter, QColor
 
 from _0_Utilitaires._0_7_fonctions_voyages import table_pays_visites
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_1.onglet_4_1_1_point import PointPays
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_1.onglet_4_1_2_theme import (
+    ThemeHemicycle,
+)
 
 # 1 -- Fonctions ---------------------------------------------------------------
 
@@ -134,7 +137,6 @@ class HemicycleWidget(QWidget):
         self.transparence_alpha = constantes.parametres_application.get(
             "transparence_alpha"
         )
-        self.couleur_texte = "#2C2C2C"
         self.points_visites_position = -1
 
         # Pays actuellement survolé par la souris
@@ -148,25 +150,8 @@ class HemicycleWidget(QWidget):
             self.points_increment = max(self.points_increment, 4)
             self.decalage = len(self.liste_pays) - self.somme_filee()
 
-        # Couleurs pour chaque continent
-        self.continents_couleurs = constantes.parametres_application.get(
-            "couleurs_continents"
-        )
-        self.continents_couleurs = {
-            continent: self.continents_couleurs.get(continent, col)
-            for continent, col in {
-                "Africa": "#D1A734",
-                "Antarctica": "#20C065",
-                "Asia": "#C3423F",
-                "Europe": "#7B4B94",
-                "North America": "#2A369E",
-                "Oceania": "#60B9E2",
-                "South America": "#4A7856",
-            }.items()
-        }
-
+        self.set_style()
         self.set_pays_visites(pays_visites={"region": {}, "dep": {}})
-        self.creer_hemicycle()
 
     def center_x(self):
         return self.width() / 2
@@ -357,7 +342,7 @@ class HemicycleWidget(QWidget):
         rayon_texte = int(rayon_texte + 4 + self.diametre_point / 1.5)
 
         # Application des caractéristiques
-        painter.setPen(QColor(self.couleur_texte))
+        painter.setPen(QColor(self.theme.couleur_texte))
 
         # Ajout des ratios de pays visités
         self.peindre_ratios_visites(painter=painter, df=df_temp, rayon=rayon_texte)
@@ -378,7 +363,7 @@ class HemicycleWidget(QWidget):
         self.df_pays = table_pays_visites(
             dict_granu=pays_visites,
             continents=copy.copy(self.continents),
-            palette=self.continents_couleurs,
+            palette=self.theme.continents_couleurs,
             a_supprimer=None,
         )
         self.graine_ordre = random.Random(int(time.time())).randint(0, 1_000_000)
@@ -389,9 +374,12 @@ class HemicycleWidget(QWidget):
         self.langue = langue
         self.creer_hemicycle()
 
-    def set_style(self, couleur):
+    def set_style(self, style: int = 1, teinte=None, nuances={}):
 
-        self.couleur_texte = couleur[0] if isinstance(couleur, tuple) else couleur
+        self.theme = ThemeHemicycle(
+            parent=self, style=style, teinte=teinte, nuances=nuances
+        )
+
         self.creer_hemicycle()
 
     def mouseMoveEvent(self, event):

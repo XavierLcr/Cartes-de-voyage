@@ -419,12 +419,7 @@ class OngletTopPays(QWidget):
     def set_style(self, style: int, teinte, nuances):
 
         # Style de l'hémicycle
-        self.hemicycle.set_style(
-            couleur=renvoyer_couleur_texte(
-                style=style,
-                couleur=self.palette().color(self.backgroundRole()).name(),
-            )
-        )
+        self.hemicycle.set_style(style=style, teinte=teinte, nuances=nuances)
 
         # Style de la barre de navigation (accent basé sur la teinte de l'appli)
         self.styliser_navigation(style=style, teinte=teinte, nuances=nuances)

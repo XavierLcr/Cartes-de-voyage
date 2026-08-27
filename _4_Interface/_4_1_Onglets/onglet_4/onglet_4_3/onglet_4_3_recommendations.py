@@ -32,8 +32,6 @@ from _4_Interface._4_1_Onglets.onglet_4.onglet_4_3.onglet_4_3_2_ui import (
     CarteRecommandationSimple,
     CarteRecommandationPays,
     creer_entete_recommandations,
-)
-from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
     style_bouton_recommandation,
 )
 

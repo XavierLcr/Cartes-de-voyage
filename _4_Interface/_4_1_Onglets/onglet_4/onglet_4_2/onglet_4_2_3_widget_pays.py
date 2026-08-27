@@ -76,7 +76,7 @@ class CarteClassementPays(QWidget):
         # branché sur le système de thème clair/sombre de l'appli.
         self.theme = style
 
-        # Même police que le podium (méthode réutilisée depuis Podium
+        # Même police que le podium
         # pour ne pas dupliquer la liste de polices candidates).
         self.police_principale = _trouver_police_disponible(
             [

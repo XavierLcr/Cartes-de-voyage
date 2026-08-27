@@ -38,12 +38,11 @@ class BoutonNav(QPushButton):
         derrière un flocon blanc.
     """
 
-    TAILLE_ICONE = 22  # taille de base en px
+    TAILLE_ICONE = 25  # taille de base en px
 
     def __init__(
         self,
         icone: IconeType = "",
-        texte: str = "",
         parent=None,
         fond: Optional[Union[str, QColor]] = None,
         fond_forme: FormeFond = "cercle",
@@ -62,7 +61,7 @@ class BoutonNav(QPushButton):
 
         self.label_icone = QLabel()
         self.label_icone.setObjectName("icone_nav")
-        self.label_icone.setFixedWidth(22)
+        self.label_icone.setFixedWidth(self.TAILLE_ICONE + 2)
         self.label_icone.setAlignment(
             Qt.AlignmentFlag.AlignCenter | Qt.AlignmentFlag.AlignVCenter
         )

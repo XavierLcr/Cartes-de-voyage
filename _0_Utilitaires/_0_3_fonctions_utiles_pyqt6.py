@@ -18,7 +18,7 @@ from PyQt6.QtWidgets import (
     QScrollArea,
 )
 from PyQt6.QtCore import Qt, QTimer
-from PyQt6.QtGui import QFontInfo, QFont
+from PyQt6.QtGui import QFontInfo, QFont, QColor
 
 # 1 -- Fonctions sur les combos ------------------------------------------------
 
@@ -137,7 +137,7 @@ def creer_ligne_verticale():
     return ligne
 
 
-# 4 -- Fonctions sur les layout ------------------------------------------------
+# 4 -- Fonctions sur les layouts -----------------------------------------------
 
 
 ## 4.1 -- Vide l'entièreté d'un layout PyQt6 -----------------------------------
@@ -201,3 +201,17 @@ def _trouver_police_disponible(candidats):
         if QFontInfo(QFont(nom)).exactMatch():
             return nom
     return candidats[-1]
+
+
+# 8 -- Fonctions sur les couleurs ----------------------------------------------
+
+
+## 8.1 -- Renvoie une QColor avec un certain niveau de transparence ------------
+
+
+def _QColor_avec_transparence(couleur: QColor, alpha: int) -> QColor:
+    """Copie une QColor du thème avec une opacité réduite, pour ne
+    jamais muter les couleurs originales du thème."""
+    c = QColor(couleur)
+    c.setAlpha(alpha)
+    return c

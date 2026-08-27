@@ -220,23 +220,6 @@ class ContinentFavoriWidget(QWidget):
         self.valeur_claire = constantes.parametres_application.get("transparence_alpha")
         self.continents = constantes.liste_regions_monde
 
-        # Couleurs pour chaque continent
-        self.couleurs_continents = constantes.parametres_application.get(
-            "couleurs_continents"
-        )
-        self.couleurs_continents = {
-            continent: QColor(self.couleurs_continents.get(continent, col))
-            for continent, col in {
-                "Africa": "#D1A734",
-                "Antarctica": "#20C065",
-                "Asia": "#C3423F",
-                "Europe": "#7B4B94",
-                "North America": "#2A369E",
-                "Oceania": "#60B9E2",
-                "South America": "#4A7856",
-            }.items()
-        }
-
         self.theme = ThemeContinentFavori(style=1)
 
         self.setMinimumSize(320, 130)
@@ -346,7 +329,7 @@ class ContinentFavoriWidget(QWidget):
         self.table_pays_visites = table_pays_visites(
             voyages_vers_destinations(dict_voyages=voyages),
             continents=self.continents,
-            palette=self.couleurs_continents,
+            palette={},
         )[["continent", "pays", "visite"]]
         self.set_valeurs()
 

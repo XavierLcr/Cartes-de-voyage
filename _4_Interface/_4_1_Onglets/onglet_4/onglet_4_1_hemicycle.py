@@ -25,7 +25,6 @@ def table_pays_visites(
     dict_granu: dict,
     continents: dict,
     palette: dict,
-    clair_indice: float,
     a_supprimer: dict | None = None,
 ):
 
@@ -82,10 +81,7 @@ def table_pays_visites(
     for continent, liste_pays in continents.items():
 
         # Couleur du continent
-        couleur_bord = palette.get(continent, None)
-        couleur_centre = (
-            couleur_bord.lighter(clair_indice) if couleur_bord else QColor("#FFFFFF")
-        )
+        couleur_temp = palette.get(continent, None)
 
         for pays in sorted(liste_pays):
 
@@ -97,10 +93,7 @@ def table_pays_visites(
                     "continent": continent,
                     "pays": pays,
                     "visite": pays in pays_visites,
-                    "couleur_centre": (
-                        couleur_bord if pays in pays_visites else couleur_centre
-                    ),
-                    "couleur_bord": couleur_bord if couleur_bord else QColor("#000000"),
+                    "couleur": couleur_temp if couleur_temp else "#000000",
                 }
             )
 
@@ -209,8 +202,8 @@ class PointPays:
         pays_trad: str,
         continent: str,
         visite: bool,
-        couleur_bord: QColor,
-        couleur_centre: QColor,
+        couleur: str,
+        eclaircissement: int,
     ):
         self.x = x
         self.y = y
@@ -218,8 +211,12 @@ class PointPays:
         self.pays_trad = pays_trad
         self.continent = continent
         self.visite = visite
-        self.couleur_bord = couleur_bord
-        self.couleur_centre = couleur_centre
+        self.couleur_bord = QColor(couleur)
+        self.couleur_centre = (
+            self.couleur_bord.lighter(eclaircissement)
+            if not visite
+            else self.couleur_bord
+        )
 
     def est_survole(
         self, pos_x: float, pos_y: float, diametre: float, tolerance: float = 1.1
@@ -308,11 +305,11 @@ class HemicycleWidget(QWidget):
             self.decalage = len(self.liste_pays) - self.somme_filee()
 
         # Couleurs pour chaque continent
-        self.continent_colors = constantes.parametres_application.get(
+        self.continents_couleurs = constantes.parametres_application.get(
             "couleurs_continents"
         )
-        self.continent_colors = {
-            continent: QColor(self.continent_colors.get(continent, col))
+        self.continents_couleurs = {
+            continent: self.continents_couleurs.get(continent, col)
             for continent, col in {
                 "Africa": "#D1A734",
                 "Antarctica": "#20C065",
@@ -393,8 +390,8 @@ class HemicycleWidget(QWidget):
                 pays_trad=ligne_temp.pays_trad,
                 continent=ligne_temp.continent,
                 visite=ligne_temp.visite,
-                couleur_bord=ligne_temp.couleur_bord,
-                couleur_centre=ligne_temp.couleur_centre,
+                couleur=ligne_temp.couleur,
+                eclaircissement=self.lighter_value,
             )
             for ligne_temp in df.itertuples(index=False)
         ]
@@ -537,8 +534,7 @@ class HemicycleWidget(QWidget):
         self.df_pays = table_pays_visites(
             dict_granu=pays_visites,
             continents=copy.copy(self.continents),
-            palette=self.continent_colors,
-            clair_indice=self.lighter_value,
+            palette=self.continents_couleurs,
             a_supprimer=None,
         )
         self.graine_ordre = random.Random(int(time.time())).randint(0, 1_000_000)

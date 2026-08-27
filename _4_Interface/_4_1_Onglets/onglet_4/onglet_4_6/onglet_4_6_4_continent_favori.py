@@ -347,7 +347,6 @@ class ContinentFavoriWidget(QWidget):
             voyages_vers_destinations(dict_voyages=voyages),
             continents=self.continents,
             palette=self.couleurs_continents,
-            clair_indice=self.valeur_claire,
         )[["continent", "pays", "visite"]]
         self.set_valeurs()
 

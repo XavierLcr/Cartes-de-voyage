@@ -32,7 +32,7 @@ from PyQt6.QtWidgets import (
 )
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import voyages_vers_destinations
-from _4_Interface._4_1_Onglets.onglet_4.onglet_4_1_hemicycle import table_pays_visites
+from _0_Utilitaires._0_7_fonctions_voyages import table_pays_visites
 from _4_Interface._4_2_Style._4_2_1_style_principal import (
     renvoyer_couleur_widget,
     renvoyer_couleur_texte,

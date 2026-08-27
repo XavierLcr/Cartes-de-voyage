@@ -16,101 +16,12 @@ from PyQt6.QtWidgets import QWidget, QToolTip
 from PyQt6.QtGui import QPainter, QPen, QColor, QBrush, QRadialGradient
 
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import _QColor_avec_alpha
-from _0_Utilitaires._0_5_isid import isid
+from _0_Utilitaires._0_7_fonctions_voyages import table_pays_visites
 
 # 1 -- Fonctions ---------------------------------------------------------------
 
 
-## 1.1 -- Fonction de calcul du nombre de pays visités par continent -----------
-
-
-def table_pays_visites(
-    dict_granu: dict,
-    continents: dict,
-    palette: dict,
-    a_supprimer: dict | None = None,
-):
-
-    continents = continents.copy()
-    if a_supprimer is None:
-        a_supprimer = {
-            "Africa": [
-                "French Southern Territories",
-                "Portugal",
-                "Saint Helena, Ascension and Tris",
-                "Spain",
-            ],
-            "Asia": [
-                "Akrotiri and Dhekelia",
-                "Armenia",
-                "Azerbaijan",
-                "Cyprus",
-                "Egypt",
-                "Georgia",
-                "Northern Cyprus",
-                "Turkey",
-            ],
-            "Oceania": ["Indonesia"],
-            "North America": [
-                "United States Minor Outlying Isl",
-                "Grenada",
-            ],
-            "South America": [
-                "Bonaire, Sint Eustatius and Saba",
-                "Panama",
-            ],
-        }
-
-    # Suppression du Moyen-Orient
-    if "Middle East" in continents:
-        del continents["Middle East"]
-
-    # Suppression doublons
-    continents = {
-        continent: [
-            pays for pays in liste_pays if pays not in a_supprimer.get(continent, [])
-        ]
-        for continent, liste_pays in continents.items()
-    }
-
-    # Récupération des pays visités
-    pays_visites = set(
-        list((dict_granu.get("region") or {}).keys())
-        + list((dict_granu.get("dep") or {}).keys())
-    )
-
-    # Création de la table
-    lignes = []
-    for continent, liste_pays in continents.items():
-
-        # Couleur du continent
-        couleur_temp = palette.get(continent, None)
-
-        for pays in sorted(liste_pays):
-
-            if pays == "Caspian Sea":
-                continue
-
-            lignes.append(
-                {
-                    "continent": continent,
-                    "pays": pays,
-                    "visite": pays in pays_visites,
-                    "couleur": couleur_temp if couleur_temp else "#000000",
-                }
-            )
-
-    # Mise au format DataFrame
-    df_temp = pd.DataFrame(lignes)
-
-    # Test de granularité
-    assert isid(df=df_temp, colonnes="pays", blabla=0)
-
-    # Renvoi
-    return df_temp
-
-
-## 1.2 -- Fonction d'ajout des coordonnées -------------------------------------
+## 1.1 -- Fonction d'ajout des coordonnées -------------------------------------
 
 
 def ajouter_coordonnees(

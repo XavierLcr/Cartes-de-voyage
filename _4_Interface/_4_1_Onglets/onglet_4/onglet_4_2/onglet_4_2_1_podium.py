@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
 # _4_Interface/_4_1_Onglets/onglet_4/onglet_4_2                                #
-# Onglet 4.2.1 – Partie classement des pays visités                            #
+# Onglet 4.2.1 – Widget du poduim pour le top 3 pays                           #
 ################################################################################
 
 

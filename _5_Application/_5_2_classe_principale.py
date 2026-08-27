@@ -44,9 +44,6 @@ from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
 from _4_Interface._4_2_Style._4_2_4_pluie_emojis import VuePluieEmojis
 from _5_Application._5_1_gestion_sauvegarde import Sauvegarde
 
-# from _4_Interface._4_2_Style._4_2_3_musique import MusicPlayer
-
-
 # Suppression d'alertes, d'avis et de messages additionnels
 warnings.filterwarnings("ignore")
 os.environ["QT_LOGGING_RULES"] = "qt.text.font.db=false"
@@ -651,20 +648,3 @@ class MesVoyagesApplication(QWidget):
             f"text-align: center;"
             f"font-family: {self.constantes.dict_themes_temporaires.get('titre_police', 'Vivaldi')}, sans-serif;"
         )
-
-    # def jouer_musique(self, fichier):
-
-    #     self.musique = MusicPlayer(
-    #         path=fichier,
-    #         volume=0.8,
-    #         start_ms=0,
-    #         max_duration_ms=15000,
-    #         fade_out_ms=5000,
-    #     )
-    #     self.musique.play()
-
-    # def closeEvent(self, event):
-    #     # Arrête la musique quand la fenêtre est fermée
-    #     if hasattr(self, "musique"):
-    #         self.musique.stop()
-    #         event.accept()

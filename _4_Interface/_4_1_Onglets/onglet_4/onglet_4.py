@@ -32,7 +32,7 @@ from _4_Interface._4_1_Onglets.onglet_4 import (
     onglet_4_4_n_visites,
     onglet_4_5_derniere_periode,
 )
-from _4_Interface._4_1_Onglets.onglet_4.onglet_4_1 import onglet_4_1_2_hemicycle
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_1 import onglet_4_1_3_hemicycle
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_2 import onglet_4_2_classement
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_3 import onglet_4_3_recommendations
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6 import onglet_4_6
@@ -154,7 +154,7 @@ class OngletTopPays(QWidget):
         self.fonction_traduction = fct_traduction
 
         # Hémicycle
-        self.hemicycle = onglet_4_1_2_hemicycle.HemicycleWidget(
+        self.hemicycle = onglet_4_1_3_hemicycle.HemicycleWidget(
             constantes=constantes,
         )
 

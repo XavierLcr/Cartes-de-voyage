@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
-# _4_Interface/                                                                #
-# 4.3 – Création du .exe de l'application                                      #
+# _5_Application/                                                              #
+# 5.3 – Création du .exe de l'application                                      #
 ################################################################################
 
 

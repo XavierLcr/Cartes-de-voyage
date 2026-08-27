@@ -211,7 +211,7 @@ def calculer_recommandations(
     return df_reste
 
 
-# 3 -- Classe de calcul du tableau de recommandations --------------------------
+# 2 -- Classe de calcul du tableau de recommandations --------------------------
 
 
 class WorkerRecommandation(QObject):

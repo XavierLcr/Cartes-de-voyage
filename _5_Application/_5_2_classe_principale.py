@@ -188,11 +188,6 @@ class MesVoyagesApplication(QWidget):
             lambda: self.supprimer_clef(self.nom_individu.currentText())
         )
 
-        # Position des points de l'hémicycle
-        self.onglet_param_profil.signal_hemicyle_position.connect(
-            self.set_hemicycle_position
-        )
-
         # == Sixième onglet ===
 
         self.onglet_description_application = onglet_info.OngletInformations(

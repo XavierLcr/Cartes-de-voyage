@@ -171,9 +171,7 @@ class HemicycleWidget(QWidget):
 
     def set_points_visites_position(self, position):
         self.points_visites_position = position
-
-    def get_points_visites_position(self):
-        return self.points_visites_position
+        self.creer_hemicycle()
 
     def creer_coordonnees(self):
 

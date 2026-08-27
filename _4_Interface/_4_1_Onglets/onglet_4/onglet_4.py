@@ -32,7 +32,7 @@ from _4_Interface._4_1_Onglets.onglet_4 import (
     onglet_4_4_n_visites,
     onglet_4_5_derniere_periode,
 )
-from _4_Interface._4_1_Onglets.onglet_4.onglet_4_1 import onglet_4_1_3_hemicycle
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_1.onglet_4_1 import OngletHemicycle
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_2 import onglet_4_2_classement
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_3 import onglet_4_3_recommendations
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6 import onglet_4_6
@@ -154,8 +154,8 @@ class OngletTopPays(QWidget):
         self.fonction_traduction = fct_traduction
 
         # Hémicycle
-        self.hemicycle = onglet_4_1_3_hemicycle.HemicycleWidget(
-            constantes=constantes,
+        self.hemicycle = OngletHemicycle(
+            constantes=constantes, fonction_traduction=fct_traduction
         )
 
         # Pays les plus visités (en %)
@@ -456,12 +456,13 @@ class OngletTopPays(QWidget):
         self.cliquer_bouton_onglet(num_onglet=self.pages.indexOf(self.tableau_de_bord))
         self.recommandations.initialiser_onglet(**kwargs)
         self.portrait_IA.initialiser_onglet()
+        self.hemicycle.initialiser_onglet(**kwargs)
 
     def set_hemicycle_position(self, val: int):
-        self.hemicycle.set_points_visites_position(position=val)
+        self.hemicycle.set_hemicycle_position(position=val)
 
     def get_hemicycle_position(self):
-        return self.hemicycle.get_points_visites_position()
+        return self.hemicycle.get_hemicycle_position()
 
     def get_recommandations_nb(self):
         return self.recommandations.get_recommandations_nb()

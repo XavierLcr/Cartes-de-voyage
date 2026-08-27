@@ -28,6 +28,7 @@ from _0_Utilitaires._0_2_fonctions_graphiques import (
 )
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import voyages_vers_destinations
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_0_menu import BoutonNav
 from _4_Interface._4_1_Onglets.onglet_4 import (
     onglet_4_4_n_visites,
     onglet_4_5_derniere_periode,
@@ -39,74 +40,12 @@ from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6 import onglet_4_6
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_7_portrait_IA import (
     ProfilVoyageurIA,
 )
+from _4_Interface._4_3_Icones._4_3_2_flocon_neige import _dessiner_icone_flocon
 
 # 1 -- Fonctions et widgets annexes ---------------------------------------------
 
 
-## 1.1 -- Bouton de navigation avec icône dissociée du texte --------------------
-
-
-class BoutonNav(QPushButton):
-    """Bouton de navigation composé d'une icône (à gauche, largeur fixe) et
-    d'un libellé (à droite, extensible). L'icône est aujourd'hui un emoji,
-    mais peut être remplacée à tout moment par un dessin maison via
-    `set_icone(QPixmap(...))`, sans toucher au texte ni au reste du style."""
-
-    def __init__(self, icone: str = "", texte: str = "", parent=None):
-        super().__init__(parent)
-
-        self.setObjectName("bouton_nav")
-        self.setCheckable(True)
-        self.setCursor(Qt.CursorShape.PointingHandCursor)
-        self.setMinimumHeight(38)
-
-        layout = QHBoxLayout(self)
-        layout.setContentsMargins(12, 0, 12, 0)
-        layout.setSpacing(10)
-
-        # Icône : largeur fixe pour que tous les libellés démarrent alignés
-        self.label_icone = QLabel(icone)
-        self.set_icone(icone=icone)
-        self.label_icone.setObjectName("icone_nav")
-        self.label_icone.setFixedWidth(22)
-        self.label_icone.setAlignment(
-            Qt.AlignmentFlag.AlignCenter | Qt.AlignmentFlag.AlignVCenter
-        )
-
-        # Texte : ne doit jamais être tronqué. Avec une largeur de panneau
-        # suffisante (cf. panneau_navigation.setMinimumWidth) il tient sur
-        # une ligne ; le wordWrap sert de filet de sécurité si une traduction
-        # est vraiment longue.
-        self.label_texte = QLabel()
-        self.label_texte.setObjectName("texte_nav")
-        self.label_texte.setWordWrap(True)
-
-        layout.addWidget(self.label_icone)
-        layout.addWidget(self.label_texte, 1)
-
-        # Les labels ne doivent jamais intercepter le clic : celui-ci doit
-        # rester géré par le QPushButton parent
-        self.label_icone.setAttribute(Qt.WidgetAttribute.WA_TransparentForMouseEvents)
-        self.label_texte.setAttribute(Qt.WidgetAttribute.WA_TransparentForMouseEvents)
-
-    def set_icone(self, icone):
-        """Accepte soit un emoji/texte (str), soit un QPixmap (dessin maison)."""
-        if isinstance(icone, QPixmap):
-            self.label_icone.setPixmap(icone)
-            self.label_icone.setText("")
-        else:
-            self.label_icone.setPixmap(QPixmap())
-            self.label_icone.setText(icone or "")
-
-    def set_texte(self, texte: str):
-        self.label_texte.setText(texte)
-
-    def set_couleur_texte(self, couleur: str, gras: bool = False):
-        poids = "600" if gras else "400"
-        self.label_texte.setStyleSheet(f"color: {couleur}; font-weight: {poids};")
-
-
-## 1.2 -- Fonction de calcul de la couleur d'accent de la navigation -----------
+## 1.1 -- Fonction de calcul de la couleur d'accent de la navigation -----------
 
 
 def renvoyer_couleur_accent(style, teinte, nuances):
@@ -211,7 +150,8 @@ class OngletTopPays(QWidget):
         # pas de la langue) ; le texte, lui, est renseigné dans set_langue().
         # Pour passer à des dessins maison, il suffira de remplacer la chaîne
         # emoji par un appel à set_icone(QPixmap("chemin/icone.svg")).
-        self.btn_hemicycle = BoutonNav("🗺️")
+        self.btn_hemicycle = BoutonNav(_dessiner_icone_flocon)
+        # self.btn_hemicycle = BoutonNav("🗺️")
         self.btn_top_pays = BoutonNav("🏆")
         self.btn_recommandations = BoutonNav("🚂")
         self.btn_pays_souvent_visites = BoutonNav("⚓")

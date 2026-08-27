@@ -36,8 +36,7 @@ from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6 import onglet_4_6
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_7_portrait_IA import (
     ProfilVoyageurIA,
 )
-from _4_Interface._4_3_Icones._4_3_2_flocon_neige import _dessiner_icone_flocon
-from _4_Interface._4_3_Icones._4_3_1_soleil_souriant import _dessiner_icone_soleil
+from _4_Interface._4_3_Icones._4_3_9_podium import _dessiner_icone_podium
 
 # 1 -- Fonctions et widgets annexes ---------------------------------------------
 
@@ -148,7 +147,9 @@ class OngletTopPays(QWidget):
         # Pour passer à des dessins maison, il suffira de remplacer la chaîne
         # emoji par un appel à set_icone(QPixmap("chemin/icone.svg")).
         self.btn_hemicycle = BoutonNav("🗺️")
-        self.btn_top_pays = BoutonNav("🏆")
+        self.btn_top_pays = BoutonNav(
+            _dessiner_icone_podium, fond="#C0D2E6", fond_forme="carre_arrondi"
+        )
         self.btn_recommandations = BoutonNav("🚂")
         self.btn_pays_souvent_visites = BoutonNav("⚓")
         self.btn_calendrier = BoutonNav("📅")

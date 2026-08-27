@@ -80,7 +80,7 @@ parametres_application_defaut = {
     "n_rangees": 9,
     "points_base": 15,
     "points_increment": 4,
-    "lighter_value": 190,
+    "transparence_alpha": 40,
     "couleurs_continents": {
         "Africa": "#F0E68C",  # Désert
         "Antarctica": "#A7C9E6",  # Glace

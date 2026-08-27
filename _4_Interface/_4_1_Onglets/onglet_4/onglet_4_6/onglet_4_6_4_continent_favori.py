@@ -217,7 +217,7 @@ class ContinentFavoriWidget(QWidget):
         self._pourcentage = 0.0
         self.pourcentage_cible = 0.0
         self._progression_barres = 0.0
-        self.valeur_claire = constantes.parametres_application.get("lighter_value")
+        self.valeur_claire = constantes.parametres_application.get("transparence_alpha")
         self.continents = constantes.liste_regions_monde
 
         # Couleurs pour chaque continent

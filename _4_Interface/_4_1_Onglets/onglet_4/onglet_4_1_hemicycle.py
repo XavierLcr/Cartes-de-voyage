@@ -10,9 +10,12 @@
 
 import math, copy, random, time
 import pandas as pd
+
 from PyQt6.QtCore import QPointF
 from PyQt6.QtWidgets import QWidget, QToolTip
 from PyQt6.QtGui import QPainter, QPen, QColor, QBrush, QRadialGradient
+
+from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import _QColor_avec_alpha
 from _0_Utilitaires._0_5_isid import isid
 
 # 1 -- Fonctions ---------------------------------------------------------------
@@ -212,10 +215,8 @@ class PointPays:
         self.continent = continent
         self.visite = visite
         self.couleur_bord = QColor(couleur)
-        self.couleur_centre = (
-            self.couleur_bord.lighter(eclaircissement)
-            if not visite
-            else self.couleur_bord
+        self.couleur_centre = _QColor_avec_alpha(
+            couleur=self.couleur_bord, alpha=255 if visite else eclaircissement
         )
 
     def est_survole(
@@ -289,7 +290,9 @@ class HemicycleWidget(QWidget):
         )
 
         # Paramètres esthétiques
-        self.lighter_value = constantes.parametres_application.get("lighter_value")
+        self.transparence_alpha = constantes.parametres_application.get(
+            "transparence_alpha"
+        )
         self.couleur_texte = "#2C2C2C"
         self.points_visites_position = -1
 
@@ -391,7 +394,7 @@ class HemicycleWidget(QWidget):
                 continent=ligne_temp.continent,
                 visite=ligne_temp.visite,
                 couleur=ligne_temp.couleur,
-                eclaircissement=self.lighter_value,
+                eclaircissement=self.transparence_alpha,
             )
             for ligne_temp in df.itertuples(index=False)
         ]

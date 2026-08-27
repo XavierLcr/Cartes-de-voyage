@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
 # _4_Interface/_4_3_Icones                                                     #
-# 4.3.3 – Script de création de l'icône d'une jeune pousse                     #
+# 4.3.4 – Script de création de l'icône d'une jeune pousse                     #
 ################################################################################
 
 

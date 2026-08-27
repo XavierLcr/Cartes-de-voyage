@@ -163,19 +163,17 @@ class OngletParametresProfil(QWidget):
 
         # --- Agencement des groupbox, layouts et widgets --- #
 
-        # Ajout de la langue, du dossier et du thème
+        # Ajout de la langue, du dossier et adresse e-mail
         layout_temp = QHBoxLayout()
         layout_temp.addWidget(self.langues_groupbox, stretch=3)
         layout_temp.addWidget(self.dossier_stockage_groupbox, stretch=5)
-        layout_temp.addWidget(self.theme_application_groupbox, stretch=2)
+        layout_temp.addWidget(self.email_groupbox)
         layout.addLayout(layout_temp)
 
-        # Préférences de publication de cartes
-        layout.addWidget(self.preferences_cartes_groupbox)
-
-        # E-mail & Statistiques
+        # Préférences de publication de cartes et thème de l'application
         layout_temp = QHBoxLayout()
-        layout_temp.addWidget(self.email_groupbox)
+        layout_temp.addWidget(self.theme_application_groupbox)
+        layout_temp.addWidget(self.preferences_cartes_groupbox)
         layout.addLayout(layout_temp)
 
         # Stretch

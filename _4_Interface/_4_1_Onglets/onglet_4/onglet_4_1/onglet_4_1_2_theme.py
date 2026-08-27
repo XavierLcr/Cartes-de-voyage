@@ -8,11 +8,7 @@
 # 0 -- Introduction ------------------------------------------------------------
 
 
-from _4_Interface._4_2_Style._4_2_1_style_principal import (
-    renvoyer_couleur_widget,
-    renvoyer_couleur_texte,
-    renvoyer_couleur_widget_differente,
-)
+from _4_Interface._4_2_Style._4_2_1_style_principal import renvoyer_couleur_texte
 
 # 1 -- Classe de thème ---------------------------------------------------------
 

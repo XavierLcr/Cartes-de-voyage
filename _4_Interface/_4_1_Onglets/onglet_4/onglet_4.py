@@ -214,7 +214,7 @@ class OngletTopPays(QWidget):
         # Largeur minimale généreuse : sans elle, le panneau se comprime au
         # strict minimum et le texte des boutons (ex. "Votre tableau de
         # bord", "Dernières destinations") se retrouve tronqué
-        self.panneau_navigation.setMinimumWidth(220)
+        self.panneau_navigation.setMinimumWidth(240)
 
         # Style par défaut, avant qu'un thème ne soit appliqué via set_style
         self.styliser_navigation(style=1, teinte=None, nuances={})

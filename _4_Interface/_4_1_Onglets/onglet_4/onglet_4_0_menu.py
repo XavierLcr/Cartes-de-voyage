@@ -38,11 +38,10 @@ class BoutonNav(QPushButton):
         derrière un flocon blanc.
     """
 
-    TAILLE_ICONE = 25  # taille de base en px
-
     def __init__(
         self,
         icone: IconeType = "",
+        icone_taille: int = 35,
         parent=None,
         fond: Optional[Union[str, QColor]] = None,
         fond_forme: FormeFond = "cercle",
@@ -51,6 +50,7 @@ class BoutonNav(QPushButton):
         super().__init__(parent)
 
         self.setObjectName("bouton_nav")
+        self.TAILLE_ICONE = icone_taille
         self.setCheckable(True)
         self.setCursor(Qt.CursorShape.PointingHandCursor)
         self.setMinimumHeight(38)

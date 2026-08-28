@@ -262,8 +262,8 @@ class OngletTopPays(QWidget):
         )
 
         # Layout principal
-        layout.addWidget(self.panneau_navigation)
-        layout.addWidget(self.pages)
+        layout.addWidget(self.panneau_navigation, stretch=0)
+        layout.addWidget(self.pages, stretch=1)
 
     def _maj_couleur_bouton(self, bouton: BoutonNav, checked: bool):
         """Recolore le libellé d'un bouton de navigation selon qu'il est

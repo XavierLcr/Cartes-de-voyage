@@ -57,7 +57,12 @@ def compacter_voyages(voyages: dict) -> str:
         elif debut:
             elements.append(f"({debut})")
         elif fin:
-            elements.append(f"(→{fin})")
+            elements.append(f"({fin})")
+
+        # Gestion des compagnons
+        compagnons = infos.get("compagnons")
+        if compagnons:
+            elements.append("Traveled with " + ", ".join(compagnons))
 
         # Gestion des destinations
         destinations = []
@@ -74,9 +79,9 @@ def compacter_voyages(voyages: dict) -> str:
                 destinations.append(pays)
 
         if destinations:
-            elements.append(": " + ";".join(destinations))
+            elements.append("Destination: " + ";".join(destinations))
 
-        lignes.append(" ".join(elements))
+        lignes.append(". ".join(elements))
 
     return "\n".join(lignes)
 

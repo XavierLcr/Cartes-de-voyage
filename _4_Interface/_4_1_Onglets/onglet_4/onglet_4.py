@@ -43,6 +43,9 @@ from _4_Interface._4_3_Icones._4_3_11_rose_des_vents import (
 )
 from _4_Interface._4_3_Icones._4_3_12_diagramme_gantt import _dessiner_icone_gantt
 from _4_Interface._4_3_Icones._4_3_13_levee_drapeaux import _dessiner_icone_drapeaux
+from _4_Interface._4_3_Icones._4_3_14_tableau_de_bord import (
+    _dessiner_icone_tableau_de_bord,
+)
 
 # 1 -- Fonctions et widgets annexes ---------------------------------------------
 
@@ -157,7 +160,7 @@ class OngletTopPays(QWidget):
         self.btn_recommandations = BoutonNav(_dessiner_icone_rose_vents)
         self.btn_pays_souvent_visites = BoutonNav(_dessiner_icone_drapeaux)
         self.btn_calendrier = BoutonNav(_dessiner_icone_gantt)
-        self.btn_tableau_de_bord = BoutonNav("📰")
+        self.btn_tableau_de_bord = BoutonNav(_dessiner_icone_tableau_de_bord)
         self.btn_portrait_IA = BoutonNav("🫆")
 
         # Association page <-> bouton, utilisée pour mettre en évidence le

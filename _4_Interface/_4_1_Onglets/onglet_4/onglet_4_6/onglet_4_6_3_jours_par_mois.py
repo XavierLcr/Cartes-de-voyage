@@ -56,6 +56,8 @@ def jours_voyages_par_mois(data, n_mois: int = 12) -> Tuple[List[int], List[int]
       formatée) est ignoré.
     - Un voyage à cheval sur plusieurs mois voit ses jours répartis sur
       chacun des mois concernés (pas tout attribué au mois de départ).
+    - Un jour couvert par plusieurs voyages qui se chevauchent n'est
+      compté qu'une seule fois.
 
     Renvoie (valeurs, mois_numeros, total) :
     - valeurs       : liste de n_mois entiers, du plus ancien au plus
@@ -82,10 +84,8 @@ def jours_voyages_par_mois(data, n_mois: int = 12) -> Tuple[List[int], List[int]
         bornes_mois.append((debut_mois, fin_mois))
         mois_numeros.append(mois)
 
-    valeurs = [0] * n_mois
-
-    # 2. Parcourir les voyages valides et répartir leurs jours sur les mois
-    #    qu'ils traversent.
+    # 2. Collecter les intervalles valides.
+    intervalles: List[Tuple[datetime, datetime]] = []
     for voyage in data.values():
         date_deb_str = voyage.get("date_debut")
         date_fin_str = voyage.get("date_fin")
@@ -95,16 +95,20 @@ def jours_voyages_par_mois(data, n_mois: int = 12) -> Tuple[List[int], List[int]
             date_deb = datetime.strptime(date_deb_str, "%Y-%m-%d")
             date_fin = datetime.strptime(date_fin_str, "%Y-%m-%d")
         except ValueError:
-            # Date mal formatée : on ignore ce voyage plutôt que de planter
             continue
         if date_fin < date_deb:
             date_deb, date_fin = date_fin, date_deb
+        intervalles.append((date_deb, date_fin))
 
-        for i, (debut_mois, fin_mois) in enumerate(bornes_mois):
-            chevauchement_debut = max(date_deb, debut_mois)
-            chevauchement_fin = min(date_fin, fin_mois)
-            if chevauchement_fin >= chevauchement_debut:
-                valeurs[i] += (chevauchement_fin - chevauchement_debut).days + 1
+    # 3. Pour chaque mois, parcourir tous ses jours et vérifier s'il est
+    #    couvert par au moins un voyage.
+    valeurs = [0] * n_mois
+    for i, (debut_mois, fin_mois) in enumerate(bornes_mois):
+        nb_jours_mois = (fin_mois - debut_mois).days + 1
+        for j in range(nb_jours_mois):
+            jour = debut_mois + timedelta(days=j)
+            if any(deb <= jour <= fin for deb, fin in intervalles):
+                valeurs[i] += 1
 
     total = sum(valeurs)
     return valeurs, mois_numeros, total

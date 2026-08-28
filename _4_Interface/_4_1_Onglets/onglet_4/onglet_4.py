@@ -46,6 +46,7 @@ from _4_Interface._4_3_Icones._4_3_13_levee_drapeaux import _dessiner_icone_drap
 from _4_Interface._4_3_Icones._4_3_14_tableau_de_bord import (
     _dessiner_icone_tableau_de_bord,
 )
+from _4_Interface._4_3_Icones._4_3_15_parchemin import _dessiner_icone_parchemin
 
 # 1 -- Fonctions et widgets annexes ---------------------------------------------
 
@@ -161,7 +162,7 @@ class OngletTopPays(QWidget):
         self.btn_pays_souvent_visites = BoutonNav(_dessiner_icone_drapeaux)
         self.btn_calendrier = BoutonNav(_dessiner_icone_gantt)
         self.btn_tableau_de_bord = BoutonNav(_dessiner_icone_tableau_de_bord)
-        self.btn_portrait_IA = BoutonNav("🫆")
+        self.btn_portrait_IA = BoutonNav(_dessiner_icone_parchemin)
 
         # Association page <-> bouton, utilisée pour mettre en évidence le
         # bouton actif (y compris quand la navigation est déclenchée sans

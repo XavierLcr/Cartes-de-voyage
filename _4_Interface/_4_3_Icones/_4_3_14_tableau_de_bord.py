@@ -8,8 +8,6 @@
 # 0 -- Initialisation ----------------------------------------------------------
 
 
-import math
-
 from PyQt6.QtCore import QPointF, Qt, QRectF
 from PyQt6.QtGui import QColor, QPainter, QBrush, QPen, QPolygonF
 

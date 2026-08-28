@@ -28,7 +28,7 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     voyages_vers_destinations,
     obtenir_clef_par_valeur,
 )
-from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import creer_QLabel_centre
+from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import creer_QLabel_centre, creer_icone
 from _0_Utilitaires._0_07_fonctions_voyages import destinations_vers_voyages
 from _0_Utilitaires._0_11_classes_pop_up import PopupInfo, PopupOuiNon, PopupSaisieTexte
 from _4_Interface._4_1_Onglets.onglet_1 import onglet_1
@@ -42,6 +42,7 @@ from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
     style_bouton_de_suppression,
 )
 from _4_Interface._4_2_Style._4_2_4_pluie_emojis import VuePluieEmojis
+from _4_Interface._4_3_Icones._4_3_16_curseurs import _dessiner_icone_curseurs
 from _5_Application._5_1_gestion_sauvegarde import Sauvegarde
 
 # Suppression d'alertes, d'avis et de messages additionnels
@@ -209,7 +210,9 @@ class MesVoyagesApplication(QWidget):
         self.liste_onglets.addTab(self.onglet_parametres, "Cartes")
         self.liste_onglets.addTab(self.onglet_selection_destinations, "Voyages")
         self.liste_onglets.addTab(self.onglet_statistiques, "Statistiques")
-        self.liste_onglets.addTab(self.onglet_param_profil, "⚙️")
+        self.liste_onglets.addTab(
+            self.onglet_param_profil, creer_icone(_dessiner_icone_curseurs), ""
+        )
         self.liste_onglets.addTab(self.onglet_description_application, "ℹ️")
 
         main_layout = QVBoxLayout(self)
@@ -301,10 +304,13 @@ class MesVoyagesApplication(QWidget):
         self.onglet_statistiques.set_langue(nouvelle_langue=self.langue)
 
         # Onglet des paramètres du profil
-        self.liste_onglets.setTabToolTip(
+        self.liste_onglets.setTabText(
             self.liste_onglets.indexOf(self.onglet_param_profil),
-            self.traduire_depuis_id("titre_onglet_param_profil"),
+            self.traduire_depuis_id(
+                "titre_onglet_param_profil",
+            ),
         )
+
         self.onglet_param_profil.set_langue()
         self.onglet_param_profil.signal_theme_application.connect(self.set_style)
 

@@ -17,8 +17,8 @@ from PyQt6.QtWidgets import (
     QApplication,
     QScrollArea,
 )
-from PyQt6.QtCore import Qt, QTimer
-from PyQt6.QtGui import QFontInfo, QFont, QColor
+from PyQt6.QtCore import Qt, QTimer, QPointF
+from PyQt6.QtGui import QFontInfo, QFont, QColor, QPixmap, QIcon, QPainter
 
 # 1 -- Fonctions sur les combos ------------------------------------------------
 
@@ -215,3 +215,20 @@ def _QColor_avec_alpha(couleur: QColor, alpha: int) -> QColor:
     c = QColor(couleur)
     c.setAlpha(alpha)
     return c
+
+
+# 9 -- Fonction de création d'une icône ----------------------------------------
+
+
+def creer_icone(fonction_dessin, taille_px: int = 32) -> QIcon:
+    """Rend une icône QPainter (ex: _dessiner_icone_drapeaux) en QIcon utilisable partout."""
+    pixmap = QPixmap(taille_px, taille_px)
+    pixmap.fill(Qt.GlobalColor.transparent)
+
+    painter = QPainter(pixmap)
+    painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
+    centre = QPointF(taille_px / 2, taille_px / 2)
+    fonction_dessin(painter, centre, taille_px)
+    painter.end()
+
+    return QIcon(pixmap)

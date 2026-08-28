@@ -42,6 +42,7 @@ from _4_Interface._4_3_Icones._4_3_11_rose_des_vents import (
     _dessiner_icone_rose_vents,
 )
 from _4_Interface._4_3_Icones._4_3_12_diagramme_gantt import _dessiner_icone_gantt
+from _4_Interface._4_3_Icones._4_3_13_levee_drapeaux import _dessiner_icone_drapeaux
 
 # 1 -- Fonctions et widgets annexes ---------------------------------------------
 
@@ -154,7 +155,7 @@ class OngletTopPays(QWidget):
         self.btn_hemicycle = BoutonNav(_dessiner_icone_hemicycle)
         self.btn_top_pays = BoutonNav(_dessiner_icone_podium)
         self.btn_recommandations = BoutonNav(_dessiner_icone_rose_vents)
-        self.btn_pays_souvent_visites = BoutonNav("⚓")
+        self.btn_pays_souvent_visites = BoutonNav(_dessiner_icone_drapeaux)
         self.btn_calendrier = BoutonNav(_dessiner_icone_gantt)
         self.btn_tableau_de_bord = BoutonNav("📰")
         self.btn_portrait_IA = BoutonNav("🫆")

@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
-# _4_Interface/_4_1_Onglets/onglet_4/                                          #
-# Onglet 4.7 – Groupbox de création d'un portrait IA du profil                 #
+# _4_Interface/_4_1_Onglets/onglet_4/onglet_4_7                                #
+# Onglet 4.7.X – Groupbox de création d'un portrait IA du profil               #
 ################################################################################
 
 
@@ -25,11 +25,14 @@ from PyQt6.QtCore import Qt, QThread, pyqtSignal
 
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     vider_layout,
-    creer_QLabel_centre,
     creer_scroll,
+    creer_QLabel_centre,
     creer_ligne_verticale,
 )
 from _0_Utilitaires._0_13_LLM import LLMClient, tester_ollama
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_7.onglet_4_7_1_style_parchemin import (
+    creer_QLabel_parchemin,
+)
 from clefs_et_mots_de_passe import modeles_conseilles_ollama
 
 # 1 -- Fonction de simplification des voyages ----------------------------------
@@ -309,23 +312,13 @@ class ProfilVoyageurIA(QGroupBox):
         vider_layout(layout=self.layout_description_profil)
 
         # -- La "feuille de lettre" : le texte du portrait, en encre sur papier --
-        label_temp = creer_QLabel_centre(
+        label_temp = creer_QLabel_parchemin(
             text=descriptif,
-            wordWrap=True,
-            alignement=Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignLeft,
+            police_script=self.police_script,
+            couleur_papier=self.couleur_papier,
+            couleur_bord_papier=self.couleur_bord_papier,
+            couleur_encre=self.couleur_encre,
         )
-        label_temp.setStyleSheet(f"""
-            QLabel {{
-                font-family: {self.police_script};
-                font-size: 19px;
-                font-weight: 400;
-                color: {self.couleur_encre};
-                background-color: {self.couleur_papier};
-                border: 1px solid {self.couleur_bord_papier};
-                border-radius: 2px;
-                padding: 30px 36px;
-            }}
-        """)
 
         # Ombre légère et diffuse, pour donner l'impression d'une feuille
         # posée sur le pupitre plutôt qu'un simple bloc de couleur

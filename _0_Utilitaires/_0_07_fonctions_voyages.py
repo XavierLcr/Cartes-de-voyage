@@ -15,7 +15,7 @@ from datetime import datetime, date
 from typing import Literal, List
 
 from _0_Utilitaires._0_5_isid import isid
-from _0_Utilitaires._0_6_fonctions_utiles_traductions import traduire_pays
+from _0_Utilitaires._0_06_fonctions_utiles_traductions import traduire_pays
 from constantes import hierarchie_par_pays, pays_differentes_langues
 
 # 1 -- Création d'un voyage ----------------------------------------------------

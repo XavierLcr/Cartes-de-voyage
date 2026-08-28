@@ -34,7 +34,7 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     tronquer_dict,
 )
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import reset_combo
-from _0_Utilitaires._0_7_fonctions_voyages import creer_voyage, voyage_id
+from _0_Utilitaires._0_07_fonctions_voyages import creer_voyage, voyage_id
 from _0_Utilitaires._0_11_classes_pop_up import PopupInfo
 from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
     style_bouton_de_suppression,

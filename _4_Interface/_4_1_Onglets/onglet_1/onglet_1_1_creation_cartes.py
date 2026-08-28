@@ -16,7 +16,7 @@ from _3_Calculs._3_4_carte_main import (
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     voyages_vers_destinations_une_granu,
 )
-from _0_Utilitaires._0_7_fonctions_voyages import (
+from _0_Utilitaires._0_07_fonctions_voyages import (
     creer_liste_destinations,
 )
 

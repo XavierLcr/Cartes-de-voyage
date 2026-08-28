@@ -17,7 +17,7 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     reordonner_dict,
     voyages_vers_destinations_une_granu,
 )
-from _0_Utilitaires._0_6_fonctions_utiles_traductions import traduire_pays
+from _0_Utilitaires._0_06_fonctions_utiles_traductions import traduire_pays
 
 # 1 -- Fonction de création d'un dictionnaire des cartes à sortir --------------
 

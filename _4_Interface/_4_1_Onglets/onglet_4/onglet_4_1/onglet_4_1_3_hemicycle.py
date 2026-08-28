@@ -15,7 +15,7 @@ from PyQt6.QtCore import QPointF
 from PyQt6.QtWidgets import QWidget, QToolTip
 from PyQt6.QtGui import QPainter, QColor
 
-from _0_Utilitaires._0_7_fonctions_voyages import table_pays_visites
+from _0_Utilitaires._0_07_fonctions_voyages import table_pays_visites
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_1.onglet_4_1_1_point import PointPays
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_1.onglet_4_1_2_theme import (
     ThemeHemicycle,

@@ -39,7 +39,7 @@ from PyQt6.QtGui import (
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     vider_layout,
 )
-from _0_Utilitaires._0_7_fonctions_voyages import (
+from _0_Utilitaires._0_07_fonctions_voyages import (
     compter_occurences_destinations_une_granu,
 )
 

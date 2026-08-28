@@ -29,7 +29,7 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     obtenir_clef_par_valeur,
 )
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import creer_QLabel_centre
-from _0_Utilitaires._0_7_fonctions_voyages import destinations_vers_voyages
+from _0_Utilitaires._0_07_fonctions_voyages import destinations_vers_voyages
 from _0_Utilitaires._0_11_classes_pop_up import PopupInfo, PopupOuiNon, PopupSaisieTexte
 from _4_Interface._4_1_Onglets.onglet_1 import onglet_1
 from _4_Interface._4_1_Onglets.onglet_2 import onglet_2

@@ -34,7 +34,7 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     set_emoji_sauvegarde,
     reset_combo,
 )
-from _0_Utilitaires._0_7_fonctions_voyages import (
+from _0_Utilitaires._0_07_fonctions_voyages import (
     detecter_type_yaml,
     voyage_id,
     creer_voyage,

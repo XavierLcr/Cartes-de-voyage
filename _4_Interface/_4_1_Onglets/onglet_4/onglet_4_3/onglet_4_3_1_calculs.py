@@ -18,7 +18,7 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     distance_haversine,
 )
 from _0_Utilitaires._0_5_isid import isid
-from _0_Utilitaires._0_7_fonctions_voyages import (
+from _0_Utilitaires._0_07_fonctions_voyages import (
     compter_occurences_destinations_une_granu,
     compter_occurrences_regions_depuis_departements,
 )

@@ -23,7 +23,7 @@ from _0_Utilitaires._0_2_fonctions_graphiques import (
     couleur_depuis_drapeau,
     rgb_to_hex,
 )
-from _0_Utilitaires._0_6_fonctions_utiles_traductions import traduire_pays
+from _0_Utilitaires._0_06_fonctions_utiles_traductions import traduire_pays
 from _3_Calculs._3_3_envoyer_email import envoyer_email_avec_piece_jointe_smtp
 
 # 1 -- Renvoyer les marges les limites de la carte -----------------------------

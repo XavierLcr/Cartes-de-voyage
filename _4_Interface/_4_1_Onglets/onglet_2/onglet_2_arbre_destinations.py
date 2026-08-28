@@ -14,7 +14,7 @@ from PyQt6.QtWidgets import QTreeWidget, QTreeWidgetItem
 from _0_Utilitaires._0_2_fonctions_graphiques import (
     renvoyer_couleur_widget,
 )
-from _0_Utilitaires._0_7_fonctions_voyages import creer_liste_destinations
+from _0_Utilitaires._0_07_fonctions_voyages import creer_liste_destinations
 
 # 1 -- Fonctions utiles --------------------------------------------------------
 

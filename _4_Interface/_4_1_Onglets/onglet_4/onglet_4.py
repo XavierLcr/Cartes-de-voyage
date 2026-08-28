@@ -36,7 +36,7 @@ from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6 import onglet_4_6
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_7.onglet_4_7_portrait_IA import (
     ProfilVoyageurIA,
 )
-from _4_Interface._4_3_Icones._4_3_9_podium import _dessiner_icone_podium
+from _4_Interface._4_3_Icones._4_3_09_podium import _dessiner_icone_podium
 from _4_Interface._4_3_Icones._4_3_10_hemicycle import _dessiner_icone_hemicycle
 from _4_Interface._4_3_Icones._4_3_11_rose_des_vents import (
     _dessiner_icone_rose_vents,

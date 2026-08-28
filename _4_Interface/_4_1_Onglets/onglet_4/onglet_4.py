@@ -38,6 +38,9 @@ from _4_Interface._4_1_Onglets.onglet_4.onglet_4_7_portrait_IA import (
 )
 from _4_Interface._4_3_Icones._4_3_9_podium import _dessiner_icone_podium
 from _4_Interface._4_3_Icones._4_3_10_hemicycle import _dessiner_icone_hemicycle
+from _4_Interface._4_3_Icones._4_3_11_rose_des_vents import (
+    _dessiner_icone_rose_vents,
+)
 
 # 1 -- Fonctions et widgets annexes ---------------------------------------------
 
@@ -153,7 +156,7 @@ class OngletTopPays(QWidget):
         self.btn_top_pays = BoutonNav(
             _dessiner_icone_podium,  # fond="#C0D2E6", fond_forme="carre_arrondi"
         )
-        self.btn_recommandations = BoutonNav("🚂")
+        self.btn_recommandations = BoutonNav(_dessiner_icone_rose_vents)
         self.btn_pays_souvent_visites = BoutonNav("⚓")
         self.btn_calendrier = BoutonNav("📅")
         self.btn_tableau_de_bord = BoutonNav("📰")

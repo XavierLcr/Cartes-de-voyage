@@ -44,6 +44,7 @@ from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
 from _4_Interface._4_2_Style._4_2_4_pluie_emojis import VuePluieEmojis
 from _4_Interface._4_3_Icones._4_3_16_curseurs import _dessiner_icone_curseurs
 from _4_Interface._4_3_Icones._4_3_17_valise import _dessiner_icone_valise
+from _4_Interface._4_3_Icones._4_3_18_peinture import _dessiner_icone_peinture
 from _5_Application._5_1_gestion_sauvegarde import Sauvegarde
 
 # Suppression d'alertes, d'avis et de messages additionnels
@@ -208,7 +209,9 @@ class MesVoyagesApplication(QWidget):
         # Création des onglets
         self.liste_onglets = QTabWidget()
         self.liste_onglets.setUsesScrollButtons(False)
-        self.liste_onglets.addTab(self.onglet_parametres, "Cartes")
+        self.liste_onglets.addTab(
+            self.onglet_parametres, creer_icone(_dessiner_icone_peinture), "Cartes"
+        )
         self.liste_onglets.addTab(
             self.onglet_selection_destinations,
             creer_icone(_dessiner_icone_valise),
@@ -273,10 +276,7 @@ class MesVoyagesApplication(QWidget):
         # Onglet 1
         self.liste_onglets.setTabText(
             self.liste_onglets.indexOf(self.onglet_parametres),
-            self.traduire_depuis_id(
-                "titre_onglet_1",
-                suffixe=(" 🎨"),
-            ),
+            self.traduire_depuis_id("titre_onglet_1"),
         )
         self.liste_onglets.setTabToolTip(
             self.liste_onglets.indexOf(self.onglet_parametres),

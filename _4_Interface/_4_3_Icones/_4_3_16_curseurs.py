@@ -40,7 +40,7 @@ def _dessiner_icone_curseurs(painter: QPainter, centre: QPointF, taille: float) 
 
     painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
 
-    largeur_rail = taille * 0.62
+    largeur_rail = taille * 0.8
     x_gauche = cx - largeur_rail / 2
     x_droite = cx + largeur_rail / 2
     espace_y = taille * 0.30

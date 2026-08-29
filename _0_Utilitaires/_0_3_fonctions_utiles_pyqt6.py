@@ -220,7 +220,7 @@ def _QColor_avec_alpha(couleur: QColor, alpha: int) -> QColor:
 # 9 -- Fonction de création d'une icône ----------------------------------------
 
 
-def creer_icone(fonction_dessin, taille_px: int = 32) -> QIcon:
+def creer_icone(fonction_dessin, taille_px: int = 50) -> QIcon:
     """Rend une icône QPainter (ex: _dessiner_icone_drapeaux) en QIcon utilisable partout."""
     pixmap = QPixmap(taille_px, taille_px)
     pixmap.fill(Qt.GlobalColor.transparent)

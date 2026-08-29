@@ -43,6 +43,7 @@ from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
 )
 from _4_Interface._4_2_Style._4_2_4_pluie_emojis import VuePluieEmojis
 from _4_Interface._4_3_Icones._4_3_16_curseurs import _dessiner_icone_curseurs
+from _4_Interface._4_3_Icones._4_3_17_valise import _dessiner_icone_valise
 from _5_Application._5_1_gestion_sauvegarde import Sauvegarde
 
 # Suppression d'alertes, d'avis et de messages additionnels
@@ -208,12 +209,16 @@ class MesVoyagesApplication(QWidget):
         self.liste_onglets = QTabWidget()
         self.liste_onglets.setUsesScrollButtons(False)
         self.liste_onglets.addTab(self.onglet_parametres, "Cartes")
-        self.liste_onglets.addTab(self.onglet_selection_destinations, "Voyages")
+        self.liste_onglets.addTab(
+            self.onglet_selection_destinations,
+            creer_icone(_dessiner_icone_valise),
+            "Voyages",
+        )
         self.liste_onglets.addTab(self.onglet_statistiques, "Statistiques")
         self.liste_onglets.addTab(
             self.onglet_param_profil, creer_icone(_dessiner_icone_curseurs), ""
         )
-        self.liste_onglets.addTab(self.onglet_description_application, "ℹ️")
+        self.liste_onglets.addTab(self.onglet_description_application, "Informations")
 
         main_layout = QVBoxLayout(self)
         main_layout.addLayout(layout_top)
@@ -282,10 +287,7 @@ class MesVoyagesApplication(QWidget):
         # Onglet 2
         self.liste_onglets.setTabText(
             self.liste_onglets.indexOf(self.onglet_selection_destinations),
-            self.traduire_depuis_id(
-                "titre_onglet_2",
-                suffixe=(" 📌"),
-            ),
+            self.traduire_depuis_id("titre_onglet_2"),
         )
         self.onglet_selection_destinations.set_langue(langue=self.langue)
 
@@ -306,9 +308,7 @@ class MesVoyagesApplication(QWidget):
         # Onglet des paramètres du profil
         self.liste_onglets.setTabText(
             self.liste_onglets.indexOf(self.onglet_param_profil),
-            self.traduire_depuis_id(
-                "titre_onglet_param_profil",
-            ),
+            self.traduire_depuis_id("titre_onglet_param_profil"),
         )
 
         self.onglet_param_profil.set_langue()

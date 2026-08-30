@@ -400,7 +400,7 @@ class OngletTopPays(QWidget):
     def initialiser_onglet(self, **kwargs):
         self.cliquer_bouton_onglet(num_onglet=self.pages.indexOf(self.tableau_de_bord))
         self.recommandations.initialiser_onglet(**kwargs)
-        self.portrait_IA.initialiser_onglet()
+        self.portrait_IA.initialiser_onglet(**kwargs)
         self.hemicycle.initialiser_onglet(**kwargs)
 
     def set_hemicycle_position(self, val: int):
@@ -412,6 +412,9 @@ class OngletTopPays(QWidget):
     def get_recommandations_nb(self):
         return self.recommandations.get_recommandations_nb()
 
+    def get_modele_IA(self):
+        return self.portrait_IA.get_modele_IA()
+
     def creer_dict_parametres(self):
 
         return {
@@ -419,6 +422,8 @@ class OngletTopPays(QWidget):
             "hemicycle_position": self.get_hemicycle_position(),
             # Recommandations
             "recommandations_nb": self.get_recommandations_nb(),
+            # Modèle IA
+            "modele_IA": self.get_modele_IA(),
         }
 
     def cliquer_bouton_onglet(self, num_onglet: int):

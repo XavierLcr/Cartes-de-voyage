@@ -294,7 +294,7 @@ class ProfilVoyageurIA(QGroupBox):
         self.attente_label.show()
 
         self.thread_profil = ProfilLLMWorker(
-            modele=self.modele.currentText(),
+            modele=self.get_modele_IA(),
             contexte=self.contexte,
             langue=self.langue,
             voyages=self.voyages,
@@ -349,7 +349,16 @@ class ProfilVoyageurIA(QGroupBox):
         self.widget_lancement.show()
         self.attente_label.hide()
 
-    def initialiser_onglet(self):
+    def initialiser_onglet(self, **kwargs):
 
         vider_layout(layout=self.layout_description_profil)
         self.layout_description_profil.addStretch()
+
+        # Récupération du modèle
+        modele_temp = kwargs.get("modele_IA")
+        if modele_temp is not None:
+            self.modele.setCurrentText(modele_temp)
+
+    def get_modele_IA(self):
+
+        return self.modele.currentText()

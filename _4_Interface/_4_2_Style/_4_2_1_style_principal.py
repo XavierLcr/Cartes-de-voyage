@@ -118,7 +118,7 @@ def style_dynamique_application(
     )
     # Boites
     couleur_box = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#F5EEE6", sombre="#1696A9"
+        style=style, teinte=teinte, nuances=nuances, clair="#E6F5F1", sombre="#1696A9"
     )
     couleur_box_texte = renvoyer_couleur_texte(
         style=style,

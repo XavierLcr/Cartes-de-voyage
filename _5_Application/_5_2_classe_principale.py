@@ -46,6 +46,7 @@ from _4_Interface._4_3_Icones._4_3_16_curseurs import _dessiner_icone_curseurs
 from _4_Interface._4_3_Icones._4_3_17_valise import _dessiner_icone_valise
 from _4_Interface._4_3_Icones._4_3_18_peinture import _dessiner_icone_peinture
 from _4_Interface._4_3_Icones._4_3_19_bulle_info import _dessiner_icone_information
+from _4_Interface._4_3_Icones._4_3_20_statistiques import _dessiner_icone_courbes
 from _5_Application._5_1_gestion_sauvegarde import Sauvegarde
 
 # Suppression d'alertes, d'avis et de messages additionnels
@@ -218,7 +219,11 @@ class MesVoyagesApplication(QWidget):
             creer_icone(_dessiner_icone_valise),
             "Voyages",
         )
-        self.liste_onglets.addTab(self.onglet_statistiques, "Statistiques")
+        self.liste_onglets.addTab(
+            self.onglet_statistiques,
+            creer_icone(_dessiner_icone_courbes),
+            "Statistiques",
+        )
         self.liste_onglets.addTab(
             self.onglet_param_profil, creer_icone(_dessiner_icone_curseurs), ""
         )
@@ -299,10 +304,7 @@ class MesVoyagesApplication(QWidget):
         # Onglet des statistiques
         self.liste_onglets.setTabText(
             self.liste_onglets.indexOf(self.onglet_statistiques),
-            self.traduire_depuis_id(
-                "titre_onglet_4",
-                suffixe=(" 📊"),
-            ),
+            self.traduire_depuis_id("titre_onglet_4"),
         )
         self.liste_onglets.setTabToolTip(
             self.liste_onglets.indexOf(self.onglet_statistiques),
@@ -319,7 +321,11 @@ class MesVoyagesApplication(QWidget):
         self.onglet_param_profil.set_langue()
         self.onglet_param_profil.signal_theme_application.connect(self.set_style)
 
-        # Onglet informationnel
+        # Onglet informationnel titre_informations
+        self.liste_onglets.setTabText(
+            self.liste_onglets.indexOf(self.onglet_description_application),
+            self.traduire_depuis_id("titre_informations"),
+        )
         self.onglet_description_application.set_langue()
 
     def traduire_depuis_id(

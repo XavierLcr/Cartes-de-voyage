@@ -136,7 +136,9 @@ def couleur_depuis_drapeau(drapeau):
 ## 5.3 -- Image en QIcon -------------------------------------------------------
 
 
-def recuperer_drapeau_icon(chemin: str, pays: str, taille: int = 16):
+def recuperer_drapeau_icon(
+    chemin: str, pays: str, taille: int = 16, fallback_onu: bool = False
+):
     fichier = f"{pays}.png"
     chemin_complet = os.path.join(chemin, fichier)
 
@@ -150,28 +152,40 @@ def recuperer_drapeau_icon(chemin: str, pays: str, taille: int = 16):
             QtCore.Qt.TransformationMode.SmoothTransformation,
         )
         return QtGui.QIcon(pixmap)
+
+    if fallback_onu == True:
+
+        return recuperer_drapeau_icon(
+            chemin=chemin, pays="United Nations", taille=taille, fallback_onu=False
+        )
+
     return None
 
 
 ## 5.4 -- Création d'un dictionnaire des drapeaux ------------------------------
 
 
-def creer_dictionnaire_drapeaux(chemin: str, taille: int):
+def creer_dictionnaire_drapeaux(
+    chemin: str, liste_pays: list | None, taille: int, fallback_onu: bool
+):
 
     # Initialisation du résultat
     dict_temp = {}
 
     # Liste des fichiers
-    liste_temp = sorted(os.listdir(chemin))
+    if liste_pays is None:
+        liste_pays = sorted(os.listdir(chemin))
 
     # Boucle sur les fichiers disponibles
-    for image_temp in liste_temp:
+    for image_temp in liste_pays:
 
         # Nom du pays
         pays_temp, _ = os.path.splitext(image_temp)
 
         # Ajout au dictionnaire
-        dict_temp[pays_temp] = recuperer_drapeau_icon(chemin=chemin, pays=pays_temp)
+        dict_temp[pays_temp] = recuperer_drapeau_icon(
+            chemin=chemin, pays=pays_temp, taille=taille, fallback_onu=fallback_onu
+        )
 
     # Renvoi
     return dict_temp

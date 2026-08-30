@@ -79,7 +79,10 @@ class ArbreDestinations(QTreeWidget):
         self.liste_pays = constantes.hierarchie_par_pays
         self.taille_icone = 32
         self.drapeaux_icones = creer_dictionnaire_drapeaux(
-            chemin=constantes.direction_donnees_drapeaux, taille=self.taille_icone
+            chemin=constantes.direction_donnees_drapeaux,
+            liste_pays=list(constantes.granularite_max_pays.keys()),
+            taille=self.taille_icone,
+            fallback_onu=True,
         )
         self.dicts_granu = {"region": {}, "dep": {}}
         self.langue_utilisee = "français"

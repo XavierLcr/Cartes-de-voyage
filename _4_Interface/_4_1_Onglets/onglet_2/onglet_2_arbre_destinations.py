@@ -13,6 +13,7 @@ from PyQt6.QtWidgets import QTreeWidget, QTreeWidgetItem
 
 from _0_Utilitaires._0_2_fonctions_graphiques import (
     renvoyer_couleur_widget,
+    creer_dictionnaire_drapeaux,
 )
 from _0_Utilitaires._0_07_fonctions_voyages import creer_liste_destinations
 
@@ -76,9 +77,15 @@ class ArbreDestinations(QTreeWidget):
         self.emojis_pays = constantes.emojis_pays
         self.noms_pays = constantes.pays_differentes_langues
         self.liste_pays = constantes.hierarchie_par_pays
+        self.taille_icone = 32
+        self.drapeaux_icones = creer_dictionnaire_drapeaux(
+            chemin=constantes.direction_donnees_drapeaux, taille=self.taille_icone
+        )
         self.dicts_granu = {"region": {}, "dep": {}}
         self.langue_utilisee = "français"
         self.couleurs = {}
+        self.utiliser_drapeau = True
+        self.utiliser_emoji = False
 
         # Configuration de l'arbre
         self.setHeaderHidden(True)
@@ -87,6 +94,8 @@ class ArbreDestinations(QTreeWidget):
         self.setIndentation(20)
         self.setExpandsOnDoubleClick(True)
         self.setAnimated(True)
+        # Taille de l'icône
+        self.setIconSize(QtCore.QSize(self.taille_icone, self.taille_icone))
 
     def set_dicts_granu(self, dict_nv: dict):
         """Met à jour les destinations sélectionnées."""
@@ -137,7 +146,8 @@ class ArbreDestinations(QTreeWidget):
                     if niveau == 1:
                         nom = self.noms_pays.get(cle, {}).get(self.langue_utilisee, nom)
 
-                    if cle in self.emojis_pays:
+                    # Ajout de l'emoji (si souhaité)
+                    if cle in self.emojis_pays and self.utiliser_emoji:
                         nom += f" {self.emojis_pays[cle]}"
 
                     child = QTreeWidgetItem(parent_item, [nom])
@@ -149,20 +159,33 @@ class ArbreDestinations(QTreeWidget):
                         ),
                     )
 
+                    # Ajout du drapeau (si souhaité)
+                    if self.utiliser_drapeau:
+                        icone_temp = self.drapeaux_icones.get(cle)
+                        if icone_temp is not None:
+                            child.setIcon(0, icone_temp)
+
                     ajouter_elements(child, valeur, niveau + 1)
 
             elif isinstance(data, list):
-                for item in data:
-                    nom = f"• {item}"
+                for item_temp in data:
+                    nom = f"• {item_temp}"
 
-                    if item in self.emojis_pays:
-                        nom += f" {self.emojis_pays[item]}"
+                    # Ajout de l'emoji (si souhaité)
+                    if item_temp in self.emojis_pays and self.utiliser_emoji:
+                        nom += f" {self.emojis_pays[item_temp]}"
 
                     child = QTreeWidgetItem(parent_item, [nom])
                     child.setBackground(
                         0,
                         QtGui.QBrush(QtGui.QColor(QtCore.Qt.GlobalColor.transparent)),
                     )
+
+                    # Ajout du drapeau (si souhaité)
+                    if self.utiliser_drapeau:
+                        icone_temp = self.drapeaux_icones.get(item_temp)
+                        if icone_temp is not None:
+                            child.setIcon(0, icone_temp)
 
             else:
                 child = QTreeWidgetItem(parent_item, [str(data)])

@@ -7,6 +7,7 @@
 
 import os, random, colorsys
 from PIL import Image
+from PyQt6 import QtGui, QtCore
 
 # 1 -- Générer une couleur aléatoire selon des contraintes HSV -----------------
 
@@ -130,6 +131,50 @@ def couleur_depuis_drapeau(drapeau):
         return random.choice(list(drapeau.getdata()))
     else:
         return None
+
+
+## 5.3 -- Image en QIcon -------------------------------------------------------
+
+
+def recuperer_drapeau_icon(chemin: str, pays: str, taille: int = 16):
+    fichier = f"{pays}.png"
+    chemin_complet = os.path.join(chemin, fichier)
+
+    if os.path.isfile(chemin_complet):
+        pixmap = QtGui.QPixmap(chemin_complet)
+        # Redimensionner en gardant un rendu net
+        pixmap = pixmap.scaled(
+            taille,
+            taille,
+            QtCore.Qt.AspectRatioMode.KeepAspectRatio,
+            QtCore.Qt.TransformationMode.SmoothTransformation,
+        )
+        return QtGui.QIcon(pixmap)
+    return None
+
+
+## 5.4 -- Création d'un dictionnaire des drapeaux ------------------------------
+
+
+def creer_dictionnaire_drapeaux(chemin: str, taille: int):
+
+    # Initialisation du résultat
+    dict_temp = {}
+
+    # Liste des fichiers
+    liste_temp = sorted(os.listdir(chemin))
+
+    # Boucle sur les fichiers disponibles
+    for image_temp in liste_temp:
+
+        # Nom du pays
+        pays_temp, _ = os.path.splitext(image_temp)
+
+        # Ajout au dictionnaire
+        dict_temp[pays_temp] = recuperer_drapeau_icon(chemin=chemin, pays=pays_temp)
+
+    # Renvoi
+    return dict_temp
 
 
 # 6 -- RGB vers hexadécimales --------------------------------------------------

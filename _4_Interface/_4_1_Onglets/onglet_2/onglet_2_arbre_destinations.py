@@ -77,7 +77,7 @@ class ArbreDestinations(QTreeWidget):
         self.emojis_pays = constantes.emojis_pays
         self.noms_pays = constantes.pays_differentes_langues
         self.liste_pays = constantes.hierarchie_par_pays
-        self.taille_icone = 32
+        self.taille_icone = 24
         self.drapeaux_icones = creer_dictionnaire_drapeaux(
             chemin=constantes.direction_donnees_drapeaux,
             liste_pays=list(constantes.granularite_max_pays.keys()),

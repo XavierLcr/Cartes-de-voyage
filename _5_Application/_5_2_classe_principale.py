@@ -45,6 +45,7 @@ from _4_Interface._4_2_Style._4_2_4_pluie_emojis import VuePluieEmojis
 from _4_Interface._4_3_Icones._4_3_16_curseurs import _dessiner_icone_curseurs
 from _4_Interface._4_3_Icones._4_3_17_valise import _dessiner_icone_valise
 from _4_Interface._4_3_Icones._4_3_18_peinture import _dessiner_icone_peinture
+from _4_Interface._4_3_Icones._4_3_19_bulle_info import _dessiner_icone_information
 from _5_Application._5_1_gestion_sauvegarde import Sauvegarde
 
 # Suppression d'alertes, d'avis et de messages additionnels
@@ -221,7 +222,11 @@ class MesVoyagesApplication(QWidget):
         self.liste_onglets.addTab(
             self.onglet_param_profil, creer_icone(_dessiner_icone_curseurs), ""
         )
-        self.liste_onglets.addTab(self.onglet_description_application, "Informations")
+        self.liste_onglets.addTab(
+            self.onglet_description_application,
+            creer_icone(_dessiner_icone_information),
+            "Informations",
+        )
 
         main_layout = QVBoxLayout(self)
         main_layout.addLayout(layout_top)

@@ -33,6 +33,7 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     set_emoji_sauvegarde,
     reset_combo,
+    creer_icone,
 )
 from _0_Utilitaires._0_07_fonctions_voyages import (
     detecter_type_yaml,
@@ -46,6 +47,7 @@ from _4_Interface._4_1_Onglets.onglet_2.onglet_2_arbre_voyages import ArbreVoyag
 from _4_Interface._4_1_Onglets.onglet_2.onglet_2_arbre_destinations import (
     ArbreDestinations,
 )
+from _4_Interface._4_3_Icones._4_3_22_telecharger import _dessiner_icone_telechargement
 
 # 1 -- Ajustements du style des QGroupBox --------------------------------------
 
@@ -100,6 +102,9 @@ class OngletSelectionnerDestinations(QWidget):
 
         # Bouton d'export des YAML
         self.telecharger_lieux_visites = QAction("Exporter", self)
+        self.telecharger_lieux_visites.setIcon(
+            creer_icone(_dessiner_icone_telechargement)
+        )
         self.telecharger_lieux_visites.triggered.connect(self.exporter_yamls_visites)
 
         # Bouton d'import d'un YAML

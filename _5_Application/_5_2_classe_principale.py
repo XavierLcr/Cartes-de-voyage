@@ -48,6 +48,7 @@ from _4_Interface._4_3_Icones._4_3_18_peinture import _dessiner_icone_peinture
 from _4_Interface._4_3_Icones._4_3_19_bulle_info import _dessiner_icone_information
 from _4_Interface._4_3_Icones._4_3_20_statistiques import _dessiner_icone_courbes
 from _4_Interface._4_3_Icones._4_3_21_ajout_profil import _dessiner_icone_ajout_profil
+from _4_Interface._4_3_Icones._4_3_23_balai import _dessiner_icone_balai
 from _5_Application._5_1_gestion_sauvegarde import Sauvegarde
 
 # Suppression d'alertes, d'avis et de messages additionnels
@@ -108,16 +109,14 @@ class MesVoyagesApplication(QWidget):
         profile_layout.addWidget(self.nom_individu)
         # Bouton d'ajout d'un profil
         self.bouton_ajout = QPushButton()
-        # self.bouton_ajout.setText("＋")
-        self.bouton_ajout.setText("")
         self.bouton_ajout.setIcon(creer_icone(_dessiner_icone_ajout_profil))
         self.bouton_ajout.setFixedWidth(60)
         self.bouton_ajout.clicked.connect(self.ajouter_profil)
         profile_layout.addWidget(self.bouton_ajout)
         # Bouton de réinitialisation
         self.reinit_parametres = QPushButton()
-        self.reinit_parametres.setText("🧹")
-        self.reinit_parametres.setFixedWidth(50)
+        self.reinit_parametres.setFixedWidth(60)
+        self.reinit_parametres.setIcon(creer_icone(_dessiner_icone_balai))
         self.reinit_parametres.clicked.connect(
             lambda: self.initialiser_sauvegarde(reinitialiser=True)
         )
@@ -275,10 +274,10 @@ class MesVoyagesApplication(QWidget):
         self.nom_individu.setPlaceholderText(
             self.traduire_depuis_id("nom_individu_placeholder", suffixe="...")
         )
-        self.reinit_parametres.setText(
-            "🧹"
-            # self.traduire_depuis_id("reinitialisation_interface")
-        )
+        # self.reinit_parametres.setText(
+        #     "🧹"
+        #     # self.traduire_depuis_id("reinitialisation_interface")
+        # )
         self.reinit_parametres.setToolTip(
             self.traduire_depuis_id(
                 "description_bouton_reinitialisation_interface", suffixe="."

@@ -41,8 +41,10 @@ from _0_Utilitaires._0_07_fonctions_voyages import (
     trier_voyages,
 )
 from _0_Utilitaires._0_11_classes_pop_up import PopupInfo
-from _0_Utilitaires._0_14_QPushButton_QIcon import QPushButtonSauvegarde
-from _4_Interface._4_3_Icones._4_3_25_disquette import _dessiner_icone_disquette
+from _0_Utilitaires._0_14_QPushButton_QIcon import (
+    QPushButtonSauvegarde,
+    QPushButtonIcone,
+)
 from _4_Interface._4_1_Onglets.onglet_2.onglet_2_ajout_voyage import CreerVoyage
 from _4_Interface._4_1_Onglets.onglet_2.onglet_2_arbre_voyages import ArbreVoyages
 from _4_Interface._4_1_Onglets.onglet_2.onglet_2_arbre_destinations import (
@@ -122,12 +124,14 @@ class OngletSelectionnerDestinations(QWidget):
         self.bouton_sauvegarde.clicked.connect(lambda: fct_sauvegarde)
 
         # Bouton de dépliage
-        self.deplier = QAction("Déplier", self)
-        self.deplier.setIcon(creer_icone(_dessiner_icone_arbre_deplier))
-        self.deplier.triggered.connect(lambda: self.replier_deplier_arbres(False))
-        self.replier = QAction("Replier", self)
-        self.replier.setIcon(creer_icone(_dessiner_icone_arbre_replier))
-        self.replier.triggered.connect(lambda: self.replier_deplier_arbres(True))
+        self.deplier = QPushButtonIcone(
+            creer_icone(_dessiner_icone_arbre_deplier), taille=40
+        )
+        self.deplier.clicked.connect(lambda: self.replier_deplier_arbres(False))
+        self.replier = QPushButtonIcone(
+            creer_icone(_dessiner_icone_arbre_replier), taille=40
+        )
+        self.replier.clicked.connect(lambda: self.replier_deplier_arbres(True))
 
         # Barre d'outils
         spacer = QWidget()
@@ -141,8 +145,8 @@ class OngletSelectionnerDestinations(QWidget):
         toolbar_temp.addAction(self.chargement_yaml_bouton)
         toolbar_temp.addWidget(spacer)
         toolbar_temp.addWidget(self.options_tri)
-        toolbar_temp.addAction(self.deplier)
-        toolbar_temp.addAction(self.replier)
+        toolbar_temp.addWidget(self.deplier)
+        toolbar_temp.addWidget(self.replier)
 
         # Voyages effectués
         self.liste_voyage_groupbox = QGroupBox()

@@ -54,12 +54,12 @@ def _dessiner_eventail(
     n_segments = 24
 
     # -- Ombre portée unique -------------------------------------------------
-    painter.setPen(Qt.PenStyle.NoPen)
-    ombre = QRadialGradient(QPointF(cx, cy + taille * 0.10), taille * 0.6)
-    ombre.setColorAt(0.0, QColor(0, 0, 0, 35))
-    ombre.setColorAt(1.0, QColor(0, 0, 0, 0))
-    painter.setBrush(QBrush(ombre))
-    painter.drawEllipse(QPointF(cx, cy + taille * 0.10), taille * 0.5, taille * 0.5)
+    # painter.setPen(Qt.PenStyle.NoPen)
+    # ombre = QRadialGradient(QPointF(cx, cy + taille * 0.10), taille * 0.6)
+    # ombre.setColorAt(0.0, QColor(0, 0, 0, 35))
+    # ombre.setColorAt(1.0, QColor(0, 0, 0, 0))
+    # painter.setBrush(QBrush(ombre))
+    # painter.drawEllipse(QPointF(cx, cy + taille * 0.10), taille * 0.5, taille * 0.5)
 
     # -- Corps de l'éventail (anneau d'arc rempli) ----------------------------
     chemin = QPainterPath()

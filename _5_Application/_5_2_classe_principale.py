@@ -47,6 +47,7 @@ from _4_Interface._4_3_Icones._4_3_17_valise import _dessiner_icone_valise
 from _4_Interface._4_3_Icones._4_3_18_peinture import _dessiner_icone_peinture
 from _4_Interface._4_3_Icones._4_3_19_bulle_info import _dessiner_icone_information
 from _4_Interface._4_3_Icones._4_3_20_statistiques import _dessiner_icone_courbes
+from _4_Interface._4_3_Icones._4_3_21_ajout_profil import _dessiner_icone_ajout_profil
 from _5_Application._5_1_gestion_sauvegarde import Sauvegarde
 
 # Suppression d'alertes, d'avis et de messages additionnels
@@ -108,8 +109,9 @@ class MesVoyagesApplication(QWidget):
         # Bouton d'ajout d'un profil
         self.bouton_ajout = QPushButton()
         # self.bouton_ajout.setText("＋")
-        self.bouton_ajout.setText("➕")
-        self.bouton_ajout.setFixedWidth(50)
+        self.bouton_ajout.setText("")
+        self.bouton_ajout.setIcon(creer_icone(_dessiner_icone_ajout_profil))
+        self.bouton_ajout.setFixedWidth(60)
         self.bouton_ajout.clicked.connect(self.ajouter_profil)
         profile_layout.addWidget(self.bouton_ajout)
         # Bouton de réinitialisation

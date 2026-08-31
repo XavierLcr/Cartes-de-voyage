@@ -274,10 +274,7 @@ class MesVoyagesApplication(QWidget):
         self.nom_individu.setPlaceholderText(
             self.traduire_depuis_id("nom_individu_placeholder", suffixe="...")
         )
-        # self.reinit_parametres.setText(
-        #     "🧹"
-        #     # self.traduire_depuis_id("reinitialisation_interface")
-        # )
+
         self.reinit_parametres.setToolTip(
             self.traduire_depuis_id(
                 "description_bouton_reinitialisation_interface", suffixe="."

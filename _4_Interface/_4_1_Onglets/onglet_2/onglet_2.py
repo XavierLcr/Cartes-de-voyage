@@ -48,6 +48,10 @@ from _4_Interface._4_1_Onglets.onglet_2.onglet_2_arbre_destinations import (
     ArbreDestinations,
 )
 from _4_Interface._4_3_Icones._4_3_22_telecharger import _dessiner_icone_telechargement
+from _4_Interface._4_3_Icones._4_3_24_eventail import (
+    _dessiner_icone_arbre_deplier,
+    _dessiner_icone_arbre_replier,
+)
 
 # 1 -- Ajustements du style des QGroupBox --------------------------------------
 
@@ -122,8 +126,10 @@ class OngletSelectionnerDestinations(QWidget):
 
         # Bouton de dépliage
         self.deplier = QAction("Déplier", self)
+        self.deplier.setIcon(creer_icone(_dessiner_icone_arbre_deplier))
         self.deplier.triggered.connect(lambda: self.replier_deplier_arbres(False))
         self.replier = QAction("Replier", self)
+        self.replier.setIcon(creer_icone(_dessiner_icone_arbre_replier))
         self.replier.triggered.connect(lambda: self.replier_deplier_arbres(True))
 
         # Barre d'outils
@@ -360,9 +366,7 @@ class OngletSelectionnerDestinations(QWidget):
         )
 
         # Dépliage et repliage des arbres
-        self.deplier.setText("📖​")
         self.deplier.setToolTip(self.fonction_traduire("arbre_deplier"))
-        self.replier.setText("📘​")
         self.replier.setToolTip(self.fonction_traduire("arbre_replier"))
 
         # Arbre des voyages

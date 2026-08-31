@@ -13,11 +13,10 @@ from PyQt6.QtWidgets import (
     QFrame,
     QLabel,
     QWidget,
-    QPushButton,
     QApplication,
     QScrollArea,
 )
-from PyQt6.QtCore import Qt, QTimer, QPointF
+from PyQt6.QtCore import Qt, QPointF
 from PyQt6.QtGui import QFontInfo, QFont, QColor, QPixmap, QIcon, QPainter
 
 # 1 -- Fonctions sur les combos ------------------------------------------------
@@ -163,19 +162,7 @@ def vider_layout(layout):
     QApplication.processEvents()
 
 
-# 5 -- Fonction sur les QPushButton --------------------------------------------
-
-
-## 5.1 -- Fonction de validation visuelle de la sauvegarde ---------------------
-
-
-def set_emoji_sauvegarde(widget: QPushButton, temps_ms: int):
-
-    widget.setText("💾✅")
-    QTimer.singleShot(temps_ms, lambda: widget.setText("💾"))
-
-
-# 6 -- Création d'un scroll ----------------------------------------------------
+# 5 -- Création d'un scroll ----------------------------------------------------
 
 
 def creer_scroll(layout):
@@ -191,7 +178,7 @@ def creer_scroll(layout):
     return scroll_temp
 
 
-# 7 -- Sélection d'une police disponible parmi une liste -----------------------
+# 6 -- Sélection d'une police disponible parmi une liste -----------------------
 
 
 def _trouver_police_disponible(candidats):
@@ -203,10 +190,10 @@ def _trouver_police_disponible(candidats):
     return candidats[-1]
 
 
-# 8 -- Fonctions sur les couleurs ----------------------------------------------
+# 7 -- Fonctions sur les couleurs ----------------------------------------------
 
 
-## 8.1 -- Renvoie une QColor avec un certain niveau de transparence ------------
+## 7.1 -- Renvoie une QColor avec un certain niveau de transparence ------------
 
 
 def _QColor_avec_alpha(couleur: QColor, alpha: int) -> QColor:
@@ -217,7 +204,7 @@ def _QColor_avec_alpha(couleur: QColor, alpha: int) -> QColor:
     return c
 
 
-# 9 -- Fonction de création d'une icône ----------------------------------------
+# 8 -- Fonction de création d'une icône ----------------------------------------
 
 
 def creer_icone(fonction_dessin, taille_px: int = 50) -> QIcon:

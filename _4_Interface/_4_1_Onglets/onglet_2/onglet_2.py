@@ -31,7 +31,6 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     voyages_vers_destinations,
 )
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
-    set_emoji_sauvegarde,
     reset_combo,
     creer_icone,
 )
@@ -42,6 +41,7 @@ from _0_Utilitaires._0_07_fonctions_voyages import (
     trier_voyages,
 )
 from _0_Utilitaires._0_11_classes_pop_up import PopupInfo
+from _4_Interface._4_3_Icones._4_3_25_disquette import _dessiner_icone_disquette
 from _4_Interface._4_1_Onglets.onglet_2.onglet_2_ajout_voyage import CreerVoyage
 from _4_Interface._4_1_Onglets.onglet_2.onglet_2_arbre_voyages import ArbreVoyages
 from _4_Interface._4_1_Onglets.onglet_2.onglet_2_arbre_destinations import (
@@ -85,6 +85,7 @@ class OngletSelectionnerDestinations(QWidget):
         # Fonctions et constantes
         self.constantes = constantes
         self.fonction_traduire = fct_traduire
+        self.fct_sauvegarde = fct_sauvegarde
 
         # Layout de l'onglet
         layout = QVBoxLayout()
@@ -117,12 +118,8 @@ class OngletSelectionnerDestinations(QWidget):
 
         # Bouton de sauvegarde
         self.bouton_sauvegarde = QAction("Sauvegarder", self)
-        self.bouton_sauvegarde.triggered.connect(
-            lambda: fct_sauvegarde(date_publication=False)
-        )
-        self.bouton_sauvegarde.triggered.connect(
-            lambda: set_emoji_sauvegarde(self.bouton_sauvegarde, 3000)
-        )
+        self.setBonIcone(validee=False)
+        self.bouton_sauvegarde.triggered.connect(lambda: self.lancer_sauvegarde)
 
         # Bouton de dépliage
         self.deplier = QAction("Déplier", self)
@@ -340,7 +337,6 @@ class OngletSelectionnerDestinations(QWidget):
         self.telecharger_lieux_visites.setToolTip(
             self.fonction_traduire("telecharger_lieux_visites", suffixe=".")
         )
-        self.bouton_sauvegarde.setText("💾")
         self.bouton_sauvegarde.setToolTip(
             self.fonction_traduire("sauvegarder_profil", suffixe=".")
         )
@@ -454,3 +450,25 @@ class OngletSelectionnerDestinations(QWidget):
 
         self.replier_deplier_arbre(arbre=self.arbre_voyages, replier=replier)
         self.replier_deplier_arbre(arbre=self.arbre_destinations, replier=replier)
+
+    def setBonIcone(self, validee: bool):
+
+        self.bouton_sauvegarde.setIcon(
+            creer_icone(
+                fonction_dessin=lambda painter, centre, taille: _dessiner_icone_disquette(
+                    painter=painter, centre=centre, taille=taille, validee=validee
+                )
+            )
+        )
+
+    def lancer_sauvegarde(self):
+
+        self.fct_sauvegarde(date_publication=False)
+
+        # Actualisation du widget
+        self.setBonIcone(validee=True)
+        print("Oui")
+        QTimer.singleShot(
+            3000,
+            lambda: self.setBonIcone(validee=False),
+        )

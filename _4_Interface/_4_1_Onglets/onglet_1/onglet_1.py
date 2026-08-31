@@ -37,10 +37,10 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     creer_ligne_horizontale,
     creer_ligne_verticale,
     restaurer_valeur_combo,
-    set_emoji_sauvegarde,
 )
 from _0_Utilitaires._0_11_classes_pop_up import PopupInfo
 from _0_Utilitaires._0_12_toggle_checkbox import ToggleSwitch
+from _0_Utilitaires._0_14_QPushButton_QIcon import QPushButtonSauvegarde
 from _4_Interface._4_1_Onglets.onglet_1.onglet_1_1_creation_cartes import CreerCartes
 from _4_Interface._4_1_Onglets.onglet_1.onglet_1_2_combobox_coloree import (
     FondCarteCombo,
@@ -300,10 +300,7 @@ class OngletParametres(QWidget):
         self.barre_progression.setFormat("")
 
         # Bouton de sauvegarde
-        self.bouton_sauvegarde = QPushButton()
-        self.bouton_sauvegarde.clicked.connect(
-            lambda: set_emoji_sauvegarde(self.bouton_sauvegarde, 3000)
-        )
+        self.bouton_sauvegarde = QPushButtonSauvegarde()
 
         # Ajouter les widgets dans la grille
         layout_valid_reinit.addWidget(self.creation_cartes_bouton, 0, 0)
@@ -407,7 +404,6 @@ class OngletParametres(QWidget):
         self.creation_cartes_bouton.setToolTip(
             self.fonction_traduction("description_bouton_publier_cartes", suffixe=".")
         )
-        self.bouton_sauvegarde.setText("💾")
         self.bouton_sauvegarde.setToolTip(
             self.fonction_traduction("sauvegarder_profil", suffixe=".")
         )

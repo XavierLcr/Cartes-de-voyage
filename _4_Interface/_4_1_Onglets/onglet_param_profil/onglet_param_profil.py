@@ -30,8 +30,8 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     creer_QLabel_centre,
     creer_ligne_horizontale,
-    set_emoji_sauvegarde,
 )
+from _0_Utilitaires._0_14_QPushButton_QIcon import QPushButtonSauvegarde
 from _4_Interface._4_1_Onglets.onglet_param_profil.onglet_param_profil_switch import (
     BoutonSwitch,
 )
@@ -153,10 +153,7 @@ class OngletParametresProfil(QWidget):
         email_layout.addWidget(self.email_input)
 
         # Bouton de sauvegarde
-        self.bouton_sauvegarde = QPushButton()
-        self.bouton_sauvegarde.clicked.connect(
-            lambda: set_emoji_sauvegarde(self.bouton_sauvegarde, 3000)
-        )
+        self.bouton_sauvegarde = QPushButtonSauvegarde()
 
         # Suppression du profil
         self.suppression_profil = QPushButton()
@@ -263,7 +260,6 @@ class OngletParametresProfil(QWidget):
         )
 
         # Bouton de sauvegarde
-        self.bouton_sauvegarde.setText("💾")
         self.bouton_sauvegarde.setToolTip(
             self.fonction_traduction("sauvegarder_profil", suffixe=".")
         )

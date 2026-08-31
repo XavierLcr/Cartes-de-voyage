@@ -103,8 +103,6 @@ class MesVoyagesApplication(QWidget):
         self.nom_individu = QComboBox(self)
         self.nom_individu.setEditable(False)
         self.nom_individu.setPlaceholderText("")
-        self.nom_individu_label = creer_QLabel_centre()
-        profile_layout.addWidget(self.nom_individu_label)
         self.nom_individu.addItems(self.sauvegarde.renvoyer_liste_profils())
         profile_layout.addWidget(self.nom_individu)
         # Bouton d'ajout d'un profil
@@ -270,7 +268,6 @@ class MesVoyagesApplication(QWidget):
         )
 
         # Profil sélectionné
-        self.nom_individu_label.setText("👤")
         self.nom_individu.setPlaceholderText(
             self.traduire_depuis_id("nom_individu_placeholder", suffixe="...")
         )

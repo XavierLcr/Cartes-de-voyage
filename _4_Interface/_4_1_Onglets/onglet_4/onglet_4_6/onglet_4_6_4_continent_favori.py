@@ -38,7 +38,7 @@ from _4_Interface._4_2_Style._4_2_1_style_principal import (
     renvoyer_couleur_texte,
     renvoyer_couleur_widget_differente,
 )
-from _4_Interface._4_3_Icones._4_3_5_globe_terrestre import _dessiner_badge_globe
+from _4_Interface._4_3_Icones._4_3_05_globe_terrestre import _dessiner_badge_globe
 
 # 1 -- Répartition des pays visités par continent -------------------------------
 

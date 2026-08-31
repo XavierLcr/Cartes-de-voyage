@@ -29,7 +29,7 @@ from _4_Interface._4_2_Style._4_2_1_style_principal import (
     renvoyer_couleur_texte,
     renvoyer_couleur_widget_differente,
 )
-from _4_Interface._4_3_Icones._4_3_6_badge_pin import _dessiner_badge_pin
+from _4_Interface._4_3_Icones._4_3_06_badge_pin import _dessiner_badge_pin
 
 # 1 -- Nombre de voyages par an ------------------------------------------------
 

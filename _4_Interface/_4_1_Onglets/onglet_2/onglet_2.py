@@ -41,6 +41,7 @@ from _0_Utilitaires._0_07_fonctions_voyages import (
     trier_voyages,
 )
 from _0_Utilitaires._0_11_classes_pop_up import PopupInfo
+from _0_Utilitaires._0_14_QPushButton_QIcon import QPushButtonSauvegarde
 from _4_Interface._4_3_Icones._4_3_25_disquette import _dessiner_icone_disquette
 from _4_Interface._4_1_Onglets.onglet_2.onglet_2_ajout_voyage import CreerVoyage
 from _4_Interface._4_1_Onglets.onglet_2.onglet_2_arbre_voyages import ArbreVoyages
@@ -117,9 +118,8 @@ class OngletSelectionnerDestinations(QWidget):
         self.chargement_yaml_bouton.triggered.connect(self.charger_yaml)
 
         # Bouton de sauvegarde
-        self.bouton_sauvegarde = QAction("Sauvegarder", self)
-        self.setBonIcone(validee=False)
-        self.bouton_sauvegarde.triggered.connect(lambda: self.lancer_sauvegarde)
+        self.bouton_sauvegarde = QPushButtonSauvegarde(parent=self)
+        self.bouton_sauvegarde.clicked.connect(lambda: fct_sauvegarde)
 
         # Bouton de dépliage
         self.deplier = QAction("Déplier", self)
@@ -136,7 +136,7 @@ class OngletSelectionnerDestinations(QWidget):
         toolbar_temp.setMovable(False)  # On ne peut pas la déplacer
         toolbar_temp.setFloatable(False)
         toolbar_temp.addAction(self.ajouter_voyage_bouton)
-        toolbar_temp.addAction(self.bouton_sauvegarde)
+        toolbar_temp.addWidget(self.bouton_sauvegarde)
         toolbar_temp.addAction(self.telecharger_lieux_visites)
         toolbar_temp.addAction(self.chargement_yaml_bouton)
         toolbar_temp.addWidget(spacer)
@@ -451,24 +451,24 @@ class OngletSelectionnerDestinations(QWidget):
         self.replier_deplier_arbre(arbre=self.arbre_voyages, replier=replier)
         self.replier_deplier_arbre(arbre=self.arbre_destinations, replier=replier)
 
-    def setBonIcone(self, validee: bool):
+    # def setBonIcone(self, validee: bool):
 
-        self.bouton_sauvegarde.setIcon(
-            creer_icone(
-                fonction_dessin=lambda painter, centre, taille: _dessiner_icone_disquette(
-                    painter=painter, centre=centre, taille=taille, validee=validee
-                )
-            )
-        )
+    #     self.bouton_sauvegarde.setIcon(
+    #         creer_icone(
+    #             fonction_dessin=lambda painter, centre, taille: _dessiner_icone_disquette(
+    #                 painter=painter, centre=centre, taille=taille, validee=validee
+    #             )
+    #         )
+    #     )
 
-    def lancer_sauvegarde(self):
+    # def lancer_sauvegarde(self):
 
-        self.fct_sauvegarde(date_publication=False)
+    #     self.fct_sauvegarde(date_publication=False)
 
-        # Actualisation du widget
-        self.setBonIcone(validee=True)
-        print("Oui")
-        QTimer.singleShot(
-            3000,
-            lambda: self.setBonIcone(validee=False),
-        )
+    #     # Actualisation du widget
+    #     self.setBonIcone(validee=True)
+    #     print("Oui")
+    #     QTimer.singleShot(
+    #         3000,
+    #         lambda: self.setBonIcone(validee=False),
+    #     )

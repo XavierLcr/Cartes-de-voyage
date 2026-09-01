@@ -93,20 +93,20 @@ class OngletSelectionnerDestinations(QWidget):
         layout = QVBoxLayout()
 
         # Avertissement
-        layout_temp = QHBoxLayout()
+        layout_avertissement = QHBoxLayout()
         label_icone = QLabel()
-        taille_icone = 55
+        taille_icone = 31
         label_icone.setPixmap(
             creer_icone(_dessiner_icone_avertissement, taille_icone).pixmap(
                 taille_icone, taille_icone
             )
         )
         label_icone.setFixedSize(taille_icone, taille_icone)
-        layout_temp.addWidget(label_icone)
+        layout_avertissement.addWidget(label_icone)
         self.avertissement_prio = QLabel()
+        self.avertissement_prio.setStyleSheet("font-size: 9pt;")
         self.avertissement_prio.setWordWrap(True)
-        layout_temp.addWidget(self.avertissement_prio)
-        layout.addLayout(layout_temp)
+        layout_avertissement.addWidget(self.avertissement_prio)
 
         # Bouton d'ajout de voyages
         self.ajouter_voyage_bouton = QPushButtonIcone(
@@ -154,7 +154,7 @@ class OngletSelectionnerDestinations(QWidget):
         toolbar_temp.addWidget(self.bouton_sauvegarde)
         toolbar_temp.addWidget(self.telecharger_lieux_visites)
         toolbar_temp.addAction(self.chargement_yaml_bouton)
-        # toolbar_temp.addWidget(spacer)
+        toolbar_temp.addWidget(spacer)
         toolbar_temp.addWidget(self.options_tri)
         toolbar_temp.addWidget(self.deplier)
         toolbar_temp.addWidget(self.replier)
@@ -194,6 +194,7 @@ class OngletSelectionnerDestinations(QWidget):
         # Layout complet
         layout.addWidget(toolbar_temp)
         layout.addLayout(layout_temp)
+        layout.addLayout(layout_avertissement)
 
         self.setLayout(layout)
 
@@ -341,9 +342,9 @@ class OngletSelectionnerDestinations(QWidget):
         )
 
         # # Boutons
-        # self.ajouter_voyage_bouton.setText(
-        #     self.fonction_traduire("bouton_ajouter_voyage")
-        # )
+        self.ajouter_voyage_bouton.setToolTip(
+            self.fonction_traduire("bouton_ajouter_voyage")
+        )
 
         self.telecharger_lieux_visites.setToolTip(
             self.fonction_traduire("telecharger_lieux_visites", suffixe=".")

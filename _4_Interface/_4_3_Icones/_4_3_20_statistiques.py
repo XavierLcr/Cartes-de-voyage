@@ -25,8 +25,9 @@ from PyQt6.QtGui import (
 def _dessiner_icone_courbes(painter: QPainter, centre: QPointF, taille: float) -> None:
     """Icône "statistiques" : un petit graphique à axes avec 3 courbes
     lissées de tendances différentes (hausse, baisse, plateau ondulant),
-    chacune avec un point terminal glossy. Même esprit que les autres
-    icônes : dégradés doux, ombre portée, reflets."""
+    chacune avec un point terminal glossy. Traits épaissis pour rester
+    lisibles en petite taille. Même esprit que les autres icônes :
+    dégradés doux, ombre portée, reflets."""
 
     COULEUR_AXE = QColor("#C4CAD4")
     COURBES = [
@@ -66,7 +67,7 @@ def _dessiner_icone_courbes(painter: QPainter, centre: QPointF, taille: float) -
 
     # -- Axes (fines lignes en L, discrètes) --------------------------------------
     pen_axe = QPen(COULEUR_AXE)
-    pen_axe.setWidthF(taille * 0.013)
+    pen_axe.setWidthF(taille * 0.02)
     pen_axe.setCapStyle(Qt.PenCapStyle.RoundCap)
     painter.setPen(pen_axe)
     painter.drawLine(
@@ -103,27 +104,27 @@ def _dessiner_icone_courbes(painter: QPainter, centre: QPointF, taille: float) -
         pen_ombre_courbe = QPen(
             QColor(couleur_ombre.red(), couleur_ombre.green(), couleur_ombre.blue(), 60)
         )
-        pen_ombre_courbe.setWidthF(taille * 0.028)
+        pen_ombre_courbe.setWidthF(taille * 0.050)
         pen_ombre_courbe.setCapStyle(Qt.PenCapStyle.RoundCap)
         pen_ombre_courbe.setJoinStyle(Qt.PenJoinStyle.RoundJoin)
         painter.setPen(pen_ombre_courbe)
         painter.setBrush(Qt.BrushStyle.NoBrush)
         chemin_ombre = QPainterPath(chemin)
-        chemin_ombre.translate(0, taille * 0.012)
+        chemin_ombre.translate(0, taille * 0.014)
         painter.drawPath(chemin_ombre)
 
         # Trait principal, dégradé le long du tracé (plus clair -> plus soutenu)
         degrade_ligne = QLinearGradient(zone_gauche, 0, zone_gauche + zone_largeur, 0)
         degrade_ligne.setColorAt(0.0, couleur.lighter(125))
         degrade_ligne.setColorAt(1.0, couleur.darker(105))
-        pen_courbe = QPen(QBrush(degrade_ligne), taille * 0.026)
+        pen_courbe = QPen(QBrush(degrade_ligne), taille * 0.046)
         pen_courbe.setCapStyle(Qt.PenCapStyle.RoundCap)
         pen_courbe.setJoinStyle(Qt.PenJoinStyle.RoundJoin)
         painter.setPen(pen_courbe)
         painter.drawPath(chemin)
 
         # Point terminal glossy
-        rayon_point = taille * 0.032
+        rayon_point = taille * 0.042
         p_fin = pts[-1]
         degrade_point = QRadialGradient(
             QPointF(p_fin.x() - rayon_point * 0.3, p_fin.y() - rayon_point * 0.35),

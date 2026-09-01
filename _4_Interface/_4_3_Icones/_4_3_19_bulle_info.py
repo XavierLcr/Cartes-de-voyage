@@ -42,27 +42,27 @@ def _dessiner_icone_information(
     d'une illustration vectorielle moderne, dégradé continu violet -> teal
     (mêmes couleurs que le reste de la palette d'icônes)."""
 
-    COULEUR_A = QColor("#FFA66F")  # violet
-    COULEUR_B = QColor("#33C7E8")  # teal
+    COULEUR_A = QColor("#F704C2")
+    COULEUR_B = QColor("#697CE7")
 
     cx, cy = centre.x(), centre.y()
     painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
 
-    rayon_anneau = taille * 0.45
-    epaisseur = taille * 0.115
+    rayon_anneau = taille * 0.44
+    epaisseur = taille * 0.12
     angle_depart = 25.0  # extrémité "teal" de l'anneau (juste au-dessus de 3h)
     balayage = -300.0  # parcourt l'anneau dans le sens horaire
     angle_fin = angle_depart + balayage  # extrémité "violette" (= -275 -> 85°)
 
-    # -- Ombre douce sous la composition -----------------------------------------
-    painter.setPen(Qt.PenStyle.NoPen)
-    ombre = QRadialGradient(QPointF(cx, cy + rayon_anneau * 0.85), taille * 0.36)
-    ombre.setColorAt(0.0, QColor(0, 0, 0, 45))
-    ombre.setColorAt(1.0, QColor(0, 0, 0, 0))
-    painter.setBrush(QBrush(ombre))
-    painter.drawEllipse(
-        QPointF(cx, cy + rayon_anneau * 0.82), taille * 0.30, taille * 0.07
-    )
+    # # -- Ombre douce sous la composition -----------------------------------------
+    # painter.setPen(Qt.PenStyle.NoPen)
+    # ombre = QRadialGradient(QPointF(cx, cy + rayon_anneau * 0.85), taille * 0.36)
+    # ombre.setColorAt(0.0, QColor(0, 0, 0, 45))
+    # ombre.setColorAt(1.0, QColor(0, 0, 0, 0))
+    # painter.setBrush(QBrush(ombre))
+    # painter.drawEllipse(
+    #     QPointF(cx, cy + rayon_anneau * 0.82), taille * 0.30, taille * 0.07
+    # )
 
     # -- Anneau principal : dégradé conique violet -> teal ------------------------
     # Le dégradé conique démarre à l'angle de l'extrémité "violette" (angle_fin)

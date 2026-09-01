@@ -30,7 +30,11 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     formater_temps_actuel,
     voyages_vers_destinations,
 )
-from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import reset_combo, creer_icone
+from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
+    reset_combo,
+    creer_icone,
+    creer_icone_QLabel,
+)
 from _0_Utilitaires._0_07_fonctions_voyages import (
     detecter_type_yaml,
     voyage_id,
@@ -94,15 +98,11 @@ class OngletSelectionnerDestinations(QWidget):
 
         # Avertissement
         layout_avertissement = QHBoxLayout()
-        label_icone = QLabel()
-        taille_icone = 31
-        label_icone.setPixmap(
-            creer_icone(_dessiner_icone_avertissement, taille_icone).pixmap(
-                taille_icone, taille_icone
+        layout_avertissement.addWidget(
+            creer_icone_QLabel(
+                fonction_dessin=_dessiner_icone_avertissement, taille_px=31
             )
         )
-        label_icone.setFixedSize(taille_icone, taille_icone)
-        layout_avertissement.addWidget(label_icone)
         self.avertissement_prio = QLabel()
         self.avertissement_prio.setStyleSheet("font-size: 9pt;")
         self.avertissement_prio.setWordWrap(True)

@@ -218,6 +218,9 @@ def _QColor_avec_alpha(couleur: QColor, alpha: int) -> QColor:
 # 8 -- Fonction de création d'une icône ----------------------------------------
 
 
+## 8.1 -- Fonction de mise en icône --------------------------------------------
+
+
 def creer_icone(fonction_dessin, taille_px: int = 50) -> QIcon:
     """Rend une icône QPainter (ex: _dessiner_icone_drapeaux) en QIcon utilisable partout."""
     pixmap = QPixmap(taille_px, taille_px)
@@ -231,6 +234,23 @@ def creer_icone(fonction_dessin, taille_px: int = 50) -> QIcon:
     painter.end()
 
     return QIcon(pixmap)
+
+
+## 8.2 -- Version pour un QLabel -----------------------------------------------
+
+
+def creer_icone_QLabel(fonction_dessin, taille_px: int) -> QLabel:
+
+    label_temp = QLabel()
+    label_temp.setPixmap(
+        creer_icone(fonction_dessin=fonction_dessin, taille_px=taille_px).pixmap(
+            taille_px, taille_px
+        )
+    )
+    label_temp.setFixedSize(taille_px, taille_px)
+
+    # Renvoi
+    return label_temp
 
 
 # 9 -- Pastille de validation --------------------------------------------------

@@ -53,6 +53,7 @@ from _4_Interface._4_3_Icones._4_3_24_eventail import (
     _dessiner_icone_arbre_replier,
 )
 from _4_Interface._4_3_Icones._4_3_26_attention import _dessiner_icone_avertissement
+from _4_Interface._4_3_Icones._4_3_28_panneaux_destination import _dessiner_icone_voyage
 
 # 1 -- Ajustements du style des QGroupBox --------------------------------------
 
@@ -108,8 +109,10 @@ class OngletSelectionnerDestinations(QWidget):
         layout.addLayout(layout_temp)
 
         # Bouton d'ajout de voyages
-        self.ajouter_voyage_bouton = QAction("Ajouter voyages", self)
-        self.ajouter_voyage_bouton.triggered.connect(
+        self.ajouter_voyage_bouton = QPushButtonIcone(
+            fonction_dessin=_dessiner_icone_voyage, taille=40
+        )
+        self.ajouter_voyage_bouton.clicked.connect(
             lambda x: self.creer_voyage_ui(clef=None)
         )
 
@@ -147,11 +150,11 @@ class OngletSelectionnerDestinations(QWidget):
         toolbar_temp = QToolBar()
         toolbar_temp.setMovable(False)  # On ne peut pas la déplacer
         toolbar_temp.setFloatable(False)
-        toolbar_temp.addAction(self.ajouter_voyage_bouton)
+        toolbar_temp.addWidget(self.ajouter_voyage_bouton)
         toolbar_temp.addWidget(self.bouton_sauvegarde)
         toolbar_temp.addWidget(self.telecharger_lieux_visites)
         toolbar_temp.addAction(self.chargement_yaml_bouton)
-        toolbar_temp.addWidget(spacer)
+        # toolbar_temp.addWidget(spacer)
         toolbar_temp.addWidget(self.options_tri)
         toolbar_temp.addWidget(self.deplier)
         toolbar_temp.addWidget(self.replier)
@@ -337,10 +340,10 @@ class OngletSelectionnerDestinations(QWidget):
             self.fonction_traduire("avertissement_onglet_2", suffixe=".")
         )
 
-        # Boutons
-        self.ajouter_voyage_bouton.setText(
-            self.fonction_traduire("bouton_ajouter_voyage", prefixe="🧭 ")
-        )
+        # # Boutons
+        # self.ajouter_voyage_bouton.setText(
+        #     self.fonction_traduire("bouton_ajouter_voyage")
+        # )
 
         self.telecharger_lieux_visites.setToolTip(
             self.fonction_traduire("telecharger_lieux_visites", suffixe=".")

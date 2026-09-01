@@ -110,9 +110,9 @@ class OngletSelectionnerDestinations(QWidget):
 
         # Bouton d'export des YAML
         self.telecharger_lieux_visites = QPushButtonIcone(
-            icone=_dessiner_icone_telechargement
+            icone=creer_icone(_dessiner_icone_telechargement)
         )
-        self.telecharger_lieux_visites.triggered.connect(self.exporter_yamls_visites)
+        self.telecharger_lieux_visites.clicked.connect(self.exporter_yamls_visites)
 
         # Bouton d'import d'un YAML
         self.chargement_yaml_bouton = QAction("Importer", self)

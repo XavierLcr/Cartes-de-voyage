@@ -17,7 +17,18 @@ from PyQt6.QtWidgets import (
     QScrollArea,
 )
 from PyQt6.QtCore import Qt, QPointF
-from PyQt6.QtGui import QFontInfo, QFont, QColor, QPixmap, QIcon, QPainter
+from PyQt6.QtGui import (
+    QFontInfo,
+    QFont,
+    QColor,
+    QPixmap,
+    QIcon,
+    QPainter,
+    QPen,
+    QPainterPath,
+    QBrush,
+    QRadialGradient,
+)
 
 # 1 -- Fonctions sur les combos ------------------------------------------------
 
@@ -219,3 +230,46 @@ def creer_icone(fonction_dessin, taille_px: int = 50) -> QIcon:
     painter.end()
 
     return QIcon(pixmap)
+
+
+# 9 -- Pastille de validation --------------------------------------------------
+
+
+def _dessiner_badge_validation(
+    painter: QPainter, centre: QPointF, taille: float
+) -> None:
+    """Dessine un badge de validation (cercle vert + coche blanche) en bas
+    à droite du centre donné. Réutilisable dans n'importe quelle icône."""
+
+    COULEUR_VALIDATION = QColor("#3DDC84")
+
+    cx, cy = centre.x(), centre.y()
+
+    rayon_badge = taille * 0.26
+    x_badge = cx + taille * 0.24
+    y_badge = cy + taille * 0.24
+
+    degrade_badge = QRadialGradient(
+        QPointF(x_badge, y_badge - rayon_badge * 0.2), rayon_badge * 1.5
+    )
+    degrade_badge.setColorAt(0.0, COULEUR_VALIDATION.lighter(125))
+    degrade_badge.setColorAt(1.0, COULEUR_VALIDATION.darker(105))
+
+    pen_badge = QPen(QColor("#FFFFFF"))
+    pen_badge.setWidthF(taille * 0.014)
+    painter.setPen(pen_badge)
+    painter.setBrush(QBrush(degrade_badge))
+    painter.drawEllipse(QPointF(x_badge, y_badge), rayon_badge, rayon_badge)
+
+    # -- Coche blanche --------------------------------------------------
+    pen_coche = QPen(QColor("#FFFFFF"))
+    pen_coche.setWidthF(rayon_badge * 0.26)
+    pen_coche.setCapStyle(Qt.PenCapStyle.RoundCap)
+    pen_coche.setJoinStyle(Qt.PenJoinStyle.RoundJoin)
+    painter.setPen(pen_coche)
+    chemin_coche = QPainterPath()
+    chemin_coche.moveTo(x_badge - rayon_badge * 0.45, y_badge + rayon_badge * 0.02)
+    chemin_coche.lineTo(x_badge - rayon_badge * 0.12, y_badge + rayon_badge * 0.35)
+    chemin_coche.lineTo(x_badge + rayon_badge * 0.48, y_badge - rayon_badge * 0.35)
+    painter.setBrush(Qt.BrushStyle.NoBrush)
+    painter.drawPath(chemin_coche)

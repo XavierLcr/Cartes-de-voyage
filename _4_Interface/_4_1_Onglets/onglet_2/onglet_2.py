@@ -110,7 +110,7 @@ class OngletSelectionnerDestinations(QWidget):
 
         # Bouton d'export des YAML
         self.telecharger_lieux_visites = QPushButtonIcone(
-            icone=creer_icone(_dessiner_icone_telechargement)
+            fonction_dessin=_dessiner_icone_telechargement
         )
         self.telecharger_lieux_visites.clicked.connect(self.exporter_yamls_visites)
 
@@ -124,11 +124,11 @@ class OngletSelectionnerDestinations(QWidget):
 
         # Bouton de dépliage
         self.deplier = QPushButtonIcone(
-            creer_icone(_dessiner_icone_arbre_deplier), taille=40
+            fonction_dessin=_dessiner_icone_arbre_deplier, taille=40
         )
         self.deplier.clicked.connect(lambda: self.replier_deplier_arbres(False))
         self.replier = QPushButtonIcone(
-            creer_icone(_dessiner_icone_arbre_replier), taille=40
+            fonction_dessin=_dessiner_icone_arbre_replier, taille=40
         )
         self.replier.clicked.connect(lambda: self.replier_deplier_arbres(True))
 
@@ -286,10 +286,7 @@ class OngletSelectionnerDestinations(QWidget):
                         sort_keys=True,
                     )
 
-                self.telecharger_lieux_visites.setText("📥✅")
-                QTimer.singleShot(
-                    3000, lambda: self.telecharger_lieux_visites.setText("📥")
-                )
+                self.telecharger_lieux_visites.valider_temporairement(temps_ms=3000)
 
             except Exception as e:
 
@@ -452,25 +449,3 @@ class OngletSelectionnerDestinations(QWidget):
 
         self.replier_deplier_arbre(arbre=self.arbre_voyages, replier=replier)
         self.replier_deplier_arbre(arbre=self.arbre_destinations, replier=replier)
-
-    # def setBonIcone(self, validee: bool):
-
-    #     self.bouton_sauvegarde.setIcon(
-    #         creer_icone(
-    #             fonction_dessin=lambda painter, centre, taille: _dessiner_icone_disquette(
-    #                 painter=painter, centre=centre, taille=taille, validee=validee
-    #             )
-    #         )
-    #     )
-
-    # def lancer_sauvegarde(self):
-
-    #     self.fct_sauvegarde(date_publication=False)
-
-    #     # Actualisation du widget
-    #     self.setBonIcone(validee=True)
-    #     print("Oui")
-    #     QTimer.singleShot(
-    #         3000,
-    #         lambda: self.setBonIcone(validee=False),
-    #     )

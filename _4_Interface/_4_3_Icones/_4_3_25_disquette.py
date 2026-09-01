@@ -19,6 +19,8 @@ from PyQt6.QtGui import (
     QPainterPath,
 )
 
+from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import _dessiner_badge_validation
+
 # 1 -- Fonction de création de l'icône -------------------------------------------
 
 
@@ -161,35 +163,6 @@ def _dessiner_icone_disquette(
         taille_corps * 0.06,
     )
 
-    # ============================================================
-    # BADGE DE VALIDATION (optionnel) : check vert bas-droite
-    # ============================================================
+    # Badge de validation (optionnel)
     if validee:
-        rayon_badge = taille * 0.26
-        x_badge = cx + taille * 0.24
-        y_badge = cy + taille * 0.24
-
-        degrade_badge = QRadialGradient(
-            QPointF(x_badge, y_badge - rayon_badge * 0.2), rayon_badge * 1.5
-        )
-        degrade_badge.setColorAt(0.0, COULEUR_VALIDATION.lighter(125))
-        degrade_badge.setColorAt(1.0, COULEUR_VALIDATION.darker(105))
-
-        pen_badge = QPen(QColor("#FFFFFF"))
-        pen_badge.setWidthF(taille * 0.014)
-        painter.setPen(pen_badge)
-        painter.setBrush(QBrush(degrade_badge))
-        painter.drawEllipse(QPointF(x_badge, y_badge), rayon_badge, rayon_badge)
-
-        # -- Coche blanche --------------------------------------------------
-        pen_coche = QPen(QColor("#FFFFFF"))
-        pen_coche.setWidthF(rayon_badge * 0.26)
-        pen_coche.setCapStyle(Qt.PenCapStyle.RoundCap)
-        pen_coche.setJoinStyle(Qt.PenJoinStyle.RoundJoin)
-        painter.setPen(pen_coche)
-        chemin_coche = QPainterPath()
-        chemin_coche.moveTo(x_badge - rayon_badge * 0.45, y_badge + rayon_badge * 0.02)
-        chemin_coche.lineTo(x_badge - rayon_badge * 0.12, y_badge + rayon_badge * 0.35)
-        chemin_coche.lineTo(x_badge + rayon_badge * 0.48, y_badge - rayon_badge * 0.35)
-        painter.setBrush(Qt.BrushStyle.NoBrush)
-        painter.drawPath(chemin_coche)
+        _dessiner_badge_validation(painter=painter, centre=centre, taille=taille)

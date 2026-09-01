@@ -11,11 +11,13 @@
 from PyQt6.QtCore import QPointF, Qt, QRectF
 from PyQt6.QtGui import QBrush, QColor, QLinearGradient, QPainter, QPainterPath
 
+from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import _dessiner_badge_validation
+
 # 1 -- Fonction de création de l'icône ------------------------------------------
 
 
 def _dessiner_icone_telechargement(
-    painter: QPainter, centre: QPointF, taille: float
+    painter: QPainter, centre: QPointF, taille: float, validee: bool
 ) -> None:
     """Icône "télécharger" : flèche pleine pointant vers le bas au-dessus
     d'un plateau (tiroir de réception). Dégradé linéaire simple, sans ombre
@@ -29,9 +31,9 @@ def _dessiner_icone_telechargement(
     painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
 
     # -- Dimensions de base -------------------------------------------------
-    largeur_fleche = taille * 0.20  # largeur de la tige de la flèche
-    largeur_pointe = taille * 0.42  # largeur du triangle de la pointe
-    hauteur_tige = taille * 0.30  # hauteur de la tige rectangulaire
+    largeur_fleche = taille * 0.25  # largeur de la tige de la flèche
+    largeur_pointe = taille * 0.5  # largeur du triangle de la pointe
+    hauteur_tige = taille * 0.32  # hauteur de la tige rectangulaire
     hauteur_pointe = taille * 0.24  # hauteur du triangle
 
     y_haut_tige = cy - taille * 0.32
@@ -74,3 +76,7 @@ def _dessiner_icone_telechargement(
     painter.setPen(Qt.PenStyle.NoPen)
     painter.setBrush(QBrush(degrade))
     painter.drawPath(chemin_icone)
+
+    # Badge de validation (optionnel)
+    if validee:
+        _dessiner_badge_validation(painter=painter, centre=centre, taille=taille)

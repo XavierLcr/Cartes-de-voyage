@@ -8,28 +8,37 @@
 # 0 -- Initialisation ----------------------------------------------------------
 
 
-from PyQt6.QtCore import QSize, QTimer
-from PyQt6.QtGui import QIcon
+import inspect
+from PyQt6.QtCore import QPointF, QSize, Qt, QTimer
+from PyQt6.QtGui import QIcon, QPainter, QPixmap
 from PyQt6.QtWidgets import QPushButton
 
-from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import creer_icone
 from _4_Interface._4_3_Icones._4_3_25_disquette import _dessiner_icone_disquette
 
 # 1 -- Fonction générale -------------------------------------------------------
 
 
 class QPushButtonIcone(QPushButton):
-    """QPushButton affichant uniquement une icône."""
+    """QPushButton affichant uniquement une icône, avec support optionnel
+    d'une pastille de validation (verte) ajoutable/retirable dynamiquement."""
 
     def __init__(
         self,
-        icone: QIcon,
+        fonction_dessin,
         taille: int = 32,
         parent=None,
     ):
         super().__init__(parent)
 
-        self.setIcon(icone)
+        self._fonction_dessin = fonction_dessin
+        self._taille = taille
+        self._validee = False
+
+        # Détecte une seule fois si la fonction de dessin accepte "validee"
+        self._accepte_validee = (
+            "validee" in inspect.signature(fonction_dessin).parameters
+        )
+
         self.setIconSize(QSize(taille, taille))
         self.setFixedSize(taille, taille)
 
@@ -40,17 +49,60 @@ class QPushButtonIcone(QPushButton):
                 margin: 0px;
                 background: transparent;
             }
-
             QPushButton:hover {
                 background: rgba(128, 128, 128, 30);
                 border-radius: 4px;
             }
-
             QPushButton:pressed {
                 background: rgba(128, 128, 128, 60);
                 border-radius: 4px;
             }
         """)
+
+        self._mettre_a_jour_icone()
+
+    # -- Rendu interne --------------------------------------------------
+
+    def _mettre_a_jour_icone(self) -> None:
+        """Régénère le pixmap selon l'état actuel et l'applique au bouton."""
+        pixmap = QPixmap(self._taille, self._taille)
+        pixmap.fill(Qt.GlobalColor.transparent)
+
+        painter = QPainter(pixmap)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
+        centre = QPointF(self._taille / 2, self._taille / 2)
+
+        if self._accepte_validee:
+            self._fonction_dessin(painter, centre, self._taille, validee=self._validee)
+        else:
+            self._fonction_dessin(painter, centre, self._taille)
+
+        painter.end()
+        self.setIcon(QIcon(pixmap))
+
+    # -- API publique -----------------------------------------------------
+
+    def definir_validee(self, validee: bool) -> None:
+        """Active ou désactive la pastille verte de validation."""
+        if validee != self._validee:
+            self._validee = validee
+            self._mettre_a_jour_icone()
+
+    def basculer_validee(self) -> None:
+        """Inverse l'état actuel de la pastille de validation."""
+        self.definir_validee(not self._validee)
+
+    def est_validee(self) -> bool:
+        return self._validee
+
+    def valider_temporairement(self, temps_ms: int):
+        """Affiche la pastille verte de validation pendant temps_ms, puis la retire."""
+        self.definir_validee(True)
+
+        QTimer.singleShot(
+            temps_ms,
+            lambda: self.definir_validee(False),
+        )
 
 
 # 2 -- Application -------------------------------------------------------------
@@ -64,26 +116,7 @@ class QPushButtonSauvegarde(QPushButtonIcone):
     def __init__(self, taille=32, parent=None):
 
         super().__init__(
-            icone=creer_icone(_dessiner_icone_disquette), taille=taille, parent=parent
+            fonction_dessin=_dessiner_icone_disquette, taille=taille, parent=parent
         )
 
-        self.clicked.connect(lambda: self.sauvegarde_effectuee(temps_ms=3000))
-
-    def setBonIcone(self, validee: bool):
-
-        self.setIcon(
-            creer_icone(
-                fonction_dessin=lambda painter, centre, taille: _dessiner_icone_disquette(
-                    painter=painter, centre=centre, taille=taille, validee=validee
-                )
-            )
-        )
-
-    def sauvegarde_effectuee(self, temps_ms: int):
-
-        self.setBonIcone(validee=True)
-
-        QTimer.singleShot(
-            temps_ms,
-            lambda: self.setBonIcone(validee=False),
-        )
+        self.clicked.connect(lambda: self.valider_temporairement(temps_ms=3000))

@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
 # _0_Utilitaires                                                               #
-# 0.13 – LLM appelable en local                                                #
+# 0.14 – QPushButton sans texte, avec seulement une icône                      #
 ################################################################################
 
 

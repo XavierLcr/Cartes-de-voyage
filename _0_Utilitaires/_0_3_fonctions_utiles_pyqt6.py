@@ -225,6 +225,7 @@ def creer_icone(fonction_dessin, taille_px: int = 50) -> QIcon:
 
     painter = QPainter(pixmap)
     painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
+    painter.setRenderHint(QPainter.RenderHint.SmoothPixmapTransform, True)
     centre = QPointF(taille_px / 2, taille_px / 2)
     fonction_dessin(painter, centre, taille_px)
     painter.end()

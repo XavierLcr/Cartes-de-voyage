@@ -30,7 +30,7 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     formater_temps_actuel,
     voyages_vers_destinations,
 )
-from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import reset_combo
+from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import reset_combo, creer_icone
 from _0_Utilitaires._0_07_fonctions_voyages import (
     detecter_type_yaml,
     voyage_id,
@@ -52,6 +52,7 @@ from _4_Interface._4_3_Icones._4_3_24_eventail import (
     _dessiner_icone_arbre_deplier,
     _dessiner_icone_arbre_replier,
 )
+from _4_Interface._4_3_Icones._4_3_26_attention import _dessiner_icone_avertissement
 
 # 1 -- Ajustements du style des QGroupBox --------------------------------------
 
@@ -91,9 +92,20 @@ class OngletSelectionnerDestinations(QWidget):
         layout = QVBoxLayout()
 
         # Avertissement
+        layout_temp = QHBoxLayout()
+        label_icone = QLabel()
+        taille_icone = 55
+        label_icone.setPixmap(
+            creer_icone(_dessiner_icone_avertissement, taille_icone).pixmap(
+                taille_icone, taille_icone
+            )
+        )
+        label_icone.setFixedSize(taille_icone, taille_icone)
+        layout_temp.addWidget(label_icone)
         self.avertissement_prio = QLabel()
         self.avertissement_prio.setWordWrap(True)
-        layout.addWidget(self.avertissement_prio)
+        layout_temp.addWidget(self.avertissement_prio)
+        layout.addLayout(layout_temp)
 
         # Bouton d'ajout de voyages
         self.ajouter_voyage_bouton = QAction("Ajouter voyages", self)
@@ -322,7 +334,7 @@ class OngletSelectionnerDestinations(QWidget):
 
         # Avertissement
         self.avertissement_prio.setText(
-            self.fonction_traduire("avertissement_onglet_2", prefixe="⚠️ ", suffixe=".")
+            self.fonction_traduire("avertissement_onglet_2", suffixe=".")
         )
 
         # Boutons

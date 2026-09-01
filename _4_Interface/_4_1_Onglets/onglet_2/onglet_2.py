@@ -109,9 +109,8 @@ class OngletSelectionnerDestinations(QWidget):
         self.options_tri.currentTextChanged.connect(lambda x: self.afficher_voyages())
 
         # Bouton d'export des YAML
-        self.telecharger_lieux_visites = QAction("Exporter", self)
-        self.telecharger_lieux_visites.setIcon(
-            creer_icone(_dessiner_icone_telechargement)
+        self.telecharger_lieux_visites = QPushButtonIcone(
+            icone=_dessiner_icone_telechargement
         )
         self.telecharger_lieux_visites.triggered.connect(self.exporter_yamls_visites)
 
@@ -141,7 +140,7 @@ class OngletSelectionnerDestinations(QWidget):
         toolbar_temp.setFloatable(False)
         toolbar_temp.addAction(self.ajouter_voyage_bouton)
         toolbar_temp.addWidget(self.bouton_sauvegarde)
-        toolbar_temp.addAction(self.telecharger_lieux_visites)
+        toolbar_temp.addWidget(self.telecharger_lieux_visites)
         toolbar_temp.addAction(self.chargement_yaml_bouton)
         toolbar_temp.addWidget(spacer)
         toolbar_temp.addWidget(self.options_tri)
@@ -337,7 +336,6 @@ class OngletSelectionnerDestinations(QWidget):
             self.fonction_traduire("bouton_ajouter_voyage", prefixe="🧭 ")
         )
 
-        self.telecharger_lieux_visites.setText("📥")
         self.telecharger_lieux_visites.setToolTip(
             self.fonction_traduire("telecharger_lieux_visites", suffixe=".")
         )

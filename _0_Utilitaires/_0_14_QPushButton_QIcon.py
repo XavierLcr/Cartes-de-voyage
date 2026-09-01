@@ -118,7 +118,7 @@ class QPushButtonSauvegarde(QPushButtonIcone):
     def __init__(self, taille=32, parent=None):
 
         super().__init__(
-            fonction_dessin=_dessiner_icone_cd,
+            fonction_dessin=_dessiner_icone_disquette,
             taille=taille,
             parent=parent,
             padding=2,

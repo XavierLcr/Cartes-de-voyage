@@ -14,7 +14,6 @@ from PyQt6.QtGui import (
     QPainter,
     QBrush,
     QPen,
-    QRadialGradient,
     QLinearGradient,
     QPainterPath,
 )

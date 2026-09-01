@@ -10,7 +10,7 @@
 
 import yaml
 
-from PyQt6.QtCore import Qt, QTimer, pyqtSignal
+from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6.QtGui import QAction
 from PyQt6.QtWidgets import (
     QWidget,
@@ -30,10 +30,7 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     formater_temps_actuel,
     voyages_vers_destinations,
 )
-from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
-    reset_combo,
-    creer_icone,
-)
+from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import reset_combo
 from _0_Utilitaires._0_07_fonctions_voyages import (
     detecter_type_yaml,
     voyage_id,

@@ -14,6 +14,7 @@ from PyQt6.QtGui import QIcon, QPainter, QPixmap
 from PyQt6.QtWidgets import QPushButton
 
 from _4_Interface._4_3_Icones._4_3_25_disquette import _dessiner_icone_disquette
+from _4_Interface._4_3_Icones._4_3_27_CD import _dessiner_icone_cd
 
 # 1 -- Fonction générale -------------------------------------------------------
 
@@ -117,7 +118,7 @@ class QPushButtonSauvegarde(QPushButtonIcone):
     def __init__(self, taille=32, parent=None):
 
         super().__init__(
-            fonction_dessin=_dessiner_icone_disquette,
+            fonction_dessin=_dessiner_icone_cd,
             taille=taille,
             parent=parent,
             padding=2,

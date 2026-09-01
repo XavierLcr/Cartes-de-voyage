@@ -178,8 +178,9 @@ class OngletParametresProfil(QWidget):
 
         # Layout des boutons
         layout_boutons_finaux = QHBoxLayout()
-        layout_boutons_finaux.addWidget(self.bouton_sauvegarde, stretch=10)
-        layout_boutons_finaux.addWidget(self.suppression_profil, stretch=3)
+        layout_boutons_finaux.addWidget(self.bouton_sauvegarde)
+        layout_boutons_finaux.addStretch()
+        layout_boutons_finaux.addWidget(self.suppression_profil)
         layout.addLayout(layout_boutons_finaux)
 
         # Layout principal

@@ -26,6 +26,7 @@ class QPushButtonIcone(QPushButton):
         self,
         fonction_dessin,
         taille: int = 32,
+        padding: int = 0,
         parent=None,
     ):
         super().__init__(parent)
@@ -42,21 +43,21 @@ class QPushButtonIcone(QPushButton):
         self.setIconSize(QSize(taille, taille))
         self.setFixedSize(taille, taille)
 
-        self.setStyleSheet("""
-            QPushButton {
+        self.setStyleSheet(f"""
+            QPushButton {{
                 border: none;
-                padding: 0px;
+                padding: {padding}px;
                 margin: 0px;
                 background: transparent;
-            }
-            QPushButton:hover {
+            }}
+            QPushButton:hover {{
                 background: rgba(128, 128, 128, 30);
                 border-radius: 4px;
-            }
-            QPushButton:pressed {
+            }}
+            QPushButton:pressed {{
                 background: rgba(128, 128, 128, 60);
                 border-radius: 4px;
-            }
+            }}
         """)
 
         self._mettre_a_jour_icone()
@@ -116,7 +117,10 @@ class QPushButtonSauvegarde(QPushButtonIcone):
     def __init__(self, taille=32, parent=None):
 
         super().__init__(
-            fonction_dessin=_dessiner_icone_disquette, taille=taille, parent=parent
+            fonction_dessin=_dessiner_icone_disquette,
+            taille=taille,
+            parent=parent,
+            padding=2,
         )
 
         self.clicked.connect(lambda: self.valider_temporairement(temps_ms=3000))

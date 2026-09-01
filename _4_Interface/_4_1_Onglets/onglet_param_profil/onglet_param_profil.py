@@ -30,6 +30,7 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     creer_QLabel_centre,
     creer_ligne_horizontale,
+    creer_icone_QLabel,
 )
 from _0_Utilitaires._0_14_QPushButton_QIcon import QPushButtonSauvegarde
 from _4_Interface._4_1_Onglets.onglet_param_profil.onglet_param_profil_switch import (
@@ -38,6 +39,7 @@ from _4_Interface._4_1_Onglets.onglet_param_profil.onglet_param_profil_switch im
 from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
     style_bouton_de_suppression,
 )
+from _4_Interface._4_3_Icones._4_3_29_email import _dessiner_icone_email
 
 # 1 -- Classe des paramètres individuels ---------------------------------------
 
@@ -149,7 +151,9 @@ class OngletParametresProfil(QWidget):
         self.email_groupbox.setLayout(email_layout)
         self.email_input = QLineEdit()
         self.email_input.setPlaceholderText("...")
-        email_layout.addWidget(creer_QLabel_centre(text="📧 "))
+        email_layout.addWidget(
+            creer_icone_QLabel(fonction_dessin=_dessiner_icone_email, taille_px=35)
+        )
         email_layout.addWidget(self.email_input)
 
         # Bouton de sauvegarde

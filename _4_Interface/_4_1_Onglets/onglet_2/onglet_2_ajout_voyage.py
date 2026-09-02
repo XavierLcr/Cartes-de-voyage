@@ -37,6 +37,7 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     reset_combo,
     creer_icone_QLabel,
     creer_scroll,
+    creer_ligne_verticale,
 )
 from _0_Utilitaires._0_07_fonctions_voyages import creer_voyage, voyage_id
 from _0_Utilitaires._0_11_classes_pop_up import PopupInfo
@@ -115,7 +116,7 @@ class SaisieTags(QWidget):
         self.champ_saisie = QLineEdit()
         self.champ_saisie.setPlaceholderText("Ajouter un voyageur...")
         self.champ_saisie.returnPressed.connect(self.ajouter_tag)
-        layout.addWidget(self.champ_saisie, stretch=1)
+        layout.addWidget(self.champ_saisie)
 
         # Conteneur pour les tags (horizontal)
         self.conteneur_tags = QHBoxLayout()
@@ -124,8 +125,7 @@ class SaisieTags(QWidget):
         self.conteneur_tags.addStretch()  # pousse les tags à gauche
         scroll_temp = creer_scroll(self.conteneur_tags)
         scroll_temp.setStyleSheet(style_qscroll_compagnons())
-        layout.addWidget(scroll_temp, stretch=2)
-        # layout.addLayout(self.conteneur_tags)
+        layout.addWidget(scroll_temp)
 
         # Import des tags initiaux (si fournis)
         if tags_initiaux:
@@ -295,11 +295,11 @@ class CreerVoyage(QDialog):
         general_layout.setSpacing(12)
         general_layout.setContentsMargins(15, 15, 15, 15)
 
-        # --- Ligne 1 : Nom du voyage ---
+        # --- Ligne 1 : Nom du voyage et des compagnons ---
         ligne_nom = QHBoxLayout()
-        label_nom = QLabel()
-        ligne_nom.addWidget(label_nom)
-        ligne_nom.addWidget(self.nom_voyage)
+        ligne_nom.addWidget(self.nom_voyage, stretch=1)
+        ligne_nom.addWidget(creer_ligne_verticale())
+        ligne_nom.addWidget(self.compagnons_liste, stretch=4)
 
         # --- Ligne 2 : Dates ---
         ligne_dates = QHBoxLayout()
@@ -324,7 +324,6 @@ class CreerVoyage(QDialog):
         # Ajout au layout principal
         general_layout.addLayout(ligne_nom)
         general_layout.addLayout(ligne_dates)
-        general_layout.addWidget(self.compagnons_liste)
 
         self.general_groupbox.setLayout(general_layout)
         layout.addWidget(self.general_groupbox)
@@ -417,6 +416,11 @@ class CreerVoyage(QDialog):
         # Groupbox des infos générales
         self.general_groupbox.setTitle(self.fct_traduction("general_voyage_groupbox"))
         self.nom_voyage.setPlaceholderText(self.fct_traduction("general_voyage_nom"))
+
+        # Nom du voyage
+        self.nom_voyage.setToolTip(
+            self.fct_traduction("compagnons_liste_tooltip", suffixe=".")
+        )
 
         # Dates
         self.debut_voyage_label.setText(

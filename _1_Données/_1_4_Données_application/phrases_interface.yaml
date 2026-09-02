@@ -115,8 +115,8 @@ precision_diplomatique_onglet_2 : Dans ce logiciel, le terme « pays » est empl
 general_voyage_fin : Date de fin
 general_voyage_utiliser_date : Utiliser la date pour ce voyage
 titre_choix_destinations_visitees : Sélection des lieux visités
-compagnons_liste_placeholder : Ajouter un nom de compagnon de voyage... (facultatif)
-compagnons_liste_tooltip : Il faut cliquer sur la touche Entrée afin de valider le nom saisi
+compagnons_liste_placeholder : Noms des compagnons de voyage
+compagnons_liste_tooltip : Ce champ est facultatif
 
 # Chargement des YAMLs
 description_titre_chargement_yaml : Charger la liste des voyages effectués dans l'application. L'ancien format avec les listes de régions ou départements par pays est également supporté.

@@ -102,15 +102,15 @@ def _dessiner_icone_email(
     painter.setBrush(QBrush(degrade_rabat))
     painter.drawPath(chemin_rabat)
 
-    # # -- Petite ombre portée du rabat sur le corps -----------------------------
-    # pen_ombre_rabat = QPen(QColor(0, 0, 0, 35))
-    # pen_ombre_rabat.setWidthF(taille * 0.012)
-    # pen_ombre_rabat.setCapStyle(Qt.PenCapStyle.RoundCap)
-    # painter.setPen(pen_ombre_rabat)
-    # painter.drawLine(QPointF(x0, y0), QPointF(cx, cy + hauteur * 0.05))
-    # painter.drawLine(QPointF(x1, y0), QPointF(cx, cy + hauteur * 0.05))
+    # -- Petite ombre portée du rabat sur le corps -----------------------------
+    pen_ombre_rabat = QPen(QColor(0, 0, 0, 35))
+    pen_ombre_rabat.setWidthF(taille * 0.012)
+    pen_ombre_rabat.setCapStyle(Qt.PenCapStyle.RoundCap)
+    painter.setPen(pen_ombre_rabat)
+    painter.drawLine(QPointF(x0, y0), QPointF(cx, cy + hauteur * 0.05))
+    painter.drawLine(QPointF(x1, y0), QPointF(cx, cy + hauteur * 0.05))
 
-    # painter.restore()
+    painter.restore()
 
     # -- Reflet glossy discret sur le corps -------------------------------------
     painter.setPen(Qt.PenStyle.NoPen)

@@ -23,14 +23,21 @@ from PyQt6.QtGui import (
 # 1 -- Fonction de création de l'icône ------------------------------------------
 
 
-def _dessiner_icone_email(painter: QPainter, centre: QPointF, taille: float) -> None:
+def _dessiner_icone_email(
+    painter: QPainter,
+    centre: QPointF,
+    taille: float,
+    arobase: bool,
+    couleur: str,
+    couleur_badge: str,
+) -> None:
     """Icône "adresse email" : enveloppe stylisée (corps + rabat replié en V)
     avec dégradé doux, ombre portée légère et reflet glossy, complétée d'un
     badge rond "@" en bas à droite pour préciser l'idée d'adresse (et pas
     juste de courrier). Même esprit que les autres icônes du projet."""
 
-    COULEUR_CORPS = QColor("#6CD9F1")
-    COULEUR_BADGE = QColor("#F58E3B")
+    couleur = QColor(couleur)
+    couleur_badge = QColor(couleur_badge)
 
     cx, cy = centre.x(), centre.y()
     painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
@@ -59,10 +66,10 @@ def _dessiner_icone_email(painter: QPainter, centre: QPointF, taille: float) -> 
     chemin_corps.addRoundedRect(QRectF(x0, y0, largeur, hauteur), arrondi, arrondi)
 
     degrade_corps = QLinearGradient(QPointF(x0, y0), QPointF(x0, y1))
-    degrade_corps.setColorAt(0.0, COULEUR_CORPS.lighter(125))
-    degrade_corps.setColorAt(1.0, COULEUR_CORPS.darker(110))
+    degrade_corps.setColorAt(0.0, couleur.lighter(125))
+    degrade_corps.setColorAt(1.0, couleur.darker(110))
 
-    pen_corps = QPen(COULEUR_CORPS.darker(140))
+    pen_corps = QPen(couleur.darker(140))
     pen_corps.setWidthF(taille * 0.008)
     pen_corps.setJoinStyle(Qt.PenJoinStyle.RoundJoin)
     painter.setPen(pen_corps)
@@ -84,11 +91,11 @@ def _dessiner_icone_email(painter: QPainter, centre: QPointF, taille: float) -> 
     chemin_rabat.closeSubpath()
 
     degrade_rabat = QLinearGradient(QPointF(x0, y0), QPointF(x1, cy))
-    degrade_rabat.setColorAt(0.0, COULEUR_CORPS.lighter(145))
-    degrade_rabat.setColorAt(0.5, COULEUR_CORPS.lighter(110))
-    degrade_rabat.setColorAt(1.0, COULEUR_CORPS.lighter(145))
+    degrade_rabat.setColorAt(0.0, couleur.lighter(145))
+    degrade_rabat.setColorAt(0.5, couleur.lighter(110))
+    degrade_rabat.setColorAt(1.0, couleur.lighter(145))
 
-    pen_rabat = QPen(COULEUR_CORPS.darker(150))
+    pen_rabat = QPen(couleur.darker(150))
     pen_rabat.setWidthF(taille * 0.007)
     pen_rabat.setJoinStyle(Qt.PenJoinStyle.RoundJoin)
     painter.setPen(pen_rabat)
@@ -115,52 +122,57 @@ def _dessiner_icone_email(painter: QPainter, centre: QPointF, taille: float) -> 
         hauteur * 0.07,
     )
 
-    # ============================================================
-    # BADGE "@" (bas droite), glossy comme le reste du set
-    # ============================================================
-    rayon_badge = taille * 0.22  # légèrement réduit pour mieux respirer
-    marge_bord = taille * 0.04  # marge de sécurité par rapport au bord du canvas
+    if arobase:
 
-    # Le centre est calculé pour que le bord EXTÉRIEUR du badge (ombre incluse,
-    # d'où le facteur 1.15) ne dépasse jamais le bord du canvas de l'icône.
-    centre_badge = QPointF(
-        min(x1 - taille * 0.02, cx + taille * 0.5 - rayon_badge * 1.15 - marge_bord),
-        y1 - taille * 0.02,
-    )
+        # ============================================================
+        # BADGE "@" (bas droite), glossy comme le reste du set
+        # ============================================================
+        rayon_badge = taille * 0.22  # légèrement réduit pour mieux respirer
+        marge_bord = taille * 0.04  # marge de sécurité par rapport au bord du canvas
 
-    painter.setPen(Qt.PenStyle.NoPen)
-    ombre_badge = QRadialGradient(centre_badge, rayon_badge * 1.3)
-    ombre_badge.setColorAt(0.0, QColor(0, 0, 0, 50))
-    ombre_badge.setColorAt(1.0, QColor(0, 0, 0, 0))
-    painter.setBrush(QBrush(ombre_badge))
-    painter.drawEllipse(centre_badge, rayon_badge * 1.15, rayon_badge * 1.15)
+        # Le centre est calculé pour que le bord EXTÉRIEUR du badge (ombre incluse,
+        # d'où le facteur 1.15) ne dépasse jamais le bord du canvas de l'icône.
+        centre_badge = QPointF(
+            min(
+                x1 - taille * 0.02, cx + taille * 0.5 - rayon_badge * 1.15 - marge_bord
+            ),
+            y1 - taille * 0.02,
+        )
 
-    degrade_badge = QRadialGradient(
-        QPointF(
-            centre_badge.x() - rayon_badge * 0.3, centre_badge.y() - rayon_badge * 0.35
-        ),
-        rayon_badge * 1.6,
-    )
-    degrade_badge.setColorAt(0.0, COULEUR_BADGE.lighter(150))
-    degrade_badge.setColorAt(0.55, COULEUR_BADGE)
-    degrade_badge.setColorAt(1.0, COULEUR_BADGE.darker(115))
+        painter.setPen(Qt.PenStyle.NoPen)
+        ombre_badge = QRadialGradient(centre_badge, rayon_badge * 1.3)
+        ombre_badge.setColorAt(0.0, QColor(0, 0, 0, 50))
+        ombre_badge.setColorAt(1.0, QColor(0, 0, 0, 0))
+        painter.setBrush(QBrush(ombre_badge))
+        painter.drawEllipse(centre_badge, rayon_badge * 1.15, rayon_badge * 1.15)
 
-    pen_badge = QPen(QColor("#FFFFFF"))
-    pen_badge.setWidthF(taille * 0.015)
-    painter.setPen(pen_badge)
-    painter.setBrush(QBrush(degrade_badge))
-    painter.drawEllipse(centre_badge, rayon_badge, rayon_badge)
+        degrade_badge = QRadialGradient(
+            QPointF(
+                centre_badge.x() - rayon_badge * 0.3,
+                centre_badge.y() - rayon_badge * 0.35,
+            ),
+            rayon_badge * 1.6,
+        )
+        degrade_badge.setColorAt(0.0, couleur_badge.lighter(150))
+        degrade_badge.setColorAt(0.55, couleur_badge)
+        degrade_badge.setColorAt(1.0, couleur_badge.darker(115))
 
-    # -- Symbole "@" en blanc, centré dans le badge ------------------------------
-    police = QFont("Arial")
-    police.setBold(True)
-    police.setPixelSize(int(rayon_badge * 1.3))
-    painter.setFont(police)
-    painter.setPen(QPen(QColor("#FFFFFF")))
-    zone_texte = QRectF(
-        centre_badge.x() - rayon_badge,
-        centre_badge.y() - rayon_badge,
-        rayon_badge * 2,
-        rayon_badge * 2,
-    )
-    painter.drawText(zone_texte, Qt.AlignmentFlag.AlignCenter, "@")
+        pen_badge = QPen(QColor("#FFFFFF"))
+        pen_badge.setWidthF(taille * 0.015)
+        painter.setPen(pen_badge)
+        painter.setBrush(QBrush(degrade_badge))
+        painter.drawEllipse(centre_badge, rayon_badge, rayon_badge)
+
+        # -- Symbole "@" en blanc, centré dans le badge ------------------------------
+        police = QFont("Arial")
+        police.setBold(True)
+        police.setPixelSize(int(rayon_badge * 1.3))
+        painter.setFont(police)
+        painter.setPen(QPen(QColor("#FFFFFF")))
+        zone_texte = QRectF(
+            centre_badge.x() - rayon_badge,
+            centre_badge.y() - rayon_badge,
+            rayon_badge * 2,
+            rayon_badge * 2,
+        )
+        painter.drawText(zone_texte, Qt.AlignmentFlag.AlignCenter, "@")

@@ -9,6 +9,8 @@
 
 
 import os
+from functools import partial
+
 from PyQt6.QtWidgets import (
     QWidget,
     QHBoxLayout,
@@ -152,7 +154,15 @@ class OngletParametresProfil(QWidget):
         self.email_input = QLineEdit()
         self.email_input.setPlaceholderText("...")
         email_layout.addWidget(
-            creer_icone_QLabel(fonction_dessin=_dessiner_icone_email, taille_px=35)
+            creer_icone_QLabel(
+                fonction_dessin=partial(
+                    _dessiner_icone_email,
+                    arobase=True,
+                    couleur="#6CD9F1",
+                    couleur_badge="#F58E3B",
+                ),
+                taille_px=35,
+            )
         )
         email_layout.addWidget(self.email_input)
 

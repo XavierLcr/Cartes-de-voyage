@@ -33,12 +33,13 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     construire_dictionnaire_imbrique,
     tronquer_dict,
 )
-from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import reset_combo
+from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import reset_combo, creer_icone_QLabel
 from _0_Utilitaires._0_07_fonctions_voyages import creer_voyage, voyage_id
 from _0_Utilitaires._0_11_classes_pop_up import PopupInfo
 from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
     style_bouton_de_suppression,
 )
+from _4_Interface._4_3_Icones._4_3_31_calendrier import _dessiner_icone_calendrier
 
 # 1 -- Fonctions utiles --------------------------------------------------------
 
@@ -296,14 +297,19 @@ class CreerVoyage(QDialog):
         ligne_dates = QHBoxLayout()
         ligne_dates.setSpacing(10)
 
+        ligne_dates.addWidget(
+            creer_icone_QLabel(fonction_dessin=_dessiner_icone_calendrier, taille_px=40)
+        )
+
+        ligne_dates.addWidget(self.utiliser_date)
+        ligne_dates.addSpacing(20)
+
         ligne_dates.addWidget(self.debut_voyage_label)
         ligne_dates.addWidget(self.debut_voyage)
-
-        ligne_dates.addSpacing(20)  # espace entre début et fin
+        ligne_dates.addSpacing(20)
 
         ligne_dates.addWidget(self.fin_voyage_label)
         ligne_dates.addWidget(self.fin_voyage)
-        ligne_dates.addWidget(self.utiliser_date)
 
         ligne_dates.addStretch()  # pousse tout à gauche proprement
 

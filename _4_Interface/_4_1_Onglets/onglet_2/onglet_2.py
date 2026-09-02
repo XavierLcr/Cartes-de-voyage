@@ -128,7 +128,12 @@ class OngletSelectionnerDestinations(QWidget):
         # Bouton d'import d'un YAML
         self.chargement_yaml_bouton = QPushButtonIcone(
             fonction_dessin=partial(
-                _dessiner_icone_telechargement, vers_la_droite=False
+                _dessiner_icone_telechargement,
+                couleur_fleche_debut="#f778cc",
+                couleur_fleche_fin="#ff42e0",
+                couleur_doc_debut="#3214b8",
+                couleur_doc_fin="#5e73ea",
+                vers_la_droite=False,
             )
         )
         self.chargement_yaml_bouton.clicked.connect(self.charger_yaml)

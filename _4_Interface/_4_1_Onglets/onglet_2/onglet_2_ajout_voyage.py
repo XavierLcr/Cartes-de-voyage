@@ -94,7 +94,7 @@ def creer_dictionnaire(
     )
 
 
-# 3 -- Pop-up d'ajout d'un voyage ----------------------------------------------
+# 2 -- Pop-up d'ajout d'un voyage ----------------------------------------------
 
 
 class CreerVoyage(QDialog):

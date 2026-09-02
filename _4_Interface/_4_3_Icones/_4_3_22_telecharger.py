@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
 # _4_Interface/_4_3_Icones                                                     #
-# 4.3.22 – Script de création de l'icône de téléchargement                     #
+# 4.3.22 – Script de création de l'icône d'export / import                     #
 ################################################################################
 
 
@@ -17,65 +17,131 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import _dessiner_badge_validatio
 
 
 def _dessiner_icone_telechargement(
-    painter: QPainter, centre: QPointF, taille: float, validee: bool
+    painter: QPainter,
+    centre: QPointF,
+    taille: float,
+    validee: bool,
+    vers_la_droite: bool = True,
 ) -> None:
-    """Icône "télécharger" : flèche pleine pointant vers le bas au-dessus
-    d'un plateau (tiroir de réception). Dégradé linéaire simple, sans ombre
-    portée ni reflet glossy."""
+    """Icône "document + flèche horizontale" : un feuillet à coin corné,
+    avec quelques lignes de texte stylisées (dégradé orangé), d'où part une
+    flèche pleine horizontale (dégradé turquoise). `vers_la_droite=True` ->
+    export (flèche vers la droite) ; `vers_la_droite=False` -> import
+    (flèche vers la gauche, tout est simplement mis en miroir). Pas d'ombre
+    portée ni de reflet glossy."""
 
-    COULEUR_DEBUT = QColor("#ff9d5c")
-    COULEUR_FIN = QColor("#ff5c8a")
+    COULEUR_FLECHE_DEBUT = QColor("#ffb85c")
+    COULEUR_FLECHE_FIN = QColor("#ff8c42")
+    COULEUR_DOC_DEBUT = QColor("#5eead4")
+    COULEUR_DOC_FIN = QColor("#14b8a6")
 
     cx, cy = centre.x(), centre.y()
+    sens = 1 if vers_la_droite else -1
 
     painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
 
-    # -- Dimensions de base -------------------------------------------------
-    largeur_fleche = taille * 0.25  # largeur de la tige de la flèche
-    largeur_pointe = taille * 0.5  # largeur du triangle de la pointe
-    hauteur_tige = taille * 0.32  # hauteur de la tige rectangulaire
-    hauteur_pointe = taille * 0.24  # hauteur du triangle
+    # -- Fonction de décalage / miroir ---------------------------------------
+    def dx(valeur: float) -> float:
+        return cx + sens * valeur
 
-    y_haut_tige = cy - taille * 0.32
-    y_bas_tige = y_haut_tige + hauteur_tige
-    y_pointe = y_bas_tige + hauteur_pointe
+    # -- Dimensions de base : document ---------------------------------------
+    largeur_doc = taille * 0.52
+    hauteur_doc = taille * 0.75
+    rayon_coin = taille * 0.06
+    coin_pli = taille * 0.14
 
-    largeur_plateau = taille * 0.62
-    y_plateau = cy + taille * 0.28
-    epaisseur_plateau = taille * 0.09
+    offset_doc_gauche = -taille * 0.42
+    offset_doc_droite = offset_doc_gauche + largeur_doc
+
+    y_doc_haut = cy - hauteur_doc / 2
+    y_doc_bas = y_doc_haut + hauteur_doc
+
+    # -- Dimensions de base : flèche -----------------------------------------
+    hauteur_tige = taille * 0.14
+    largeur_pointe = taille * 0.32
+    longueur_tige = taille * 0.22
+    longueur_pointe = taille * 0.16
+
+    offset_fleche_debut = offset_doc_droite
+    offset_fin_tige = offset_fleche_debut + longueur_tige
+    offset_pointe = offset_fin_tige + longueur_pointe
 
     # ============================================================
-    # FLÈCHE PLEINE + PLATEAU (chemin unique, dégradé linéaire)
+    # DOCUMENT (rectangle arrondi, coin corné, lignes de texte)
     # ============================================================
-    chemin_fleche = QPainterPath()
-    chemin_fleche.moveTo(cx - largeur_fleche / 2, y_haut_tige)
-    chemin_fleche.lineTo(cx + largeur_fleche / 2, y_haut_tige)
-    chemin_fleche.lineTo(cx + largeur_fleche / 2, y_bas_tige)
-    chemin_fleche.lineTo(cx + largeur_pointe / 2, y_bas_tige)
-    chemin_fleche.lineTo(cx, y_pointe)
-    chemin_fleche.lineTo(cx - largeur_pointe / 2, y_bas_tige)
-    chemin_fleche.lineTo(cx - largeur_fleche / 2, y_bas_tige)
-    chemin_fleche.closeSubpath()
-
-    chemin_plateau = QPainterPath()
-    chemin_plateau.addRect(
-        QRectF(
-            cx - largeur_plateau / 2,
-            y_plateau,
-            largeur_plateau,
-            epaisseur_plateau,
-        )
+    x_doc_gauche, x_doc_droite = dx(offset_doc_gauche), dx(offset_doc_droite)
+    rect_doc = QRectF(
+        min(x_doc_gauche, x_doc_droite),
+        y_doc_haut,
+        abs(x_doc_droite - x_doc_gauche),
+        hauteur_doc,
     )
 
-    chemin_icone = chemin_fleche.united(chemin_plateau)
+    chemin_doc = QPainterPath()
+    chemin_doc.addRoundedRect(rect_doc, rayon_coin, rayon_coin)
 
-    degrade = QLinearGradient(QPointF(cx, y_haut_tige), QPointF(cx, y_plateau))
-    degrade.setColorAt(0.0, COULEUR_DEBUT)
-    degrade.setColorAt(1.0, COULEUR_FIN)
+    # Coin corné, du côté d'où part la flèche
+    chemin_pli = QPainterPath()
+    chemin_pli.moveTo(dx(offset_doc_droite - coin_pli), y_doc_haut)
+    chemin_pli.lineTo(dx(offset_doc_droite), y_doc_haut)
+    chemin_pli.lineTo(dx(offset_doc_droite), y_doc_haut + coin_pli)
+    chemin_pli.closeSubpath()
 
+    chemin_doc = chemin_doc.subtracted(chemin_pli)
+
+    # Lignes de texte stylisées (3 barres arrondies)
+    largeur_ligne = largeur_doc * 0.6
+    epaisseur_ligne = taille * 0.055
+    x_ligne_gauche = dx(offset_doc_gauche + largeur_doc * 0.2)
+    x_ligne_droite = dx(offset_doc_gauche + largeur_doc * 0.2 + sens * largeur_ligne)
+    rect_ligne_largeur = abs(x_ligne_droite - x_ligne_gauche)
+    x_ligne_min = min(x_ligne_gauche, x_ligne_droite)
+
+    chemin_lignes = QPainterPath()
+    for fraction_y in (0.28, 0.5, 0.72):
+        y_ligne = y_doc_haut + hauteur_doc * fraction_y - epaisseur_ligne / 2
+        rect_ligne = QRectF(x_ligne_min, y_ligne, rect_ligne_largeur, epaisseur_ligne)
+        chemin_lignes.addRoundedRect(
+            rect_ligne, epaisseur_ligne / 2, epaisseur_ligne / 2
+        )
+
+    chemin_doc = chemin_doc.united(chemin_lignes)
+
+    degrade_doc = QLinearGradient(
+        QPointF(dx(offset_doc_gauche), cy), QPointF(dx(offset_doc_droite), cy)
+    )
+    degrade_doc.setColorAt(0.0, COULEUR_DOC_DEBUT)
+    degrade_doc.setColorAt(1.0, COULEUR_DOC_FIN)
+
+    # ============================================================
+    # FLÈCHE PLEINE HORIZONTALE
+    # ============================================================
+    chemin_fleche = QPainterPath()
+    chemin_fleche.moveTo(dx(offset_fleche_debut), cy - hauteur_tige / 2)
+    chemin_fleche.lineTo(dx(offset_fin_tige), cy - hauteur_tige / 2)
+    chemin_fleche.lineTo(dx(offset_fin_tige), cy - largeur_pointe / 2)
+    chemin_fleche.lineTo(dx(offset_pointe), cy)
+    chemin_fleche.lineTo(dx(offset_fin_tige), cy + largeur_pointe / 2)
+    chemin_fleche.lineTo(dx(offset_fin_tige), cy + hauteur_tige / 2)
+    chemin_fleche.lineTo(dx(offset_fleche_debut), cy + hauteur_tige / 2)
+    chemin_fleche.closeSubpath()
+
+    degrade_fleche = QLinearGradient(
+        QPointF(dx(offset_fleche_debut), cy), QPointF(dx(offset_pointe), cy)
+    )
+    degrade_fleche.setColorAt(0.0, COULEUR_FLECHE_DEBUT)
+    degrade_fleche.setColorAt(1.0, COULEUR_FLECHE_FIN)
+
+    # ============================================================
+    # DESSIN (deux passes, une par couleur)
+    # ============================================================
     painter.setPen(Qt.PenStyle.NoPen)
-    painter.setBrush(QBrush(degrade))
-    painter.drawPath(chemin_icone)
+
+    painter.setBrush(QBrush(degrade_doc))
+    painter.drawPath(chemin_doc)
+
+    painter.setBrush(QBrush(degrade_fleche))
+    painter.drawPath(chemin_fleche)
 
     # Badge de validation (optionnel)
     if validee:

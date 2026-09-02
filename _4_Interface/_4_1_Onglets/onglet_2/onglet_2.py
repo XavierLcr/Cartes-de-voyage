@@ -32,7 +32,6 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
 )
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     reset_combo,
-    creer_icone,
     creer_icone_QLabel,
 )
 from _0_Utilitaires._0_07_fonctions_voyages import (

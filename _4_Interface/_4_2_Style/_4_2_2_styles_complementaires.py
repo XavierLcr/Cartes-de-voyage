@@ -69,3 +69,86 @@ def style_bouton_ajout_profil(style: int, teinte, nuances):
             background-color:{bg_couleur_survol}
         }}
         """
+
+
+# 3 -- Style du QScroll de l'onglet 2 des compagnons de voyage -----------------
+
+
+def style_qscroll_compagnons():
+
+    return """
+            QWidget {
+                background-color: transparent;       
+                border: 0px transparent;         
+            }
+        
+            QScrollBar:vertical {
+                background: transparent;
+                width: 8px;
+                margin: 0px;
+                padding: 0px;
+                border: 0px transparent;
+            }
+
+            QScrollBar::handle:vertical {
+                background: #c0c0c0;
+                border: none;
+                margin: 0px;
+                padding: 0px;
+                min-height: 20px;
+                border-radius: 4px;
+            }
+
+            QScrollBar::handle:vertical:hover {
+                background: #a0a0a0;
+            }
+
+            QScrollBar::add-line:vertical,
+            QScrollBar::sub-line:vertical {
+                height: 0px;
+                width: 0px;
+                background: transparent;
+                border: none;
+            }
+
+            QScrollBar::add-page:vertical,
+            QScrollBar::sub-page:vertical {
+                background: transparent;
+                border: none;
+            }
+
+            QScrollBar:horizontal {
+                background: transparent;
+                height: 8px;
+                margin: 0px;
+                padding: 0px;
+                border: none;
+            }
+
+            QScrollBar::handle:horizontal {
+                background: #c0c0c0;
+                border: none;
+                margin: 0px;
+                padding: 0px;
+                min-width: 20px;
+                border-radius: 4px;
+            }
+
+            QScrollBar::handle:horizontal:hover {
+                background: #a0a0a0;
+            }
+
+            QScrollBar::add-line:horizontal,
+            QScrollBar::sub-line:horizontal {
+                height: 0px;
+                width: 0px;
+                background: transparent;
+                border: none;
+            }
+
+            QScrollBar::add-page:horizontal,
+            QScrollBar::sub-page:horizontal {
+                background: transparent;
+                border: none;
+            }
+        """

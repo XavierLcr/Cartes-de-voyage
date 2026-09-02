@@ -33,11 +33,16 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     construire_dictionnaire_imbrique,
     tronquer_dict,
 )
-from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import reset_combo, creer_icone_QLabel
+from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
+    reset_combo,
+    creer_icone_QLabel,
+    creer_scroll,
+)
 from _0_Utilitaires._0_07_fonctions_voyages import creer_voyage, voyage_id
 from _0_Utilitaires._0_11_classes_pop_up import PopupInfo
 from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
     style_bouton_de_suppression,
+    style_qscroll_compagnons,
 )
 from _4_Interface._4_3_Icones._4_3_31_calendrier import _dessiner_icone_calendrier
 
@@ -103,21 +108,24 @@ class SaisieTags(QWidget):
         self.fct_traduction = fct_traduction
 
         # --- Layout principal ---
-        layout = QVBoxLayout(self)
+        layout = QHBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
 
         # Champ de saisie
         self.champ_saisie = QLineEdit()
         self.champ_saisie.setPlaceholderText("Ajouter un voyageur...")
         self.champ_saisie.returnPressed.connect(self.ajouter_tag)
-        layout.addWidget(self.champ_saisie)
+        layout.addWidget(self.champ_saisie, stretch=1)
 
         # Conteneur pour les tags (horizontal)
         self.conteneur_tags = QHBoxLayout()
         self.conteneur_tags.setSpacing(6)
         self.conteneur_tags.setContentsMargins(0, 4, 0, 0)
         self.conteneur_tags.addStretch()  # pousse les tags à gauche
-        layout.addLayout(self.conteneur_tags)
+        scroll_temp = creer_scroll(self.conteneur_tags)
+        scroll_temp.setStyleSheet(style_qscroll_compagnons())
+        layout.addWidget(scroll_temp, stretch=2)
+        # layout.addLayout(self.conteneur_tags)
 
         # Import des tags initiaux (si fournis)
         if tags_initiaux:

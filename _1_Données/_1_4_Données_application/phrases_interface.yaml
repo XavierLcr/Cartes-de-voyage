@@ -92,7 +92,7 @@ bouton_publier_cartes : Publier les cartes !
 description_bouton_publier_cartes : "Publier les cartes sauvegarde également les paramètres"
 
 # Onglet 2
-telecharger_lieux_visites : Télécharger le fichier YAML des voyages effectués
+telecharger_lieux_visites : Exporter le fichier YAML des voyages effectués
 bouton_ajouter_voyage : Ajouter un voyage
 titre_liste_voyages : Liste des voyages effectués
 export_pas_fonctionnel : L'export n'a pas fonctionné. Veuillez réessayer plus tard
@@ -119,7 +119,7 @@ compagnons_liste_placeholder : Noms des compagnons de voyage
 compagnons_liste_tooltip : Ce champ est facultatif
 
 # Chargement des YAMLs
-description_titre_chargement_yaml : Charger la liste des voyages effectués dans l'application. L'ancien format avec les listes de régions ou départements par pays est également supporté.
+description_titre_chargement_yaml : Importer la liste des voyages effectués dans l'application. L'ancien format avec les listes de régions ou départements par pays est également supporté.
 pop_up_yaml : Charger un fichier YAML
 
 # Onglet 4

@@ -9,9 +9,9 @@
 
 
 import yaml
+from functools import partial
 
 from PyQt6.QtCore import Qt, pyqtSignal
-from PyQt6.QtGui import QAction
 from PyQt6.QtWidgets import (
     QWidget,
     QVBoxLayout,
@@ -122,13 +122,17 @@ class OngletSelectionnerDestinations(QWidget):
 
         # Bouton d'export des YAML
         self.telecharger_lieux_visites = QPushButtonIcone(
-            fonction_dessin=_dessiner_icone_telechargement
+            fonction_dessin=partial(_dessiner_icone_telechargement, vers_la_droite=True)
         )
         self.telecharger_lieux_visites.clicked.connect(self.exporter_yamls_visites)
 
         # Bouton d'import d'un YAML
-        self.chargement_yaml_bouton = QAction("Importer", self)
-        self.chargement_yaml_bouton.triggered.connect(self.charger_yaml)
+        self.chargement_yaml_bouton = QPushButtonIcone(
+            fonction_dessin=partial(
+                _dessiner_icone_telechargement, vers_la_droite=False
+            )
+        )
+        self.chargement_yaml_bouton.clicked.connect(self.charger_yaml)
 
         # Bouton de sauvegarde
         self.bouton_sauvegarde = QPushButtonSauvegarde(parent=self)
@@ -153,7 +157,7 @@ class OngletSelectionnerDestinations(QWidget):
         toolbar_temp.addWidget(self.ajouter_voyage_bouton)
         toolbar_temp.addWidget(self.bouton_sauvegarde)
         toolbar_temp.addWidget(self.telecharger_lieux_visites)
-        toolbar_temp.addAction(self.chargement_yaml_bouton)
+        toolbar_temp.addWidget(self.chargement_yaml_bouton)
         toolbar_temp.addWidget(spacer)
         toolbar_temp.addWidget(self.options_tri)
         toolbar_temp.addWidget(self.deplier)
@@ -357,7 +361,6 @@ class OngletSelectionnerDestinations(QWidget):
         self.chargement_yaml_bouton.setToolTip(
             self.fonction_traduire("description_titre_chargement_yaml", suffixe=".")
         )
-        self.chargement_yaml_bouton.setText("📂")
 
         # Options de tri
         self.dict_correspondances_tri = {

@@ -9,6 +9,8 @@
 
 
 import os
+from functools import partial
+
 from PyQt6.QtCore import pyqtSignal, QObject, QSize, Qt, QThread
 from PyQt6.QtWidgets import (
     QWidget,
@@ -46,6 +48,7 @@ from _4_Interface._4_1_Onglets.onglet_1.onglet_1_2_combobox_coloree import (
     FondCarteCombo,
 )
 from _4_Interface._4_3_Icones._4_3_30_stylo import _dessiner_icone_stylo_plume
+from _4_Interface._4_3_Icones._4_3_29_email import _dessiner_icone_email
 
 # 1 -- Classe de chargement des GeoDataFrames ----------------------------------
 
@@ -255,6 +258,18 @@ class OngletParametres(QWidget):
 
         # Possibilité d'envoi par e-mail
         self.email_checkbox = ToggleSwitch()
+        self.email_checkbox.setIcon(
+            creer_icone(
+                fonction_dessin=partial(
+                    _dessiner_icone_email,
+                    arobase=False,
+                    couleur="#B9C6F5",
+                    couleur_badge="#000000",
+                ),
+                taille_px=40,
+            ),
+        )
+        self.email_checkbox.setIconSize(QSize(40, 40))
 
         # Possibilité d'écrire le nom du territoire sur la carte
         self.labellisation_checkbox = ToggleSwitch()
@@ -387,9 +402,7 @@ class OngletParametres(QWidget):
         self.label_qualite_min.setText(self.fonction_traduction("qualite_faible"))
 
         # Envoi par e-mail
-        self.email_checkbox.setText(
-            self.fonction_traduction("email_checkbox", suffixe=" ✉️​")
-        )
+        self.email_checkbox.setText(self.fonction_traduction("email_checkbox"))
         self.email_checkbox.setToolTip(
             self.fonction_traduction("email_checkbox_tooltip", suffixe=".")
         )

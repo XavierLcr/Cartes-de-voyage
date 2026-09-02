@@ -9,7 +9,7 @@
 
 
 import os
-from PyQt6.QtCore import pyqtSignal, QObject
+from PyQt6.QtCore import pyqtSignal, QObject, QSize, Qt, QThread
 from PyQt6.QtWidgets import (
     QWidget,
     QHBoxLayout,
@@ -25,7 +25,6 @@ from PyQt6.QtWidgets import (
     QSpacerItem,
     QSizePolicy,
 )
-from PyQt6.QtCore import Qt, QThread
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     charger_gdfs,
@@ -37,6 +36,7 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     creer_ligne_horizontale,
     creer_ligne_verticale,
     restaurer_valeur_combo,
+    creer_icone,
 )
 from _0_Utilitaires._0_11_classes_pop_up import PopupInfo
 from _0_Utilitaires._0_12_toggle_checkbox import ToggleSwitch
@@ -45,6 +45,7 @@ from _4_Interface._4_1_Onglets.onglet_1.onglet_1_1_creation_cartes import CreerC
 from _4_Interface._4_1_Onglets.onglet_1.onglet_1_2_combobox_coloree import (
     FondCarteCombo,
 )
+from _4_Interface._4_3_Icones._4_3_30_stylo import _dessiner_icone_stylo_plume
 
 # 1 -- Classe de chargement des GeoDataFrames ----------------------------------
 
@@ -257,6 +258,10 @@ class OngletParametres(QWidget):
 
         # Possibilité d'écrire le nom du territoire sur la carte
         self.labellisation_checkbox = ToggleSwitch()
+        self.labellisation_checkbox.setIcon(
+            creer_icone(fonction_dessin=_dessiner_icone_stylo_plume, taille_px=40),
+        )
+        self.labellisation_checkbox.setIconSize(QSize(40, 40))
 
         # Ajout des widgets au layout horizontal
         layout_format_qualite.addWidget(self.label_format)
@@ -391,7 +396,7 @@ class OngletParametres(QWidget):
 
         # Nom du territoire écrit
         self.labellisation_checkbox.setText(
-            self.fonction_traduction("ecrire_nom_checkbox", suffixe=" 🏷️")
+            self.fonction_traduction("ecrire_nom_checkbox")
         )
         self.labellisation_checkbox.setToolTip(
             self.fonction_traduction("ecrire_nom_checkbox_tooltip", suffixe=".")

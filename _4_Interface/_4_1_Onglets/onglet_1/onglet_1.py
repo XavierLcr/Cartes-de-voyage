@@ -91,7 +91,6 @@ class OngletParametres(QWidget):
         self.liste_gdfs = []
 
         layout = QVBoxLayout()
-
         self.setLayout(layout)
 
         # Ajouter le layout à la group box et la group box au layout général

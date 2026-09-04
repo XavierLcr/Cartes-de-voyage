@@ -29,7 +29,7 @@ def style_bouton_de_suppression(sombre: bool):
             font-size: 12px;
             border: none;
             border-radius: 10px;
-            padding: 8px;
+            padding: 2px;
         }}
         QPushButton:hover {{
             background-color: {couleur_hover};
@@ -63,6 +63,7 @@ def style_bouton_ajout_profil(style: int, teinte, nuances):
             font-size: 12px;
             border-radius: 10px;
             font-weight: bold;
+            padding: 2px;
 
         }}
         QPushButton:hover {{

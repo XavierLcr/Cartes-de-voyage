@@ -18,9 +18,9 @@ from PyQt6.QtWidgets import (
     QTabWidget,
     QComboBox,
     QPushButton,
+    QSizePolicy,
 )
 from PyQt6.QtGui import QIcon
-from PyQt6.QtCore import Qt
 
 # Scripts et fonctions du projet
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
@@ -28,7 +28,7 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     voyages_vers_destinations,
     obtenir_clef_par_valeur,
 )
-from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import creer_QLabel_centre, creer_icone
+from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import creer_icone
 from _0_Utilitaires._0_07_fonctions_voyages import destinations_vers_voyages
 from _0_Utilitaires._0_11_classes_pop_up import PopupInfo, PopupOuiNon, PopupSaisieTexte
 from _4_Interface._4_1_Onglets.onglet_1 import onglet_1
@@ -87,9 +87,6 @@ class MesVoyagesApplication(QWidget):
         self.voyages = {}
         self.longueur_id_voyage = 10
 
-        self.titre = creer_QLabel_centre(alignement=Qt.AlignmentFlag.AlignLeft)
-        self.set_style_titre(taille=24)
-
         # Sauvegarde
         self.sauvegarde = Sauvegarde(
             chemin_sauvegarde=constantes.direction_donnees_application
@@ -99,8 +96,14 @@ class MesVoyagesApplication(QWidget):
 
         profile_container = QWidget()
         profile_layout = QHBoxLayout(profile_container)
+        profil_modif_layout = QVBoxLayout()
+        profil_modif_layout.setSpacing(2)
         profile_layout.setContentsMargins(8, 0, 8, 0)
         self.nom_individu = QComboBox(self)
+        self.nom_individu.setSizePolicy(
+            QSizePolicy.Policy.Preferred,
+            QSizePolicy.Policy.Expanding,
+        )
         self.nom_individu.setEditable(False)
         self.nom_individu.setPlaceholderText("")
         self.nom_individu.addItems(self.sauvegarde.renvoyer_liste_profils())
@@ -108,17 +111,18 @@ class MesVoyagesApplication(QWidget):
         # Bouton d'ajout d'un profil
         self.bouton_ajout = QPushButton()
         self.bouton_ajout.setIcon(creer_icone(_dessiner_icone_ajout_profil))
-        self.bouton_ajout.setFixedWidth(60)
+        self.bouton_ajout.setFixedWidth(40)
         self.bouton_ajout.clicked.connect(self.ajouter_profil)
-        profile_layout.addWidget(self.bouton_ajout)
+        profil_modif_layout.addWidget(self.bouton_ajout)
         # Bouton de réinitialisation
         self.reinit_parametres = QPushButton()
-        self.reinit_parametres.setFixedWidth(60)
+        self.reinit_parametres.setFixedWidth(40)
         self.reinit_parametres.setIcon(creer_icone(_dessiner_icone_balai))
         self.reinit_parametres.clicked.connect(
             lambda: self.initialiser_sauvegarde(reinitialiser=True)
         )
-        profile_layout.addWidget(self.reinit_parametres)
+        profil_modif_layout.addWidget(self.reinit_parametres)
+        profile_layout.addLayout(profil_modif_layout)
 
         # === Premier onglet ===
 
@@ -203,7 +207,6 @@ class MesVoyagesApplication(QWidget):
 
         # Layout de la ligne générale
         layout_top = QHBoxLayout()
-        layout_top.addWidget(self.titre)
         layout_top.addStretch()
         layout_top.addWidget(profile_container)
 
@@ -258,14 +261,7 @@ class MesVoyagesApplication(QWidget):
             self.langue = langue
 
         # Titres généraux
-        self.setWindowTitle(self.traduire_depuis_id("titre_windows"))
-
-        self.titre.setText(
-            self.traduire_depuis_id(
-                clef="titre_application",
-                suffixe=self.constantes.dict_themes_temporaires.get("emoji", ""),
-            )
-        )
+        self.setWindowTitle(self.traduire_depuis_id("titre_application"))
 
         # Profil sélectionné
         self.nom_individu.setPlaceholderText(
@@ -646,12 +642,3 @@ class MesVoyagesApplication(QWidget):
                 # Utilisation du profil en question
                 self.nom_individu.setCurrentText(nouveau_profil)
                 self.initialiser_sauvegarde(reinitialiser=False)
-
-    def set_style_titre(self, taille=24):
-
-        self.titre.setStyleSheet(
-            f"font-size: {taille * self.constantes.dict_themes_temporaires.get('titre_police_coeff', 1)}px;"
-            f"font-weight: bold;"
-            f"text-align: center;"
-            f"font-family: {self.constantes.dict_themes_temporaires.get('titre_police', 'Vivaldi')}, sans-serif;"
-        )

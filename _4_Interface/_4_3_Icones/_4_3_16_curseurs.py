@@ -40,14 +40,14 @@ def _dessiner_icone_curseurs(painter: QPainter, centre: QPointF, taille: float) 
 
     painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
 
-    largeur_rail = taille * 0.8
+    largeur_rail = taille * 0.94  # occupe presque toute la largeur (était 0.8)
     x_gauche = cx - largeur_rail / 2
     x_droite = cx + largeur_rail / 2
-    espace_y = taille * 0.30
+    espace_y = taille * 0.38  # curseurs plus espacés verticalement (était 0.30)
     y_depart = cy - espace_y
 
-    epaisseur_rail = taille * 0.035
-    rayon_poignee = taille * 0.075
+    epaisseur_rail = taille * 0.06  # rail plus épais (était 0.035)
+    rayon_poignee = taille * 0.11  # poignée plus grosse (était 0.075)
     rayon_ombre = rayon_poignee * 1.35
 
     for i, (position, couleur_accent) in enumerate(CURSEURS):
@@ -91,7 +91,9 @@ def _dessiner_icone_curseurs(painter: QPainter, centre: QPointF, taille: float) 
         degrade_poignee.setColorAt(1.0, couleur_accent.darker(115))
 
         pen_contour = QPen(couleur_accent.darker(140))
-        pen_contour.setWidthF(taille * 0.008)
+        pen_contour.setWidthF(
+            taille * 0.012
+        )  # contour un peu plus marqué (était 0.008)
         painter.setPen(pen_contour)
         painter.setBrush(QBrush(degrade_poignee))
         painter.drawEllipse(QPointF(x_poignee, y), rayon_poignee, rayon_poignee)

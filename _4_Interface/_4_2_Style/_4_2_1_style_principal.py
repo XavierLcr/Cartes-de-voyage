@@ -425,7 +425,7 @@ def style_dynamique_application(
             QTabBar::tab {{
                 background: {onglet_fond};
                 color: {onglet_texte};
-                padding: 8px 18px;
+                padding: 8px 15px;
                 margin-right: 4px;
                 border: 1px solid rgba(255,255,255,25);
                 border-bottom: none;

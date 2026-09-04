@@ -203,7 +203,7 @@ class CreerVoyage(QDialog):
         general_layout.addLayout(ligne_dates)
 
         self.general_groupbox.setLayout(general_layout)
-        layout.addWidget(self.general_groupbox)
+        layout.addWidget(self.general_groupbox, 0)
 
         # Sélection des lieux de destination
         self.groupe_selection_lieux = QGroupBox()
@@ -231,13 +231,13 @@ class CreerVoyage(QDialog):
         self.liste_endroits = QListWidget()
         self.liste_endroits.setWrapping(True)
         self.liste_endroits.setResizeMode(QListWidget.ResizeMode.Adjust)
-        self.liste_endroits.setGridSize(QSize(200, 25))
+        self.liste_endroits.setGridSize(QSize(180, 25))
         self.liste_endroits.itemChanged.connect(self.changer_item_liste_pays)
 
         layout_selection_lieux.addLayout(layout_selection_params)
         layout_selection_lieux.addWidget(self.liste_endroits)
         self.groupe_selection_lieux.setLayout(layout_selection_lieux)
-        layout.addWidget(self.groupe_selection_lieux)
+        layout.addWidget(self.groupe_selection_lieux, 1)
 
         # Bouton de validation
         bouton_valider = QPushButton(self.fct_traduction("valider", suffixe=""))

@@ -431,16 +431,17 @@ def style_dynamique_application(
                 border-bottom: none;
                 border-top-left-radius: 8px;
                 border-top-right-radius: 8px;
+                height: 26px;
             }}
 
             QTabBar::tab:selected {{
                 background: {onglet_actuel};
                 color: {onglet_actuel_texte};
-                font-weight: 600;
+                font-weight: 800;
 
                 border: 1px solid rgba(255,255,255,45);
-                border-bottom: 2px solid {onglet_actuel};
-                margin-bottom: -1px;
+                border-bottom: 3px solid {onglet_actuel};
+                margin-bottom: -2px;
             }}
             QTabBar::tab:hover {{
                 background: {onglet_hover};

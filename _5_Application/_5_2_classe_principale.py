@@ -21,6 +21,7 @@ from PyQt6.QtWidgets import (
     QSizePolicy,
 )
 from PyQt6.QtGui import QIcon
+from PyQt6.QtCore import Qt
 
 # Scripts et fonctions du projet
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
@@ -110,14 +111,16 @@ class MesVoyagesApplication(QWidget):
         profile_layout.addWidget(self.nom_individu)
         # Bouton d'ajout d'un profil
         self.bouton_ajout = QPushButton()
-        self.bouton_ajout.setIcon(creer_icone(_dessiner_icone_ajout_profil))
+        self.bouton_ajout.setIcon(
+            creer_icone(_dessiner_icone_ajout_profil, taille_px=40)
+        )
         self.bouton_ajout.setFixedWidth(40)
         self.bouton_ajout.clicked.connect(self.ajouter_profil)
         profil_modif_layout.addWidget(self.bouton_ajout)
         # Bouton de réinitialisation
         self.reinit_parametres = QPushButton()
         self.reinit_parametres.setFixedWidth(40)
-        self.reinit_parametres.setIcon(creer_icone(_dessiner_icone_balai))
+        self.reinit_parametres.setIcon(creer_icone(_dessiner_icone_balai, taille_px=40))
         self.reinit_parametres.clicked.connect(
             lambda: self.initialiser_sauvegarde(reinitialiser=True)
         )
@@ -205,14 +208,13 @@ class MesVoyagesApplication(QWidget):
 
         # === Mise en forme === #
 
-        # Layout de la ligne générale
-        layout_top = QHBoxLayout()
-        layout_top.addStretch()
-        layout_top.addWidget(profile_container)
-
         # Création des onglets
         self.liste_onglets = QTabWidget()
         self.liste_onglets.setUsesScrollButtons(False)
+        self.liste_onglets.setCornerWidget(
+            profile_container,
+            Qt.Corner.TopRightCorner,
+        )
         self.liste_onglets.addTab(
             self.onglet_parametres, creer_icone(_dessiner_icone_peinture), "Cartes"
         )
@@ -236,7 +238,7 @@ class MesVoyagesApplication(QWidget):
         )
 
         main_layout = QVBoxLayout(self)
-        main_layout.addLayout(layout_top)
+        # main_layout.addLayout(layout_top)
         main_layout.addWidget(self.liste_onglets)
         self.liste_onglets.setCurrentIndex(
             4 if self.sauvegarde.sauvegarde_vide() else 0

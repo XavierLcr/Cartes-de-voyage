@@ -10,38 +10,7 @@
 
 from __future__ import annotations
 import math
-from typing import Optional, Tuple
-
-from PyQt6.QtCore import (
-    QEasingCurve,
-    QPointF,
-    QPropertyAnimation,
-    QRectF,
-    Qt,
-    pyqtProperty,
-)
-from PyQt6.QtGui import (
-    QBrush,
-    QColor,
-    QConicalGradient,
-    QFont,
-    QPainter,
-    QPainterPath,
-    QPen,
-)
-from PyQt6.QtWidgets import QGraphicsDropShadowEffect, QSizePolicy, QWidget
-
-from _4_Interface._4_2_Style._4_2_1_style_principal import (
-    renvoyer_couleur_widget,
-    renvoyer_couleur_texte,
-    renvoyer_couleur_widget_differente,
-)
-
-# 1 -- Classe de création des couleurs -----------------------------------------
-
-
-import math
-from typing import Optional, Tuple
+from typing import Optional
 
 from PyQt6.QtCore import (
     Qt,
@@ -63,9 +32,13 @@ from PyQt6.QtGui import (
 )
 from PyQt6.QtWidgets import QWidget, QSizePolicy, QGraphicsDropShadowEffect
 
-# Ces trois fonctions sont déjà définies dans ton module de thèmes
-# (utilisées par ThemeCarte) : à importer depuis leur emplacement réel.
-# from .theme_carte import renvoyer_couleur_widget, renvoyer_couleur_texte, renvoyer_couleur_widget_differente
+from _4_Interface._4_2_Style._4_2_1_style_principal import (
+    renvoyer_couleur_widget,
+    renvoyer_couleur_texte,
+    renvoyer_couleur_widget_differente,
+)
+
+# 0 -- Thème du widget ---------------------------------------------------------
 
 
 class CompteurTheme:
@@ -183,6 +156,9 @@ class CompteurTheme:
         return blended
 
 
+# 2 -- Classe du compteur ------------------------------------------------------
+
+
 class CompteurCirculaireWidget(QWidget):
     """
     Compteur de vitesse minimaliste avec aiguille (ex. "128 km/h"),
@@ -212,7 +188,6 @@ class CompteurCirculaireWidget(QWidget):
         fonction_traduction,
         value: int = 0,
         maximum: int = 220,
-        unite: str = "km/h",
         parent: Optional[QWidget] = None,
     ) -> None:
         super().__init__(parent)
@@ -221,7 +196,6 @@ class CompteurCirculaireWidget(QWidget):
         self._value = 0.0  # valeur animée, affichée à l'écran (position de l'aiguille)
         self.target_value = 0  # dernière valeur demandée (source de vérité)
         self.maximum = max(1, maximum)  # jamais 0, évite la division par zéro
-        self.unite = unite
         self.set_langue()
         self.theme = CompteurTheme(style=0)
 
@@ -308,10 +282,6 @@ class CompteurCirculaireWidget(QWidget):
     def set_maximum(self, maximum: int) -> None:
         self.maximum = max(1, maximum)
         self._nb_majeures = self._nb_divisions_lisibles(self.maximum)
-        self.update()
-
-    def set_unite(self, unite: str) -> None:
-        self.unite = unite
         self.update()
 
     def sizeHint(self):
@@ -415,7 +385,7 @@ class CompteurCirculaireWidget(QWidget):
         painter.drawEllipse(centre, r_moyeu * 0.45, r_moyeu * 0.45)
 
         # --- lecture digitale dans une bulle discrète ---
-        valeur_str = f"{int(round(self._value))} {self.unite}"
+        valeur_str = f"{int(round(self._value))}"
         police_valeur = QFont(
             "Segoe UI", max(8, int(side * 0.062)), QFont.Weight.DemiBold
         )

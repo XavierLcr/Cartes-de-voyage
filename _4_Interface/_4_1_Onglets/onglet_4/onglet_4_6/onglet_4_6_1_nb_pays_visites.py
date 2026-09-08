@@ -28,6 +28,7 @@ from PyQt6.QtGui import (
     QPen,
     QColor,
     QFont,
+    QFontMetrics,
     QRadialGradient,
 )
 from PyQt6.QtWidgets import QWidget, QSizePolicy, QGraphicsDropShadowEffect
@@ -408,15 +409,10 @@ class CompteurCirculaireWidget(QWidget):
         painter.drawText(rect_bulle, Qt.AlignmentFlag.AlignCenter, valeur_str)
 
         # --- légende + pourcentage, juste sous la bulle ---
-        painter.setPen(self.theme.sous_texte)
-        police_etiquette = QFont("Segoe UI", max(7, int(side * 0.042)))
-        painter.setFont(police_etiquette)
         texte_legende = f"{self.label_text} · {int(round(percent * 100))} %"
-        rect_etiquette = QRectF(rect_bulle)
-        rect_etiquette.moveCenter(
-            QPointF(centre.x(), rect_bulle.center().y() + hauteur_bulle * 1.05)
+        self._dessiner_legende(
+            painter, texte_legende, centre, rect_bulle, hauteur_bulle, rect_carte, side
         )
-        painter.drawText(rect_etiquette, Qt.AlignmentFlag.AlignCenter, texte_legende)
 
     def _dessiner_rivets(
         self, painter: QPainter, rect_carte: QRectF, side: float
@@ -551,6 +547,59 @@ class CompteurCirculaireWidget(QWidget):
         painter.setPen(Qt.PenStyle.NoPen)
         painter.setBrush(QBrush(couleur_aiguille))
         painter.drawPolygon(aiguille)
+
+    def _dessiner_legende(
+        self,
+        painter: QPainter,
+        texte: str,
+        centre: QPointF,
+        rect_bulle: QRectF,
+        hauteur_bulle: float,
+        rect_carte: QRectF,
+        side: float,
+    ) -> None:
+        """
+        Dessine la légende (label + pourcentage) sous la bulle de valeur.
+
+        Contrairement à l'ancienne version, la largeur du rectangle de
+        texte n'est plus recopiée sur celle de la bulle (trop étroite) :
+        elle est calculée d'après la largeur réelle de la carte. Si le
+        texte ne tient toujours pas, la police rétrécit progressivement
+        jusqu'à une taille minimale lisible, et en tout dernier recours
+        le texte est élidé (« … ») plutôt que coupé net ou débordant.
+        """
+        marge_horizontale = side * 0.12
+        largeur_max = max(10.0, rect_carte.width() - 2 * marge_horizontale)
+
+        taille_max = max(7, int(side * 0.042))
+        taille_min = max(6, int(side * 0.030))
+
+        police = QFont("Segoe UI", taille_min)
+        fm = QFontMetrics(police)
+        for taille in range(taille_max, taille_min - 1, -1):
+            police_test = QFont("Segoe UI", taille)
+            fm_test = QFontMetrics(police_test)
+            if fm_test.horizontalAdvance(texte) <= largeur_max:
+                police, fm = police_test, fm_test
+                break
+
+        texte_affiche = texte
+        if fm.horizontalAdvance(texte_affiche) > largeur_max:
+            texte_affiche = fm.elidedText(
+                texte, Qt.TextElideMode.ElideRight, int(largeur_max)
+            )
+
+        painter.setFont(police)
+        painter.setPen(self.theme.sous_texte)
+
+        largeur_rect = min(
+            largeur_max, fm.horizontalAdvance(texte_affiche) + side * 0.02
+        )
+        rect_etiquette = QRectF(0, 0, largeur_rect, fm.height() * 1.2)
+        rect_etiquette.moveCenter(
+            QPointF(centre.x(), rect_bulle.center().y() + hauteur_bulle * 1.05)
+        )
+        painter.drawText(rect_etiquette, Qt.AlignmentFlag.AlignCenter, texte_affiche)
 
     @staticmethod
     def _point_polaire(centre: QPointF, angle_deg: float, rayon: float) -> QPointF:

@@ -206,6 +206,7 @@ class ContinentFavoriWidget(QWidget):
         repartition: Optional[Dict[str, int]] = None,
         continent_favori: Optional[str] = None,
         parent: Optional[QWidget] = None,
+        duree_animation: int = 1000,
     ) -> None:
         super().__init__(parent)
 
@@ -217,6 +218,7 @@ class ContinentFavoriWidget(QWidget):
         self._pourcentage = 0.0
         self.pourcentage_cible = 0.0
         self._progression_barres = 0.0
+        self.duree_animation = duree_animation * 1  # ms
         self.valeur_claire = constantes.parametres_application.get("transparence_alpha")
         self.continents = constantes.liste_regions_monde
 
@@ -275,7 +277,6 @@ class ContinentFavoriWidget(QWidget):
         repartition: Dict[str, int],
         continent_favori: Optional[str] = None,
         animer: bool = True,
-        duree: int = 900,
     ) -> None:
         """Remplace la répartition par continent affichée dans le classement."""
         self.repartition = dict(repartition)
@@ -286,14 +287,14 @@ class ContinentFavoriWidget(QWidget):
         )
 
         self._animation_barres.stop()
-        self._animation_barres.setDuration(duree if animer else 0)
+        self._animation_barres.setDuration(self.duree_animation if animer else 0)
         self._progression_barres = 0.0 if animer else 1.0
         self._animation_barres.start()
 
-        self._recalculer_pourcentage(animer=animer, duree=duree)
+        self._recalculer_pourcentage(animer=animer)
         self.update()
 
-    def _recalculer_pourcentage(self, animer: bool = True, duree: int = 900) -> None:
+    def _recalculer_pourcentage(self, animer: bool = True) -> None:
         total = sum(self.repartition.values())
         if total and self.continent_favori:
             pourcentage = 100.0 * self.repartition.get(self.continent_favori, 0) / total
@@ -302,7 +303,7 @@ class ContinentFavoriWidget(QWidget):
         self.pourcentage_cible = pourcentage
 
         self._animation_pourcentage.stop()
-        self._animation_pourcentage.setDuration(duree if animer else 0)
+        self._animation_pourcentage.setDuration(self.duree_animation if animer else 0)
         self._animation_pourcentage.setStartValue(self._pourcentage)
         self._animation_pourcentage.setEndValue(pourcentage)
         self._animation_pourcentage.start()
@@ -563,11 +564,11 @@ class ContinentFavoriWidget(QWidget):
         self._animation_barres.stop()
         self._animation_barres.setStartValue(0.0)
         self._animation_barres.setEndValue(1.0)
-        self._animation_barres.setDuration(900)
+        self._animation_barres.setDuration(self.duree_animation)
         self._animation_barres.start()
 
         self._animation_pourcentage.stop()
         self._animation_pourcentage.setStartValue(0.0)
         self._animation_pourcentage.setEndValue(self.pourcentage_cible)
-        self._animation_pourcentage.setDuration(900)
+        self._animation_pourcentage.setDuration(self.duree_animation)
         self._animation_pourcentage.start()

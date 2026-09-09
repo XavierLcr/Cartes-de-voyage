@@ -33,7 +33,13 @@ class OngletTableauDeBord(QWidget):
     langue = "français"
     voyages = {}
 
-    def __init__(self, constantes, fct_traduction, parent=None):
+    def __init__(
+        self,
+        constantes,
+        fct_traduction,
+        parent=None,
+        duree_animation: int = 1000,  # ms
+    ):
         super().__init__(parent=parent)
 
         layout = QVBoxLayout()
@@ -46,7 +52,7 @@ class OngletTableauDeBord(QWidget):
 
         # Compteur de voyages
         self.n_voyages_histo = NombreVoyagesAnnu(
-            fonction_traduction=fct_traduction,
+            fonction_traduction=fct_traduction, duree_animation=duree_animation
         )
 
         # Compteur de jours
@@ -56,7 +62,9 @@ class OngletTableauDeBord(QWidget):
 
         # Continent favori
         self.continent_favori = ContinentFavoriWidget(
-            constantes=constantes, fonction_traduction=fct_traduction
+            constantes=constantes,
+            fonction_traduction=fct_traduction,
+            duree_animation=duree_animation,
         )
 
         layout_temp = QHBoxLayout()

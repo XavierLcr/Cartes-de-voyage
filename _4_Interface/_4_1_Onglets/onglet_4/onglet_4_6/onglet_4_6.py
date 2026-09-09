@@ -57,7 +57,7 @@ class OngletTableauDeBord(QWidget):
 
         # Compteur de jours
         self.n_jours_voyages = JoursVoyagesParMoisWidget(
-            fonction_traduction=fct_traduction
+            fonction_traduction=fct_traduction, duree_animation=duree_animation
         )
 
         # Continent favori
@@ -113,5 +113,5 @@ class OngletTableauDeBord(QWidget):
     def update_widgets(self):
         self.compteur_pays.update()
         self.n_voyages_histo.relancer_animation()
-        self.n_jours_voyages.update()
+        self.n_jours_voyages.relancer_animation()
         self.continent_favori.relancer_animation()

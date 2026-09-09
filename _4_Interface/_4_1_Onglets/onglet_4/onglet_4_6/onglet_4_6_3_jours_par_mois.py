@@ -228,6 +228,7 @@ class JoursVoyagesParMoisWidget(QWidget):
         mois_numeros: Optional[Sequence[int]] = None,
         n_mois: int = 12,
         parent: Optional[QWidget] = None,
+        duree_animation: int = 1000,
     ) -> None:
         """
         jours          : historique de jours voyagés par mois (n_mois
@@ -255,6 +256,7 @@ class JoursVoyagesParMoisWidget(QWidget):
             list(mois_numeros) if mois_numeros else self._mois_par_defaut()
         )
         self._progression_barres = 0.0
+        self.duree_animation = duree_animation * 1  # ms
 
         self.theme = ThemeJoursVoyages(style=1)
 
@@ -312,15 +314,13 @@ class JoursVoyagesParMoisWidget(QWidget):
     # ---------------------------------------------------------------
     # API publique
     # ---------------------------------------------------------------
-    def definir_valeur(
-        self, total: int, animer: bool = True, duree: int = 1000
-    ) -> None:
+    def definir_valeur(self, total: int, animer: bool = True) -> None:
         """Met à jour le nombre total de jours affiché (avec ou sans animation)."""
         total = max(0, total)
         self.total_cible = total
 
         self._animation_total.stop()
-        self._animation_total.setDuration(duree if animer else 0)
+        self._animation_total.setDuration(self.duree_animation if animer else 0)
         self._animation_total.setStartValue(self._total)
         self._animation_total.setEndValue(float(total))
         self._animation_total.start()
@@ -330,7 +330,6 @@ class JoursVoyagesParMoisWidget(QWidget):
         historique: Sequence[int],
         mois_numeros: Optional[Sequence[int]] = None,
         animer: bool = True,
-        duree: int = 900,
     ) -> None:
         """Remplace les valeurs du graphique mensuel (et les rejoue en entrée)."""
         self.historique_jours = list(historique)
@@ -338,7 +337,7 @@ class JoursVoyagesParMoisWidget(QWidget):
             self.mois_numeros = list(mois_numeros)
 
         self._animation_barres.stop()
-        self._animation_barres.setDuration(duree if animer else 0)
+        self._animation_barres.setDuration(self.duree_animation if animer else 0)
         if animer:
             self._progression_barres = 0.0
         else:
@@ -673,3 +672,23 @@ class JoursVoyagesParMoisWidget(QWidget):
                 return
 
         QToolTip.hideText()
+
+    def relancer_animation(self) -> None:
+        """Relance les animations du widget sans modifier les données."""
+
+        duree = self.duree_animation
+
+        # --- Animation du nombre total ---
+        self._animation_total.stop()
+        self._animation_total.setDuration(duree)
+        self._animation_total.setStartValue(0.0)
+        self._animation_total.setEndValue(float(self.total_cible))
+        self._animation_total.start()
+
+        # --- Animation des barres ---
+        self._animation_barres.stop()
+        self._animation_barres.setDuration(duree)
+        self._animation_barres.setStartValue(0.0)
+        self._animation_barres.setEndValue(1.0)
+        self._progression_barres = 0.0
+        self._animation_barres.start()

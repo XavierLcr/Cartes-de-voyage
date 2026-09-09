@@ -40,6 +40,8 @@ from _4_Interface._4_2_Style._4_2_1_style_principal import (
     renvoyer_couleur_texte,
     renvoyer_couleur_widget_differente,
 )
+from _4_Interface._4_3_Icones._4_3_32_etoile_de_mer import _dessiner_etoile_mer
+from _4_Interface._4_3_Icones._4_3_33_coquillage import _dessiner_coquillage
 
 # 0 -- Thème du widget ---------------------------------------------------------
 
@@ -178,16 +180,26 @@ class CompteurCirculaireWidget(QWidget):
     Fonctionnalités :
     - Animation fluide et interruptible du niveau de sable (pas de
       glitch si on change la valeur pendant l'animation en cours).
-    - Le sable est composé de centaines de grains individuels générés
-      une fois (position, taille et teinte aléatoires mais stables
-      d'un repaint à l'autre), pour un rendu granuleux plutôt qu'un
-      simple aplat de couleur. Seuls les grains sous le niveau courant
-      sont visibles (découpe via le contour du bocal), ce qui anime
-      naturellement la montée du sable pendant l'animation.
+    - En plus de la montée du niveau, une pluie de grains tombe depuis
+      le haut du widget à chaque augmentation de la valeur : les grains
+      apparaissent au-dessus du bocal, entrent par le col (désormais
+      ouvert, sans couvercle) et tombent vers la surface du sable en
+      formation, avec des délais et des vitesses de chute légèrement
+      différents d'un grain à l'autre pour un ruissellement naturel
+      plutôt qu'une arrivée groupée. Cette pluie se greffe sur
+      l'animation de niveau déjà en place (aucun timer supplémentaire).
+    - Le sable est composé de centaines de grains individuels fins,
+      générés une fois (position, taille et teinte aléatoires mais
+      stables d'un repaint à l'autre), pour un rendu granuleux plutôt
+      qu'un simple aplat de couleur. Seuls les grains sous le niveau
+      courant sont visibles (découpe via le contour du bocal).
     - Une poignée de grains plus clairs ("étincelles") simulent un
       reflet de lumière sur quelques grains. Surface du sable
       légèrement irrégulière plutôt qu'une ligne parfaitement plate.
-    - Reflet doux façon verre sur le bocal, couvercle décoratif.
+    - Quelques coquillages et étoiles de mer stylisés, nichés au fond
+      du bocal, progressivement recouverts à mesure que le sable monte
+      ; et un discret filigrane marin sur la carte elle-même.
+    - Reflet doux façon verre sur le bocal.
     - À droite du bocal, un cercle reprend les données : anneau à
       dégradé conique qui s'intensifie avec le pourcentage (même
       famille de couleurs que le sable), petit curseur lumineux en
@@ -200,7 +212,7 @@ class CompteurCirculaireWidget(QWidget):
     - Thème personnalisable via CompteurTheme.
     """
 
-    NB_GRAINS = 480
+    NB_GRAINS = 620
 
     def __init__(
         self,
@@ -235,6 +247,15 @@ class CompteurCirculaireWidget(QWidget):
         self._grains = self._generer_grains(self.NB_GRAINS)
         self._phase_vagues = random.Random(7).uniform(0.0, math.tau)
 
+        # --- pluie de sable (chute depuis le haut du widget) ---
+        self._pluie: List[dict] = []
+        self._pluie_progress: float = 0.0
+        self._easing_chute = QEasingCurve(QEasingCurve.Type.InQuad)
+
+        # --- décors marins ---
+        self._decor_bocal = self._generer_decor_bocal()
+        self._decor_carte = self._generer_decor_carte()
+
         self._glow_opacity = 0.0
 
         self.setMinimumSize(140, 90)
@@ -251,6 +272,7 @@ class CompteurCirculaireWidget(QWidget):
 
         self._value_anim = QPropertyAnimation(self, b"animatedValue", self)
         self._value_anim.setEasingCurve(QEasingCurve.Type.OutCubic)
+        self._value_anim.finished.connect(self._on_anim_terminee)
 
         self._glow_anim = QPropertyAnimation(self, b"glowOpacity", self)
         self._glow_anim.setDuration(700)
@@ -271,6 +293,16 @@ class CompteurCirculaireWidget(QWidget):
 
     def _set_animated_value(self, v: float) -> None:
         self._value = v
+        # La pluie de sable suit la même horloge que l'animation de
+        # niveau : on dérive sa progression globale (0-1) du temps
+        # courant de l'animation, sans timer dédié.
+        duree = self._value_anim.duration()
+        if duree > 0:
+            self._pluie_progress = max(
+                0.0, min(1.0, self._value_anim.currentTime() / duree)
+            )
+        else:
+            self._pluie_progress = 1.0
         self.update()
 
     animatedValue = pyqtProperty(float, _get_animated_value, _set_animated_value)
@@ -289,6 +321,7 @@ class CompteurCirculaireWidget(QWidget):
     # ---------------------------------------------------------------
     def set_value(self, value: int | None, animate: bool = True) -> None:
         """Met à jour le niveau affiché (sable + anneau), avec ou sans animation."""
+        ancienne_cible = self.target_value
         if value is not None:
             value = max(0, min(value, self.maximum))
             self.target_value = value
@@ -299,6 +332,15 @@ class CompteurCirculaireWidget(QWidget):
         self._value_anim.setDuration(self.duree_animation if animate else 0)
         self._value_anim.setStartValue(self._value)
         self._value_anim.setEndValue(float(value))
+
+        # Une pluie de sable n'a de sens que si le niveau augmente : on
+        # ne fait pas "remonter" des grains si la valeur diminue.
+        delta = value - ancienne_cible
+        if animate and delta > 0:
+            self._generer_pluie(delta, value)
+        else:
+            self._pluie = []
+
         self._value_anim.start()
 
         presque_plein = (value / self.maximum) >= self._seuil_presque_plein
@@ -336,8 +378,10 @@ class CompteurCirculaireWidget(QWidget):
         # rester ni trop clairsemée sur un grand bocal, ni trop chargée
         # sur un petit. On ne régénère que sur un écart notable, pour
         # éviter de reculer le motif à chaque pixel de redimensionnement.
+        # Les grains étant plus fins qu'avant, on vise une densité plus
+        # élevée pour ne pas paraître clairsemé.
         aire = max(1, self.width() * self.height())
-        cible = max(150, min(900, int(aire / 55)))
+        cible = max(220, min(1200, int(aire / 40)))
         if abs(cible - len(self._grains)) > max(20, int(len(self._grains) * 0.25)):
             self._grains = self._generer_grains(cible)
 
@@ -357,11 +401,88 @@ class CompteurCirculaireWidget(QWidget):
         for _ in range(n):
             nx = rng.random()
             ny = rng.random()
-            echelle = rng.uniform(0.45, 1.35)  # hétérogénéité de taille
+            echelle = rng.uniform(0.40, 1.15)  # hétérogénéité de taille (grains fins)
             teinte_t = rng.uniform(0.0, 1.0)  # hétérogénéité de teinte
             etincelle = rng.random() < 0.05  # quelques grains qui accrochent la lumière
             grains.append((nx, ny, echelle, teinte_t, etincelle))
         return grains
+
+    def _generer_pluie(self, delta: float, value_finale: float) -> None:
+        """
+        Prépare une pluie de grains qui tombent du haut du widget vers la
+        surface du sable en formation, pour accompagner la montée du
+        niveau d'un effet de versement plutôt que d'un remplissage
+        instantané. Chaque grain a son propre délai de départ et sa
+        propre durée de chute (fractions du temps total de l'animation),
+        pour un ruissellement étalé plutôt qu'une arrivée groupée.
+        """
+        rng = random.Random()  # volontairement non stable : on veut de la variété
+        proportion = max(0.0, min(1.0, delta / self.maximum))
+        n = int(max(6, min(150, 10 + proportion * 260)))
+
+        percent_final = max(0.0, min(1.0, value_finale / self.maximum))
+        ny_surface = 1.0 - percent_final
+
+        grains = []
+        for _ in range(n):
+            grains.append(
+                {
+                    "nx_neck": rng.uniform(0.14, 0.86),
+                    "ny_cible": max(
+                        0.0, min(1.0, ny_surface + rng.uniform(-0.03, 0.07))
+                    ),
+                    "delay": rng.uniform(0.0, 0.5),
+                    "duree": rng.uniform(0.25, 0.55),
+                    "echelle": rng.uniform(0.5, 1.2),
+                    "teinte_t": rng.uniform(0.0, 1.0),
+                    "etincelle": rng.random() < 0.05,
+                }
+            )
+        self._pluie = grains
+
+    def _on_anim_terminee(self) -> None:
+        """Nettoyage une fois l'animation de niveau terminée : la pluie de
+        sable encore affichée (s'il en reste) est retirée — le sable
+        statique a de toute façon atteint le niveau final au même
+        moment, donc rien ne "disparaît" visuellement."""
+        self._pluie = []
+        self.update()
+
+    # ---------------------------------------------------------------
+    # Génération des décors marins
+    # ---------------------------------------------------------------
+    def _generer_decor_bocal(self) -> List[dict]:
+        """Prégénère quelques coquillages/étoiles de mer nichés au fond du
+        bocal, à des positions stables (même logique que les grains) pour
+        ne pas bouger d'un repaint à l'autre."""
+        rng = random.Random(31415)
+        types = ["coquillage", "etoile", "coquillage"]
+        xs = [0.20, 0.50, 0.80]
+        items = []
+        for i, x_base in enumerate(xs):
+            items.append(
+                {
+                    "nx": max(0.06, min(0.94, x_base + rng.uniform(-0.05, 0.05))),
+                    "ny": rng.uniform(0.85, 0.97),
+                    "type": types[i % len(types)],
+                    "echelle": rng.uniform(0.85, 1.15),
+                    "angle": rng.uniform(-25.0, 25.0),
+                }
+            )
+        return items
+
+    def _generer_decor_carte(self) -> List[dict]:
+        """Deux petits motifs marins, discrets, imprimés en filigrane sur la
+        carte elle-même — un clin d'œil au thème voyage/plage."""
+        return [
+            {"type": "etoile", "coin": "bas_droit", "echelle": 1.0, "angle": -12.0},
+            {
+                "type": "coquillage",
+                "coin": "haut_gauche",
+                "echelle": 0.85,
+                "angle": 10.0,
+            },
+        ]
 
     # ---------------------------------------------------------------
     # Géométrie du bocal
@@ -377,20 +498,22 @@ class CompteurCirculaireWidget(QWidget):
             "cx": rect.center().x(),
             "corps_haut": rect.top() + h * 0.30,
             "col_largeur": w * 0.40,
-            "couvercle_h": h * 0.10,
             "rayon_coin": min(w, h) * 0.16,
         }
 
     def _chemin_corps(self, m: dict) -> QPainterPath:
-        """Contour du bocal (col + épaules + corps), sans le couvercle —
-        c'est aussi la zone utilisée pour découper le sable et le reflet."""
+        """Contour du bocal (col ouvert + épaules + corps) — c'est aussi la
+        zone utilisée pour découper le sable et le reflet. Le col n'est
+        plus fermé par un couvercle : son ouverture, tout en haut, sert
+        maintenant de point d'entrée visuel à la pluie de sable qui
+        tombe depuis le haut du widget."""
         x0, x1, y0, y1 = m["x0"], m["x1"], m["y0"], m["y1"]
         cx = m["cx"]
         corps_haut = m["corps_haut"]
         col_x0 = cx - m["col_largeur"] / 2
         col_x1 = cx + m["col_largeur"] / 2
         r = m["rayon_coin"]
-        haut_col = y0 + m["couvercle_h"] * 0.55
+        haut_col = y0
         marge_epaule = (y1 - corps_haut) * 0.16
 
         chemin = QPainterPath()
@@ -447,9 +570,14 @@ class CompteurCirculaireWidget(QWidget):
         fond_sable.setAlpha(45)
         painter.fillPath(zone_sable, QBrush(fond_sable))
 
+        # coquillages / étoiles de mer : dessinés avant les grains, pour
+        # qu'ils semblent nichés dans le sable, progressivement recouverts
+        # à mesure que le niveau monte.
+        self._dessiner_decor_bocal(painter, m)
+
         largeur = x1 - x0
-        rayon_base = largeur * 0.028
-        rayon_max = rayon_base * 1.4
+        rayon_base = largeur * 0.020  # grains plus fins qu'auparavant
+        rayon_max = rayon_base * 1.35
 
         painter.setPen(Qt.PenStyle.NoPen)
         for nx, ny, echelle, teinte_t, etincelle in self._grains:
@@ -472,7 +600,7 @@ class CompteurCirculaireWidget(QWidget):
         # quelques touches sur la ligne de surface, pour un niveau
         # légèrement irrégulier plutôt qu'une ligne parfaitement plate
         pen_surface = QPen(self.theme.progression_fin)
-        pen_surface.setWidthF(max(1.2, largeur * 0.012))
+        pen_surface.setWidthF(max(1.0, largeur * 0.009))
         pen_surface.setCapStyle(Qt.PenCapStyle.RoundCap)
         painter.setPen(pen_surface)
         pas = max(4.0, largeur / 14)
@@ -482,6 +610,59 @@ class CompteurCirculaireWidget(QWidget):
             painter.drawPoint(QPointF(x, niveau_y + vague))
             x += pas
 
+        painter.restore()
+
+    def _dessiner_pluie(self, painter: QPainter, m: dict) -> None:
+        """Dessine les grains actuellement 'en vol', tombant du haut du
+        widget, à travers le col désormais ouvert du bocal, vers la
+        surface du sable en formation. Pas de clip supplémentaire ici :
+        on hérite du clip ambiant (la carte arrondie) posé dans
+        `paintEvent`, pour que la chute reste visible au-dessus du
+        bocal, pas seulement une fois entrée dedans."""
+        if not self._pluie:
+            return
+
+        x0, x1, y1 = m["x0"], m["x1"], m["y1"]
+        corps_haut = m["corps_haut"]
+        hauteur_dispo = y1 - corps_haut
+        if hauteur_dispo <= 0:
+            return
+
+        col_x0 = m["cx"] - m["col_largeur"] / 2
+        col_x1 = m["cx"] + m["col_largeur"] / 2
+        y_depart = m["y0"] - (y1 - m["y0"]) * 0.4  # départ au-dessus du bocal
+
+        largeur = x1 - x0
+        rayon_base = largeur * 0.020
+        global_t = self._pluie_progress
+
+        painter.save()
+        painter.setPen(Qt.PenStyle.NoPen)
+        for grain in self._pluie:
+            delai = grain["delay"]
+            fin = min(1.0, delai + grain["duree"])
+            if global_t <= delai or global_t >= fin:
+                continue  # pas encore parti, ou déjà posé
+            local_t = (global_t - delai) / max(1e-6, fin - delai)
+            eased = self._easing_chute.valueForProgress(max(0.0, min(1.0, local_t)))
+
+            x_reel = col_x0 + grain["nx_neck"] * (col_x1 - col_x0)
+            y_cible = corps_haut + grain["ny_cible"] * hauteur_dispo
+            y_reel = y_depart + (y_cible - y_depart) * eased
+
+            rayon = rayon_base * grain["echelle"]
+            if grain["etincelle"]:
+                couleur = QColor("#FFF4DA")
+                couleur.setAlpha(200)
+            else:
+                couleur = self.theme._blend_hsv(
+                    self.theme.progression_debut,
+                    self.theme.progression_fin,
+                    grain["teinte_t"],
+                )
+                couleur.setAlpha(215)
+            painter.setBrush(QBrush(couleur))
+            painter.drawEllipse(QPointF(x_reel, y_reel), rayon, rayon)
         painter.restore()
 
     def _dessiner_reflet_verre(
@@ -506,6 +687,67 @@ class CompteurCirculaireWidget(QWidget):
         painter.setBrush(QBrush(gradient))
         painter.drawRect(QRectF(m["x0"], m["y0"], m["x1"] - m["x0"], m["y1"] - m["y0"]))
         painter.restore()
+
+    def _dessiner_decor_bocal(self, painter: QPainter, m: dict) -> None:
+        """Place les coquillages/étoiles de mer au fond du bocal. Appelée
+        depuis `_dessiner_sable`, donc déjà découpée par le contour et le
+        niveau de sable courant : les décors n'apparaissent qu'une fois
+        atteints par le sable, ou sur le point de l'être."""
+        x0, x1, y1 = m["x0"], m["x1"], m["y1"]
+        corps_haut = m["corps_haut"]
+        hauteur_dispo = y1 - corps_haut
+        largeur = x1 - x0
+        taille_base = largeur * 0.09
+
+        fond = QColor("#FFF7EA")
+        fond.setAlpha(215)
+        trait = QColor(self.theme.texte)
+        trait.setAlpha(110)
+
+        for item in self._decor_bocal:
+            cx = x0 + item["nx"] * largeur
+            cy = corps_haut + item["ny"] * hauteur_dispo
+            taille = taille_base * item["echelle"]
+            if item["type"] == "etoile":
+                _dessiner_etoile_mer(
+                    painter, QPointF(cx, cy), taille * 0.8, fond, trait, item["angle"]
+                )
+            else:
+                _dessiner_coquillage(
+                    painter, QPointF(cx, cy), taille, fond, trait, item["angle"]
+                )
+
+    def _dessiner_decor_carte(
+        self, painter: QPainter, rect_carte: QRectF, side: float
+    ) -> None:
+        """Filigrane marin discret sur le fond de la carte, en dehors du
+        bocal — un petit clin d'œil décoratif au thème voyage/plage."""
+        taille = side * 0.11
+        marge = side * 0.11
+        fond = QColor(self.theme.piste)
+        fond.setAlpha(55)
+        trait = QColor(self.theme.piste)
+        trait.setAlpha(85)
+
+        positions = {
+            "haut_gauche": QPointF(
+                rect_carte.left() + marge, rect_carte.top() + marge * 1.3
+            ),
+            "bas_droit": QPointF(
+                rect_carte.right() - marge, rect_carte.bottom() - marge * 1.1
+            ),
+        }
+        for item in self._decor_carte:
+            centre = positions.get(item["coin"])
+            if centre is None:
+                continue
+            t = taille * item["echelle"]
+            if item["type"] == "etoile":
+                _dessiner_etoile_mer(
+                    painter, centre, t * 0.8, fond, trait, item["angle"]
+                )
+            else:
+                _dessiner_coquillage(painter, centre, t, fond, trait, item["angle"])
 
     # ---------------------------------------------------------------
     # Cercle de données (anneau + valeur + libellé + pourcentage)
@@ -652,6 +894,9 @@ class CompteurCirculaireWidget(QWidget):
         painter.fillPath(chemin_carte, QBrush(self.theme.fond))
         painter.setClipPath(chemin_carte)
 
+        # --- filigrane marin discret sur le fond de la carte ---
+        self._dessiner_decor_carte(painter, rect_carte, side)
+
         # --- zone de contenu : bocal à gauche, cercle de données à droite
         # (widget plus large que haut, donc pas d'empilement vertical) ---
         marge_h = side * 0.16
@@ -683,6 +928,7 @@ class CompteurCirculaireWidget(QWidget):
         m = self._mesures_bocal(jar_rect)
 
         self._dessiner_sable(painter, m, percent)
+        self._dessiner_pluie(painter, m)
 
         contour = self._chemin_corps(m)
         pen_contour = QPen(self.theme.piste)
@@ -701,11 +947,17 @@ class CompteurCirculaireWidget(QWidget):
     def relancer_animation(self) -> None:
         """Relance l'animation du compteur sans modifier les données."""
 
-        # --- Animation du niveau de sable / anneau ---
+        # --- Animation du niveau de sable / anneau, avec une pluie complète ---
         self._value_anim.stop()
         self._value_anim.setDuration(self.duree_animation)
         self._value_anim.setStartValue(0.0)
         self._value_anim.setEndValue(float(self.target_value))
+
+        if self.target_value > 0:
+            self._generer_pluie(self.target_value, self.target_value)
+        else:
+            self._pluie = []
+
         self._value_anim.start()
 
         # --- Rejoue le halo si la valeur cible est presque pleine ---

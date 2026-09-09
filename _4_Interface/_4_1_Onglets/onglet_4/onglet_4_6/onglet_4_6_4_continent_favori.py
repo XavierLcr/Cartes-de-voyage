@@ -558,3 +558,16 @@ class ContinentFavoriWidget(QWidget):
         except Exception:
             return False
         return bool(texte) and texte != cle
+
+    def relancer_animation(self):
+        self._animation_barres.stop()
+        self._animation_barres.setStartValue(0.0)
+        self._animation_barres.setEndValue(1.0)
+        self._animation_barres.setDuration(900)
+        self._animation_barres.start()
+
+        self._animation_pourcentage.stop()
+        self._animation_pourcentage.setStartValue(0.0)
+        self._animation_pourcentage.setEndValue(self.pourcentage_cible)
+        self._animation_pourcentage.setDuration(900)
+        self._animation_pourcentage.start()

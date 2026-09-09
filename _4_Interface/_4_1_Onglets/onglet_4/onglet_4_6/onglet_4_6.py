@@ -106,4 +106,4 @@ class OngletTableauDeBord(QWidget):
         self.compteur_pays.update()
         self.n_voyages_histo.update()
         self.n_jours_voyages.update()
-        self.continent_favori.update()
+        self.continent_favori.relancer_animation()

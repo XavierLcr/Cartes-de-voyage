@@ -407,31 +407,6 @@ class CompteurCirculaireWidget(QWidget):
         chemin.closeSubpath()
         return chemin
 
-    def _dessiner_couvercle(self, painter: QPainter, m: dict) -> None:
-        """Petit couvercle décoratif au sommet du col, pour lire clairement
-        la forme comme un bocal fermé plutôt qu'un vase ouvert."""
-        col_x0 = m["cx"] - m["col_largeur"] / 2
-        col_x1 = m["cx"] + m["col_largeur"] / 2
-        debord = m["col_largeur"] * 0.14
-        rect_couvercle = QRectF(
-            col_x0 - debord,
-            m["y0"],
-            (col_x1 - col_x0) + 2 * debord,
-            m["couvercle_h"],
-        )
-        rayon = m["couvercle_h"] * 0.4
-
-        chemin = QPainterPath()
-        chemin.addRoundedRect(rect_couvercle, rayon, rayon)
-
-        couleur = QColor(self.theme.piste)
-        couleur.setAlpha(210)
-        pen = QPen(self.theme.texte)
-        pen.setWidthF(max(1.0, m["rayon_coin"] * 0.06))
-        painter.setPen(pen)
-        painter.setBrush(QBrush(couleur))
-        painter.drawPath(chemin)
-
     # ---------------------------------------------------------------
     # Rendu
     # ---------------------------------------------------------------
@@ -717,7 +692,6 @@ class CompteurCirculaireWidget(QWidget):
         painter.drawPath(contour)
 
         self._dessiner_reflet_verre(painter, m, contour)
-        self._dessiner_couvercle(painter, m)
 
         if diam_cercle > 0:
             if self._glow_opacity > 0:

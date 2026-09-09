@@ -426,9 +426,12 @@ class OngletTopPays(QWidget):
             "modele_IA": self.get_modele_IA(),
         }
 
-    def cliquer_bouton_onglet(self, num_onglet: int):
+    def cliquer_bouton_onglet(self, num_onglet: int | None):
 
-        self.pages.setCurrentIndex(num_onglet)
+        if num_onglet is not None:
+            self.pages.setCurrentIndex(num_onglet)
+        else:
+            num_onglet = self.pages.currentIndex()
 
         # Met en évidence le bouton correspondant à la page affichée, même
         # quand cette méthode est appelée sans passer par un clic

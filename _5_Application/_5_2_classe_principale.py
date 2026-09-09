@@ -237,6 +237,8 @@ class MesVoyagesApplication(QWidget):
             "Informations",
         )
 
+        self.liste_onglets.currentChanged.connect(self.changement_onglet)
+
         main_layout = QVBoxLayout(self)
         # main_layout.addLayout(layout_top)
         main_layout.addWidget(self.liste_onglets)
@@ -644,3 +646,7 @@ class MesVoyagesApplication(QWidget):
                 # Utilisation du profil en question
                 self.nom_individu.setCurrentText(nouveau_profil)
                 self.initialiser_sauvegarde(reinitialiser=False)
+
+    def changement_onglet(self, index):
+        if index == self.liste_onglets.indexOf(self.onglet_statistiques):
+            self.onglet_statistiques.cliquer_bouton_onglet(num_onglet=None)

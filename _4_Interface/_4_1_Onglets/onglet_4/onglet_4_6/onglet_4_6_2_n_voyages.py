@@ -187,6 +187,7 @@ class NombreVoyagesAnnu(QWidget):
         historique: Optional[Sequence[int]] = None,
         tendance: Optional[int] = None,
         parent: Optional[QWidget] = None,
+        duree_animation: int = 1000,
     ) -> None:
         """
         nombre             : valeur affichée (nombre de voyages).
@@ -212,6 +213,7 @@ class NombreVoyagesAnnu(QWidget):
         self.tendance = tendance
         self.etiquette_tendance = f"{datetime.now().year} vs {datetime.now().year-1}"
         self.n_annees_histo = 6
+        self.duree_animation = duree_animation * 1  # ms
 
         self.theme = ThemeCarte(style=1)
 
@@ -246,15 +248,13 @@ class NombreVoyagesAnnu(QWidget):
     # ---------------------------------------------------------------
     # API publique
     # ---------------------------------------------------------------
-    def definir_valeur(
-        self, nombre: int, animer: bool = True, duree: int = 1000
-    ) -> None:
+    def definir_valeur(self, nombre: int, animer: bool = True) -> None:
         """Met à jour le nombre affiché (avec ou sans animation)."""
         nombre = max(0, nombre)
         self.nombre_cible = nombre
 
         self._animation_nombre.stop()
-        self._animation_nombre.setDuration(duree if animer else 0)
+        self._animation_nombre.setDuration(self.duree_animation if animer else 0)
         self._animation_nombre.setStartValue(self._nombre)
         self._animation_nombre.setEndValue(float(nombre))
         self._animation_nombre.start()
@@ -459,3 +459,11 @@ class NombreVoyagesAnnu(QWidget):
                 return
 
         QToolTip.hideText()
+
+    def relancer_animation(self) -> None:
+        """Relance l'animation du compteur sans modifier les données."""
+        self._animation_nombre.stop()
+        self._animation_nombre.setDuration(self.duree_animation)
+        self._animation_nombre.setStartValue(0.0)
+        self._animation_nombre.setEndValue(float(self.nombre_cible))
+        self._animation_nombre.start()

@@ -48,6 +48,7 @@ class OngletTableauDeBord(QWidget):
         self.compteur_pays = CompteurCirculaireWidget(
             maximum=len(constantes.granularite_max_pays.keys()),
             fonction_traduction=fct_traduction,
+            duree_animation=duree_animation,
         )
 
         # Compteur de voyages
@@ -111,7 +112,7 @@ class OngletTableauDeBord(QWidget):
         self.continent_favori.set_style(style=style, nuances=nuances, teintes=teintes)
 
     def update_widgets(self):
-        self.compteur_pays.update()
+        self.compteur_pays.relancer_animation()
         self.n_voyages_histo.relancer_animation()
         self.n_jours_voyages.relancer_animation()
         self.continent_favori.relancer_animation()

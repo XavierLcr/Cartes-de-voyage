@@ -208,6 +208,7 @@ class CompteurCirculaireWidget(QWidget):
         value: int = 0,
         maximum: int = 220,
         parent: Optional[QWidget] = None,
+        duree_animation: int = 1000,
     ) -> None:
         super().__init__(parent)
 
@@ -217,6 +218,7 @@ class CompteurCirculaireWidget(QWidget):
         )
         self.target_value = 0  # dernière valeur demandée (source de vérité)
         self.maximum = max(1, maximum)  # jamais 0, évite la division par zéro
+        self.duree_animation = duree_animation
         self.set_langue()
         self.theme = CompteurTheme(style=0)
 
@@ -285,9 +287,7 @@ class CompteurCirculaireWidget(QWidget):
     # ---------------------------------------------------------------
     # API publique
     # ---------------------------------------------------------------
-    def set_value(
-        self, value: int | None, animate: bool = True, duration: int = 900
-    ) -> None:
+    def set_value(self, value: int | None, animate: bool = True) -> None:
         """Met à jour le niveau affiché (sable + anneau), avec ou sans animation."""
         if value is not None:
             value = max(0, min(value, self.maximum))
@@ -296,7 +296,7 @@ class CompteurCirculaireWidget(QWidget):
             value = self.target_value
 
         self._value_anim.stop()  # évite les à-coups si on change en plein vol
-        self._value_anim.setDuration(duration if animate else 0)
+        self._value_anim.setDuration(self.duree_animation if animate else 0)
         self._value_anim.setStartValue(self._value)
         self._value_anim.setEndValue(float(value))
         self._value_anim.start()
@@ -723,3 +723,20 @@ class CompteurCirculaireWidget(QWidget):
             if self._glow_opacity > 0:
                 self._dessiner_glow(painter, cercle_rect, diam_cercle)
             self._dessiner_cercle_donnees(painter, cercle_rect, percent)
+
+    def relancer_animation(self) -> None:
+        """Relance l'animation du compteur sans modifier les données."""
+
+        # --- Animation du niveau de sable / anneau ---
+        self._value_anim.stop()
+        self._value_anim.setDuration(self.duree_animation)
+        self._value_anim.setStartValue(0.0)
+        self._value_anim.setEndValue(float(self.target_value))
+        self._value_anim.start()
+
+        # --- Rejoue le halo si la valeur cible est presque pleine ---
+        presque_plein = (self.target_value / self.maximum) >= self._seuil_presque_plein
+
+        if presque_plein:
+            self._glow_anim.stop()
+            self._glow_anim.start()

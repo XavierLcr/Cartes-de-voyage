@@ -1212,6 +1212,8 @@ class CompteurCirculaireWidget(QWidget):
                 poisson["sens"],
                 poisson["couleur"],
                 requin=poisson["requin"],
+                phase=self._phase_mer * poisson.get("vitesse_nage", 3.0)
+                + poisson["phase"],
             )
         painter.restore()
 
@@ -1269,11 +1271,22 @@ class CompteurCirculaireWidget(QWidget):
         sens: float,
         couleur: QColor,
         requin: bool = False,
+        phase: float = 0.0,
+        degrade: bool = True,
     ) -> None:
         """Dessine un poisson (ou requin) stylisé, orienté vers la droite si
         `sens > 0`, vers la gauche sinon. `taille` correspond grossièrement à
-        la longueur totale (corps + queue)."""
+        la longueur totale (corps + queue).
+
+        `phase` (en radians) permet d'animer la nage : fait onduler la queue
+        et les nageoires selon un sinus, à faire varier dans le temps par
+        l'appelant (ex: phase = t * vitesse).
+        `degrade` active un léger dégradé radial sur le corps pour un effet
+        de volume ; à désactiver si tu dessines beaucoup de poissons et veux
+        économiser du temps de rendu.
+        """
         painter.save()
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
         painter.translate(centre)
         if sens < 0:
             painter.scale(-1, 1)  # symétrie horizontale : nage vers la gauche
@@ -1286,20 +1299,50 @@ class CompteurCirculaireWidget(QWidget):
         pen = QPen(trait)
         pen.setWidthF(max(0.8, taille * 0.03))
         painter.setPen(pen)
-        painter.setBrush(QBrush(couleur))
+
+        ondulation = math.sin(phase) * taille * 0.06
+
+        if degrade:
+            corps_brush = QRadialGradient(
+                QPointF(-corps_l * 0.1, -corps_h * 0.15), corps_l * 0.65
+            )
+            corps_brush.setColorAt(0.0, QColor(couleur).lighter(130))
+            corps_brush.setColorAt(1.0, QColor(couleur).darker(115))
+            pinceau_corps = QBrush(corps_brush)
+        else:
+            pinceau_corps = QBrush(couleur)
+        painter.setBrush(pinceau_corps)
 
         # --- corps ---
         corps = QPainterPath()
         corps.addEllipse(QPointF(-taille * 0.06, 0), corps_l / 2, corps_h / 2)
         painter.drawPath(corps)
 
-        # --- queue (triangle échancré) ---
+        # --- nageoire pectorale ---
+        pectorale = QPainterPath()
+        px = taille * 0.02
+        pectorale.moveTo(px, corps_h * 0.15)
+        pectorale.quadTo(
+            px + taille * 0.10,
+            corps_h * 0.45 + ondulation * 0.5,
+            px + taille * 0.02,
+            corps_h * 0.55,
+        )
+        pectorale.quadTo(px - taille * 0.05, corps_h * 0.30, px, corps_h * 0.15)
+        pectorale.closeSubpath()
+        pinceau_nageoire = QColor(couleur).darker(105)
+        pinceau_nageoire.setAlpha(230)
+        painter.setBrush(QBrush(pinceau_nageoire))
+        painter.drawPath(pectorale)
+
+        # --- queue (triangle échancré, ondule avec la phase) ---
+        painter.setBrush(pinceau_corps)
         queue = QPainterPath()
         xq = -corps_l / 2 - taille * 0.02
         queue.moveTo(xq, 0)
-        queue.lineTo(xq - taille * 0.22, -taille * 0.18)
+        queue.lineTo(xq - taille * 0.22, -taille * 0.18 + ondulation)
         queue.lineTo(xq - taille * 0.12, 0)
-        queue.lineTo(xq - taille * 0.22, taille * 0.18)
+        queue.lineTo(xq - taille * 0.22, taille * 0.18 + ondulation)
         queue.closeSubpath()
         painter.drawPath(queue)
 
@@ -1311,6 +1354,18 @@ class CompteurCirculaireWidget(QWidget):
             dorsale.lineTo(taille * 0.14, -corps_h * 0.42)
             dorsale.closeSubpath()
             painter.drawPath(dorsale)
+
+            # ouïes : petites fentes derrière la tête
+            ouies_pen = QPen(trait)
+            ouies_pen.setWidthF(max(0.6, taille * 0.02))
+            painter.setPen(ouies_pen)
+            for i in range(3):
+                ox = corps_l * 0.10 + i * taille * 0.03
+                painter.drawLine(
+                    QPointF(ox, -corps_h * 0.30),
+                    QPointF(ox - taille * 0.02, corps_h * 0.30),
+                )
+            painter.setPen(pen)
         else:
             dorsale = QPainterPath()
             dorsale.moveTo(-taille * 0.05, -corps_h * 0.40)
@@ -1320,7 +1375,7 @@ class CompteurCirculaireWidget(QWidget):
             dorsale.closeSubpath()
             painter.drawPath(dorsale)
 
-        # --- œil ---
+        # --- œil (avec reflet) ---
         painter.setPen(Qt.PenStyle.NoPen)
         painter.setBrush(QBrush(QColor("#FFFFFF")))
         oeil_r = taille * 0.045
@@ -1328,6 +1383,23 @@ class CompteurCirculaireWidget(QWidget):
         painter.drawEllipse(oeil_centre, oeil_r, oeil_r)
         painter.setBrush(QBrush(QColor("#1c1f2b")))
         painter.drawEllipse(oeil_centre, oeil_r * 0.45, oeil_r * 0.45)
+        painter.setBrush(QBrush(QColor(255, 255, 255, 200)))
+        painter.drawEllipse(
+            QPointF(oeil_centre.x() + oeil_r * 0.15, oeil_centre.y() - oeil_r * 0.2),
+            oeil_r * 0.15,
+            oeil_r * 0.15,
+        )
+
+        # --- bouche (requin uniquement) ---
+        if requin:
+            painter.setPen(pen)
+            painter.setBrush(Qt.BrushStyle.NoBrush)
+            bouche = QPainterPath()
+            bouche.moveTo(corps_l * 0.30, corps_h * 0.05)
+            bouche.quadTo(
+                corps_l * 0.20, corps_h * 0.25, corps_l * 0.05, corps_h * 0.10
+            )
+            painter.drawPath(bouche)
 
         painter.restore()
 

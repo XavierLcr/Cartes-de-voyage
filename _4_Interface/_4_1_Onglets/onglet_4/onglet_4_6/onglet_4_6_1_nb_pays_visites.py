@@ -724,10 +724,10 @@ class CompteurCirculaireWidget(QWidget):
         bocal — un petit clin d'œil décoratif au thème voyage/plage."""
         taille = side * 0.11
         marge = side * 0.11
-        fond = QColor(self.theme.piste)
-        fond.setAlpha(55)
-        trait = QColor(self.theme.piste)
-        trait.setAlpha(85)
+        fond = QColor("#e07a3f")
+        fond.setAlpha(85)
+        trait = QColor("#8a3d18")
+        trait.setAlpha(130)
 
         positions = {
             "haut_gauche": QPointF(

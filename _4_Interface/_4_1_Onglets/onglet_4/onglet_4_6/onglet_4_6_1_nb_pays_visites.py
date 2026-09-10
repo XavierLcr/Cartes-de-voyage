@@ -234,6 +234,7 @@ class CompteurCirculaireWidget(QWidget):
         maximum: int = 220,
         parent: Optional[QWidget] = None,
         duree_animation: int = 1000,
+        n_poissons: int = 6,
     ) -> None:
         super().__init__(parent)
 
@@ -295,7 +296,10 @@ class CompteurCirculaireWidget(QWidget):
         # --- mer (bas du widget, sous/au-delà de la plage) ---
         self._niveau_mer_ratio = 1 / 3  # occupe le tiers inférieur de la carte
         self._phase_mer = 0.0
-        self._bulles_mer = self._generer_bulles_mer(22)
+        self._bulles_mer = self._generer_bulles_mer(25)
+
+        # --- poissons qui nagent dans la mer ---
+        self._poissons = self._generer_poissons(int(max(1, n_poissons)))
 
         self._timer_mer = QTimer(self)
         self._timer_mer.timeout.connect(self._animer_mer)
@@ -1094,6 +1098,16 @@ class CompteurCirculaireWidget(QWidget):
             if bulle["ny"] < 0.05:
                 bulle["ny"] = 0.98
                 bulle["nx"] = random.uniform(0.04, 0.96)
+
+        for poisson in self._poissons:
+            poisson["nx"] += poisson["vitesse"] * poisson["sens"] * 0.03
+            if poisson["nx"] > 1.05:
+                poisson["nx"] = 1.05
+                poisson["sens"] = -1
+            elif poisson["nx"] < -0.05:
+                poisson["nx"] = -0.05
+                poisson["sens"] = 1
+
         self.update()
 
     def _dessiner_mer(self, painter: QPainter, rect_carte: QRectF) -> None:
@@ -1108,6 +1122,13 @@ class CompteurCirculaireWidget(QWidget):
             1 - self._niveau_mer_ratio
         )
 
+        def _y_surface_mer(t: float) -> float:
+            return (
+                niveau_mer
+                + math.sin(t * math.tau * 2 + self._phase_mer) * largeur * 0.008
+                + math.sin(t * math.tau * 5 - self._phase_mer * 0.7) * largeur * 0.004
+            )
+
         # --- forme de la mer (surface ondulée -> fond plat) ---
         mer = QPainterPath()
         mer.moveTo(gauche, niveau_mer)
@@ -1115,11 +1136,7 @@ class CompteurCirculaireWidget(QWidget):
         for i in range(n_pts + 1):
             t = i / n_pts
             x = gauche + largeur * t
-            y = (
-                niveau_mer
-                + math.sin(t * math.tau * 2.2 + self._phase_mer) * largeur * 0.006
-                + math.sin(t * math.tau * 4.7 - self._phase_mer * 0.7) * largeur * 0.003
-            )
+            y = _y_surface_mer(t=t)
             mer.lineTo(x, y)
         mer.lineTo(droite, bas)
         mer.lineTo(gauche, bas)
@@ -1169,16 +1186,41 @@ class CompteurCirculaireWidget(QWidget):
             painter.drawEllipse(QRectF(x - r, y - r, 2 * r, 2 * r))
         painter.restore()
 
+        # --- poissons qui nagent ---
+        painter.save()
+        painter.setClipPath(mer)
+        hauteur_mer = bas - niveau_mer
+        for poisson in self._poissons:
+            x = gauche + poisson["nx"] * largeur
+            y = (
+                niveau_mer
+                + poisson["ny"] * hauteur_mer
+                + math.sin(self._phase_mer * 2.0 + poisson["phase"])
+                * hauteur_mer
+                * poisson["amplitude_verticale"]
+            )
+            taille = (
+                largeur
+                * 0.10
+                * poisson["echelle"]
+                * (1.3 if poisson["requin"] else 1.0)
+            )
+            self._dessiner_poisson(
+                painter,
+                QPointF(x, y),
+                taille,
+                poisson["sens"],
+                poisson["couleur"],
+                requin=poisson["requin"],
+            )
+        painter.restore()
+
         # --- ligne de surface ---
         surface = QPainterPath()
         for i in range(n_pts + 1):
             t = i / n_pts
             x = gauche + largeur * t
-            y = (
-                niveau_mer
-                + math.sin(t * math.tau * 2.2 + self._phase_mer) * largeur * 0.006
-                + math.sin(t * math.tau * 4.7 - self._phase_mer * 0.7) * largeur * 0.003
-            )
+            y = _y_surface_mer(t=t)
             if i == 0:
                 surface.moveTo(x, y)
             else:
@@ -1187,6 +1229,107 @@ class CompteurCirculaireWidget(QWidget):
         painter.setBrush(Qt.BrushStyle.NoBrush)
         painter.setPen(QPen(QColor(225, 250, 255, 185), 1.4))
         painter.drawPath(surface)
+
+    def _generer_poissons(self, n: int) -> List[dict]:
+        """Prégénère n poissons nageant dans la mer : trajectoire horizontale
+        en va-et-vient (gauche <-> droite), à une hauteur et une vitesse qui
+        varient d'un poisson à l'autre pour un banc naturel plutôt que des
+        clones synchronisés."""
+        rng = random.Random(2024)
+        couleurs = ["#E8834A", "#5FA8A0", "#D96C6C", "#4C7FB0", "#E0B24C"]
+        poissons = []
+        for i in range(n):
+            sens = 1 if rng.random() < 0.5 else -1
+            poissons.append(
+                {
+                    "nx": rng.uniform(
+                        0.0, 1.0
+                    ),  # position horizontale (0-1) dans la mer
+                    "ny": rng.uniform(0.12, 0.75),  # hauteur (0 = surface, 1 = fond)
+                    "sens": sens,  # 1 = va vers la droite, -1 = vers la gauche
+                    "vitesse": rng.uniform(
+                        0.05, 0.11
+                    ),  # fraction de largeur / seconde-anim
+                    "echelle": rng.uniform(0.75, 1.25),
+                    "amplitude_verticale": rng.uniform(0.015, 0.035),
+                    "phase": rng.uniform(0.0, math.tau),
+                    "couleur": QColor(couleurs[i % len(couleurs)]),
+                    "requin": (
+                        i == 0
+                    ),  # le premier du banc est un peu plus gros / différent
+                }
+            )
+        return poissons
+
+    def _dessiner_poisson(
+        self,
+        painter: QPainter,
+        centre: QPointF,
+        taille: float,
+        sens: float,
+        couleur: QColor,
+        requin: bool = False,
+    ) -> None:
+        """Dessine un poisson (ou requin) stylisé, orienté vers la droite si
+        `sens > 0`, vers la gauche sinon. `taille` correspond grossièrement à
+        la longueur totale (corps + queue)."""
+        painter.save()
+        painter.translate(centre)
+        if sens < 0:
+            painter.scale(-1, 1)  # symétrie horizontale : nage vers la gauche
+
+        corps_l = taille * (0.62 if not requin else 0.68)
+        corps_h = taille * (0.34 if not requin else 0.30)
+
+        trait = QColor(couleur).darker(140)
+        trait.setAlpha(200)
+        pen = QPen(trait)
+        pen.setWidthF(max(0.8, taille * 0.03))
+        painter.setPen(pen)
+        painter.setBrush(QBrush(couleur))
+
+        # --- corps ---
+        corps = QPainterPath()
+        corps.addEllipse(QPointF(-taille * 0.06, 0), corps_l / 2, corps_h / 2)
+        painter.drawPath(corps)
+
+        # --- queue (triangle échancré) ---
+        queue = QPainterPath()
+        xq = -corps_l / 2 - taille * 0.02
+        queue.moveTo(xq, 0)
+        queue.lineTo(xq - taille * 0.22, -taille * 0.18)
+        queue.lineTo(xq - taille * 0.12, 0)
+        queue.lineTo(xq - taille * 0.22, taille * 0.18)
+        queue.closeSubpath()
+        painter.drawPath(queue)
+
+        # --- nageoire dorsale ---
+        if requin:
+            dorsale = QPainterPath()
+            dorsale.moveTo(-taille * 0.02, -corps_h * 0.42)
+            dorsale.lineTo(taille * 0.06, -corps_h * 1.05)
+            dorsale.lineTo(taille * 0.14, -corps_h * 0.42)
+            dorsale.closeSubpath()
+            painter.drawPath(dorsale)
+        else:
+            dorsale = QPainterPath()
+            dorsale.moveTo(-taille * 0.05, -corps_h * 0.40)
+            dorsale.quadTo(
+                taille * 0.05, -corps_h * 0.78, taille * 0.15, -corps_h * 0.38
+            )
+            dorsale.closeSubpath()
+            painter.drawPath(dorsale)
+
+        # --- œil ---
+        painter.setPen(Qt.PenStyle.NoPen)
+        painter.setBrush(QBrush(QColor("#FFFFFF")))
+        oeil_r = taille * 0.045
+        oeil_centre = QPointF(corps_l * 0.22, -corps_h * 0.08)
+        painter.drawEllipse(oeil_centre, oeil_r, oeil_r)
+        painter.setBrush(QBrush(QColor("#1c1f2b")))
+        painter.drawEllipse(oeil_centre, oeil_r * 0.45, oeil_r * 0.45)
+
+        painter.restore()
 
     def paintEvent(self, event) -> None:
         painter = QPainter(self)
@@ -1260,12 +1403,11 @@ class CompteurCirculaireWidget(QWidget):
         painter.setPen(pen_contour)
         painter.setBrush(Qt.BrushStyle.NoBrush)
         painter.drawPath(contour)
-
-        self._dessiner_mer(painter, rect_carte)
         self._dessiner_col_bouteille(painter, m)
         self._dessiner_reflet_verre(painter, m, contour)
 
         painter.restore()
+        self._dessiner_mer(painter, rect_carte)
 
         # --- plage de sable : dessinée après le bocal, pour que sa base
         # se retrouve naturellement enfouie dans le sable ---

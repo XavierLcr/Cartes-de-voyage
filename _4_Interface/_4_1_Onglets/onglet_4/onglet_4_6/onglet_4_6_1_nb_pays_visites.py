@@ -259,6 +259,7 @@ class CompteurCirculaireWidget(QWidget):
         # --- anneau de progression (cercle de données) ---
         self._arc_width_ratio = 0.09  # épaisseur de l'arc / diamètre du cercle
         self._start_angle = 90  # l'arc démarre en haut du cercle
+        self._echelle_cercle = 0.7
 
         # --- comportement du halo "presque plein" ---
         self._seuil_presque_plein = (
@@ -270,6 +271,7 @@ class CompteurCirculaireWidget(QWidget):
         # le sable plutôt que posé bien droit — l'angle est positif car
         # `QPainter.rotate` tourne dans le sens horaire : le col penche
         # donc vers la droite, dans le sens où la plage s'enfonce.
+        self._echelle_bocal = 0.85
         self._angle_inclinaison_bocal = 10.0  # degrés
 
         # --- sable (bocal) ---
@@ -969,7 +971,7 @@ class CompteurCirculaireWidget(QWidget):
         """
         side_cercle = cercle_rect.width()
         arc_width = max(4.0, side_cercle * self._arc_width_ratio)
-        marge = side_cercle * 0.07
+        marge = side_cercle * 0.05
         rect_arc = QRectF(
             cercle_rect.left() + marge,
             cercle_rect.top() + marge,
@@ -1015,7 +1017,7 @@ class CompteurCirculaireWidget(QWidget):
         # --- valeur centrale ---
         painter.setPen(self.theme.texte)
         police_valeur = QFont(
-            "Segoe UI", max(9, int(side_cercle * 0.15)), QFont.Weight.Bold
+            "Segoe UI", max(9, int(side_cercle * 0.19)), QFont.Weight.Bold
         )
         painter.setFont(police_valeur)
         valeur_str = f"{int(round(self._value))}"
@@ -1023,7 +1025,7 @@ class CompteurCirculaireWidget(QWidget):
         painter.drawText(rect_valeur, Qt.AlignmentFlag.AlignCenter, valeur_str)
 
         # --- légende, élidée pour rester dans le cercle ---
-        police_etiquette = QFont("Segoe UI", max(6, int(side_cercle * 0.052)))
+        police_etiquette = QFont("Segoe UI", max(6, int(side_cercle * 0.065)))
         fm_etiquette = QFontMetrics(police_etiquette)
         largeur_dispo = rect_arc.width() * 0.86
         texte_etiquette = fm_etiquette.elidedText(
@@ -1037,7 +1039,7 @@ class CompteurCirculaireWidget(QWidget):
         # --- pourcentage dans une petite bulle ---
         pct_texte = f"{int(round(percent * 100))} %"
         police_pct = QFont(
-            "Segoe UI", max(6, int(side_cercle * 0.045)), QFont.Weight.DemiBold
+            "Segoe UI", max(6, int(side_cercle * 0.055)), QFont.Weight.DemiBold
         )
         painter.setFont(police_pct)
         fm = painter.fontMetrics()
@@ -1045,7 +1047,7 @@ class CompteurCirculaireWidget(QWidget):
         hauteur_bulle = fm.height() * 1.2
         rect_bulle = QRectF(0, 0, largeur_bulle, hauteur_bulle)
         rect_bulle.moveCenter(
-            QPointF(rect_arc.center().x(), rect_arc.center().y() + side_cercle * 0.255)
+            QPointF(rect_arc.center().x(), rect_arc.center().y() + side_cercle * 0.28)
         )
 
         chemin_bulle = QPainterPath()
@@ -1081,8 +1083,11 @@ class CompteurCirculaireWidget(QWidget):
         marge_v = side * 0.10
         content_rect = rect_carte.adjusted(marge_h, marge_v, -marge_h, -marge_v)
 
-        jar_h = content_rect.height()
-        jar_w = min(jar_h * 0.62, content_rect.width() * 0.34)
+        jar_h_max = content_rect.height()
+        jar_w_max = min(jar_h_max * 0.62, content_rect.width() * 0.34)
+
+        jar_h = jar_h_max * self._echelle_bocal
+        jar_w = jar_w_max * self._echelle_bocal
         jar_rect = QRectF(
             content_rect.left(),
             content_rect.top() + (content_rect.height() - jar_h) / 2,
@@ -1092,7 +1097,9 @@ class CompteurCirculaireWidget(QWidget):
 
         gap = content_rect.width() * 0.06
         zone_droite_w = max(0.0, content_rect.right() - (jar_rect.right() + gap))
-        diam_cercle = min(content_rect.height(), zone_droite_w)
+        diam_cercle_max = min(content_rect.height(), zone_droite_w)
+        diam_cercle = diam_cercle_max * self._echelle_cercle
+
         cercle_rect = QRectF(
             jar_rect.right() + gap + (zone_droite_w - diam_cercle) / 2,
             content_rect.top() + (content_rect.height() - diam_cercle) / 2,

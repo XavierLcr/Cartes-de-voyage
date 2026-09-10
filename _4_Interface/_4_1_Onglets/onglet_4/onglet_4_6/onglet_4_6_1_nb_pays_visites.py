@@ -1100,9 +1100,12 @@ class CompteurCirculaireWidget(QWidget):
         diam_cercle_max = min(content_rect.height(), zone_droite_w)
         diam_cercle = diam_cercle_max * self._echelle_cercle
 
+        marge_cercle = (
+            side * 0.05
+        )  # marge propre au cercle, ajuste à ton goût (0 = collé au bord)
         cercle_rect = QRectF(
-            jar_rect.right() + gap + (zone_droite_w - diam_cercle) / 2,
-            content_rect.top() + (content_rect.height() - diam_cercle) / 2,
+            rect_carte.right() - diam_cercle - marge_cercle,
+            rect_carte.top() + marge_cercle,
             diam_cercle,
             diam_cercle,
         )

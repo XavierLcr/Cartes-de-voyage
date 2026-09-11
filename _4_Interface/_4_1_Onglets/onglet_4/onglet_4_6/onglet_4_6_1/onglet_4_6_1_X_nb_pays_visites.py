@@ -1387,7 +1387,6 @@ class CompteurCirculaireWidget(QWidget):
         self._dessiner_verre_corps(painter, contour)
 
         self._dessiner_sable(painter, m, percent)
-        # self._dessiner_pluie(painter, m)
 
         # Contour en dégradé horizontal (bords plus sombres, centre plus
         # clair) pour suggérer la courbure/épaisseur du verre plutôt

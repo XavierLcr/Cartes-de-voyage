@@ -22,11 +22,10 @@ def _dessiner_poisson(
     taille: float,
     sens: float,
     couleur: QColor,
-    requin: bool = False,
     phase: float = 0.0,
     degrade: bool = True,
 ) -> None:
-    """Dessine un poisson (ou requin) stylisé, orienté vers la droite si
+    """Dessine un poisson stylisé, orienté vers la droite si
     `sens > 0`, vers la gauche sinon. `taille` correspond grossièrement à
     la longueur totale (corps + queue).
 
@@ -43,8 +42,8 @@ def _dessiner_poisson(
     if sens < 0:
         painter.scale(-1, 1)  # symétrie horizontale : nage vers la gauche
 
-    corps_l = taille * (0.62 if not requin else 0.68)
-    corps_h = taille * (0.34 if not requin else 0.30)
+    corps_l = taille * 0.62
+    corps_h = taille * 0.34
 
     trait = QColor(couleur).darker(140)
     trait.setAlpha(200)
@@ -98,32 +97,11 @@ def _dessiner_poisson(
     queue.closeSubpath()
     painter.drawPath(queue)
 
-    # --- nageoire dorsale ---
-    if requin:
-        dorsale = QPainterPath()
-        dorsale.moveTo(-taille * 0.02, -corps_h * 0.42)
-        dorsale.lineTo(taille * 0.06, -corps_h * 1.05)
-        dorsale.lineTo(taille * 0.14, -corps_h * 0.42)
-        dorsale.closeSubpath()
-        painter.drawPath(dorsale)
-
-        # ouïes : petites fentes derrière la tête
-        ouies_pen = QPen(trait)
-        ouies_pen.setWidthF(max(0.6, taille * 0.02))
-        painter.setPen(ouies_pen)
-        for i in range(3):
-            ox = corps_l * 0.10 + i * taille * 0.03
-            painter.drawLine(
-                QPointF(ox, -corps_h * 0.30),
-                QPointF(ox - taille * 0.02, corps_h * 0.30),
-            )
-        painter.setPen(pen)
-    else:
-        dorsale = QPainterPath()
-        dorsale.moveTo(-taille * 0.05, -corps_h * 0.40)
-        dorsale.quadTo(taille * 0.05, -corps_h * 0.78, taille * 0.15, -corps_h * 0.38)
-        dorsale.closeSubpath()
-        painter.drawPath(dorsale)
+    dorsale = QPainterPath()
+    dorsale.moveTo(-taille * 0.05, -corps_h * 0.40)
+    dorsale.quadTo(taille * 0.05, -corps_h * 0.78, taille * 0.15, -corps_h * 0.38)
+    dorsale.closeSubpath()
+    painter.drawPath(dorsale)
 
     # --- œil (avec reflet) ---
     painter.setPen(Qt.PenStyle.NoPen)
@@ -139,14 +117,5 @@ def _dessiner_poisson(
         oeil_r * 0.15,
         oeil_r * 0.15,
     )
-
-    # --- bouche (requin uniquement) ---
-    if requin:
-        painter.setPen(pen)
-        painter.setBrush(Qt.BrushStyle.NoBrush)
-        bouche = QPainterPath()
-        bouche.moveTo(corps_l * 0.30, corps_h * 0.05)
-        bouche.quadTo(corps_l * 0.20, corps_h * 0.25, corps_l * 0.05, corps_h * 0.10)
-        painter.drawPath(bouche)
 
     painter.restore()

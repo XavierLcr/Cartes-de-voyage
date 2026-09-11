@@ -34,10 +34,10 @@ from _4_Interface._4_2_Style._4_2_1_style_principal import (
     renvoyer_couleur_texte,
     renvoyer_couleur_widget_differente,
 )
-from _4_Interface._4_3_Icones._4_3_1_soleil_souriant import _dessiner_icone_soleil
-from _4_Interface._4_3_Icones._4_3_2_flocon_neige import _dessiner_icone_flocon
-from _4_Interface._4_3_Icones._4_3_3_feuille_automne import _dessiner_icone_feuille
-from _4_Interface._4_3_Icones._4_3_4_jeune_pousse import _dessiner_icone_pousse
+from _4_Interface._4_3_Icones._4_3_01_soleil_souriant import _dessiner_icone_soleil
+from _4_Interface._4_3_Icones._4_3_02_flocon_neige import _dessiner_icone_flocon
+from _4_Interface._4_3_Icones._4_3_03_feuille_automne import _dessiner_icone_feuille
+from _4_Interface._4_3_Icones._4_3_04_jeune_pousse import _dessiner_icone_pousse
 
 # Initiales des mois, dans l'ordre calendaire (index 0 = janvier)
 NOMS_MOIS_INITIALES = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"]

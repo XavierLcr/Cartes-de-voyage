@@ -52,6 +52,74 @@ from _4_Interface._4_3_Icones._4_3_34_poissons import (
 # 0 -- Thème du widget ---------------------------------------------------------
 
 
+def _blend_couleur(c1: QColor, c2: QColor, t: float) -> QColor:
+    return QColor(
+        int(c1.red() + (c2.red() - c1.red()) * t),
+        int(c1.green() + (c2.green() - c1.green()) * t),
+        int(c1.blue() + (c2.blue() - c1.blue()) * t),
+    )
+
+
+def _couleur_lisible(fond: QColor) -> QColor:
+    """Renvoie du texte clair ou sombre selon la luminance perçue du
+    fond, pour rester lisible quelle que soit la teinte du disque
+    (nuit sombre, jour clair, aube/crépuscule orangés)."""
+    luminance = (0.299 * fond.red() + 0.587 * fond.green() + 0.114 * fond.blue()) / 255
+    return QColor("#1c1f2b") if luminance > 0.55 else QColor("#F5F3EE")
+
+
+from datetime import datetime, time as time_cls
+
+
+def phase_journee(instant: datetime | None = None) -> float:
+    """
+    Position dans le cycle jour/nuit, en continu :
+    0.0 / 1.0 = minuit
+    0.25      = lever du soleil (~6h)
+    0.5       = midi
+    0.75      = coucher du soleil (~18h)
+    Ajuste les bornes ci-dessous si tu veux un cycle plus réaliste
+    selon la saison plutôt que fixe.
+    """
+    if instant is None:
+        instant = datetime.now()
+    secondes = instant.hour * 3600 + instant.minute * 60 + instant.second
+    return secondes / 86400.0
+
+
+# Bornes des moments-clés (en phase 0-1), ajustables
+_NUIT_FIN = 0.22  # ~5h17 : fin de nuit, début de l'aube
+_JOUR_DEBUT = 0.30  # ~7h12 : soleil bien levé
+_JOUR_FIN = 0.70  # ~16h48 : plein jour jusque-là
+_NUIT_DEBUT = 0.78  # ~18h43 : nuit installée
+
+
+def _poids_moments(phase: float) -> dict:
+    """
+    Renvoie les poids (0-1, somme = 1) de chaque moment pour la phase
+    donnée, avec transitions douces (aube / crépuscule) plutôt que des
+    bascules brutales. Clés : 'nuit', 'aube', 'jour', 'crepuscule'.
+    """
+
+    def lisser(a, b, x):
+        if b <= a:
+            return 1.0
+        t = max(0.0, min(1.0, (x - a) / (b - a)))
+        return t * t * (3 - 2 * t)  # smoothstep
+
+    if phase <= _NUIT_FIN:
+        return {"nuit": 1.0, "aube": 0.0, "jour": 0.0, "crepuscule": 0.0}
+    if phase <= _JOUR_DEBUT:
+        t = lisser(_NUIT_FIN, _JOUR_DEBUT, phase)
+        return {"nuit": 1 - t, "aube": t, "jour": 0.0, "crepuscule": 0.0}
+    if phase <= _JOUR_FIN:
+        return {"nuit": 0.0, "aube": 0.0, "jour": 1.0, "crepuscule": 0.0}
+    if phase <= _NUIT_DEBUT:
+        t = lisser(_JOUR_FIN, _NUIT_DEBUT, phase)
+        return {"nuit": 0.0, "aube": 0.0, "jour": 1 - t, "crepuscule": t}
+    return {"nuit": 1.0, "aube": 0.0, "jour": 0.0, "crepuscule": 0.0}
+
+
 class CompteurTheme:
     """
     Palette de couleurs du widget compteur.
@@ -229,6 +297,13 @@ class CompteurCirculaireWidget(QWidget):
     """
 
     NB_GRAINS = 1000
+
+    _TEINTES_DISQUE = {
+        "nuit": {"centre": "#232A52", "bord": "#12142B", "rim": "#B9C4E0"},
+        "aube": {"centre": "#FDE0B0", "bord": "#F3A66B", "rim": "#F7C88A"},
+        "jour": {"centre": "#FFFCF2", "bord": "#FFF3D2", "rim": "#F0C452"},
+        "crepuscule": {"centre": "#F6B27C", "bord": "#D96A5C", "rim": "#F2914F"},
+    }
 
     def __init__(
         self,
@@ -688,6 +763,22 @@ class CompteurCirculaireWidget(QWidget):
     # Rendu
     # ---------------------------------------------------------------
 
+    def _teintes_disque(self, poids: dict) -> dict:
+        """Mélange pondéré des teintes centre/bord/rim selon les poids
+        horaires actifs (transition continue, pas de bascule brutale)."""
+        resultat = {}
+        for cle in ("centre", "bord", "rim"):
+            r = g = b = 0.0
+            for moment, w in poids.items():
+                if w <= 0:
+                    continue
+                c = QColor(self._TEINTES_DISQUE[moment][cle])
+                r += c.red() * w
+                g += c.green() * w
+                b += c.blue() * w
+            resultat[cle] = QColor(int(r), int(g), int(b))
+        return resultat
+
     def _dessiner_glow(
         self, painter: QPainter, cercle_rect: QRectF, side_cercle: float
     ) -> None:
@@ -1115,13 +1206,17 @@ class CompteurCirculaireWidget(QWidget):
         return debut, milieu, fin
 
     def _dessiner_cercle_donnees(
-        self, painter: QPainter, cercle_rect: QRectF, percent: float
+        self, painter: QPainter, cercle_rect: QRectF, percent: float, poids_ciel: dict
     ) -> None:
         """
         Anneau de progression contenant les données (valeur, libellé,
-        pourcentage), à droite du bocal — même esprit que l'ancienne
-        version du widget, recoloré dans la même famille sable que le
-        bocal qui se remplit à côté.
+        pourcentage), à droite du bocal. Le fond du disque intérieur et son
+        liseré changent de teinte selon l'heure du jour (`poids_ciel`,
+        issu de `_poids_moments(phase_journee())`) : bleu nuit + liseré
+        argenté la nuit, crème + liseré doré le jour, tons orangés à
+        l'aube/au crépuscule — un clin d'œil soleil/lune sans ajouter de
+        forme supplémentaire dans la carte. L'anneau de progression
+        lui-même reste dans la famille sable du thème, inchangé.
         """
         side_cercle = cercle_rect.width()
         arc_width = max(4.0, side_cercle * self._arc_width_ratio)
@@ -1132,6 +1227,27 @@ class CompteurCirculaireWidget(QWidget):
             cercle_rect.width() - 2 * marge,
             cercle_rect.height() - 2 * marge,
         )
+
+        # --- fond du disque intérieur : teinte selon l'heure du jour ---
+        teintes = self._teintes_disque(poids_ciel)
+        rayon_interieur = rect_arc.width() / 2 - arc_width * 0.5
+
+        gradient_fond = QRadialGradient(
+            rect_arc.center() - QPointF(rayon_interieur * 0.15, rayon_interieur * 0.15),
+            rayon_interieur * 1.15,
+        )
+        gradient_fond.setColorAt(0.0, teintes["centre"])
+        gradient_fond.setColorAt(1.0, teintes["bord"])
+        painter.setPen(Qt.PenStyle.NoPen)
+        painter.setBrush(QBrush(gradient_fond))
+        painter.drawEllipse(rect_arc.center(), rayon_interieur, rayon_interieur)
+
+        # --- fin liseré "type lune/soleil", juste sous la piste ---
+        pen_rim = QPen(teintes["rim"])
+        pen_rim.setWidthF(max(1.0, side_cercle * 0.012))
+        painter.setPen(pen_rim)
+        painter.setBrush(Qt.BrushStyle.NoBrush)
+        painter.drawEllipse(rect_arc.center(), rayon_interieur, rayon_interieur)
 
         # --- piste (arc de fond, toujours complet) ---
         pen = QPen(self.theme.piste)
@@ -1168,8 +1284,13 @@ class CompteurCirculaireWidget(QWidget):
             r_coeur = arc_width * 0.22
             painter.drawEllipse(point_fin, r_coeur, r_coeur)
 
+        # --- couleurs de texte lisibles sur le fond dynamique du disque ---
+        couleur_texte_dyn = _couleur_lisible(teintes["centre"])
+        couleur_sous_texte_dyn = QColor(couleur_texte_dyn)
+        couleur_sous_texte_dyn.setAlpha(160)
+
         # --- valeur centrale ---
-        painter.setPen(self.theme.texte)
+        painter.setPen(couleur_texte_dyn)
         police_valeur = QFont(
             "Segoe UI", max(9, int(side_cercle * 0.19)), QFont.Weight.Bold
         )
@@ -1185,7 +1306,7 @@ class CompteurCirculaireWidget(QWidget):
         texte_etiquette = fm_etiquette.elidedText(
             self.label_text, Qt.TextElideMode.ElideRight, int(largeur_dispo)
         )
-        painter.setPen(self.theme.sous_texte)
+        painter.setPen(couleur_sous_texte_dyn)
         painter.setFont(police_etiquette)
         rect_etiquette = rect_arc.adjusted(0, side_cercle * 0.15, 0, side_cercle * 0.15)
         painter.drawText(rect_etiquette, Qt.AlignmentFlag.AlignCenter, texte_etiquette)
@@ -1509,7 +1630,12 @@ class CompteurCirculaireWidget(QWidget):
         if diam_cercle > 0:
             if self._glow_opacity > 0:
                 self._dessiner_glow(painter, cercle_rect, diam_cercle)
-            self._dessiner_cercle_donnees(painter, cercle_rect, percent)
+            self._dessiner_cercle_donnees(
+                painter=painter,
+                cercle_rect=cercle_rect,
+                percent=percent,
+                poids_ciel=_poids_moments(phase_journee()),
+            )
 
     def relancer_animation(self) -> None:
         """Relance l'animation du compteur sans modifier les données."""

@@ -274,7 +274,7 @@ class CompteurCirculaireWidget(QWidget):
         # le sable plutôt que posé bien droit — l'angle est positif car
         # `QPainter.rotate` tourne dans le sens horaire : le col penche
         # donc vers la droite, dans le sens où la plage s'enfonce.
-        self._echelle_bocal = 0.85
+        self._echelle_bocal = 0.6
         self._angle_inclinaison_bocal = 10.0  # degrés
 
         # --- sable (bocal) ---
@@ -1421,8 +1421,8 @@ class CompteurCirculaireWidget(QWidget):
 
         # --- zone de contenu : bocal à gauche, cercle de données à droite
         # (widget plus large que haut, donc pas d'empilement vertical) ---
-        marge_h = side * 0.16
-        marge_v = side * 0.10
+        marge_h = side * 0.2
+        marge_v = side * 0.1
         content_rect = rect_carte.adjusted(marge_h, marge_v, -marge_h, -marge_v)
 
         jar_h_max = content_rect.height()

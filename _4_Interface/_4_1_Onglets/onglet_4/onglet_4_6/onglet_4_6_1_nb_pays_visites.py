@@ -53,14 +53,6 @@ from _4_Interface._4_3_Icones._4_3_34_poissons import (
 # 0 -- Thème du widget ---------------------------------------------------------
 
 
-def _couleur_lisible(fond: QColor) -> QColor:
-    """Renvoie du texte clair ou sombre selon la luminance perçue du
-    fond, pour rester lisible quelle que soit la teinte du disque
-    (nuit sombre, jour clair, aube/crépuscule orangés)."""
-    luminance = (0.299 * fond.red() + 0.587 * fond.green() + 0.114 * fond.blue()) / 255
-    return QColor("#1c1f2b") if luminance > 0.55 else QColor("#F5F3EE")
-
-
 def phase_journee(instant: datetime | None = None) -> float:
     """
     Position dans le cycle jour/nuit, en continu :
@@ -1274,7 +1266,9 @@ class CompteurCirculaireWidget(QWidget):
             painter.drawEllipse(point_fin, r_coeur, r_coeur)
 
         # --- couleurs de texte lisibles sur le fond dynamique du disque ---
-        couleur_texte_dyn = _couleur_lisible(teintes["centre"])
+        couleur_texte_dyn = QColor(
+            renvoyer_couleur_texte(style=0, couleur=teintes["centre"].name())
+        )
         couleur_sous_texte_dyn = QColor(couleur_texte_dyn)
         couleur_sous_texte_dyn.setAlpha(160)
 

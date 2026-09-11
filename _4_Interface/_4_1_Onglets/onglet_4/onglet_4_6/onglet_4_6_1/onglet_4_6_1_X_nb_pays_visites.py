@@ -28,10 +28,7 @@ from PyQt6.QtGui import (
     QBrush,
     QPen,
     QColor,
-    QFont,
-    QFontMetrics,
     QRadialGradient,
-    QConicalGradient,
     QLinearGradient,
 )
 from PyQt6.QtWidgets import QWidget, QSizePolicy, QGraphicsDropShadowEffect

@@ -42,12 +42,6 @@ from _4_Interface._4_2_Style._4_2_1_style_principal import (
     renvoyer_couleur_texte,
     renvoyer_couleur_widget_differente,
 )
-from _4_Interface._4_3_Icones._4_3_32_etoile_de_mer import _dessiner_etoile_mer
-from _4_Interface._4_3_Icones._4_3_33_coquillage import _dessiner_coquillage
-from _4_Interface._4_3_Icones._4_3_34_poissons import (
-    _dessiner_poisson,
-    _generer_poissons,
-)
 
 # 1 -- Phase de la journée -----------------------------------------------------
 

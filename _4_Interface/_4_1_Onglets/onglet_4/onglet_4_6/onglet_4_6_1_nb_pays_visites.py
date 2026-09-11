@@ -502,6 +502,9 @@ class CompteurCirculaireWidget(QWidget):
                     "echelle": rng.uniform(0.5, 1.2),
                     "teinte_t": rng.uniform(0.0, 1.0),
                     "etincelle": rng.random() < 0.05,
+                    "freq_jitter": rng.uniform(1.5, 3.2),
+                    "phase_jitter": rng.uniform(0.0, math.tau),
+                    "amplitude_jitter": rng.uniform(0.4, 1.1),
                 }
             )
         self._pluie = grains
@@ -578,6 +581,20 @@ class CompteurCirculaireWidget(QWidget):
         chemin.lineTo(col_x1_haut, haut_col)
         chemin.closeSubpath()
         return chemin
+
+    @staticmethod
+    def _rotar_point_bocal(point: QPointF, pivot: QPointF, angle_deg: float) -> QPointF:
+        """Applique la même rotation que celle utilisée pour incliner le bocal
+        (rotation autour de `pivot`), afin de convertir un point calculé dans
+        le repère local (non incliné) du bocal vers ses coordonnées réelles
+        à l'écran."""
+        angle = math.radians(angle_deg)
+        dx = point.x() - pivot.x()
+        dy = point.y() - pivot.y()
+        cos_a, sin_a = math.cos(angle), math.sin(angle)
+        x = dx * cos_a - dy * sin_a
+        y = dx * sin_a + dy * cos_a
+        return QPointF(pivot.x() + x, pivot.y() + y)
 
     # ---------------------------------------------------------------
     # Géométrie de la plage
@@ -761,13 +778,19 @@ class CompteurCirculaireWidget(QWidget):
 
         painter.restore()
 
-    def _dessiner_pluie(self, painter: QPainter, m: dict) -> None:
-        """Dessine les grains actuellement 'en vol', tombant du haut du
-        widget, à travers le col désormais ouvert du bocal, vers la
-        surface du sable en formation. Pas de clip supplémentaire ici :
-        on hérite du clip ambiant (la carte arrondie) posé dans
-        `paintEvent`, pour que la chute reste visible au-dessus du
-        bocal, pas seulement une fois entrée dedans."""
+    def _dessiner_pluie(
+        self, painter: QPainter, m: dict, pivot: QPointF, angle_deg: float
+    ) -> None:
+        """Dessine les grains actuellement 'en vol'. Le point d'ENTRÉE (haut
+        du col) est calculé dans le repère local du bocal puis tourné comme
+        le bocal -- il doit rester aligné avec le col tel qu'il apparaît,
+        incliné, à l'écran, sinon le sable semble tomber à côté de
+        l'ouverture. Le point d'ARRIVÉE (sur le tas de sable) est lui aussi
+        tourné, pour tomber au bon endroit sur le tas. Entre les deux, la
+        chute reste presque verticale (x quasi constant, ancré au col) et
+        ne dérive vers la position d'arrivée qu'en toute fin de course,
+        comme un grain qui se tasse en se posant plutôt qu'une ligne
+        diagonale rigide."""
         if not self._pluie:
             return
 
@@ -779,8 +802,6 @@ class CompteurCirculaireWidget(QWidget):
 
         col_x0 = m["cx"] - m["col_largeur"] / 2
         col_x1 = m["cx"] + m["col_largeur"] / 2
-        y_depart = m["y0"] - (y1 - m["y0"]) * 0.4  # départ au-dessus du bocal
-
         largeur = x1 - x0
         rayon_base = largeur * 0.020
         global_t = self._pluie_progress
@@ -791,13 +812,49 @@ class CompteurCirculaireWidget(QWidget):
             delai = grain["delay"]
             fin = min(1.0, delai + grain["duree"])
             if global_t <= delai or global_t >= fin:
-                continue  # pas encore parti, ou déjà posé
+                continue
             local_t = (global_t - delai) / max(1e-6, fin - delai)
             eased = self._easing_chute.valueForProgress(max(0.0, min(1.0, local_t)))
 
-            x_reel = col_x0 + grain["nx_neck"] * (col_x1 - col_x0)
-            y_cible = corps_haut + grain["ny_cible"] * hauteur_dispo
-            y_reel = y_depart + (y_cible - y_depart) * eased
+            # -- Point d'entrée : haut du col, en repère local, tourné
+            # comme le bocal -- c'est LA référence visuelle pour l'ouverture.
+            x_local_entree = col_x0 + grain["nx_neck"] * (col_x1 - col_x0)
+            point_entree = self._rotar_point_bocal(
+                QPointF(x_local_entree, m["y0"]), pivot, angle_deg
+            )
+
+            # -- Point d'arrivée : sur le tas de sable, en repère local,
+            # tourné pareillement, pour se poser au bon endroit du tas.
+            y_cible_local = corps_haut + grain["ny_cible"] * hauteur_dispo
+            point_arrivee = self._rotar_point_bocal(
+                QPointF(x_local_entree, y_cible_local), pivot, angle_deg
+            )
+
+            # Départ, au-dessus du bocal, aligné en x avec le point d'entrée
+            # (pas avec un y0 non tourné) pour que le grain vienne bien
+            # d'au-dessus de l'ouverture telle qu'elle apparaît à l'écran.
+            y_depart = point_entree.y() - (y1 - m["y0"]) * 0.4
+
+            # X : quasi figé sur le point d'entrée pendant la majorité de la
+            # chute (verticale), et ne dérive vers le point d'arrivée que
+            # sur la fin (tassement), via un blend non-linéaire.
+            blend_x = eased**2.4
+            x_reel = point_entree.x() + (point_arrivee.x() - point_entree.x()) * blend_x
+
+            # Y : interpolation classique entre départ et arrivée.
+            y_reel = y_depart + (point_arrivee.y() - y_depart) * eased
+
+            # Léger tremblement horizontal, nul au départ et à l'arrivée.
+            jitter = (
+                math.sin(
+                    local_t * grain["freq_jitter"] * math.tau + grain["phase_jitter"]
+                )
+                * grain["amplitude_jitter"]
+                * rayon_base
+                * 2.5
+                * math.sin(local_t * math.pi)
+            )
+            x_reel += jitter
 
             rayon = rayon_base * grain["echelle"]
             if grain["etincelle"]:
@@ -1563,7 +1620,7 @@ class CompteurCirculaireWidget(QWidget):
         self._dessiner_verre_corps(painter, contour)
 
         self._dessiner_sable(painter, m, percent)
-        self._dessiner_pluie(painter, m)
+        # self._dessiner_pluie(painter, m)
 
         # Contour en dégradé horizontal (bords plus sombres, centre plus
         # clair) pour suggérer la courbure/épaisseur du verre plutôt
@@ -1585,6 +1642,11 @@ class CompteurCirculaireWidget(QWidget):
         self._dessiner_reflet_verre(painter, m, contour)
 
         painter.restore()
+
+        # Pluie de sable dessinée hors rotation, pour une chute verticale
+        # indépendante de l'inclinaison du bocal.
+        self._dessiner_pluie(painter, m, pivot, self._angle_inclinaison_bocal)
+
         self._dessiner_mer(painter, rect_carte)
 
         # --- plage de sable : dessinée après le bocal, pour que sa base

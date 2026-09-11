@@ -199,19 +199,6 @@ class CompteurCirculaireWidget(QWidget):
         self.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
 
-        # Ombre portée : mêmes réglages que la carte voisine (blur 30,
-        # décalage (0, 8), couleur dérivée du texte).
-        _ombre_effet = QGraphicsDropShadowEffect(self)
-        _ombre_effet.setBlurRadius(30)
-        _ombre_effet.setOffset(0, 8)
-        _ombre_effet.setColor(
-            _QColor_avec_alpha(
-                couleur=QColor(renvoyer_couleur_texte(style=0, couleur="#FFFFFF")),
-                alpha=120,
-            )
-        )
-        self.setGraphicsEffect(_ombre_effet)
-
         self._value_anim = QPropertyAnimation(self, b"animatedValue", self)
         self._value_anim.setEasingCurve(QEasingCurve.Type.OutCubic)
         self._value_anim.finished.connect(self._on_anim_terminee)

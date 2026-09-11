@@ -1,0 +1,249 @@
+################################################################################
+# Projet de cartes de voyage                                                   #
+# _4_Interface/_4_1_Onglets/onglet_4/onglet_4_6                                #
+# Onglet 4.6.1.2 – Mer animée (bulles + poissons)                              #
+################################################################################
+
+
+# 0 -- Initialisation ----------------------------------------------------------
+
+
+from __future__ import annotations
+import math
+import random
+from typing import List
+
+from PyQt6.QtCore import Qt, QRectF, QPointF, QTimer
+from PyQt6.QtGui import (
+    QPainter,
+    QPainterPath,
+    QPen,
+    QColor,
+    QRadialGradient,
+    QLinearGradient,
+)
+
+from _4_Interface._4_3_Icones._4_3_34_poissons import (
+    _dessiner_poisson,
+    _generer_poissons,
+)
+
+# 1 -- Classe de la mer --------------------------------------------------------
+
+
+class MerAnimee:
+    """
+    Mer animée (dégradé d'eau, bulles montantes, poissons qui nagent),
+    destinée à être dessinée en bande pleine largeur dans le bas d'une
+    carte hôte (widget compteur, widget verre d'eau, ou tout autre
+    widget partageant le même besoin).
+
+    Composition plutôt qu'héritage de QWidget : la mer ne possède pas
+    sa propre surface, elle est peinte directement sur le QPainter du
+    widget hôte, dans son `paintEvent`, à l'endroit de l'ordre de
+    dessin choisi par l'appelant (ex. avant la plage, pour que celle-ci
+    recouvre naturellement le bas de la mer).
+
+    Gère son propre timer d'animation : `demarrer()` / `arreter()`.
+    """
+
+    def __init__(
+        self,
+        n_bulles: int = 25,
+        n_poissons: int = 6,
+        niveau_mer_ratio: float = 1 / 3,
+        intervalle_ms: int = 30,
+        parent=None,
+    ) -> None:
+        self._niveau_mer_ratio = (
+            niveau_mer_ratio  # fraction basse de la carte occupée par la mer
+        )
+        self._phase_mer = 0.0
+
+        self._bulles_mer = self._generer_bulles_mer(n_bulles)
+        self._poissons = _generer_poissons(int(max(1, n_poissons)))
+
+        self._intervalle_ms = intervalle_ms
+        self._timer = QTimer(parent)
+        self._timer.timeout.connect(self._animer)
+        self._on_tick = (
+            None  # callback optionnel appelé après chaque pas (ex. self.update())
+        )
+
+    # ---------------------------------------------------------------
+    # Cycle de vie du timer
+    # ---------------------------------------------------------------
+    def demarrer(self, on_tick=None) -> None:
+        """Démarre l'animation. `on_tick`, si fourni, est appelé après
+        chaque pas de simulation (typiquement `widget.update()`)."""
+        if on_tick is not None:
+            self._on_tick = on_tick
+        if not self._timer.isActive():
+            self._timer.start(self._intervalle_ms)
+
+    def arreter(self) -> None:
+        self._timer.stop()
+
+    # ---------------------------------------------------------------
+    # Génération
+    # ---------------------------------------------------------------
+    def _generer_bulles_mer(self, n: int) -> List[dict]:
+        rng = random.Random(4)
+        return [
+            {
+                "nx": rng.uniform(0.04, 0.96),
+                "ny": rng.uniform(0.05, 0.95),
+                "r_ratio": rng.uniform(0.010, 0.026),  # rayon / largeur de la mer
+                "vitesse": rng.uniform(0.0012, 0.003),
+                "phase": rng.uniform(0.0, math.tau),
+            }
+            for _ in range(n)
+        ]
+
+    # ---------------------------------------------------------------
+    # Simulation
+    # ---------------------------------------------------------------
+    def _animer(self) -> None:
+        self._phase_mer += 0.055
+        for bulle in self._bulles_mer:
+            bulle["ny"] -= bulle["vitesse"]
+            if bulle["ny"] < 0.05:
+                bulle["ny"] = 0.98
+                bulle["nx"] = random.uniform(0.04, 0.96)
+
+        for poisson in self._poissons:
+            poisson["nx"] += poisson["vitesse"] * poisson["sens"] * 0.03
+            if poisson["nx"] > 1.05:
+                poisson["nx"] = 1.05
+                poisson["sens"] = -1
+            elif poisson["nx"] < -0.05:
+                poisson["nx"] = -0.05
+                poisson["sens"] = 1
+
+        if self._on_tick is not None:
+            self._on_tick()
+
+    # ---------------------------------------------------------------
+    # Rendu
+    # ---------------------------------------------------------------
+    def dessiner(self, painter: QPainter, rect_carte: QRectF) -> None:
+        """Dessine la mer, ses bulles et ses poissons dans `rect_carte`
+        (bande pleine largeur occupant le tiers inférieur, par défaut)."""
+        gauche = rect_carte.left()
+        droite = rect_carte.right()
+        largeur = droite - gauche
+        bas = rect_carte.bottom()
+        niveau_mer = rect_carte.top() + rect_carte.height() * (
+            1 - self._niveau_mer_ratio
+        )
+
+        def _y_surface_mer(t: float) -> float:
+            return (
+                niveau_mer
+                + math.sin(t * math.tau * 2 + self._phase_mer) * largeur * 0.008
+                + math.sin(t * math.tau * 5 - self._phase_mer * 0.7) * largeur * 0.004
+            )
+
+        # --- forme de la mer (surface ondulée -> fond plat) ---
+        mer = QPainterPath()
+        mer.moveTo(gauche, niveau_mer)
+        n_pts = 60
+        for i in range(n_pts + 1):
+            t = i / n_pts
+            x = gauche + largeur * t
+            y = _y_surface_mer(t=t)
+            mer.lineTo(x, y)
+        mer.lineTo(droite, bas)
+        mer.lineTo(gauche, bas)
+        mer.closeSubpath()
+
+        # --- dégradé de l'eau ---
+        gradient = QLinearGradient(0, niveau_mer, 0, bas)
+        gradient.setColorAt(0.0, QColor(120, 205, 225, 130))
+        gradient.setColorAt(0.25, QColor(90, 185, 215, 150))
+        gradient.setColorAt(0.70, QColor(55, 145, 190, 175))
+        gradient.setColorAt(1.0, QColor(30, 105, 155, 200))
+
+        painter.setPen(Qt.PenStyle.NoPen)
+        painter.setBrush(gradient)
+        painter.drawPath(mer)
+
+        # --- lumière sous la surface ---
+        painter.save()
+        painter.setClipPath(mer)
+        lumiere = QRadialGradient(
+            QPointF(gauche + largeur * 0.32, niveau_mer + largeur * 0.10),
+            largeur * 0.7,
+        )
+        lumiere.setColorAt(0, QColor(220, 250, 255, 90))
+        lumiere.setColorAt(1, QColor(220, 250, 255, 0))
+        painter.setBrush(lumiere)
+        painter.drawEllipse(
+            QRectF(gauche - largeur * 0.3, niveau_mer, largeur * 1.6, largeur * 0.9)
+        )
+        painter.restore()
+
+        # --- bulles ---
+        painter.save()
+        painter.setClipPath(mer)
+        hauteur_mer = bas - niveau_mer
+        for bulle in self._bulles_mer:
+            x = gauche + bulle["nx"] * largeur
+            x += math.sin(self._phase_mer * 1.5 + bulle["phase"]) * largeur * 0.01
+            y = niveau_mer + bulle["ny"] * hauteur_mer
+            r = bulle["r_ratio"] * largeur
+
+            gradient_bulle = QRadialGradient(QPointF(x - r * 0.3, y - r * 0.3), r)
+            gradient_bulle.setColorAt(0, QColor(255, 255, 255, 150))
+            gradient_bulle.setColorAt(1, QColor(210, 245, 255, 25))
+            painter.setBrush(gradient_bulle)
+            painter.setPen(QPen(QColor(255, 255, 255, 90), 0.7))
+            painter.drawEllipse(QRectF(x - r, y - r, 2 * r, 2 * r))
+
+        painter.restore()
+
+        # --- poissons qui nagent ---
+        painter.save()
+        painter.setClipPath(mer)
+        hauteur_mer = bas - niveau_mer
+        for poisson in self._poissons:
+            x = gauche + poisson["nx"] * largeur
+            y = (
+                niveau_mer
+                + poisson["ny"] * hauteur_mer
+                + math.sin(self._phase_mer * 2.0 + poisson["phase"])
+                * hauteur_mer
+                * poisson["amplitude_verticale"]
+            )
+            taille = (
+                largeur
+                * 0.10
+                * poisson["echelle"]
+                * (1.3 if poisson["requin"] else 1.0)
+            )
+            _dessiner_poisson(
+                painter,
+                QPointF(x, y),
+                taille,
+                poisson["sens"],
+                poisson["couleur"],
+                requin=poisson["requin"],
+                phase=self._phase_mer * poisson.get("vitesse_nage", 3.0)
+                + poisson["phase"],
+            )
+        painter.restore()
+
+        # --- ligne de surface ---
+        surface = QPainterPath()
+        for i in range(n_pts + 1):
+            t = i / n_pts
+            x = gauche + largeur * t
+            y = _y_surface_mer(t=t)
+            if i == 0:
+                surface.moveTo(x, y)
+            else:
+                surface.lineTo(x, y)
+
+        painter.setBrush(Qt.BrushStyle.NoBrush)
+        painter.setPen(QPen(QColor(225, 250, 255, 185), 1.4))
+        painter.drawPath(surface)

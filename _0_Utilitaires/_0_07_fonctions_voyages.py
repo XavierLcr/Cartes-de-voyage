@@ -79,7 +79,7 @@ def detecter_type_yaml(dictionnaire: dict):
     # Cas 3 : le dictionnaire correspond à un des deux anciens dictionnaires
     for pays, liste_div in dictionnaire.items():
         for div in liste_div:
-            if div not in list(hierarchie_par_pays.get(pays).keys()):
+            if div not in list(hierarchie_par_pays.get(pays, {}).keys()):
                 return "dep"
 
     return "region"

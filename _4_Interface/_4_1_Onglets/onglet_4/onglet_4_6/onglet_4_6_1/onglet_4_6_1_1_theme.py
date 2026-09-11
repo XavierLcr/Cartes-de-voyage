@@ -50,7 +50,7 @@ def _poids_moments(phase: float) -> dict:
     _NUIT_FIN = 0.22  # ~5h17 : fin de nuit, début de l'aube
     _JOUR_DEBUT = 0.30  # ~7h12 : soleil bien levé
     _JOUR_FIN = 0.70  # ~16h48 : plein jour jusque-là
-    _NUIT_DEBUT = 0.78  # ~18h43 : nuit installée
+    _NUIT_DEBUT = 0.80  # ~19h12 : nuit installée
 
     def lisser(a, b, x):
         if b <= a:

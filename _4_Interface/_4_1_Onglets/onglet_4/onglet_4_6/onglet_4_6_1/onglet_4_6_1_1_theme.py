@@ -10,38 +10,12 @@
 
 from __future__ import annotations
 import math
-import random
 from datetime import datetime
-from typing import List, Optional, Tuple
 
-from PyQt6.QtCore import (
-    Qt,
-    QRectF,
-    QPointF,
-    QPropertyAnimation,
-    QEasingCurve,
-    pyqtProperty,
-    QTimer,
-)
-from PyQt6.QtGui import (
-    QPainter,
-    QPainterPath,
-    QBrush,
-    QPen,
-    QColor,
-    QFont,
-    QFontMetrics,
-    QRadialGradient,
-    QConicalGradient,
-    QLinearGradient,
-)
-from PyQt6.QtWidgets import QWidget, QSizePolicy, QGraphicsDropShadowEffect
+from PyQt6.QtGui import QColor
 
-from _4_Interface._4_2_Style._4_2_1_style_principal import (
-    renvoyer_couleur_widget,
-    renvoyer_couleur_texte,
-    renvoyer_couleur_widget_differente,
-)
+from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import _QColor_avec_alpha
+from _4_Interface._4_2_Style._4_2_1_style_principal import renvoyer_couleur_texte
 
 # 1 -- Phase de la journée -----------------------------------------------------
 
@@ -240,3 +214,77 @@ def interpoler_couleurs(
         return resultat.name()
 
     return "#FFFFFF"
+
+
+# 4 -- Thème du widget ---------------------------------------------------------
+
+
+class CompteurTheme:
+    """
+    Palette de couleurs du widget de compteur de pays visités.
+    """
+
+    def __init__(self):
+
+        self._PALETTE = {
+            "nuit": {
+                "centre": "#232A52",
+                "bord": "#12142B",
+                "rim": "#B9C4E0",
+                "fond": "#1A1F3D",
+                "progression_debut": "#8A78C8",
+                "progression_fin": "#C7B9F2",
+                "cercle_tour": "#B9C4E0",
+            },
+            "aube": {
+                "centre": "#FDE0B0",
+                "bord": "#F3A66B",
+                "rim": "#F7C88A",
+                "fond": "#F4E5D5",
+                "progression_debut": "#D98762",
+                "progression_fin": "#F5C98D",
+                "cercle_tour": "#F7C88A",
+            },
+            "jour": {
+                "centre": "#FFFCF2",
+                "bord": "#FFF3D2",
+                "rim": "#F0C452",
+                "fond": "#F3F4F8",
+                "progression_debut": "#C9902F",
+                "progression_fin": "#F3D48C",
+                "cercle_tour": "#FFCB61",
+            },
+            "crepuscule": {
+                "centre": "#F6B27C",
+                "bord": "#D96A5C",
+                "rim": "#F2914F",
+                "fond": "#EEE0E5",
+                "progression_debut": "#C85F5A",
+                "progression_fin": "#F3A66F",
+                "cercle_tour": "#F2914F",
+            },
+        }
+
+        # Calcul de la bonne couleur
+        self._PALETTE = self._teintes_palette()
+
+        # -- Ajout de la couleur du texte
+        self._PALETTE["texte"] = renvoyer_couleur_texte(
+            style=0, couleur=self._PALETTE["centre"].name()
+        )
+        # -- Ajout de la couleur de la piste
+        self._PALETTE["piste"] = _QColor_avec_alpha(self._PALETTE["texte"], alpha=25)
+
+    def _teintes_palette(self) -> dict:
+        """Mélange pondéré des teintes centre/bord/rim selon les poids
+        horaires actifs (transition continue, pas de bascule brutale)."""
+
+        poids_temp = _poids_moments(phase_journee())
+        return {
+            cle: interpoler_couleurs(
+                {moment: self._PALETTE[moment][cle] for moment in poids_temp},
+                poids=poids_temp,
+                retour="qcolor",
+            )
+            for cle in self._PALETTE.get("nuit").keys()
+        }

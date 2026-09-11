@@ -1534,23 +1534,6 @@ class CompteurCirculaireWidget(QWidget):
             painter, self._decor_plage_bis, rect_carte, zone="plage"
         )
 
-        # # Ombre portée au pied du bocal, pour renforcer l'ancrage dans le
-        # # sable (indépendante de l'inclinaison : elle reste "posée" au sol,
-        # # sur la plage, pas rattachée à la rotation du bocal).
-        # ombre_pied = QPainterPath()
-        # ombre_pied_rect = QRectF(
-        #     jar_rect.left() - jar_rect.width() * 0.08,
-        #     jar_rect.bottom() - jar_rect.height() * 0.045,
-        #     jar_rect.width() * 1.16,
-        #     jar_rect.height() * 0.09,
-        # )
-        # ombre_pied.addEllipse(ombre_pied_rect)
-        # couleur_ombre_pied = QColor(self.theme.texte)
-        # couleur_ombre_pied.setAlpha(40)
-        # painter.setPen(Qt.PenStyle.NoPen)
-        # painter.setBrush(QBrush(couleur_ombre_pied))
-        # painter.drawPath(ombre_pied)
-
         if diam_cercle > 0:
             if self._glow_opacity > 0:
                 self._dessiner_glow(painter, cercle_rect, diam_cercle)

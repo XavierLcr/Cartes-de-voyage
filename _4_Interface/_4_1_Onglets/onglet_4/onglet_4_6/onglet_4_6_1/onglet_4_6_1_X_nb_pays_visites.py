@@ -111,7 +111,7 @@ class CompteurCirculaireWidget(QWidget):
     def __init__(
         self,
         fonction_traduction,
-        plage_hauteur_debut_ratio: float = 0.6,
+        plage_hauteur_debut_ratio: float = 0.45,
         value: int = 0,
         maximum: int = 220,
         parent: Optional[QWidget] = None,
@@ -131,7 +131,7 @@ class CompteurCirculaireWidget(QWidget):
         # Le sable s'arrête (déjà "sous l'eau") à cette fraction de la
         # largeur de la carte : au-delà, plus de sable visible — c'est là
         # que la mer (ajoutée séparément) prendra le relais.
-        self._plage_x_fin_ratio = 0.7
+        self._plage_x_fin_ratio = 0.75
 
         # Enfoncement du bocal dans le sable : fraction (0-1) de sa hauteur que
         # la plage a le droit de recouvrir. Volontairement faible : le bocal
@@ -943,7 +943,7 @@ class CompteurCirculaireWidget(QWidget):
             }
             if zone == "plage":
                 item["t"] = rng.uniform(0.04, 0.96)
-                item["profondeur"] = rng.uniform(0.10, 0.34)
+                item["profondeur"] = rng.uniform(0.05, 0.95)
             else:  # "mer" : positions normalisées, on évite le tiers proche
                 # de la surface pour rester crédible "posé au fond"
                 item["nx"] = rng.uniform(0.06, 0.94)

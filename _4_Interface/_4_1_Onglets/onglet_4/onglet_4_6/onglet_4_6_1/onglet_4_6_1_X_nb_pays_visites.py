@@ -43,7 +43,6 @@ from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6.onglet_4_6_1.onglet_4_6_1_2_m
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6.onglet_4_6_1.onglet_4_6_1_3_infographie import (
     CercleDonnees,
 )
-from _4_Interface._4_2_Style._4_2_1_style_principal import renvoyer_couleur_texte
 from _4_Interface._4_3_Icones._4_3_32_etoile_de_mer import _dessiner_etoile_mer
 from _4_Interface._4_3_Icones._4_3_33_coquillage import _dessiner_coquillage
 

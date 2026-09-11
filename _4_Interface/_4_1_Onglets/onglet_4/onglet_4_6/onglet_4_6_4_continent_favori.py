@@ -33,10 +33,9 @@ from PyQt6.QtWidgets import (
 from _0_Utilitaires._0_1_fonctions_utiles_gen import voyages_vers_destinations
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import ombre_onglet_4_6
 from _0_Utilitaires._0_07_fonctions_voyages import table_pays_visites
-from _4_Interface._4_2_Style._4_2_1_style_principal import (
+from _0_Utilitaires._0_2_fonctions_graphiques import (
     renvoyer_couleur_widget,
     renvoyer_couleur_texte,
-    renvoyer_couleur_widget_differente,
 )
 from _4_Interface._4_3_Icones._4_3_05_globe_terrestre import _dessiner_badge_globe
 
@@ -174,7 +173,7 @@ class ThemeContinentFavori:
 
         # Barre du continent favori, mise en avant.
         self.barre_surbrillance = QColor(self.couleur_continent)
-        self.barre_surbrillance.setAlpha(220)
+        self.barre_surbrillance.setAlpha(200)
 
         # Couleurs utilisées par le globe.
         self.globe_debut = QColor(self.couleur_continent)

@@ -36,6 +36,7 @@ from PyQt6.QtGui import (
 )
 from PyQt6.QtWidgets import QWidget, QSizePolicy, QGraphicsDropShadowEffect
 
+from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import _QColor_avec_alpha
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6.onglet_4_6_1.onglet_4_6_1_1_theme import (
     phase_journee,
     _poids_moments,
@@ -104,10 +105,13 @@ class CompteurTheme:
         # Calcul de la bonne couleur
         self._PALETTE = self._teintes_palette()
 
-        # Ajout d'autres valeurs
+        # -- Ajout d'autres valeurs
+        # Texte
         self._PALETTE["texte"] = renvoyer_couleur_texte(
             style=0, couleur=self._PALETTE["centre"].name()
         )
+        # Piste
+        self._PALETTE["piste"] = _QColor_avec_alpha(self._PALETTE["texte"], alpha=25)
 
         # Fond de carte : identiques aux valeurs utilisées par ThemeCarte,
         # pour que les deux widgets soient posés sur le même "papier".
@@ -120,11 +124,6 @@ class CompteurTheme:
                 sombre="#12141c",
             )
         )
-
-        # Piste / contour : dérivé du texte, très dilué, même logique que
-        # l'arc de fond du widget voisin.
-        self.piste = QColor(self._PALETTE["texte"])
-        self.piste.setAlpha(30 if style == 1 else 25)
 
         # Dégradé sable : grain foncé (debut) -> grain clair (fin).
         # Tons chauds, sable/miel, choisis pour rester lisibles aussi bien
@@ -149,10 +148,6 @@ class CompteurTheme:
                 essais=20,
             )
         )
-
-        # Sous-texte
-        self.sous_texte = QColor(self._PALETTE["texte"])
-        self.sous_texte.setAlpha(140)
 
         # Halo générique "objectif atteint" (gardé pour compatibilité avec
         # d'éventuels autres usages de CompteurTheme) : reprend le dégradé.
@@ -954,7 +949,7 @@ class CompteurCirculaireWidget(QWidget):
         rect_rim = QRectF(col_x0, haut_col - rim_h * 0.5, col_x1 - col_x0, rim_h)
 
         painter.save()
-        pen = QPen(self.theme.piste)
+        pen = QPen(self.theme._PALETTE["piste"])
         pen.setWidthF(max(1.0, rim_h * 0.35))
         painter.setPen(pen)
         painter.setBrush(Qt.BrushStyle.NoBrush)
@@ -1180,7 +1175,7 @@ class CompteurCirculaireWidget(QWidget):
         painter.drawEllipse(rect_arc.center(), rayon_interieur, rayon_interieur)
 
         # --- piste (arc de fond, toujours complet) ---
-        pen = QPen(self.theme.piste)
+        pen = QPen(self.theme._PALETTE["piste"])
         pen.setWidthF(arc_width)
         pen.setCapStyle(Qt.PenCapStyle.RoundCap)
         painter.setPen(pen)
@@ -1512,10 +1507,10 @@ class CompteurCirculaireWidget(QWidget):
         # clair) pour suggérer la courbure/épaisseur du verre plutôt
         # qu'un simple trait uni.
         grad_contour = QLinearGradient(m["x0"], 0, m["x1"], 0)
-        c_bord_sombre = QColor(self.theme.piste).darker(130)
-        c_bord_sombre.setAlpha(self.theme.piste.alpha())
-        c_milieu = QColor(self.theme.piste)
-        c_milieu.setAlpha(int(self.theme.piste.alpha() * 0.5))
+        c_bord_sombre = QColor(self.theme._PALETTE["piste"]).darker(130)
+        c_bord_sombre.setAlpha(self.theme._PALETTE["piste"].alpha())
+        c_milieu = QColor(self.theme._PALETTE["piste"])
+        c_milieu.setAlpha(int(self.theme._PALETTE["piste"].alpha() * 0.5))
         grad_contour.setColorAt(0.0, c_bord_sombre)
         grad_contour.setColorAt(0.5, c_milieu)
         grad_contour.setColorAt(1.0, c_bord_sombre)

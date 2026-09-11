@@ -269,7 +269,7 @@ class CompteurCirculaireWidget(QWidget):
         self.theme = CompteurTheme(style=0)
 
         # --- anneau de progression (cercle de données) ---
-        self._arc_width_ratio = 0.09  # épaisseur de l'arc / diamètre du cercle
+        self._arc_width_ratio = 0.10  # épaisseur de l'arc / diamètre du cercle
         self._start_angle = 90  # l'arc démarre en haut du cercle
         self._echelle_cercle = 0.7
 
@@ -566,31 +566,39 @@ class CompteurCirculaireWidget(QWidget):
         }
 
     def _chemin_corps(self, m: dict) -> QPainterPath:
-        """Contour du bocal (col ouvert + épaules + corps) — c'est aussi la
-        zone utilisée pour découper le sable et le reflet. Le col n'est
-        plus fermé par un couvercle : son ouverture, tout en haut, sert
-        maintenant de point d'entrée visuel à la pluie de sable qui
-        tombe depuis le haut du widget."""
         x0, x1, y0, y1 = m["x0"], m["x1"], m["y0"], m["y1"]
         cx = m["cx"]
         corps_haut = m["corps_haut"]
-        col_x0 = cx - m["col_largeur"] / 2
-        col_x1 = cx + m["col_largeur"] / 2
+        col_largeur = m["col_largeur"]
         r = m["rayon_coin"]
         haut_col = y0
         marge_epaule = (y1 - corps_haut) * 0.16
 
+        # Léger évasement du bord du col (bourrelet), plutôt que des parois
+        # parfaitement parallèles jusqu'en haut.
+        evasement = col_largeur * 0.08
+        col_x0_haut = cx - col_largeur / 2 - evasement
+        col_x1_haut = cx + col_largeur / 2 + evasement
+        col_x0_bas = cx - col_largeur / 2
+        col_x1_bas = cx + col_largeur / 2
+
+        # Renflement du corps : les parois bombent légèrement vers
+        # l'extérieur au lieu d'être des lignes droites, comme un bocal
+        # soufflé plutôt qu'un cylindre.
+        bulge = (x1 - x0) * 0.045
+        corps_milieu_y = corps_haut + (y1 - (corps_haut + marge_epaule)) * 0.55
+
         chemin = QPainterPath()
-        chemin.moveTo(col_x0, haut_col)
-        chemin.lineTo(col_x0, corps_haut)
-        chemin.quadTo(x0, corps_haut, x0, corps_haut + marge_epaule)
-        chemin.lineTo(x0, y1 - r)
+        chemin.moveTo(col_x0_haut, haut_col)
+        chemin.lineTo(col_x0_bas, corps_haut)
+        chemin.quadTo(x0 - bulge * 0.2, corps_haut, x0, corps_haut + marge_epaule)
+        chemin.quadTo(x0 - bulge, corps_milieu_y, x0, y1 - r)
         chemin.quadTo(x0, y1, x0 + r, y1)
         chemin.lineTo(x1 - r, y1)
         chemin.quadTo(x1, y1, x1, y1 - r)
-        chemin.lineTo(x1, corps_haut + marge_epaule)
-        chemin.quadTo(x1, corps_haut, col_x1, corps_haut)
-        chemin.lineTo(col_x1, haut_col)
+        chemin.quadTo(x1 + bulge, corps_milieu_y, x1, corps_haut + marge_epaule)
+        chemin.quadTo(x1 + bulge * 0.2, corps_haut, col_x1_bas, corps_haut)
+        chemin.lineTo(col_x1_haut, haut_col)
         chemin.closeSubpath()
         return chemin
 
@@ -693,6 +701,27 @@ class CompteurCirculaireWidget(QWidget):
         painter.setPen(Qt.PenStyle.NoPen)
         painter.setBrush(QBrush(glow_color))
         painter.drawEllipse(cercle_rect.adjusted(-expand, -expand, expand, expand))
+
+    def _dessiner_verre_corps(self, painter: QPainter, contour: QPainterPath) -> None:
+        """Légère teinte bleu-vert translucide sur tout le corps, pour que les
+        parois se lisent comme du verre même là où il n'y a pas encore de
+        sable — plutôt qu'un bocal invisible tant qu'il n'est pas assez
+        rempli."""
+        painter.save()
+        painter.setClipPath(contour)
+        bbox = contour.boundingRect()
+        gradient = QLinearGradient(bbox.left(), 0, bbox.right(), 0)
+        c_bord = QColor("#BFD9E0")
+        c_bord.setAlphaF(0.24)
+        c_centre = QColor("#EAF5F7")
+        c_centre.setAlphaF(0.09)
+        gradient.setColorAt(0.0, c_bord)
+        gradient.setColorAt(0.5, c_centre)
+        gradient.setColorAt(1.0, c_bord)
+        painter.setPen(Qt.PenStyle.NoPen)
+        painter.setBrush(QBrush(gradient))
+        painter.drawRect(bbox)
+        painter.restore()
 
     def _dessiner_sable(self, painter: QPainter, m: dict, percent: float) -> None:
         """Remplit le bocal de grains individuels jusqu'au niveau courant."""
@@ -808,12 +837,11 @@ class CompteurCirculaireWidget(QWidget):
             painter.drawEllipse(QPointF(x_reel, y_reel), rayon, rayon)
         painter.restore()
 
-    def _dessiner_reflet_verre(
-        self, painter: QPainter, m: dict, contour: QPainterPath
-    ) -> None:
-        """Reflet doux façon verre bombé, très subtil, en haut à gauche du bocal."""
+    def _dessiner_reflet_verre(self, painter, m, contour):
         painter.save()
         painter.setClipPath(contour)
+
+        # --- halo diffus existant ---
         foyer = QPointF(
             m["x0"] + (m["x1"] - m["x0"]) * 0.28,
             m["corps_haut"] + (m["y1"] - m["corps_haut"]) * 0.18,
@@ -829,6 +857,30 @@ class CompteurCirculaireWidget(QWidget):
         painter.setPen(Qt.PenStyle.NoPen)
         painter.setBrush(QBrush(gradient))
         painter.drawRect(QRectF(m["x0"], m["y0"], m["x1"] - m["x0"], m["y1"] - m["y0"]))
+
+        # --- reflet linéaire (bande verticale), typique du verre courbe ---
+        largeur = m["x1"] - m["x0"]
+        streak_x = m["x0"] + largeur * 0.24
+        streak_w = largeur * 0.09
+        streak_rect = QRectF(
+            streak_x - streak_w / 2,
+            m["corps_haut"],
+            streak_w,
+            (m["y1"] - m["corps_haut"]) * 0.82,
+        )
+        grad_streak = QLinearGradient(streak_rect.left(), 0, streak_rect.right(), 0)
+        c_out = QColor("#FFFFFF")
+        c_out.setAlphaF(0.0)
+        c_in = QColor("#FFFFFF")
+        c_in.setAlphaF(0.22)
+        grad_streak.setColorAt(0.0, c_out)
+        grad_streak.setColorAt(0.5, c_in)
+        grad_streak.setColorAt(1.0, c_out)
+        chemin_streak = QPainterPath()
+        chemin_streak.addRoundedRect(streak_rect, streak_w / 2, streak_w / 2)
+        painter.setBrush(QBrush(grad_streak))
+        painter.drawPath(chemin_streak)
+
         painter.restore()
 
     @staticmethod
@@ -1496,15 +1548,32 @@ class CompteurCirculaireWidget(QWidget):
         painter.rotate(self._angle_inclinaison_bocal)
         painter.translate(-pivot)
 
+        contour = self._chemin_corps(m)
+
+        # Teinte de verre sur tout le corps, pour que les parois se lisent
+        # même là où le sable n'a pas encore atteint — sinon le bocal reste
+        # quasi invisible tant qu'il n'est pas assez rempli.
+        self._dessiner_verre_corps(painter, contour)
+
         self._dessiner_sable(painter, m, percent)
         self._dessiner_pluie(painter, m)
 
-        contour = self._chemin_corps(m)
-        pen_contour = QPen(self.theme.piste)
-        pen_contour.setWidthF(max(1.2, side * 0.012))
+        # Contour en dégradé horizontal (bords plus sombres, centre plus
+        # clair) pour suggérer la courbure/épaisseur du verre plutôt
+        # qu'un simple trait uni.
+        grad_contour = QLinearGradient(m["x0"], 0, m["x1"], 0)
+        c_bord_sombre = QColor(self.theme.piste).darker(130)
+        c_bord_sombre.setAlpha(self.theme.piste.alpha())
+        c_milieu = QColor(self.theme.piste)
+        c_milieu.setAlpha(int(self.theme.piste.alpha() * 0.5))
+        grad_contour.setColorAt(0.0, c_bord_sombre)
+        grad_contour.setColorAt(0.5, c_milieu)
+        grad_contour.setColorAt(1.0, c_bord_sombre)
+        pen_contour = QPen(QBrush(grad_contour), max(1.2, side * 0.012))
         painter.setPen(pen_contour)
         painter.setBrush(Qt.BrushStyle.NoBrush)
         painter.drawPath(contour)
+
         self._dessiner_col_bouteille(painter, m)
         self._dessiner_reflet_verre(painter, m, contour)
 
@@ -1515,6 +1584,23 @@ class CompteurCirculaireWidget(QWidget):
         # se retrouve naturellement enfouie dans le sable ---
         self._dessiner_plage(painter, rect_carte)
         self._dessiner_decor_plage(painter, rect_carte)
+
+        # Ombre portée au pied du bocal, pour renforcer l'ancrage dans le
+        # sable (indépendante de l'inclinaison : elle reste "posée" au sol,
+        # sur la plage, pas rattachée à la rotation du bocal).
+        ombre_pied = QPainterPath()
+        ombre_pied_rect = QRectF(
+            jar_rect.left() - jar_rect.width() * 0.08,
+            jar_rect.bottom() - jar_rect.height() * 0.045,
+            jar_rect.width() * 1.16,
+            jar_rect.height() * 0.09,
+        )
+        ombre_pied.addEllipse(ombre_pied_rect)
+        couleur_ombre_pied = QColor(self.theme.texte)
+        couleur_ombre_pied.setAlpha(40)
+        painter.setPen(Qt.PenStyle.NoPen)
+        painter.setBrush(QBrush(couleur_ombre_pied))
+        painter.drawPath(ombre_pied)
 
         if diam_cercle > 0:
             if self._glow_opacity > 0:

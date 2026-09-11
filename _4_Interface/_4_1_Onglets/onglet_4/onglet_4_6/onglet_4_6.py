@@ -12,7 +12,7 @@ from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import voyages_vers_destinations
 
-from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6.onglet_4_6_1_nb_pays_visites import (
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6.onglet_4_6_1.onglet_4_6_1_X_nb_pays_visites import (
     CompteurCirculaireWidget,
 )
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6.onglet_4_6_2_n_voyages import (

@@ -107,7 +107,7 @@ class CompteurCirculaireWidget(QWidget):
     def __init__(
         self,
         fonction_traduction,
-        plage_hauteur_debut_ratio: float = 0.45,
+        plage_hauteur_debut_ratio: float = 0.4,
         value: int = 0,
         maximum: int = 220,
         parent: Optional[QWidget] = None,
@@ -127,7 +127,7 @@ class CompteurCirculaireWidget(QWidget):
         # Le sable s'arrête (déjà "sous l'eau") à cette fraction de la
         # largeur de la carte : au-delà, plus de sable visible — c'est là
         # que la mer (ajoutée séparément) prendra le relais.
-        self._plage_x_fin_ratio = 0.75
+        self._plage_x_fin_ratio = 0.7
 
         # Enfoncement du bocal dans le sable : fraction (0-1) de sa hauteur que
         # la plage a le droit de recouvrir. Volontairement faible : le bocal
@@ -386,7 +386,7 @@ class CompteurCirculaireWidget(QWidget):
         """Prégénère un léger bruit vertical (mais stable), réparti le long
         de la plage, pour que la ligne de sable ne soit pas une pente
         parfaitement droite/lisse mais garde un aspect naturel."""
-        rng = random.Random(90210)
+        rng = random.Random()
         return [rng.uniform(-1.0, 1.0) for _ in range(n)]
 
     # ---------------------------------------------------------------
@@ -614,7 +614,7 @@ class CompteurCirculaireWidget(QWidget):
 
         # légère teinte de fond, pour que les interstices entre grains ne
         # laissent pas voir le fond de carte
-        fond_sable = QColor(self._PALETTE["progression_debut"])
+        fond_sable = QColor(self._PALETTE["sable_debut"])
         fond_sable.setAlpha(45)
         painter.fillPath(zone_sable, QBrush(fond_sable))
 
@@ -635,8 +635,8 @@ class CompteurCirculaireWidget(QWidget):
             else:
                 couleur = interpoler_couleurs(
                     couleurs=[
-                        self._PALETTE["progression_debut"],
-                        self._PALETTE["progression_fin"],
+                        self._PALETTE["sable_debut"],
+                        self._PALETTE["sable_fin"],
                     ],
                     poids=[1 - teinte_t, teinte_t],
                     retour="qcolor",
@@ -648,7 +648,7 @@ class CompteurCirculaireWidget(QWidget):
 
         # quelques touches sur la ligne de surface, pour un niveau
         # légèrement irrégulier plutôt qu'une ligne parfaitement plate
-        pen_surface = QPen(self._PALETTE["progression_fin"])
+        pen_surface = QPen(self._PALETTE["sable_debut"])
         pen_surface.setWidthF(max(1.0, largeur * 0.009))
         pen_surface.setCapStyle(Qt.PenCapStyle.RoundCap)
         painter.setPen(pen_surface)
@@ -746,8 +746,8 @@ class CompteurCirculaireWidget(QWidget):
             else:
                 couleur = interpoler_couleurs(
                     couleurs=[
-                        self._PALETTE["progression_debut"],
-                        self._PALETTE["progression_fin"],
+                        self._PALETTE["sable_debut"],
+                        self._PALETTE["sable_fin"],
                     ],
                     poids=[1 - grain["teinte_t"], grain["teinte_t"]],
                     retour="qcolor",
@@ -853,8 +853,8 @@ class CompteurCirculaireWidget(QWidget):
 
         # Sable légèrement plus clair que celui qui tombe dans le bocal,
         # pour distinguer les deux tout en restant dans la même famille.
-        couleur_debut = self._eclaircir(self._PALETTE["progression_debut"], 0.22)
-        couleur_fin = self._eclaircir(self._PALETTE["progression_fin"], 0.16)
+        couleur_debut = self._eclaircir(self._PALETTE["sable_debut"], 0.22)
+        couleur_fin = self._eclaircir(self._PALETTE["sable_fin"], 0.16)
 
         painter.save()
         painter.setClipPath(chemin)

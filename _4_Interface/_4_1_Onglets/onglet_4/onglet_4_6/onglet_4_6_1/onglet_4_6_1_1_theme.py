@@ -235,6 +235,8 @@ class CompteurTheme:
                 "progression_debut": "#8A78C8",
                 "progression_fin": "#C7B9F2",
                 "cercle_tour": "#B9C4E0",
+                "sable_debut": "#A99670",
+                "sable_fin": "#C8B68A",
             },
             "aube": {
                 "centre": "#FDE0B0",
@@ -244,6 +246,8 @@ class CompteurTheme:
                 "progression_debut": "#D98762",
                 "progression_fin": "#F5C98D",
                 "cercle_tour": "#F7C88A",
+                "sable_debut": "#C8A46F",
+                "sable_fin": "#D8B982",
             },
             "jour": {
                 "centre": "#FFFCF2",
@@ -253,6 +257,8 @@ class CompteurTheme:
                 "progression_debut": "#C9902F",
                 "progression_fin": "#F3D48C",
                 "cercle_tour": "#FFCB61",
+                "sable_debut": "#C9A45E",
+                "sable_fin": "#E2C47D",
             },
             "crepuscule": {
                 "centre": "#F6B27C",
@@ -262,6 +268,8 @@ class CompteurTheme:
                 "progression_debut": "#C85F5A",
                 "progression_fin": "#F3A66F",
                 "cercle_tour": "#F2914F",
+                "sable_debut": "#B88D61",
+                "sable_fin": "#C9A16A",
             },
         }
 

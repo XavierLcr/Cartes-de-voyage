@@ -12,6 +12,7 @@
 from __future__ import annotations
 import math
 import random
+from datetime import datetime
 from typing import List, Optional, Tuple
 
 from PyQt6.QtCore import (
@@ -52,23 +53,12 @@ from _4_Interface._4_3_Icones._4_3_34_poissons import (
 # 0 -- Thème du widget ---------------------------------------------------------
 
 
-def _blend_couleur(c1: QColor, c2: QColor, t: float) -> QColor:
-    return QColor(
-        int(c1.red() + (c2.red() - c1.red()) * t),
-        int(c1.green() + (c2.green() - c1.green()) * t),
-        int(c1.blue() + (c2.blue() - c1.blue()) * t),
-    )
-
-
 def _couleur_lisible(fond: QColor) -> QColor:
     """Renvoie du texte clair ou sombre selon la luminance perçue du
     fond, pour rester lisible quelle que soit la teinte du disque
     (nuit sombre, jour clair, aube/crépuscule orangés)."""
     luminance = (0.299 * fond.red() + 0.587 * fond.green() + 0.114 * fond.blue()) / 255
     return QColor("#1c1f2b") if luminance > 0.55 else QColor("#F5F3EE")
-
-
-from datetime import datetime, time as time_cls
 
 
 def phase_journee(instant: datetime | None = None) -> float:
@@ -87,19 +77,18 @@ def phase_journee(instant: datetime | None = None) -> float:
     return secondes / 86400.0
 
 
-# Bornes des moments-clés (en phase 0-1), ajustables
-_NUIT_FIN = 0.22  # ~5h17 : fin de nuit, début de l'aube
-_JOUR_DEBUT = 0.30  # ~7h12 : soleil bien levé
-_JOUR_FIN = 0.70  # ~16h48 : plein jour jusque-là
-_NUIT_DEBUT = 0.78  # ~18h43 : nuit installée
-
-
 def _poids_moments(phase: float) -> dict:
     """
     Renvoie les poids (0-1, somme = 1) de chaque moment pour la phase
     donnée, avec transitions douces (aube / crépuscule) plutôt que des
     bascules brutales. Clés : 'nuit', 'aube', 'jour', 'crepuscule'.
     """
+
+    # Bornes des moments-clés (en phase 0-1), ajustables
+    _NUIT_FIN = 0.22  # ~5h17 : fin de nuit, début de l'aube
+    _JOUR_DEBUT = 0.30  # ~7h12 : soleil bien levé
+    _JOUR_FIN = 0.70  # ~16h48 : plein jour jusque-là
+    _NUIT_DEBUT = 0.78  # ~18h43 : nuit installée
 
     def lisser(a, b, x):
         if b <= a:

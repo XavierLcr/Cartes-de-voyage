@@ -94,7 +94,7 @@ class CompteurTheme:
     ):
 
         # Teintes des disques selon la phase du jour
-        self._TEINTES_DISQUE = {
+        self._PALETTE = {
             "nuit": {"centre": "#232A52", "bord": "#12142B", "rim": "#B9C4E0"},
             "aube": {"centre": "#FDE0B0", "bord": "#F3A66B", "rim": "#F7C88A"},
             "jour": {"centre": "#FFFCF2", "bord": "#FFF3D2", "rim": "#F0C452"},
@@ -160,6 +160,20 @@ class CompteurTheme:
         # Ombre portée : même convention que ThemeCarte (dérivée du texte).
         self.ombre = QColor(self.texte)
         self.ombre.setAlpha(60 if style == 1 else 120)
+
+    def _teintes_palette(self) -> dict:
+        """Mélange pondéré des teintes centre/bord/rim selon les poids
+        horaires actifs (transition continue, pas de bascule brutale)."""
+
+        poids_temp = _poids_moments(phase_journee())
+        return {
+            cle: interpoler_couleurs(
+                {moment: self._PALETTE[moment][cle] for moment in poids_temp},
+                poids=poids_temp,
+                retour="qcolor",
+            )
+            for cle in self._PALETTE.get("nuit").keys()
+        }
 
 
 # 2 -- Classe du compteur ------------------------------------------------------
@@ -676,18 +690,6 @@ class CompteurCirculaireWidget(QWidget):
     # Rendu
     # ---------------------------------------------------------------
 
-    def _teintes_disque(self, poids: dict) -> dict:
-        """Mélange pondéré des teintes centre/bord/rim selon les poids
-        horaires actifs (transition continue, pas de bascule brutale)."""
-        return {
-            cle: interpoler_couleurs(
-                {moment: self.theme._TEINTES_DISQUE[moment][cle] for moment in poids},
-                poids=poids,
-                retour="qcolor",
-            )
-            for cle in ("centre", "bord", "rim")
-        }
-
     def _dessiner_glow(
         self, painter: QPainter, cercle_rect: QRectF, side_cercle: float
     ) -> None:
@@ -1128,7 +1130,7 @@ class CompteurCirculaireWidget(QWidget):
         return debut, milieu, fin
 
     def _dessiner_cercle_donnees(
-        self, painter: QPainter, cercle_rect: QRectF, percent: float, poids_ciel: dict
+        self, painter: QPainter, cercle_rect: QRectF, percent: float
     ) -> None:
         """
         Anneau de progression contenant les données (valeur, libellé,
@@ -1151,7 +1153,7 @@ class CompteurCirculaireWidget(QWidget):
         )
 
         # --- fond du disque intérieur : teinte selon l'heure du jour ---
-        teintes = self._teintes_disque(poids_ciel)
+        teintes = self.theme._teintes_palette()
         rayon_interieur = rect_arc.width() / 2 - arc_width * 0.5
 
         gradient_fond = QRadialGradient(
@@ -1541,7 +1543,6 @@ class CompteurCirculaireWidget(QWidget):
                 painter=painter,
                 cercle_rect=cercle_rect,
                 percent=percent,
-                poids_ciel=_poids_moments(phase_journee()),
             )
 
     def relancer_animation(self) -> None:

@@ -23,12 +23,104 @@ from PyQt6.QtGui import (
     QLinearGradient,
 )
 
-from _4_Interface._4_3_Icones._4_3_34_poissons import (
-    _dessiner_poisson,
-    _generer_poissons,
-)
+from _4_Interface._4_3_Icones._4_3_34_poissons import _dessiner_poisson
+from _4_Interface._4_3_Icones._4_3_35_raie import _dessiner_raie
+from _4_Interface._4_3_Icones._4_3_36_tortue_de_mer import _dessiner_tortue
 
-# 1 -- Classe de la mer --------------------------------------------------------
+# 1 -- Fonction de dessin d'un poisson selon ses caractéristiques --------------
+
+
+def _dessiner_creature(
+    painter,
+    centre,
+    taille,
+    sens,
+    couleur,
+    type_creature="poisson",
+    phase=0.0,
+    degrade=True,
+):
+    if type_creature == "raie":
+        _dessiner_raie(painter, centre, taille, sens, couleur, phase, degrade)
+    elif type_creature == "tortue":
+        _dessiner_tortue(painter, centre, taille, sens, couleur, phase, degrade)
+    else:
+        _dessiner_poisson(
+            painter,
+            centre,
+            taille,
+            sens,
+            couleur,
+            requin=(type_creature == "requin"),
+            phase=phase,
+            degrade=degrade,
+        )
+
+
+# 2 -- Création de la liste de poissons ----------------------------------------
+
+
+## 2.1 -- Fonction de choix du poisson -----------------------------------------
+
+
+def _tirer_type_poisson() -> str:
+
+    REPARTITION_TYPES = [
+        ("raie", 0.20),
+        ("tortue", 0.40),
+        ("poisson", 0.65),
+        ("requin", 0.15),
+    ]
+
+    tirage = random.random()
+    cumul = 0.0
+    for type_creature, proba in REPARTITION_TYPES:
+        cumul += proba
+        if tirage < cumul:
+            return type_creature
+    return REPARTITION_TYPES[-1][0]
+
+
+## 2.2 -- Fonction de génération des poissons ----------------------------------
+
+
+def _generer_poissons(n: int) -> List[dict]:
+    """Prégénère n poissons nageant dans la mer : trajectoire horizontale
+    en va-et-vient (gauche <-> droite), à une hauteur et une vitesse qui
+    varient d'un poisson à l'autre pour un banc naturel plutôt que des
+    clones synchronisés."""
+    rng = random.Random(2024)
+    PALETTES_PAR_TYPE = {
+        "poisson": ["#E8834A", "#D96C6C", "#E0B24C"],
+        "requin": ["#5FA8A0", "#4C7FB0", "#7A8C99"],
+        "raie": ["#4C7FB0", "#A9C2C6", "#6C8CA0"],
+        "tortue": ["#7A9E6E", "#5FA88A", "#8C9E5C"],
+    }
+    poissons = []
+    for i in range(n):
+        sens = 1 if rng.random() < 0.5 else -1
+        type_creature_temp = _tirer_type_poisson()
+        poissons.append(
+            {
+                "nx": rng.uniform(0.0, 1.0),  # position horizontale (0-1) dans la mer
+                "ny": rng.uniform(0.1, 0.9),  # hauteur (0 = surface, 1 = fond)
+                "sens": sens,  # 1 = va vers la droite, -1 = vers la gauche
+                "vitesse": rng.uniform(
+                    0.05, 0.11
+                ),  # fraction de largeur / seconde-anim
+                "echelle": rng.uniform(0.75, 1.25),
+                "amplitude_verticale": rng.uniform(0.015, 0.035),
+                "phase": rng.uniform(0.0, math.tau),
+                "couleur": QColor(
+                    random.choice(PALETTES_PAR_TYPE.get(type_creature_temp))
+                ),
+                "type_creature": type_creature_temp,
+            }
+        )
+    return poissons
+
+
+# 3 -- Classe de la mer --------------------------------------------------------
 
 
 class MerAnimee:
@@ -219,15 +311,15 @@ class MerAnimee:
                 largeur
                 * 0.10
                 * poisson["echelle"]
-                * (1.3 if poisson["requin"] else 1.0)
+                * (1.3 if poisson["type_creature"] == "requin" else 1.0)
             )
-            _dessiner_poisson(
+            _dessiner_creature(
                 painter,
                 QPointF(x, y),
                 taille,
                 poisson["sens"],
                 poisson["couleur"],
-                requin=poisson["requin"],
+                type_creature=poisson["type_creature"],
                 phase=self._phase_mer * poisson.get("vitesse_nage", 3.0)
                 + poisson["phase"],
             )

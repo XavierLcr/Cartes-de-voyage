@@ -49,6 +49,7 @@ class OngletTableauDeBord(QWidget):
             maximum=len(constantes.granularite_max_pays.keys()),
             fonction_traduction=fct_traduction,
             duree_animation=duree_animation,
+            n_poissons=9,
         )
 
         # Compteur de voyages

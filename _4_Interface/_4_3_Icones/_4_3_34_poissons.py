@@ -9,8 +9,6 @@
 
 
 import math
-import random
-from typing import List
 
 from PyQt6.QtCore import Qt, QPointF
 from PyQt6.QtGui import QPainter, QPainterPath, QBrush, QPen, QColor, QRadialGradient
@@ -152,36 +150,3 @@ def _dessiner_poisson(
         painter.drawPath(bouche)
 
     painter.restore()
-
-
-# 2 -- Fonction de génération des caractéristiques d'une liste de poissons -----
-
-
-def _generer_poissons(n: int) -> List[dict]:
-    """Prégénère n poissons nageant dans la mer : trajectoire horizontale
-    en va-et-vient (gauche <-> droite), à une hauteur et une vitesse qui
-    varient d'un poisson à l'autre pour un banc naturel plutôt que des
-    clones synchronisés."""
-    rng = random.Random(2024)
-    couleurs = ["#E8834A", "#5FA8A0", "#D96C6C", "#4C7FB0", "#E0B24C"]
-    poissons = []
-    for i in range(n):
-        sens = 1 if rng.random() < 0.5 else -1
-        poissons.append(
-            {
-                "nx": rng.uniform(0.0, 1.0),  # position horizontale (0-1) dans la mer
-                "ny": rng.uniform(0.12, 0.75),  # hauteur (0 = surface, 1 = fond)
-                "sens": sens,  # 1 = va vers la droite, -1 = vers la gauche
-                "vitesse": rng.uniform(
-                    0.05, 0.11
-                ),  # fraction de largeur / seconde-anim
-                "echelle": rng.uniform(0.75, 1.25),
-                "amplitude_verticale": rng.uniform(0.015, 0.035),
-                "phase": rng.uniform(0.0, math.tau),
-                "couleur": QColor(couleurs[i % len(couleurs)]),
-                "requin": (
-                    i == 0
-                ),  # le premier du banc est un peu plus gros / différent
-            }
-        )
-    return poissons

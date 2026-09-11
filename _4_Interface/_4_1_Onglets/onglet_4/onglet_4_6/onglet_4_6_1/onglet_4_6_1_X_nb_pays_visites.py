@@ -30,12 +30,9 @@ from PyQt6.QtGui import (
     QRadialGradient,
     QLinearGradient,
 )
-from PyQt6.QtWidgets import QWidget, QSizePolicy, QGraphicsDropShadowEffect
+from PyQt6.QtWidgets import QWidget, QSizePolicy
 
-from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
-    _QColor_avec_alpha,
-    ombre_onglet_4_6,
-)
+from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import ombre_onglet_4_6
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6.onglet_4_6_1.onglet_4_6_1_1_theme import (
     interpoler_couleurs,
     CompteurTheme,

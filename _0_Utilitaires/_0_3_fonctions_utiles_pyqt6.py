@@ -15,6 +15,7 @@ from PyQt6.QtWidgets import (
     QWidget,
     QApplication,
     QScrollArea,
+    QGraphicsDropShadowEffect,
 )
 from PyQt6.QtCore import Qt, QPointF
 from PyQt6.QtGui import (
@@ -294,3 +295,30 @@ def _dessiner_badge_validation(
     chemin_coche.lineTo(x_badge + rayon_badge * 0.48, y_badge - rayon_badge * 0.35)
     painter.setBrush(Qt.BrushStyle.NoBrush)
     painter.drawPath(chemin_coche)
+
+
+# 10 -- Création d'une ombre ---------------------------------------------------
+
+
+# 10.1 -- Fonction générale ----------------------------------------------------
+
+
+def creer_ombre(couleur: QColor, parent=None):
+
+    ombre_temp = QGraphicsDropShadowEffect(parent)
+    ombre_temp.setBlurRadius(30)
+    ombre_temp.setOffset(0, 8)
+    ombre_temp.setColor(couleur)
+
+    return ombre_temp
+
+
+## 10. 2 -- Ombre des widgets de l'onglet 4.6 ----------------------------------
+
+
+def ombre_onglet_4_6(style: int, parent=None):
+
+    return creer_ombre(
+        couleur=_QColor_avec_alpha("#707070", alpha=60 if style == 1 else 120),
+        parent=parent,
+    )

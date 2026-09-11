@@ -26,6 +26,7 @@ from PyQt6.QtGui import (
 from _4_Interface._4_3_Icones._4_3_34_poissons import _dessiner_poisson
 from _4_Interface._4_3_Icones._4_3_35_raie import _dessiner_raie
 from _4_Interface._4_3_Icones._4_3_36_tortue_de_mer import _dessiner_tortue
+from _4_Interface._4_3_Icones._4_3_37_poisson_globe import _dessiner_poisson_globe
 
 # 1 -- Fonction de dessin d'un poisson selon ses caractéristiques --------------
 
@@ -44,6 +45,8 @@ def _dessiner_creature(
         _dessiner_raie(painter, centre, taille, sens, couleur, phase, degrade)
     elif type_creature == "tortue":
         _dessiner_tortue(painter, centre, taille, sens, couleur, phase, degrade)
+    elif type_creature == "poisson-globe":
+        _dessiner_poisson_globe(painter, centre, taille, sens, couleur, phase, degrade)
     else:
         _dessiner_poisson(
             painter,
@@ -66,10 +69,11 @@ def _dessiner_creature(
 def _tirer_type_poisson() -> str:
 
     REPARTITION_TYPES = [
-        ("raie", 0.20),
-        ("tortue", 0.40),
-        ("poisson", 0.65),
-        ("requin", 0.15),
+        ("raie", 0.10),
+        ("tortue", 0.22),
+        ("poisson-globe", 0.30),
+        ("requin", 0.37),
+        ("poisson", 0.45),
     ]
 
     tirage = random.random()
@@ -95,6 +99,7 @@ def _generer_poissons(n: int) -> List[dict]:
         "requin": ["#5FA8A0", "#4C7FB0", "#7A8C99"],
         "raie": ["#4C7FB0", "#A9C2C6", "#6C8CA0"],
         "tortue": ["#7A9E6E", "#5FA88A", "#8C9E5C"],
+        "poisson-globe": ["#E8C468", "#D9B482", "#C9A876"],
     }
     poissons = []
     for i in range(n):

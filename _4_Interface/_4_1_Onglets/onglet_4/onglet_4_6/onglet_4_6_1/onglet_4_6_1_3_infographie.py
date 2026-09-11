@@ -24,6 +24,7 @@ from PyQt6.QtGui import (
     QConicalGradient,
 )
 
+from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import _QColor_avec_alpha
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6.onglet_4_6_1.onglet_4_6_1_1_theme import (
     interpoler_couleurs,
 )
@@ -82,11 +83,15 @@ class CercleDonnees:
         QPropertyAnimation côté widget parent)."""
         if glow_opacity <= 0:
             return
-        glow_color = QColor(palette["cercle_tour"])
-        glow_color.setAlphaF(0.25 * glow_opacity)
-        expand = side_cercle * 0.06 * glow_opacity
+        expand = side_cercle * 0.06 * self._glow_opacity
         painter.setPen(Qt.PenStyle.NoPen)
-        painter.setBrush(QBrush(glow_color))
+        painter.setBrush(
+            QBrush(
+                _QColor_avec_alpha(
+                    self._PALETTE["cercle_tour"], alpha=0.25 * self._glow_opacity
+                )
+            )
+        )
         painter.drawEllipse(cercle_rect.adjusted(-expand, -expand, expand, expand))
 
     # ---------------------------------------------------------------

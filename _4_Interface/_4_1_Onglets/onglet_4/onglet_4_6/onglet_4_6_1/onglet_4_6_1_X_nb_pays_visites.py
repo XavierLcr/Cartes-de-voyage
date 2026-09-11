@@ -590,22 +590,6 @@ class CompteurCirculaireWidget(QWidget):
     # Rendu
     # ---------------------------------------------------------------
 
-    def _dessiner_glow(
-        self, painter: QPainter, cercle_rect: QRectF, side_cercle: float
-    ) -> None:
-        """Halo doré, discret, autour du cercle de données, quand le bocal
-        approche du niveau maximal."""
-        expand = side_cercle * 0.06 * self._glow_opacity
-        painter.setPen(Qt.PenStyle.NoPen)
-        painter.setBrush(
-            QBrush(
-                _QColor_avec_alpha(
-                    self._PALETTE["cercle_tour"], alpha=0.25 * self._glow_opacity
-                )
-            )
-        )
-        painter.drawEllipse(cercle_rect.adjusted(-expand, -expand, expand, expand))
-
     def _dessiner_verre_corps(self, painter: QPainter, contour: QPainterPath) -> None:
         """Légère teinte bleu-vert translucide sur tout le corps, pour que les
         parois se lisent comme du verre même là où il n'y a pas encore de

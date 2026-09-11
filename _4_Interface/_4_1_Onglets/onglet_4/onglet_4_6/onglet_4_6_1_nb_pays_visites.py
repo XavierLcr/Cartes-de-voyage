@@ -224,7 +224,7 @@ class CompteurCirculaireWidget(QWidget):
     - Thème personnalisable via CompteurTheme.
     """
 
-    NB_GRAINS = 620
+    NB_GRAINS = 1000
 
     def __init__(
         self,
@@ -253,7 +253,7 @@ class CompteurCirculaireWidget(QWidget):
         # la plage a le droit de recouvrir. Volontairement faible : le bocal
         # doit avoir l'air "planté", sans que ça cache la montée du sable à
         # l'intérieur tant qu'elle n'a pas rattrapé le niveau extérieur.
-        self._enfoncement_bocal_ratio = 0.1
+        self._enfoncement_bocal_ratio = 0.14
         # Rempli à chaque paintEvent avec (x_gauche, x_droite, y_limite, marge)
         # du bocal courant, pour que `_plage_y_surface` aplanisse localement.
         self._jar_zone: Optional[Tuple[float, float, float, float]] = None
@@ -300,7 +300,9 @@ class CompteurCirculaireWidget(QWidget):
         self._easing_chute = QEasingCurve(QEasingCurve.Type.InQuad)
 
         # --- décors marins ---
-        self._decor_plage = self._generer_decor_plage()
+        self._decor_plage_bis = self._generer_decor_marin(
+            random.randint(8, 12), zone="plage", graine=random.randint(0, 10**5)
+        )
 
         # --- mer (bas du widget, sous/au-delà de la plage) ---
         self._niveau_mer_ratio = 1 / 3  # occupe le tiers inférieur de la carte
@@ -515,31 +517,6 @@ class CompteurCirculaireWidget(QWidget):
     # ---------------------------------------------------------------
     # Génération des décors marins
     # ---------------------------------------------------------------
-    def _generer_decor_plage(self) -> List[dict]:
-        """Prégénère les coquillages/étoile de mer posés sur la plage — ils
-        ne sont plus nichés dans le sable du bocal, mais du côté où la
-        plage s'enfonce vers la mer, comme s'ils reposaient déjà au fond
-        de l'eau. Positions stables (même logique que les grains) pour ne
-        pas bouger d'un repaint à l'autre. `t` repère l'abscisse le long
-        de la plage (0 = tout à gauche, 1 = à la limite où le sable
-        disparaît sous l'eau) ; `profondeur` repère l'enfoncement sous la
-        ligne de surface du sable (0 = juste sous la surface, 1 = tout en
-        bas de la carte)."""
-        rng = random.Random(31415)
-        types = ["coquillage", "etoile", "coquillage"]
-        ts = [0.30, 0.52, 0.70]
-        items = []
-        for i, t_base in enumerate(ts):
-            items.append(
-                {
-                    "t": max(0.04, min(0.96, t_base + rng.uniform(-0.04, 0.04))),
-                    "profondeur": rng.uniform(0.14, 0.32),
-                    "type": types[i % len(types)],
-                    "echelle": rng.uniform(0.85, 1.15),
-                    "angle": rng.uniform(-25.0, 25.0),
-                }
-            )
-        return items
 
     def _generer_profil_plage(self, n: int = 16) -> List[float]:
         """Prégénère un léger bruit vertical (mais stable), réparti le long
@@ -963,61 +940,90 @@ class CompteurCirculaireWidget(QWidget):
 
         painter.restore()
 
-    def _dessiner_decor_plage(self, painter: QPainter, rect_carte: QRectF) -> None:
-        """Place les coquillages/étoile de mer sur la plage, du côté où le
-        sable s'enfonce vers la mer, comme s'ils reposaient déjà au fond
-        de l'eau."""
-        side = min(rect_carte.width(), rect_carte.height())
-        taille_base = side * 0.10
+    def _generer_decor_marin(
+        self,
+        n: int,
+        zone: str = "plage",  # "plage" ou "mer"
+        graine: int = 31415,
+    ) -> List[dict]:
+        """
+        Prégénère n éléments de décor marin (étoiles de mer / coquillages),
+        plus petits que le décor existant, destinés soit à la plage
+        (zone="plage", ancrés via `_point_sur_plage`), soit au fond de la
+        mer (zone="mer", en coordonnées normalisées dans son rectangle).
+        Type, couleur, taille et angle varient d'un exemplaire à l'autre
+        pour éviter l'effet de clones.
+        """
+        rng = random.Random(graine)
+        palette_fond = ["#FFF7EA", "#FDEBD3", "#F7DCC6", "#FFE9D6", "#F3E1EE"]
+        items = []
+        for _ in range(n):
+            item = {
+                "type": rng.choice(["etoile", "coquillage"]),
+                "echelle": rng.uniform(0.45, 1),
+                "angle": rng.uniform(-40.0, 40.0),
+                "fond": QColor(rng.choice(palette_fond)),
+                "graine_forme": rng.randint(0, 99999),
+            }
+            if zone == "plage":
+                item["t"] = rng.uniform(0.04, 0.96)
+                item["profondeur"] = rng.uniform(0.10, 0.34)
+            else:  # "mer" : positions normalisées, on évite le tiers proche
+                # de la surface pour rester crédible "posé au fond"
+                item["nx"] = rng.uniform(0.06, 0.94)
+                item["ny"] = rng.uniform(0.55, 0.92)
+            items.append(item)
+        return items
 
-        fond = QColor("#FFF7EA")
-        fond.setAlpha(220)
+    def _dessiner_decor_marin(
+        self,
+        painter: QPainter,
+        items: List[dict],
+        rect_zone: QRectF,
+        zone: str = "plage",
+    ) -> None:
+        """Place les éléments prégénérés par `_generer_decor_marin` — sur la
+        plage (ancrés dans le sable via `_point_sur_plage`) ou au fond de la
+        mer (positions normalisées dans `rect_zone`)."""
+        side = min(rect_zone.width(), rect_zone.height())
+        taille_base = side * 0.07  # plus discret que le décor plage existant
+
         trait = QColor(self.theme.texte)
         trait.setAlpha(110)
 
-        for item in self._decor_plage:
-            centre = self._point_sur_plage(rect_carte, item["t"], item["profondeur"])
+        for item in items:
+            if zone == "plage":
+                centre = self._point_sur_plage(rect_zone, item["t"], item["profondeur"])
+            else:
+                centre = QPointF(
+                    rect_zone.left() + item["nx"] * rect_zone.width(),
+                    rect_zone.top() + item["ny"] * rect_zone.height(),
+                )
             taille = taille_base * item["echelle"]
+            fond = QColor(item["fond"])
+            fond.setAlpha(
+                210 if zone == "plage" else 175
+            )  # légèrement estompé sous l'eau
+
             if item["type"] == "etoile":
                 _dessiner_etoile_mer(
-                    painter, centre, taille * 0.8, fond, trait, item["angle"]
+                    painter,
+                    centre,
+                    taille * 0.8,
+                    fond,
+                    trait,
+                    item["angle"],
+                    graine=item["graine_forme"],
                 )
             else:
                 _dessiner_coquillage(
-                    painter, centre, taille, fond, trait, item["angle"]
+                    painter,
+                    centre,
+                    taille,
+                    fond,
+                    trait,
+                    item["angle"],
                 )
-
-    def _dessiner_decor_carte(
-        self, painter: QPainter, rect_carte: QRectF, side: float
-    ) -> None:
-        """Filigrane marin discret sur le fond de la carte, en dehors du
-        bocal — un petit clin d'œil décoratif au thème voyage/plage."""
-        taille = side * 0.11
-        marge = side * 0.11
-        fond = QColor("#e07a3f")
-        fond.setAlpha(85)
-        trait = QColor("#8a3d18")
-        trait.setAlpha(130)
-
-        positions = {
-            "haut_gauche": QPointF(
-                rect_carte.left() + marge, rect_carte.top() + marge * 1.3
-            ),
-            "bas_droit": QPointF(
-                rect_carte.right() - marge, rect_carte.bottom() - marge * 1.1
-            ),
-        }
-        for item in self._decor_carte:
-            centre = positions.get(item["coin"])
-            if centre is None:
-                continue
-            t = taille * item["echelle"]
-            if item["type"] == "etoile":
-                _dessiner_etoile_mer(
-                    painter, centre, t * 0.8, fond, trait, item["angle"]
-                )
-            else:
-                _dessiner_coquillage(painter, centre, t, fond, trait, item["angle"])
 
     # ---------------------------------------------------------------
     # Cercle de données (anneau + valeur + libellé + pourcentage)
@@ -1256,6 +1262,7 @@ class CompteurCirculaireWidget(QWidget):
             painter.setBrush(gradient_bulle)
             painter.setPen(QPen(QColor(255, 255, 255, 90), 0.7))
             painter.drawEllipse(QRectF(x - r, y - r, 2 * r, 2 * r))
+
         painter.restore()
 
         # --- poissons qui nagent ---
@@ -1583,24 +1590,26 @@ class CompteurCirculaireWidget(QWidget):
         # --- plage de sable : dessinée après le bocal, pour que sa base
         # se retrouve naturellement enfouie dans le sable ---
         self._dessiner_plage(painter, rect_carte)
-        self._dessiner_decor_plage(painter, rect_carte)
-
-        # Ombre portée au pied du bocal, pour renforcer l'ancrage dans le
-        # sable (indépendante de l'inclinaison : elle reste "posée" au sol,
-        # sur la plage, pas rattachée à la rotation du bocal).
-        ombre_pied = QPainterPath()
-        ombre_pied_rect = QRectF(
-            jar_rect.left() - jar_rect.width() * 0.08,
-            jar_rect.bottom() - jar_rect.height() * 0.045,
-            jar_rect.width() * 1.16,
-            jar_rect.height() * 0.09,
+        self._dessiner_decor_marin(
+            painter, self._decor_plage_bis, rect_carte, zone="plage"
         )
-        ombre_pied.addEllipse(ombre_pied_rect)
-        couleur_ombre_pied = QColor(self.theme.texte)
-        couleur_ombre_pied.setAlpha(40)
-        painter.setPen(Qt.PenStyle.NoPen)
-        painter.setBrush(QBrush(couleur_ombre_pied))
-        painter.drawPath(ombre_pied)
+
+        # # Ombre portée au pied du bocal, pour renforcer l'ancrage dans le
+        # # sable (indépendante de l'inclinaison : elle reste "posée" au sol,
+        # # sur la plage, pas rattachée à la rotation du bocal).
+        # ombre_pied = QPainterPath()
+        # ombre_pied_rect = QRectF(
+        #     jar_rect.left() - jar_rect.width() * 0.08,
+        #     jar_rect.bottom() - jar_rect.height() * 0.045,
+        #     jar_rect.width() * 1.16,
+        #     jar_rect.height() * 0.09,
+        # )
+        # ombre_pied.addEllipse(ombre_pied_rect)
+        # couleur_ombre_pied = QColor(self.theme.texte)
+        # couleur_ombre_pied.setAlpha(40)
+        # painter.setPen(Qt.PenStyle.NoPen)
+        # painter.setBrush(QBrush(couleur_ombre_pied))
+        # painter.drawPath(ombre_pied)
 
         if diam_cercle > 0:
             if self._glow_opacity > 0:

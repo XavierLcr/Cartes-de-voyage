@@ -522,24 +522,52 @@ class CompteurCirculaireWidget(QWidget):
     def _chemin_plage(self, rect_carte: QRectF) -> QPainterPath:
         """Construit le contour de la plage : de la gauche de la carte
         jusqu'à `_plage_x_fin_ratio` de sa largeur, avec une ligne de
-        surface légèrement irrégulière plutôt qu'une pente toute droite."""
+        surface légèrement irrégulière et des coins inférieurs arrondis.
+        """
         x0 = rect_carte.left()
         x_fin = rect_carte.left() + rect_carte.width() * self._plage_x_fin_ratio
+        y_bas = rect_carte.bottom()
+
         if x_fin <= x0:
             return QPainterPath()
 
+        rayon = min(24.0, rect_carte.width() * 0.05, rect_carte.height() * 0.18)
+
         chemin = QPainterPath()
+
+        # --- Bord supérieur de la plage ---
         n_points = 40
         for i in range(n_points + 1):
             x = x0 + (x_fin - x0) * (i / n_points)
             y = self._plage_y_surface(rect_carte, x)
+
             if i == 0:
                 chemin.moveTo(x, y)
             else:
                 chemin.lineTo(x, y)
-        chemin.lineTo(x_fin, rect_carte.bottom())
-        chemin.lineTo(x0, rect_carte.bottom())
+
+        # --- Coin inférieur droit ---
+        chemin.lineTo(x_fin, y_bas - rayon)
+        chemin.quadTo(
+            x_fin,
+            y_bas,
+            x_fin - rayon,
+            y_bas,
+        )
+
+        # --- Bord inférieur ---
+        chemin.lineTo(x0 + rayon, y_bas)
+
+        # --- Coin inférieur gauche ---
+        chemin.quadTo(
+            x0,
+            y_bas,
+            x0,
+            y_bas - rayon,
+        )
+
         chemin.closeSubpath()
+
         return chemin
 
     def _point_sur_plage(

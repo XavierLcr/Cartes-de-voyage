@@ -466,7 +466,7 @@ class CompteurCirculaireWidget(QWidget):
         (nx, ny, echelle_rayon, teinte_t, etincelle). `ny=0` correspond
         au haut du corps (sous les épaules), `ny=1` au fond du bocal.
         """
-        rng = random.Random(20240614)
+        rng = random.Random()
         grains = []
         for _ in range(n):
             nx = rng.random()

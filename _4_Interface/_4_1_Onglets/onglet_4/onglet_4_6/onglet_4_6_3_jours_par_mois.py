@@ -27,8 +27,9 @@ from PyQt6.QtGui import (
     QPainter,
     QPainterPath,
 )
-from PyQt6.QtWidgets import QGraphicsDropShadowEffect, QSizePolicy, QWidget, QToolTip
+from PyQt6.QtWidgets import QSizePolicy, QWidget, QToolTip
 
+from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import ombre_onglet_4_6
 from _4_Interface._4_2_Style._4_2_1_style_principal import (
     renvoyer_couleur_widget,
     renvoyer_couleur_texte,
@@ -201,10 +202,6 @@ class ThemeJoursVoyages:
             )
         )
 
-        # Ombre portée : même convention que les widgets voisins.
-        self.ombre = QColor(self.texte)
-        self.ombre.setAlpha(60 if style == 1 else 120)
-
 
 # 3 -- Classe du widget ----------------------------------------------------------
 
@@ -263,12 +260,6 @@ class JoursVoyagesParMoisWidget(QWidget):
         self.setMinimumSize(320, 180)
         self.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
-
-        self._ombre_effet = QGraphicsDropShadowEffect(self)
-        self._ombre_effet.setBlurRadius(30)
-        self._ombre_effet.setOffset(0, 8)
-        self._ombre_effet.setColor(self.theme.ombre)
-        self.setGraphicsEffect(self._ombre_effet)
 
         self._animation_total = QPropertyAnimation(self, b"valeurAnimee", self)
         self._animation_total.setEasingCurve(QEasingCurve.Type.OutCubic)
@@ -356,7 +347,7 @@ class JoursVoyagesParMoisWidget(QWidget):
         self.theme = ThemeJoursVoyages(
             style=style, nuances=nuances, teinte=teintes, limite_essais=20
         )
-        self._ombre_effet.setColor(self.theme.ombre)
+        self.setGraphicsEffect(ombre_onglet_4_6(style=style, parent=self))
         self.update()
 
     def set_voyages(self, voyages):

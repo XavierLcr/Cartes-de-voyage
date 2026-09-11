@@ -36,7 +36,10 @@ from PyQt6.QtGui import (
 )
 from PyQt6.QtWidgets import QWidget, QSizePolicy, QGraphicsDropShadowEffect
 
-from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import _QColor_avec_alpha
+from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
+    _QColor_avec_alpha,
+    ombre_onglet_4_6,
+)
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6.onglet_4_6_1.onglet_4_6_1_1_theme import (
     interpoler_couleurs,
     CompteurTheme,
@@ -310,8 +313,10 @@ class CompteurCirculaireWidget(QWidget):
         self.label_text = self.fonction_traduction("granularite_pays_visites")
         self.update()
 
-    def set_style(self):
+    def set_style(self, style: int | None = None):
         self._PALETTE = CompteurTheme()._PALETTE
+        if style is not None:
+            self.setGraphicsEffect(ombre_onglet_4_6(style=style, parent=self))
         self.update()
 
     def sizeHint(self):

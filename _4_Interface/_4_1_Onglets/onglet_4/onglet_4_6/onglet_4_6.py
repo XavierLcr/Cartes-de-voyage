@@ -106,7 +106,6 @@ class OngletTableauDeBord(QWidget):
 
     def set_style(self, style, nuances, teintes):
 
-        self.compteur_pays.set_style(style=style, nuances=nuances, teintes=teintes)
         self.n_voyages_histo.set_style(style=style, nuances=nuances, teintes=teintes)
         self.n_jours_voyages.set_style(style=style, nuances=nuances, teintes=teintes)
         self.continent_favori.set_style(style=style, nuances=nuances, teintes=teintes)

@@ -42,11 +42,7 @@ from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6.onglet_4_6_1.onglet_4_6_1_1_t
     _poids_moments,
     interpoler_couleurs,
 )
-from _4_Interface._4_2_Style._4_2_1_style_principal import (
-    renvoyer_couleur_widget,
-    renvoyer_couleur_texte,
-    renvoyer_couleur_widget_differente,
-)
+from _4_Interface._4_2_Style._4_2_1_style_principal import renvoyer_couleur_texte
 from _4_Interface._4_3_Icones._4_3_32_etoile_de_mer import _dessiner_etoile_mer
 from _4_Interface._4_3_Icones._4_3_33_coquillage import _dessiner_coquillage
 from _4_Interface._4_3_Icones._4_3_34_poissons import (
@@ -62,24 +58,45 @@ class CompteurTheme:
     Palette de couleurs du widget de compteur de pays visités.
     """
 
-    def __init__(
-        self,
-        style,
-        teinte=[i / 360 for i in range(0, 360, 45)],
-        nuances={
-            "min_luminosite": 0.8,
-            "max_luminosite": 0.95,
-            "min_saturation": 0.2,
-            "max_saturation": 0.4,
-        },
-    ):
+    def __init__(self):
 
         self._PALETTE = {
-            # Teintes des disques selon la phase du jour
-            "nuit": {"centre": "#232A52", "bord": "#12142B", "rim": "#B9C4E0"},
-            "aube": {"centre": "#FDE0B0", "bord": "#F3A66B", "rim": "#F7C88A"},
-            "jour": {"centre": "#FFFCF2", "bord": "#FFF3D2", "rim": "#F0C452"},
-            "crepuscule": {"centre": "#F6B27C", "bord": "#D96A5C", "rim": "#F2914F"},
+            "nuit": {
+                "centre": "#232A52",
+                "bord": "#12142B",
+                "rim": "#B9C4E0",
+                "fond": "#1A1F3D",
+                "progression_debut": "#8A78C8",
+                "progression_fin": "#C7B9F2",
+                "cercle_tour": "#B9C4E0",
+            },
+            "aube": {
+                "centre": "#FDE0B0",
+                "bord": "#F3A66B",
+                "rim": "#F7C88A",
+                "fond": "#F4E5D5",
+                "progression_debut": "#D98762",
+                "progression_fin": "#F5C98D",
+                "cercle_tour": "#F7C88A",
+            },
+            "jour": {
+                "centre": "#FFFCF2",
+                "bord": "#FFF3D2",
+                "rim": "#F0C452",
+                "fond": "#F3F4F8",
+                "progression_debut": "#C9902F",
+                "progression_fin": "#F3D48C",
+                "cercle_tour": "#FFCB61",
+            },
+            "crepuscule": {
+                "centre": "#F6B27C",
+                "bord": "#D96A5C",
+                "rim": "#F2914F",
+                "fond": "#EEE0E5",
+                "progression_debut": "#C85F5A",
+                "progression_fin": "#F3A66F",
+                "cercle_tour": "#F2914F",
+            },
         }
 
         # Calcul de la bonne couleur
@@ -91,49 +108,6 @@ class CompteurTheme:
         )
         # -- Ajout de la couleur de la piste
         self._PALETTE["piste"] = _QColor_avec_alpha(self._PALETTE["texte"], alpha=25)
-
-        # Fond de carte : identiques aux valeurs utilisées par ThemeCarte,
-        # pour que les deux widgets soient posés sur le même "papier".
-        self.fond = QColor(
-            renvoyer_couleur_widget(
-                style=style,
-                teinte=teinte,
-                nuances=nuances,
-                clair="#ffffff",
-                sombre="#12141c",
-            )
-        )
-
-        # Dégradé sable : grain foncé (debut) -> grain clair (fin).
-        # Tons chauds, sable/miel, choisis pour rester lisibles aussi bien
-        # sur fond clair que sur fond sombre.
-        self.progression_debut = QColor(
-            renvoyer_couleur_widget(
-                style=style,
-                teinte=teinte,
-                nuances=nuances,
-                clair="#C9902F",
-                sombre="#B87A22",
-            )
-        )
-        self.progression_fin = QColor(
-            renvoyer_couleur_widget_differente(
-                style=style,
-                teinte=teinte,
-                nuances=nuances,
-                clair="#F3D48C",
-                sombre="#FFDE9E",
-                reference=self.progression_debut.name(),
-                essais=20,
-            )
-        )
-
-        # Halo "bocal presque plein" : doré et chaud, plus une alarme rouge.
-        self.cercle_tour = QColor("#FFCB61" if style != 1 else "#FFDD94")
-
-        # Ombre portée : même convention que ThemeCarte (dérivée du texte).
-        self.ombre = QColor(renvoyer_couleur_texte(style=0, couleur="#FFFFFF"))
-        self.ombre.setAlpha(120)
 
     def _teintes_palette(self) -> dict:
         """Mélange pondéré des teintes centre/bord/rim selon les poids
@@ -250,7 +224,12 @@ class CompteurCirculaireWidget(QWidget):
         self.maximum = max(1, maximum)  # jamais 0, évite la division par zéro
         self.duree_animation = duree_animation
         self.set_langue()
-        self.theme = CompteurTheme(style=0)
+
+        # Mise à jour du style
+        self.set_style()
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.set_style)
+        self.timer.start(30 * 60 * 1000)
 
         # --- anneau de progression (cercle de données) ---
         self._arc_width_ratio = 0.10  # épaisseur de l'arc / diamètre du cercle
@@ -308,11 +287,16 @@ class CompteurCirculaireWidget(QWidget):
 
         # Ombre portée : mêmes réglages que la carte voisine (blur 30,
         # décalage (0, 8), couleur dérivée du texte).
-        self._ombre_effet = QGraphicsDropShadowEffect(self)
-        self._ombre_effet.setBlurRadius(30)
-        self._ombre_effet.setOffset(0, 8)
-        self._ombre_effet.setColor(self.theme.ombre)
-        self.setGraphicsEffect(self._ombre_effet)
+        _ombre_effet = QGraphicsDropShadowEffect(self)
+        _ombre_effet.setBlurRadius(30)
+        _ombre_effet.setOffset(0, 8)
+        _ombre_effet.setColor(
+            _QColor_avec_alpha(
+                couleur=QColor(renvoyer_couleur_texte(style=0, couleur="#FFFFFF")),
+                alpha=120,
+            )
+        )
+        self.setGraphicsEffect(_ombre_effet)
 
         self._value_anim = QPropertyAnimation(self, b"animatedValue", self)
         self._value_anim.setEasingCurve(QEasingCurve.Type.OutCubic)
@@ -401,12 +385,8 @@ class CompteurCirculaireWidget(QWidget):
         self.label_text = self.fonction_traduction("granularite_pays_visites")
         self.update()
 
-    def set_style(self, style, nuances, teintes):
-        self.theme = CompteurTheme(style=style, nuances=nuances, teinte=teintes)
-        # L'ombre portée dépend du thème (couleur dérivée du texte) : on la
-        # remet à jour pour rester cohérent avec la carte voisine si le
-        # style change (mode clair / sombre).
-        self._ombre_effet.setColor(self.theme.ombre)
+    def set_style(self):
+        self._PALETTE = CompteurTheme()._PALETTE
         self.update()
 
     def sizeHint(self):
@@ -671,7 +651,7 @@ class CompteurCirculaireWidget(QWidget):
     ) -> None:
         """Halo doré, discret, autour du cercle de données, quand le bocal
         approche du niveau maximal."""
-        glow_color = QColor(self.theme.cercle_tour)
+        glow_color = QColor(self._PALETTE["cercle_tour"])
         glow_color.setAlphaF(0.25 * self._glow_opacity)
         expand = side_cercle * 0.06 * self._glow_opacity
         painter.setPen(Qt.PenStyle.NoPen)
@@ -719,7 +699,7 @@ class CompteurCirculaireWidget(QWidget):
 
         # légère teinte de fond, pour que les interstices entre grains ne
         # laissent pas voir le fond de carte
-        fond_sable = QColor(self.theme.progression_debut)
+        fond_sable = QColor(self._PALETTE["progression_debut"])
         fond_sable.setAlpha(45)
         painter.fillPath(zone_sable, QBrush(fond_sable))
 
@@ -739,7 +719,10 @@ class CompteurCirculaireWidget(QWidget):
                 couleur.setAlpha(190)
             else:
                 couleur = interpoler_couleurs(
-                    couleurs=[self.theme.progression_debut, self.theme.progression_fin],
+                    couleurs=[
+                        self._PALETTE["progression_debut"],
+                        self._PALETTE["progression_fin"],
+                    ],
                     poids=[1 - teinte_t, teinte_t],
                     retour="qcolor",
                 )
@@ -750,7 +733,7 @@ class CompteurCirculaireWidget(QWidget):
 
         # quelques touches sur la ligne de surface, pour un niveau
         # légèrement irrégulier plutôt qu'une ligne parfaitement plate
-        pen_surface = QPen(self.theme.progression_fin)
+        pen_surface = QPen(self._PALETTE["progression_fin"])
         pen_surface.setWidthF(max(1.0, largeur * 0.009))
         pen_surface.setCapStyle(Qt.PenCapStyle.RoundCap)
         painter.setPen(pen_surface)
@@ -847,7 +830,10 @@ class CompteurCirculaireWidget(QWidget):
                 couleur.setAlpha(200)
             else:
                 couleur = interpoler_couleurs(
-                    couleurs=[self.theme.progression_debut, self.theme.progression_fin],
+                    couleurs=[
+                        self._PALETTE["progression_debut"],
+                        self._PALETTE["progression_fin"],
+                    ],
                     poids=[1 - grain["teinte_t"], grain["teinte_t"]],
                     retour="qcolor",
                 )
@@ -924,7 +910,7 @@ class CompteurCirculaireWidget(QWidget):
         rect_rim = QRectF(col_x0, haut_col - rim_h * 0.5, col_x1 - col_x0, rim_h)
 
         painter.save()
-        pen = QPen(self.theme._PALETTE["piste"])
+        pen = QPen(self._PALETTE["piste"])
         pen.setWidthF(max(1.0, rim_h * 0.35))
         painter.setPen(pen)
         painter.setBrush(Qt.BrushStyle.NoBrush)
@@ -952,8 +938,8 @@ class CompteurCirculaireWidget(QWidget):
 
         # Sable légèrement plus clair que celui qui tombe dans le bocal,
         # pour distinguer les deux tout en restant dans la même famille.
-        couleur_debut = self._eclaircir(self.theme.progression_debut, 0.22)
-        couleur_fin = self._eclaircir(self.theme.progression_fin, 0.16)
+        couleur_debut = self._eclaircir(self._PALETTE["progression_debut"], 0.22)
+        couleur_fin = self._eclaircir(self._PALETTE["progression_fin"], 0.16)
 
         painter.save()
         painter.setClipPath(chemin)
@@ -1034,7 +1020,7 @@ class CompteurCirculaireWidget(QWidget):
         side = min(rect_zone.width(), rect_zone.height())
         taille_base = side * 0.07  # plus discret que le décor plage existant
 
-        trait = QColor(self.theme._PALETTE.get("texte"))
+        trait = QColor(self._PALETTE.get("texte"))
         trait.setAlpha(110)
 
         for item in items:
@@ -1093,8 +1079,8 @@ class CompteurCirculaireWidget(QWidget):
         progression "qui s'intensifie" plutôt qu'un dégradé statique.
         Reprend le même dégradé sable que les grains du bocal.
         """
-        debut = self.theme.progression_debut
-        cible_fin = self.theme.progression_fin
+        debut = self._PALETTE["progression_debut"]
+        cible_fin = self._PALETTE["progression_fin"]
         fin = interpoler_couleurs(
             couleurs=[debut, cible_fin],
             poids=[1 - (0.35 + 0.65 * percent), 0.35 + 0.65 * percent],
@@ -1129,7 +1115,7 @@ class CompteurCirculaireWidget(QWidget):
         )
 
         # --- fond du disque intérieur : teinte selon l'heure du jour ---
-        teintes = self.theme._PALETTE
+        teintes = self._PALETTE
         rayon_interieur = rect_arc.width() / 2 - arc_width * 0.5
 
         gradient_fond = QRadialGradient(
@@ -1150,7 +1136,7 @@ class CompteurCirculaireWidget(QWidget):
         painter.drawEllipse(rect_arc.center(), rayon_interieur, rayon_interieur)
 
         # --- piste (arc de fond, toujours complet) ---
-        pen = QPen(self.theme._PALETTE["piste"])
+        pen = QPen(self._PALETTE["piste"])
         pen.setWidthF(arc_width)
         pen.setCapStyle(Qt.PenCapStyle.RoundCap)
         painter.setPen(pen)
@@ -1229,13 +1215,13 @@ class CompteurCirculaireWidget(QWidget):
 
         chemin_bulle = QPainterPath()
         chemin_bulle.addRoundedRect(rect_bulle, hauteur_bulle / 2, hauteur_bulle / 2)
-        couleur_bulle = QColor(self.theme.progression_debut)
+        couleur_bulle = QColor(self._PALETTE["progression_debut"])
         couleur_bulle.setAlpha(30)
         painter.setPen(Qt.PenStyle.NoPen)
         painter.setBrush(QBrush(couleur_bulle))
         painter.drawPath(chemin_bulle)
 
-        painter.setPen(self.theme.progression_debut)
+        painter.setPen(self._PALETTE["progression_debut"])
         painter.drawText(rect_bulle, Qt.AlignmentFlag.AlignCenter, pct_texte)
 
     # -- Mer
@@ -1408,7 +1394,7 @@ class CompteurCirculaireWidget(QWidget):
         rayon_carte = min(24, side * 0.18)
         chemin_carte = QPainterPath()
         chemin_carte.addRoundedRect(rect_carte, rayon_carte, rayon_carte)
-        painter.fillPath(chemin_carte, QBrush(self.theme.fond))
+        painter.fillPath(chemin_carte, QBrush(self._PALETTE["fond"]))
         painter.setClipPath(chemin_carte)
 
         # --- zone de contenu : bocal à gauche, cercle de données à droite
@@ -1482,10 +1468,10 @@ class CompteurCirculaireWidget(QWidget):
         # clair) pour suggérer la courbure/épaisseur du verre plutôt
         # qu'un simple trait uni.
         grad_contour = QLinearGradient(m["x0"], 0, m["x1"], 0)
-        c_bord_sombre = QColor(self.theme._PALETTE["piste"]).darker(130)
-        c_bord_sombre.setAlpha(self.theme._PALETTE["piste"].alpha())
-        c_milieu = QColor(self.theme._PALETTE["piste"])
-        c_milieu.setAlpha(int(self.theme._PALETTE["piste"].alpha() * 0.5))
+        c_bord_sombre = QColor(self._PALETTE["piste"]).darker(130)
+        c_bord_sombre.setAlpha(self._PALETTE["piste"].alpha())
+        c_milieu = QColor(self._PALETTE["piste"])
+        c_milieu.setAlpha(int(self._PALETTE["piste"].alpha() * 0.5))
         grad_contour.setColorAt(0.0, c_bord_sombre)
         grad_contour.setColorAt(0.5, c_milieu)
         grad_contour.setColorAt(1.0, c_bord_sombre)

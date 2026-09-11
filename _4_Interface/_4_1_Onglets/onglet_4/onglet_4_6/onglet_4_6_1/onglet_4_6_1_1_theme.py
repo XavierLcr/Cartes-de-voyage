@@ -97,4 +97,146 @@ def _poids_moments(phase: float) -> dict:
     return {"nuit": 1.0, "aube": 0.0, "jour": 0.0, "crepuscule": 0.0}
 
 
-# 3 --
+# 3 -- Fonction d'interpolation de couleurs ------------------------------------
+
+
+def interpoler_couleurs(
+    couleurs,
+    poids=None,
+    retour="qcolor",
+):
+    """
+    Interpole plusieurs couleurs en espace HSV.
+
+    Paramètres
+    ----------
+    couleurs : list | tuple | dict
+        Couleurs à interpoler. Les valeurs peuvent être des QColor ou des
+        chaînes hexadécimales.
+
+    poids : list | tuple | dict | None
+        Poids associés aux couleurs. Si None, toutes les couleurs ont le
+        même poids. Les poids sont normalisés automatiquement.
+
+    retour : {"qcolor", "hexa", "hsv"}
+        Format de sortie :
+        - "qcolor" : renvoie un QColor ;
+        - "hexa"   : renvoie une chaîne hexadécimale ;
+        - "hsv"    : renvoie un tuple (h, s, v).
+
+        Pour "hsv", h, s et v sont dans [0, 1].
+
+    Retour
+    ------
+    QColor | str | tuple
+        Couleur interpolée dans le format demandé.
+    """
+
+    # ------------------------------------------------------------------
+    # Préparation des couleurs
+    # ------------------------------------------------------------------
+
+    if isinstance(couleurs, dict):
+        couleurs = list(couleurs.values())
+
+    couleurs = list(couleurs)
+
+    if not couleurs:
+        couleurs = ["#FFFFFF"]
+
+    couleurs = [
+        couleur if isinstance(couleur, QColor) else QColor(couleur)
+        for couleur in couleurs
+    ]
+
+    if any(not couleur.isValid() for couleur in couleurs):
+        raise ValueError("Une ou plusieurs couleurs sont invalides.")
+
+    # ------------------------------------------------------------------
+    # Préparation des poids
+    # ------------------------------------------------------------------
+
+    if poids is None:
+        poids = [1.0] * len(couleurs)
+
+    elif isinstance(poids, dict):
+        poids = list(poids.values())
+
+    else:
+        poids = list(poids)
+
+    somme_poids = sum(poids)
+
+    if (
+        len(poids) != len(couleurs)
+        or any(poids_i < 0 for poids_i in poids)
+        or somme_poids <= 0
+    ):
+        return interpoler_couleurs(couleurs=couleurs, poids=None, retour=retour)
+
+    poids = [poids_i / somme_poids for poids_i in poids]
+
+    # ------------------------------------------------------------------
+    # Conversion HSV
+    # ------------------------------------------------------------------
+
+    hsv = []
+
+    for couleur in couleurs:
+        h, s, v, _ = couleur.getHsvF()
+
+        # QColor renvoie -1 pour la teinte des couleurs achromatiques
+        # (gris, blanc, noir...). On lui attribue ici une teinte neutre
+        # pour éviter de faire tourner artificiellement la couleur.
+        if h < 0:
+            h = 0.0
+
+        hsv.append((h, s, v))
+
+    # ------------------------------------------------------------------
+    # Interpolation de la teinte
+    # ------------------------------------------------------------------
+
+    # On calcule la moyenne circulaire des teintes sur le cercle HSV.
+    # Cela évite par exemple que 350° + 10° donnent artificiellement 180°.
+
+    x = 0.0
+    y = 0.0
+
+    for (h, _, _), poids_i in zip(hsv, poids):
+        angle = h * math.tau
+        x += math.cos(angle) * poids_i
+        y += math.sin(angle) * poids_i
+
+    if abs(x) < 1e-12 and abs(y) < 1e-12:
+        h = 0.0
+    else:
+        h = (math.atan2(y, x) / math.tau) % 1.0
+
+    # ------------------------------------------------------------------
+    # Interpolation linéaire de saturation et luminosité
+    # ------------------------------------------------------------------
+
+    s = sum(s_i * poids_i for (_, s_i, _), poids_i in zip(hsv, poids))
+
+    v = sum(v_i * poids_i for (_, _, v_i), poids_i in zip(hsv, poids))
+
+    hsv_resultat = (h, s, v)
+
+    # ------------------------------------------------------------------
+    # Format de sortie
+    # ------------------------------------------------------------------
+
+    if retour == "hsv":
+        return hsv_resultat
+
+    resultat = QColor()
+    resultat.setHsvF(h, s, v)
+
+    if retour == "qcolor":
+        return resultat
+
+    if retour == "hexa":
+        return resultat.name()
+
+    return "#FFFFFF"

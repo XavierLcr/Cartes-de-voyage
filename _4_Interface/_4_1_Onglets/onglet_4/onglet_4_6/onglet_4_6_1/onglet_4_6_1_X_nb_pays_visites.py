@@ -39,6 +39,7 @@ from PyQt6.QtWidgets import QWidget, QSizePolicy, QGraphicsDropShadowEffect
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6.onglet_4_6_1.onglet_4_6_1_1_theme import (
     phase_journee,
     _poids_moments,
+    interpoler_couleurs,
 )
 from _4_Interface._4_2_Style._4_2_1_style_principal import (
     renvoyer_couleur_widget,
@@ -159,27 +160,6 @@ class CompteurTheme:
         # Ombre portée : même convention que ThemeCarte (dérivée du texte).
         self.ombre = QColor(self.texte)
         self.ombre.setAlpha(60 if style == 1 else 120)
-
-    @staticmethod
-    def _blend_hsv(c1: QColor, c2: QColor, t: float) -> QColor:
-        """Interpole deux couleurs en espace HSV (transition plus vivante qu'en RGB)."""
-        h1, s1, v1, _ = c1.getHsvF()
-        h2, s2, v2, _ = c2.getHsvF()
-        if h1 < 0:
-            h1 = h2
-        if h2 < 0:
-            h2 = h1
-        if abs(h2 - h1) > 0.5:
-            if h1 < h2:
-                h1 += 1.0
-            else:
-                h2 += 1.0
-        h = (h1 + (h2 - h1) * t) % 1.0
-        s = s1 + (s2 - s1) * t
-        v = v1 + (v2 - v1) * t
-        blended = QColor()
-        blended.setHsvF(h, min(1.0, s), min(1.0, v))
-        return blended
 
 
 # 2 -- Classe du compteur ------------------------------------------------------
@@ -699,18 +679,14 @@ class CompteurCirculaireWidget(QWidget):
     def _teintes_disque(self, poids: dict) -> dict:
         """Mélange pondéré des teintes centre/bord/rim selon les poids
         horaires actifs (transition continue, pas de bascule brutale)."""
-        resultat = {}
-        for cle in ("centre", "bord", "rim"):
-            r = g = b = 0.0
-            for moment, w in poids.items():
-                if w <= 0:
-                    continue
-                c = QColor(self.theme._TEINTES_DISQUE[moment][cle])
-                r += c.red() * w
-                g += c.green() * w
-                b += c.blue() * w
-            resultat[cle] = QColor(int(r), int(g), int(b))
-        return resultat
+        return {
+            cle: interpoler_couleurs(
+                {moment: self.theme._TEINTES_DISQUE[moment][cle] for moment in poids},
+                poids=poids,
+                retour="qcolor",
+            )
+            for cle in ("centre", "bord", "rim")
+        }
 
     def _dessiner_glow(
         self, painter: QPainter, cercle_rect: QRectF, side_cercle: float
@@ -784,9 +760,12 @@ class CompteurCirculaireWidget(QWidget):
                 couleur = QColor("#FFF4DA")
                 couleur.setAlpha(190)
             else:
-                couleur = self.theme._blend_hsv(
-                    self.theme.progression_debut, self.theme.progression_fin, teinte_t
+                couleur = interpoler_couleurs(
+                    couleurs=[self.theme.progression_debut, self.theme.progression_fin],
+                    poids=[1 - teinte_t, teinte_t],
+                    retour="qcolor",
                 )
+
                 couleur.setAlpha(min(255, int(150 + 90 * (1 - ny))))
             painter.setBrush(QBrush(couleur))
             painter.drawEllipse(QPointF(x_reel, y_reel), rayon, rayon)
@@ -889,10 +868,10 @@ class CompteurCirculaireWidget(QWidget):
                 couleur = QColor("#FFF4DA")
                 couleur.setAlpha(200)
             else:
-                couleur = self.theme._blend_hsv(
-                    self.theme.progression_debut,
-                    self.theme.progression_fin,
-                    grain["teinte_t"],
+                couleur = interpoler_couleurs(
+                    couleurs=[self.theme.progression_debut, self.theme.progression_fin],
+                    poids=[1 - grain["teinte_t"], grain["teinte_t"]],
+                    retour="qcolor",
                 )
                 couleur.setAlpha(215)
             painter.setBrush(QBrush(couleur))
@@ -1018,7 +997,11 @@ class CompteurCirculaireWidget(QWidget):
                 couleur = QColor("#FFFBF0")
                 couleur.setAlpha(185)
             else:
-                couleur = self.theme._blend_hsv(couleur_debut, couleur_fin, teinte_t)
+                couleur = interpoler_couleurs(
+                    couleurs=[couleur_debut, couleur_fin],
+                    poids=[1 - teinte_t, teinte_t],
+                    retour="qcolor",
+                )
                 couleur.setAlpha(min(255, int(150 + 90 * ny)))
             painter.setBrush(QBrush(couleur))
             painter.drawEllipse(QPointF(x_reel, y_reel), rayon, rayon)
@@ -1134,8 +1117,14 @@ class CompteurCirculaireWidget(QWidget):
         """
         debut = self.theme.progression_debut
         cible_fin = self.theme.progression_fin
-        fin = CompteurTheme._blend_hsv(debut, cible_fin, 0.35 + 0.65 * percent)
-        milieu = CompteurTheme._blend_hsv(debut, fin, 0.5)
+        fin = interpoler_couleurs(
+            couleurs=[debut, cible_fin],
+            poids=[1 - (0.35 + 0.65 * percent), 0.35 + 0.65 * percent],
+            retour="qcolor",
+        )
+        milieu = interpoler_couleurs(
+            couleurs=[debut, fin], poids=[0.5, 0.5], retour="qcolor"
+        )
         return debut, milieu, fin
 
     def _dessiner_cercle_donnees(

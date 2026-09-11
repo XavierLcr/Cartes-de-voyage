@@ -93,13 +93,22 @@ class CompteurTheme:
         },
     ):
 
-        # Teintes des disques selon la phase du jour
         self._PALETTE = {
+            # Teintes des disques selon la phase du jour
             "nuit": {"centre": "#232A52", "bord": "#12142B", "rim": "#B9C4E0"},
             "aube": {"centre": "#FDE0B0", "bord": "#F3A66B", "rim": "#F7C88A"},
             "jour": {"centre": "#FFFCF2", "bord": "#FFF3D2", "rim": "#F0C452"},
             "crepuscule": {"centre": "#F6B27C", "bord": "#D96A5C", "rim": "#F2914F"},
         }
+
+        # Calcul de la bonne couleur
+        self._PALETTE = self._teintes_palette()
+
+        # Ajout d'autres valeurs
+        self._PALETTE["texte"] = renvoyer_couleur_texte(
+            style=0, couleur=self._PALETTE["centre"].name()
+        )
+
         # Fond de carte : identiques aux valeurs utilisées par ThemeCarte,
         # pour que les deux widgets soient posés sur le même "papier".
         self.fond = QColor(
@@ -111,15 +120,10 @@ class CompteurTheme:
                 sombre="#12141c",
             )
         )
-        self.texte = QColor(
-            str(renvoyer_couleur_texte(style=style, couleur=self.fond.name()))
-            if style != 1
-            else "#1c1f2b"
-        )
 
         # Piste / contour : dérivé du texte, très dilué, même logique que
         # l'arc de fond du widget voisin.
-        self.piste = QColor(self.texte)
+        self.piste = QColor(self._PALETTE["texte"])
         self.piste.setAlpha(30 if style == 1 else 25)
 
         # Dégradé sable : grain foncé (debut) -> grain clair (fin).
@@ -147,7 +151,7 @@ class CompteurTheme:
         )
 
         # Sous-texte
-        self.sous_texte = QColor(self.texte)
+        self.sous_texte = QColor(self._PALETTE["texte"])
         self.sous_texte.setAlpha(140)
 
         # Halo générique "objectif atteint" (gardé pour compatibilité avec
@@ -158,8 +162,8 @@ class CompteurTheme:
         self.alerte = QColor("#FFCB61" if style != 1 else "#FFDD94")
 
         # Ombre portée : même convention que ThemeCarte (dérivée du texte).
-        self.ombre = QColor(self.texte)
-        self.ombre.setAlpha(60 if style == 1 else 120)
+        self.ombre = QColor(renvoyer_couleur_texte(style=0, couleur="#FFFFFF"))
+        self.ombre.setAlpha(120)
 
     def _teintes_palette(self) -> dict:
         """Mélange pondéré des teintes centre/bord/rim selon les poids
@@ -245,6 +249,8 @@ class CompteurCirculaireWidget(QWidget):
         n_poissons: int = 6,
     ) -> None:
         super().__init__(parent)
+
+        # Palette de couleurs
 
         # --- plage de sable (fond, façon plage qui s'enfonce dans la mer) ---
         # `plage_hauteur_debut_ratio` : à quelle hauteur (0 = haut de la
@@ -1058,7 +1064,7 @@ class CompteurCirculaireWidget(QWidget):
         side = min(rect_zone.width(), rect_zone.height())
         taille_base = side * 0.07  # plus discret que le décor plage existant
 
-        trait = QColor(self.theme.texte)
+        trait = QColor(self.theme._PALETTE.get("texte"))
         trait.setAlpha(110)
 
         for item in items:
@@ -1153,7 +1159,7 @@ class CompteurCirculaireWidget(QWidget):
         )
 
         # --- fond du disque intérieur : teinte selon l'heure du jour ---
-        teintes = self.theme._teintes_palette()
+        teintes = self.theme._PALETTE
         rayon_interieur = rect_arc.width() / 2 - arc_width * 0.5
 
         gradient_fond = QRadialGradient(

@@ -249,6 +249,15 @@ class CompteurCirculaireWidget(QWidget):
         # que la mer (ajoutée séparément) prendra le relais.
         self._plage_x_fin_ratio = 0.7
 
+        # Enfoncement du bocal dans le sable : fraction (0-1) de sa hauteur que
+        # la plage a le droit de recouvrir. Volontairement faible : le bocal
+        # doit avoir l'air "planté", sans que ça cache la montée du sable à
+        # l'intérieur tant qu'elle n'a pas rattrapé le niveau extérieur.
+        self._enfoncement_bocal_ratio = 0.1
+        # Rempli à chaque paintEvent avec (x_gauche, x_droite, y_limite, marge)
+        # du bocal courant, pour que `_plage_y_surface` aplanisse localement.
+        self._jar_zone: Optional[Tuple[float, float, float, float]] = None
+
         self.fonction_traduction = fonction_traduction
         self._value = (
             0.0  # valeur animée, affichée à l'écran (niveau du sable / anneau)
@@ -603,12 +612,6 @@ class CompteurCirculaireWidget(QWidget):
         return (bruit + vague) * amplitude
 
     def _plage_y_surface(self, rect_carte: QRectF, x: float) -> float:
-        """Hauteur (y) de la ligne de sable de la plage à l'abscisse `x`
-        (repère widget) : une pente descendante de `plage_hauteur_debut_ratio`
-        (tout à gauche de la carte) jusqu'au bas de la carte à
-        `_plage_x_fin_ratio` de la largeur, pour mimer une plage qui
-        s'enfonce progressivement dans la mer — plus un léger bruit pour
-        rester naturelle plutôt que parfaitement lisse."""
         x0 = rect_carte.left()
         x_fin = rect_carte.left() + rect_carte.width() * self._plage_x_fin_ratio
         y0 = rect_carte.top() + rect_carte.height() * self.plage_hauteur_debut_ratio
@@ -617,7 +620,24 @@ class CompteurCirculaireWidget(QWidget):
         t = 0.0 if x_fin <= x0 else max(0.0, min(1.0, (x - x0) / (x_fin - x0)))
         y_base = y0 + (y_fin - y0) * t
         amplitude = rect_carte.height() * 0.018
-        return y_base + self._jitter_plage(t, amplitude)
+        y = y_base + self._jitter_plage(t, amplitude)
+
+        # Aplanit localement la pente au droit du bocal : on ne le laisse
+        # pas s'enterrer au-delà de `_enfoncement_bocal_ratio` de sa hauteur.
+        if self._jar_zone is not None:
+            xg, xd, y_limite, marge = self._jar_zone
+            if marge > 0 and xg - marge <= x <= xd + marge:
+                if x < xg:
+                    poids = (x - (xg - marge)) / marge
+                elif x > xd:
+                    poids = ((xd + marge) - x) / marge
+                else:
+                    poids = 1.0
+                poids = max(0.0, min(1.0, poids))
+                y_plafonne = max(y, y_limite)
+                y = y + (y_plafonne - y) * poids
+
+        return y
 
     def _chemin_plage(self, rect_carte: QRectF) -> QPainterPath:
         """Construit le contour de la plage : de la gauche de la carte
@@ -1456,6 +1476,16 @@ class CompteurCirculaireWidget(QWidget):
         percent = max(0.0, min(1.0, percent))
 
         m = self._mesures_bocal(jar_rect)
+
+        # Zone d'enfoncement du bocal courant : la plage ne pourra pas
+        # recouvrir plus que `_enfoncement_bocal_ratio` de sa hauteur.
+        marge_transition = jar_rect.width() * 0.9
+        self._jar_zone = (
+            jar_rect.left(),
+            jar_rect.right(),
+            jar_rect.bottom() - jar_rect.height() * self._enfoncement_bocal_ratio,
+            marge_transition,
+        )
 
         # --- bocal, légèrement penché : tout le rendu du bocal (sable,
         # pluie, contour, reflet) tourne autour du pied du bocal, comme

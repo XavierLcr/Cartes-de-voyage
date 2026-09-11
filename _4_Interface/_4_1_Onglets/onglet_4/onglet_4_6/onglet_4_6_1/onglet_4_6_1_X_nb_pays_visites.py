@@ -90,8 +90,15 @@ class CompteurTheme:
             "min_saturation": 0.2,
             "max_saturation": 0.4,
         },
-        limite_essais=20,
     ):
+
+        # Teintes des disques selon la phase du jour
+        self._TEINTES_DISQUE = {
+            "nuit": {"centre": "#232A52", "bord": "#12142B", "rim": "#B9C4E0"},
+            "aube": {"centre": "#FDE0B0", "bord": "#F3A66B", "rim": "#F7C88A"},
+            "jour": {"centre": "#FFFCF2", "bord": "#FFF3D2", "rim": "#F0C452"},
+            "crepuscule": {"centre": "#F6B27C", "bord": "#D96A5C", "rim": "#F2914F"},
+        }
         # Fond de carte : identiques aux valeurs utilisées par ThemeCarte,
         # pour que les deux widgets soient posés sur le même "papier".
         self.fond = QColor(
@@ -134,7 +141,7 @@ class CompteurTheme:
                 clair="#F3D48C",
                 sombre="#FFDE9E",
                 reference=self.progression_debut.name(),
-                essais=limite_essais,
+                essais=20,
             )
         )
 
@@ -232,13 +239,6 @@ class CompteurCirculaireWidget(QWidget):
     """
 
     NB_GRAINS = 1000
-
-    _TEINTES_DISQUE = {
-        "nuit": {"centre": "#232A52", "bord": "#12142B", "rim": "#B9C4E0"},
-        "aube": {"centre": "#FDE0B0", "bord": "#F3A66B", "rim": "#F7C88A"},
-        "jour": {"centre": "#FFFCF2", "bord": "#FFF3D2", "rim": "#F0C452"},
-        "crepuscule": {"centre": "#F6B27C", "bord": "#D96A5C", "rim": "#F2914F"},
-    }
 
     def __init__(
         self,
@@ -432,9 +432,7 @@ class CompteurCirculaireWidget(QWidget):
         self.update()
 
     def set_style(self, style, nuances, teintes):
-        self.theme = CompteurTheme(
-            style=style, nuances=nuances, teinte=teintes, limite_essais=20
-        )
+        self.theme = CompteurTheme(style=style, nuances=nuances, teinte=teintes)
         # L'ombre portée dépend du thème (couleur dérivée du texte) : on la
         # remet à jour pour rester cohérent avec la carte voisine si le
         # style change (mode clair / sombre).
@@ -707,7 +705,7 @@ class CompteurCirculaireWidget(QWidget):
             for moment, w in poids.items():
                 if w <= 0:
                     continue
-                c = QColor(self._TEINTES_DISQUE[moment][cle])
+                c = QColor(self.theme._TEINTES_DISQUE[moment][cle])
                 r += c.red() * w
                 g += c.green() * w
                 b += c.blue() * w

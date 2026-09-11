@@ -154,9 +154,6 @@ class CompteurCirculaireWidget(QWidget):
 
         # Mise à jour du style
         self.set_style()
-        self.timer = QTimer(self)
-        self.timer.timeout.connect(self.set_style)
-        self.timer.start(30 * 60 * 1000)
 
         # --- Anneau de progression (cercle de données) ---
         self._cercle = CercleDonnees(start_angle=90, arc_width_ratio=0.10)

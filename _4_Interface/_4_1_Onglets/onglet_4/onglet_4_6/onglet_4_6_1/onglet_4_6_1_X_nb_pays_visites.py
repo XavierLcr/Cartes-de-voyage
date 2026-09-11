@@ -595,11 +595,15 @@ class CompteurCirculaireWidget(QWidget):
     ) -> None:
         """Halo doré, discret, autour du cercle de données, quand le bocal
         approche du niveau maximal."""
-        glow_color = QColor(self._PALETTE["cercle_tour"])
-        glow_color.setAlphaF(0.25 * self._glow_opacity)
         expand = side_cercle * 0.06 * self._glow_opacity
         painter.setPen(Qt.PenStyle.NoPen)
-        painter.setBrush(QBrush(glow_color))
+        painter.setBrush(
+            QBrush(
+                _QColor_avec_alpha(
+                    self._PALETTE["cercle_tour"], alpha=0.25 * self._glow_opacity
+                )
+            )
+        )
         painter.drawEllipse(cercle_rect.adjusted(-expand, -expand, expand, expand))
 
     def _dessiner_verre_corps(self, painter: QPainter, contour: QPainterPath) -> None:

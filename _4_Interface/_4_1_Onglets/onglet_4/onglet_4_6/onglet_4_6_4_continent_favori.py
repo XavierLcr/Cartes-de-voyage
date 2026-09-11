@@ -690,14 +690,7 @@ class ContinentFavoriWidget(QWidget):
                 largeur_barre_max * (compte / maximum) * self._progression_barres
             )
 
-            largeur_barre = (
-                max(
-                    largeur_barre,
-                    hauteur_ligne * 0.25,
-                )
-                if self._progression_barres > 0
-                else 0
-            )
+            largeur_barre = largeur_barre if self._progression_barres > 0 else 0
 
             hauteur_barre = hauteur_ligne * 0.42
 

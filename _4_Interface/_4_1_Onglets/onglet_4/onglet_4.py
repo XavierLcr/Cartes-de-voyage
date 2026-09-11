@@ -130,7 +130,10 @@ class OngletTopPays(QWidget):
 
         # Tableau de bord
         self.tableau_de_bord = onglet_4_6.OngletTableauDeBord(
-            fct_traduction=fct_traduction, parent=None, constantes=constantes
+            fct_traduction=fct_traduction,
+            parent=None,
+            constantes=constantes,
+            duree_animation=2000,
         )
 
         self.portrait_IA = ProfilVoyageurIA(

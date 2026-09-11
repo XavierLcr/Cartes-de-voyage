@@ -213,7 +213,7 @@ class CercleDonnees:
             painter.setBrush(QBrush(halo_curseur))
             r_halo = arc_width * 0.58
             painter.drawEllipse(point_fin, r_halo, r_halo)
-            painter.setBrush(QBrush(QColor("#FFFFFF")))
+            painter.setBrush(QBrush(palette.get("fond", "#FFFFFF")))
             r_coeur = arc_width * 0.22
             painter.drawEllipse(point_fin, r_coeur, r_coeur)
 

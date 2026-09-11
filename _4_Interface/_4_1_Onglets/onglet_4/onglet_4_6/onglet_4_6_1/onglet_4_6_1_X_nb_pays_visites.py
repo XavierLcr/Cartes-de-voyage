@@ -59,27 +59,7 @@ from _4_Interface._4_3_Icones._4_3_34_poissons import (
 
 class CompteurTheme:
     """
-    Palette de couleurs du widget compteur.
-
-    Reprend la structure de `ThemeCarte` (onglet 4.6.3) : même fond de
-    carte, même convention d'ombre, mêmes appels de style — mais avec son
-    propre accent, pour se démarquer un peu de la carte voisine tout en
-    restant cohérent dans la construction.
-
-    `progression_debut` / `progression_fin` forment le dégradé sable
-    (grain plus foncé -> grain plus clair). Ce même dégradé sert
-    maintenant à deux endroits : les grains du bocal, et l'anneau de
-    progression du cercle de données, pour que les deux moitiés du
-    widget restent visuellement de la même famille. Il suit toujours la
-    rotation de teinte de `renvoyer_couleur_widget`, comme les autres
-    widgets de la grille.
-
-    `alerte` ne signale plus un danger : c'est maintenant la couleur du
-    léger halo doré qui entoure le cercle de données quand le bocal est
-    presque plein — un clin d'œil poétique plutôt qu'une alarme. Elle
-    reste une couleur fixe (deux nuances clair/sombre), indépendante de
-    `renvoyer_couleur_widget`, pour rester reconnaissable quelle que
-    soit l'instance du widget.
+    Palette de couleurs du widget de compteur de pays visités.
     """
 
     def __init__(
@@ -105,12 +85,11 @@ class CompteurTheme:
         # Calcul de la bonne couleur
         self._PALETTE = self._teintes_palette()
 
-        # -- Ajout d'autres valeurs
-        # Texte
+        # -- Ajout de la couleur du texte
         self._PALETTE["texte"] = renvoyer_couleur_texte(
             style=0, couleur=self._PALETTE["centre"].name()
         )
-        # Piste
+        # -- Ajout de la couleur de la piste
         self._PALETTE["piste"] = _QColor_avec_alpha(self._PALETTE["texte"], alpha=25)
 
         # Fond de carte : identiques aux valeurs utilisées par ThemeCarte,
@@ -149,12 +128,8 @@ class CompteurTheme:
             )
         )
 
-        # Halo générique "objectif atteint" (gardé pour compatibilité avec
-        # d'éventuels autres usages de CompteurTheme) : reprend le dégradé.
-        self.complete = QColor(self.progression_fin)
-
         # Halo "bocal presque plein" : doré et chaud, plus une alarme rouge.
-        self.alerte = QColor("#FFCB61" if style != 1 else "#FFDD94")
+        self.cercle_tour = QColor("#FFCB61" if style != 1 else "#FFDD94")
 
         # Ombre portée : même convention que ThemeCarte (dérivée du texte).
         self.ombre = QColor(renvoyer_couleur_texte(style=0, couleur="#FFFFFF"))
@@ -696,7 +671,7 @@ class CompteurCirculaireWidget(QWidget):
     ) -> None:
         """Halo doré, discret, autour du cercle de données, quand le bocal
         approche du niveau maximal."""
-        glow_color = QColor(self.theme.alerte)
+        glow_color = QColor(self.theme.cercle_tour)
         glow_color.setAlphaF(0.25 * self._glow_opacity)
         expand = side_cercle * 0.06 * self._glow_opacity
         painter.setPen(Qt.PenStyle.NoPen)

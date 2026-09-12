@@ -31,7 +31,10 @@ from PyQt6.QtWidgets import (
 )
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import voyages_vers_destinations
-from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import ombre_onglet_4_6
+from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
+    ombre_onglet_4_6,
+    _QColor_avec_alpha,
+)
 from _0_Utilitaires._0_07_fonctions_voyages import table_pays_visites
 from _0_Utilitaires._0_2_fonctions_graphiques import (
     renvoyer_couleur_widget,
@@ -126,7 +129,6 @@ class ThemeContinentFavori:
             "min_saturation": 0.2,
             "max_saturation": 0.4,
         },
-        limite_essais=20,
     ):
         # Fond de carte : identique aux trois autres widgets.
         self.fond = QColor(
@@ -145,12 +147,10 @@ class ThemeContinentFavori:
             else "#1c1f2b"
         )
 
-        self.sous_texte = QColor(self.texte)
-        self.sous_texte.setAlpha(140)
+        self.sous_texte = _QColor_avec_alpha(self.texte, alpha=140)
 
         # Barres "normales" du classement : dérivées du texte, très diluées.
-        self.barre = QColor(self.texte)
-        self.barre.setAlpha(30 if style == 1 else 25)
+        self.barre = _QColor_avec_alpha(self.texte, alpha=30 if style == 1 else 25)
 
         # ------------------------------------------------------------------
         # Couleur du continent favori
@@ -165,22 +165,15 @@ class ThemeContinentFavori:
 
         # Badge : même couleur que le continent favori, avec deux niveaux
         # d'alpha pour créer un dégradé doux.
-        self.badge_debut = QColor(self.couleur_continent)
-        self.badge_debut.setAlpha(100)
-
-        self.badge_fin = QColor(self.couleur_continent)
-        self.badge_fin.setAlpha(190)
+        self.badge_debut = _QColor_avec_alpha(self.couleur_continent, alpha=100)
+        self.badge_fin = _QColor_avec_alpha(self.couleur_continent, alpha=190)
 
         # Barre du continent favori, mise en avant.
-        self.barre_surbrillance = QColor(self.couleur_continent)
-        self.barre_surbrillance.setAlpha(200)
+        self.barre_surbrillance = _QColor_avec_alpha(self.couleur_continent, alpha=200)
 
         # Couleurs utilisées par le globe.
-        self.globe_debut = QColor(self.couleur_continent)
-        self.globe_debut.setAlpha(120)
-
-        self.globe_fin = QColor(self.couleur_continent)
-        self.globe_fin.setAlpha(210)
+        self.globe_debut = _QColor_avec_alpha(self.couleur_continent, alpha=120)
+        self.globe_fin = _QColor_avec_alpha(self.couleur_continent, alpha=210)
 
 
 # 3 -- Classe du widget ---------------------------------------------------------
@@ -352,7 +345,6 @@ class ContinentFavoriWidget(QWidget):
             continent_favori=self.continent_favori,
             nuances=nuances,
             teinte=teintes,
-            limite_essais=20,
         )
 
         self.setGraphicsEffect(ombre_onglet_4_6(style=style, parent=self))

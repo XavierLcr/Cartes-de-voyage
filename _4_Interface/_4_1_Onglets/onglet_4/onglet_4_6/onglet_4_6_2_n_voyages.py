@@ -24,7 +24,10 @@ from PyQt6.QtGui import (
 )
 from PyQt6.QtWidgets import QSizePolicy, QWidget, QToolTip
 
-from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import ombre_onglet_4_6
+from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
+    ombre_onglet_4_6,
+    _QColor_avec_alpha,
+)
 from _4_Interface._4_2_Style._4_2_1_style_principal import (
     renvoyer_couleur_widget,
     renvoyer_couleur_texte,
@@ -97,8 +100,7 @@ class ThemeCarte:
             else "#1c1f2b"
         )
         # Barre (fond des mini-barres du graphique) : dérivée du texte, très diluée
-        self.barre = QColor(self.texte)
-        self.barre.setAlpha(30 if style == 1 else 25)
+        self.barre = _QColor_avec_alpha(self.texte, alpha=30 if style == 1 else 25)
         # Dégradé du badge (pin de destination)
         self.badge_debut = QColor(
             renvoyer_couleur_widget(
@@ -121,8 +123,7 @@ class ThemeCarte:
             )
         )
         # Sous-texte
-        self.sous_texte = QColor(self.texte)
-        self.sous_texte.setAlpha(140)
+        self.sous_texte = _QColor_avec_alpha(self.texte, alpha=140)
         # Barre mise en avant (dernière période du mini graphique)
         self.barre_surbrillance = QColor(
             renvoyer_couleur_widget_differente(
@@ -163,10 +164,6 @@ class ThemeCarte:
                 sombre="#d2d1d2",
             )
         )
-
-        # Ombre portée de la carte
-        self.ombre = QColor("#707070")
-        self.ombre.setAlpha(60 if style == 1 else 120)
 
 
 # 3 -- Classe du compteur  -----------------------------------------------------

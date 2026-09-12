@@ -29,6 +29,7 @@ from _4_Interface._4_3_Icones._4_3_36_tortue_de_mer import _dessiner_tortue
 from _4_Interface._4_3_Icones._4_3_37_poisson_globe import _dessiner_poisson_globe
 from _4_Interface._4_3_Icones._4_3_38_requin import _dessiner_requin
 from _4_Interface._4_3_Icones._4_3_39_bouee import _dessiner_bouee
+from _4_Interface._4_3_Icones._4_3_41_poulpe import _dessiner_poulpe
 
 # 1 -- Fonction de dessin d'un poisson selon ses caractéristiques --------------
 
@@ -51,6 +52,8 @@ def _dessiner_creature(
         _dessiner_poisson_globe(painter, centre, taille, sens, couleur, phase, degrade)
     elif type_creature == "requin":
         _dessiner_requin(painter, centre, taille, sens, couleur, phase, degrade)
+    elif type_creature == "poulpe":
+        _dessiner_poulpe(painter, centre, taille, sens, couleur, phase, degrade)
     else:
         _dessiner_poisson(
             painter,
@@ -76,7 +79,8 @@ def _tirer_type_poisson() -> str:
         ("tortue", 0.14),
         ("poisson-globe", 0.10),
         ("requin", 0.12),
-        ("poisson", 0.50),
+        ("poulpe", 0.48),
+        ("poisson", 0.02),
     ]
 
     tirage = random.random()
@@ -103,6 +107,7 @@ def _generer_poissons(n: int) -> List[dict]:
         "raie": ["#4C7FB0", "#A9C2C6", "#6C8CA0"],
         "tortue": ["#7A9E6E", "#5FA88A", "#8C9E5C"],
         "poisson-globe": ["#E8C468", "#D9B482", "#C9A876"],
+        "poulpe": ["#C98F9B", "#A985B5", "#D29A78", "#7FA6B8"],
     }
     poissons = []
     for i in range(n):

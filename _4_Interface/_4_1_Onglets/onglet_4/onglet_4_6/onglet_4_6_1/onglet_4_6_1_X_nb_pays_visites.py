@@ -107,7 +107,7 @@ class CompteurCirculaireWidget(QWidget):
     def __init__(
         self,
         fonction_traduction,
-        plage_hauteur_debut_ratio: float = 0.4,
+        plage_hauteur_debut_ratio: float = 0.6,
         value: int = 0,
         maximum: int = 220,
         parent: Optional[QWidget] = None,

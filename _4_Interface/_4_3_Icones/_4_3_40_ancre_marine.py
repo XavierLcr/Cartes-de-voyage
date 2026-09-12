@@ -23,9 +23,6 @@ from PyQt6.QtCore import Qt, QPointF
 # 1 -- Fonction de création de l'encre -----------------------------------------
 
 
-# 1septies -- Fonction de création de l'ancre au fond de la mer ------------------
-
-
 def _dessiner_ancre(
     painter: QPainter,
     centre: QPointF,

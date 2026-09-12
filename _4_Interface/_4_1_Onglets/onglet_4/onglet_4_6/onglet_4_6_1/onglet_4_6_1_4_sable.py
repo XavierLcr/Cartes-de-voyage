@@ -21,6 +21,7 @@ from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6.onglet_4_6_1.onglet_4_6_1_1_t
 )
 from _4_Interface._4_3_Icones._4_3_32_etoile_de_mer import _dessiner_etoile_mer
 from _4_Interface._4_3_Icones._4_3_33_coquillage import _dessiner_coquillage
+from _4_Interface._4_3_Icones._4_3_40_ancre_marine import _dessiner_ancre
 
 # Type d'un grain : (nx, ny, echelle_rayon, teinte_t, etincelle)
 Grain = Tuple[float, float, float, float, bool]
@@ -292,6 +293,17 @@ class SableEtDecorMarin:
         t = 0.0 if x_fin <= x0 else max(0.0, min(1.0, (x - x0) / (x_fin - x0)))
         y_base = y0 + (y_fin - y0) * t
         amplitude = rect_carte.height() * 0.018
+
+        # Le bruit vertical est atténué sur la fin de la plage (t -> 1) :
+        # à cet endroit, la ligne de base atteint déjà `y_fin` (le bas de
+        # la carte), donc tout bruit orienté vers le bas ferait déborder
+        # le point hors de la carte, juste avant le raccord avec le coin
+        # arrondi inférieur droit — ça créait un petit "bout" qui semblait
+        # ne pas toucher le fond. On ramène donc l'amplitude à 0 pile à
+        # t = 1, en douceur sur les derniers 20 % de la plage.
+        attenuation_fin = 1.0 if t <= 0.8 else max(0.0, (1.0 - t) / 0.2)
+        amplitude *= attenuation_fin
+
         y = y_base + self._jitter_plage(t, amplitude)
 
         # Aplanit localement la pente au droit du bocal.
@@ -308,12 +320,23 @@ class SableEtDecorMarin:
                 y_plafonne = max(y, y_limite)
                 y = y + (y_plafonne - y) * poids
 
-        return y
+        # Filet de sécurité : quoi qu'il arrive, ne jamais dépasser le bas
+        # de la carte (cf. attenuation_fin ci-dessus pour la vraie cause).
+        return min(y, y_fin)
 
     def chemin_plage(self, rect_carte: QRectF) -> QPainterPath:
         """Construit le contour de la plage : de la gauche de la carte
         jusqu'à `_plage_x_fin_ratio` de sa largeur, avec une ligne de
         surface légèrement irrégulière et des coins inférieurs arrondis.
+
+        Le coin inférieur gauche coïncide exactement avec le coin
+        inférieur gauche de la carte elle-même (x0 = rect_carte.left(),
+        y_bas = rect_carte.bottom()) : son rayon n'a donc pas besoin de
+        correspondre pile à celui de la carte (`rayon_carte`, dans le
+        widget) — voir `dessiner_plage`, qui intersecte son clip avec
+        celui déjà posé par le widget plutôt que de le remplacer, pour
+        que le sable ne puisse de toute façon jamais dépasser le vrai
+        contour arrondi de la carte à cet endroit.
         """
         x0 = rect_carte.left()
         x_fin = rect_carte.left() + rect_carte.width() * self._plage_x_fin_ratio
@@ -556,7 +579,14 @@ class SableEtDecorMarin:
         couleur_fin = eclaircir(palette["sable_fin"], 0.16)
 
         painter.save()
-        painter.setClipPath(chemin)
+        # IntersectClip (et non le ReplaceClip par défaut) : on cumule avec
+        # le clip déjà posé par le widget sur la carte à coins arrondis,
+        # plutôt que de le remplacer. Sans ça, le rayon d'arrondi de la
+        # plage n'a plus aucune contrainte du côté du coin bas-gauche
+        # (qui coïncide avec celui de la carte) et peut légèrement déborder
+        # du vrai contour arrondi de la carte, visible comme un petit
+        # "patch" carré juste au niveau du coin.
+        painter.setClipPath(chemin, Qt.ClipOperation.IntersectClip)
 
         fond_sable = QColor(couleur_debut)
         fond_sable.setAlpha(235)
@@ -592,20 +622,21 @@ class SableEtDecorMarin:
     def _generer_decor_marin(
         self,
         n: int,
-        zone: str = "plage",  # "plage" ou "mer"
+        zone: str = "plage",
         graine: int = 31415,
     ) -> List[dict]:
         """
         Prégénère n éléments de décor marin (étoiles de mer / coquillages),
+        plus une ancre systématique en supplément (indépendante de n),
         destinés soit à la plage (zone="plage", ancrés via
         `point_sur_plage`), soit au fond de la mer (zone="mer", en
-        coordonnées normalisées dans son rectangle). Type, couleur, taille
-        et angle varient d'un exemplaire à l'autre pour éviter l'effet de
-        clones.
+        coordonnées normalisées dans son rectangle).
         """
         rng = random.Random(graine)
         palette_fond = ["#FFF7EA", "#FDEBD3", "#F7DCC6", "#FFE9D6", "#F3E1EE"]
+        palette_ancre = ["#7A6455", "#8A6A54", "#6E5647", "#82624D"]
         items = []
+
         for _ in range(n):
             item = {
                 "type": rng.choice(["etoile", "coquillage"]),
@@ -617,11 +648,28 @@ class SableEtDecorMarin:
             if zone == "plage":
                 item["t"] = rng.uniform(0.04, 0.96)
                 item["profondeur"] = rng.uniform(0.05, 0.95)
-            else:  # "mer" : positions normalisées, on évite le tiers proche
-                # de la surface pour rester crédible "posé au fond"
+            else:
                 item["nx"] = rng.uniform(0.06, 0.94)
                 item["ny"] = rng.uniform(0.55, 0.92)
             items.append(item)
+
+        # -- Ancre systématique, en plus des n éléments ci-dessus --
+        ancre = {
+            "type": "ancre",
+            "echelle": rng.uniform(0.7, 1.0),
+            "angle": rng.uniform(-25.0, 25.0),
+            "fond": QColor(rng.choice(palette_ancre)),
+            "graine_forme": rng.randint(0, 99999),
+            "phase": rng.uniform(0.0, math.tau),
+        }
+        if zone == "plage":
+            ancre["t"] = rng.uniform(0.10, 0.90)
+            ancre["profondeur"] = rng.uniform(0.15, 0.85)
+        else:
+            ancre["nx"] = rng.uniform(0.10, 0.90)
+            ancre["ny"] = rng.uniform(0.55, 0.92)
+        items.append(ancre)
+
         return items
 
     def dessiner_decor_marin(
@@ -652,7 +700,7 @@ class SableEtDecorMarin:
                 )
             taille = taille_base * item["echelle"]
             fond = QColor(item["fond"])
-            fond.setAlpha(210 if zone == "plage" else 175)  # estompé sous l'eau
+            fond.setAlpha(210 if zone == "plage" else 175)
 
             if item["type"] == "etoile":
                 _dessiner_etoile_mer(
@@ -664,7 +712,17 @@ class SableEtDecorMarin:
                     item["angle"],
                     graine=item["graine_forme"],
                 )
-            else:
+            elif item["type"] == "coquillage":
                 _dessiner_coquillage(
                     painter, centre, taille, fond, trait, item["angle"]
+                )
+            else:  # "ancre"
+                _dessiner_ancre(
+                    painter,
+                    centre,
+                    taille
+                    * 1.3,  # un peu plus grande pour rester lisible face aux autres décors
+                    inclinaison=math.radians(item["angle"]),
+                    couleur=fond,
+                    phase=item["phase"],
                 )

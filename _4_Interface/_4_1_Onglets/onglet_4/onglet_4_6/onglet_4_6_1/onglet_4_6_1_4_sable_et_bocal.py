@@ -93,6 +93,9 @@ def rotor_point(point: QPointF, pivot: QPointF, angle_deg: float) -> QPointF:
     return QPointF(pivot.x() + x, pivot.y() + y)
 
 
+## 1.4 -- Fonction d'éclairsissement d'une QColor ------------------------------
+
+
 def eclaircir(couleur: QColor, quantite: float) -> QColor:
     """Renvoie une version plus claire de `couleur`, mélangée avec du blanc
     à hauteur de `quantite` (0 = inchangée, 1 = blanc pur)."""

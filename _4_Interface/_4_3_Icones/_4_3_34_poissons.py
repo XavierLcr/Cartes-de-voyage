@@ -24,6 +24,7 @@ def _dessiner_poisson(
     couleur: QColor,
     phase: float = 0.0,
     degrade: bool = True,
+    **kwargs
 ) -> None:
     """Dessine un poisson stylisé, orienté vers la droite si
     `sens > 0`, vers la gauche sinon. `taille` correspond grossièrement à

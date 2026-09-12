@@ -74,6 +74,7 @@ def _dessiner_creature(
     type_creature="poisson",
     phase=0.0,
     degrade=True,
+    **kwargs,
 ):
     """Dessine la créature correspondant au type demandé."""
 
@@ -90,6 +91,7 @@ def _dessiner_creature(
         couleur,
         phase=phase,
         degrade=degrade,
+        **kwargs,
     )
 
 
@@ -150,6 +152,7 @@ def _generer_poissons(n: int) -> List[dict]:
                     random.choice(PALETTES_PAR_TYPE.get(type_creature_temp))
                 ),
                 "type_creature": type_creature_temp,
+                "intensite_encre": 1.0,
             }
         )
     return poissons
@@ -267,6 +270,14 @@ class MerAnimee:
                 poisson["nx"] = -0.05
                 poisson["sens"] = 1
 
+            if poisson["type_creature"] == "poulpe":
+                if poisson["intensite_encre"] > 0.0:
+                    poisson["intensite_encre"] = max(
+                        0.0, poisson["intensite_encre"] - 0.012
+                    )
+                elif random.random() < 0.002:
+                    poisson["intensite_encre"] = 1.0
+
         if self._on_tick is not None:
             self._on_tick()
 
@@ -377,6 +388,7 @@ class MerAnimee:
                 type_creature=poisson["type_creature"],
                 phase=self._phase_mer * poisson.get("vitesse_nage", 3.0)
                 + poisson["phase"],
+                intensite_encre=poisson["intensite_encre"],
             )
         painter.restore()
 

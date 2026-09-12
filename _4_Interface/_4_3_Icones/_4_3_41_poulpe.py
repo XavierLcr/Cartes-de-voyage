@@ -10,7 +10,6 @@
 
 import math
 
-from PyQt6.QtCore import Qt, QPointF
 from PyQt6.QtGui import (
     QPainter,
     QPainterPath,
@@ -19,6 +18,7 @@ from PyQt6.QtGui import (
     QColor,
     QRadialGradient,
 )
+from PyQt6.QtCore import Qt, QPointF
 
 # 1 -- Fonction de création du poulpe ------------------------------------------
 
@@ -31,407 +31,178 @@ def _dessiner_poulpe(
     couleur: QColor,
     phase: float = 0.0,
     degrade: bool = True,
+    **kwargs
 ) -> None:
-    """Dessine un petit poulpe stylisé nageant horizontalement.
+    """Dessine un poulpe en pleine nage horizontale : petite tête/manteau
+    rond à l'avant, et huit longues tentacules distinctes qui ondulent
+    indépendamment en traînant derrière (silhouette bien différente
+    d'une raie : le corps est petit, l'essentiel de la silhouette vient
+    des tentacules, pas d'un grand disque/aile).
 
-    Le manteau se gonfle et se contracte doucement au rythme de `phase`.
-    Les huit bras sont longs, souples et ondulent indépendamment.
-
-    Orienté vers la droite si `sens > 0`.
+    `intensite_encre` (0.0 à 1.0) déclenche un nuage d'encre expulsé par
+    le siphon. Orienté vers la droite si `sens > 0`.
     """
+
+    intensite_encre = kwargs.get("intensite_encre", 0.0)
 
     painter.save()
     painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
-
     painter.translate(centre)
-
     if sens < 0:
         painter.scale(-1, 1)
 
-    # --- Animation générale ---------------------------------------------------
-
-    # Respiration / gonflement du manteau.
-    respiration = math.sin(phase * 0.75)
-
-    # Mouvement vertical très léger du poulpe.
-    flottement = math.sin(phase * 0.75 + 0.8) * taille * 0.025
-    painter.translate(0, flottement)
-
-    # Le corps gonfle davantage en hauteur qu'en largeur.
-    facteur_x = 1.0 + respiration * 0.045
-    facteur_y = 1.0 + respiration * 0.095
-
-    # --- Dimensions ------------------------------------------------------------
-
-    # Corps volontairement plus petit que dans la première version.
-    rx = taille * 0.22 * facteur_x
-    ry = taille * 0.30 * facteur_y
-
-    # Le centre du manteau est légèrement décalé vers l'avant.
-    corps_x = taille * 0.10
-
-    # --- Couleurs --------------------------------------------------------------
+    respiration = math.sin(phase * 1.2)
 
     trait = QColor(couleur).darker(145)
     trait.setAlpha(210)
-
     pen = QPen(trait)
-    pen.setWidthF(max(0.8, taille * 0.025))
+    pen.setWidthF(max(0.7, taille * 0.016))
 
+    # --- 1) Nuage d'encre (derrière tout) ---
+    if intensite_encre > 0.01:
+        encre_couleur = QColor("#1A1A22")
+        xa = -taille * 0.75
+        for i in range(5):
+            t = i / 4
+            rayon_bulle = taille * (0.07 + t * 0.16) * (0.5 + intensite_encre * 0.5)
+            dx = xa - t * taille * 0.45 * intensite_encre * 2.0
+            dy = math.sin(phase * 2.0 + i * 1.7) * taille * 0.09 * (0.4 + t)
+            alpha = int(140 * intensite_encre * (1.0 - t * 0.6))
+            encre_couleur.setAlpha(max(0, alpha))
+            painter.setPen(Qt.PenStyle.NoPen)
+            painter.setBrush(QBrush(encre_couleur))
+            painter.drawEllipse(QPointF(dx, dy), rayon_bulle, rayon_bulle * 0.9)
+
+    # --- 2) Tête / manteau : petit et rond, PAS allongé ---
+    rayon_tete = taille * 0.15 * (1.0 + respiration * 0.05)
+    tete_x = taille * 0.30
+
+    # --- 3) Huit tentacules longues, distinctes, en éventail vers l'arrière ---
     couleur_bras = QColor(couleur).darker(108)
     couleur_bras.setAlpha(245)
+    painter.setBrush(QBrush(couleur_bras))
 
-    # ==========================================================================
-    # 2 -- Tentacules
-    # ==========================================================================
-
-    # On dessine les tentacules avant le manteau pour que leur naissance
-    # soit naturellement masquée par le corps.
-
-    painter.setPen(pen)
-
-    # Positions de départ autour de la partie basse du manteau.
-    #
-    # Les quatre premiers forment la partie inférieure visible.
-    # Les quatre autres donnent de la profondeur sur les côtés.
-
+    # Répartition des points d'ancrage autour de l'arrière de la tête,
+    # sur un arc (pas alignés en une seule ligne) pour un effet éventail.
     positions_bras = [
-        # x, y, longueur, amplitude, phase supplémentaire
-        (-0.72, 0.38, 0.34, 0.070, 0.0),
-        (-0.48, 0.55, 0.42, 0.085, 0.8),
-        (-0.20, 0.65, 0.47, 0.075, 1.6),
-        (0.08, 0.64, 0.43, 0.090, 2.3),
-        (0.34, 0.55, 0.40, 0.070, 3.0),
-        (0.58, 0.43, 0.34, 0.085, 3.7),
-        (-0.58, 0.68, 0.38, 0.060, 4.4),
-        (0.30, 0.70, 0.40, 0.065, 5.0),
+        # angle_ancrage (rad, 0 = vers l'arrière), longueur, amplitude, phase_offset
+        (-0.55, 0.95, 0.09, 0.0),
+        (-0.32, 1.15, 0.10, 0.7),
+        (-0.10, 1.30, 0.11, 1.4),
+        (0.10, 1.30, 0.11, 2.1),
+        (0.32, 1.15, 0.10, 2.8),
+        (0.55, 0.95, 0.09, 3.5),
+        (-0.75, 0.75, 0.08, 4.2),
+        (0.75, 0.75, 0.08, 4.9),
     ]
 
-    for i, (px, py, longueur, amplitude, phase_offset) in enumerate(positions_bras):
+    for angle_ancrage, longueur_rel, amplitude_rel, phase_offset in positions_bras:
+        x0 = tete_x - math.cos(angle_ancrage) * rayon_tete * 0.3
+        y0 = math.sin(angle_ancrage) * rayon_tete * 0.9
 
-        # Les bras suivent légèrement la respiration du corps.
-        ouverture = 1.0 + respiration * 0.035
+        longueur_reelle = taille * longueur_rel
+        amplitude_reelle = taille * amplitude_rel
+        phase_bras = phase * 1.1 + phase_offset
 
-        x0 = corps_x + px * rx
-        y0 = py * ry
-
-        longueur_reelle = taille * longueur * ouverture
-        amplitude_reelle = taille * amplitude
-
-        phase_bras = phase * 1.05 + phase_offset
-
-        # Chaque bras possède sa propre ondulation.
         ondulation_1 = math.sin(phase_bras)
-        ondulation_2 = math.sin(phase_bras + 1.2)
+        ondulation_2 = math.sin(phase_bras + 1.3)
 
-        # Les tentacules partent vers l'arrière (gauche).
         x1 = x0 - longueur_reelle
-
-        # Point de contrôle principal.
-        xm = x0 - longueur_reelle * 0.48
+        xm = x0 - longueur_reelle * 0.5
         ym = y0 + ondulation_1 * amplitude_reelle
+        y1 = y0 + ondulation_2 * amplitude_reelle * 0.85
 
-        # Extrémité.
-        y1 = y0 + ondulation_2 * amplitude_reelle * 0.72
+        e_base = taille * 0.028
+        e_pointe = taille * 0.004
 
-        # ----------------------------------------------------------------------
-        # Silhouette du tentacule
-        # ----------------------------------------------------------------------
-
-        # Épaisseur plus importante à la base et fine à l'extrémité.
-        e_base = taille * 0.042
-        e_milieu = taille * 0.027
-        e_pointe = taille * 0.008
-
-        # Première moitié du ruban.
         bras = QPainterPath()
-
         bras.moveTo(QPointF(x0, y0 - e_base))
-
-        bras.quadTo(
-            QPointF(
-                xm,
-                ym - e_milieu,
-            ),
-            QPointF(
-                x1,
-                y1 - e_pointe,
-            ),
-        )
-
-        # Pointe.
-        bras.lineTo(
-            QPointF(
-                x1 - taille * 0.015,
-                y1,
-            )
-        )
-
-        # Retour par le dessous.
-        bras.quadTo(
-            QPointF(
-                xm,
-                ym + e_milieu,
-            ),
-            QPointF(
-                x0,
-                y0 + e_base,
-            ),
-        )
-
+        bras.quadTo(QPointF(xm, ym - e_base * 0.45), QPointF(x1, y1 - e_pointe))
+        bras.lineTo(QPointF(x1 - taille * 0.015, y1))
+        bras.quadTo(QPointF(xm, ym + e_base * 0.45), QPointF(x0, y0 + e_base))
         bras.closeSubpath()
 
         painter.setPen(pen)
-        painter.setBrush(QBrush(couleur_bras))
         painter.drawPath(bras)
 
-        # ----------------------------------------------------------------------
-        # Ventouses
-        # ----------------------------------------------------------------------
-
-        # Très petites et peu nombreuses pour rester lisibles.
+        # ventouses, discrètes
         painter.setPen(Qt.PenStyle.NoPen)
-
         ventouse = QColor(couleur).lighter(155)
-        ventouse.setAlpha(120)
+        ventouse.setAlpha(110)
         painter.setBrush(QBrush(ventouse))
-
         for j in range(3):
-
-            t = 0.25 + j * 0.22
-
+            t = 0.25 + j * 0.25
             x = x0 + (x1 - x0) * t
-
             y = (1 - t) ** 2 * y0 + 2 * (1 - t) * t * ym + t**2 * y1
+            painter.drawEllipse(QPointF(x, y), taille * 0.008, taille * 0.008)
+        painter.setBrush(QBrush(couleur_bras))
 
-            # Les ventouses sont légèrement décalées vers le dessous.
-            y += taille * 0.018
-
-            r = taille * 0.010
-
-            painter.drawEllipse(
-                QPointF(x, y),
-                r,
-                r,
-            )
-
-    # ==========================================================================
-    # 3 -- Manteau gonflable
-    # ==========================================================================
-
+    # --- 4) Manteau (dessiné après les bras pour masquer leur naissance) ---
     if degrade:
-
         gradient = QRadialGradient(
-            QPointF(
-                corps_x - rx * 0.25,
-                -ry * 0.35,
-            ),
-            max(rx, ry) * 1.25,
+            QPointF(tete_x + rayon_tete * 0.2, -rayon_tete * 0.35), rayon_tete * 1.4
         )
-
-        gradient.setColorAt(
-            0.0,
-            QColor(couleur).lighter(145),
-        )
-
-        gradient.setColorAt(
-            0.58,
-            QColor(couleur),
-        )
-
-        gradient.setColorAt(
-            1.0,
-            QColor(couleur).darker(122),
-        )
-
-        pinceau_corps = QBrush(gradient)
-
+        gradient.setColorAt(0.0, QColor(couleur).lighter(145))
+        gradient.setColorAt(0.6, QColor(couleur))
+        gradient.setColorAt(1.0, QColor(couleur).darker(120))
+        pinceau_tete = QBrush(gradient)
     else:
-        pinceau_corps = QBrush(couleur)
+        pinceau_tete = QBrush(couleur)
 
     painter.setPen(pen)
-    painter.setBrush(pinceau_corps)
+    painter.setBrush(pinceau_tete)
+    tete = QPainterPath()
+    tete.addEllipse(QPointF(tete_x, 0), rayon_tete, rayon_tete * 0.92)
+    painter.drawPath(tete)
 
-    # Le manteau n'est volontairement PAS une ellipse parfaite.
-    # Son sommet est bombé et sa partie basse se resserre.
-
-    corps = QPainterPath()
-
-    # Départ bas-gauche.
-    corps.moveTo(
-        QPointF(
-            corps_x - rx * 0.75,
-            ry * 0.48,
-        )
-    )
-
-    # Flanc gauche.
-    corps.cubicTo(
-        QPointF(
-            corps_x - rx * 1.05,
-            ry * 0.05,
-        ),
-        QPointF(
-            corps_x - rx * 0.95,
-            -ry * 0.72,
-        ),
-        QPointF(
-            corps_x - rx * 0.25,
-            -ry * 0.96,
-        ),
-    )
-
-    # Sommet.
-    corps.cubicTo(
-        QPointF(
-            corps_x + rx * 0.25,
-            -ry * 1.10,
-        ),
-        QPointF(
-            corps_x + rx * 0.90,
-            -ry * 0.72,
-        ),
-        QPointF(
-            corps_x + rx * 0.98,
-            -ry * 0.05,
-        ),
-    )
-
-    # Avant du manteau.
-    corps.cubicTo(
-        QPointF(
-            corps_x + rx * 1.05,
-            ry * 0.40,
-        ),
-        QPointF(
-            corps_x + rx * 0.68,
-            ry * 0.68,
-        ),
-        QPointF(
-            corps_x + rx * 0.25,
-            ry * 0.72,
-        ),
-    )
-
-    # Partie basse resserrée.
-    corps.cubicTo(
-        QPointF(
-            corps_x - rx * 0.05,
-            ry * 0.77,
-        ),
-        QPointF(
-            corps_x - rx * 0.48,
-            ry * 0.67,
-        ),
-        QPointF(
-            corps_x - rx * 0.75,
-            ry * 0.48,
-        ),
-    )
-
-    corps.closeSubpath()
-
-    painter.drawPath(corps)
-
-    # ==========================================================================
-    # 4 -- Petit reflet sur le manteau
-    # ==========================================================================
-
+    # petit reflet
     painter.setPen(Qt.PenStyle.NoPen)
-
     reflet = QColor(couleur).lighter(170)
-    reflet.setAlpha(55)
+    reflet.setAlpha(60)
     painter.setBrush(QBrush(reflet))
-
     painter.drawEllipse(
-        QPointF(
-            corps_x - rx * 0.25,
-            -ry * 0.42,
-        ),
-        rx * 0.25,
-        ry * 0.16,
+        QPointF(tete_x + rayon_tete * 0.1, -rayon_tete * 0.35),
+        rayon_tete * 0.35,
+        rayon_tete * 0.2,
     )
 
-    # ==========================================================================
-    # 5 -- Yeux
-    # ==========================================================================
+    # siphon + petit jet d'eau
+    painter.setBrush(QBrush(QColor(couleur).darker(130)))
+    painter.drawEllipse(
+        QPointF(tete_x - rayon_tete * 0.6, rayon_tete * 0.35),
+        taille * 0.018,
+        taille * 0.014,
+    )
+    painter.setPen(QPen(QColor(200, 235, 245, 130), max(0.5, taille * 0.01)))
+    jet = QPainterPath()
+    jet.moveTo(tete_x - rayon_tete * 0.65, rayon_tete * 0.35)
+    jet.lineTo(
+        tete_x - rayon_tete * 1.0,
+        rayon_tete * 0.35 + math.sin(phase * 3) * taille * 0.012,
+    )
+    painter.drawPath(jet)
 
-    oeil_r = taille * 0.060
-
-    # Deux yeux placés vers l'avant du manteau.
+    # --- 5) Yeux (grands, proportionnellement, sur la petite tête) ---
+    oeil_r = taille * 0.042
     yeux = (
-        QPointF(
-            corps_x + rx * 0.54,
-            -ry * 0.34,
-        ),
-        QPointF(
-            corps_x + rx * 0.62,
-            -ry * 0.05,
-        ),
+        QPointF(tete_x + rayon_tete * 0.45, -rayon_tete * 0.30),
+        QPointF(tete_x + rayon_tete * 0.50, rayon_tete * 0.15),
     )
-
     for oeil_centre in yeux:
-
-        # Blanc.
+        painter.setPen(Qt.PenStyle.NoPen)
         painter.setBrush(QBrush(QColor("#FFFFFF")))
-
-        painter.drawEllipse(
-            oeil_centre,
-            oeil_r,
-            oeil_r,
-        )
-
-        # Pupille légèrement orientée vers l'avant.
+        painter.drawEllipse(oeil_centre, oeil_r, oeil_r)
         painter.setBrush(QBrush(QColor("#1C1F2B")))
-
         painter.drawEllipse(
-            QPointF(
-                oeil_centre.x() + oeil_r * 0.18,
-                oeil_centre.y(),
-            ),
-            oeil_r * 0.48,
-            oeil_r * 0.48,
+            QPointF(oeil_centre.x() + oeil_r * 0.2, oeil_centre.y()),
+            oeil_r * 0.5,
+            oeil_r * 0.5,
         )
-
-        # Reflet.
         painter.setBrush(QBrush(QColor(255, 255, 255, 220)))
-
         painter.drawEllipse(
-            QPointF(
-                oeil_centre.x() + oeil_r * 0.28,
-                oeil_centre.y() - oeil_r * 0.22,
-            ),
-            oeil_r * 0.16,
-            oeil_r * 0.16,
+            QPointF(oeil_centre.x() + oeil_r * 0.3, oeil_centre.y() - oeil_r * 0.22),
+            oeil_r * 0.17,
+            oeil_r * 0.17,
         )
-
-    # ==========================================================================
-    # 6 -- Petite bouche
-    # ==========================================================================
-
-    painter.setPen(pen)
-    painter.setBrush(Qt.BrushStyle.NoBrush)
-
-    bouche = QPainterPath()
-
-    bouche.moveTo(
-        QPointF(
-            corps_x + rx * 0.70,
-            ry * 0.20,
-        )
-    )
-
-    bouche.quadTo(
-        QPointF(
-            corps_x + rx * 0.80,
-            ry * 0.27,
-        ),
-        QPointF(
-            corps_x + rx * 0.88,
-            ry * 0.18,
-        ),
-    )
-
-    painter.drawPath(bouche)
 
     painter.restore()

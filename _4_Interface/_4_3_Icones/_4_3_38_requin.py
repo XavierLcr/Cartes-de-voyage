@@ -24,6 +24,7 @@ def _dessiner_requin(
     couleur: QColor,
     phase: float = 0.0,
     degrade: bool = True,
+    **kwargs
 ) -> None:
     """Dessine un requin stylisé : corps fuselé en torpille, museau
     pointu, queue en croissant asymétrique (hétérocerque, comme chez le

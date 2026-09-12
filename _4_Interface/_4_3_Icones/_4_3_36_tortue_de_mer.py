@@ -24,6 +24,7 @@ def _dessiner_tortue(
     couleur: QColor,
     phase: float = 0.0,
     degrade: bool = True,
+    **kwargs
 ) -> None:
     """Dessine une tortue de mer stylisée, vue de dessus, en pleine nage.
     Orientée vers la droite si `sens > 0`.

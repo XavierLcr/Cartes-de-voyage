@@ -24,6 +24,7 @@ def _dessiner_poisson_globe(
     couleur: QColor,
     phase: float = 0.0,
     degrade: bool = True,
+    **kwargs
 ) -> None:
     """Dessine un poisson-globe stylisé, quasi rond, avec de petites
     épines tout autour du corps qui "respirent" légèrement au rythme de

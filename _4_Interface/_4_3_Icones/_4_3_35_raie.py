@@ -24,6 +24,7 @@ def _dessiner_raie(
     couleur: QColor,
     phase: float = 0.0,
     degrade: bool = True,
+    **kwargs
 ) -> None:
     """Dessine une raie stylisée vue de dessus, nageoires (ailes) en
     ondulation via `phase`. Orientée vers la droite si `sens > 0`.

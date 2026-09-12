@@ -34,10 +34,9 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     ombre_onglet_4_6,
     _QColor_avec_alpha,
 )
-from _4_Interface._4_2_Style._4_2_1_style_principal import (
+from _0_Utilitaires._0_2_fonctions_graphiques import (
     renvoyer_couleur_widget,
     renvoyer_couleur_texte,
-    renvoyer_couleur_widget_differente,
 )
 from _4_Interface._4_3_Icones._4_3_01_soleil_souriant import _dessiner_icone_soleil
 from _4_Interface._4_3_Icones._4_3_02_flocon_neige import _dessiner_icone_flocon
@@ -244,27 +243,8 @@ class ThemeJoursVoyages:
         # Couleurs de référence du badge
         # ------------------------------------------------------------------
 
-        self.badge_debut = QColor(
-            renvoyer_couleur_widget(
-                style=style,
-                teinte=teinte,
-                nuances=nuances,
-                clair="#7C7EF5",
-                sombre="#AFB5F1",
-            )
-        )
-
-        self.badge_fin = QColor(
-            renvoyer_couleur_widget_differente(
-                style=style,
-                teinte=teinte,
-                nuances=nuances,
-                clair="#A27FF4",
-                sombre="#C6B7F3",
-                reference=self.badge_debut.name(),
-                essais=limite_essais,
-            )
-        )
+        self.badge_debut = QColor("#AFB5F1")
+        self.badge_fin = QColor("#C6B7F3")
 
     # ----------------------------------------------------------------------
     # Gestion du mois
@@ -330,11 +310,11 @@ class ThemeJoursVoyages:
         if mois_actuel:
             saturation_barre = 160
             valeur_barre = 200
-            alpha_barre = 130
+            alpha_barre = 160
         else:
             saturation_barre = 130
             valeur_barre = 235
-            alpha_barre = 55
+            alpha_barre = 75
 
         barre = QColor.fromHsv(
             parametres["teinte_barre"],

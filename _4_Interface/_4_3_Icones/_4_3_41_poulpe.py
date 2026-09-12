@@ -20,7 +20,7 @@ from PyQt6.QtGui import (
 )
 from PyQt6.QtCore import Qt, QPointF
 
-# 1 -- Fonction de création du poulpe ------------------------------------------
+# 1 -- Utilitaires -------------------------------------------------------------
 
 
 def _ligne_centrale_tentacule(
@@ -36,9 +36,9 @@ def _ligne_centrale_tentacule(
     avance_totale = longueur
     for i in range(n_points):
         s = i / (n_points - 1)
-        enveloppe = s**1.4
+        enveloppe = s**1.1  # bombage plus marqué, pas seulement concentré en pointe
         onde = math.sin(phase * 1.5 - s * 4.2)
-        lateral = onde * enveloppe * taille * (0.14 + 0.09 * abs(coup_de_nage)) * signe
+        lateral = onde * enveloppe * taille * (0.22 + 0.15 * abs(coup_de_nage)) * signe
         avance = s * avance_totale
         px = x0 - avance * math.cos(angle_ancrage * 0.4)
         py = y0 + avance * math.sin(angle_ancrage) + lateral
@@ -78,6 +78,9 @@ def _construire_ruban(points, largeurs):
     _tracer_spline(chemin, bas_inverse)
     chemin.closeSubpath()
     return chemin
+
+
+# 2 -- Fonction de création du poulpe ------------------------------------------
 
 
 def _dessiner_poulpe(
@@ -130,7 +133,7 @@ def _dessiner_poulpe(
     painter.setBrush(QBrush(couleur_bras))
 
     angles_ancrage = [-0.75, -0.55, -0.32, -0.10, 0.10, 0.32, 0.55, 0.75]
-    longueurs_rel = [0.72, 0.92, 1.12, 1.28, 1.28, 1.12, 0.92, 0.72]
+    longueurs_rel = [r * 0.70 for r in (0.72, 0.92, 1.12, 1.28, 1.28, 1.12, 0.92, 0.72)]
 
     for angle_ancrage, longueur_rel in zip(angles_ancrage, longueurs_rel):
         angle_effectif = angle_ancrage * facteur_angle

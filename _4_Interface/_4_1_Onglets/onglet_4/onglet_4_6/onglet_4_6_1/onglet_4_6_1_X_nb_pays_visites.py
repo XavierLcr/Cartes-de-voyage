@@ -9,7 +9,6 @@
 
 
 from __future__ import annotations
-import math
 from typing import Optional
 
 from PyQt6.QtCore import (
@@ -41,7 +40,7 @@ from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6.onglet_4_6_1.onglet_4_6_1_2_m
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6.onglet_4_6_1.onglet_4_6_1_3_infographie import (
     CercleDonnees,
 )
-from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6.onglet_4_6_1.onglet_4_6_1_4_sable_et_bocal import (
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6.onglet_4_6_1.onglet_4_6_1_4_sable import (
     SableEtDecorMarin,
 )
 

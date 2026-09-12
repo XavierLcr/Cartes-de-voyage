@@ -29,7 +29,10 @@ from PyQt6.QtGui import (
 )
 from PyQt6.QtWidgets import QSizePolicy, QWidget, QToolTip
 
-from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import ombre_onglet_4_6
+from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
+    ombre_onglet_4_6,
+    _QColor_avec_alpha,
+)
 from _4_Interface._4_2_Style._4_2_1_style_principal import (
     renvoyer_couleur_widget,
     renvoyer_couleur_texte,
@@ -157,13 +160,13 @@ class ThemeJoursVoyages:
             else "#1c1f2b"
         )
         # Sous-texte
-        self.sous_texte = QColor(self.texte)
-        self.sous_texte.setAlpha(140)
+        self.sous_texte = _QColor_avec_alpha(self.texte, alpha=140)
 
         # Barres "normales" du graphique mensuel : dérivées du texte, très
         # diluées, même alpha que les widgets voisins.
-        self.barre = QColor(self.texte)
-        self.barre.setAlpha(30 if style == 1 else 25)
+        self.barre = _QColor_avec_alpha(
+            couleur=self.texte, alpha=30 if style == 1 else 25
+        )
 
         # Dégradé du badge (icône calendrier) : indigo -> violet.
         self.badge_debut = QColor(
@@ -171,8 +174,8 @@ class ThemeJoursVoyages:
                 style=style,
                 teinte=teinte,
                 nuances=nuances,
-                clair="#6366F1",
-                sombre="#818CF8",
+                clair="#7C7EF5",
+                sombre="#AFB5F1",
             )
         )
         self.badge_fin = QColor(
@@ -180,8 +183,8 @@ class ThemeJoursVoyages:
                 style=style,
                 teinte=teinte,
                 nuances=nuances,
-                clair="#8B5CF6",
-                sombre="#A78BFA",
+                clair="#A27FF4",
+                sombre="#C6B7F3",
                 reference=self.badge_debut.name(),
                 essais=limite_essais,
             )

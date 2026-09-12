@@ -187,21 +187,6 @@ class ThemeJoursVoyages:
             )
         )
 
-        # Barre du mois en cours, mise en avant : même famille que le
-        # badge mais dans l'autre sens (comme `barre_surbrillance` dans
-        # ThemeCarte), pour un léger contraste avec le reste du graphique.
-        self.barre_surbrillance = QColor(
-            renvoyer_couleur_widget_differente(
-                style=style,
-                teinte=teinte,
-                nuances=nuances,
-                clair="#8B5CF6",
-                sombre="#6366F1",
-                reference=self.badge_fin.name(),
-                essais=limite_essais,
-            )
-        )
-
 
 # 3 -- Classe du widget ----------------------------------------------------------
 
@@ -539,9 +524,8 @@ class JoursVoyagesParMoisWidget(QWidget):
 
     def _couleur_barre_saison(self, mois: int) -> QColor:
         """Couleur (pâle) d'une barre du graphique mensuel, teintée selon la
-        saison de `mois`. Reste nettement moins saturée/visible que
-        `barre_surbrillance` (réservée au mois en cours), pour que ce
-        dernier continue à ressortir clairement."""
+        saison de `mois`."""
+
         teinte = self._teinte_saison(mois)
 
         # on ancre la luminosité sur le fond de la carte, pour rester

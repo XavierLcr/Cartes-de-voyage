@@ -113,6 +113,7 @@ class CompteurCirculaireWidget(QWidget):
         parent: Optional[QWidget] = None,
         duree_animation: int = 1000,
         n_poissons: int = 6,
+        n_bouees: int = 2,
     ) -> None:
         super().__init__(parent)
 
@@ -186,7 +187,9 @@ class CompteurCirculaireWidget(QWidget):
         )
 
         # --- mer (bas du widget, sous/au-delà de la plage) ---
-        self._mer = MerAnimee(n_bulles=25, n_poissons=n_poissons, parent=self)
+        self._mer = MerAnimee(
+            n_bulles=25, n_poissons=n_poissons, n_bouees=n_bouees, parent=self
+        )
         self._mer.demarrer(on_tick=self.update)
 
         self._glow_opacity = 0.0

@@ -28,6 +28,7 @@ from _4_Interface._4_3_Icones._4_3_35_raie import _dessiner_raie
 from _4_Interface._4_3_Icones._4_3_36_tortue_de_mer import _dessiner_tortue
 from _4_Interface._4_3_Icones._4_3_37_poisson_globe import _dessiner_poisson_globe
 from _4_Interface._4_3_Icones._4_3_38_requin import _dessiner_requin
+from _4_Interface._4_3_Icones._4_3_39_bouee import _dessiner_bouee
 
 # 1 -- Fonction de dessin d'un poisson selon ses caractéristiques --------------
 
@@ -127,6 +128,24 @@ def _generer_poissons(n: int) -> List[dict]:
     return poissons
 
 
+## 2.3 -- Fonction de génération des bouées ------------------------------------
+
+
+def _generer_bouees(n: int) -> List[dict]:
+    """Prégénère n bouées flottant à la surface, réparties horizontalement,
+    chacune avec sa propre phase de tangage pour éviter un mouvement
+    synchronisé (comme pour les poissons, on désynchronise via `phase`)."""
+    rng = random.Random(7)
+    return [
+        {
+            "nx": rng.uniform(0.4, 0.92),  # position horizontale (0-1), fixe
+            "echelle": rng.uniform(0.85, 1.15),
+            "phase": rng.uniform(0.0, math.tau),
+        }
+        for _ in range(n)
+    ]
+
+
 # 3 -- Classe de la mer --------------------------------------------------------
 
 
@@ -150,6 +169,7 @@ class MerAnimee:
         self,
         n_bulles: int = 25,
         n_poissons: int = 6,
+        n_bouees: int = 1,
         niveau_mer_ratio: float = 1 / 3,
         intervalle_ms: int = 30,
         parent=None,
@@ -161,6 +181,7 @@ class MerAnimee:
 
         self._bulles_mer = self._generer_bulles_mer(n_bulles)
         self._poissons = _generer_poissons(int(max(1, n_poissons)))
+        self._bouees = _generer_bouees(int(max(0, n_bouees)))
 
         self._intervalle_ms = intervalle_ms
         self._timer = QTimer(parent)
@@ -331,6 +352,23 @@ class MerAnimee:
                 + poisson["phase"],
             )
         painter.restore()
+
+        # --- bouées flottantes (hors clip : le dôme dépasse au-dessus de l'eau) ---
+        hauteur_mer = bas - niveau_mer
+        for bouee in self._bouees:
+            x = gauche + bouee["nx"] * largeur
+            t = bouee["nx"]
+            y_surface = _y_surface_mer(t=t)
+            profondeur_corde = bas
+            taille = largeur * 0.11 * bouee["echelle"]
+            _dessiner_bouee(
+                painter,
+                QPointF(x, y_surface),
+                taille,
+                profondeur_corde,
+                phase=self._phase_mer * 0.4 + bouee["phase"],
+                degrade=True,
+            )
 
         # --- ligne de surface ---
         surface = QPainterPath()

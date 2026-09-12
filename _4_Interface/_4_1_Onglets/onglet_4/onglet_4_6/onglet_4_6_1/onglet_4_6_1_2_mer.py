@@ -1,11 +1,14 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
-# _4_Interface/_4_1_Onglets/onglet_4/onglet_4_6                                #
+# _4_Interface/_4_1_Onglets/onglet_4/onglet_4_6/onglet_4_6_1                   #
 # Onglet 4.6.1.2 – Mer animée (bulles + poissons)                              #
 ################################################################################
 
 
 # 0 -- Initialisation ----------------------------------------------------------
+
+
+## 0.1 -- Imports --------------------------------------------------------------
 
 
 from __future__ import annotations
@@ -31,6 +34,34 @@ from _4_Interface._4_3_Icones._4_3_38_requin import _dessiner_requin
 from _4_Interface._4_3_Icones._4_3_39_bouee import _dessiner_bouee
 from _4_Interface._4_3_Icones._4_3_41_poulpe import _dessiner_poulpe
 
+## 0.2 -- Variables globales ---------------------------------------------------
+
+
+### Dictionnaire des fonctions des espèces -------------------------------------
+
+
+DESSIN_CREATURES = {
+    "poisson": _dessiner_poisson,
+    "raie": _dessiner_raie,
+    "tortue": _dessiner_tortue,
+    "poisson-globe": _dessiner_poisson_globe,
+    "requin": _dessiner_requin,
+    "poulpe": _dessiner_poulpe,
+}
+
+
+### Dictionnaire de la répartition des espèces ---------------------------------
+
+
+POIDS_TYPES = {
+    "raie": 14,
+    "tortue": 14,
+    "poisson-globe": 10,
+    "requin": 12,
+    "poulpe": 10,
+    "poisson": 50,
+}
+
 # 1 -- Fonction de dessin d'un poisson selon ses caractéristiques --------------
 
 
@@ -44,26 +75,22 @@ def _dessiner_creature(
     phase=0.0,
     degrade=True,
 ):
-    if type_creature == "raie":
-        _dessiner_raie(painter, centre, taille, sens, couleur, phase, degrade)
-    elif type_creature == "tortue":
-        _dessiner_tortue(painter, centre, taille, sens, couleur, phase, degrade)
-    elif type_creature == "poisson-globe":
-        _dessiner_poisson_globe(painter, centre, taille, sens, couleur, phase, degrade)
-    elif type_creature == "requin":
-        _dessiner_requin(painter, centre, taille, sens, couleur, phase, degrade)
-    elif type_creature == "poulpe":
-        _dessiner_poulpe(painter, centre, taille, sens, couleur, phase, degrade)
-    else:
-        _dessiner_poisson(
-            painter,
-            centre,
-            taille,
-            sens,
-            couleur,
-            phase=phase,
-            degrade=degrade,
-        )
+    """Dessine la créature correspondant au type demandé."""
+
+    fonction_temp = DESSIN_CREATURES.get(
+        type_creature,
+        _dessiner_poisson,
+    )
+
+    fonction_temp(
+        painter,
+        centre,
+        taille,
+        sens,
+        couleur,
+        phase=phase,
+        degrade=degrade,
+    )
 
 
 # 2 -- Création de la liste de poissons ----------------------------------------
@@ -73,23 +100,18 @@ def _dessiner_creature(
 
 
 def _tirer_type_poisson() -> str:
+    """Tire aléatoirement un type de créature selon des poids relatifs."""
 
-    REPARTITION_TYPES = [
-        ("raie", 0.14),
-        ("tortue", 0.14),
-        ("poisson-globe", 0.10),
-        ("requin", 0.12),
-        ("poulpe", 0.48),
-        ("poisson", 0.02),
-    ]
-
-    tirage = random.random()
+    tirage = random.uniform(0, sum(POIDS_TYPES.values()))
     cumul = 0.0
-    for type_creature, proba in REPARTITION_TYPES:
-        cumul += proba
+
+    for type_creature, poids in POIDS_TYPES.items():
+        cumul += poids
+
         if tirage < cumul:
             return type_creature
-    return REPARTITION_TYPES[-1][0]
+
+    return "poisson"
 
 
 ## 2.2 -- Fonction de génération des poissons ----------------------------------

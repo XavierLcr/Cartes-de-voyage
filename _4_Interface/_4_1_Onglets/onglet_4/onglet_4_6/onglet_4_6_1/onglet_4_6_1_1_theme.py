@@ -10,7 +10,7 @@
 
 from __future__ import annotations
 import math
-from datetime import datetime
+from datetime import datetime, date
 
 from PyQt6.QtGui import QColor
 
@@ -39,18 +39,173 @@ def phase_journee(instant: datetime | None = None) -> float:
 # 2 -- Répartition de l'éclairage de la phase ----------------------------------
 
 
-def _poids_moments(phase: float) -> dict:
+## 2.1 -- Calcul des phases selon la date et les coordonnées -------------------
+
+
+def _moments_journee(
+    date_jour: date,
+    latitude: float,
+    longitude: float,
+) -> dict:
+    """
+    Calcule les quatre moments de la journée solaire pour une date et
+    une position données.
+
+    Retourne les phases (0-1) correspondant à :
+        - nuit_fin     : début du crépuscule civil (-6°)
+        - jour_debut   : lever du Soleil (-0.833°)
+        - jour_fin     : coucher du Soleil (-0.833°)
+        - nuit_debut   : fin du crépuscule civil (-6°)
+
+    La phase 0 correspond à minuit local et la phase 1 à minuit suivant.
+    """
+
+    # -------------------------------------------------------------------------
+    # Jour de l'année
+    # -------------------------------------------------------------------------
+
+    jour_annee = date_jour.timetuple().tm_yday
+
+    gamma = 2 * math.pi / 365 * (jour_annee - 1)
+
+    # -------------------------------------------------------------------------
+    # Équation du temps
+    # -------------------------------------------------------------------------
+
+    equation_temps = 229.18 * (
+        0.000075
+        + 0.001868 * math.cos(gamma)
+        - 0.032077 * math.sin(gamma)
+        - 0.014615 * math.cos(2 * gamma)
+        - 0.040849 * math.sin(2 * gamma)
+    )
+
+    # -------------------------------------------------------------------------
+    # Déclinaison solaire
+    # -------------------------------------------------------------------------
+
+    declinaison = (
+        0.006918
+        - 0.399912 * math.cos(gamma)
+        + 0.070257 * math.sin(gamma)
+        - 0.006758 * math.cos(2 * gamma)
+        + 0.000907 * math.sin(2 * gamma)
+        - 0.002697 * math.cos(3 * gamma)
+        + 0.001480 * math.sin(3 * gamma)
+    )
+
+    latitude_rad = math.radians(latitude)
+
+    # -------------------------------------------------------------------------
+    # Décalage horaire local
+    # -------------------------------------------------------------------------
+
+    # On prend le décalage du fuseau de l'ordinateur pour cette date.
+    # Cela gère automatiquement l'heure d'été / heure d'hiver.
+    datetime_local = datetime(
+        date_jour.year,
+        date_jour.month,
+        date_jour.day,
+        12,
+    ).astimezone()
+
+    decalage_utc = datetime_local.utcoffset().total_seconds() / 3600
+
+    # -------------------------------------------------------------------------
+    # Angle horaire pour une hauteur solaire donnée
+    # -------------------------------------------------------------------------
+
+    def angle_horaire(hauteur: float) -> float | None:
+        """
+        Retourne l'angle horaire en degrés pour une hauteur solaire donnée.
+        """
+
+        hauteur_rad = math.radians(hauteur)
+
+        cos_angle = (
+            math.sin(hauteur_rad) - math.sin(latitude_rad) * math.sin(declinaison)
+        ) / (math.cos(latitude_rad) * math.cos(declinaison))
+
+        if not -1 <= cos_angle <= 1:
+            return None
+
+        return math.degrees(math.acos(cos_angle))
+
+    # -------------------------------------------------------------------------
+    # Conversion d'un événement solaire en heure locale
+    # -------------------------------------------------------------------------
+
+    def heures_evenement(
+        hauteur: float,
+    ) -> tuple[float | None, float | None]:
+        """
+        Retourne (heure_lever, heure_coucher) en heures locales.
+        """
+
+        angle = angle_horaire(hauteur)
+
+        if angle is None:
+            return None, None
+
+        # Heure du midi solaire local.
+        midi_solaire = 720 - 4 * longitude - equation_temps + 60 * decalage_utc
+
+        minutes_lever = midi_solaire - 4 * angle
+        minutes_coucher = midi_solaire + 4 * angle
+
+        return (
+            (minutes_lever / 60) % 24,
+            (minutes_coucher / 60) % 24,
+        )
+
+    # -------------------------------------------------------------------------
+    # Lever / coucher
+    # -------------------------------------------------------------------------
+
+    heure_aube, heure_crepuscule = heures_evenement(-6.0)
+
+    heure_lever, heure_coucher = heures_evenement(-0.833)
+
+    # -------------------------------------------------------------------------
+    # Heure → phase
+    # -------------------------------------------------------------------------
+
+    def phase(heure: float | None) -> float | None:
+        if heure is None:
+            return None
+
+        return heure / 24
+
+    return {
+        "nuit_fin": phase(heure_aube),
+        "jour_debut": phase(heure_lever),
+        "jour_fin": phase(heure_coucher),
+        "nuit_debut": phase(heure_crepuscule),
+    }
+
+
+## 2.2 -- Répartition de la phase ----------------------------------------------
+
+
+def _poids_moments(
+    phase: float, latitude: float = 50.63, longitude: float = 5.57
+) -> dict:
     """
     Renvoie les poids (0-1, somme = 1) de chaque moment pour la phase
     donnée, avec transitions douces (aube / crépuscule) plutôt que des
     bascules brutales. Clés : 'nuit', 'aube', 'jour', 'crepuscule'.
     """
 
-    # Bornes des moments-clés (en phase 0-1), ajustables
-    _NUIT_FIN = 0.22  # ~5h17 : fin de nuit, début de l'aube
-    _JOUR_DEBUT = 0.30  # ~7h12 : soleil bien levé
-    _JOUR_FIN = 0.70  # ~16h48 : plein jour jusque-là
-    _NUIT_DEBUT = 0.80  # ~19h12 : nuit installée
+    moments = _moments_journee(
+        date_jour=datetime.now().date(),
+        latitude=latitude,
+        longitude=longitude,
+    )
+
+    _NUIT_FIN = moments["nuit_fin"]
+    _JOUR_DEBUT = moments["jour_debut"]
+    _JOUR_FIN = moments["jour_fin"]
+    _NUIT_DEBUT = moments["nuit_debut"]
 
     def lisser(a, b, x):
         if b <= a:
@@ -283,11 +438,15 @@ class CompteurTheme:
         # -- Ajout de la couleur de la piste
         self._PALETTE["piste"] = _QColor_avec_alpha(self._PALETTE["texte"], alpha=25)
 
-    def _teintes_palette(self) -> dict:
+    def _teintes_palette(
+        self, latitude: float = 50.63, longitude: float = 5.57
+    ) -> dict:
         """Mélange pondéré des teintes centre/bord/rim selon les poids
         horaires actifs (transition continue, pas de bascule brutale)."""
 
-        poids_temp = _poids_moments(phase_journee())
+        poids_temp = _poids_moments(
+            phase_journee(), latitude=latitude, longitude=longitude
+        )
         return {
             cle: interpoler_couleurs(
                 {moment: self._PALETTE[moment][cle] for moment in poids_temp},

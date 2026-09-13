@@ -15,7 +15,7 @@ from shapely.geometry import box
 from PIL import Image
 from shapely.ops import polylabel
 
-from _0_Utilitaires._0_1_fonctions_utiles_gen import formater_temps_actuel
+from _0_Utilitaires._0_15_dates import formater_temps_actuel
 from _0_Utilitaires._0_2_fonctions_graphiques import (
     generer_couleur_aleatoire_hex,
     transformer_couleur_texte,

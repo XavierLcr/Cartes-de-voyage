@@ -12,9 +12,9 @@ import copy
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     exporter_fichier,
-    formater_temps_actuel,
     ouvrir_fichier,
 )
+from _0_Utilitaires._0_15_dates import formater_temps_actuel
 
 # 1 -- Classe de sauvegarde ----------------------------------------------------
 

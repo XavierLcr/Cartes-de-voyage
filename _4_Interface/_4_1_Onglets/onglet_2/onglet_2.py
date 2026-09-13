@@ -27,7 +27,6 @@ from PyQt6.QtWidgets import (
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
     exporter_fichier,
-    formater_temps_actuel,
     voyages_vers_destinations,
 )
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
@@ -45,6 +44,7 @@ from _0_Utilitaires._0_14_QPushButton_QIcon import (
     QPushButtonSauvegarde,
     QPushButtonIcone,
 )
+from _0_Utilitaires._0_15_dates import formater_temps_actuel
 from _4_Interface._4_1_Onglets.onglet_2.onglet_2_ajout_voyage import CreerVoyage
 from _4_Interface._4_1_Onglets.onglet_2.onglet_2_arbre_voyages import ArbreVoyages
 from _4_Interface._4_1_Onglets.onglet_2.onglet_2_arbre_destinations import (

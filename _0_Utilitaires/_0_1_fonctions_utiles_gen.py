@@ -174,19 +174,7 @@ def voyages_vers_destinations(dict_voyages: dict):
 # 2 -- Fonctions spacio-temporelles --------------------------------------------
 
 
-## 2.1 -- Fonction de formatage de l'heure et de la date actuelles -------------
-
-
-def formater_temps_actuel(n: int = 0) -> str:
-    formats = {
-        0: "%d-%m-%Y %Hh%M",
-        1: "%Y-%m-%d %H:%M",
-        2: "%Y-%m-%d",
-    }
-    return time.strftime(formats.get(n, formats[0]), time.localtime())
-
-
-## 2.2 -- Fonction faisant n pauses par minute ---------------------------------
+## 2.1 -- Fonction faisant n pauses par minute ---------------------------------
 
 
 def sleep_n_fois(n: float, time_ref: float | None):
@@ -204,7 +192,7 @@ def sleep_n_fois(n: float, time_ref: float | None):
     )
 
 
-## 2.3 -- Fonction de mise en forme du titre selon les événements --------------
+## 2.2 -- Fonction de mise en forme du titre selon les événements --------------
 
 
 def periode_particuliere(periodes: dict) -> dict:
@@ -245,7 +233,7 @@ def periode_particuliere(periodes: dict) -> dict:
     )
 
 
-## 2.4 -- Fonction calculant la distance de Haversine --------------------------
+## 2.3 -- Fonction calculant la distance de Haversine --------------------------
 
 
 @numba.njit

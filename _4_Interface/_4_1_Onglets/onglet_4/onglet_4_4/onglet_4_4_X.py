@@ -15,9 +15,12 @@ from PyQt6.QtCore import (
 )
 
 from PyQt6.QtGui import (
+    QBrush,
     QColor,
     QFont,
     QFontMetrics,
+    QImage,
+    QLinearGradient,
     QPainter,
 )
 
@@ -61,7 +64,9 @@ class LeveeDrapeaux(QWidget):
     drapeaux sont de simples objets graphiques et ne sont pas des QWidget.
     """
 
-    INTERVALLE_ANIMATION_MS = 30
+    INTERVALLE_ANIMATION_MS = 25
+    RAYON_COINS = 20
+    LARGEUR_FONDU = 10
 
     def __init__(
         self,
@@ -228,7 +233,7 @@ class LeveeDrapeaux(QWidget):
 
         rect_titre = QRectF(
             rect_scene.left(),
-            rect_scene.top(),
+            rect_scene.top() + marge_titre_graphique,
             rect_scene.width(),
             hauteur_titre,
         )
@@ -411,15 +416,22 @@ class LeveeDrapeaux(QWidget):
 
     def paintEvent(self, event) -> None:
 
-        painter = QPainter(self)
+        rect_scene = self._rect_scene()
+        geometrie = self._geometrie_scene(rect_scene)
+
+        # Toute la scène est d'abord dessinée dans une image transparente
+        image = QImage(
+            self.size(),
+            QImage.Format.Format_ARGB32_Premultiplied,
+        )
+
+        image.fill(Qt.GlobalColor.transparent)
+
+        painter = QPainter(image)
 
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
 
         painter.setRenderHint(QPainter.RenderHint.SmoothPixmapTransform)
-
-        rect_scene = self._rect_scene()
-
-        geometrie = self._geometrie_scene(rect_scene)
 
         # Ciel
         self.ciel.dessiner(
@@ -456,7 +468,12 @@ class LeveeDrapeaux(QWidget):
             rect=geometrie["titre"],
         )
 
-        # Blocs de marbre avec le nom des pays
+        painter.fillRect(
+            rect_scene,
+            QColor(255, 255, 255, 80),
+        )
+
+        # Blocs de marbre
         self._dessiner_libelles(
             painter=painter,
             rect_zone=geometrie["libelles"],
@@ -474,6 +491,148 @@ class LeveeDrapeaux(QWidget):
                 painter=painter,
                 rect=rect_drapeau,
             )
+
+        painter.end()
+
+        # Coins arrondis + disparition progressive sur les 50 px extérieurs
+        self._appliquer_masque_bords(
+            image=image,
+            rect=rect_scene,
+        )
+
+        # Dessin final sur le widget
+        painter = QPainter(self)
+
+        painter.setRenderHint(QPainter.RenderHint.SmoothPixmapTransform)
+
+        painter.drawImage(
+            0,
+            0,
+            image,
+        )
+
+        painter.end()
+
+    # Gestion du bord
+    def _appliquer_masque_bords(
+        self,
+        image: QImage,
+        rect: QRectF,
+    ) -> None:
+        """
+        Rend l'image progressivement transparente près de ses bords
+        et arrondit ses quatre coins.
+        """
+
+        largeur_fondu = min(
+            self.LARGEUR_FONDU,
+            rect.width() / 2,
+            rect.height() / 2,
+        )
+
+        if largeur_fondu <= 0:
+            return
+
+        # Masque alpha
+        masque = QImage(
+            image.size(),
+            QImage.Format.Format_ARGB32_Premultiplied,
+        )
+        masque.fill(Qt.GlobalColor.transparent)
+
+        painter = QPainter(masque)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+        painter.setPen(Qt.PenStyle.NoPen)
+
+        # Forme générale avec coins arrondis
+        painter.setBrush(QColor(255, 255, 255))
+        painter.drawRoundedRect(
+            rect,
+            self.RAYON_COINS,
+            self.RAYON_COINS,
+        )
+
+        # Les gradients suivants multiplient progressivement l'alpha du masque
+        painter.setCompositionMode(
+            QPainter.CompositionMode.CompositionMode_DestinationIn
+        )
+
+        def appliquer_gradient(gradient: QLinearGradient) -> None:
+
+            gradient.setColorAt(
+                0.0,
+                QColor(255, 255, 255, 0),
+            )
+            gradient.setColorAt(
+                0.25,
+                QColor(255, 255, 255, 25),
+            )
+            gradient.setColorAt(
+                0.60,
+                QColor(255, 255, 255, 140),
+            )
+            gradient.setColorAt(
+                1.0,
+                QColor(255, 255, 255, 255),
+            )
+
+            painter.setBrush(QBrush(gradient))
+            painter.drawRect(rect)
+
+        # Gauche
+        appliquer_gradient(
+            QLinearGradient(
+                rect.left(),
+                rect.center().y(),
+                rect.left() + largeur_fondu,
+                rect.center().y(),
+            )
+        )
+
+        # Droite
+        appliquer_gradient(
+            QLinearGradient(
+                rect.right(),
+                rect.center().y(),
+                rect.right() - largeur_fondu,
+                rect.center().y(),
+            )
+        )
+
+        # Haut
+        appliquer_gradient(
+            QLinearGradient(
+                rect.center().x(),
+                rect.top(),
+                rect.center().x(),
+                rect.top() + largeur_fondu,
+            )
+        )
+
+        # Bas
+        appliquer_gradient(
+            QLinearGradient(
+                rect.center().x(),
+                rect.bottom(),
+                rect.center().x(),
+                rect.bottom() - largeur_fondu,
+            )
+        )
+
+        painter.end()
+
+        # Application du masque sur l'image terminée
+        painter = QPainter(image)
+
+        painter.setCompositionMode(
+            QPainter.CompositionMode.CompositionMode_DestinationIn
+        )
+
+        painter.drawImage(
+            0,
+            0,
+            masque,
+        )
 
         painter.end()
 

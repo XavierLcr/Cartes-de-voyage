@@ -42,7 +42,7 @@ from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_05_sol import Sol
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_06_montagnes import (
     Montagnes,
 )
-from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_06_temple import (
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_07_temple import (
     TempleGrec,
 )
 

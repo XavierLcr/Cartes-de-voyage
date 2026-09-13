@@ -39,6 +39,7 @@ class ThemeLeveeDrapeaux:
                 "montagne_proche": "#252D42",
                 "pierre_claire": "#85878B",
                 "pierre_foncee": "#55585E",
+                "titre_couleur": "#E4E8EF",
             },
             "aube": {
                 "ciel_haut": "#718AB5",
@@ -48,6 +49,7 @@ class ThemeLeveeDrapeaux:
                 "montagne_proche": "#716C72",
                 "pierre_claire": "#C1B4A8",
                 "pierre_foncee": "#8C8179",
+                "titre_couleur": "#4F4650",
             },
             "jour": {
                 "ciel_haut": "#78BCE5",
@@ -57,6 +59,7 @@ class ThemeLeveeDrapeaux:
                 "montagne_proche": "#77898A",
                 "pierre_claire": "#D6D2C9",
                 "pierre_foncee": "#A29D94",
+                "titre_couleur": "#405563",
             },
             "crepuscule": {
                 "ciel_haut": "#515B88",
@@ -66,6 +69,7 @@ class ThemeLeveeDrapeaux:
                 "montagne_proche": "#5E5261",
                 "pierre_claire": "#B69E94",
                 "pierre_foncee": "#7F6D69",
+                "titre_couleur": "#F0E1D8",
             },
         }
 

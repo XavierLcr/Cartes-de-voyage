@@ -45,6 +45,9 @@ from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_06_montagnes impor
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_07_temple import (
     TempleGrec,
 )
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_08_bloc_marbre import (
+    BlocMarbre,
+)
 
 # 1 -- Widget graphique --------------------------------------------------------
 
@@ -86,6 +89,7 @@ class LeveeDrapeaux(QWidget):
             proportion_sol=proportion_sol,
             n_colonnes=4,
         )
+        self.blocs_marbre = []
 
         self.palette_repli = palette_repli or [
             "#7DC8E8",
@@ -132,6 +136,7 @@ class LeveeDrapeaux(QWidget):
         self.traductions = list(traductions)
 
         self.drapeaux.clear()
+        self.blocs_marbre.clear()
 
         if len(self.valeurs) == 0:
             self._timer_animation.stop()
@@ -158,6 +163,20 @@ class LeveeDrapeaux(QWidget):
             drapeau.demarrer_animation(duree_ms=900, delai_ms=i * 200)
 
             self.drapeaux.append(drapeau)
+
+            texte_temp = (
+                f"{int(valeur)} "
+                f"{self.fct_traduction('voyage') if valeur <= 1 else self.fct_traduction('voyages')}"
+            )
+
+            bloc_temp = BlocMarbre(
+                texte=str(self.traductions[i]),
+                sous_texte=texte_temp,
+                couleur_marbre="#D8D3C8",
+                couleur_texte="#57524D",
+                graine=100 + i,
+            )
+            self.blocs_marbre.append(bloc_temp)
 
         self._temps_animation_ms = 0.0
 
@@ -203,7 +222,7 @@ class LeveeDrapeaux(QWidget):
         """Calcule les différentes zones de la scène."""
 
         hauteur_titre = 48
-        hauteur_libelles = 55
+        hauteur_libelles = 80
         marge_titre_graphique = 10
 
         rect_titre = QRectF(
@@ -355,76 +374,33 @@ class LeveeDrapeaux(QWidget):
         painter: QPainter,
         rect_zone: QRectF,
     ) -> None:
+        """Dessine les blocs de marbre associés aux différents pays."""
 
-        n = len(self.drapeaux)
+        n = len(self.blocs_marbre)
 
         if n == 0:
             return
 
         largeur_case = rect_zone.width() / n
 
-        for i, (traduction, valeur) in enumerate(
-            zip(
-                self.traductions,
-                self.valeurs,
-            )
-        ):
+        marge_horizontale = largeur_case * 0.08
+        marge_verticale = rect_zone.height() * 0.05
 
-            rect_case = QRectF(
-                rect_zone.left() + i * largeur_case,
-                rect_zone.top(),
-                largeur_case,
-                rect_zone.height(),
-            )
+        # Décalage vers le haut des blocs
+        decalage_vertical = 12
 
-            # Nom du pays
-            police_nom = QFont(painter.font())
+        for i, bloc in enumerate(self.blocs_marbre):
 
-            police_nom.setPointSize(10)
-            police_nom.setWeight(QFont.Weight.DemiBold)
-
-            painter.setFont(police_nom)
-
-            painter.setPen(QColor("#4A4A4A"))
-
-            rect_nom = QRectF(
-                rect_case.left() + 3,
-                rect_case.top() + 3,
-                rect_case.width() - 6,
-                25,
+            rect_bloc = QRectF(
+                rect_zone.left() + i * largeur_case + marge_horizontale,
+                rect_zone.top() + marge_verticale - decalage_vertical,
+                largeur_case - 2 * marge_horizontale,
+                rect_zone.height() - 2 * marge_verticale,
             )
 
-            painter.drawText(
-                rect_nom,
-                Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignTop,
-                str(traduction),
-            )
-
-            # Nombre de voyages
-            texte_valeur = (
-                f"{int(valeur)} "
-                f"{self.fct_traduction('voyage') if valeur <= 1 else self.fct_traduction('voyages')}"
-            )
-
-            police_valeur = QFont(painter.font())
-
-            police_valeur.setPointSize(9)
-
-            painter.setFont(police_valeur)
-
-            painter.setPen(QColor("#888888"))
-
-            rect_valeur = QRectF(
-                rect_case.left() + 3,
-                rect_case.top() + 28,
-                rect_case.width() - 6,
-                20,
-            )
-
-            painter.drawText(
-                rect_valeur,
-                Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignTop,
-                texte_valeur,
+            bloc.dessiner(
+                painter=painter,
+                rect=rect_bloc,
             )
 
     # 2.6 -- Dessin ------------------------------------------------------------
@@ -476,6 +452,12 @@ class LeveeDrapeaux(QWidget):
             rect=geometrie["titre"],
         )
 
+        # Blocs de marbre avec le nom des pays
+        self._dessiner_libelles(
+            painter=painter,
+            rect_zone=geometrie["libelles"],
+        )
+
         # Drapeaux
         rectangles = self._rectangles_drapeaux(geometrie["drapeaux"])
 
@@ -488,12 +470,6 @@ class LeveeDrapeaux(QWidget):
                 painter=painter,
                 rect=rect_drapeau,
             )
-
-        # Libellés temporaires
-        self._dessiner_libelles(
-            painter=painter,
-            rect_zone=geometrie["libelles"],
-        )
 
         painter.end()
 

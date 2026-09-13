@@ -32,7 +32,7 @@ from PyQt6.QtWidgets import (
     QWidget,
 )
 
-# A adapter selon l'emplacement choisi pour le premier script
+from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import _QColor_avec_alpha
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_01_drapeau import Drapeau
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_02_calculs import (
     compter_voyages_par_pays,
@@ -79,7 +79,6 @@ class LeveeDrapeaux(QWidget):
         dossier_drapeaux: str,
         fct_traduction,
         palette_repli: list | None = None,
-        couleur_accent: str = "#4A90A4",
         proportion_sol: float = 0.4,
         parent=None,
     ):
@@ -89,7 +88,6 @@ class LeveeDrapeaux(QWidget):
         # Données générales
         self.fct_traduction = fct_traduction
         self.dossier_drapeaux = dossier_drapeaux
-        self.couleur_accent = QColor(couleur_accent)
         self.theme = ThemeLeveeDrapeaux()
         self.ciel = Ciel()
         self.sol = Sol(proportion_hauteur=proportion_sol)
@@ -106,9 +104,10 @@ class LeveeDrapeaux(QWidget):
         self.blocs_marbre = []
         self.cypres = Cypres(
             n=7,
-            proportion_centrale_interdite=1 / 3,
-            proportion_sol=proportion_sol,
-            hauteur_max=0.39,
+            proportion_centrale_interdite=2 / 5,
+            proportion_sol=proportion_sol * 0.9,
+            hauteur_min=0.25,
+            hauteur_max=0.45,
             graine=None,
         )
         self._etoiles = Etoiles(n=20, taille_min=0.01)
@@ -333,6 +332,7 @@ class LeveeDrapeaux(QWidget):
     ) -> None:
 
         titre = self.fct_traduction("titre_graphique_n_voyages")
+        couleur_titre = self.theme.couleur("titre_couleur")
 
         if not titre:
             return
@@ -349,7 +349,7 @@ class LeveeDrapeaux(QWidget):
         )
 
         painter.setFont(police)
-        painter.setPen(self.theme.couleur("titre_couleur"))
+        painter.setPen(couleur_titre)
 
         metrics = QFontMetrics(police)
 
@@ -376,7 +376,7 @@ class LeveeDrapeaux(QWidget):
         y = rect_texte.bottom() + 5
 
         painter.setPen(Qt.PenStyle.NoPen)
-        painter.setBrush(self.couleur_accent)
+        painter.setBrush(_QColor_avec_alpha(couleur=couleur_titre, alpha=120))
 
         painter.drawRoundedRect(
             QRectF(

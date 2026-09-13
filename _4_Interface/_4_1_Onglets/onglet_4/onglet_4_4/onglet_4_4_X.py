@@ -28,16 +28,16 @@ from PyQt6.QtWidgets import (
 )
 
 # A adapter selon l'emplacement choisi pour le premier script
-from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_1_drapeau import Drapeau
-from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_2_calculs import (
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_01_drapeau import Drapeau
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_02_calculs import (
     compter_voyages_par_pays,
     limiter_nombre_pays,
     resoudre_chemin_drapeau,
 )
-from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_3_theme import (
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_03_theme import (
     ThemeLeveeDrapeaux,
 )
-from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_4_ciel import Ciel
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_04_ciel import Ciel
 
 # 1 -- Widget graphique --------------------------------------------------------
 

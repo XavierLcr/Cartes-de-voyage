@@ -17,11 +17,12 @@ from PyQt6.QtWidgets import (
     QToolTip,
     QSizePolicy,
 )
-from PyQt6.QtCore import Qt, QRectF, QPointF
+from PyQt6.QtCore import Qt, QRectF, QPointF, QTimer
 from PyQt6.QtGui import QPainter, QColor, QFont, QPen, QMouseEvent
 
 from _0_Utilitaires._0_10_selecteur_date import SelecteurDate
 from _0_Utilitaires._0_2_fonctions_graphiques import generer_couleur_aleatoire_hex
+from _4_Interface._4_3_Icones._4_3_48_avion import Avion
 
 # 1 -- Widget de dessin du Gantt -----------------------------------------------
 
@@ -38,36 +39,67 @@ class DiagrammeGantt(QWidget):
     HAUTEUR_BARRE_MAX = 22
     ESPACE_BARRE_MAX = 10
 
-    # En dessous de ces valeurs, on ne réduit plus (le widget devient
-    # alors plus grand que l'espace disponible plutôt que de rendre
-    # les barres illisibles)
+    # Valeurs minimales conservées pour garder les barres lisibles
     HAUTEUR_BARRE_MIN = 6
     ESPACE_BARRE_MIN = 2
 
+    INTERVALLE_ANIMATION_MS = 25
+
     def __init__(self, parent=None):
         super().__init__(parent=parent)
+
         self.setMouseTracking(True)
         self.setMinimumHeight(200)
-        # Le widget s'adapte à la hauteur que lui donne le layout parent
-        # (voir resizeEvent) au lieu d'imposer une taille fixe.
-        self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
 
-        self.barres = []  # liste de dicts : label, deb, fin, couleur, rect
+        self.setSizePolicy(
+            QSizePolicy.Policy.Expanding,
+            QSizePolicy.Policy.Expanding,
+        )
+
+        # Données
+        self.barres = []
         self.date_min = None
         self.date_max = None
         self.titre = ""
         self.barre_survolee = None
 
-        # Dimensions effectives des barres, recalculées à chaque
-        # redimensionnement (voir _mettre_a_jour_taille_barres)
+        # ----------------------------------------------------------------------
+        # Avion
+        # ----------------------------------------------------------------------
+
+        self.avion = Avion(
+            taille=42,
+            vitesse=120,
+            tension=0.8,
+            marge_sortie=50,
+        )
+
+        self._timer_avion = QTimer(self)
+
+        self._timer_avion.setInterval(self.INTERVALLE_ANIMATION_MS)
+
+        self._timer_avion.timeout.connect(self._animer_avion)
+
+        self._timer_avion.start()
+
+        # ----------------------------------------------------------------------
+        # Dimensions des barres
+        # ----------------------------------------------------------------------
+
         self.hauteur_barre = self.HAUTEUR_BARRE_MAX
         self.espace_barre = self.ESPACE_BARRE_MAX
+
+        # ----------------------------------------------------------------------
+        # Couleurs
+        # ----------------------------------------------------------------------
 
         self.couleur_grille = QColor("#e5e7eb")
         self.couleur_axe = QColor("#9ca3af")
         self.couleur_accent = QColor("#10B981")
 
-    # -- Chargement des données --------------------------------------------
+    # --------------------------------------------------------------------------
+    # Chargement des données
+    # --------------------------------------------------------------------------
 
     def set_donnees(
         self,
@@ -83,39 +115,64 @@ class DiagrammeGantt(QWidget):
 
         liste_temp = []
 
-        # Nettoyage (équivalent à la version matplotlib)
+        # Nettoyage
         for _, item in data.items():
 
-            label_temp = item.get(voyage_label, "")
+            label_temp = item.get(
+                voyage_label,
+                "",
+            )
+
             deb_temp = item.get(date_min_label)
+
             fin_temp = item.get(date_max_label)
 
             if not label_temp or not deb_temp or not fin_temp:
                 continue
 
             try:
+
                 deb_temp = self._parse_date(deb_temp)
+
                 fin_temp = self._parse_date(fin_temp)
+
             except (ValueError, TypeError):
+
                 continue
 
             if date_min and fin_temp < self._parse_date(date_min):
                 continue
+
             if date_max and deb_temp > self._parse_date(date_max):
                 continue
 
-            liste_temp.append({"label": label_temp, "deb": deb_temp, "fin": fin_temp})
+            liste_temp.append(
+                {
+                    "label": label_temp,
+                    "deb": deb_temp,
+                    "fin": fin_temp,
+                }
+            )
 
-        # Tri (même logique que l'original)
-        liste_temp.sort(key=lambda x: (x["deb"], x["fin"], x["label"]))
+        # Tri chronologique
+        liste_temp.sort(
+            key=lambda x: (
+                x["deb"],
+                x["fin"],
+                x["label"],
+            )
+        )
 
         self.barres = []
+
         for i, item in enumerate(liste_temp):
+
             couleur = (
                 QColor(palette_couleurs[i % len(palette_couleurs)])
                 if palette_couleurs
                 else QColor("#10B981")
             )
+
             self.barres.append(
                 {
                     "label": item["label"],
@@ -129,183 +186,464 @@ class DiagrammeGantt(QWidget):
         self.date_min = (
             self._parse_date(date_min)
             if date_min
-            else (min((b["deb"] for b in self.barres), default=date.today()))
+            else min(
+                (b["deb"] for b in self.barres),
+                default=date.today(),
+            )
         )
+
         self.date_max = (
             self._parse_date(date_max)
             if date_max
-            else (max((b["fin"] for b in self.barres), default=date.today()))
+            else max(
+                (b["fin"] for b in self.barres),
+                default=date.today(),
+            )
         )
+
         self.titre = titre
 
         self._calculer_dimensions_barres()
+
         self.update()
 
-    def _calculer_dimensions_barres(self):
-        """Fixe uniquement le plancher de hauteur (lisibilité minimale
-        garantie), puis adapte la taille des barres à la hauteur
-        réellement disponible."""
+    # --------------------------------------------------------------------------
+    # Animation de l'avion
+    # --------------------------------------------------------------------------
 
-        nb = max(len(self.barres), 1)
+    def _animer_avion(self) -> None:
+        """Fait avancer l'avion sur sa trajectoire."""
+
+        if not self.barres:
+            return
+
+        delta_s = self._timer_avion.interval() / 1000
+
+        self.avion.animer(
+            delta_s=delta_s,
+        )
+
+        self.update()
+
+    # --------------------------------------------------------------------------
+    # Dimensionnement
+    # --------------------------------------------------------------------------
+
+    def _calculer_dimensions_barres(self):
+
+        nb = max(
+            len(self.barres),
+            1,
+        )
+
         marges = self.MARGE_HAUT + self.MARGE_BAS
+
         unite_min = self.HAUTEUR_BARRE_MIN + self.ESPACE_BARRE_MIN
 
         hauteur_plancher = marges + nb * unite_min
+
         self.setMinimumHeight(int(hauteur_plancher))
 
         self._mettre_a_jour_taille_barres()
 
     def _mettre_a_jour_taille_barres(self):
-        """Calcule hauteur_barre/espace_barre en fonction de la hauteur
-        actuelle du widget : barres à taille max s'il y a assez de place,
-        rétrécies proportionnellement (jusqu'à MIN) sinon."""
 
-        nb = max(len(self.barres), 1)
+        nb = max(
+            len(self.barres),
+            1,
+        )
+
         marges = self.MARGE_HAUT + self.MARGE_BAS
-        hauteur_disponible = max(self.height() - marges, 0)
+
+        hauteur_disponible = max(
+            self.height() - marges,
+            0,
+        )
 
         unite_max = self.HAUTEUR_BARRE_MAX + self.ESPACE_BARRE_MAX
+
         unite_min = self.HAUTEUR_BARRE_MIN + self.ESPACE_BARRE_MIN
 
         unite = hauteur_disponible / nb if nb else unite_max
-        unite = max(min(unite, unite_max), unite_min)
+
+        unite = max(
+            min(
+                unite,
+                unite_max,
+            ),
+            unite_min,
+        )
 
         ratio_barre = self.HAUTEUR_BARRE_MAX / unite_max
-        self.hauteur_barre = max(unite * ratio_barre, self.HAUTEUR_BARRE_MIN)
-        self.espace_barre = max(unite - self.hauteur_barre, self.ESPACE_BARRE_MIN)
+
+        self.hauteur_barre = max(
+            unite * ratio_barre,
+            self.HAUTEUR_BARRE_MIN,
+        )
+
+        self.espace_barre = max(
+            unite - self.hauteur_barre,
+            self.ESPACE_BARRE_MIN,
+        )
 
     def resizeEvent(self, event):
+
         self._mettre_a_jour_taille_barres()
+
         super().resizeEvent(event)
 
-    @staticmethod
-    def _parse_date(valeur) -> date:
-        if isinstance(valeur, datetime):
-            return valeur.date()
-        if isinstance(valeur, date):
-            return valeur
-        return datetime.strptime(str(valeur)[:10], "%Y-%m-%d").date()
+    # --------------------------------------------------------------------------
+    # Dates
+    # --------------------------------------------------------------------------
 
-    def _x_pour_date(self, d: date, largeur_zone: float) -> float:
+    @staticmethod
+    def _parse_date(
+        valeur,
+    ) -> date:
+
+        if isinstance(
+            valeur,
+            datetime,
+        ):
+            return valeur.date()
+
+        if isinstance(
+            valeur,
+            date,
+        ):
+            return valeur
+
+        return datetime.strptime(
+            str(valeur)[:10],
+            "%Y-%m-%d",
+        ).date()
+
+    def _x_pour_date(
+        self,
+        d: date,
+        largeur_zone: float,
+    ) -> float:
+
         if self.date_max == self.date_min:
             return self.MARGE_GAUCHE
+
         total = (self.date_max - self.date_min).days
+
         offset = (d - self.date_min).days
+
         return self.MARGE_GAUCHE + (offset / total) * largeur_zone
 
-    # -- Rendu ---------------------------------------------------------------
+    # --------------------------------------------------------------------------
+    # Rendu
+    # --------------------------------------------------------------------------
 
     def paintEvent(self, event):
+
         painter = QPainter(self)
+
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
 
         largeur = self.width()
         hauteur = self.height()
+
         largeur_zone = largeur - self.MARGE_GAUCHE - self.MARGE_DROITE
 
+        # ----------------------------------------------------------------------
         # Titre
+        # ----------------------------------------------------------------------
+
         if self.titre:
+
             font_titre = QFont()
             font_titre.setPointSize(13)
             font_titre.setBold(True)
-            font_titre.setLetterSpacing(QFont.SpacingType.PercentageSpacing, 102)
+            font_titre.setLetterSpacing(
+                QFont.SpacingType.PercentageSpacing,
+                102,
+            )
             painter.setFont(font_titre)
+
             painter.drawText(
-                QRectF(0, 8, largeur, 25), Qt.AlignmentFlag.AlignHCenter, self.titre
+                QRectF(
+                    0,
+                    8,
+                    largeur,
+                    25,
+                ),
+                Qt.AlignmentFlag.AlignHCenter,
+                self.titre,
             )
 
-            # Petit trait d'accent centré sous le titre
+            # Petit trait décoratif
             largeur_trait = 44
             y_trait = 34
-            painter.setPen(QPen(self.couleur_accent, 2))
-            painter.drawLine(
-                QPointF(largeur / 2 - largeur_trait / 2, y_trait),
-                QPointF(largeur / 2 + largeur_trait / 2, y_trait),
+
+            painter.setPen(
+                QPen(
+                    self.couleur_accent,
+                    2,
+                )
             )
 
+            painter.drawLine(
+                QPointF(
+                    largeur / 2 - largeur_trait / 2,
+                    y_trait,
+                ),
+                QPointF(
+                    largeur / 2 + largeur_trait / 2,
+                    y_trait,
+                ),
+            )
+
+        # ----------------------------------------------------------------------
+        # Pas de données
+        # ----------------------------------------------------------------------
+
         if not self.barres or self.date_min is None or self.date_max is None:
+
             painter.end()
             return
 
-        # Graduation de l'axe X (mensuelle, comme AutoDateLocator)
-        painter.setFont(QFont("", 8))
-        for d, texte in self._graduations_mensuelles():
-            x = self._x_pour_date(d, largeur_zone)
-            painter.setPen(QPen(self.couleur_grille, 1))
-            painter.drawLine(
-                QPointF(x, self.MARGE_HAUT - 5),
-                QPointF(x, hauteur - self.MARGE_BAS),
+        # ----------------------------------------------------------------------
+        # Graduation de l'axe X
+        # ----------------------------------------------------------------------
+
+        painter.setFont(
+            QFont(
+                "",
+                8,
             )
+        )
+
+        for d, texte in self._graduations_mensuelles():
+
+            x = self._x_pour_date(
+                d,
+                largeur_zone,
+            )
+
+            painter.setPen(
+                QPen(
+                    self.couleur_grille,
+                    1,
+                )
+            )
+
+            painter.drawLine(
+                QPointF(
+                    x,
+                    self.MARGE_HAUT - 5,
+                ),
+                QPointF(
+                    x,
+                    hauteur - self.MARGE_BAS,
+                ),
+            )
+
             painter.setPen(self.couleur_axe)
+
             painter.drawText(
-                QRectF(x - 30, hauteur - self.MARGE_BAS + 5, 60, 20),
+                QRectF(
+                    x - 30,
+                    hauteur - self.MARGE_BAS + 5,
+                    60,
+                    20,
+                ),
                 Qt.AlignmentFlag.AlignHCenter,
                 texte,
             )
 
-        # Barres
-        rayon_arrondi = min(4, self.hauteur_barre / 2)
-        for i, barre in enumerate(self.barres):
-            y = self.MARGE_HAUT + i * (self.hauteur_barre + self.espace_barre)
-            x_deb = self._x_pour_date(barre["deb"], largeur_zone)
-            x_fin = self._x_pour_date(barre["fin"], largeur_zone)
-            largeur_barre = max(x_fin - x_deb, 4)
+        # ----------------------------------------------------------------------
+        # Barres + points traversés par l'avion
+        # ----------------------------------------------------------------------
 
-            rect = QRectF(x_deb, y, largeur_barre, self.hauteur_barre)
+        rayon_arrondi = min(
+            4,
+            self.hauteur_barre / 2,
+        )
+
+        points_avion = []
+
+        for i, barre in enumerate(self.barres):
+
+            y = self.MARGE_HAUT + i * (self.hauteur_barre + self.espace_barre)
+
+            x_deb = self._x_pour_date(
+                barre["deb"],
+                largeur_zone,
+            )
+
+            x_fin = self._x_pour_date(
+                barre["fin"],
+                largeur_zone,
+            )
+
+            largeur_barre = max(
+                x_fin - x_deb,
+                4,
+            )
+
+            rect = QRectF(
+                x_deb,
+                y,
+                largeur_barre,
+                self.hauteur_barre,
+            )
+
             barre["rect"] = rect
 
+            # ------------------------------------------------------------------
+            # Points visités par l'avion :
+            # début du voyage puis fin du voyage
+            # ------------------------------------------------------------------
+
+            points_avion.append(
+                QPointF(
+                    x_deb,
+                    rect.center().y(),
+                )
+            )
+
+            if x_deb < x_fin:
+
+                points_avion.append(
+                    QPointF(
+                        x_fin,
+                        rect.center().y(),
+                    )
+                )
+
+            # ------------------------------------------------------------------
+            # Barre
+            # ------------------------------------------------------------------
+
             couleur = barre["couleur"]
+
             if barre is self.barre_survolee:
+
                 couleur = couleur.lighter(115)
 
             painter.setPen(Qt.PenStyle.NoPen)
+
             painter.setBrush(couleur)
-            painter.drawRoundedRect(rect, rayon_arrondi, rayon_arrondi)
+
+            painter.drawRoundedRect(
+                rect,
+                rayon_arrondi,
+                rayon_arrondi,
+            )
+
+        # ----------------------------------------------------------------------
+        # Avion
+        # ----------------------------------------------------------------------
+
+        # Zone dans laquelle sont tirées les hauteurs aléatoires
+        # des points d'entrée et de sortie.
+        rect_zone_avion = QRectF(
+            0,
+            self.MARGE_HAUT,
+            largeur,
+            max(
+                0,
+                hauteur - self.MARGE_HAUT - self.MARGE_BAS,
+            ),
+        )
+
+        self.avion.dessiner(
+            painter=painter,
+            points_passage=points_avion,
+            rect_zone=rect_zone_avion,
+        )
 
         painter.end()
 
+    # --------------------------------------------------------------------------
+    # Graduations
+    # --------------------------------------------------------------------------
+
     def _graduations_mensuelles(self):
+
         graduations = []
+
         courant = self.date_min.replace(day=1)
+
         while courant <= self.date_max:
-            graduations.append((courant, courant.strftime("%b %Y")))
-            annee = courant.year + (courant.month // 12)
+
+            graduations.append(
+                (
+                    courant,
+                    courant.strftime("%b %Y"),
+                )
+            )
+
+            annee = courant.year + courant.month // 12
+
             mois = courant.month % 12 + 1
-            courant = courant.replace(year=annee, month=mois, day=1)
-        # Limite à ~6 graduations pour rester lisible
+
+            courant = courant.replace(
+                year=annee,
+                month=mois,
+                day=1,
+            )
+
+        # Limite à environ 6 graduations
         if len(graduations) > 6:
+
             pas = len(graduations) // 6 + 1
+
             graduations = graduations[::pas]
+
         return graduations
 
-    # -- Survol (remplace l'annotation matplotlib) ---------------------------
+    # --------------------------------------------------------------------------
+    # Survol
+    # --------------------------------------------------------------------------
 
     def mouseMoveEvent(self, event: QMouseEvent):
+
         pos = event.position()
+
         survol_precedent = self.barre_survolee
+
         self.barre_survolee = None
 
         for barre in self.barres:
+
             rect = barre.get("rect")
+
             if rect and rect.contains(pos):
+
                 self.barre_survolee = barre
+
                 texte = (
                     f"{barre['label']}\n"
                     f"{barre['deb'].strftime('%d/%m/%Y')} - "
                     f"{barre['fin'].strftime('%d/%m/%Y')}"
                 )
-                QToolTip.showText(event.globalPosition().toPoint(), texte, self)
+
+                QToolTip.showText(
+                    event.globalPosition().toPoint(),
+                    texte,
+                    self,
+                )
+
                 break
 
         if self.barre_survolee is None:
+
             QToolTip.hideText()
 
         if survol_precedent is not self.barre_survolee:
+
             self.update()
 
     def leaveEvent(self, event):
+
         self.barre_survolee = None
+
         QToolTip.hideText()
+
         self.update()
 
 

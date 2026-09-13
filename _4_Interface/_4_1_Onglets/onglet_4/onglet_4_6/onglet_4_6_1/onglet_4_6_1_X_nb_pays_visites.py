@@ -9,6 +9,7 @@
 
 
 from __future__ import annotations
+import random, time, math
 from typing import Optional
 
 from PyQt6.QtCore import (
@@ -23,6 +24,7 @@ from PyQt6.QtGui import QPainter, QPainterPath, QBrush
 from PyQt6.QtWidgets import QWidget, QSizePolicy
 
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import ombre_onglet_4_6
+from _4_Interface._4_3_Icones._4_3_42_etoile import _dessiner_etoile
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6.onglet_4_6_1.onglet_4_6_1_1_theme import (
     CompteurTheme,
 )
@@ -144,6 +146,7 @@ class CompteurCirculaireWidget(QWidget):
 
         self._etait_presque_plein = False
 
+        self._etoiles = self._generer_etoiles(n=20)
         self.set_value(value, animate=True)
 
     # ---------------------------------------------------------------
@@ -252,6 +255,57 @@ class CompteurCirculaireWidget(QWidget):
         self._sable.vider_pluie()
         self.update()
 
+    def _generer_etoiles(self, n: int = 10) -> list[dict]:
+        rng = random.Random()
+        return [
+            {
+                "x_ratio": rng.uniform(0.04, 0.96),
+                "y_ratio": rng.uniform(0.04, 0.38),
+                "taille_ratio": rng.uniform(0.02, 0.036),
+                "phase_offset": rng.uniform(0, 2 * math.pi),
+                "vitesse": rng.uniform(0.4, 2.2),  # plage élargie
+            }
+            for _ in range(n)
+        ]
+
+    def _dessiner_etoiles(
+        self, painter: QPainter, rect_carte: QRectF, side: float
+    ) -> None:
+        nuit = self._PALETTE.get("nuit", 0.0)
+        if nuit <= 0.0:
+            return  # plein jour : rien à dessiner
+
+        t = time.monotonic()
+        painter.save()
+
+        for etoile in self._etoiles:
+            centre = QPointF(
+                rect_carte.left() + etoile["x_ratio"] * rect_carte.width(),
+                rect_carte.top() + etoile["y_ratio"] * rect_carte.height(),
+            )
+            taille = etoile["taille_ratio"] * side
+            phase = etoile["phase_offset"] + t * etoile["vitesse"]
+
+            # -- Scintillement réel : oscillation d'opacité par étoile --
+            # sin**3 (au lieu de sin) creuse les creux : l'étoile reste
+            # "éteinte" plus longtemps puis flashe, ce qui lit mieux comme
+            # un scintillement que comme une simple pulsation régulière.
+            onde = math.sin(phase)
+            intensite = 0.15 + 0.85 * (0.5 + 0.5 * onde) ** 2
+
+            # Petite pulsation de taille en plus, discrète, en phase avec l'éclat
+            taille_effective = taille * (0.85 + 0.15 * intensite)
+
+            painter.setOpacity(nuit * intensite)
+            _dessiner_etoile(
+                painter,
+                centre=centre,
+                taille=taille_effective,
+                scintillement=False,  # on gère déjà la variation via l'opacité
+            )
+
+        painter.restore()
+
     # ---------------------------------------------------------------
     # Rendu global
     # ---------------------------------------------------------------
@@ -270,6 +324,8 @@ class CompteurCirculaireWidget(QWidget):
         chemin_carte.addRoundedRect(rect_carte, rayon_carte, rayon_carte)
         painter.fillPath(chemin_carte, QBrush(self._PALETTE["fond"]))
         painter.setClipPath(chemin_carte)
+
+        self._dessiner_etoiles(painter, rect_carte, side)
 
         # --- zone de contenu : bocal à gauche, cercle de données à droite
         # (widget plus large que haut, donc pas d'empilement vertical) ---

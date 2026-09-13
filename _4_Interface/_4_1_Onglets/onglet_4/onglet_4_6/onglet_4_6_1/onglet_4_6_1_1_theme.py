@@ -454,4 +454,4 @@ class CompteurTheme:
                 retour="qcolor",
             )
             for cle in self._PALETTE.get("nuit").keys()
-        }
+        } | poids_temp

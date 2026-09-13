@@ -53,67 +53,10 @@ from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_07_temple import (
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_08_bloc_marbre import (
     BlocMarbre,
 )
-from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_10_cypres import (
+from _4_Interface._4_3_Icones._4_3_44_cypres import (
     Cypres,
 )
 from _4_Interface._4_3_Icones._4_3_42_etoile import Etoiles
-
-# 1 -- Générations d'objets ----------------------------------------------------
-
-
-## 1.1 -- Génération de cyprès -------------------------------------------------
-
-
-def _generer_cypres(
-    n: int,
-    proportion_centrale_interdite: float = 1 / 3,
-    graine: int | None = 42,
-) -> list[dict]:
-    """
-    Génère les caractéristiques relatives des cyprès.
-
-    Les positions sont exprimées entre 0 et 1 afin de pouvoir
-    adapter les arbres à la taille réelle du widget au paintEvent.
-    """
-
-    rng = random.Random(graine)
-
-    resultat = []
-
-    limite_gauche = 0.5 - proportion_centrale_interdite / 2
-
-    limite_droite = 0.5 + proportion_centrale_interdite / 2
-
-    for _ in range(n):
-
-        cote = rng.choice(("gauche", "droite"))
-
-        # Position davantage attirée vers les bords extérieurs
-        t = rng.random() ** 1.5
-
-        if cote == "gauche":
-
-            x = t * limite_gauche
-
-        else:
-
-            x = 1.0 - t * (1.0 - limite_droite)
-
-        resultat.append(
-            {
-                "cypres": Cypres(
-                    couleur_feuillage=random.choice(["#315A3A", "#397245", "#39553F"]),
-                    graine=rng.randint(0, 1_000_000),
-                ),
-                "x": x,
-                "hauteur": rng.uniform(0.25, 0.42),
-                "largeur": rng.uniform(0.05, 0.075),
-                "decalage_sol": rng.uniform(-0.01, 0.015),
-            }
-        )
-
-    return resultat
-
 
 # 2 -- Widget graphique --------------------------------------------------------
 
@@ -159,8 +102,11 @@ class LeveeDrapeaux(QWidget):
             parent_widget=self,
         )
         self.blocs_marbre = []
-        self.cypres = _generer_cypres(
-            n=7, proportion_centrale_interdite=1 / 3, graine=None
+        self.cypres = Cypres(
+            n=7,
+            proportion_centrale_interdite=1 / 3,
+            proportion_sol=proportion_sol,
+            graine=None,
         )
         self._etoiles = Etoiles(n=20, taille_min=0.01)
 
@@ -479,29 +425,6 @@ class LeveeDrapeaux(QWidget):
                 point_fuite_x=point_fuite_x,
             )
 
-    # 2.6 -- Cyprès ------------------------------------------------------------
-
-    def _dessiner_cypres(
-        self,
-        painter: QPainter,
-        rect_scene: QRectF,
-    ) -> None:
-
-        y_sol = rect_scene.bottom() - rect_scene.height() * 0.40
-
-        for infos in self.cypres:
-
-            largeur = rect_scene.width() * infos["largeur"]
-            hauteur = rect_scene.height() * infos["hauteur"]
-            x_centre = rect_scene.left() + rect_scene.width() * infos["x"]
-            decalage_sol = rect_scene.height() * infos["decalage_sol"]
-
-            rect_cypres = QRectF(
-                x_centre - largeur / 2, y_sol - hauteur + decalage_sol, largeur, hauteur
-            )
-
-            infos["cypres"].dessiner(painter=painter, rect=rect_cypres)
-
     # 2.7 -- Dessin ------------------------------------------------------------
 
     def paintEvent(self, event) -> None:
@@ -528,6 +451,7 @@ class LeveeDrapeaux(QWidget):
             theme=self.theme,
         )
 
+        # Étoiles (la nuit seulement)
         self._etoiles.dessiner_etoiles(
             painter=painter,
             rect=rect_scene,
@@ -551,7 +475,7 @@ class LeveeDrapeaux(QWidget):
         )
 
         # Cyprès
-        self._dessiner_cypres(
+        self.cypres.dessiner(
             painter=painter,
             rect_scene=rect_scene,
         )
@@ -566,7 +490,7 @@ class LeveeDrapeaux(QWidget):
         # Filtre blanc afin de mettre en valeur les drapeaux
         painter.fillRect(
             rect_scene,
-            QColor(255, 255, 255, 90),
+            QColor(255, 255, 255, 80),
         )
 
         # Titre

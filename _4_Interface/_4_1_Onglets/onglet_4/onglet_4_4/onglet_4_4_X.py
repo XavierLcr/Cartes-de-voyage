@@ -124,6 +124,7 @@ class LeveeDrapeaux(QWidget):
         self.olivier = Olivier(
             mois=datetime.today().month,
             graine=None,
+            n_feuilles=500,
         )
 
         self.palette_repli = palette_repli or [
@@ -308,15 +309,17 @@ class LeveeDrapeaux(QWidget):
         largeur_case = rect_zone.width() / n
 
         # On conserve des drapeaux raisonnablement fins même sur grand écran.
-        largeur_drapeau = min(
-            115.0,
-            largeur_case * 0.82,
-        )
+        # largeur_drapeau = min(
+        #     115.0,
+        #     largeur_case * 0.82,
+        # )
+        largeur_drapeau = min(largeur_case * 0.82, rect_zone.height() / 2)
 
-        hauteur_drapeau = min(
-            rect_zone.height(),
-            230.0,
-        )
+        # hauteur_drapeau = min(
+        #     rect_zone.height(),
+        #     230.0,
+        # )
+        hauteur_drapeau = rect_zone.height() * 0.75 - rect_zone.height() ** 1 / 2 * 0.2
 
         y = rect_zone.bottom() - hauteur_drapeau
 
@@ -507,7 +510,7 @@ class LeveeDrapeaux(QWidget):
         self.olivier.dessiner(
             painter=painter,
             rect=QRectF(
-                self.height() * 0.10,
+                self.height() * 0.08,
                 self.height() * 1 / 2,
                 self.height() * 0.20,
                 self.height() * 0.25,

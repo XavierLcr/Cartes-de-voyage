@@ -9,6 +9,7 @@
 
 
 import random
+from datetime import datetime
 
 from PyQt6.QtCore import (
     Qt,
@@ -58,6 +59,7 @@ from _4_Interface._4_3_Icones._4_3_44_cypres import (
 )
 from _4_Interface._4_3_Icones._4_3_42_etoile import Etoiles
 from _4_Interface._4_3_Icones._4_3_45_etoile_filante import EtoileFilante
+from _4_Interface._4_3_Icones._4_3_46_olivier._4_3_46_3_olivier import Olivier
 
 # 2 -- Widget graphique --------------------------------------------------------
 
@@ -117,6 +119,10 @@ class LeveeDrapeaux(QWidget):
             intervalle_max=60,
             duree_min=0.85,
             duree_max=1.4,
+            graine=None,
+        )
+        self.olivier = Olivier(
+            mois=datetime.today().month,
             graine=None,
         )
 
@@ -496,6 +502,16 @@ class LeveeDrapeaux(QWidget):
         self.cypres.dessiner(
             painter=painter,
             rect_scene=rect_scene,
+        )
+
+        self.olivier.dessiner(
+            painter=painter,
+            rect=QRectF(
+                self.height() * 0.10,
+                self.height() * 1 / 2,
+                self.height() * 0.20,
+                self.height() * 0.25,
+            ),
         )
 
         # Temple

@@ -398,7 +398,7 @@ class LeveeDrapeaux(QWidget):
         )
 
         painter.setFont(police)
-        painter.setPen(QColor("#4A5A66"))
+        painter.setPen(self.theme.couleur("titre_couleur"))
 
         metrics = QFontMetrics(police)
 

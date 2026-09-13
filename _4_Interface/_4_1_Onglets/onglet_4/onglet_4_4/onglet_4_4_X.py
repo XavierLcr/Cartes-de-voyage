@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
-# _4_Interface/_4_1_Onglets/onglet_4                                           #
-# Onglet 4.4 – Pays visités le plus grand nombre de fois                       #
+# _4_Interface/_4_1_Onglets/onglet_4/onglet_4_4                                #
+# Onglet 4.4.X – Pays visités le plus grand nombre de fois                     #
 ################################################################################
 
 

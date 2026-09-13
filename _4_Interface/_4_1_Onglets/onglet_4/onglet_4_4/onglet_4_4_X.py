@@ -57,6 +57,7 @@ from _4_Interface._4_3_Icones._4_3_44_cypres import (
     Cypres,
 )
 from _4_Interface._4_3_Icones._4_3_42_etoile import Etoiles
+from _4_Interface._4_3_Icones._4_3_45_etoile_filante import EtoileFilante
 
 # 2 -- Widget graphique --------------------------------------------------------
 
@@ -111,6 +112,13 @@ class LeveeDrapeaux(QWidget):
             graine=None,
         )
         self._etoiles = Etoiles(n=20, taille_min=0.01)
+        self._etoile_filante = EtoileFilante(
+            intervalle_min=15,
+            intervalle_max=60,
+            duree_min=0.85,
+            duree_max=1.4,
+            graine=None,
+        )
 
         self.palette_repli = palette_repli or [
             "#7DC8E8",
@@ -460,6 +468,13 @@ class LeveeDrapeaux(QWidget):
             rect=rect_scene,
             side=min(self.width(), self.height()),
             opacite=self.theme.couleur("nuit"),
+        )
+
+        # Étoile filante
+        self._etoile_filante.dessiner(
+            painter=painter,
+            rect_scene=rect_scene,
+            nuit=self.theme.couleur("nuit"),
         )
 
         # Montagnes

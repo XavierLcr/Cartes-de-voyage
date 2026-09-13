@@ -27,10 +27,6 @@ from PyQt6.QtWidgets import (
     QWidget,
 )
 
-from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
-    vider_layout,
-)
-
 # A adapter selon l'emplacement choisi pour le premier script
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_1_drapeau import Drapeau
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_2_calculs import (
@@ -475,7 +471,6 @@ class PaysLesPlusVisites(QWidget):
         self.n_pays_limite_type = True
 
         self.pays_trad = constantes.pays_differentes_langues
-
         self.direction_donnees_drapeaux = constantes.direction_donnees_drapeaux
 
         self.agreger = True
@@ -485,7 +480,13 @@ class PaysLesPlusVisites(QWidget):
         self.teinte = None
         self.nuances = {}
 
-        # Layout contenant uniquement le grand widget graphique
+        # Widget graphique, créé une seule fois
+        self.graphique = LeveeDrapeaux(
+            dossier_drapeaux=self.direction_donnees_drapeaux,
+            fct_traduction=self.fct_traduction,
+        )
+
+        # Layout principal
         self.layout = QVBoxLayout(self)
 
         self.layout.setContentsMargins(
@@ -494,6 +495,10 @@ class PaysLesPlusVisites(QWidget):
             0,
             0,
         )
+
+        self.layout.addWidget(self.graphique)
+
+    # 2.1 -- Paramètres ---------------------------------------------------------
 
     def set_langue(
         self,
@@ -522,15 +527,26 @@ class PaysLesPlusVisites(QWidget):
         self.teinte = teinte
         self.nuances = nuances
 
-        self.creer_graphique()
+        # Pour l'instant, le style n'est pas utilisé directement par
+        # LeveeDrapeaux. Un simple repaint suffit donc.
+        self.graphique.update()
+
+    # 2.2 -- Mise à jour du graphique ------------------------------------------
 
     def creer_graphique(self) -> None:
 
-        vider_layout(layout=self.layout)
-
+        # Si aucun voyage n'est disponible, on vide simplement le graphique.
         if not self.voyages:
+
+            self.graphique.set_donnees(
+                labels=[],
+                valeurs=[],
+                traductions=[],
+            )
+
             return
 
+        # Calcul du classement des pays
         df_temp = compter_voyages_par_pays(
             dictionnaire_voyages=self.voyages,
             traductions=self.pays_trad,
@@ -542,15 +558,9 @@ class PaysLesPlusVisites(QWidget):
             agreger=self.agreger,
         )
 
-        widget_temp = LeveeDrapeaux(
-            dossier_drapeaux=self.direction_donnees_drapeaux,
-            fct_traduction=self.fct_traduction,
-        )
-
-        widget_temp.set_donnees(
+        # Mise à jour du widget existant
+        self.graphique.set_donnees(
             labels=df_temp["pays"].to_list(),
             valeurs=df_temp["N"].to_list(),
             traductions=df_temp["pays_traduction"].to_list(),
         )
-
-        self.layout.addWidget(widget_temp)

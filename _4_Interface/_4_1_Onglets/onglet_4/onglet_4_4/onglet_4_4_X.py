@@ -38,6 +38,7 @@ from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_03_theme import (
     ThemeLeveeDrapeaux,
 )
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_04_ciel import Ciel
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_05_sol import Sol
 
 # 1 -- Widget graphique --------------------------------------------------------
 
@@ -70,6 +71,7 @@ class LeveeDrapeaux(QWidget):
         self.couleur_accent = QColor(couleur_accent)
         self.theme = ThemeLeveeDrapeaux()
         self.ciel = Ciel()
+        self.sol = Sol(proportion_hauteur=0.4)
 
         self.palette_repli = palette_repli or [
             "#7DC8E8",
@@ -429,6 +431,11 @@ class LeveeDrapeaux(QWidget):
         self.ciel.dessiner(
             painter=painter,
             rect=rect_scene,
+            theme=self.theme,
+        )
+        self.sol.dessiner(
+            painter=painter,
+            rect_scene=rect_scene,
             theme=self.theme,
         )
 

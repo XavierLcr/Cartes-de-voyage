@@ -124,7 +124,7 @@ def _generer_poissons(n: int) -> List[dict]:
     en va-et-vient (gauche <-> droite), à une hauteur et une vitesse qui
     varient d'un poisson à l'autre pour un banc naturel plutôt que des
     clones synchronisés."""
-    rng = random.Random(2024)
+    rng = random.Random()
     PALETTES_PAR_TYPE = {
         "poisson": ["#E8834A", "#D96C6C", "#E0B24C"],
         "requin": ["#D1D5D5", "#BAD1E6", "#CAD8E3"],
@@ -140,7 +140,7 @@ def _generer_poissons(n: int) -> List[dict]:
         poissons.append(
             {
                 "nx": rng.uniform(0.0, 1.0),  # position horizontale (0-1) dans la mer
-                "ny": rng.uniform(0.1, 0.9),  # hauteur (0 = surface, 1 = fond)
+                "ny": rng.uniform(0.15, 0.85),  # hauteur (0 = surface, 1 = fond)
                 "sens": sens,  # 1 = va vers la droite, -1 = vers la gauche
                 "vitesse": rng.uniform(
                     0.05, 0.11

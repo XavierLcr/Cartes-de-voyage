@@ -93,7 +93,9 @@ class LeveeDrapeaux(QWidget):
         self.theme = ThemeLeveeDrapeaux()
         self.ciel = Ciel()
         self.sol = Sol(proportion_hauteur=proportion_sol)
-        self.montagnes = Montagnes(proportion_hauteur=0.32, n_couches=3)
+        self.montagnes = Montagnes(
+            proportion_hauteur=0.32, n_couches=3, graine=random.random()
+        )
         self.temple = TempleGrec(
             proportion_largeur=0.74,
             proportion_hauteur=0.55,
@@ -106,6 +108,7 @@ class LeveeDrapeaux(QWidget):
             n=7,
             proportion_centrale_interdite=1 / 3,
             proportion_sol=proportion_sol,
+            hauteur_max=0.39,
             graine=None,
         )
         self._etoiles = Etoiles(n=20, taille_min=0.01)

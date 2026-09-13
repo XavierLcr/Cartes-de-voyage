@@ -678,7 +678,7 @@ class TempleGrec:
         # Échine
         rect_echine = QRectF(
             cx - rect.width() * 0.37,
-            rect.top() + rect.height() * 0.40,
+            rect.top() + rect.height() * 0.23,
             rect.width() * 0.74,
             rect.height() * 0.30,
         )
@@ -716,7 +716,7 @@ class TempleGrec:
         # Abaque supérieur
         rect_abaque = QRectF(
             rect.left() + rect.width() * 0.04,
-            rect.top() + rect.height() * 0.18,
+            rect.top(),
             rect.width() * 0.92,
             rect.height() * 0.23,
         )

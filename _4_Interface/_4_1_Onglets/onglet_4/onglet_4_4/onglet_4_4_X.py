@@ -34,6 +34,10 @@ from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_2_calculs import (
     limiter_nombre_pays,
     resoudre_chemin_drapeau,
 )
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_3_theme import (
+    ThemeLeveeDrapeaux,
+)
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_4_ciel import Ciel
 
 # 1 -- Widget graphique --------------------------------------------------------
 
@@ -64,6 +68,8 @@ class LeveeDrapeaux(QWidget):
         self.fct_traduction = fct_traduction
         self.dossier_drapeaux = dossier_drapeaux
         self.couleur_accent = QColor(couleur_accent)
+        self.theme = ThemeLeveeDrapeaux()
+        self.ciel = Ciel()
 
         self.palette_repli = palette_repli or [
             "#7DC8E8",
@@ -418,6 +424,13 @@ class LeveeDrapeaux(QWidget):
         rect_scene = self._rect_scene()
 
         geometrie = self._geometrie_scene(rect_scene)
+
+        # Ciel
+        self.ciel.dessiner(
+            painter=painter,
+            rect=rect_scene,
+            theme=self.theme,
+        )
 
         # Titre
         self._dessiner_titre(

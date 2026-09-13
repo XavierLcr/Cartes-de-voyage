@@ -68,18 +68,15 @@ class DiagrammeGantt(QWidget):
         # ----------------------------------------------------------------------
 
         self.avion = Avion(
-            taille=42,
-            vitesse=120,
-            tension=0.8,
+            taille=50,
+            vitesse=90,
+            tension=1.0,
             marge_sortie=50,
         )
 
         self._timer_avion = QTimer(self)
-
         self._timer_avion.setInterval(self.INTERVALLE_ANIMATION_MS)
-
         self._timer_avion.timeout.connect(self._animer_avion)
-
         self._timer_avion.start()
 
         # ----------------------------------------------------------------------

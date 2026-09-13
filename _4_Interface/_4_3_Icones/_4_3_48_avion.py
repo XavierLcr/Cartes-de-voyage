@@ -9,6 +9,7 @@
 
 
 import random
+import math
 
 from PyQt6.QtCore import QPointF, QRectF, Qt
 from PyQt6.QtGui import (
@@ -295,6 +296,7 @@ class Avion:
         vitesse: float = 120.0,
         tension: float = 0.80,
         marge_sortie: float = 50.0,
+        anticipation_rotation: float = 60.0,
         couleur: QColor | str = "#E8ECEF",
         couleur_secondaire: QColor | str = "#9AA7B0",
         couleur_vitre: QColor | str = "#496778",
@@ -305,6 +307,8 @@ class Avion:
         self.vitesse = vitesse
         self.tension = tension
         self.marge_sortie = marge_sortie
+        self.anticipation_rotation = anticipation_rotation
+        self.repeter_en_boucle = False
 
         self.couleur = QColor(couleur)
         self.couleur_secondaire = QColor(couleur_secondaire)
@@ -347,44 +351,71 @@ class Avion:
         self,
         points: list[QPointF],
     ) -> QPainterPath:
-        """Crée une courbe douce passant exactement par chaque point."""
+        """
+        Crée un chemin passant par tous les points avec des virages arrondis,
+        sans créer les boucles que peut produire une spline Catmull-Rom.
+        """
 
         chemin = QPainterPath()
 
         if not points:
             return chemin
 
-        chemin.moveTo(points[0])
-
         if len(points) == 1:
+            chemin.moveTo(points[0])
             return chemin
 
-        facteur = self.tension / 6
+        chemin.moveTo(points[0])
 
-        for i in range(len(points) - 1):
+        # Plus cette valeur est grande, plus les virages sont arrondis.
+        # On reste volontairement sous 0.5 pour éviter les boucles.
+        arrondi = max(
+            0.0,
+            min(0.45, self.tension * 0.45),
+        )
 
-            p0 = points[i - 1] if i > 0 else points[i]
+        for i in range(1, len(points) - 1):
 
-            p1 = points[i]
-            p2 = points[i + 1]
+            precedent = points[i - 1]
+            courant = points[i]
+            suivant = points[i + 1]
 
-            p3 = points[i + 2] if i + 2 < len(points) else p2
-
-            controle_1 = QPointF(
-                p1.x() + (p2.x() - p0.x()) * facteur,
-                p1.y() + (p2.y() - p0.y()) * facteur,
+            # Distances avec les points voisins
+            distance_avant = math.hypot(
+                courant.x() - precedent.x(),
+                courant.y() - precedent.y(),
             )
 
-            controle_2 = QPointF(
-                p2.x() - (p3.x() - p1.x()) * facteur,
-                p2.y() - (p3.y() - p1.y()) * facteur,
+            distance_apres = math.hypot(
+                suivant.x() - courant.x(),
+                suivant.y() - courant.y(),
             )
 
-            chemin.cubicTo(
-                controle_1,
-                controle_2,
-                p2,
+            if distance_avant <= 0 or distance_apres <= 0:
+                chemin.lineTo(courant)
+                continue
+
+            # Point où commence l'arrondi avant le point courant
+            entree = QPointF(
+                courant.x() - (courant.x() - precedent.x()) * arrondi,
+                courant.y() - (courant.y() - precedent.y()) * arrondi,
             )
+
+            # Point où se termine l'arrondi après le point courant
+            sortie = QPointF(
+                courant.x() + (suivant.x() - courant.x()) * arrondi,
+                courant.y() + (suivant.y() - courant.y()) * arrondi,
+            )
+
+            chemin.lineTo(entree)
+
+            # Courbe quadratique autour du point réellement visité
+            chemin.quadTo(
+                courant,
+                sortie,
+            )
+
+        chemin.lineTo(points[-1])
 
         return chemin
 
@@ -432,7 +463,10 @@ class Avion:
 
         if self._distance >= self._longueur_chemin:
 
-            self._nouveau_passage()
+            if self.repeter_en_boucle == True:
+                self._nouveau_passage()
+            else:
+                self._distance = self._longueur_chemin
 
     # 2.4 -- Dessin -------------------------------------------------------------
 
@@ -460,10 +494,32 @@ class Avion:
         )
 
         progression = chemin.percentAtLength(distance)
-
         position = chemin.pointAtPercent(progression)
 
-        rotation = -chemin.angleAtPercent(progression)
+        distance_avant = max(
+            0.0,
+            distance - self.anticipation_rotation,
+        )
+        distance_apres = min(
+            self._longueur_chemin,
+            distance + self.anticipation_rotation,
+        )
+
+        t_avant = chemin.percentAtLength(distance_avant)
+        t_apres = chemin.percentAtLength(distance_apres)
+
+        point_avant = chemin.pointAtPercent(t_avant)
+        point_apres = chemin.pointAtPercent(t_apres)
+
+        dx = point_apres.x() - point_avant.x()
+        dy = point_apres.y() - point_avant.y()
+
+        rotation = math.degrees(
+            math.atan2(
+                dy,
+                dx,
+            )
+        )
 
         _dessiner_un_avion(
             painter=painter,

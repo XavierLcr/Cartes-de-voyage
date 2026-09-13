@@ -39,6 +39,9 @@ from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_03_theme import (
 )
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_04_ciel import Ciel
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_05_sol import Sol
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_06_montagnes import (
+    Montagnes,
+)
 
 # 1 -- Widget graphique --------------------------------------------------------
 
@@ -72,6 +75,7 @@ class LeveeDrapeaux(QWidget):
         self.theme = ThemeLeveeDrapeaux()
         self.ciel = Ciel()
         self.sol = Sol(proportion_hauteur=0.4)
+        self.montagnes = Montagnes(proportion_hauteur=0.32, n_couches=3)
 
         self.palette_repli = palette_repli or [
             "#7DC8E8",
@@ -433,6 +437,16 @@ class LeveeDrapeaux(QWidget):
             rect=rect_scene,
             theme=self.theme,
         )
+
+        # Montagnes
+        self.montagnes.dessiner(
+            painter=painter,
+            rect_scene=rect_scene,
+            theme=self.theme,
+            proportion_sol=0.40,
+        )
+
+        # Sol
         self.sol.dessiner(
             painter=painter,
             rect_scene=rect_scene,

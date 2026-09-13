@@ -151,7 +151,7 @@ class LeveeDrapeaux(QWidget):
         self.sol = Sol(proportion_hauteur=proportion_sol)
         self.montagnes = Montagnes(proportion_hauteur=0.32, n_couches=3)
         self.temple = TempleGrec(
-            proportion_largeur=0.7,
+            proportion_largeur=0.74,
             proportion_hauteur=0.55,
             proportion_sol=proportion_sol,
             n_colonnes=4,
@@ -554,15 +554,16 @@ class LeveeDrapeaux(QWidget):
             theme=self.theme,
         )
 
+        # Filtre blanc afin de mettre en valeur les drapeaux
+        painter.fillRect(
+            rect_scene,
+            QColor(255, 255, 255, 100),
+        )
+
         # Titre
         self._dessiner_titre(
             painter=painter,
             rect=geometrie["titre"],
-        )
-
-        painter.fillRect(
-            rect_scene,
-            QColor(255, 255, 255, 80),
         )
 
         # Blocs de marbre

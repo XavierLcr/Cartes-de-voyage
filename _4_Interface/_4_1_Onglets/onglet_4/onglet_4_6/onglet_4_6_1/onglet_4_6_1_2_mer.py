@@ -165,7 +165,7 @@ def _generer_bouees(n: int) -> List[dict]:
     """Prégénère n bouées flottant à la surface, réparties horizontalement,
     chacune avec sa propre phase de tangage pour éviter un mouvement
     synchronisé (comme pour les poissons, on désynchronise via `phase`)."""
-    rng = random.Random(7)
+    rng = random.Random()
     return [
         {
             "nx": rng.uniform(0.4, 0.92),  # position horizontale (0-1), fixe

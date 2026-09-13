@@ -42,6 +42,9 @@ from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_05_sol import Sol
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_06_montagnes import (
     Montagnes,
 )
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_06_temple import (
+    TempleGrec,
+)
 
 # 1 -- Widget graphique --------------------------------------------------------
 
@@ -63,6 +66,7 @@ class LeveeDrapeaux(QWidget):
         fct_traduction,
         palette_repli: list | None = None,
         couleur_accent: str = "#4A90A4",
+        proportion_sol: float = 0.4,
         parent=None,
     ):
 
@@ -74,8 +78,14 @@ class LeveeDrapeaux(QWidget):
         self.couleur_accent = QColor(couleur_accent)
         self.theme = ThemeLeveeDrapeaux()
         self.ciel = Ciel()
-        self.sol = Sol(proportion_hauteur=0.4)
+        self.sol = Sol(proportion_hauteur=proportion_sol)
         self.montagnes = Montagnes(proportion_hauteur=0.32, n_couches=3)
+        self.temple = TempleGrec(
+            proportion_largeur=0.7,
+            proportion_hauteur=0.55,
+            proportion_sol=proportion_sol,
+            n_colonnes=4,
+        )
 
         self.palette_repli = palette_repli or [
             "#7DC8E8",
@@ -448,6 +458,13 @@ class LeveeDrapeaux(QWidget):
 
         # Sol
         self.sol.dessiner(
+            painter=painter,
+            rect_scene=rect_scene,
+            theme=self.theme,
+        )
+
+        # Temple
+        self.temple.dessiner(
             painter=painter,
             rect_scene=rect_scene,
             theme=self.theme,

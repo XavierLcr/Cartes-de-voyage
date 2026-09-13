@@ -56,6 +56,7 @@ from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_08_bloc_marbre imp
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_10_cypres import (
     Cypres,
 )
+from _4_Interface._4_3_Icones._4_3_42_etoile import Etoiles
 
 # 1 -- Générations d'objets ----------------------------------------------------
 
@@ -101,7 +102,7 @@ def _generer_cypres(
         resultat.append(
             {
                 "cypres": Cypres(
-                    couleur_feuillage="#315A3A",
+                    couleur_feuillage=random.choice(["#315A3A", "#397245", "#39553F"]),
                     graine=rng.randint(0, 1_000_000),
                 ),
                 "x": x,
@@ -161,6 +162,7 @@ class LeveeDrapeaux(QWidget):
         self.cypres = _generer_cypres(
             n=7, proportion_centrale_interdite=1 / 3, graine=None
         )
+        self._etoiles = Etoiles(n=20, taille_min=0.01)
 
         self.palette_repli = palette_repli or [
             "#7DC8E8",
@@ -526,6 +528,13 @@ class LeveeDrapeaux(QWidget):
             theme=self.theme,
         )
 
+        self._etoiles.dessiner_etoiles(
+            painter=painter,
+            rect=rect_scene,
+            side=min(self.width(), self.height()),
+            opacite=self.theme.couleur("nuit"),
+        )
+
         # Montagnes
         self.montagnes.dessiner(
             painter=painter,
@@ -557,7 +566,7 @@ class LeveeDrapeaux(QWidget):
         # Filtre blanc afin de mettre en valeur les drapeaux
         painter.fillRect(
             rect_scene,
-            QColor(255, 255, 255, 100),
+            QColor(255, 255, 255, 90),
         )
 
         # Titre

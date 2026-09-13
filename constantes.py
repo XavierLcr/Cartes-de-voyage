@@ -8,10 +8,9 @@
 
 
 import os, sys
-from _0_Utilitaires._0_1_fonctions_utiles_gen import (
-    ouvrir_fichier,
-    periode_particuliere,
-)
+
+from _0_Utilitaires._0_1_fonctions_utiles_gen import ouvrir_fichier
+from _0_Utilitaires._0_15_dates import periode_particuliere
 
 # 1 -- Gestion des directions --------------------------------------------------
 

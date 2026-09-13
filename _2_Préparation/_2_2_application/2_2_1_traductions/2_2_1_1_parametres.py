@@ -20,12 +20,8 @@ from constantes import (
     liste_ambiances,
     liste_couleurs,
 )
-from _0_Utilitaires._0_1_fonctions_utiles_gen import (
-    ouvrir_fichier,
-    exporter_fichier,
-    sleep_n_fois,
-)
-from _0_Utilitaires._0_15_dates import formater_temps_actuel
+from _0_Utilitaires._0_1_fonctions_utiles_gen import ouvrir_fichier, exporter_fichier
+from _0_Utilitaires._0_15_dates import formater_temps_actuel, sleep_n_fois
 
 from clefs_et_mots_de_passe import clef_api_gemini, modeles_google, liste_langues
 

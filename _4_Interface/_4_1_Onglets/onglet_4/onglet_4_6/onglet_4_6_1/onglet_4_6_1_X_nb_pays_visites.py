@@ -25,6 +25,7 @@ from PyQt6.QtWidgets import QWidget, QSizePolicy
 
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import ombre_onglet_4_6
 from _4_Interface._4_3_Icones._4_3_42_etoile import _dessiner_etoile
+from _4_Interface._4_3_Icones._4_3_43_mouette import _dessiner_mouette
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6.onglet_4_6_1.onglet_4_6_1_1_theme import (
     CompteurTheme,
 )
@@ -147,6 +148,16 @@ class CompteurCirculaireWidget(QWidget):
         self._etait_presque_plein = False
 
         self._etoiles = self._generer_etoiles(n=20)
+        self._rng_mouette = random.Random()  # non seedé : vol réellement aléatoire
+        self._mouette = {
+            "active": False,
+            "debut": 0.0,
+            "duree": 0.0,
+            "y_ratio": 0.0,
+            "sens": 1,
+            "prochain_vol": time.monotonic() + self._rng_mouette.uniform(4.0, 12.0),
+        }
+
         self.set_value(value, animate=True)
 
     # ---------------------------------------------------------------
@@ -306,6 +317,69 @@ class CompteurCirculaireWidget(QWidget):
 
         painter.restore()
 
+    def _dessiner_mouette_animee(
+        self, painter: QPainter, rect_carte: QRectF, side: float
+    ) -> None:
+
+        jour = 1.0 - self._PALETTE.get("nuit", 0.0)
+        if jour <= 0.0:
+            return  # pleine nuit : pas de mouette
+
+        now = time.monotonic()
+        m = self._mouette
+
+        # -- Déclenchement d'un nouveau vol ------------------------------------
+        if not m["active"] and now >= m["prochain_vol"]:
+            m["active"] = True
+            m["debut"] = now
+            m["duree"] = self._rng_mouette.uniform(4.0, 7.0)
+            m["y_ratio"] = self._rng_mouette.uniform(0.05, 0.28)  # tiers supérieur
+            m["sens"] = self._rng_mouette.choice([-1, 1])
+
+        if not m["active"]:
+            return
+
+        # -- Progression du vol -------------------------------------------------
+        progress = (now - m["debut"]) / m["duree"]
+        if progress >= 1.0:
+            m["active"] = False
+            m["prochain_vol"] = now + self._rng_mouette.uniform(8.0, 20.0)
+            return
+
+        # Traverse un peu au-delà des bords, pour une entrée/sortie naturelle
+        marge = rect_carte.width() * 0.12
+        if m["sens"] == 1:
+            x = rect_carte.left() - marge + progress * (rect_carte.width() + 2 * marge)
+        else:
+            x = rect_carte.right() + marge - progress * (rect_carte.width() + 2 * marge)
+
+        # Léger bobbing vertical, pour une trajectoire moins rectiligne
+        y = (
+            rect_carte.top()
+            + m["y_ratio"] * rect_carte.height()
+            + math.sin(progress * math.pi * 3) * side * 0.02
+        )
+
+        # Fondu en entrée/sortie de vol
+        fondu = min(1.0, progress / 0.1, (1.0 - progress) / 0.1)
+
+        taille = side * 0.09
+        rotation = (
+            0.0 if m["sens"] == 1 else math.pi
+        )  # mouette orientée dans le sens du vol
+        phase_battement = progress * m["duree"] * 9.0  # fréquence du battement d'ailes
+
+        painter.save()
+        painter.setOpacity(jour * fondu)
+        _dessiner_mouette(
+            painter,
+            centre=QPointF(x, y),
+            taille=taille,
+            rotation=rotation,
+            phase=phase_battement,
+        )
+        painter.restore()
+
     # ---------------------------------------------------------------
     # Rendu global
     # ---------------------------------------------------------------
@@ -326,6 +400,7 @@ class CompteurCirculaireWidget(QWidget):
         painter.setClipPath(chemin_carte)
 
         self._dessiner_etoiles(painter, rect_carte, side)
+        self._dessiner_mouette_animee(painter, rect_carte, side)
 
         # --- zone de contenu : bocal à gauche, cercle de données à droite
         # (widget plus large que haut, donc pas d'empilement vertical) ---

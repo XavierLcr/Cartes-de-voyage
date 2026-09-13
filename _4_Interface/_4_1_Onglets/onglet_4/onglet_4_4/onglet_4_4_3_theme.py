@@ -10,6 +10,9 @@
 
 from PyQt6.QtGui import QColor
 
+from _0_Utilitaires._0_2_fonctions_graphiques import interpoler_couleurs
+from _0_Utilitaires._0_15_dates import phase_journee, _poids_moments
+
 # 1 -- Classe du thème ---------------------------------------------------------
 
 

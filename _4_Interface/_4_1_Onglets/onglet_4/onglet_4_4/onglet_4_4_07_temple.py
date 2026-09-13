@@ -20,6 +20,10 @@ from PyQt6.QtGui import (
     QPen,
 )
 
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4.onglet_4_4_09_brasero import (
+    BraseroMarbre,
+)
+
 # 1 -- Classe du temple grec ---------------------------------------------------
 
 
@@ -45,6 +49,7 @@ class TempleGrec:
         proportion_hauteur: float = 0.70,
         proportion_sol: float = 0.40,
         n_colonnes: int = 6,
+        parent_widget=None,
     ):
 
         self.proportion_largeur = proportion_largeur
@@ -52,6 +57,19 @@ class TempleGrec:
         self.proportion_sol = proportion_sol
 
         self.n_colonnes = max(4, n_colonnes)
+
+        # Braseros placés de part et d'autre de la porte
+        self.brasero_gauche = BraseroMarbre(
+            flamme=True,
+            graine=31,
+            parent=parent_widget,
+        )
+
+        self.brasero_droit = BraseroMarbre(
+            flamme=True,
+            graine=67,
+            parent=parent_widget,
+        )
 
     # 2 -- Couleurs ------------------------------------------------------------
 
@@ -1289,7 +1307,56 @@ class TempleGrec:
 
             painter.drawPath(ornement)
 
-    # 13 -- Dessin principal ---------------------------------------------------
+    # 13 -- Braseros -----------------------------------------------------------
+
+    def _rectangles_braseros(
+        self,
+        rect: QRectF,
+        y_sol_temple: float,
+    ) -> tuple[QRectF, QRectF]:
+        """
+        Calcule la position des deux braseros de manière symétrique
+        par rapport à la porte centrale du temple.
+        """
+
+        # Même largeur de naos que dans _dessiner_naos()
+        largeur_naos = rect.width() * 0.59
+
+        # Même largeur de porte que dans _dessiner_naos()
+        largeur_porte = largeur_naos * 0.30
+
+        # Dimensions des braseros
+        largeur_brasero = rect.width() * 0.115
+        hauteur_brasero = rect.height() * 0.29
+
+        # Petit espace entre la porte et chaque brasero
+        marge_porte = rect.width() * 0.035
+
+        centre_x = rect.center().x()
+
+        # Bord gauche et droit de la porte
+        porte_gauche = centre_x - largeur_porte / 2
+        porte_droite = centre_x + largeur_porte / 2
+
+        # Brasero gauche
+        rect_gauche = QRectF(
+            porte_gauche - marge_porte - largeur_brasero,
+            y_sol_temple - hauteur_brasero,
+            largeur_brasero,
+            hauteur_brasero,
+        )
+
+        # Brasero droit
+        rect_droit = QRectF(
+            porte_droite + marge_porte,
+            y_sol_temple - hauteur_brasero,
+            largeur_brasero,
+            hauteur_brasero,
+        )
+
+        return rect_gauche, rect_droit
+
+    # 14 -- Dessin principal ---------------------------------------------------
 
     def dessiner(
         self,
@@ -1345,6 +1412,24 @@ class TempleGrec:
             y_haut=y_entablement_bas,
             y_bas=y_colonnes_bas,
             palette=palette,
+        )
+
+        # Braseros
+        rect_brasero_gauche, rect_brasero_droit = self._rectangles_braseros(
+            rect=rect,
+            y_sol_temple=y_colonnes_bas,
+        )
+
+        self.brasero_gauche.dessiner(
+            painter=painter,
+            rect=rect_brasero_gauche,
+            point_fuite_x=rect.center().x(),
+        )
+
+        self.brasero_droit.dessiner(
+            painter=painter,
+            rect=rect_brasero_droit,
+            point_fuite_x=rect.center().x(),
         )
 
         # Colonnes

@@ -119,8 +119,15 @@ class BlocMarbre:
     def _geometrie_bloc(
         self,
         rect: QRectF,
+        point_fuite_x: float,
     ) -> dict:
-        """Calcule les différentes faces du bloc."""
+        """
+        Calcule les différentes faces du bloc.
+
+        La profondeur du bloc est orientée vers le point de fuite :
+            - bloc à gauche  -> profondeur vers la droite ;
+            - bloc à droite  -> profondeur vers la gauche.
+        """
 
         profondeur = min(
             rect.width() * self.proportion_profondeur,
@@ -132,13 +139,29 @@ class BlocMarbre:
             profondeur * 0.85,
         )
 
+        # Direction de la perspective vers le centre de la scène
+        if rect.center().x() < point_fuite_x:
+            sens = 1
+        else:
+            sens = -1
+
+        decalage_x = profondeur * sens
+
         # Face avant
-        rect_face = QRectF(
-            rect.left(),
-            rect.top() + hauteur_dessus,
-            rect.width() - profondeur,
-            rect.height() - hauteur_dessus,
-        )
+        if sens > 0:
+            rect_face = QRectF(
+                rect.left(),
+                rect.top() + hauteur_dessus,
+                rect.width() - profondeur,
+                rect.height() - hauteur_dessus,
+            )
+        else:
+            rect_face = QRectF(
+                rect.left() + profondeur,
+                rect.top() + hauteur_dessus,
+                rect.width() - profondeur,
+                rect.height() - hauteur_dessus,
+            )
 
         # Dessus du bloc
         dessus = QPainterPath()
@@ -152,14 +175,14 @@ class BlocMarbre:
 
         dessus.lineTo(
             QPointF(
-                rect_face.left() + profondeur,
+                rect_face.left() + decalage_x,
                 rect.top(),
             )
         )
 
         dessus.lineTo(
             QPointF(
-                rect.right(),
+                rect_face.right() + decalage_x,
                 rect.top(),
             )
         )
@@ -173,36 +196,68 @@ class BlocMarbre:
 
         dessus.closeSubpath()
 
-        # Côté droit
+        # Face latérale
         cote = QPainterPath()
 
-        cote.moveTo(
-            QPointF(
-                rect_face.right(),
-                rect_face.top(),
-            )
-        )
+        if sens > 0:
 
-        cote.lineTo(
-            QPointF(
-                rect.right(),
-                rect.top(),
+            cote.moveTo(
+                QPointF(
+                    rect_face.right(),
+                    rect_face.top(),
+                )
             )
-        )
 
-        cote.lineTo(
-            QPointF(
-                rect.right(),
-                rect.bottom() - hauteur_dessus,
+            cote.lineTo(
+                QPointF(
+                    rect_face.right() + profondeur,
+                    rect.top(),
+                )
             )
-        )
 
-        cote.lineTo(
-            QPointF(
-                rect_face.right(),
-                rect.bottom(),
+            cote.lineTo(
+                QPointF(
+                    rect_face.right() + profondeur,
+                    rect.bottom() - hauteur_dessus,
+                )
             )
-        )
+
+            cote.lineTo(
+                QPointF(
+                    rect_face.right(),
+                    rect.bottom(),
+                )
+            )
+
+        else:
+
+            cote.moveTo(
+                QPointF(
+                    rect_face.left(),
+                    rect_face.top(),
+                )
+            )
+
+            cote.lineTo(
+                QPointF(
+                    rect_face.left() - profondeur,
+                    rect.top(),
+                )
+            )
+
+            cote.lineTo(
+                QPointF(
+                    rect_face.left() - profondeur,
+                    rect.bottom() - hauteur_dessus,
+                )
+            )
+
+            cote.lineTo(
+                QPointF(
+                    rect_face.left(),
+                    rect.bottom(),
+                )
+            )
 
         cote.closeSubpath()
 
@@ -210,6 +265,7 @@ class BlocMarbre:
             "face": rect_face,
             "dessus": dessus,
             "cote": cote,
+            "sens": sens,
         }
 
     # 5 -- Dessin du volume ----------------------------------------------------
@@ -745,11 +801,15 @@ class BlocMarbre:
         self,
         painter: QPainter,
         rect: QRectF,
+        point_fuite_x: float | None = None,
     ) -> None:
         """Dessine le bloc de marbre complet."""
 
         if rect.width() <= 0 or rect.height() <= 0:
             return
+
+        if point_fuite_x is None:
+            point_fuite_x = rect.center().x()
 
         painter.save()
 
@@ -760,27 +820,24 @@ class BlocMarbre:
 
         geometrie = self._geometrie_bloc(
             rect=rect,
+            point_fuite_x=point_fuite_x,
         )
 
-        # Volume général
         self._dessiner_volume(
             painter=painter,
             geometrie=geometrie,
         )
 
-        # Marbrures sur la grande face visible
         self._dessiner_marbrures(
             painter=painter,
             rect=geometrie["face"],
         )
 
-        # Inscriptions gravées
         self._dessiner_textes(
             painter=painter,
             rect=geometrie["face"],
         )
 
-        # Reflets et arêtes
         self._dessiner_finitions(
             painter=painter,
             geometrie=geometrie,

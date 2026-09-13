@@ -88,6 +88,7 @@ class LeveeDrapeaux(QWidget):
             proportion_hauteur=0.55,
             proportion_sol=proportion_sol,
             n_colonnes=4,
+            parent_widget=self,
         )
         self.blocs_marbre = []
 
@@ -386,8 +387,10 @@ class LeveeDrapeaux(QWidget):
         marge_horizontale = largeur_case * 0.08
         marge_verticale = rect_zone.height() * 0.05
 
-        # Décalage vers le haut des blocs
         decalage_vertical = 12
+
+        # Point de fuite commun à toute la scène
+        point_fuite_x = rect_zone.center().x()
 
         for i, bloc in enumerate(self.blocs_marbre):
 
@@ -401,6 +404,7 @@ class LeveeDrapeaux(QWidget):
             bloc.dessiner(
                 painter=painter,
                 rect=rect_bloc,
+                point_fuite_x=point_fuite_x,
             )
 
     # 2.6 -- Dessin ------------------------------------------------------------

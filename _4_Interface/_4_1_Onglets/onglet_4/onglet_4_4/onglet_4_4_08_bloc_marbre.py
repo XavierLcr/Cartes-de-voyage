@@ -8,7 +8,6 @@
 # 0 -- Initialisation ----------------------------------------------------------
 
 
-import math
 import random
 
 from PyQt6.QtCore import (
@@ -62,8 +61,8 @@ class BlocMarbre:
         self.proportion_dessus = 0.12
 
         # Marbrures
-        self.n_marbrures_principales = 8
-        self.n_marbrures_secondaires = 13
+        self.n_marbrures_principales = 2
+        self.n_marbrures_secondaires = random.randint(4, 6)
 
     # 2 -- Paramètres ----------------------------------------------------------
 
@@ -114,6 +113,44 @@ class BlocMarbre:
             couleur.alpha(),
         )
 
+    @staticmethod
+    def _couleur_marbre_aleatoire(
+        couleur: QColor,
+        rng: random.Random,
+        variation: int = 18,
+        luminosite_min: int = -15,
+        luminosite_max: int = 8,
+        alpha: int = 255,
+    ) -> QColor:
+        """
+        Génère une couleur proche de la couleur de base.
+
+        Une variation globale de luminosité est combinée à de très légères
+        variations indépendantes des composantes RGB afin d'éviter des
+        marbrures simplement grises.
+        """
+
+        variation_luminosite = rng.randint(
+            luminosite_min,
+            luminosite_max,
+        )
+
+        def canal(valeur: int) -> int:
+            return max(
+                0,
+                min(
+                    255,
+                    valeur + variation_luminosite + rng.randint(-variation, variation),
+                ),
+            )
+
+        return QColor(
+            canal(couleur.red()),
+            canal(couleur.green()),
+            canal(couleur.blue()),
+            alpha,
+        )
+
     # 4 -- Géométrie -----------------------------------------------------------
 
     def _geometrie_bloc(
@@ -124,38 +161,65 @@ class BlocMarbre:
         """
         Calcule les différentes faces du bloc.
 
-        La profondeur du bloc est orientée vers le point de fuite :
-            - bloc à gauche  -> profondeur vers la droite ;
-            - bloc à droite  -> profondeur vers la gauche.
+        Plus le bloc est éloigné horizontalement du point de fuite,
+        plus sa face latérale est visible.
         """
 
-        profondeur = min(
+        profondeur_max = min(
             rect.width() * self.proportion_profondeur,
             rect.height() * 0.14,
         )
 
-        hauteur_dessus = min(
-            rect.height() * self.proportion_dessus,
-            profondeur * 0.85,
+        # Distance horizontale entre le bloc et le point de fuite
+        distance_fuite = rect.center().x() - point_fuite_x
+
+        # Le signe détermine le côté visible
+        if distance_fuite < 0:
+            sens = 1
+        elif distance_fuite > 0:
+            sens = -1
+        else:
+            sens = 0
+
+        # Intensité de la perspective.
+        #
+        # À environ 2 largeurs de bloc du point de fuite,
+        # on atteint la profondeur maximale.
+        distance_reference = rect.width() * 2.0
+
+        intensite = min(
+            1.0,
+            abs(distance_fuite) / max(1.0, distance_reference),
         )
 
-        # Direction de la perspective vers le centre de la scène
-        if rect.center().x() < point_fuite_x:
-            sens = 1
-        else:
-            sens = -1
+        # Petite courbe d'adoucissement :
+        # évite que les blocs proches du centre deviennent trop plats.
+        intensite = intensite**0.75
 
+        profondeur = profondeur_max * intensite
         decalage_x = profondeur * sens
 
+        # La visibilité du dessus dépend beaucoup moins de la position
+        # horizontale : on conserve donc presque toute sa hauteur.
+        hauteur_dessus_max = min(
+            rect.height() * self.proportion_dessus,
+            profondeur_max * 0.85,
+        )
+
+        hauteur_dessus = hauteur_dessus_max * (0.72 + 0.28 * intensite)
+
         # Face avant
-        if sens > 0:
+        if sens >= 0:
+
             rect_face = QRectF(
                 rect.left(),
                 rect.top() + hauteur_dessus,
                 rect.width() - profondeur,
                 rect.height() - hauteur_dessus,
             )
+
         else:
+
             rect_face = QRectF(
                 rect.left() + profondeur,
                 rect.top() + hauteur_dessus,
@@ -163,7 +227,7 @@ class BlocMarbre:
                 rect.height() - hauteur_dessus,
             )
 
-        # Dessus du bloc
+        # Dessus
         dessus = QPainterPath()
 
         dessus.moveTo(
@@ -229,7 +293,7 @@ class BlocMarbre:
                 )
             )
 
-        else:
+        elif sens < 0:
 
             cote.moveTo(
                 QPointF(
@@ -266,6 +330,7 @@ class BlocMarbre:
             "dessus": dessus,
             "cote": cote,
             "sens": sens,
+            "intensite_perspective": intensite,
         }
 
     # 5 -- Dessin du volume ----------------------------------------------------
@@ -351,73 +416,93 @@ class BlocMarbre:
         importance: float,
     ) -> QPainterPath:
         """
-        Crée une veine irrégulière traversant une partie de la face avant.
+        Crée une veine irrégulière composée de plusieurs courbes successives.
         """
 
-        marge = rect.width() * 0.10
+        marge = rect.width() * 0.12
 
-        x_depart = rng.uniform(
+        x = rng.uniform(
             rect.left() - marge,
-            rect.right() - rect.width() * 0.30,
+            rect.left() + rect.width() * 0.18,
         )
 
-        y_depart = rng.uniform(
-            rect.top(),
-            rect.bottom(),
+        y = rng.uniform(
+            rect.top() - rect.height() * 0.10,
+            rect.bottom() + rect.height() * 0.10,
         )
 
-        # Les veines ont majoritairement une direction diagonale
-        direction = rng.choice((-1, 1))
+        chemin = QPainterPath(QPointF(x, y))
 
-        longueur_x = rng.uniform(
-            rect.width() * 0.35,
-            rect.width() * (0.75 + importance * 0.25),
+        direction_y = rng.choice((-1.0, 1.0))
+
+        n_segments = rng.randint(
+            4,
+            6 if importance >= 0.8 else 5,
         )
 
-        longueur_y = direction * rng.uniform(
+        longueur_totale = rng.uniform(
+            rect.width() * (0.50 + importance * 0.10),
+            rect.width() * (0.85 + importance * 0.18),
+        )
+
+        pas_x = longueur_totale / n_segments
+
+        # Inclinaison générale de la veine
+        pente = direction_y * rng.uniform(
+            rect.height() * 0.025,
             rect.height() * 0.10,
-            rect.height() * 0.55,
         )
 
-        x_fin = x_depart + longueur_x
-        y_fin = y_depart + longueur_y
+        for _ in range(n_segments):
 
-        chemin = QPainterPath(
-            QPointF(
-                x_depart,
-                y_depart,
+            x_depart = x
+            y_depart = y
+
+            x_fin = x_depart + pas_x * rng.uniform(0.85, 1.15)
+
+            y_fin = (
+                y_depart
+                + pente
+                + rng.uniform(
+                    -rect.height() * 0.055,
+                    rect.height() * 0.055,
+                )
             )
-        )
 
-        # Deux points de contrôle donnent une courbe organique
-        controle_1 = QPointF(
-            x_depart + longueur_x * 0.30,
-            y_depart
-            + longueur_y * 0.25
-            + rng.uniform(
-                -rect.height() * 0.15,
-                rect.height() * 0.15,
-            ),
-        )
+            # Contrôles légèrement indépendants :
+            # la veine change doucement de direction.
+            controle_1 = QPointF(
+                x_depart + (x_fin - x_depart) * 0.30,
+                y_depart
+                + rng.uniform(
+                    -rect.height() * 0.045,
+                    rect.height() * 0.045,
+                ),
+            )
 
-        controle_2 = QPointF(
-            x_depart + longueur_x * 0.68,
-            y_depart
-            + longueur_y * 0.70
-            + rng.uniform(
-                -rect.height() * 0.12,
-                rect.height() * 0.12,
-            ),
-        )
+            controle_2 = QPointF(
+                x_depart + (x_fin - x_depart) * 0.72,
+                y_fin
+                + rng.uniform(
+                    -rect.height() * 0.045,
+                    rect.height() * 0.045,
+                ),
+            )
 
-        chemin.cubicTo(
-            controle_1,
-            controle_2,
-            QPointF(
-                x_fin,
-                y_fin,
-            ),
-        )
+            chemin.cubicTo(
+                controle_1,
+                controle_2,
+                QPointF(x_fin, y_fin),
+            )
+
+            x = x_fin
+            y = y_fin
+
+            # La pente elle-même dérive légèrement
+            pente += rng.uniform(
+                -rect.height() * 0.018,
+                rect.height() * 0.018,
+            )
 
         return chemin
 
@@ -426,15 +511,17 @@ class BlocMarbre:
         painter: QPainter,
         rect: QRectF,
     ) -> None:
-        """Dessine plusieurs familles de veines sur la face du bloc."""
+        """Dessine des veines minérales irrégulières et légèrement ramifiées."""
 
         rng = random.Random(self.graine)
 
         painter.save()
-
         painter.setClipRect(rect)
 
-        # Grandes veines
+        # ------------------------------------------------------------------
+        # Veines principales
+        # ------------------------------------------------------------------
+
         for _ in range(self.n_marbrures_principales):
 
             chemin = self._creer_marbrure(
@@ -443,17 +530,24 @@ class BlocMarbre:
                 importance=1.0,
             )
 
-            couleur = self._modifier_couleur(
-                self.couleur_marbre,
-                rng.uniform(0.65, 0.80),
+            couleur = self._couleur_marbre_aleatoire(
+                couleur=self.couleur_marbre,
+                rng=rng,
+                variation=10,
+                luminosite_min=-45,
+                luminosite_max=-15,
             )
 
-            couleur.setAlpha(rng.randint(35, 70))
+            epaisseur = rng.uniform(0.8, 1.45)
+
+            # Halo diffus autour de la veine
+            couleur_halo = QColor(couleur)
+            couleur_halo.setAlpha(rng.randint(10, 22))
 
             painter.setPen(
                 QPen(
-                    couleur,
-                    rng.uniform(0.9, 1.8),
+                    couleur_halo,
+                    epaisseur * rng.uniform(3.0, 4.8),
                     Qt.PenStyle.SolidLine,
                     Qt.PenCapStyle.RoundCap,
                     Qt.PenJoinStyle.RoundJoin,
@@ -462,26 +556,71 @@ class BlocMarbre:
 
             painter.drawPath(chemin)
 
-        # Veines fines secondaires
+            # Corps de la veine
+            couleur_corps = QColor(couleur)
+            couleur_corps.setAlpha(rng.randint(32, 58))
+
+            painter.setPen(
+                QPen(
+                    couleur_corps,
+                    epaisseur,
+                    Qt.PenStyle.SolidLine,
+                    Qt.PenCapStyle.RoundCap,
+                    Qt.PenJoinStyle.RoundJoin,
+                )
+            )
+
+            painter.drawPath(chemin)
+
+            # Très fine ligne centrale
+            if rng.random() < 0.60:
+
+                couleur_coeur = self._couleur_marbre_aleatoire(
+                    couleur=self.couleur_marbre,
+                    rng=rng,
+                    variation=8,
+                    luminosite_min=-58,
+                    luminosite_max=-28,
+                    alpha=rng.randint(22, 42),
+                )
+
+                painter.setPen(
+                    QPen(
+                        couleur_coeur,
+                        epaisseur * rng.uniform(0.22, 0.42),
+                        Qt.PenStyle.SolidLine,
+                        Qt.PenCapStyle.RoundCap,
+                        Qt.PenJoinStyle.RoundJoin,
+                    )
+                )
+
+                painter.drawPath(chemin)
+
+        # ------------------------------------------------------------------
+        # Petites veines secondaires
+        # ------------------------------------------------------------------
+
         for _ in range(self.n_marbrures_secondaires):
 
             chemin = self._creer_marbrure(
                 rect=rect,
                 rng=rng,
-                importance=0.45,
+                importance=0.35,
             )
 
-            couleur = self._modifier_couleur(
-                self.couleur_marbre,
-                rng.uniform(0.72, 0.90),
+            couleur = self._couleur_marbre_aleatoire(
+                couleur=self.couleur_marbre,
+                rng=rng,
+                variation=12,
+                luminosite_min=-28,
+                luminosite_max=12,
+                alpha=rng.randint(14, 32),
             )
-
-            couleur.setAlpha(rng.randint(18, 42))
 
             painter.setPen(
                 QPen(
                     couleur,
-                    rng.uniform(0.35, 0.75),
+                    rng.uniform(0.25, 0.65),
                     Qt.PenStyle.SolidLine,
                     Qt.PenCapStyle.RoundCap,
                     Qt.PenJoinStyle.RoundJoin,
@@ -490,48 +629,38 @@ class BlocMarbre:
 
             painter.drawPath(chemin)
 
-        # Quelques reflets minéraux
-        for _ in range(6):
+        # ------------------------------------------------------------------
+        # Nuances minérales claires
+        # ------------------------------------------------------------------
 
-            x = rng.uniform(
-                rect.left(),
-                rect.right(),
+        for _ in range(8):
+
+            chemin = self._creer_marbrure(
+                rect=rect,
+                rng=rng,
+                importance=0.20,
             )
 
-            y = rng.uniform(
-                rect.top(),
-                rect.bottom(),
-            )
-
-            longueur = rng.uniform(
-                rect.width() * 0.04,
-                rect.width() * 0.13,
-            )
-
-            couleur = QColor(
-                255,
-                255,
-                255,
-                rng.randint(15, 35),
+            couleur = self._couleur_marbre_aleatoire(
+                couleur=self.couleur_marbre,
+                rng=rng,
+                variation=9,
+                luminosite_min=8,
+                luminosite_max=28,
+                alpha=rng.randint(10, 24),
             )
 
             painter.setPen(
                 QPen(
                     couleur,
-                    rng.uniform(0.4, 0.9),
+                    rng.uniform(0.35, 1.0),
+                    Qt.PenStyle.SolidLine,
+                    Qt.PenCapStyle.RoundCap,
+                    Qt.PenJoinStyle.RoundJoin,
                 )
             )
 
-            painter.drawLine(
-                QPointF(
-                    x,
-                    y,
-                ),
-                QPointF(
-                    x + longueur,
-                    y + longueur * 0.12,
-                ),
-            )
+            painter.drawPath(chemin)
 
         painter.restore()
 

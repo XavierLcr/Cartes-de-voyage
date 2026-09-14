@@ -30,7 +30,7 @@ from _4_Interface._4_1_Onglets.onglet_4 import (
 )
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_1.onglet_4_1 import OngletHemicycle
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_2 import onglet_4_2_classement
-from _4_Interface._4_1_Onglets.onglet_4.onglet_4_3 import onglet_4_3_recommendations
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_3 import onglet_4_3_X_recommendations
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_4 import onglet_4_4_X
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_6 import onglet_4_6
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_7.onglet_4_7_portrait_IA import (
@@ -111,7 +111,7 @@ class OngletTopPays(QWidget):
         )
 
         # Recommandations de voyage
-        self.recommandations = onglet_4_3_recommendations.PaysAVisiter(
+        self.recommandations = onglet_4_3_X_recommendations.PaysAVisiter(
             constantes=constantes,
             table_superficie=table_superficie,
             fct_traduire=fct_traduction,

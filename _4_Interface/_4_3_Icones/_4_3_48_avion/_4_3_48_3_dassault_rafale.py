@@ -696,7 +696,7 @@ def _dessiner_rafale(
 
     if lumieres == True:
 
-        rayon_lumiere = l * 0.07
+        rayon_lumiere = l * 0.06
 
         # Gauche
         dessiner_lumiere_avion(

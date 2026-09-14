@@ -47,6 +47,7 @@ class Avion:
         tension: float = 0.80,
         marge_sortie: float = 50.0,
         anticipation_rotation: float = 60.0,
+        lumieres: bool = True,
         graine: int | None = None,
     ) -> None:
 
@@ -57,6 +58,13 @@ class Avion:
         self.marge_sortie = marge_sortie
         self.anticipation_rotation = anticipation_rotation
         self.repeter_en_boucle = False
+
+        # Clignotements
+        self.lumieres = lumieres
+        self.periode_clignotement = 2
+        self.duree_flash = 0.15
+
+        self._temps_animation = 0.0
 
         self._rng = random.Random(graine)
 
@@ -192,7 +200,7 @@ class Avion:
 
         return self._creer_chemin_lisse(points)
 
-    # 2.3 -- Animation ----------------------------------------------------------
+    # 2.3 -- Animation ---------------------------------------------------------
 
     def animer(
         self,
@@ -203,6 +211,8 @@ class Avion:
         if self._longueur_chemin <= 0:
             return
 
+        self._temps_animation += delta_s
+
         self._distance += self.vitesse * delta_s * self.avion_coeff
 
         if self._distance >= self._longueur_chemin:
@@ -212,7 +222,19 @@ class Avion:
             else:
                 self._distance = self._longueur_chemin
 
-    # 2.4 -- Dessin -------------------------------------------------------------
+    # 2.4 -- Lumières ----------------------------------------------------------
+
+    def _lumieres_allumees(self) -> bool:
+        """Produit deux flashes rapides à chaque cycle."""
+
+        if not self.lumieres:
+            return False
+
+        phase = self._temps_animation % self.periode_clignotement
+
+        return 0.00 <= phase < 0.10 or 0.22 <= phase < 0.32
+
+    # 2.5 -- Dessin ------------------------------------------------------------
 
     def dessiner(
         self,
@@ -272,6 +294,6 @@ class Avion:
             centre=position,
             taille=self.taille,
             rotation=rotation,
-            lumieres=True,
+            lumieres=self._lumieres_allumees(),
             **kwargs,
         )

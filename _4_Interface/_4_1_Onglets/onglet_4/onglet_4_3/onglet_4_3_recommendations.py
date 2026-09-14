@@ -182,7 +182,6 @@ class PaysAVisiter(QWidget):
                             pays_nom=pays_traduit,
                             emoji=self.emojis_pays.get(ligne["name_0"], ""),
                             region=str(ligne["name_1"]),
-                            style=self.style,
                         ),
                         0,
                         i % modulo,

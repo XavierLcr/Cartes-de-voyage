@@ -31,12 +31,10 @@ class CarteRecommandationSimple(QWidget):
         pays_nom: str,
         emoji: str,
         region: str,
-        style,
         parent=None,
     ):
         super().__init__(parent)
 
-        self.theme = style  # conservé pour compatibilité
         self.rang = str(rang)
         self.pays_nom = pays_nom
         self.emoji = emoji

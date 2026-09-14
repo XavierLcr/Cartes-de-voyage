@@ -401,12 +401,6 @@ class OngletTopPays(QWidget):
         self.portrait_IA.initialiser_onglet(**kwargs)
         self.hemicycle.initialiser_onglet(**kwargs)
 
-    def set_hemicycle_position(self, val: int):
-        self.hemicycle.set_hemicycle_position(position=val)
-
-    def get_hemicycle_position(self):
-        return self.hemicycle.get_hemicycle_position()
-
     def get_recommandations_nb(self):
         return self.recommandations.get_recommandations_nb()
 
@@ -416,8 +410,6 @@ class OngletTopPays(QWidget):
     def creer_dict_parametres(self):
 
         return {
-            # Hémicycle
-            "hemicycle_position": self.get_hemicycle_position(),
             # Recommandations
             "recommandations_nb": self.get_recommandations_nb(),
             # Modèle IA

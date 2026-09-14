@@ -8,7 +8,7 @@
 # 0 -- Introduction ------------------------------------------------------------
 
 
-import math, copy, random, time
+import copy, random, time
 import pandas as pd
 
 from PyQt6.QtCore import QPointF
@@ -47,6 +47,9 @@ class HemicycleWidget(QWidget):
 
         self.langue = "français"
         self.graine_ordre = None
+
+        # Zone actuellement affichée
+        self.zoom_continent = "World"
 
         # Conservé pour compatibilité avec l'ancienne version
         self.points_visites_position = -1
@@ -101,8 +104,13 @@ class HemicycleWidget(QWidget):
         Transforme les coordonnées EPSG:8857 contenues dans le graphe en
         coordonnées locales du widget.
 
-        L'échelle est identique sur X et Y afin de conserver les proportions
-        générales du monde.
+        Pour ``World``, le cadrage utilise tous les pays. Pour un continent,
+        le cadrage est calculé uniquement sur les pays de ce continent, mais
+        tous les pays du graphe restent transformés et dessinés. Les pays hors
+        de la zone sélectionnée sortent donc naturellement du widget.
+
+        L'échelle reste identique sur X et Y afin de ne jamais déformer la
+        géographie.
         """
 
         centres = self.graphe_pays.get(
@@ -121,15 +129,59 @@ class HemicycleWidget(QWidget):
             self.positions_ecran = {}
             return
 
-        xs = [coordonnees[0] for coordonnees in centres.values()]
+        # ----------------------------------------------------------------------
+        # Étendue géographique du monde entier
+        # ----------------------------------------------------------------------
 
-        ys = [coordonnees[1] for coordonnees in centres.values()]
+        xs_monde = [coordonnees[0] for coordonnees in centres.values()]
+        ys_monde = [coordonnees[1] for coordonnees in centres.values()]
+
+        amplitude_x_monde = max(
+            max(xs_monde) - min(xs_monde),
+            1,
+        )
+
+        amplitude_y_monde = max(
+            max(ys_monde) - min(ys_monde),
+            1,
+        )
+
+        # ----------------------------------------------------------------------
+        # Pays utilisés pour déterminer le cadrage
+        # ----------------------------------------------------------------------
+
+        centres_cadrage = centres
+
+        if self.zoom_continent != "World" and hasattr(self, "df_pays"):
+
+            pays_continent = set(
+                self.df_pays.loc[
+                    self.df_pays["continent"] == self.zoom_continent,
+                    "pays",
+                ]
+            )
+
+            centres_continent = {
+                pays: coordonnees
+                for pays, coordonnees in centres.items()
+                if pays in pays_continent
+            }
+
+            # Sécurité si le nom du continent n'existe pas dans les données
+            if centres_continent:
+                centres_cadrage = centres_continent
+
+        xs = [coordonnees[0] for coordonnees in centres_cadrage.values()]
+        ys = [coordonnees[1] for coordonnees in centres_cadrage.values()]
 
         x_min = min(xs)
         x_max = max(xs)
 
         y_min = min(ys)
         y_max = max(ys)
+
+        centre_x_geo = (x_min + x_max) / 2
+        centre_y_geo = (y_min + y_max) / 2
 
         amplitude_x = max(
             x_max - x_min,
@@ -141,7 +193,25 @@ class HemicycleWidget(QWidget):
             1,
         )
 
-        # Marge autour du graphe
+        # Un continent très petit ou ne contenant qu'un seul point ne doit pas
+        # provoquer un zoom démesuré. On impose donc une fenêtre géographique
+        # minimale par rapport à l'étendue du monde.
+        if self.zoom_continent != "World":
+
+            amplitude_x = max(
+                amplitude_x,
+                amplitude_x_monde * 0.18,
+            )
+
+            amplitude_y = max(
+                amplitude_y,
+                amplitude_y_monde * 0.18,
+            )
+
+        # ----------------------------------------------------------------------
+        # Passage aux coordonnées du widget
+        # ----------------------------------------------------------------------
+
         marge = max(
             18,
             min(
@@ -161,18 +231,13 @@ class HemicycleWidget(QWidget):
             1,
         )
 
-        # Une seule échelle : pas de déformation du monde
+        # Une seule échelle : pas de déformation
         echelle = min(
             largeur_disponible / amplitude_x,
             hauteur_disponible / amplitude_y,
         )
 
-        centre_x_geo = (x_min + x_max) / 2
-
-        centre_y_geo = (y_min + y_max) / 2
-
         centre_x_widget = self.width() / 2
-
         centre_y_widget = self.height() / 2
 
         self.positions_ecran = {}
@@ -191,17 +256,6 @@ class HemicycleWidget(QWidget):
                 x,
                 y,
             )
-
-        # self.positions_ecran = self._zoomer_autour_pays(
-        #     positions=self.positions_ecran,
-        #     pays="France",
-        #     rayon=min(
-        #         self.width(),
-        #         self.height(),
-        #     )
-        #     * 0.20,
-        #     facteur=2.0,
-        # )
 
     # --------------------------------------------------------------------------
     # Table des pays du graphe
@@ -639,76 +693,20 @@ class HemicycleWidget(QWidget):
     # Zoom
     # --------------------------------------------------------------------------
 
-    def _appliquer_zoom_local(
+    def set_zoom_continent(
         self,
-        positions: dict,
-        centre: QPointF,
-        rayon: float,
-        facteur: float,
-    ) -> dict:
+        continent: str = "World",
+    ):
         """
-        Agrandit progressivement une zone du graphe autour de `centre`.
+        Sélectionne la zone géographique utilisée pour cadrer le graphe.
 
-        - au centre : zoom maximal ;
-        - à la limite du rayon : aucun zoom ;
-        - entre les deux : transition douce.
-
-        Les positions situées hors du rayon ne sont pas modifiées.
+        ``World`` correspond à l'absence de zoom. Les autres valeurs doivent
+        être les références anglaises utilisées dans ``df_pays["continent"]``.
         """
 
-        resultat = {}
-
-        for pays, point in positions.items():
-
-            dx = point.x() - centre.x()
-            dy = point.y() - centre.y()
-
-            distance = math.hypot(
-                dx,
-                dy,
-            )
-
-            # Hors de la zone de zoom
-            if distance >= rayon:
-
-                resultat[pays] = QPointF(point)
-
-                continue
-
-            # Position normalisée dans la zone
-            t = distance / rayon
-
-            # Transition douce :
-            # 1 au centre -> 0 à l'extérieur
-            poids = (1 - t * t) ** 2
-
-            # Facteur réellement appliqué à cette position
-            facteur_local = 1 + (facteur - 1) * poids
-
-            resultat[pays] = QPointF(
-                centre.x() + dx * facteur_local,
-                centre.y() + dy * facteur_local,
-            )
-
-        return resultat
-
-    def _zoomer_autour_pays(
-        self,
-        positions: dict,
-        pays: str,
-        rayon: float,
-        facteur: float,
-    ) -> dict:
-
-        if pays not in positions:
-            return positions
-
-        return self._appliquer_zoom_local(
-            positions=positions,
-            centre=positions[pays],
-            rayon=rayon,
-            facteur=facteur,
-        )
+        self.zoom_continent = continent
+        self.pays_survole = None
+        self.creer_hemicycle()
 
     # --------------------------------------------------------------------------
     # Dessin des points

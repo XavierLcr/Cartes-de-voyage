@@ -31,8 +31,10 @@ from _4_Interface._4_1_Onglets.onglet_4.onglet_4_3.onglet_4_3_2_ui import (
     ThemeRecommandation,
     CarteRecommandationSimple,
     CarteRecommandationPays,
-    creer_entete_recommandations,
     style_bouton_recommandation,
+)
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_3.onglet_4_3_3_titre import (
+    TitreRecommandations,
 )
 
 # 2 -- Classe de recommandations (déclenchement des calcul et affichage) -------
@@ -67,7 +69,7 @@ class PaysAVisiter(QWidget):
         # Paramètres utilisateur
         self.langue = "français"
         self.dict_voyages = {}
-        self.recommandations_par_pays = True
+        self.recommandations_par_pays = False
         self.df = None
 
         # Thème par défaut (clair) — mis à jour via `set_bouton_recommandation`
@@ -151,12 +153,9 @@ class PaysAVisiter(QWidget):
             return
 
         self.corps_recommandations.addWidget(
-            creer_entete_recommandations(
-                texte=self.fonction_traduire("titre_recommandations"),
-                theme=self.style,
-            )
+            TitreRecommandations(texte=self.fonction_traduire("titre_recommandations"))
         )
-        self.corps_recommandations.addWidget(QLabel(""))
+        self.corps_recommandations.addSpacing(8)
 
         if len(self.df) > 0:
 

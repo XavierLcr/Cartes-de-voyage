@@ -57,14 +57,14 @@ class SpinBoxGare(QSpinBox):
 
         self.setStyleSheet("""
             /* --------------------------------------------------------------
-            Corps : métal gris-taupe neutre
+            Corps : métal clair semi-transparent
             -------------------------------------------------------------- */
 
             QSpinBox {
-                background-color: #74746F;
-                color: #F5F0E4;
+                background-color: rgba(205, 204, 198, 205);
+                color: #343632;
 
-                border: 1px solid #8F8065;
+                border: 1px solid rgba(132, 122, 103, 175);
                 border-radius: 5px;
 
                 padding-left: 5px;
@@ -73,17 +73,17 @@ class SpinBoxGare(QSpinBox):
                 font-size: 12px;
                 font-weight: 600;
 
-                selection-background-color: #9B8A69;
+                selection-background-color: rgba(150, 137, 108, 190);
                 selection-color: #FFFFFF;
             }
 
             /* --------------------------------------------------------------
-            Survol : très léger éclaircissement
+            Survol
             -------------------------------------------------------------- */
 
             QSpinBox:hover {
-                background-color: #7E7E78;
-                border-color: #A18D68;
+                background-color: rgba(218, 216, 207, 220);
+                border-color: rgba(151, 133, 99, 190);
             }
 
             /* --------------------------------------------------------------
@@ -91,8 +91,8 @@ class SpinBoxGare(QSpinBox):
             -------------------------------------------------------------- */
 
             QSpinBox:focus {
-                background-color: #7A7A74;
-                border-color: #B09A72;
+                background-color: rgba(214, 212, 203, 225);
+                border-color: rgba(164, 142, 101, 205);
             }
 
             /* --------------------------------------------------------------
@@ -105,23 +105,22 @@ class SpinBoxGare(QSpinBox):
 
                 width: 14px;
 
-                background-color: #656661;
-
-                border-left: 1px solid #897A61;
+                background-color: rgba(165, 165, 158, 145);
+                border-left: 1px solid rgba(120, 113, 99, 135);
             }
 
             QSpinBox::up-button {
                 subcontrol-position: top right;
 
                 border-top-right-radius: 4px;
-                border-bottom: 1px solid #585954;
+                border-bottom: 1px solid rgba(100, 100, 94, 90);
             }
 
             QSpinBox::down-button {
                 subcontrol-position: bottom right;
 
                 border-bottom-right-radius: 4px;
-                border-top: 1px solid #85857D;
+                border-top: 1px solid rgba(235, 233, 223, 90);
             }
 
             /* --------------------------------------------------------------
@@ -130,12 +129,12 @@ class SpinBoxGare(QSpinBox):
 
             QSpinBox::up-button:hover,
             QSpinBox::down-button:hover {
-                background-color: #72736D;
+                background-color: rgba(180, 178, 169, 180);
             }
 
             QSpinBox::up-button:pressed,
             QSpinBox::down-button:pressed {
-                background-color: #5B5C57;
+                background-color: rgba(145, 145, 139, 180);
             }
 
             /* --------------------------------------------------------------
@@ -153,9 +152,9 @@ class SpinBoxGare(QSpinBox):
             -------------------------------------------------------------- */
 
             QSpinBox:disabled {
-                background-color: #777772;
-                color: #B8B5AA;
-                border-color: #777166;
+                background-color: rgba(190, 190, 184, 130);
+                color: rgba(70, 70, 66, 140);
+                border-color: rgba(120, 115, 105, 100);
             }
         """)
 

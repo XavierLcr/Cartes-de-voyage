@@ -14,11 +14,8 @@ from PyQt6.QtWidgets import (
     QHBoxLayout,
     QVBoxLayout,
     QGridLayout,
-    QLabel,
     QScrollArea,
     QSpinBox,
-    QSizePolicy,
-    QSpacerItem,
 )
 
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import vider_layout
@@ -51,7 +48,7 @@ class PaysAVisiter(QWidget):
         table_superficie,
         fct_traduire,
         parent=None,
-        par_pays: bool = True,
+        par_pays: bool = False,
     ):
         super().__init__(parent)
 
@@ -111,6 +108,7 @@ class PaysAVisiter(QWidget):
     def calculer_prochaine_destination(self):
 
         vider_layout(self.corps_recommandations)
+        self.bouton_recommandations.setEnabled(False)
 
         self.thread_temp = QThread()
         self.worker_temp = WorkerRecommandation(
@@ -135,6 +133,7 @@ class PaysAVisiter(QWidget):
         """Méthode appelée quand le calcul est terminé."""
         self.df = df
         self.afficher_recommandation()
+        self.bouton_recommandations.setEnabled(True)
 
     def _afficher_recommandations_par_pays(self):
 
@@ -154,7 +153,43 @@ class PaysAVisiter(QWidget):
                 )
             )
 
-        self.corps_recommandations.addSpacing(5)
+    def _afficher_recommandations_simples(self):
+
+        n_colonnes = self.recommandations_par_ligne
+
+        for i, (_, ligne) in enumerate(self.df.iterrows()):
+
+            colonne = i % n_colonnes
+
+            if colonne == 0:
+                layout_ligne = QGridLayout()
+                layout_ligne.setSpacing(10)
+
+                for c in range(n_colonnes):
+                    layout_ligne.setColumnStretch(c, 1)
+
+            pays = ligne["name_0"]
+
+            pays_traduit = traduire_pays(
+                pays=pays,
+                langue=self.langue,
+                referentiel=self.pays_traductions,
+            )
+
+            layout_ligne.addWidget(
+                CarteRecommandationSimple(
+                    rang=i + 1,
+                    pays_nom=pays_traduit,
+                    emoji=self.emojis_pays.get(pays, ""),
+                    region=str(ligne["name_1"]),
+                ),
+                0,
+                colonne,
+            )
+
+            if colonne == n_colonnes - 1 or i == len(self.df) - 1:
+                self.corps_recommandations.addLayout(layout_ligne)
+                self.corps_recommandations.addSpacing(10)
 
     def afficher_recommandation(self):
 
@@ -168,33 +203,15 @@ class PaysAVisiter(QWidget):
         )
         self.corps_recommandations.addSpacing(8)
 
-        if len(self.df) > 0:
+        if not self.df.empty:
 
-            if not self.get_recommandations_par_pays():
+            (
                 self._afficher_recommandations_par_pays()
+                if self.get_recommandations_par_pays()
+                else self._afficher_recommandations_simples()
+            )
 
-            else:
-
-                for pays in list(self.df["name_0"].unique()):
-
-                    pays_traduit = traduire_pays(
-                        pays=pays, langue=self.langue, referentiel=self.pays_traductions
-                    )
-                    regions = list(self.df.loc[self.df["name_0"] == pays, "name_1"])
-
-                    self.corps_recommandations.addWidget(
-                        CarteRecommandationPays(
-                            pays_nom=pays_traduit,
-                            emoji=self.emojis_pays.get(pays, ""),
-                            regions=regions,
-                        )
-                    )
-                    self.corps_recommandations.addSpacerItem(
-                        QSpacerItem(
-                            0, 5, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed
-                        )
-                    )
-
+            self.corps_recommandations.addSpacing(10)
             self.corps_recommandations.addStretch()
 
     def set_dicts_granu(self, dict_nv: dict):

@@ -13,12 +13,10 @@ import os, sys
 sys.path.append(os.getcwd())
 
 import geopandas as gpd
-import pandas as pd
 
 from constantes import (
     direction_donnees_geographiques,
     direction_donnees_application,
-    direction_donnees_autres,
 )
 from _0_Utilitaires._0_1_fonctions_utiles_gen import ouvrir_fichier, exporter_fichier
 from _0_Utilitaires._0_05_isid import isid

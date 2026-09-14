@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
-# _4_Interface/_4_3_Icones                                                     #
-# 4.3.48 – Classe de création d'un avion                                       #
+# _4_Interface/_4_3_Icones/_4_3_48_avion                                       #
+# 4.3.48.X – Classe de création d'un avion                                     #
 ################################################################################
 
 
@@ -12,7 +12,15 @@ import random
 import math
 
 from PyQt6.QtCore import QPointF, QRectF, Qt
-from PyQt6.QtGui import QBrush, QColor, QLinearGradient, QPainter, QPainterPath, QPen
+from PyQt6.QtGui import (
+    QBrush,
+    QColor,
+    QLinearGradient,
+    QPainter,
+    QPainterPath,
+    QPen,
+    QRadialGradient,
+)
 
 # 1 -- Fonctions de dessin d'un avion ------------------------------------------
 

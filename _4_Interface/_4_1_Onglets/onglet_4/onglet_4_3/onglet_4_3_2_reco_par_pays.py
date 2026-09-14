@@ -1,12 +1,14 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
 # _4_Interface/_4_1_Onglets/onglet_4/onglet_4_3                                #
-# Onglet 4.3.2 – Suggestions de nouvelles destinations  –  Reco par pays       #
+# Onglet 4.3.2 – Suggestions de nouvelles destinations – Reco par pays         #
 ################################################################################
 
 
 # 0 -- Initialisation ----------------------------------------------------------
 
+
+import random
 
 from PyQt6.QtWidgets import (
     QWidget,
@@ -29,15 +31,15 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     _trouver_police_disponible,
 )
 
-# 1 -- Classes associées au classement par pays --------------------------------
+# 1 -- Classe de recommandations par pays --------------------------------------
 
 
 class CarteRecommandationPays(QWidget):
     """
-    Tableau mécanique de gare regroupant les recommandations d'un pays.
+    Petit tableau mécanique de gare regroupant les recommandations d'un pays.
 
-    Le pays apparaît sur la plaque supérieure et chaque région est affichée
-    sur une ligne inspirée des anciens tableaux de départ à volets mécaniques.
+    Le pays est affiché dans un bandeau supérieur discret et chaque région
+    apparaît sur un volet mécanique compact avec un numéro de voie et un statut.
     """
 
     def __init__(
@@ -52,6 +54,7 @@ class CarteRecommandationPays(QWidget):
         self.pays_nom = pays_nom
         self.emoji = emoji
         self.regions = regions
+        self.graine = random.random()
 
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
 
@@ -78,20 +81,29 @@ class CarteRecommandationPays(QWidget):
             ]
         )
 
-        # Hauteur adaptée au nombre de destinations
-        hauteur = 72 + max(1, len(self.regions)) * 46 + 18
+        # Dimensions compactes
+        self.hauteur_entete = 34
+        self.hauteur_ligne = 30
+        self.espacement_ligne = 3
+
+        hauteur = (
+            16
+            + self.hauteur_entete
+            + max(1, len(self.regions)) * (self.hauteur_ligne + self.espacement_ligne)
+            + 8
+        )
 
         self.setMinimumHeight(hauteur)
         self.setMaximumHeight(hauteur)
 
-        # Ombre générale
+        # Ombre discrète
         self._ombre_effet = QGraphicsDropShadowEffect(self)
 
-        self._ombre_effet.setBlurRadius(22)
-        self._ombre_effet.setOffset(0, 5)
+        self._ombre_effet.setBlurRadius(14)
+        self._ombre_effet.setOffset(0, 3)
 
         couleur_ombre = QColor("#000000")
-        couleur_ombre.setAlpha(90)
+        couleur_ombre.setAlpha(70)
 
         self._ombre_effet.setColor(couleur_ombre)
 
@@ -110,13 +122,13 @@ class CarteRecommandationPays(QWidget):
 
         rect = QRectF(
             5,
-            5,
+            4,
             self.width() - 10,
-            self.height() - 12,
+            self.height() - 8,
         )
 
         # ----------------------------------------------------------------------
-        # Cadre extérieur métallique
+        # Fin cadre métallique
         # ----------------------------------------------------------------------
 
         degrade_cadre = QLinearGradient(
@@ -125,30 +137,22 @@ class CarteRecommandationPays(QWidget):
         )
 
         degrade_cadre.setColorAt(
-            0.00,
-            QColor("#74777A"),
+            0.0,
+            QColor("#616466"),
         )
         degrade_cadre.setColorAt(
-            0.10,
-            QColor("#46494B"),
+            0.35,
+            QColor("#393C3D"),
         )
         degrade_cadre.setColorAt(
-            0.50,
-            QColor("#2B2D2E"),
-        )
-        degrade_cadre.setColorAt(
-            0.90,
-            QColor("#444647"),
-        )
-        degrade_cadre.setColorAt(
-            1.00,
-            QColor("#1F2021"),
+            1.0,
+            QColor("#252728"),
         )
 
         painter.setPen(
             QPen(
-                QColor("#171819"),
-                1.3,
+                QColor("#1D1E1F"),
+                0.9,
             )
         )
 
@@ -156,79 +160,57 @@ class CarteRecommandationPays(QWidget):
 
         painter.drawRoundedRect(
             rect,
-            7,
-            7,
+            5,
+            5,
         )
 
         # ----------------------------------------------------------------------
-        # Partie noire du tableau
+        # Surface intérieure
         # ----------------------------------------------------------------------
 
         rect_tableau = rect.adjusted(
-            8,
-            8,
-            -8,
-            -8,
+            4,
+            4,
+            -4,
+            -4,
         )
-
-        degrade_tableau = QLinearGradient(
-            rect_tableau.topLeft(),
-            rect_tableau.bottomLeft(),
-        )
-
-        degrade_tableau.setColorAt(
-            0.0,
-            QColor("#242627"),
-        )
-
-        degrade_tableau.setColorAt(
-            0.35,
-            QColor("#17191A"),
-        )
-
-        degrade_tableau.setColorAt(
-            1.0,
-            QColor("#0C0D0E"),
-        )
-
-        painter.setBrush(degrade_tableau)
 
         painter.setPen(
             QPen(
-                QColor("#080909"),
-                1,
+                QColor("#0C0D0D"),
+                0.8,
             )
         )
 
+        painter.setBrush(QColor("#121414"))
+
         painter.drawRoundedRect(
             rect_tableau,
-            4,
-            4,
+            3,
+            3,
         )
 
         # ----------------------------------------------------------------------
-        # Plaque du pays
+        # En-tête
         # ----------------------------------------------------------------------
 
         rect_pays = QRectF(
-            rect_tableau.left() + 8,
-            rect_tableau.top() + 7,
-            rect_tableau.width() - 16,
-            46,
+            rect_tableau.left() + 4,
+            rect_tableau.top() + 3,
+            rect_tableau.width() - 8,
+            self.hauteur_entete,
         )
 
-        self._dessiner_plaque_pays(
+        self._dessiner_entete(
             painter,
             rect_pays,
         )
 
         # ----------------------------------------------------------------------
-        # Lignes de destinations
+        # Destinations
         # ----------------------------------------------------------------------
 
-        y = rect_pays.bottom() + 7
-
-        hauteur_ligne = 40
+        y = rect_pays.bottom() + 3
 
         for numero, region in enumerate(
             self.regions,
@@ -236,10 +218,10 @@ class CarteRecommandationPays(QWidget):
         ):
 
             rect_ligne = QRectF(
-                rect_tableau.left() + 9,
+                rect_tableau.left() + 5,
                 y,
-                rect_tableau.width() - 18,
-                hauteur_ligne,
+                rect_tableau.width() - 10,
+                self.hauteur_ligne,
             )
 
             self._dessiner_destination(
@@ -249,22 +231,22 @@ class CarteRecommandationPays(QWidget):
                 region=region,
             )
 
-            y += hauteur_ligne + 6
+            y += self.hauteur_ligne + self.espacement_ligne
 
         # ----------------------------------------------------------------------
-        # Vis du cadre
+        # Rivets
         # ----------------------------------------------------------------------
 
-        self._dessiner_vis(
+        self._dessiner_rivets(
             painter,
             rect,
         )
 
     # --------------------------------------------------------------------------
-    # Plaque supérieure
+    # En-tête
     # --------------------------------------------------------------------------
 
-    def _dessiner_plaque_pays(
+    def _dessiner_entete(
         self,
         painter: QPainter,
         rect: QRectF,
@@ -277,78 +259,140 @@ class CarteRecommandationPays(QWidget):
 
         degrade.setColorAt(
             0.0,
-            QColor("#384247"),
+            QColor("#30383B"),
         )
-
-        degrade.setColorAt(
-            0.48,
-            QColor("#273136"),
-        )
-
         degrade.setColorAt(
             1.0,
-            QColor("#182126"),
+            QColor("#202729"),
         )
 
         painter.setBrush(degrade)
 
         painter.setPen(
             QPen(
-                QColor("#5C6568"),
-                0.8,
+                QColor("#4C5558"),
+                0.7,
             )
         )
 
         painter.drawRoundedRect(
             rect,
-            3,
-            3,
+            2,
+            2,
         )
 
-        # Fine ligne métallique inférieure
+        # ----------------------------------------------------------------------
+        # Reflet supérieur
+        # ----------------------------------------------------------------------
+
+        reflet = QColor("#FFFFFF")
+        reflet.setAlpha(18)
+
         painter.setPen(
             QPen(
-                QColor("#777D7F"),
+                reflet,
                 0.7,
             )
         )
 
         painter.drawLine(
             QPointF(
-                rect.left() + 6,
-                rect.bottom() - 2,
+                rect.left() + 4,
+                rect.top() + 1,
             ),
             QPointF(
-                rect.right() - 6,
-                rect.bottom() - 2,
+                rect.right() - 4,
+                rect.top() + 1,
             ),
         )
 
+        # ----------------------------------------------------------------------
+        # Géométrie des colonnes
+        # ----------------------------------------------------------------------
+
+        largeur_statut = min(
+            105,
+            rect.width() * 0.23,
+        )
+
+        largeur_voie = min(
+            48,
+            rect.width() * 0.10,
+        )
+
+        rect_statut = QRectF(
+            rect.right() - largeur_statut - 5,
+            rect.top(),
+            largeur_statut,
+            rect.height(),
+        )
+
+        rect_voie = QRectF(
+            rect_statut.left() - largeur_voie,
+            rect.top(),
+            largeur_voie,
+            rect.height(),
+        )
+
+        # ----------------------------------------------------------------------
         # Pays
+        # ----------------------------------------------------------------------
+
         painter.setFont(
             QFont(
                 self.police_pays,
                 max(
-                    11,
-                    int(rect.height() * 0.40),
+                    10,
+                    int(rect.height() * 0.42),
                 ),
                 QFont.Weight.DemiBold,
             )
         )
 
-        painter.setPen(QColor("#EEE5CB"))
+        painter.setPen(QColor("#E9E2CF"))
 
         texte = f"{self.emoji}  {self.pays_nom}" if self.emoji else self.pays_nom
 
         painter.drawText(
-            rect.adjusted(
-                15,
-                0,
-                -15,
-                0,
+            QRectF(
+                rect.left() + 10,
+                rect.top(),
+                rect_voie.left() - rect.left() - 18,
+                rect.height(),
             ),
             Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft,
             texte,
+        )
+
+        # ----------------------------------------------------------------------
+        # Titres de colonnes
+        # ----------------------------------------------------------------------
+
+        painter.setFont(
+            QFont(
+                self.police_principale,
+                max(
+                    6,
+                    int(rect.height() * 0.20),
+                ),
+                QFont.Weight.DemiBold,
+            )
+        )
+
+        couleur_entete = QColor("#AAA99F")
+
+        painter.setPen(couleur_entete)
+
+        painter.drawText(
+            rect_voie,
+            Qt.AlignmentFlag.AlignCenter,
+            "VOIE",
+        )
+
+        painter.drawText(
+            rect_statut,
+            Qt.AlignmentFlag.AlignCenter,
+            "STATUT",
         )
 
     # --------------------------------------------------------------------------
@@ -364,7 +408,7 @@ class CarteRecommandationPays(QWidget):
     ):
 
         # ----------------------------------------------------------------------
-        # Fond du volet
+        # Fond mécanique
         # ----------------------------------------------------------------------
 
         degrade = QLinearGradient(
@@ -374,46 +418,46 @@ class CarteRecommandationPays(QWidget):
 
         degrade.setColorAt(
             0.00,
-            QColor("#1C1D1D"),
+            QColor("#202121"),
         )
-
         degrade.setColorAt(
-            0.46,
-            QColor("#111212"),
+            0.45,
+            QColor("#151616"),
         )
-
         degrade.setColorAt(
-            0.50,
-            QColor("#070808"),
+            0.49,
+            QColor("#101111"),
         )
-
         degrade.setColorAt(
-            0.54,
-            QColor("#111212"),
+            0.51,
+            QColor("#080909"),
         )
-
+        degrade.setColorAt(
+            0.55,
+            QColor("#131414"),
+        )
         degrade.setColorAt(
             1.00,
-            QColor("#181919"),
+            QColor("#1B1C1C"),
         )
 
         painter.setBrush(degrade)
 
         painter.setPen(
             QPen(
-                QColor("#343636"),
-                0.8,
+                QColor("#313333"),
+                0.6,
             )
         )
 
         painter.drawRoundedRect(
             rect,
-            2.5,
-            2.5,
+            1.5,
+            1.5,
         )
 
         # ----------------------------------------------------------------------
-        # Séparation centrale du volet mécanique
+        # Fente centrale
         # ----------------------------------------------------------------------
 
         y_centre = rect.center().y()
@@ -421,7 +465,7 @@ class CarteRecommandationPays(QWidget):
         painter.setPen(
             QPen(
                 QColor("#050505"),
-                1.2,
+                0.9,
             )
         )
 
@@ -436,35 +480,44 @@ class CarteRecommandationPays(QWidget):
             ),
         )
 
-        # Petit reflet au-dessus de la coupure
         couleur_reflet = QColor("#FFFFFF")
-        couleur_reflet.setAlpha(12)
+        couleur_reflet.setAlpha(10)
 
         painter.setPen(
             QPen(
                 couleur_reflet,
-                0.7,
+                0.6,
             )
         )
 
         painter.drawLine(
             QPointF(
-                rect.left() + 3,
+                rect.left() + 2,
                 y_centre - 1,
             ),
             QPointF(
-                rect.right() - 3,
+                rect.right() - 2,
                 y_centre - 1,
             ),
         )
 
         # ----------------------------------------------------------------------
-        # Numéro
+        # Dimensions des colonnes
         # ----------------------------------------------------------------------
 
         largeur_numero = min(
-            46,
-            rect.width() * 0.13,
+            38,
+            rect.width() * 0.08,
+        )
+
+        largeur_statut = min(
+            105,
+            rect.width() * 0.23,
+        )
+
+        largeur_voie = min(
+            48,
+            rect.width() * 0.10,
         )
 
         rect_numero = QRectF(
@@ -474,20 +527,74 @@ class CarteRecommandationPays(QWidget):
             rect.height(),
         )
 
+        rect_statut = QRectF(
+            rect.right() - largeur_statut,
+            rect.top(),
+            largeur_statut,
+            rect.height(),
+        )
+
+        rect_voie = QRectF(
+            rect_statut.left() - largeur_voie,
+            rect.top(),
+            largeur_voie,
+            rect.height(),
+        )
+
+        rect_region = QRectF(
+            rect_numero.right() + 10,
+            rect.top() + 1,
+            rect_voie.left() - rect_numero.right() - 18,
+            rect.height() - 2,
+        )
+
+        # ----------------------------------------------------------------------
+        # Séparations verticales
+        # ----------------------------------------------------------------------
+
+        couleur_separation = QColor("#555655")
+        couleur_separation.setAlpha(100)
+
+        painter.setPen(
+            QPen(
+                couleur_separation,
+                0.6,
+            )
+        )
+
+        for x in (
+            rect_numero.right(),
+            rect_voie.left(),
+            rect_statut.left(),
+        ):
+
+            painter.drawLine(
+                QPointF(
+                    x,
+                    rect.top() + 4,
+                ),
+                QPointF(
+                    x,
+                    rect.bottom() - 4,
+                ),
+            )
+
+        # ----------------------------------------------------------------------
+        # Numéro de recommandation
+        # ----------------------------------------------------------------------
+
         painter.setFont(
             QFont(
                 self.police_principale,
                 max(
-                    8,
-                    int(rect.height() * 0.28),
+                    7,
+                    int(rect.height() * 0.27),
                 ),
                 QFont.Weight.DemiBold,
             )
         )
 
-        couleur_numero = QColor("#A7A18F")
-
-        painter.setPen(couleur_numero)
+        painter.setPen(QColor("#888679"))
 
         painter.drawText(
             rect_numero,
@@ -495,66 +602,91 @@ class CarteRecommandationPays(QWidget):
             str(numero).zfill(2),
         )
 
-        # Petite séparation verticale
-        painter.setPen(
-            QPen(
-                QColor("#3A3B3A"),
-                0.8,
-            )
-        )
-
-        painter.drawLine(
-            QPointF(
-                rect_numero.right(),
-                rect.top() + 5,
-            ),
-            QPointF(
-                rect_numero.right(),
-                rect.bottom() - 5,
-            ),
-        )
-
         # ----------------------------------------------------------------------
-        # Nom de la région
+        # Région
         # ----------------------------------------------------------------------
-
-        rect_region = QRectF(
-            rect_numero.right() + 12,
-            rect.top() + 2,
-            rect.right() - rect_numero.right() - 22,
-            rect.height() - 4,
-        )
 
         self._dessiner_texte_adaptatif(
             painter=painter,
             rect=rect_region,
             texte=region.upper(),
             taille_max=max(
-                9,
+                8,
                 int(rect.height() * 0.34),
             ),
             taille_min=max(
-                7,
+                6,
                 int(rect.height() * 0.22),
             ),
         )
 
         # ----------------------------------------------------------------------
-        # Axes mécaniques aux extrémités
+        # Voie
         # ----------------------------------------------------------------------
 
-        couleur_axe = QColor("#606362")
-        couleur_axe.setAlpha(150)
+        painter.setFont(
+            QFont(
+                self.police_principale,
+                max(
+                    8,
+                    int(rect.height() * 0.30),
+                ),
+                QFont.Weight.Bold,
+            )
+        )
+
+        painter.setPen(QColor("#E3E0D4"))
+
+        painter.drawText(
+            rect_voie,
+            Qt.AlignmentFlag.AlignCenter,
+            str(random.Random(self.graine * numero).randint(1, 12)),
+        )
+
+        # ----------------------------------------------------------------------
+        # Statut
+        # ----------------------------------------------------------------------
+
+        painter.setFont(
+            QFont(
+                self.police_principale,
+                max(
+                    6,
+                    int(rect.height() * 0.21),
+                ),
+                QFont.Weight.DemiBold,
+            )
+        )
+
+        painter.setPen(QColor("#D5A843"))
+
+        painter.drawText(
+            rect_statut.adjusted(
+                4,
+                0,
+                -4,
+                0,
+            ),
+            Qt.AlignmentFlag.AlignCenter,
+            "À DÉCOUVRIR",
+        )
+
+        # ----------------------------------------------------------------------
+        # Petits axes mécaniques
+        # ----------------------------------------------------------------------
+
+        couleur_axe = QColor("#747675")
+        couleur_axe.setAlpha(110)
 
         painter.setPen(Qt.PenStyle.NoPen)
 
         painter.setBrush(couleur_axe)
 
-        rayon = 1.7
+        rayon = 1.2
 
         for x in (
-            rect.left() + 5,
-            rect.right() - 5,
+            rect.left() + 4,
+            rect.right() - 4,
         ):
 
             painter.drawEllipse(
@@ -594,8 +726,8 @@ class CarteRecommandationPays(QWidget):
             police.setLetterSpacing(
                 QFont.SpacingType.AbsoluteSpacing,
                 max(
-                    0.4,
-                    taille * 0.055,
+                    0.25,
+                    taille * 0.035,
                 ),
             )
 
@@ -605,7 +737,7 @@ class CarteRecommandationPays(QWidget):
 
             if metrics.horizontalAdvance(texte) <= rect.width():
 
-                painter.setPen(QColor("#E8E3D2"))
+                painter.setPen(QColor("#E3E0D4"))
 
                 painter.drawText(
                     rect,
@@ -632,7 +764,7 @@ class CarteRecommandationPays(QWidget):
             int(rect.width()),
         )
 
-        painter.setPen(QColor("#E8E3D2"))
+        painter.setPen(QColor("#E3E0D4"))
 
         painter.drawText(
             rect,
@@ -641,10 +773,10 @@ class CarteRecommandationPays(QWidget):
         )
 
     # --------------------------------------------------------------------------
-    # Vis du cadre
+    # Rivets
     # --------------------------------------------------------------------------
 
-    def _dessiner_vis(
+    def _dessiner_rivets(
         self,
         painter: QPainter,
         rect: QRectF,
@@ -652,55 +784,45 @@ class CarteRecommandationPays(QWidget):
 
         positions = (
             QPointF(
-                rect.left() + 11,
-                rect.top() + 11,
+                rect.left() + 8,
+                rect.top() + 8,
             ),
             QPointF(
-                rect.right() - 11,
-                rect.top() + 11,
-            ),
-            QPointF(
-                rect.left() + 11,
-                rect.bottom() - 11,
-            ),
-            QPointF(
-                rect.right() - 11,
-                rect.bottom() - 11,
+                rect.right() - 8,
+                rect.top() + 8,
             ),
         )
 
         for centre in positions:
 
-            rayon = 3.0
+            rayon = 2.0
 
             degrade = QRadialGradient(
                 centre,
                 rayon,
                 QPointF(
-                    centre.x() - 1,
-                    centre.y() - 1,
+                    centre.x() - 0.6,
+                    centre.y() - 0.6,
                 ),
             )
 
             degrade.setColorAt(
                 0.0,
-                QColor("#C1C3C1"),
+                QColor("#B8BAB8"),
             )
-
             degrade.setColorAt(
-                0.45,
-                QColor("#777A79"),
+                0.5,
+                QColor("#727574"),
             )
-
             degrade.setColorAt(
                 1.0,
-                QColor("#303231"),
+                QColor("#353737"),
             )
 
             painter.setPen(
                 QPen(
                     QColor("#252626"),
-                    0.6,
+                    0.4,
                 )
             )
 
@@ -710,22 +832,4 @@ class CarteRecommandationPays(QWidget):
                 centre,
                 rayon,
                 rayon,
-            )
-
-            painter.setPen(
-                QPen(
-                    QColor("#3A3B3A"),
-                    0.7,
-                )
-            )
-
-            painter.drawLine(
-                QPointF(
-                    centre.x() - 1.5,
-                    centre.y(),
-                ),
-                QPointF(
-                    centre.x() + 1.5,
-                    centre.y(),
-                ),
             )

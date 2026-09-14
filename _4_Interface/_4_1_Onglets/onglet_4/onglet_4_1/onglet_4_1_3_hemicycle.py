@@ -22,85 +22,7 @@ from _4_Interface._4_1_Onglets.onglet_4.onglet_4_1.onglet_4_1_2_theme import (
     ThemeHemicycle,
 )
 
-# 1 -- Fonctions ---------------------------------------------------------------
-
-
-## 1.1 -- Fonction d'ajout des coordonnées -------------------------------------
-
-
-def ajouter_coordonnees(
-    df: pd.DataFrame,
-    coordonnees: list,
-    alignement: int,
-    traduction: dict,
-    langue: str,
-    graine: int = None,
-):
-
-    df_temp = (
-        df.copy()
-        .assign(
-            continent_cat=lambda x: pd.Categorical(
-                x["continent"],
-                categories=[
-                    "Antarctica",
-                    "Africa",
-                    "Europe",
-                    "Asia",
-                    "Oceania",
-                    "North America",
-                    "South America",
-                ],
-                ordered=True,
-            )
-        )
-        .assign(
-            continent_trad=lambda x: x["continent"].map(
-                lambda c: traduction.get(c, {}).get(langue, c)
-            ),
-            pays_trad=lambda x: x["pays"].map(
-                lambda c: traduction.get(c, {}).get(langue, c)
-            ),
-        )
-    )
-
-    # Tri des pays dans l'ordre souhaité
-    if abs(alignement) == 1:
-
-        df_temp = df_temp.sort_values(
-            by=["continent_cat", "visite"],
-            inplace=False,
-            ascending=(True, alignement == 1),
-        ).reset_index(drop=True)
-
-    elif alignement == 2:
-        df_temp = df_temp.sort_values(
-            by=["continent_cat", "pays_trad"],
-            inplace=False,
-            ascending=(True, True),
-        ).reset_index(drop=True)
-
-    else:
-
-        df_temp = (
-            df_temp.sample(frac=1, random_state=graine)
-            .sort_values("continent_cat", kind="stable")
-            .reset_index(drop=True)
-        )
-
-    # Test de cohérence
-    assert len(coordonnees) == len(df_temp), f"{len(coordonnees)} != {len(df_temp)}"
-
-    # Ajout des coordonnées
-    df_temp[["x", "y", "angle", "niveau"]] = sorted(
-        coordonnees, key=lambda t: (-t[2], -t[3])
-    )
-
-    # Renvoi
-    return df_temp.drop(columns=["angle", "niveau"], inplace=False)
-
-
-# 2 -- Classe de création de l'hémicycle des pays visités ----------------------
+# 1 -- Classe de création de l'hémicycle des pays visités ----------------------
 
 
 class HemicycleWidget(QWidget):
@@ -269,6 +191,17 @@ class HemicycleWidget(QWidget):
                 x,
                 y,
             )
+
+        # self.positions_ecran = self._zoomer_autour_pays(
+        #     positions=self.positions_ecran,
+        #     pays="France",
+        #     rayon=min(
+        #         self.width(),
+        #         self.height(),
+        #     )
+        #     * 0.20,
+        #     facteur=2.0,
+        # )
 
     # --------------------------------------------------------------------------
     # Table des pays du graphe
@@ -701,6 +634,81 @@ class HemicycleWidget(QWidget):
                     couleur_2=couleur_2,
                     survolee=survolee,
                 )
+
+    # --------------------------------------------------------------------------
+    # Zoom
+    # --------------------------------------------------------------------------
+
+    def _appliquer_zoom_local(
+        self,
+        positions: dict,
+        centre: QPointF,
+        rayon: float,
+        facteur: float,
+    ) -> dict:
+        """
+        Agrandit progressivement une zone du graphe autour de `centre`.
+
+        - au centre : zoom maximal ;
+        - à la limite du rayon : aucun zoom ;
+        - entre les deux : transition douce.
+
+        Les positions situées hors du rayon ne sont pas modifiées.
+        """
+
+        resultat = {}
+
+        for pays, point in positions.items():
+
+            dx = point.x() - centre.x()
+            dy = point.y() - centre.y()
+
+            distance = math.hypot(
+                dx,
+                dy,
+            )
+
+            # Hors de la zone de zoom
+            if distance >= rayon:
+
+                resultat[pays] = QPointF(point)
+
+                continue
+
+            # Position normalisée dans la zone
+            t = distance / rayon
+
+            # Transition douce :
+            # 1 au centre -> 0 à l'extérieur
+            poids = (1 - t * t) ** 2
+
+            # Facteur réellement appliqué à cette position
+            facteur_local = 1 + (facteur - 1) * poids
+
+            resultat[pays] = QPointF(
+                centre.x() + dx * facteur_local,
+                centre.y() + dy * facteur_local,
+            )
+
+        return resultat
+
+    def _zoomer_autour_pays(
+        self,
+        positions: dict,
+        pays: str,
+        rayon: float,
+        facteur: float,
+    ) -> dict:
+
+        if pays not in positions:
+            return positions
+
+        return self._appliquer_zoom_local(
+            positions=positions,
+            centre=positions[pays],
+            rayon=rayon,
+            facteur=facteur,
+        )
 
     # --------------------------------------------------------------------------
     # Dessin des points

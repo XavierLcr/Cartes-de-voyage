@@ -50,6 +50,7 @@ class PaysAVisiter(QWidget):
         table_superficie,
         fct_traduire,
         parent=None,
+        par_pays: bool = True,
     ):
         super().__init__(parent)
 
@@ -71,7 +72,7 @@ class PaysAVisiter(QWidget):
         # Paramètres utilisateur
         self.langue = "français"
         self.dict_voyages = {}
-        self.recommandations_par_pays = True
+        self.recommandations_par_pays = par_pays
         self.df = None
 
         layout = QVBoxLayout()

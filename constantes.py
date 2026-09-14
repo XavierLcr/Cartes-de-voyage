@@ -199,6 +199,17 @@ granularite_max_pays = ouvrir_fichier(
 )
 
 
+### Import du graphe des pays --------------------------------------------------
+
+
+graphe_pays = ouvrir_fichier(
+    direction_fichier=direction_donnees_application,
+    nom_fichier="graphe_pays.pkl",
+    defaut={},
+    afficher_erreur="Graphe des pays introuvable.",
+)
+
+
 ## 3.3 -- Import des paramètres accessibles à l'utilisateur –––––––––––––-------
 
 

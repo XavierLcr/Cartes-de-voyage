@@ -9,8 +9,8 @@
 
 
 from PyQt6.QtCore import Qt, QRectF, QPointF
-from PyQt6.QtWidgets import QWidget, QSizePolicy
-from PyQt6.QtGui import QPainter, QColor, QFont, QLinearGradient, QPen
+from PyQt6.QtWidgets import QWidget, QSizePolicy, QGraphicsDropShadowEffect
+from PyQt6.QtGui import QPainter, QColor, QFont, QLinearGradient, QPen, QPainterPath
 
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import _trouver_police_disponible
 

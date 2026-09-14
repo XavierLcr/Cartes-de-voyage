@@ -26,8 +26,7 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import vider_layout
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_3.onglet_4_3_1_calculs import (
     WorkerRecommandation,
 )
-from _4_Interface._4_1_Onglets.onglet_4.onglet_4_3.onglet_4_3_2_ui import (
-    ThemeRecommandation,
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_3.onglet_4_3_2_reco_par_pays import (
     CarteRecommandationPays,
 )
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_3.onglet_4_3_4_reco_simple import (
@@ -72,7 +71,7 @@ class PaysAVisiter(QWidget):
         # Paramètres utilisateur
         self.langue = "français"
         self.dict_voyages = {}
-        self.recommandations_par_pays = False
+        self.recommandations_par_pays = True
         self.df = None
 
         layout = QVBoxLayout()
@@ -106,18 +105,6 @@ class PaysAVisiter(QWidget):
         layout.addLayout(recommandations_layout)
 
         self.setLayout(layout)
-
-        # Thème clair/sombre de l'appli.
-        self.set_style(
-            style=1,
-            teinte=[i / 360 for i in range(0, 360, 45)],
-            nuances={
-                "min_luminosite": 0.8,
-                "max_luminosite": 0.95,
-                "min_saturation": 0.2,
-                "max_saturation": 0.4,
-            },
-        )
 
     def calculer_prochaine_destination(self):
 
@@ -207,7 +194,6 @@ class PaysAVisiter(QWidget):
                             pays_nom=pays_traduit,
                             emoji=self.emojis_pays.get(pays, ""),
                             regions=regions,
-                            style=self.style,
                         )
                     )
                     self.corps_recommandations.addSpacerItem(
@@ -234,17 +220,6 @@ class PaysAVisiter(QWidget):
         self.recommandations_nb.setSuffix(
             self.fonction_traduire("recommandations_nb", prefixe=" ")
         )
-        self.afficher_recommandation()
-
-    def set_style(self, style, teinte, nuances):
-
-        # Thème des cartes de recommandation, aligné sur le style
-        # clair/sombre courant de l'appli (mêmes paramètres que le
-        # bouton, réutilisés pour cohérence visuelle).
-        self.style = ThemeRecommandation(
-            style=style, teinte=teinte, nuances=nuances, limite_essais=20
-        )
-
         self.afficher_recommandation()
 
     def get_recommandations_par_pays(self):

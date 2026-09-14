@@ -11,7 +11,7 @@
 import copy, random, time
 import pandas as pd
 
-from PyQt6.QtCore import QPointF
+from PyQt6.QtCore import QPointF, Qt
 from PyQt6.QtWidgets import QWidget, QToolTip
 from PyQt6.QtGui import QPainter, QColor
 
@@ -48,8 +48,37 @@ class HemicycleWidget(QWidget):
         self.langue = "français"
         self.graine_ordre = None
 
-        # Zone actuellement affichée
-        self.zoom_continent = "World"
+        # ----------------------------------------------------------------------
+        # Caméra interactive
+        # ----------------------------------------------------------------------
+
+        # Facteur de zoom. À 1.0, le monde entier est cadré comme auparavant.
+        self.facteur_zoom = 1.0
+        self.facteur_zoom_min = 1.0
+        self.facteur_zoom_max = 12.0
+
+        # Centre de la caméra dans les coordonnées projetées EPSG:8857.
+        # L'axe X est cyclique : il est ramené en permanence dans une période
+        # complète du monde.
+        self.centre_camera_x = None
+        self.centre_camera_y = None
+
+        # Paramètres géographiques déterminés à partir des données.
+        # La largeur cyclique n'est volontairement pas imposée ici : les centres
+        # peuvent être en EPSG:8857, en degrés ou dans une autre normalisation.
+        self._largeur_monde_geo = None
+        self._centre_x_monde = 0.0
+        self._centre_y_monde = 0.0
+        self._centre_cycle_x = 0.0
+
+        # Paramètres recalculés à chaque peinture. Ils permettent de convertir
+        # proprement les déplacements de la souris en coordonnées géographiques.
+        self._echelle_monde = 1.0
+        self._largeur_monde_ecran = 1.0
+
+        # État du déplacement à la souris.
+        self._deplacement_actif = False
+        self._derniere_position_souris = None
 
         # Conservé pour compatibilité avec l'ancienne version
         self.points_visites_position = -1
@@ -97,20 +126,97 @@ class HemicycleWidget(QWidget):
     # Transformation géographique -> écran
     # --------------------------------------------------------------------------
 
+    @staticmethod
+    def _delta_x_cyclique(
+        x: float,
+        centre_x: float,
+        largeur_monde: float,
+    ) -> float:
+        """
+        Renvoie l'écart horizontal le plus court entre ``x`` et ``centre_x``.
+
+        L'axe X est considéré comme périodique : passer à droite de l'antiméridien
+        fait donc réapparaître naturellement le monde par la gauche, et inversement.
+        """
+
+        if largeur_monde <= 0:
+            return x - centre_x
+
+        demi_largeur = largeur_monde / 2
+
+        return ((x - centre_x + demi_largeur) % largeur_monde) - demi_largeur
+
+    @staticmethod
+    def _determiner_largeur_monde_geo(
+        xs: list,
+    ) -> tuple[float, float]:
+        """
+        Détermine la période horizontale des coordonnées.
+
+        Le graphe de l'application peut contenir des coordonnées projetées en
+        EPSG:8857, mais cette fonction reste robuste si elles sont finalement
+        stockées en degrés ou dans une autre échelle.
+
+        Retourne :
+            - la largeur d'un tour du monde ;
+            - le centre de référence utilisé pour normaliser la caméra.
+        """
+
+        x_min = min(xs)
+        x_max = max(xs)
+        amplitude = max(x_max - x_min, 1e-12)
+        max_abs = max(abs(x) for x in xs)
+        centre_donnees = (x_min + x_max) / 2
+
+        # Coordonnées géographiques classiques en degrés.
+        if max_abs <= 360.0 and 180.0 <= amplitude <= 360.0:
+            return 360.0, 0.0
+
+        # EPSG:8857 (Equal Earth), dont l'étendue mondiale horizontale vaut
+        # environ 34 487 918 m. On ne l'utilise que si l'ordre de grandeur des
+        # données est compatible, pour ne jamais écraser une autre normalisation.
+        largeur_epsg_8857 = 34_487_918.12
+
+        if max_abs >= 1_000_000:
+            ratio = amplitude / largeur_epsg_8857
+
+            if 0.55 <= ratio <= 1.08:
+                return largeur_epsg_8857, 0.0
+
+        # Cas générique : on prend l'étendue observée avec une petite marge.
+        # Ce n'est pas une connaissance géodésique exacte du monde, mais cela
+        # garantit un comportement cyclique cohérent sans modifier l'échelle.
+        return amplitude * 1.04, centre_donnees
+
+    def _normaliser_camera_x(
+        self,
+    ):
+        """Ramène le centre horizontal de la caméra dans une période du monde."""
+
+        largeur = self._largeur_monde_geo
+
+        if not largeur or largeur <= 0 or self.centre_camera_x is None:
+            return
+
+        demi_largeur = largeur / 2
+        centre_cycle = self._centre_cycle_x
+
+        self.centre_camera_x = (
+            centre_cycle
+            + ((self.centre_camera_x - centre_cycle + demi_largeur) % largeur)
+            - demi_largeur
+        )
+
     def _calculer_positions_ecran(
         self,
     ):
         """
-        Transforme les coordonnées EPSG:8857 contenues dans le graphe en
-        coordonnées locales du widget.
+        Transforme les coordonnées du graphe en coordonnées locales du widget.
 
-        Pour ``World``, le cadrage utilise tous les pays. Pour un continent,
-        le cadrage est calculé uniquement sur les pays de ce continent, mais
-        tous les pays du graphe restent transformés et dessinés. Les pays hors
-        de la zone sélectionnée sortent donc naturellement du widget.
-
-        L'échelle reste identique sur X et Y afin de ne jamais déformer la
-        géographie.
+        Point important : le cadrage initial est calculé sur l'étendue RÉELLE
+        des centres, exactement comme dans la version non interactive. La largeur
+        cyclique sert uniquement au bouclage horizontal et ne participe jamais
+        au calcul de l'échelle initiale.
         """
 
         centres = self.graphe_pays.get(
@@ -118,7 +224,6 @@ class HemicycleWidget(QWidget):
             {},
         )
 
-        # On ne conserve que les pays connus de l'application
         centres = {
             pays: coordonnees
             for pays, coordonnees in centres.items()
@@ -129,89 +234,43 @@ class HemicycleWidget(QWidget):
             self.positions_ecran = {}
             return
 
-        # ----------------------------------------------------------------------
-        # Étendue géographique du monde entier
-        # ----------------------------------------------------------------------
-
-        xs_monde = [coordonnees[0] for coordonnees in centres.values()]
-        ys_monde = [coordonnees[1] for coordonnees in centres.values()]
-
-        amplitude_x_monde = max(
-            max(xs_monde) - min(xs_monde),
-            1,
-        )
-
-        amplitude_y_monde = max(
-            max(ys_monde) - min(ys_monde),
-            1,
-        )
-
-        # ----------------------------------------------------------------------
-        # Pays utilisés pour déterminer le cadrage
-        # ----------------------------------------------------------------------
-
-        centres_cadrage = centres
-
-        if self.zoom_continent != "World" and hasattr(self, "df_pays"):
-
-            pays_continent = set(
-                self.df_pays.loc[
-                    self.df_pays["continent"] == self.zoom_continent,
-                    "pays",
-                ]
-            )
-
-            centres_continent = {
-                pays: coordonnees
-                for pays, coordonnees in centres.items()
-                if pays in pays_continent
-            }
-
-            # Sécurité si le nom du continent n'existe pas dans les données
-            if centres_continent:
-                centres_cadrage = centres_continent
-
-        xs = [coordonnees[0] for coordonnees in centres_cadrage.values()]
-        ys = [coordonnees[1] for coordonnees in centres_cadrage.values()]
+        xs = [coordonnees[0] for coordonnees in centres.values()]
+        ys = [coordonnees[1] for coordonnees in centres.values()]
 
         x_min = min(xs)
         x_max = max(xs)
-
         y_min = min(ys)
         y_max = max(ys)
 
-        centre_x_geo = (x_min + x_max) / 2
-        centre_y_geo = (y_min + y_max) / 2
-
         amplitude_x = max(
             x_max - x_min,
-            1,
+            1e-12,
         )
 
         amplitude_y = max(
             y_max - y_min,
-            1,
+            1e-12,
         )
 
-        # Un continent très petit ou ne contenant qu'un seul point ne doit pas
-        # provoquer un zoom démesuré. On impose donc une fenêtre géographique
-        # minimale par rapport à l'étendue du monde.
-        if self.zoom_continent != "World":
+        self._centre_x_monde = (x_min + x_max) / 2
+        self._centre_y_monde = (y_min + y_max) / 2
 
-            amplitude_x = max(
-                amplitude_x,
-                amplitude_x_monde * 0.18,
-            )
+        # La période horizontale est indépendante de l'échelle d'affichage.
+        (
+            self._largeur_monde_geo,
+            self._centre_cycle_x,
+        ) = self._determiner_largeur_monde_geo(xs)
 
-            amplitude_y = max(
-                amplitude_y,
-                amplitude_y_monde * 0.18,
-            )
+        # Initialisation de la caméra au premier affichage. Cela reproduit le
+        # cadrage de l'ancien script, même si les coordonnées ne sont pas
+        # centrées exactement autour de x = 0.
+        if self.centre_camera_x is None:
+            self.centre_camera_x = self._centre_x_monde
 
-        # ----------------------------------------------------------------------
-        # Passage aux coordonnées du widget
-        # ----------------------------------------------------------------------
+        if self.centre_camera_y is None:
+            self.centre_camera_y = self._centre_y_monde
 
+        # Marge autour du graphe.
         marge = max(
             18,
             min(
@@ -231,11 +290,16 @@ class HemicycleWidget(QWidget):
             1,
         )
 
-        # Une seule échelle : pas de déformation
-        echelle = min(
+        # IMPORTANT : même calcul que dans le script d'origine.
+        # On n'utilise surtout pas _largeur_monde_geo ici.
+        self._echelle_monde = min(
             largeur_disponible / amplitude_x,
             hauteur_disponible / amplitude_y,
         )
+
+        echelle = self._echelle_monde * self.facteur_zoom
+
+        self._largeur_monde_ecran = self._largeur_monde_geo * echelle
 
         centre_x_widget = self.width() / 2
         centre_y_widget = self.height() / 2
@@ -247,10 +311,16 @@ class HemicycleWidget(QWidget):
             y_geo,
         ) in centres.items():
 
-            x = centre_x_widget + (x_geo - centre_x_geo) * echelle
+            dx_geo = self._delta_x_cyclique(
+                x=x_geo,
+                centre_x=self.centre_camera_x,
+                largeur_monde=self._largeur_monde_geo,
+            )
 
-            # L'axe Y de QPainter est inversé
-            y = centre_y_widget - (y_geo - centre_y_geo) * echelle
+            x = centre_x_widget + dx_geo * echelle
+
+            # L'axe Y de QPainter est inversé.
+            y = centre_y_widget - (y_geo - self.centre_camera_y) * echelle
 
             self.positions_ecran[pays] = QPointF(
                 x,
@@ -583,6 +653,70 @@ class HemicycleWidget(QWidget):
         )
 
     # --------------------------------------------------------------------------
+    # Gestion cyclique des arêtes
+    # --------------------------------------------------------------------------
+
+    def _copies_arete_cyclique(
+        self,
+        p1: QPointF,
+        p2: QPointF,
+    ) -> list:
+        """
+        Renvoie les copies utiles d'une arête sur le monde cyclique.
+
+        On commence par relier les deux sommets par le chemin horizontal le plus
+        court. On dessine ensuite cette arête sur trois périodes voisines. QPainter
+        coupe automatiquement ce qui se trouve hors du widget ; cela permet aux
+        arêtes de sortir d'un bord et de réapparaître proprement de l'autre.
+        """
+
+        largeur = self._largeur_monde_ecran
+
+        if largeur <= 0:
+            return [(QPointF(p1), QPointF(p2))]
+
+        x1 = p1.x()
+        x2 = p2.x()
+
+        dx = x2 - x1
+
+        if dx > largeur / 2:
+            x2 -= largeur
+        elif dx < -largeur / 2:
+            x2 += largeur
+
+        resultat = []
+        marge = max(
+            40.0,
+            self.diametre_point * 8,
+        )
+
+        for decalage in (-largeur, 0.0, largeur):
+
+            q1 = QPointF(
+                x1 + decalage,
+                p1.y(),
+            )
+
+            q2 = QPointF(
+                x2 + decalage,
+                p2.y(),
+            )
+
+            # Évite de peindre inutilement une copie située très loin du widget.
+            if (
+                max(q1.x(), q2.x()) < -marge
+                or min(q1.x(), q2.x()) > self.width() + marge
+                or max(q1.y(), q2.y()) < -marge
+                or min(q1.y(), q2.y()) > self.height() + marge
+            ):
+                continue
+
+            resultat.append((q1, q2))
+
+        return resultat
+
+    # --------------------------------------------------------------------------
     # Dessin de toutes les arêtes
     # --------------------------------------------------------------------------
 
@@ -619,15 +753,12 @@ class HemicycleWidget(QWidget):
                 continue
 
             p1 = self.positions_ecran[pays_1]
-
             p2 = self.positions_ecran[pays_2]
 
             info_1 = infos[pays_1]
-
             info_2 = infos[pays_2]
 
             visite_1 = bool(info_1["visite"])
-
             visite_2 = bool(info_2["visite"])
 
             couleur_1 = self.theme.continents_couleurs.get(
@@ -640,72 +771,136 @@ class HemicycleWidget(QWidget):
                 "#808080",
             )
 
-            # Une arête est renforcée si elle touche le pays survolé
+            # Une arête est renforcée si elle touche le pays survolé.
             survolee = pays_1 == self.pays_survole or pays_2 == self.pays_survole
 
-            # ------------------------------------------------------------------
-            # Deux pays visités
-            # ------------------------------------------------------------------
+            # Sur un monde cyclique, une même arête peut apparaître à cheval sur
+            # les deux bords de l'écran.
+            copies = self._copies_arete_cyclique(
+                p1=p1,
+                p2=p2,
+            )
 
-            if visite_1 and visite_2:
+            for p1_cyclique, p2_cyclique in copies:
 
-                self._peindre_arete_allumee(
-                    painter=painter,
-                    p1=p1,
-                    p2=p2,
-                    couleur_1=couleur_1,
-                    couleur_2=couleur_2,
-                    survolee=survolee,
-                )
+                # --------------------------------------------------------------
+                # Deux pays visités
+                # --------------------------------------------------------------
 
-            # ------------------------------------------------------------------
-            # Un seul pays visité
-            # ------------------------------------------------------------------
+                if visite_1 and visite_2:
 
-            elif visite_1 or visite_2:
+                    self._peindre_arete_allumee(
+                        painter=painter,
+                        p1=p1_cyclique,
+                        p2=p2_cyclique,
+                        couleur_1=couleur_1,
+                        couleur_2=couleur_2,
+                        survolee=survolee,
+                    )
 
-                self._peindre_arete_partielle(
-                    painter=painter,
-                    p1=p1,
-                    p2=p2,
-                    couleur_1=couleur_1,
-                    couleur_2=couleur_2,
-                    premier_visite=visite_1,
-                    survolee=survolee,
-                )
+                # --------------------------------------------------------------
+                # Un seul pays visité
+                # --------------------------------------------------------------
 
-            # ------------------------------------------------------------------
-            # Aucun pays visité
-            # ------------------------------------------------------------------
+                elif visite_1 or visite_2:
 
-            else:
+                    self._peindre_arete_partielle(
+                        painter=painter,
+                        p1=p1_cyclique,
+                        p2=p2_cyclique,
+                        couleur_1=couleur_1,
+                        couleur_2=couleur_2,
+                        premier_visite=visite_1,
+                        survolee=survolee,
+                    )
 
-                self._peindre_arete_eteinte(
-                    painter=painter,
-                    p1=p1,
-                    p2=p2,
-                    couleur_1=couleur_1,
-                    couleur_2=couleur_2,
-                    survolee=survolee,
-                )
+                # --------------------------------------------------------------
+                # Aucun pays visité
+                # --------------------------------------------------------------
+
+                else:
+
+                    self._peindre_arete_eteinte(
+                        painter=painter,
+                        p1=p1_cyclique,
+                        p2=p2_cyclique,
+                        couleur_1=couleur_1,
+                        couleur_2=couleur_2,
+                        survolee=survolee,
+                    )
 
     # --------------------------------------------------------------------------
-    # Zoom
+    # Caméra interactive
     # --------------------------------------------------------------------------
 
-    def set_zoom_continent(
+    def reinitialiser_vue(
         self,
-        continent: str = "World",
+    ):
+        """Rétablit le cadrage mondial initial."""
+
+        self.facteur_zoom = 1.0
+        self.centre_camera_x = self._centre_x_monde
+        self.centre_camera_y = self._centre_y_monde
+
+        self.pays_survole = None
+        QToolTip.hideText()
+
+        self.creer_hemicycle()
+
+    def _zoomer_sur_position(
+        self,
+        position: QPointF,
+        nouveau_zoom: float,
     ):
         """
-        Sélectionne la zone géographique utilisée pour cadrer le graphe.
-
-        ``World`` correspond à l'absence de zoom. Les autres valeurs doivent
-        être les références anglaises utilisées dans ``df_pays["continent"]``.
+        Modifie le zoom en conservant sous la souris le même point géographique.
         """
 
-        self.zoom_continent = continent
-        self.pays_survole = None
+        ancien_zoom = self.facteur_zoom
+
+        nouveau_zoom = max(
+            self.facteur_zoom_min,
+            min(
+                nouveau_zoom,
+                self.facteur_zoom_max,
+            ),
+        )
+
+        if abs(nouveau_zoom - ancien_zoom) < 1e-12:
+            return
+
+        if self._echelle_monde <= 0:
+            return
+
+        if self.centre_camera_y is None:
+            self.centre_camera_y = self._centre_y_monde
+
+        centre_x_widget = self.width() / 2
+        centre_y_widget = self.height() / 2
+
+        # Coordonnée géographique actuellement située sous le curseur.
+        x_geo_souris = self.centre_camera_x + (position.x() - centre_x_widget) / (
+            self._echelle_monde * ancien_zoom
+        )
+
+        y_geo_souris = self.centre_camera_y - (position.y() - centre_y_widget) / (
+            self._echelle_monde * ancien_zoom
+        )
+
+        self.facteur_zoom = nouveau_zoom
+
+        # Nouveau centre nécessaire pour que ce même point géographique reste
+        # exactement sous le curseur après le changement d'échelle.
+        self.centre_camera_x = x_geo_souris - (position.x() - centre_x_widget) / (
+            self._echelle_monde * nouveau_zoom
+        )
+
+        self.centre_camera_y = y_geo_souris + (position.y() - centre_y_widget) / (
+            self._echelle_monde * nouveau_zoom
+        )
+
+        self._normaliser_camera_x()
+
         self.creer_hemicycle()
 
     # --------------------------------------------------------------------------
@@ -855,8 +1050,52 @@ class HemicycleWidget(QWidget):
         self.creer_hemicycle()
 
     # --------------------------------------------------------------------------
-    # Survol
+    # Interaction à la souris
     # --------------------------------------------------------------------------
+
+    def wheelEvent(
+        self,
+        event,
+    ):
+        """Zoom à la molette, centré sur la position du curseur."""
+
+        delta = event.angleDelta().y()
+
+        if delta == 0:
+            event.ignore()
+            return
+
+        # Une graduation classique de molette correspond à 120 unités.
+        nb_pas = delta / 120.0
+        facteur = 1.18**nb_pas
+
+        self._zoomer_sur_position(
+            position=event.position(),
+            nouveau_zoom=self.facteur_zoom * facteur,
+        )
+
+        event.accept()
+
+    def mousePressEvent(
+        self,
+        event,
+    ):
+        """Démarre le déplacement de la carte au clic gauche."""
+
+        if event.button() == Qt.MouseButton.LeftButton:
+
+            self._deplacement_actif = True
+            self._derniere_position_souris = event.position()
+
+            self.pays_survole = None
+            QToolTip.hideText()
+
+            self.setCursor(Qt.CursorShape.ClosedHandCursor)
+
+            event.accept()
+            return
+
+        super().mousePressEvent(event)
 
     def mouseMoveEvent(
         self,
@@ -864,6 +1103,40 @@ class HemicycleWidget(QWidget):
     ):
 
         pos = event.position()
+
+        # ----------------------------------------------------------------------
+        # Déplacement de la caméra
+        # ----------------------------------------------------------------------
+
+        if self._deplacement_actif and self._derniere_position_souris is not None:
+
+            delta = pos - self._derniere_position_souris
+            self._derniere_position_souris = pos
+
+            echelle = self._echelle_monde * self.facteur_zoom
+
+            if echelle > 0:
+
+                # Déplacer la souris vers la droite fait glisser le contenu vers
+                # la droite : le centre géographique de la caméra part donc vers
+                # la gauche. Pour Y, l'axe écran est inversé.
+                self.centre_camera_x -= delta.x() / echelle
+
+                if self.centre_camera_y is None:
+                    self.centre_camera_y = self._centre_y_monde
+
+                self.centre_camera_y += delta.y() / echelle
+
+                self._normaliser_camera_x()
+
+                self.creer_hemicycle()
+
+            event.accept()
+            return
+
+        # ----------------------------------------------------------------------
+        # Survol des pays
+        # ----------------------------------------------------------------------
 
         nouveau_survol = None
 
@@ -893,5 +1166,36 @@ class HemicycleWidget(QWidget):
         if nouveau_survol != self.pays_survole:
 
             self.pays_survole = nouveau_survol
-
             self.creer_hemicycle()
+
+    def mouseReleaseEvent(
+        self,
+        event,
+    ):
+        """Termine le déplacement de la carte."""
+
+        if event.button() == Qt.MouseButton.LeftButton:
+
+            self._deplacement_actif = False
+            self._derniere_position_souris = None
+
+            self.unsetCursor()
+
+            event.accept()
+            return
+
+        super().mouseReleaseEvent(event)
+
+    def mouseDoubleClickEvent(
+        self,
+        event,
+    ):
+        """Un double-clic gauche rétablit la vue mondiale."""
+
+        if event.button() == Qt.MouseButton.LeftButton:
+
+            self.reinitialiser_vue()
+            event.accept()
+            return
+
+        super().mouseDoubleClickEvent(event)

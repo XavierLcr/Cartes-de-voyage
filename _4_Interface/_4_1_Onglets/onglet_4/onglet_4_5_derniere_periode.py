@@ -67,12 +67,7 @@ class DiagrammeGantt(QWidget):
         # Avion
         # ----------------------------------------------------------------------
 
-        self.avion = Avion(
-            taille=50,
-            vitesse=90,
-            tension=1.0,
-            marge_sortie=50,
-        )
+        self.init_avion()
 
         self._timer_avion = QTimer(self)
         self._timer_avion.setInterval(self.INTERVALLE_ANIMATION_MS)
@@ -111,6 +106,7 @@ class DiagrammeGantt(QWidget):
     ):
 
         liste_temp = []
+        self.init_avion()
 
         # Nettoyage
         for _, item in data.items():
@@ -329,6 +325,19 @@ class DiagrammeGantt(QWidget):
         offset = (d - self.date_min).days
 
         return self.MARGE_GAUCHE + (offset / total) * largeur_zone
+
+    # --------------------------------------------------------------------------
+    # Avion
+    # --------------------------------------------------------------------------
+
+    def init_avion(self):
+
+        self.avion = Avion(
+            taille=50,
+            vitesse=40,
+            tension=1.0,
+            marge_sortie=50,
+        )
 
     # --------------------------------------------------------------------------
     # Rendu

@@ -136,6 +136,26 @@ class PaysAVisiter(QWidget):
         self.df = df
         self.afficher_recommandation()
 
+    def _afficher_recommandations_par_pays(self):
+
+        for pays, df_pays in self.df.groupby("name_0", sort=False):
+
+            pays_traduit = traduire_pays(
+                pays=pays,
+                langue=self.langue,
+                referentiel=self.pays_traductions,
+            )
+
+            self.corps_recommandations.addWidget(
+                CarteRecommandationPays(
+                    pays_nom=pays_traduit,
+                    emoji=self.emojis_pays.get(pays, ""),
+                    regions=df_pays["name_1"].tolist(),
+                )
+            )
+
+        self.corps_recommandations.addSpacing(5)
+
     def afficher_recommandation(self):
 
         # Affichage
@@ -151,38 +171,7 @@ class PaysAVisiter(QWidget):
         if len(self.df) > 0:
 
             if not self.get_recommandations_par_pays():
-
-                modulo = self.recommandations_par_ligne
-                for i, ligne in self.df.iterrows():
-
-                    if i % modulo == 0:
-                        layout_temp = QGridLayout()
-                        layout_temp.setSpacing(10)
-                        for c in range(modulo):
-                            layout_temp.setColumnStretch(c, 1)
-
-                    pays_traduit = traduire_pays(
-                        pays=ligne["name_0"],
-                        langue=self.langue,
-                        referentiel=self.pays_traductions,
-                    )
-
-                    layout_temp.addWidget(
-                        CarteRecommandationSimple(
-                            rang=i + 1,
-                            pays_nom=pays_traduit,
-                            emoji=self.emojis_pays.get(ligne["name_0"], ""),
-                            region=str(ligne["name_1"]),
-                        ),
-                        0,
-                        i % modulo,
-                    )
-
-                    if (i + 1) % modulo == 0 or len(self.df) == (i + 1):
-                        self.corps_recommandations.addLayout(layout_temp)
-                        self.corps_recommandations.addWidget(QLabel(""))
-
-                self.corps_recommandations.addStretch()
+                self._afficher_recommandations_par_pays()
 
             else:
 
@@ -206,7 +195,7 @@ class PaysAVisiter(QWidget):
                         )
                     )
 
-                self.corps_recommandations.addStretch()
+            self.corps_recommandations.addStretch()
 
     def set_dicts_granu(self, dict_nv: dict):
         """Permet de mettre à jour les sélections de destinations."""

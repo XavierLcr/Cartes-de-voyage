@@ -22,6 +22,7 @@ from PyQt6.QtWidgets import (
 )
 
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import vider_layout
+from _0_Utilitaires._0_06_fonctions_utiles_traductions import traduire_pays
 
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_3.onglet_4_3_1_calculs import (
     WorkerRecommandation,
@@ -160,8 +161,10 @@ class PaysAVisiter(QWidget):
                         for c in range(modulo):
                             layout_temp.setColumnStretch(c, 1)
 
-                    pays_traduit = self.pays_traductions.get(ligne["name_0"], {}).get(
-                        self.langue, ligne["name_0"]
+                    pays_traduit = traduire_pays(
+                        pays=ligne["name_0"],
+                        langue=self.langue,
+                        referentiel=self.pays_traductions,
                     )
 
                     layout_temp.addWidget(
@@ -185,8 +188,8 @@ class PaysAVisiter(QWidget):
 
                 for pays in list(self.df["name_0"].unique()):
 
-                    pays_traduit = self.pays_traductions.get(pays, {}).get(
-                        self.langue, pays
+                    pays_traduit = traduire_pays(
+                        pays=pays, langue=self.langue, referentiel=self.pays_traductions
                     )
                     regions = list(self.df.loc[self.df["name_0"] == pays, "name_1"])
 

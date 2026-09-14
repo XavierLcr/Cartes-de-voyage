@@ -333,8 +333,9 @@ class DiagrammeGantt(QWidget):
     def init_avion(self):
 
         self.avion = Avion(
+            avion="rafale",
             taille=50,
-            vitesse=40,
+            vitesse=50,
             tension=1.0,
             marge_sortie=50,
         )

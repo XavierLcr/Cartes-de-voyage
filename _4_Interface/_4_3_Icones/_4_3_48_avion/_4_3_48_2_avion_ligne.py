@@ -569,7 +569,7 @@ def _dessiner_avion_ligne(
 
     if lumieres == True:
 
-        rayon_lumiere = l * 0.05
+        rayon_lumiere = l * 0.08
 
         # Gauche
         dessiner_lumiere_avion(

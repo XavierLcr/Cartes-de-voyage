@@ -112,27 +112,6 @@ class ThemeRecommandation:
             str(renvoyer_couleur_texte(style=style, couleur=self.fond_chip.name()))
         )
 
-        # Éléments ferroviaires
-        self.bordure = QColor(self.texte)
-        self.bordure.setAlpha(35)
-
-        self.rail = QColor(self.texte)
-        self.rail.setAlpha(100)
-
-        self.traverse = QColor(self.texte)
-        self.traverse.setAlpha(55)
-
-        self.gare_mur = QColor(self.fond_chip)
-        self.gare_mur = (
-            self.gare_mur.lighter(112) if style == 1 else self.gare_mur.lighter(85)
-        )
-
-        self.gare_toit = QColor(self.badge_fin)
-        self.gare_vitre = QColor(self.badge_debut)
-
-        self.quai = QColor(self.texte)
-        self.quai.setAlpha(45)
-
         # Ombre portée : toujours sombre, quel que soit le style —
         # contrairement à une ombre dérivée de `self.texte`, qui
         # devient claire (donc peu naturelle) en mode sombre.

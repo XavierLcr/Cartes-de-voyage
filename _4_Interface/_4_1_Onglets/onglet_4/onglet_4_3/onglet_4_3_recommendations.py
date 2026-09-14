@@ -11,7 +11,6 @@
 from PyQt6.QtCore import QThread
 from PyQt6.QtWidgets import (
     QWidget,
-    QPushButton,
     QHBoxLayout,
     QVBoxLayout,
     QGridLayout,
@@ -30,13 +29,15 @@ from _4_Interface._4_1_Onglets.onglet_4.onglet_4_3.onglet_4_3_1_calculs import (
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_3.onglet_4_3_2_ui import (
     ThemeRecommandation,
     CarteRecommandationPays,
-    style_bouton_recommandation,
 )
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_3.onglet_4_3_4_reco_simple import (
     CarteRecommandationSimple,
 )
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_3.onglet_4_3_3_titre import (
     TitreRecommandations,
+)
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_3.onglet_4_3_5_bouton import (
+    BoutonRecommandation,
 )
 
 # 2 -- Classe de recommandations (déclenchement des calcul et affichage) -------
@@ -74,10 +75,8 @@ class PaysAVisiter(QWidget):
         self.recommandations_par_pays = False
         self.df = None
 
-        # Thème par défaut (clair) — mis à jour via `set_bouton_recommandation`
-        # lorsque le widget parent branche cet onglet sur le système de
-        # thème clair/sombre de l'appli.
-        self.style = ThemeRecommandation(
+        # Thème clair/sombre de l'appli.
+        self.set_style(
             style=1,
             teinte=[i / 360 for i in range(0, 360, 45)],
             nuances={
@@ -90,10 +89,11 @@ class PaysAVisiter(QWidget):
 
         layout = QVBoxLayout()
         # Bouton de lancement
-        self.bouton_recommandations = QPushButton()
-
-        layout.addWidget(self.bouton_recommandations)
+        self.bouton_recommandations = BoutonRecommandation(
+            fonction_traduction=fct_traduire
+        )
         self.bouton_recommandations.clicked.connect(self.calculer_prochaine_destination)
+        layout.addWidget(self.bouton_recommandations)
 
         # Scroll area pour les recommandations
         scroll_widget = QWidget()  # widget qui contiendra le layout des recommandations
@@ -227,28 +227,22 @@ class PaysAVisiter(QWidget):
 
     def set_langue(self, langue: str):
         self.langue = langue
-        self.bouton_recommandations.setText(
-            self.fonction_traduire("bouton_recommandations")
-        )
-        self.bouton_recommandations.setToolTip(
-            self.fonction_traduire("recommandation_passeport")
-        )
+
+        # Bouton de recommandations
+        self.bouton_recommandations.set_langue()
+
         self.recommandations_nb.setSuffix(
             self.fonction_traduire("recommandations_nb", prefixe=" ")
         )
         self.afficher_recommandation()
 
-    def set_bouton_recommandation(self, style, teinte, nuances):
+    def set_style(self, style, teinte, nuances):
 
         # Thème des cartes de recommandation, aligné sur le style
         # clair/sombre courant de l'appli (mêmes paramètres que le
         # bouton, réutilisés pour cohérence visuelle).
         self.style = ThemeRecommandation(
             style=style, teinte=teinte, nuances=nuances, limite_essais=20
-        )
-
-        self.bouton_recommandations.setStyleSheet(
-            style_bouton_recommandation(style=style, teinte=teinte, nuances=nuances)
         )
 
         self.afficher_recommandation()

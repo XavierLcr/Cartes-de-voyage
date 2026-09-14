@@ -25,10 +25,7 @@ from _4_Interface._4_2_Style._4_2_1_style_principal import (
     renvoyer_couleur_widget_differente,
 )
 
-# 1 -- Styles de l'onglet ------------------------------------------------------
-
-
-## 1.1 -- Thème de couleurs des cartes de recommandation -----------------------
+# 1 -- Thème de couleurs des cartes de recommandation --------------------------
 
 
 class ThemeRecommandation:
@@ -117,44 +114,6 @@ class ThemeRecommandation:
         # devient claire (donc peu naturelle) en mode sombre.
         self.ombre = QColor("#000000")
         self.ombre.setAlpha(70 if style == 1 else 130)
-
-
-# 1.2 -- Fonction de choix de la couleur du bouton de recommandation -----------
-
-
-def style_bouton_recommandation(style: int, teinte, nuances):
-
-    bg_couleur = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#F7CC76", sombre="#D9576F"
-    )
-    bg_couleur_survol = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#F46363", sombre="#E67A4F"
-    )
-    bg_couleur_click = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#EE77AC", sombre="#A83E56"
-    )
-
-    return f"""
-        QPushButton {{
-            background-color: {bg_couleur};
-            color: {renvoyer_couleur_texte(style=style, couleur=bg_couleur)};
-            border-radius: 12px;
-            padding: 10px 22px;
-            font-size: 14px;
-            font-weight: bold;
-            border:  none; 
-        }}
-        QPushButton:hover {{
-            background-color: {bg_couleur_survol};
-            color: {renvoyer_couleur_texte(style=style, couleur=bg_couleur_survol)};  
-            border-color: none;
-        }}
-        QPushButton:pressed {{
-            background-color: {bg_couleur_click};
-            color: {renvoyer_couleur_texte(style=style, couleur=bg_couleur_click)};   
-            border-color: none;
-        }}
-    """
 
 
 # 2 -- Classes associées au classement par pays --------------------------------

@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
 # _4_Interface/_4_1_Onglets/onglet_4/onglet_4_3                                #
-# Onglet 4.3.1 – Suggestions de nouvelles destinations (partie graphique)      #
+# Onglet 4.3.2 – Suggestions de nouvelles destinations (partie graphique)      #
 ################################################################################
 
 
@@ -9,7 +9,7 @@
 
 
 from PyQt6.QtCore import Qt, QRectF, QSize
-from PyQt6.QtGui import QPainter, QColor, QFont, QLinearGradient, QPainterPath
+from PyQt6.QtGui import QPainter, QColor, QPainterPath
 from PyQt6.QtWidgets import (
     QWidget,
     QVBoxLayout,
@@ -19,7 +19,6 @@ from PyQt6.QtWidgets import (
     QSizePolicy,
 )
 
-from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import _trouver_police_disponible
 from _4_Interface._4_2_Style._4_2_1_style_principal import (
     renvoyer_couleur_widget,
     renvoyer_couleur_texte,
@@ -345,129 +344,3 @@ class CarteRecommandationPays(QWidget):
         painter.drawPath(chemin)
 
         super().paintEvent(event)
-
-
-## 3 -- Carte associé au classement sans regroupement par pays -----------------
-
-
-class CarteRecommandationSimple(QWidget):
-    """
-    Carte compacte pour une ligne de recommandation (mode non groupé) :
-    badge de rang en dégradé, pays (avec emoji), région recommandée.
-    Reprend le vocabulaire visuel de `CarteClassementPays` (onglet 4.2).
-    """
-
-    def __init__(
-        self, rang: int, pays_nom: str, emoji: str, region: str, style, parent=None
-    ):
-        super().__init__(parent)
-        self.theme = style
-        self.rang = str(rang)
-        self.pays_nom = pays_nom
-        self.emoji = emoji
-        self.region = region
-
-        self.setMinimumSize(90, 100)
-        self.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
-        self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
-
-        self._ombre_effet = QGraphicsDropShadowEffect(self)
-        self._ombre_effet.setBlurRadius(20)
-        self._ombre_effet.setOffset(0, 5)
-        self._ombre_effet.setColor(self.theme.ombre)
-        self.setGraphicsEffect(self._ombre_effet)
-
-        self.police_principale = _trouver_police_disponible(
-            ["CormorantGaramond", "Fredoka", "Quicksand", "Century Gothic", "Segoe UI"]
-        )
-
-    def paintEvent(self, event):
-        painter = QPainter(self)
-        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
-        painter.setRenderHint(QPainter.RenderHint.TextAntialiasing)
-
-        w, h = self.width(), self.height()
-        rect = QRectF(0, 0, w, h).adjusted(2, 2, -2, -2)
-        rayon = min(18, min(w, h) * 0.14)
-        chemin = QPainterPath()
-        chemin.addRoundedRect(rect, rayon, rayon)
-        painter.setPen(Qt.PenStyle.NoPen)
-        painter.setBrush(self.theme.fond)
-        painter.drawPath(chemin)
-        painter.setClipPath(chemin)
-
-        cote = min(w, h)
-
-        # --- badge de rang ---
-        rayon_badge = cote * 0.16
-        centre_y = h * 0.22
-        rect_badge = QRectF(
-            w / 2 - rayon_badge,
-            centre_y - rayon_badge,
-            rayon_badge * 2,
-            rayon_badge * 2,
-        )
-        degrade = QLinearGradient(rect_badge.topLeft(), rect_badge.bottomRight())
-        degrade.setColorAt(0.0, self.theme.badge_debut)
-        degrade.setColorAt(1.0, self.theme.badge_fin)
-        painter.setPen(Qt.PenStyle.NoPen)
-        painter.setBrush(degrade)
-        painter.drawEllipse(rect_badge)
-
-        police_badge = QFont(
-            self.police_principale, max(7, int(rayon_badge * 0.62)), QFont.Weight.Bold
-        )
-        painter.setFont(police_badge)
-        painter.setPen(QColor("#FFFFFF"))
-        painter.drawText(rect_badge, Qt.AlignmentFlag.AlignCenter, self.rang)
-
-        # --- pays ---
-        police_pays = QFont(
-            self.police_principale, max(8, int(cote * 0.085)), QFont.Weight.DemiBold
-        )
-        painter.setFont(police_pays)
-        painter.setPen(self.theme.texte)
-        rect_pays = QRectF(w * 0.05, h * 0.42, w * 0.9, h * 0.26)
-        self._dessiner_texte_wrap(
-            painter, rect_pays, f"{self.emoji} {self.pays_nom}".strip()
-        )
-
-        # --- région ---
-        police_region = QFont(self.police_principale, max(7, int(cote * 0.07)))
-        painter.setFont(police_region)
-        painter.setPen(self.theme.sous_texte)
-        rect_region = QRectF(w * 0.05, h * 0.7, w * 0.9, h * 0.26)
-        self._dessiner_texte_wrap(painter, rect_region, self.region)
-
-    def _dessiner_texte_wrap(self, painter, rect, texte):
-        """Découpe `texte` en lignes qui tiennent dans la largeur de `rect`
-        (même logique que `CarteClassementPays`, onglet 4.2)."""
-        metrics = painter.fontMetrics()
-        largeur_max = rect.width() - 0.2
-
-        mots = texte.split()
-        lignes = []
-        ligne_courante = ""
-
-        for mot in mots:
-            essai = f"{ligne_courante} {mot}".strip()
-            if metrics.horizontalAdvance(essai) <= largeur_max:
-                ligne_courante = essai
-            else:
-                if ligne_courante:
-                    lignes.append(ligne_courante)
-                ligne_courante = mot
-        if ligne_courante:
-            lignes.append(ligne_courante)
-        if not lignes:
-            lignes = [""]
-
-        hauteur_ligne = metrics.height()
-        hauteur_totale = hauteur_ligne * len(lignes)
-        y_depart = rect.y() + max(0.0, (rect.height() - hauteur_totale) / 2)
-
-        for i, ligne in enumerate(lignes):
-            rect_ligne = QRectF(
-                rect.x(), y_depart + i * hauteur_ligne, rect.width(), hauteur_ligne
-            )
-            painter.drawText(rect_ligne, Qt.AlignmentFlag.AlignCenter, ligne)

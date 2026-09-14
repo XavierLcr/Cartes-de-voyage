@@ -29,9 +29,11 @@ from _4_Interface._4_1_Onglets.onglet_4.onglet_4_3.onglet_4_3_1_calculs import (
 )
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_3.onglet_4_3_2_ui import (
     ThemeRecommandation,
-    CarteRecommandationSimple,
     CarteRecommandationPays,
     style_bouton_recommandation,
+)
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_3.onglet_4_3_4_reco_simple import (
+    CarteRecommandationSimple,
 )
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_3.onglet_4_3_3_titre import (
     TitreRecommandations,

@@ -48,6 +48,11 @@ class HemicycleWidget(QWidget):
         self.langue = "français"
         self.graine_ordre = None
 
+        self.proportion_min_visible = 0.15
+
+        self._y_min_monde = None
+        self._y_max_monde = None
+
         # ----------------------------------------------------------------------
         # Caméra interactive
         # ----------------------------------------------------------------------
@@ -242,6 +247,9 @@ class HemicycleWidget(QWidget):
         y_min = min(ys)
         y_max = max(ys)
 
+        self._y_min_monde = y_min
+        self._y_max_monde = y_max
+
         amplitude_x = max(
             x_max - x_min,
             1e-12,
@@ -326,6 +334,54 @@ class HemicycleWidget(QWidget):
                 x,
                 y,
             )
+
+    def _contraindre_camera(
+        self,
+    ):
+        """
+        Contraint la caméra afin d'éviter de perdre complètement la carte.
+
+        Horizontalement, le monde reste cyclique.
+        Verticalement, une petite partie du monde doit toujours rester visible.
+        """
+
+        # --------------------------------------------------------------------------
+        # Axe horizontal : monde cyclique
+        # --------------------------------------------------------------------------
+
+        self._normaliser_camera_x()
+
+        # --------------------------------------------------------------------------
+        # Axe vertical
+        # --------------------------------------------------------------------------
+
+        if (
+            self.centre_camera_y is None
+            or self._y_min_monde is None
+            or self._y_max_monde is None
+        ):
+            return
+
+        echelle = self._echelle_monde * self.facteur_zoom
+
+        if echelle <= 0:
+            return
+
+        hauteur_vue_geo = self.height() / echelle
+
+        # Partie de la fenêtre que l'on autorise à dépasser du monde.
+        depassement = hauteur_vue_geo * (1.0 - self.proportion_min_visible)
+
+        y_min_camera = self._y_min_monde - depassement
+        y_max_camera = self._y_max_monde + depassement
+
+        self.centre_camera_y = max(
+            y_min_camera,
+            min(
+                self.centre_camera_y,
+                y_max_camera,
+            ),
+        )
 
     # --------------------------------------------------------------------------
     # Table des pays du graphe
@@ -899,7 +955,7 @@ class HemicycleWidget(QWidget):
             self._echelle_monde * nouveau_zoom
         )
 
-        self._normaliser_camera_x()
+        self._contraindre_camera()
 
         self.creer_hemicycle()
 
@@ -1127,7 +1183,7 @@ class HemicycleWidget(QWidget):
 
                 self.centre_camera_y += delta.y() / echelle
 
-                self._normaliser_camera_x()
+                self._contraindre_camera()
 
                 self.creer_hemicycle()
 

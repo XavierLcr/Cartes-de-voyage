@@ -41,7 +41,10 @@ def sleep_n_fois(n: float, time_ref: float | None):
     )
 
 
-# 3 -- Fonction de mise en forme du titre selon les événements -----------------
+# 3 -- Fonction de mise en forme selon les événements --------------------------
+
+
+## 3.1 -- Thème lié à des événements type saison, nouvent an, Noël, ... --------
 
 
 def periode_particuliere(periodes: dict) -> dict:
@@ -80,6 +83,30 @@ def periode_particuliere(periodes: dict) -> dict:
             "emoji": "",
         },
     )
+
+
+## 3.2 -- Vérifie si un jour est lié à l'armée ---------------------------------
+
+
+def est_jour_militaire(date_jour: date | None = None) -> bool:
+    """
+    Indique si la date correspond à une journée militaire ou commémorative
+    importante en France.
+
+    Si aucune date n'est fournie, utilise la date du jour.
+    """
+
+    if date_jour is None:
+        date_jour = date.today()
+
+    jours_militaires = {
+        (5, 8),  # 8 mai
+        (6, 18),  # 18 juin
+        (7, 14),  # 14 juillet
+        (11, 11),  # 11 novembre
+    }
+
+    return (date_jour.month, date_jour.day) in jours_militaires
 
 
 # 4 -- Phase de la journée -----------------------------------------------------

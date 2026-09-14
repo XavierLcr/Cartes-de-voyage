@@ -75,18 +75,6 @@ class PaysAVisiter(QWidget):
         self.recommandations_par_pays = False
         self.df = None
 
-        # Thème clair/sombre de l'appli.
-        self.set_style(
-            style=1,
-            teinte=[i / 360 for i in range(0, 360, 45)],
-            nuances={
-                "min_luminosite": 0.8,
-                "max_luminosite": 0.95,
-                "min_saturation": 0.2,
-                "max_saturation": 0.4,
-            },
-        )
-
         layout = QVBoxLayout()
         # Bouton de lancement
         self.bouton_recommandations = BoutonRecommandation(
@@ -118,6 +106,18 @@ class PaysAVisiter(QWidget):
         layout.addLayout(recommandations_layout)
 
         self.setLayout(layout)
+
+        # Thème clair/sombre de l'appli.
+        self.set_style(
+            style=1,
+            teinte=[i / 360 for i in range(0, 360, 45)],
+            nuances={
+                "min_luminosite": 0.8,
+                "max_luminosite": 0.95,
+                "min_saturation": 0.2,
+                "max_saturation": 0.4,
+            },
+        )
 
     def calculer_prochaine_destination(self):
 

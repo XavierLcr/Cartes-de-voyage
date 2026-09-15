@@ -1287,9 +1287,6 @@ class AnimationTrainPublication(QWidget):
 
         temps_ms = self._horloge.restart()
 
-        if temps_ms > 60:
-            print(f"Frame lente : {temps_ms} ms")
-
         dt = min(
             temps_ms / 1000.0,
             0.050,

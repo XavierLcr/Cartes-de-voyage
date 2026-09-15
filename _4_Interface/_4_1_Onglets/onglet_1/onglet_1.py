@@ -717,15 +717,11 @@ class OngletParametres(QWidget):
             elif type_message == "finished":
 
                 self._terminer_processus_creation()
-
                 return
 
             elif type_message == "erreur":
 
-                print(valeur)
-
                 self._terminer_processus_creation()
-
                 return
 
     def _terminer_processus_creation(

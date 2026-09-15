@@ -649,6 +649,7 @@ class PaysageCampagne:
         rect_scene: QRectF,
         y_rail: float,
         distance: float = 0.0,
+        **kwargs,
     ) -> None:
         """
         Dessine le paysage complet.

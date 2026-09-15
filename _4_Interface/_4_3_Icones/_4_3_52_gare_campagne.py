@@ -462,154 +462,615 @@ class BorneProgression:
 
 class MaisonGare:
     """
-    Dessine une petite maison de garde / bâtiment voyageurs.
+    Dessine un petit bâtiment voyageurs de gare de campagne.
 
-    Elle reste volontairement simple afin de ne pas cacher le paysage.
+    Le bâtiment est vu depuis le quai :
+        - façade basse et allongée ;
+        - grand toit débordant ;
+        - ouvertures hautes et cintrées ;
+        - encadrements clairs ;
+        - soubassement en pierre ;
+        - consoles sous la toiture ;
+        - plaque de gare.
+
+    L'ensemble reste volontairement compact afin de s'intégrer
+    au décor sans prendre trop de place.
     """
 
     def __init__(
         self,
-        couleur_mur: QColor | str = "#E7D6B6",
-        couleur_toit: QColor | str = "#8B4738",
-        couleur_bois: QColor | str = "#6F503B",
-        couleur_vitre: QColor | str = "#91B7C5",
+        couleur_mur: QColor | str = "#D9A95B",
+        couleur_toit: QColor | str = "#59666B",
+        couleur_bois: QColor | str = "#4E4035",
+        couleur_vitre: QColor | str = "#8EAFB8",
+        couleur_pierre: QColor | str = "#DDD7C7",
+        couleur_soubassement: QColor | str = "#85827A",
     ):
         self.couleur_mur = _qcolor(couleur_mur)
         self.couleur_toit = _qcolor(couleur_toit)
         self.couleur_bois = _qcolor(couleur_bois)
         self.couleur_vitre = _qcolor(couleur_vitre)
+        self.couleur_pierre = _qcolor(couleur_pierre)
+        self.couleur_soubassement = _qcolor(couleur_soubassement)
+
+    # --------------------------------------------------------------------------
+    # Dessin principal
+    # --------------------------------------------------------------------------
 
     def peindre(
         self,
         painter: QPainter,
         rect: QRectF,
     ) -> None:
-        """Dessine le petit bâtiment."""
+
         painter.save()
         painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
 
-        # Corps
+        x = rect.left()
+        y = rect.top()
+        w = rect.width()
+        h = rect.height()
+
+        ep = max(1.0, h * 0.008)
+
+        # ----------------------------------------------------------------------
+        # Corps du bâtiment
+        # ----------------------------------------------------------------------
+
         corps = QRectF(
-            rect.left() + rect.width() * 0.08,
-            rect.top() + rect.height() * 0.30,
-            rect.width() * 0.84,
-            rect.height() * 0.70,
+            x + w * 0.07,
+            y + h * 0.34,
+            w * 0.86,
+            h * 0.66,
         )
 
-        gradient = QLinearGradient(
+        grad_mur = QLinearGradient(
             corps.topLeft(),
             corps.bottomLeft(),
         )
-        gradient.setColorAt(0.0, _eclaircir(self.couleur_mur, 0.12))
-        gradient.setColorAt(1.0, _assombrir(self.couleur_mur, 0.08))
+        grad_mur.setColorAt(
+            0.0,
+            _eclaircir(self.couleur_mur, 0.10),
+        )
+        grad_mur.setColorAt(
+            1.0,
+            _assombrir(self.couleur_mur, 0.07),
+        )
 
         painter.setPen(
             QPen(
-                _assombrir(self.couleur_mur, 0.28),
-                max(1.0, rect.height() * 0.008),
+                _assombrir(self.couleur_mur, 0.25),
+                ep,
             )
         )
-        painter.setBrush(QBrush(gradient))
+        painter.setBrush(QBrush(grad_mur))
         painter.drawRect(corps)
 
-        # Toit
-        path_toit = QPainterPath()
+        # ----------------------------------------------------------------------
+        # Soubassement en pierre
+        # ----------------------------------------------------------------------
 
-        path_toit.moveTo(
-            rect.left(),
-            rect.top() + rect.height() * 0.34,
+        soubassement = QRectF(
+            corps.left(),
+            corps.bottom() - corps.height() * 0.14,
+            corps.width(),
+            corps.height() * 0.14,
         )
-        path_toit.lineTo(
-            rect.center().x(),
-            rect.top(),
+
+        grad_pierre = QLinearGradient(
+            soubassement.topLeft(),
+            soubassement.bottomLeft(),
         )
-        path_toit.lineTo(
-            rect.right(),
-            rect.top() + rect.height() * 0.34,
+        grad_pierre.setColorAt(
+            0.0,
+            _eclaircir(self.couleur_soubassement, 0.10),
         )
-        path_toit.closeSubpath()
+        grad_pierre.setColorAt(
+            1.0,
+            _assombrir(self.couleur_soubassement, 0.12),
+        )
+
+        painter.setPen(Qt.PenStyle.NoPen)
+        painter.setBrush(QBrush(grad_pierre))
+        painter.drawRect(soubassement)
+
+        # Quelques joints de pierre très discrets
+        painter.setPen(
+            QPen(
+                _assombrir(self.couleur_soubassement, 0.16),
+                ep * 0.45,
+            )
+        )
+
+        largeur_bloc = corps.width() * 0.12
+
+        xx = corps.left()
+        while xx < corps.right():
+            painter.drawLine(
+                QPointF(xx, soubassement.top()),
+                QPointF(xx, soubassement.bottom()),
+            )
+            xx += largeur_bloc
+
+        painter.drawLine(
+            QPointF(
+                soubassement.left(),
+                soubassement.center().y(),
+            ),
+            QPointF(
+                soubassement.right(),
+                soubassement.center().y(),
+            ),
+        )
+
+        # ----------------------------------------------------------------------
+        # Toit
+        # ----------------------------------------------------------------------
+        #
+        # Important :
+        # ce n'est plus un toit triangulaire vu de face.
+        # On voit ici le grand pan de toiture tourné vers le quai.
+        #
+
+        toit = QPainterPath()
+
+        toit.moveTo(
+            x + w * 0.01,
+            y + h * 0.32,
+        )
+
+        toit.lineTo(
+            x + w * 0.09,
+            y + h * 0.08,
+        )
+
+        toit.lineTo(
+            x + w * 0.91,
+            y + h * 0.08,
+        )
+
+        toit.lineTo(
+            x + w * 0.99,
+            y + h * 0.32,
+        )
+
+        toit.closeSubpath()
 
         grad_toit = QLinearGradient(
-            rect.topLeft(),
-            QPointF(rect.left(), rect.top() + rect.height() * 0.34),
+            QPointF(x, y + h * 0.08),
+            QPointF(x, y + h * 0.32),
         )
-        grad_toit.setColorAt(0.0, _eclaircir(self.couleur_toit, 0.12))
-        grad_toit.setColorAt(1.0, _assombrir(self.couleur_toit, 0.14))
+
+        grad_toit.setColorAt(
+            0.0,
+            _eclaircir(self.couleur_toit, 0.10),
+        )
+        grad_toit.setColorAt(
+            1.0,
+            _assombrir(self.couleur_toit, 0.12),
+        )
 
         painter.setPen(
             QPen(
-                _assombrir(self.couleur_toit, 0.28),
-                max(1.0, rect.height() * 0.008),
+                _assombrir(self.couleur_toit, 0.25),
+                ep,
             )
         )
         painter.setBrush(QBrush(grad_toit))
-        painter.drawPath(path_toit)
+        painter.drawPath(toit)
 
-        # Porte
-        porte = QRectF(
-            corps.center().x() - corps.width() * 0.10,
-            corps.top() + corps.height() * 0.30,
-            corps.width() * 0.20,
-            corps.height() * 0.70,
+        # ----------------------------------------------------------------------
+        # Lignes de tuiles / ardoises
+        # ----------------------------------------------------------------------
+
+        painter.save()
+
+        painter.setPen(
+            QPen(
+                _assombrir(self.couleur_toit, 0.16),
+                max(0.5, ep * 0.40),
+            )
+        )
+
+        for fraction in (0.28, 0.46, 0.64, 0.82):
+
+            yy = y + h * 0.08 + h * 0.24 * fraction
+
+            retrait = w * 0.08 * (1.0 - fraction)
+
+            painter.drawLine(
+                QPointF(
+                    x + w * 0.09 - retrait,
+                    yy,
+                ),
+                QPointF(
+                    x + w * 0.91 + retrait,
+                    yy,
+                ),
+            )
+
+        painter.restore()
+
+        # ----------------------------------------------------------------------
+        # Bordure / gouttière
+        # ----------------------------------------------------------------------
+
+        painter.setPen(
+            QPen(
+                _assombrir(self.couleur_toit, 0.38),
+                ep * 1.5,
+            )
+        )
+
+        painter.drawLine(
+            QPointF(
+                x + w * 0.01,
+                y + h * 0.32,
+            ),
+            QPointF(
+                x + w * 0.99,
+                y + h * 0.32,
+            ),
+        )
+
+        # ----------------------------------------------------------------------
+        # Cheminée
+        # ----------------------------------------------------------------------
+
+        cheminee = QRectF(
+            x + w * 0.28,
+            y + h * 0.055,
+            w * 0.055,
+            h * 0.105,
         )
 
         painter.setPen(
             QPen(
-                _assombrir(self.couleur_bois, 0.25),
-                max(1.0, rect.height() * 0.007),
+                _assombrir(self.couleur_pierre, 0.28),
+                ep * 0.8,
             )
         )
-        painter.setBrush(self.couleur_bois)
+        painter.setBrush(_assombrir(self.couleur_pierre, 0.04))
+        painter.drawRect(cheminee)
+
+        chapeau = QRectF(
+            cheminee.left() - cheminee.width() * 0.12,
+            cheminee.top(),
+            cheminee.width() * 1.24,
+            cheminee.height() * 0.12,
+        )
+
+        painter.setBrush(_assombrir(self.couleur_pierre, 0.18))
+        painter.drawRect(chapeau)
+
+        # ----------------------------------------------------------------------
+        # Les trois travées
+        # ----------------------------------------------------------------------
+
+        centre_y = corps.top() + corps.height() * 0.42
+
+        hauteur = corps.height() * 0.49
+        largeur = corps.width() * 0.16
+
+        centres = (
+            corps.left() + corps.width() * 0.20,
+            corps.center().x(),
+            corps.right() - corps.width() * 0.20,
+        )
+
+        # Deux portes et une fenêtre :
+        # cela casse immédiatement la lecture "petite maison".
+        self._dessiner_porte_cintree(
+            painter,
+            QPointF(centres[0], centre_y),
+            largeur,
+            hauteur,
+            ep,
+        )
+
+        self._dessiner_fenetre_cintree(
+            painter,
+            QPointF(centres[1], centre_y),
+            largeur,
+            hauteur * 0.78,
+            ep,
+        )
+
+        self._dessiner_porte_cintree(
+            painter,
+            QPointF(centres[2], centre_y),
+            largeur,
+            hauteur,
+            ep,
+        )
+
+        # ----------------------------------------------------------------------
+        # Plaque de gare
+        # ----------------------------------------------------------------------
+
+        plaque = QRectF(
+            corps.center().x() - corps.width() * 0.12,
+            corps.top() + corps.height() * 0.075,
+            corps.width() * 0.24,
+            corps.height() * 0.095,
+        )
+
+        painter.setPen(
+            QPen(
+                _assombrir(self.couleur_pierre, 0.24),
+                ep * 0.65,
+            )
+        )
+        painter.setBrush(_eclaircir(self.couleur_pierre, 0.10))
         painter.drawRoundedRect(
-            porte,
-            porte.width() * 0.08,
-            porte.width() * 0.08,
+            plaque,
+            plaque.height() * 0.10,
+            plaque.height() * 0.10,
         )
 
-        # Fenêtres
-        largeur_fenetre = corps.width() * 0.18
-        hauteur_fenetre = corps.height() * 0.25
-
-        for x in (
-            corps.left() + corps.width() * 0.16,
-            corps.right() - corps.width() * 0.16 - largeur_fenetre,
-        ):
-
-            fenetre = QRectF(
-                x,
-                corps.top() + corps.height() * 0.27,
-                largeur_fenetre,
-                hauteur_fenetre,
+        font = painter.font()
+        font.setBold(True)
+        font.setPixelSize(
+            max(
+                5,
+                int(plaque.height() * 0.53),
             )
+        )
 
-            grad_vitre = QLinearGradient(
-                fenetre.topLeft(),
-                fenetre.bottomLeft(),
+        painter.setFont(font)
+        painter.setPen(_assombrir(self.couleur_bois, 0.20))
+
+        painter.drawText(
+            plaque,
+            Qt.AlignmentFlag.AlignCenter,
+            "GARE",
+        )
+
+        # ----------------------------------------------------------------------
+        # Consoles soutenant le grand débord de toiture
+        # ----------------------------------------------------------------------
+
+        y_toit = y + h * 0.32
+
+        positions_consoles = (
+            corps.left() + corps.width() * 0.08,
+            corps.left() + corps.width() * 0.34,
+            corps.left() + corps.width() * 0.66,
+            corps.right() - corps.width() * 0.08,
+        )
+
+        painter.setPen(
+            QPen(
+                self.couleur_bois,
+                max(1.0, ep * 1.15),
             )
-            grad_vitre.setColorAt(0.0, _eclaircir(self.couleur_vitre, 0.25))
-            grad_vitre.setColorAt(1.0, _assombrir(self.couleur_vitre, 0.12))
+        )
 
-            painter.setPen(
-                QPen(
-                    self.couleur_bois,
-                    max(1.0, rect.height() * 0.008),
-                )
-            )
-            painter.setBrush(QBrush(grad_vitre))
+        for cx in positions_consoles:
 
-            painter.drawRect(fenetre)
-
-            # Croisillon
+            # Montant vertical
             painter.drawLine(
-                QPointF(fenetre.center().x(), fenetre.top()),
-                QPointF(fenetre.center().x(), fenetre.bottom()),
+                QPointF(cx, y_toit),
+                QPointF(cx, y_toit + h * 0.105),
             )
+
+            # Renfort diagonal
             painter.drawLine(
-                QPointF(fenetre.left(), fenetre.center().y()),
-                QPointF(fenetre.right(), fenetre.center().y()),
+                QPointF(cx, y_toit + h * 0.105),
+                QPointF(cx + w * 0.045, y_toit),
             )
 
         painter.restore()
+
+    # --------------------------------------------------------------------------
+    # Ouvertures
+    # --------------------------------------------------------------------------
+
+    def _path_cintre(
+        self,
+        rect: QRectF,
+    ) -> QPainterPath:
+        """
+        Crée une ouverture verticale avec sommet arrondi.
+        """
+
+        rayon = rect.width() / 2
+
+        path = QPainterPath()
+
+        path.moveTo(
+            rect.left(),
+            rect.bottom(),
+        )
+
+        path.lineTo(
+            rect.left(),
+            rect.top() + rayon,
+        )
+
+        path.quadTo(
+            QPointF(
+                rect.left(),
+                rect.top(),
+            ),
+            QPointF(
+                rect.center().x(),
+                rect.top(),
+            ),
+        )
+
+        path.quadTo(
+            QPointF(
+                rect.right(),
+                rect.top(),
+            ),
+            QPointF(
+                rect.right(),
+                rect.top() + rayon,
+            ),
+        )
+
+        path.lineTo(
+            rect.right(),
+            rect.bottom(),
+        )
+
+        path.closeSubpath()
+
+        return path
+
+    # --------------------------------------------------------------------------
+
+    def _dessiner_porte_cintree(
+        self,
+        painter: QPainter,
+        centre: QPointF,
+        largeur: float,
+        hauteur: float,
+        epaisseur: float,
+    ) -> None:
+
+        rect = QRectF(
+            centre.x() - largeur / 2,
+            centre.y() - hauteur * 0.42,
+            largeur,
+            hauteur,
+        )
+
+        marge = largeur * 0.13
+
+        encadrement = rect.adjusted(
+            -marge,
+            -marge,
+            marge,
+            marge * 0.35,
+        )
+
+        # Pierre claire
+        painter.setPen(Qt.PenStyle.NoPen)
+        painter.setBrush(self.couleur_pierre)
+        painter.drawPath(self._path_cintre(encadrement))
+
+        # Porte
+        painter.setPen(
+            QPen(
+                _assombrir(self.couleur_bois, 0.20),
+                epaisseur * 0.75,
+            )
+        )
+        painter.setBrush(self.couleur_bois)
+        painter.drawPath(self._path_cintre(rect))
+
+        # Panneaux verticaux
+        painter.setPen(
+            QPen(
+                _eclaircir(self.couleur_bois, 0.10),
+                epaisseur * 0.55,
+            )
+        )
+
+        painter.drawLine(
+            QPointF(
+                rect.center().x(),
+                rect.top() + rect.width() * 0.50,
+            ),
+            QPointF(
+                rect.center().x(),
+                rect.bottom(),
+            ),
+        )
+
+        painter.drawLine(
+            QPointF(
+                rect.left() + rect.width() * 0.12,
+                rect.center().y(),
+            ),
+            QPointF(
+                rect.right() - rect.width() * 0.12,
+                rect.center().y(),
+            ),
+        )
+
+    # --------------------------------------------------------------------------
+
+    def _dessiner_fenetre_cintree(
+        self,
+        painter: QPainter,
+        centre: QPointF,
+        largeur: float,
+        hauteur: float,
+        epaisseur: float,
+    ) -> None:
+
+        rect = QRectF(
+            centre.x() - largeur / 2,
+            centre.y() - hauteur * 0.40,
+            largeur,
+            hauteur,
+        )
+
+        marge = largeur * 0.13
+
+        encadrement = rect.adjusted(
+            -marge,
+            -marge,
+            marge,
+            marge,
+        )
+
+        # Encadrement clair
+        painter.setPen(Qt.PenStyle.NoPen)
+        painter.setBrush(self.couleur_pierre)
+        painter.drawPath(self._path_cintre(encadrement))
+
+        # Vitre
+        grad = QLinearGradient(
+            rect.topLeft(),
+            rect.bottomLeft(),
+        )
+
+        grad.setColorAt(
+            0.0,
+            _eclaircir(self.couleur_vitre, 0.20),
+        )
+
+        grad.setColorAt(
+            1.0,
+            _assombrir(self.couleur_vitre, 0.15),
+        )
+
+        painter.setPen(
+            QPen(
+                self.couleur_bois,
+                epaisseur * 0.8,
+            )
+        )
+        painter.setBrush(QBrush(grad))
+
+        painter.drawPath(self._path_cintre(rect))
+
+        # Montants
+        painter.drawLine(
+            QPointF(
+                rect.center().x(),
+                rect.top() + rect.width() * 0.5,
+            ),
+            QPointF(
+                rect.center().x(),
+                rect.bottom(),
+            ),
+        )
+
+        painter.drawLine(
+            QPointF(
+                rect.left(),
+                rect.top() + rect.height() * 0.55,
+            ),
+            QPointF(
+                rect.right(),
+                rect.top() + rect.height() * 0.55,
+            ),
+        )
 
 
 # 5 -- Barrière de sortie ------------------------------------------------------

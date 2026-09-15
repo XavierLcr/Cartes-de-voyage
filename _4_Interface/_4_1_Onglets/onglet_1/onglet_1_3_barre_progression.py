@@ -25,6 +25,7 @@ from _4_Interface._4_3_Icones._4_3_53_campagne import PaysageCampagne
 from _4_Interface._4_3_Icones._4_3_54_gare_ancienne import GareAncienne
 from _4_Interface._4_3_Icones._4_3_55_foret import PaysageForet
 from _4_Interface._4_3_Icones._4_3_56_gare_depart import GareDepartArrivee
+from _4_Interface._4_3_Icones._4_3_57_montagnes_neige import PaysageMontagneEnneigee
 
 # 1 -- Génération des gares et paysages ---------------------------------------
 
@@ -118,6 +119,12 @@ PAYSAGES_DISPONIBLES = {
         "poids": 1.0,
         "fabrique": lambda graine: PaysageForet(
             graine=graine,
+        ),
+    },
+    "montagnes": {
+        "poids": 1.0,
+        "fabrique": lambda graine: PaysageMontagneEnneigee(
+            graine=graine, avec_brume=True
         ),
     },
 }

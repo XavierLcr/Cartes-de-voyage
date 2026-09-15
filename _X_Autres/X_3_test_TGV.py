@@ -37,7 +37,7 @@ class ApercuTGV(QWidget):
     def __init__(self):
         super().__init__()
 
-        self.nb_pays = 17
+        self.nb_passagers = 17
         self.nb_wagons = 4
         self.duplex = False
         self.halo_fenetres = True
@@ -61,7 +61,7 @@ class ApercuTGV(QWidget):
 
     def _generer_etats(self):
 
-        return [random.random() > 0.38 for _ in range(self.nb_pays)]
+        return [random.random() > 0.38 for _ in range(self.nb_passagers)]
 
     def regenerer_etats(self):
 
@@ -89,7 +89,7 @@ class ApercuTGV(QWidget):
 
         nb_wagons = min(
             self.nb_wagons,
-            self.nb_pays,
+            self.nb_passagers,
         )
 
         # ----------------------------------------------------------------------
@@ -97,7 +97,7 @@ class ApercuTGV(QWidget):
         # ----------------------------------------------------------------------
 
         tgv = TGV(
-            nb_pays=self.nb_pays,
+            nb_pays=self.nb_passagers,
             nb_wagons=nb_wagons,
             duplex=self.duplex,
             couleur_fenetres=self.couleur_fenetres,
@@ -137,7 +137,7 @@ class ApercuTGV(QWidget):
         painter.setPen(QColor("#24292C"))
 
         texte = (
-            f"{self.nb_pays} pays  |  "
+            f"{self.nb_passagers} pays  |  "
             f"{nb_wagons} wagons  |  "
             f"répartition : {tgv.repartition}"
         )
@@ -193,9 +193,9 @@ class FenetreTest(QWidget):
             70,
         )
 
-        self.spin_pays.setValue(self.apercu.nb_pays)
+        self.spin_pays.setValue(self.apercu.nb_passagers)
 
-        self.spin_pays.valueChanged.connect(self._changer_nb_pays)
+        self.spin_pays.valueChanged.connect(self._changer_nb_passagers)
 
         controles_1.addWidget(self.spin_pays)
 
@@ -315,12 +315,12 @@ class FenetreTest(QWidget):
     # Contrôles
     # --------------------------------------------------------------------------
 
-    def _changer_nb_pays(
+    def _changer_nb_passagers(
         self,
         valeur,
     ):
 
-        self.apercu.nb_pays = valeur
+        self.apercu.nb_passagers = valeur
 
         # Le nombre de wagons ne peut pas dépasser le nombre de pays
         self.spin_wagons.setMaximum(max(valeur, 1))
@@ -366,7 +366,7 @@ class FenetreTest(QWidget):
 
         if valeur:
 
-            self.apercu.pays_allumes = [True for _ in range(self.apercu.nb_pays)]
+            self.apercu.pays_allumes = [True for _ in range(self.apercu.nb_passagers)]
 
         else:
 

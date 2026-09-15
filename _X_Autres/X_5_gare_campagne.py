@@ -355,8 +355,8 @@ class VisualisationGareCampagne(QWidget):
         self.gare.peindre_avant(
             painter=painter,
             rect=rect_gare,
-            ouverture_barriere=self.ouverture_barriere,
             y_rail=y_rail,
+            ouverture_barriere=self.ouverture_barriere,
         )
 
         painter.end()

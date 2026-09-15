@@ -346,14 +346,7 @@ class PlaqueProgressionAncienne:
 
 
 class FeuFerroviaire:
-    """
-    Petit feu ferroviaire ancien.
-
-    `etat` peut valoir :
-        - "rouge"
-        - "vert"
-        - "orange"
-    """
+    """Petit feu ferroviaire ancien, centré sur un mât unique."""
 
     def __init__(
         self,
@@ -371,39 +364,67 @@ class FeuFerroviaire:
         couleur: QColor,
         allume: bool,
     ) -> None:
-        """Dessine un feu simple."""
+        """Dessine une optique avec bague métallique, halo et reflet."""
         painter.save()
 
         if allume:
-            halo = QRadialGradient(centre, rayon * 2.8)
-            halo.setColorAt(0.0, _avec_alpha(couleur, 110))
-            halo.setColorAt(0.35, _avec_alpha(couleur, 50))
+            halo = QRadialGradient(centre, rayon * 3.0)
+            halo.setColorAt(0.0, _avec_alpha(couleur, 115))
+            halo.setColorAt(0.35, _avec_alpha(couleur, 48))
             halo.setColorAt(1.0, _avec_alpha(couleur, 0))
             painter.setPen(Qt.PenStyle.NoPen)
             painter.setBrush(QBrush(halo))
-            painter.drawEllipse(centre, rayon * 2.8, rayon * 2.8)
+            painter.drawEllipse(centre, rayon * 3.0, rayon * 3.0)
 
-        grad = QRadialGradient(centre, rayon)
-        grad.setColorAt(0.0, _eclaircir(couleur, 0.30 if allume else 0.10))
-        grad.setColorAt(0.65, couleur if allume else _assombrir(couleur, 0.40))
-        grad.setColorAt(1.0, _assombrir(couleur, 0.45))
+        # Bague / cuvelage.
+        painter.setPen(Qt.PenStyle.NoPen)
+        painter.setBrush(_assombrir(self.couleur_metal, 0.42))
+        painter.drawEllipse(centre, rayon * 1.27, rayon * 1.27)
+
+        grad = QRadialGradient(
+            QPointF(centre.x() - rayon * 0.20, centre.y() - rayon * 0.22),
+            rayon * 1.15,
+        )
+        grad.setColorAt(0.0, _eclaircir(couleur, 0.42 if allume else 0.12))
+        grad.setColorAt(0.58, couleur if allume else _assombrir(couleur, 0.44))
+        grad.setColorAt(1.0, _assombrir(couleur, 0.56))
 
         painter.setBrush(QBrush(grad))
-        painter.setPen(Qt.PenStyle.NoPen)
         painter.drawEllipse(centre, rayon, rayon)
 
-        # Reflet
-        painter.setBrush(_avec_alpha("#FFFFFF", 45 if allume else 25))
+        # Petit éclat dans le verre.
+        painter.setBrush(_avec_alpha("#FFFFFF", 65 if allume else 28))
         painter.drawEllipse(
-            QPointF(
-                centre.x() - rayon * 0.22,
-                centre.y() - rayon * 0.26,
-            ),
-            rayon * 0.28,
-            rayon * 0.18,
+            QPointF(centre.x() - rayon * 0.24, centre.y() - rayon * 0.26),
+            rayon * 0.25,
+            rayon * 0.16,
         )
 
         painter.restore()
+
+    def _dessiner_casquette(
+        self,
+        painter: QPainter,
+        centre: QPointF,
+        rayon: float,
+    ) -> None:
+        """Dessine la petite visière métallique au-dessus d'une optique."""
+        path = QPainterPath()
+        path.moveTo(centre.x() - rayon * 1.28, centre.y() - rayon * 0.58)
+        path.quadTo(
+            QPointF(centre.x(), centre.y() - rayon * 1.30),
+            QPointF(centre.x() + rayon * 1.28, centre.y() - rayon * 0.58),
+        )
+        path.lineTo(centre.x() + rayon * 1.05, centre.y() - rayon * 0.25)
+        path.quadTo(
+            QPointF(centre.x(), centre.y() - rayon * 0.82),
+            QPointF(centre.x() - rayon * 1.05, centre.y() - rayon * 0.25),
+        )
+        path.closeSubpath()
+
+        painter.setPen(Qt.PenStyle.NoPen)
+        painter.setBrush(_assombrir(self.couleur_metal, 0.18))
+        painter.drawPath(path)
 
     def peindre(
         self,
@@ -411,7 +432,7 @@ class FeuFerroviaire:
         rect: QRectF,
         etat: str = "rouge",
     ) -> None:
-        """Dessine le feu complet."""
+        """Dessine le feu complet, parfaitement centré dans ``rect``."""
         if rect.width() <= 0 or rect.height() <= 0:
             return
 
@@ -422,94 +443,121 @@ class FeuFerroviaire:
         painter.save()
         painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
 
-        # Mât
-        largeur_mat = max(2.5, rect.width() * 0.07)
-        gradient_mat = QLinearGradient(
-            rect.left(),
-            0,
-            rect.left() + largeur_mat,
-            0,
-        )
-        gradient_mat.setColorAt(0.0, _assombrir(self.couleur_support, 0.25))
-        gradient_mat.setColorAt(0.45, _eclaircir(self.couleur_support, 0.15))
-        gradient_mat.setColorAt(1.0, _assombrir(self.couleur_support, 0.20))
+        h = rect.height()
+        cx = rect.center().x()
 
-        rect_mat = QRectF(
-            rect.center().x() - largeur_mat / 2,
-            rect.top() + rect.height() * 0.18,
-            largeur_mat,
-            rect.height() * 0.82,
+        # Le coffret est indépendant de la largeur du rect afin de ne pas
+        # devenir trop large dans une scène panoramique.
+        largeur_boite = min(rect.width() * 0.84, h * 0.34)
+        hauteur_boite = h * 0.44
+        y_boite = rect.top() + h * 0.015
+
+        rect_boite = QRectF(
+            cx - largeur_boite / 2,
+            y_boite,
+            largeur_boite,
+            hauteur_boite,
         )
+
+        # Mât, strictement centré sous le coffret.
+        largeur_mat = max(2.5, h * 0.055)
+        rect_mat = QRectF(
+            cx - largeur_mat / 2,
+            rect_boite.bottom() - h * 0.008,
+            largeur_mat,
+            rect.bottom() - h * 0.055 - rect_boite.bottom() + h * 0.008,
+        )
+
+        gradient_mat = QLinearGradient(
+            QPointF(rect_mat.left(), 0),
+            QPointF(rect_mat.right(), 0),
+        )
+        gradient_mat.setColorAt(0.0, _assombrir(self.couleur_support, 0.28))
+        gradient_mat.setColorAt(0.48, _eclaircir(self.couleur_support, 0.18))
+        gradient_mat.setColorAt(1.0, _assombrir(self.couleur_support, 0.24))
 
         painter.setPen(Qt.PenStyle.NoPen)
         painter.setBrush(QBrush(gradient_mat))
         painter.drawRoundedRect(
             rect_mat,
-            largeur_mat * 0.45,
-            largeur_mat * 0.45,
+            largeur_mat * 0.42,
+            largeur_mat * 0.42,
         )
 
-        # Coffret
-        rect_boite = QRectF(
-            rect.left() + rect.width() * 0.18,
-            rect.top(),
-            rect.width() * 0.64,
-            rect.height() * 0.32,
+        # Socle vissé au sol.
+        rect_socle = QRectF(
+            cx - h * 0.075,
+            rect.bottom() - h * 0.060,
+            h * 0.150,
+            h * 0.045,
+        )
+        painter.setBrush(_assombrir(self.couleur_support, 0.22))
+        painter.drawRoundedRect(
+            rect_socle,
+            rect_socle.height() * 0.22,
+            rect_socle.height() * 0.22,
         )
 
+        # Coffret.
         gradient_boite = QLinearGradient(
             rect_boite.topLeft(),
-            rect_boite.bottomLeft(),
+            rect_boite.bottomRight(),
         )
-        gradient_boite.setColorAt(0.0, _eclaircir(self.couleur_metal, 0.10))
-        gradient_boite.setColorAt(1.0, _assombrir(self.couleur_metal, 0.12))
+        gradient_boite.setColorAt(0.0, _eclaircir(self.couleur_metal, 0.15))
+        gradient_boite.setColorAt(0.45, self.couleur_metal)
+        gradient_boite.setColorAt(1.0, _assombrir(self.couleur_metal, 0.22))
 
-        painter.setPen(
-            QPen(_assombrir(self.couleur_metal, 0.35), max(1.0, rect.width() * 0.03))
-        )
+        pen_boite = QPen(_assombrir(self.couleur_metal, 0.40))
+        pen_boite.setWidthF(max(1.0, h * 0.017))
+        painter.setPen(pen_boite)
         painter.setBrush(QBrush(gradient_boite))
         painter.drawRoundedRect(
             rect_boite,
-            rect_boite.width() * 0.16,
-            rect_boite.width() * 0.16,
+            largeur_boite * 0.12,
+            largeur_boite * 0.12,
         )
 
-        # Trois optiques
-        cx = rect_boite.center().x()
-        r = rect_boite.height() * 0.12
+        # Charnières / petites attaches latérales.
+        painter.setPen(Qt.PenStyle.NoPen)
+        painter.setBrush(_eclaircir(self.couleur_metal, 0.18))
+        for y in (
+            rect_boite.top() + hauteur_boite * 0.18,
+            rect_boite.bottom() - hauteur_boite * 0.18,
+        ):
+            painter.drawRoundedRect(
+                QRectF(
+                    rect_boite.right() - h * 0.014,
+                    y - h * 0.010,
+                    h * 0.020,
+                    h * 0.020,
+                ),
+                h * 0.004,
+                h * 0.004,
+            )
 
+        rayon = min(largeur_boite * 0.19, hauteur_boite * 0.095)
         centres = [
-            QPointF(cx, rect_boite.top() + rect_boite.height() * 0.22),
-            QPointF(cx, rect_boite.top() + rect_boite.height() * 0.50),
-            QPointF(cx, rect_boite.top() + rect_boite.height() * 0.78),
+            QPointF(cx, rect_boite.top() + hauteur_boite * 0.20),
+            QPointF(cx, rect_boite.top() + hauteur_boite * 0.50),
+            QPointF(cx, rect_boite.top() + hauteur_boite * 0.80),
         ]
+        couleurs = (QColor("#D14B41"), QColor("#D09C35"), QColor("#4AA35B"))
+        etats = ("rouge", "orange", "vert")
 
-        self._dessiner_optique(
-            painter,
-            centres[0],
-            r,
-            QColor("#D14B41"),
-            etat == "rouge",
-        )
-        self._dessiner_optique(
-            painter,
-            centres[1],
-            r,
-            QColor("#D09C35"),
-            etat == "orange",
-        )
-        self._dessiner_optique(
-            painter,
-            centres[2],
-            r,
-            QColor("#4AA35B"),
-            etat == "vert",
-        )
+        for centre, couleur, nom_etat in zip(centres, couleurs, etats):
+            self._dessiner_casquette(painter, centre, rayon)
+            self._dessiner_optique(
+                painter,
+                centre,
+                rayon,
+                couleur,
+                etat == nom_etat,
+            )
 
         painter.restore()
 
 
-# 5 -- Horloge ----------------------------------------------------------------
+# 5 -- Horloge# 5 -- Horloge ----------------------------------------------------------------
 
 
 class HorlogeGare:
@@ -681,7 +729,9 @@ class GareAncienne:
         rect: QRectF,
         y_quai: float,
     ) -> None:
-        """Mur de fond et soubassement."""
+        """Dessine le mur de fond, son soubassement et ses moulures."""
+        h = rect.height()
+
         rect_mur = QRectF(
             rect.left(),
             rect.top(),
@@ -693,40 +743,72 @@ class GareAncienne:
             rect_mur.topLeft(),
             rect_mur.bottomLeft(),
         )
-        gradient_mur.setColorAt(0.0, _eclaircir(self.couleur_mur, 0.12))
-        gradient_mur.setColorAt(0.65, self.couleur_mur)
-        gradient_mur.setColorAt(1.0, _assombrir(self.couleur_mur, 0.05))
+        gradient_mur.setColorAt(0.0, _eclaircir(self.couleur_mur, 0.14))
+        gradient_mur.setColorAt(0.62, self.couleur_mur)
+        gradient_mur.setColorAt(1.0, _assombrir(self.couleur_mur, 0.055))
 
         painter.setPen(Qt.PenStyle.NoPen)
         painter.setBrush(QBrush(gradient_mur))
         painter.drawRect(rect_mur)
 
-        # Soubassement
+        # Soubassement plus robuste et légèrement plus froid.
+        hauteur_bas = h * 0.18
         rect_bas = QRectF(
             rect.left(),
-            y_quai - rect.height() * 0.18,
+            y_quai - hauteur_bas,
             rect.width(),
-            rect.height() * 0.18,
+            hauteur_bas,
         )
 
         grad_bas = QLinearGradient(
             rect_bas.topLeft(),
             rect_bas.bottomLeft(),
         )
-        grad_bas.setColorAt(0.0, _eclaircir(self.couleur_mur_bas, 0.08))
-        grad_bas.setColorAt(1.0, _assombrir(self.couleur_mur_bas, 0.12))
+        grad_bas.setColorAt(0.0, _eclaircir(self.couleur_mur_bas, 0.10))
+        grad_bas.setColorAt(0.45, self.couleur_mur_bas)
+        grad_bas.setColorAt(1.0, _assombrir(self.couleur_mur_bas, 0.14))
 
         painter.setBrush(QBrush(grad_bas))
         painter.drawRect(rect_bas)
 
-        # Quelques joints / lignes décoratives
-        pen = QPen(_avec_alpha(_assombrir(self.couleur_mur, 0.22), 85))
-        pen.setWidthF(max(1.0, rect.height() * 0.004))
-        painter.setPen(pen)
+        # Corniche séparant le soubassement du mur : elle sert de ligne de
+        # référence commune à toutes les portes et fenêtres.
+        y_corniche = rect_bas.top()
+        epaisseur = max(2.0, h * 0.009)
 
-        for k in (0.18, 0.33, 0.48):
-            y = rect.top() + rect.height() * k
+        painter.setBrush(_assombrir(self.couleur_mur_bas, 0.13))
+        painter.drawRect(
+            QRectF(rect.left(), y_corniche - epaisseur * 0.35, rect.width(), epaisseur)
+        )
+        painter.setBrush(_eclaircir(self.couleur_mur_bas, 0.18))
+        painter.drawRect(
+            QRectF(
+                rect.left(),
+                y_corniche - epaisseur * 0.45,
+                rect.width(),
+                epaisseur * 0.28,
+            )
+        )
+
+        # Joints horizontaux très discrets : moins réguliers qu'avant pour
+        # éviter l'effet "papier millimétré".
+        pen_joint = QPen(_avec_alpha(_assombrir(self.couleur_mur, 0.22), 58))
+        pen_joint.setWidthF(max(1.0, h * 0.0028))
+        painter.setPen(pen_joint)
+
+        for proportion in (0.31, 0.47, 0.61):
+            y = rect.top() + h * proportion
             painter.drawLine(QPointF(rect.left(), y), QPointF(rect.right(), y))
+
+        # Quelques joints verticaux décalés donnent une vraie texture de pierre
+        # sans charger tout le fond.
+        pas = h * 0.34
+        x = rect.left() + pas * 0.55
+        y_1 = rect.top() + h * 0.31
+        y_2 = y_corniche
+        while x < rect.right():
+            painter.drawLine(QPointF(x, y_1), QPointF(x, y_2))
+            x += pas
 
     def _dessiner_ouverture_laterale(
         self,
@@ -738,62 +820,224 @@ class GareAncienne:
         hauteur: float,
         cote: str,
     ) -> None:
-        """Dessine une grande ouverture en arche."""
+        """Dessine l'ouverture par laquelle la rame entre ou quitte la halle.
+
+        L'ouverture reste tangente au bord de la scène pour que le train puisse
+        réellement y disparaître, mais la maçonnerie, l'arche intérieure et la
+        perspective sont décalées vers l'intérieur de la gare.
+        """
+        h = rect.height()
+        cote = cote.lower().strip()
+        sens = 1.0 if cote == "entree" else -1.0
+
         x0 = x_centre - largeur / 2
+        x1 = x_centre + largeur / 2
         y0 = y_quai - hauteur
+        y_naissance = y0 + hauteur * 0.23
 
-        path = QPainterPath()
-        path.moveTo(x0, y_quai)
-        path.lineTo(x0, y0 + hauteur * 0.28)
-        path.quadTo(
-            QPointF(x0 + largeur / 2, y0 - hauteur * 0.12),
-            QPointF(x0 + largeur, y0 + hauteur * 0.28),
-        )
-        path.lineTo(x0 + largeur, y_quai)
-        path.closeSubpath()
+        def chemin_arche(decalage_x: float = 0.0, retrait: float = 0.0) -> QPainterPath:
+            gauche = x0 + retrait + decalage_x
+            droite = x1 - retrait + decalage_x
+            haut = y0 + retrait * 0.35
+            naissance = y_naissance + retrait * 0.20
 
-        # Intérieur sombre / lumineux
+            path = QPainterPath()
+            path.moveTo(gauche, y_quai)
+            path.lineTo(gauche, naissance)
+            path.cubicTo(
+                QPointF(gauche, haut),
+                QPointF(droite, haut),
+                QPointF(droite, naissance),
+            )
+            path.lineTo(droite, y_quai)
+            path.closeSubpath()
+            return path
+
+        path = chemin_arche()
+
+        # Ombre portée du grand encadrement.
+        painter.setPen(Qt.PenStyle.NoPen)
+        painter.setBrush(_avec_alpha("#000000", 42))
+        painter.drawPath(chemin_arche(decalage_x=sens * h * 0.010))
+
+        # Profondeur intérieure : même ambiance des deux côtés, seule la
+        # direction de la lumière change.
         if cote == "entree":
-            c1 = QColor(58, 64, 71)
-            c2 = QColor(105, 114, 122)
+            c_exterieur = QColor(111, 128, 138)
+            c_interieur = QColor(54, 61, 66)
         else:
-            c1 = QColor(223, 233, 235)
-            c2 = QColor(176, 196, 201)
+            c_exterieur = QColor(183, 204, 210)
+            c_interieur = QColor(67, 74, 79)
 
         gradient = QLinearGradient(
-            QPointF(x0, y0),
-            QPointF(x0 + largeur, y_quai),
+            QPointF(x0 if sens > 0 else x1, y0),
+            QPointF(x1 if sens > 0 else x0, y_quai),
         )
-        gradient.setColorAt(0.0, c2)
-        gradient.setColorAt(1.0, c1)
+        gradient.setColorAt(0.0, c_exterieur)
+        gradient.setColorAt(0.52, _melanger(c_exterieur, c_interieur, 0.55))
+        gradient.setColorAt(1.0, c_interieur)
 
         painter.setPen(Qt.PenStyle.NoPen)
         painter.setBrush(QBrush(gradient))
         painter.drawPath(path)
 
-        # Cadre d'arche
-        pen = QPen(self.couleur_metal_fonce)
-        pen.setWidthF(max(2.0, rect.height() * 0.009))
-        painter.setPen(pen)
+        # Gros bandeau de pierre/métal autour de l'ouverture.
+        pen_cadre = QPen(_assombrir(self.couleur_mur_bas, 0.30))
+        pen_cadre.setWidthF(max(3.0, h * 0.020))
+        pen_cadre.setJoinStyle(Qt.PenJoinStyle.RoundJoin)
+        painter.setPen(pen_cadre)
         painter.setBrush(Qt.BrushStyle.NoBrush)
         painter.drawPath(path)
 
-        # Petite perspective / profondeur
-        decalage = rect.width() * 0.018 if cote == "entree" else -rect.width() * 0.018
+        # Filet clair côté lumière.
+        pen_lumiere = QPen(_avec_alpha(_eclaircir(self.couleur_mur_bas, 0.35), 155))
+        pen_lumiere.setWidthF(max(1.0, h * 0.004))
+        painter.setPen(pen_lumiere)
+        painter.drawPath(chemin_arche(decalage_x=-sens * h * 0.006, retrait=h * 0.008))
 
-        path_interieur = QPainterPath()
-        path_interieur.moveTo(x0 + decalage, y_quai)
-        path_interieur.lineTo(x0 + decalage, y0 + hauteur * 0.32)
-        path_interieur.quadTo(
-            QPointF(x0 + largeur / 2 + decalage, y0 - hauteur * 0.03),
-            QPointF(x0 + largeur + decalage, y0 + hauteur * 0.32),
-        )
-        path_interieur.lineTo(x0 + largeur + decalage, y_quai)
+        # Seconde arche en retrait : elle matérialise l'épaisseur de la halle.
+        profondeur = sens * h * 0.030
+        retrait = h * 0.018
+        path_interieur = chemin_arche(decalage_x=profondeur, retrait=retrait)
 
-        pen_inner = QPen(_avec_alpha(self.couleur_metal_fonce, 120))
-        pen_inner.setWidthF(max(1.0, rect.height() * 0.004))
+        pen_inner = QPen(_avec_alpha(self.couleur_metal_fonce, 175))
+        pen_inner.setWidthF(max(1.0, h * 0.006))
         painter.setPen(pen_inner)
         painter.drawPath(path_interieur)
+
+        # Deux montants de structure à l'intérieur de la bouche. Leur léger
+        # décalage donne une perspective sans faire croire à des portes.
+        y_bas = y_quai - h * 0.010
+        y_haut = y_naissance + hauteur * 0.04
+        for p in (0.20, 0.80):
+            x_ext = x0 + largeur * p
+            x_int = x_ext + profondeur * 0.72
+            painter.drawLine(QPointF(x_ext, y_bas), QPointF(x_int, y_haut))
+
+        # Traverse haute discrète.
+        painter.drawLine(
+            QPointF(x0 + largeur * 0.18, y_naissance + hauteur * 0.035),
+            QPointF(x1 - largeur * 0.18, y_naissance + hauteur * 0.035),
+        )
+
+    def _dessiner_baie_murale(
+        self,
+        painter: QPainter,
+        rect_baie: QRectF,
+        type_baie: str = "fenetre",
+    ) -> None:
+        """Dessine une fenêtre ou une porte ancienne avec la même grille."""
+        if rect_baie.width() <= 0 or rect_baie.height() <= 0:
+            return
+
+        type_baie = type_baie.lower().strip()
+        est_porte = type_baie == "porte"
+        w = rect_baie.width()
+        h = rect_baie.height()
+
+        # Ombre d'encadrement.
+        ombre = rect_baie.translated(w * 0.035, h * 0.025)
+        painter.setPen(Qt.PenStyle.NoPen)
+        painter.setBrush(_avec_alpha("#000000", 28))
+        painter.drawRoundedRect(ombre, w * 0.06, w * 0.06)
+
+        # Cadre extérieur.
+        cadre = QPen(_assombrir(self.couleur_mur_bas, 0.24))
+        cadre.setWidthF(max(1.5, w * 0.075))
+        painter.setPen(cadre)
+        painter.setBrush(_assombrir(self.couleur_metal_fonce, 0.10))
+        painter.drawRoundedRect(rect_baie, w * 0.055, w * 0.055)
+
+        marge = w * 0.10
+        vitrage = rect_baie.adjusted(marge, marge, -marge, -marge)
+
+        grad = QLinearGradient(vitrage.topLeft(), vitrage.bottomRight())
+        grad.setColorAt(0.0, _eclaircir(self.couleur_verre, 0.22))
+        grad.setColorAt(0.50, self.couleur_verre)
+        grad.setColorAt(1.0, _assombrir(self.couleur_verre, 0.18))
+
+        painter.setPen(Qt.PenStyle.NoPen)
+        painter.setBrush(QBrush(grad))
+        painter.drawRoundedRect(vitrage, w * 0.025, w * 0.025)
+
+        pen_menuiserie = QPen(_assombrir(self.couleur_metal_fonce, 0.08))
+        pen_menuiserie.setWidthF(max(1.0, w * 0.040))
+        painter.setPen(pen_menuiserie)
+
+        # Toutes les baies partagent le même axe vertical.
+        painter.drawLine(
+            QPointF(vitrage.center().x(), vitrage.top()),
+            QPointF(vitrage.center().x(), vitrage.bottom()),
+        )
+
+        if est_porte:
+            # Imposte vitrée et deux vantaux bien alignés.
+            y_imposte = vitrage.top() + vitrage.height() * 0.24
+            painter.drawLine(
+                QPointF(vitrage.left(), y_imposte),
+                QPointF(vitrage.right(), y_imposte),
+            )
+
+            # Panneaux bas plus opaques.
+            y_panneau = vitrage.top() + vitrage.height() * 0.67
+            painter.drawLine(
+                QPointF(vitrage.left(), y_panneau),
+                QPointF(vitrage.right(), y_panneau),
+            )
+            painter.setBrush(
+                _avec_alpha(_assombrir(self.couleur_metal_fonce, 0.02), 78)
+            )
+            painter.setPen(Qt.PenStyle.NoPen)
+            painter.drawRect(
+                QRectF(
+                    vitrage.left(),
+                    y_panneau,
+                    vitrage.width(),
+                    vitrage.bottom() - y_panneau,
+                )
+            )
+
+            # Poignées symétriques.
+            painter.setBrush(_eclaircir(self.couleur_metal_fonce, 0.30))
+            r = max(1.1, w * 0.025)
+            cy = vitrage.top() + vitrage.height() * 0.58
+            painter.drawEllipse(QPointF(vitrage.center().x() - w * 0.065, cy), r, r)
+            painter.drawEllipse(QPointF(vitrage.center().x() + w * 0.065, cy), r, r)
+        else:
+            # Deux traverses donnent six petits carreaux réguliers.
+            for p in (0.34, 0.68):
+                y = vitrage.top() + vitrage.height() * p
+                painter.drawLine(
+                    QPointF(vitrage.left(), y),
+                    QPointF(vitrage.right(), y),
+                )
+
+            # Appui de fenêtre saillant.
+            painter.setPen(Qt.PenStyle.NoPen)
+            painter.setBrush(_assombrir(self.couleur_mur_bas, 0.08))
+            painter.drawRoundedRect(
+                QRectF(
+                    rect_baie.left() - w * 0.06,
+                    rect_baie.bottom() - h * 0.015,
+                    rect_baie.width() + w * 0.12,
+                    h * 0.055,
+                ),
+                h * 0.012,
+                h * 0.012,
+            )
+
+        # Reflet diagonal léger, identique sur toutes les vitres.
+        painter.setPen(QPen(_avec_alpha("#FFFFFF", 55), max(1.0, w * 0.018)))
+        painter.drawLine(
+            QPointF(
+                vitrage.left() + vitrage.width() * 0.15,
+                vitrage.top() + vitrage.height() * 0.08,
+            ),
+            QPointF(
+                vitrage.left() + vitrage.width() * 0.45,
+                vitrage.bottom() - vitrage.height() * 0.08,
+            ),
+        )
 
     def _dessiner_piliers(
         self,
@@ -801,58 +1045,95 @@ class GareAncienne:
         rect: QRectF,
         y_quai: float,
     ) -> None:
-        """Dessine les montants principaux de la gare."""
+        """Dessine des piliers métalliques sur une grille symétrique."""
         h = rect.height()
 
         positions = (
-            rect.left() + rect.width() * 0.18,
-            rect.left() + rect.width() * 0.38,
-            rect.left() + rect.width() * 0.60,
-            rect.left() + rect.width() * 0.80,
+            rect.left() + rect.width() * 0.17,
+            rect.left() + rect.width() * 0.39,
+            rect.left() + rect.width() * 0.61,
+            rect.left() + rect.width() * 0.83,
         )
 
-        for x in positions:
-            largeur = rect.width() * 0.028
+        largeur = h * 0.055
+        y_top = rect.top() + h * 0.105
 
+        for x in positions:
             rect_pilier = QRectF(
                 x - largeur / 2,
-                rect.top() + h * 0.10,
+                y_top,
                 largeur,
-                y_quai - rect.top() - h * 0.10,
+                y_quai - y_top,
+            )
+
+            # Ombre portée vers la droite.
+            painter.setPen(Qt.PenStyle.NoPen)
+            painter.setBrush(_avec_alpha("#000000", 28))
+            painter.drawRoundedRect(
+                rect_pilier.translated(h * 0.007, h * 0.004),
+                largeur * 0.16,
+                largeur * 0.16,
             )
 
             grad = QLinearGradient(
-                rect_pilier.left(),
-                0,
-                rect_pilier.right(),
-                0,
+                QPointF(rect_pilier.left(), 0),
+                QPointF(rect_pilier.right(), 0),
             )
-            grad.setColorAt(0.0, _assombrir(self.couleur_metal, 0.24))
-            grad.setColorAt(0.50, _eclaircir(self.couleur_metal, 0.10))
-            grad.setColorAt(1.0, _assombrir(self.couleur_metal, 0.22))
+            grad.setColorAt(0.0, _assombrir(self.couleur_metal, 0.28))
+            grad.setColorAt(0.22, self.couleur_metal)
+            grad.setColorAt(0.52, _eclaircir(self.couleur_metal, 0.14))
+            grad.setColorAt(1.0, _assombrir(self.couleur_metal, 0.24))
 
-            painter.setPen(Qt.PenStyle.NoPen)
             painter.setBrush(QBrush(grad))
             painter.drawRoundedRect(
                 rect_pilier,
-                largeur * 0.20,
-                largeur * 0.20,
+                largeur * 0.16,
+                largeur * 0.16,
             )
 
-            # Chapiteau / renfort supérieur
+            # Nervure centrale.
+            painter.setBrush(_avec_alpha(_eclaircir(self.couleur_metal, 0.30), 95))
+            painter.drawRect(
+                QRectF(
+                    x - largeur * 0.055,
+                    rect_pilier.top() + h * 0.040,
+                    largeur * 0.11,
+                    rect_pilier.height() - h * 0.075,
+                )
+            )
+
+            # Chapiteau.
             rect_tete = QRectF(
-                rect_pilier.left() - largeur * 0.28,
+                rect_pilier.left() - largeur * 0.34,
                 rect_pilier.top(),
-                rect_pilier.width() + largeur * 0.56,
-                h * 0.040,
+                rect_pilier.width() + largeur * 0.68,
+                h * 0.038,
             )
-
-            painter.setBrush(_assombrir(self.couleur_metal, 0.08))
+            painter.setBrush(_assombrir(self.couleur_metal, 0.10))
             painter.drawRoundedRect(
                 rect_tete,
-                rect_tete.height() * 0.22,
-                rect_tete.height() * 0.22,
+                rect_tete.height() * 0.18,
+                rect_tete.height() * 0.18,
             )
+
+            # Pied boulonné, aligné exactement sur le quai.
+            rect_pied = QRectF(
+                x - largeur * 0.80,
+                y_quai - h * 0.028,
+                largeur * 1.60,
+                h * 0.028,
+            )
+            painter.setBrush(_assombrir(self.couleur_metal, 0.16))
+            painter.drawRoundedRect(
+                rect_pied,
+                rect_pied.height() * 0.20,
+                rect_pied.height() * 0.20,
+            )
+
+            painter.setBrush(_eclaircir(self.couleur_metal, 0.28))
+            r = max(1.0, h * 0.004)
+            for dx in (-largeur * 0.46, largeur * 0.46):
+                painter.drawEllipse(QPointF(x + dx, y_quai - h * 0.014), r, r)
 
     def _dessiner_verriere(
         self,
@@ -860,73 +1141,100 @@ class GareAncienne:
         rect: QRectF,
         y_quai: float,
     ) -> None:
-        """Dessine la marquise / verrière intérieure."""
+        """Dessine une vraie verrière cintrée avec charpente et contreventements."""
         h = rect.height()
 
         rect_verriere = QRectF(
-            rect.left() + rect.width() * 0.08,
-            rect.top() + h * 0.02,
-            rect.width() * 0.84,
-            y_quai - rect.top() - h * 0.46,
+            rect.left() + rect.width() * 0.075,
+            rect.top() + h * 0.020,
+            rect.width() * 0.85,
+            max(h * 0.18, y_quai - rect.top() - h * 0.45),
         )
 
-        # Fond vitré
+        y_naissance = rect_verriere.top() + rect_verriere.height() * 0.24
+        y_controle = rect_verriere.top() - rect_verriere.height() * 0.10
+
+        path_verriere = QPainterPath()
+        path_verriere.moveTo(rect_verriere.left(), rect_verriere.bottom())
+        path_verriere.lineTo(rect_verriere.left(), y_naissance)
+        path_verriere.quadTo(
+            QPointF(rect_verriere.center().x(), y_controle),
+            QPointF(rect_verriere.right(), y_naissance),
+        )
+        path_verriere.lineTo(rect_verriere.right(), rect_verriere.bottom())
+        path_verriere.closeSubpath()
+
         grad_verre = QLinearGradient(
             rect_verriere.topLeft(),
             rect_verriere.bottomLeft(),
         )
-        grad_verre.setColorAt(0.0, _eclaircir(self.couleur_verre, 0.28))
-        grad_verre.setColorAt(1.0, _assombrir(self.couleur_verre, 0.04))
+        grad_verre.setColorAt(0.0, _eclaircir(self.couleur_verre, 0.34))
+        grad_verre.setColorAt(0.55, self.couleur_verre)
+        grad_verre.setColorAt(1.0, _assombrir(self.couleur_verre, 0.07))
 
         painter.setPen(Qt.PenStyle.NoPen)
         painter.setBrush(QBrush(grad_verre))
-        painter.drawRoundedRect(
-            rect_verriere,
-            rect_verriere.height() * 0.10,
-            rect_verriere.height() * 0.10,
-        )
+        painter.drawPath(path_verriere)
 
-        # Charpente
-        pen = QPen(_avec_alpha(self.couleur_metal_fonce, 190))
-        pen.setWidthF(max(1.0, rect.height() * 0.006))
-        painter.setPen(pen)
+        # Tout ce qui suit est découpé proprement par la forme de la verrière.
+        painter.save()
+        painter.setClipPath(path_verriere)
 
-        # Arcs principaux
-        n_arcs = 5
-        for i in range(n_arcs):
-            x = rect_verriere.left() + rect_verriere.width() * i / (n_arcs - 1)
+        pen_fin = QPen(_avec_alpha(self.couleur_metal_fonce, 195))
+        pen_fin.setWidthF(max(1.0, h * 0.0055))
+        painter.setPen(pen_fin)
 
-            path = QPainterPath()
-            path.moveTo(x, rect_verriere.bottom())
-            path.quadTo(
-                QPointF(x, rect_verriere.top() + rect_verriere.height() * 0.15),
-                QPointF(x, rect_verriere.top()),
+        n_travees = 8
+        xs = []
+        for i in range(n_travees + 1):
+            t = i / n_travees
+            x = rect_verriere.left() + rect_verriere.width() * t
+            y_courbe = (
+                (1 - t) ** 2 * y_naissance
+                + 2 * (1 - t) * t * y_controle
+                + t**2 * y_naissance
             )
-            painter.drawPath(path)
+            xs.append((x, y_courbe))
+            painter.drawLine(QPointF(x, y_courbe), QPointF(x, rect_verriere.bottom()))
 
-        # Traverses horizontales
-        for p in (0.18, 0.42, 0.66, 0.86):
-            y = rect_verriere.top() + rect_verriere.height() * p
+        # Traverses horizontales.
+        for proportion in (0.38, 0.66, 0.86):
+            y = rect_verriere.top() + rect_verriere.height() * proportion
             painter.drawLine(
                 QPointF(rect_verriere.left(), y),
                 QPointF(rect_verriere.right(), y),
             )
 
-        # Reflets
-        painter.setPen(
-            QPen(_avec_alpha("#FFFFFF", 45), max(1.0, rect.height() * 0.004))
-        )
-        for p in (0.20, 0.48):
+        # Contreventements en X dans une travée sur deux.
+        pen_x = QPen(_avec_alpha(self.couleur_metal_fonce, 120))
+        pen_x.setWidthF(max(1.0, h * 0.0035))
+        painter.setPen(pen_x)
+        y_x_haut = rect_verriere.top() + rect_verriere.height() * 0.43
+        y_x_bas = rect_verriere.top() + rect_verriere.height() * 0.82
+
+        for i in range(0, n_travees, 2):
+            xg = xs[i][0]
+            xd = xs[i + 1][0]
+            painter.drawLine(QPointF(xg, y_x_haut), QPointF(xd, y_x_bas))
+            painter.drawLine(QPointF(xd, y_x_haut), QPointF(xg, y_x_bas))
+
+        # Reflets verticaux, beaucoup plus discrets que les anciens grands traits.
+        painter.setPen(QPen(_avec_alpha("#FFFFFF", 42), max(1.0, h * 0.003)))
+        for p in (0.15, 0.46, 0.72):
+            x = rect_verriere.left() + rect_verriere.width() * p
             painter.drawLine(
-                QPointF(
-                    rect_verriere.left() + rect_verriere.width() * p,
-                    rect_verriere.top(),
-                ),
-                QPointF(
-                    rect_verriere.left() + rect_verriere.width() * (p - 0.12),
-                    rect_verriere.bottom(),
-                ),
+                QPointF(x, rect_verriere.top() + rect_verriere.height() * 0.18),
+                QPointF(x - h * 0.035, rect_verriere.bottom()),
             )
+
+        painter.restore()
+
+        # Grosses poutres de rive : elles donnent enfin une vraie limite au toit.
+        pen_rive = QPen(_assombrir(self.couleur_metal_fonce, 0.10))
+        pen_rive.setWidthF(max(2.0, h * 0.010))
+        painter.setPen(pen_rive)
+        painter.setBrush(Qt.BrushStyle.NoBrush)
+        painter.drawPath(path_verriere)
 
     def _dessiner_lampes_suspendues(
         self,
@@ -934,69 +1242,69 @@ class GareAncienne:
         rect: QRectF,
         y_quai: float,
     ) -> None:
-        """Dessine quelques lampes suspendues sous la verrière."""
+        """Dessine trois lampes suspendues alignées sur les travées."""
         h = rect.height()
-
-        y_support = rect.top() + h * 0.19
+        y_support = rect.top() + h * 0.185
+        y_lampe = rect.top() + h * 0.285
 
         positions = (
-            rect.left() + rect.width() * 0.26,
+            rect.left() + rect.width() * 0.28,
             rect.left() + rect.width() * 0.50,
-            rect.left() + rect.width() * 0.74,
+            rect.left() + rect.width() * 0.72,
         )
 
         for x in positions:
-            # Tige
             pen = QPen(self.couleur_metal_fonce)
-            pen.setWidthF(max(1.0, h * 0.005))
+            pen.setWidthF(max(1.0, h * 0.0045))
             painter.setPen(pen)
+            painter.drawLine(QPointF(x, y_support), QPointF(x, y_lampe))
 
-            y_lampe = y_support + h * 0.10
-            painter.drawLine(
-                QPointF(x, y_support),
-                QPointF(x, y_lampe),
-            )
+            # Petite rosace d'accroche.
+            painter.setPen(Qt.PenStyle.NoPen)
+            painter.setBrush(_assombrir(self.couleur_metal_fonce, 0.06))
+            painter.drawEllipse(QPointF(x, y_support), h * 0.010, h * 0.006)
 
-            # Halo
             if self.lampes_allumees:
-                halo = QRadialGradient(
-                    QPointF(x, y_lampe + h * 0.010),
-                    h * 0.10,
-                )
-                halo.setColorAt(0.0, QColor(255, 229, 163, 80))
-                halo.setColorAt(0.45, QColor(255, 219, 145, 28))
+                halo = QRadialGradient(QPointF(x, y_lampe + h * 0.020), h * 0.095)
+                halo.setColorAt(0.0, QColor(255, 229, 163, 84))
+                halo.setColorAt(0.44, QColor(255, 219, 145, 26))
                 halo.setColorAt(1.0, QColor(255, 214, 130, 0))
-
-                painter.setPen(Qt.PenStyle.NoPen)
                 painter.setBrush(QBrush(halo))
                 painter.drawEllipse(
-                    QPointF(x, y_lampe + h * 0.010),
-                    h * 0.10,
-                    h * 0.10,
+                    QPointF(x, y_lampe + h * 0.020),
+                    h * 0.095,
+                    h * 0.095,
                 )
 
-            # Abat-jour
-            path = QPainterPath()
             largeur = h * 0.060
-            hauteur = h * 0.032
-
+            hauteur = h * 0.034
+            path = QPainterPath()
             path.moveTo(x - largeur / 2, y_lampe)
             path.lineTo(x + largeur / 2, y_lampe)
-            path.lineTo(x + largeur * 0.28, y_lampe + hauteur)
-            path.lineTo(x - largeur * 0.28, y_lampe + hauteur)
+            path.lineTo(x + largeur * 0.30, y_lampe + hauteur)
+            path.lineTo(x - largeur * 0.30, y_lampe + hauteur)
             path.closeSubpath()
 
-            painter.setBrush(_assombrir(self.couleur_metal, 0.05))
+            painter.setBrush(_assombrir(self.couleur_metal, 0.07))
             painter.drawPath(path)
 
-            # Ampoule
+            # Liseré inférieur de l'abat-jour.
+            painter.setPen(
+                QPen(_eclaircir(self.couleur_metal, 0.12), max(1.0, h * 0.0025))
+            )
+            painter.drawLine(
+                QPointF(x - largeur * 0.30, y_lampe + hauteur),
+                QPointF(x + largeur * 0.30, y_lampe + hauteur),
+            )
+
+            painter.setPen(Qt.PenStyle.NoPen)
             painter.setBrush(
                 QColor("#F6DDA2") if self.lampes_allumees else QColor("#B3AEA3")
             )
             painter.drawEllipse(
-                QPointF(x, y_lampe + hauteur * 0.65),
-                h * 0.012,
-                h * 0.012,
+                QPointF(x, y_lampe + hauteur * 0.72),
+                h * 0.0115,
+                h * 0.0115,
             )
 
     def _dessiner_banc(
@@ -1156,9 +1464,7 @@ class GareAncienne:
         y_rail: float | None = None,
         **kwargs,
     ) -> None:
-        """
-        Dessine la gare derrière le train.
-        """
+        """Dessine la gare derrière le train sur une grille architecturale commune."""
         if rect.width() <= 0 or rect.height() <= 0:
             return
 
@@ -1166,29 +1472,24 @@ class GareAncienne:
         painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
 
         h = rect.height()
+        w = rect.width()
         y_quai = self._y_quai(rect, y_rail)
 
         # ------------------------------------------------------------------
-        # Fond
+        # Fond et grandes ouvertures latérales
         # ------------------------------------------------------------------
 
-        self._dessiner_fond_mural(
-            painter,
-            rect,
-            y_quai,
-        )
+        self._dessiner_fond_mural(painter, rect, y_quai)
 
-        # ------------------------------------------------------------------
-        # Entrée et sortie
-        # ------------------------------------------------------------------
-
-        largeur_ouverture = rect.width() * 0.16
-        hauteur_ouverture = h * 0.54
+        # Les ouvertures restent tangentes aux bords pour que le train puisse
+        # entrer et sortir sans traverser visuellement un mur.
+        largeur_ouverture = w * 0.155
+        hauteur_ouverture = h * 0.545
 
         self._dessiner_ouverture_laterale(
             painter=painter,
             rect=rect,
-            x_centre=rect.left() + rect.width() * 0.08,
+            x_centre=rect.left() + largeur_ouverture / 2,
             y_quai=y_quai,
             largeur=largeur_ouverture,
             hauteur=hauteur_ouverture,
@@ -1198,7 +1499,7 @@ class GareAncienne:
         self._dessiner_ouverture_laterale(
             painter=painter,
             rect=rect,
-            x_centre=rect.right() - rect.width() * 0.08,
+            x_centre=rect.right() - largeur_ouverture / 2,
             y_quai=y_quai,
             largeur=largeur_ouverture,
             hauteur=hauteur_ouverture,
@@ -1206,26 +1507,49 @@ class GareAncienne:
         )
 
         # ------------------------------------------------------------------
-        # Verrière et structure
+        # Baies du mur de fond
+        # ------------------------------------------------------------------
+        # Même ligne basse, mêmes proportions de menuiserie : les fenêtres et
+        # la porte semblent enfin appartenir au même bâtiment.
+
+        largeur_fenetre = h * 0.18
+        hauteur_fenetre = h * 0.235
+        bas_fenetre = y_quai - h * 0.195
+
+        for proportion_x in (0.245, 0.695):
+            rect_fenetre = QRectF(
+                rect.left() + w * proportion_x - largeur_fenetre / 2,
+                bas_fenetre - hauteur_fenetre,
+                largeur_fenetre,
+                hauteur_fenetre,
+            )
+            self._dessiner_baie_murale(
+                painter,
+                rect_fenetre,
+                type_baie="fenetre",
+            )
+
+        largeur_porte = h * 0.19
+        hauteur_porte = h * 0.315
+        rect_porte = QRectF(
+            rect.left() + w * 0.555 - largeur_porte / 2,
+            y_quai - hauteur_porte,
+            largeur_porte,
+            hauteur_porte,
+        )
+        self._dessiner_baie_murale(
+            painter,
+            rect_porte,
+            type_baie="porte",
+        )
+
+        # ------------------------------------------------------------------
+        # Verrière, charpente et piliers
         # ------------------------------------------------------------------
 
-        self._dessiner_verriere(
-            painter,
-            rect,
-            y_quai,
-        )
-
-        self._dessiner_piliers(
-            painter,
-            rect,
-            y_quai,
-        )
-
-        self._dessiner_lampes_suspendues(
-            painter,
-            rect,
-            y_quai,
-        )
+        self._dessiner_verriere(painter, rect, y_quai)
+        self._dessiner_piliers(painter, rect, y_quai)
+        self._dessiner_lampes_suspendues(painter, rect, y_quai)
 
         # ------------------------------------------------------------------
         # Horloge
@@ -1233,78 +1557,60 @@ class GareAncienne:
 
         self.horloge.peindre(
             painter,
-            centre=QPointF(
-                rect.center().x(),
-                rect.top() + h * 0.19,
-            ),
-            rayon=h * 0.060,
+            centre=QPointF(rect.center().x(), rect.top() + h * 0.185),
+            rayon=h * 0.058,
         )
 
         # ------------------------------------------------------------------
-        # Panneau + plaque progression
+        # Panneau de gare et progression
         # ------------------------------------------------------------------
 
         rect_panneau = QRectF(
-            rect.left() + rect.width() * 0.30,
-            y_quai - h * 0.28,
-            rect.width() * 0.20,
-            h * 0.24,
+            rect.left() + w * 0.305,
+            y_quai - h * 0.285,
+            w * 0.195,
+            h * 0.245,
         )
-
-        self.panneau.peindre(
-            painter,
-            rect_panneau,
-            nom_pays,
-        )
+        self.panneau.peindre(painter, rect_panneau, nom_pays)
 
         if i is not None and n is not None:
-
             rect_plaque = QRectF(
-                rect_panneau.right() + h * 0.020,
-                y_quai - h * 0.26,
-                h * 0.12,
-                h * 0.22,
+                rect_panneau.right() + h * 0.018,
+                y_quai - h * 0.245,
+                h * 0.105,
+                h * 0.205,
             )
-
-            self.plaque.peindre(
-                painter,
-                rect_plaque,
-                i,
-                n,
-            )
+            self.plaque.peindre(painter, rect_plaque, i, n)
 
         # ------------------------------------------------------------------
         # Banc
         # ------------------------------------------------------------------
 
         rect_banc = QRectF(
-            rect.left() + rect.width() * 0.57,
-            y_quai - h * 0.105,
-            rect.width() * 0.11,
-            h * 0.10,
+            rect.left() + w * 0.605,
+            y_quai - h * 0.108,
+            h * 0.34,
+            h * 0.103,
         )
-
-        self._dessiner_banc(
-            painter,
-            rect_banc,
-        )
+        self._dessiner_banc(painter, rect_banc)
 
         # ------------------------------------------------------------------
         # Feu de sortie
         # ------------------------------------------------------------------
+        # Il est maintenant placé dans une vraie travée, entre le banc et la
+        # bouche de sortie, plutôt que calculé depuis le bord droit.
+
+        largeur_feu = h * 0.18
+        hauteur_feu = h * 0.30
+        x_feu = rect.left() + w * 0.770
 
         rect_feu = QRectF(
-            rect.right() - rect.width() * 0.13,
-            y_quai - h * 0.30,
-            rect.width() * 0.05,
-            h * 0.28,
+            x_feu - largeur_feu / 2,
+            y_quai - hauteur_feu,
+            largeur_feu,
+            hauteur_feu,
         )
-
-        self.feu.peindre(
-            painter,
-            rect_feu,
-            etat=self.etat_feu,
-        )
+        self.feu.peindre(painter, rect_feu, etat=self.etat_feu)
 
         painter.restore()
 

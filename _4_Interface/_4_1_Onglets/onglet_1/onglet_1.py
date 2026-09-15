@@ -8,10 +8,11 @@
 # 0 -- Initialisation ----------------------------------------------------------
 
 
-import os
+import os, multiprocessing
 from functools import partial
+from queue import Empty
 
-from PyQt6.QtCore import pyqtSignal, QObject, QSize, Qt, QThread
+from PyQt6.QtCore import pyqtSignal, QObject, QSize, Qt, QThread, QTimer
 from PyQt6.QtWidgets import (
     QWidget,
     QHBoxLayout,
@@ -23,9 +24,9 @@ from PyQt6.QtWidgets import (
     QCheckBox,
     QSlider,
     QGroupBox,
-    QProgressBar,
     QSpacerItem,
     QSizePolicy,
+    QStackedLayout,
 )
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
@@ -44,8 +45,14 @@ from _0_Utilitaires._0_11_classes_pop_up import PopupInfo
 from _0_Utilitaires._0_12_toggle_checkbox import ToggleSwitch
 from _0_Utilitaires._0_14_QPushButton_QIcon import QPushButtonSauvegarde
 from _4_Interface._4_1_Onglets.onglet_1.onglet_1_1_creation_cartes import CreerCartes
+from _4_Interface._4_1_Onglets.onglet_1.onglet_1_4_processus_cartes import (
+    executer_creation_cartes,
+)
 from _4_Interface._4_1_Onglets.onglet_1.onglet_1_2_combobox_coloree import (
     FondCarteCombo,
+)
+from _4_Interface._4_1_Onglets.onglet_1.onglet_1_3_barre_progression import (
+    AnimationTrainPublication,
 )
 from _4_Interface._4_3_Icones._4_3_30_stylo import _dessiner_icone_stylo_plume
 from _4_Interface._4_3_Icones._4_3_29_email import _dessiner_icone_email
@@ -90,8 +97,60 @@ class OngletParametres(QWidget):
         self.langue = "français"
         self.liste_gdfs = []
 
-        layout = QVBoxLayout()
-        self.setLayout(layout)
+        # --------------------------------------------------------------------------
+        # Processus de création des cartes
+        # --------------------------------------------------------------------------
+
+        self.processus_creation = None
+        self.file_messages_creation = None
+
+        self.timer_messages_creation = QTimer(self)
+        self.timer_messages_creation.setInterval(30)
+        self.timer_messages_creation.timeout.connect(self._lire_messages_creation)
+
+        # --------------------------------------------------------------------------
+        # Pages de l'onglet
+        # --------------------------------------------------------------------------
+
+        self.layout_principal = QStackedLayout()
+        self.setLayout(self.layout_principal)
+
+        # --------------------------------------------------------------------------
+        # Page 1 : paramètres des cartes
+        # --------------------------------------------------------------------------
+
+        self.page_parametres = QWidget()
+
+        layout = QVBoxLayout(self.page_parametres)
+        layout.setContentsMargins(
+            0,
+            0,
+            0,
+            0,
+        )
+
+        self.layout_principal.addWidget(self.page_parametres)
+
+        # --------------------------------------------------------------------------
+        # Page 2 : animation de publication
+        # --------------------------------------------------------------------------
+
+        self.page_animation = QWidget()
+        self.layout_animation = QVBoxLayout(self.page_animation)
+        self.layout_animation.setContentsMargins(
+            0,
+            0,
+            0,
+            0,
+        )
+
+        self.layout_principal.addWidget(self.page_animation)
+
+        # La page normale est affichée au lancement.
+        self.layout_principal.setCurrentWidget(self.page_parametres)
+
+        self.animation_publication = None
+        self._indice_publication = 0
 
         # Ajouter le layout à la group box et la group box au layout général
 
@@ -313,18 +372,12 @@ class OngletParametres(QWidget):
 
         # Création du bouton "Créer cartes"
         self.creation_cartes_bouton = QPushButton()
-        self.barre_progression = QProgressBar()
-        self.barre_progression.setMinimum(0)
-        self.barre_progression.setValue(0)
-        self.barre_progression.setFormat("")
 
         # Bouton de sauvegarde
         self.bouton_sauvegarde = QPushButtonSauvegarde()
 
         # Ajouter les widgets dans la grille
         layout_valid_reinit.addWidget(self.creation_cartes_bouton, 0, 0)
-        layout_valid_reinit.addWidget(self.barre_progression, 0, 0)
-        self.barre_progression.setVisible(False)
         layout_valid_reinit.addWidget(self.bouton_sauvegarde, 0, 1)
 
         # Ajuster les proportions : colonne 1 (droite) prend plus de place
@@ -332,7 +385,6 @@ class OngletParametres(QWidget):
         layout_valid_reinit.setColumnStretch(1, 1)  # petite colonne à gauche
 
         layout.addLayout(layout_valid_reinit, stretch=1)
-        self.setLayout(layout)
 
     def set_langue(self, langue: str | None):
 
@@ -471,40 +523,69 @@ class OngletParametres(QWidget):
             }
             """)
 
-    def barre_set_max(self, val: int):
-        self.barre_progression.setMaximum(val)
+    def initialiser_animation_publication(
+        self,
+        n: int,
+    ) -> None:
+        """
+        Crée l'animation de publication et remplace temporairement
+        les paramètres par celle-ci.
+        """
 
-    def initialiser_progression(self):
+        self._indice_publication = 0
 
-        # Initialisation de la barre de progression
-        self.barre_set_max(val=10)
-        self.barre_progression.setValue(0)
+        # Suppression éventuelle d'une ancienne animation.
+        if self.animation_publication is not None:
 
-        # Affichage de la barre de progression
-        self.debut_fin_creation_cartes(debut=True)
+            self.layout_animation.removeWidget(self.animation_publication)
+            self.animation_publication.deleteLater()
 
-    def debut_fin_creation_cartes(self, debut):
+        # Nouvelle animation.
+        self.animation_publication = AnimationTrainPublication(
+            n=n,
+            vitesse=130.0,
+        )
 
-        # Affichage soit du bouton, soit de la barre de progression
-        self.creation_cartes_bouton.setVisible(not debut)
-        self.barre_progression.setVisible(debut)
+        # Bouton final de l'animation.
+        self.animation_publication.retour_parametres.connect(
+            self.revenir_aux_parametres
+        )
 
-        if not debut:
+        # L'animation remplit toute sa page.
+        self.layout_animation.addWidget(self.animation_publication)
 
-            # Pop-up de fin de publication des cartes
-            # message = PopupInfo(parent=self)
-            PopupInfo(parent=self).montrer(
-                titre=self.fonction_traduction(clef="titre_pop_up_publication_cartes"),
-                contenu=self.fonction_traduction(
-                    clef="publication_cartes_reussie",
-                    suffixe=" ✅​",
-                ),
-                temps_max=2 * 10**4,
-            )
+        # On change simplement de "page".
+        self.layout_principal.setCurrentWidget(self.page_animation)
 
-    def afficher_avancement(self, libelle_pays):
-        self.barre_progression.setValue(self.barre_progression.value() + 1)
-        self.barre_progression.setFormat(libelle_pays)
+    def revenir_aux_parametres(
+        self,
+    ) -> None:
+        """Revient à l'écran de paramétrage des cartes."""
+
+        self.layout_principal.setCurrentWidget(self.page_parametres)
+        self.creation_cartes_bouton.setEnabled(True)
+
+        if self.animation_publication is not None:
+
+            self.layout_animation.removeWidget(self.animation_publication)
+            self.animation_publication.deleteLater()
+            self.animation_publication = None
+
+    def afficher_avancement(
+        self,
+        libelle_pays: str,
+    ) -> None:
+        """Transmet la progression au train."""
+
+        if self.animation_publication is None:
+            return
+
+        self._indice_publication += 1
+
+        self.animation_publication.recevoir_signal(
+            i=self._indice_publication,
+            nom_pays=libelle_pays,
+        )
 
     def soulever_probleme(self, dict_voyages: dict, dossier_stockage: str):
 
@@ -572,9 +653,7 @@ class OngletParametres(QWidget):
 
         # Fin normale
         self.worker_chargement.finished.connect(self.thread_chargement.quit)
-
         self.worker_chargement.finished.connect(self.worker_chargement.deleteLater)
-
         self.thread_chargement.finished.connect(self.thread_chargement.deleteLater)
 
         # Callback optionnel
@@ -589,52 +668,119 @@ class OngletParametres(QWidget):
         # Start
         self.thread_chargement.start()
 
-    def fonction_principale(self, settings):
+    def lancer_creation_cartes_processus(self, settings) -> None:
+        """Lance la création des cartes dans un processus indépendant."""
 
-        # Vérification de potentiels problèmes
-        if (
-            self.soulever_probleme(
-                dict_voyages=settings["dictionnaire_voyages"],
-                dossier_stockage=settings["dossier_stockage"],
-            )
-            == True
+        contexte = multiprocessing.get_context("spawn")
+
+        self.file_messages_creation = contexte.Queue()
+
+        self.processus_creation = contexte.Process(
+            target=executer_creation_cartes,
+            args=(
+                settings,
+                self.constantes.__name__,
+                self.file_messages_creation,
+            ),
+        )
+
+        self.processus_creation.start()
+
+        self.timer_messages_creation.start()
+
+    def _lire_messages_creation(
+        self,
+    ) -> None:
+        """Traite les messages reçus du processus de création."""
+
+        if self.file_messages_creation is None:
+            return
+
+        while True:
+
+            try:
+
+                type_message, valeur = self.file_messages_creation.get_nowait()
+
+            except Empty:
+
+                break
+
+            if type_message == "nb_graphes":
+
+                self.initialiser_animation_publication(n=valeur)
+
+            elif type_message == "progression":
+
+                self.afficher_avancement(libelle_pays=valeur)
+
+            elif type_message == "finished":
+
+                self._terminer_processus_creation()
+
+                return
+
+            elif type_message == "erreur":
+
+                print(valeur)
+
+                self._terminer_processus_creation()
+
+                return
+
+    def _terminer_processus_creation(
+        self,
+    ) -> None:
+        """Nettoie le processus lorsque le calcul est terminé."""
+
+        self.timer_messages_creation.stop()
+
+        if self.processus_creation is not None:
+
+            self.processus_creation.join(timeout=0.1)
+            self.processus_creation = None
+
+        if self.file_messages_creation is not None:
+
+            self.file_messages_creation.close()
+            self.file_messages_creation = None
+
+    def fonction_principale(
+        self,
+        settings,
+    ):
+
+        # ----------------------------------------------------------------------
+        # Vérification des paramètres
+        # ----------------------------------------------------------------------
+
+        if self.soulever_probleme(
+            dict_voyages=settings["dictionnaire_voyages"],
+            dossier_stockage=settings["dossier_stockage"],
         ):
             return
 
-        # Affichage de la barre
-        self.initialiser_progression()
+        # Évite plusieurs clics pendant le travail.
+        self.creation_cartes_bouton.setEnabled(False)
 
-        # Chargement des tables (si nécessaire)
+        # ----------------------------------------------------------------------
+        # Chargement préalable des données géographiques
+        # ----------------------------------------------------------------------
+
         if not self.liste_gdfs:
-            self.barre_progression.setFormat(
-                self.fonction_traduction("preparation_donnees_geo", suffixe="...")
-            )
+
             self.lancer_chargement_gdfs(
                 callback=lambda: self.fonction_principale(settings=settings)
             )
+
             return
 
-        # Ajout des tables géographiques
+        # ----------------------------------------------------------------------
+        # Création des cartes
+        # ----------------------------------------------------------------------
+
         settings["liste_dfs"] = self.liste_gdfs
-
-        # Initialisation de l'objet et de la barre de progression
-        self.creation_cartes = CreerCartes(params=settings, constantes=self.constantes)
-        self.creation_cartes.nb_graphes.connect(lambda x: self.barre_set_max(val=x + 1))
-        # self.creation_cartes.nb_graphes.connect(self.barre_set_max)
-        self.creation_cartes.tracker_signal.connect(self.afficher_avancement)
-
-        self.thread_temp = QThread()
-        self.creation_cartes.moveToThread(self.thread_temp)
-
-        self.creation_cartes.finished.connect(self.thread_temp.quit)
-        self.creation_cartes.finished.connect(self.creation_cartes.deleteLater)
-        self.thread_temp.finished.connect(self.thread_temp.deleteLater)
-        self.thread_temp.finished.connect(
-            lambda: self.debut_fin_creation_cartes(debut=False)
-        )
-
-        self.thread_temp.started.connect(self.creation_cartes.run)
-        self.thread_temp.start()
+        self.lancer_creation_cartes_processus(settings=settings)
 
     def initialiser_onglet(self, **kwargs):
 

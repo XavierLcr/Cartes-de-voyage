@@ -267,7 +267,7 @@ def creer_multiples_cartes(
     for i, (nom, liste_pays) in enumerate(dict_cartes.items(), start=1):
 
         if tracker:
-            tracker.notify(f"{i}/{len(dict_cartes.keys())} : {nom}")
+            tracker.notify(f"{nom}")
 
         creer_une_carte(
             gdf=df_temp,

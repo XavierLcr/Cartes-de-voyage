@@ -273,7 +273,7 @@ def construire_graphe_pays(
             ]
         ],
         how="inner",
-        predicate="touches",
+        predicate="intersects",
         lsuffix="1",
         rsuffix="2",
     )
@@ -289,6 +289,9 @@ def construire_graphe_pays(
         "pays_1",
         "pays_2",
     ]
+
+    # Suppression des auto-intersections
+    voisins = voisins.loc[voisins["pays_1"] != voisins["pays_2"]].copy()
 
     # --------------------------------------------------------------------------
     # 4 -- Suppression des doublons A-B / B-A

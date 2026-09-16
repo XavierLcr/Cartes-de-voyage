@@ -293,94 +293,511 @@ class PaysageForet:
         painter.drawPath(path)
 
     # --------------------------------------------------------------------------
-    # Arbres
+    # Géométrie commune aux arbres
     # --------------------------------------------------------------------------
 
-    def _dessiner_conifere(
+    @staticmethod
+    def _point_axe_arbre(
+        x_sol: float,
+        y_sol: float,
+        hauteur: float,
+        ratio: float,
+        inclinaison: float,
+    ) -> QPointF:
+        """
+        Retourne un point situé sur l'axe central de l'arbre.
+
+        ratio = 0.0 :
+            pied de l'arbre.
+
+        ratio = 1.0 :
+            sommet théorique de l'arbre.
+
+        `inclinaison` correspond au décalage horizontal total du sommet,
+        exprimé relativement à la hauteur de l'arbre.
+        """
+
+        return QPointF(
+            x_sol + hauteur * inclinaison * ratio,
+            y_sol - hauteur * ratio,
+        )
+
+    @staticmethod
+    def _creer_masse_feuillage(
+        centre: QPointF,
+        rayon_x: float,
+        rayon_y: float,
+        rng: random.Random,
+        irregularite: float = 0.14,
+        n_points: int = 12,
+    ) -> QPainterPath:
+        """
+        Crée une masse végétale organique.
+
+        Contrairement à une ellipse, le contour présente de petites
+        irrégularités tout en restant doux grâce aux courbes quadratiques.
+        """
+
+        points = []
+
+        for i in range(n_points):
+
+            angle = 2.0 * math.pi * i / n_points
+
+            facteur = rng.uniform(
+                1.0 - irregularite,
+                1.0 + irregularite,
+            )
+
+            points.append(
+                QPointF(
+                    centre.x() + math.cos(angle) * rayon_x * facteur,
+                    centre.y() + math.sin(angle) * rayon_y * facteur,
+                )
+            )
+
+        path = QPainterPath()
+
+        dernier = points[-1]
+        premier = points[0]
+
+        milieu = QPointF(
+            (dernier.x() + premier.x()) / 2,
+            (dernier.y() + premier.y()) / 2,
+        )
+
+        path.moveTo(milieu)
+
+        for i, point in enumerate(points):
+
+            suivant = points[(i + 1) % len(points)]
+
+            milieu_suivant = QPointF(
+                (point.x() + suivant.x()) / 2,
+                (point.y() + suivant.y()) / 2,
+            )
+
+            path.quadTo(
+                point,
+                milieu_suivant,
+            )
+
+        path.closeSubpath()
+
+        return path
+
+    # --------------------------------------------------------------------------
+    # Tronc
+    # --------------------------------------------------------------------------
+
+    def _dessiner_tronc_arbre(
         self,
         painter: QPainter,
         x: float,
         y_sol: float,
         hauteur: float,
-        couleur: QColor,
-        opacite: int = 255,
+        ratio_haut: float,
+        largeur_base: float,
+        inclinaison: float,
+        opacite: int,
+        graine: int,
+        niveau_details: float = 1.0,
     ) -> None:
-        """Dessine un conifère stylisé."""
+        """
+        Dessine un tronc légèrement fuselé et incliné.
 
-        if hauteur <= 0:
-            return
+        La géométrie du tronc suit exactement le même axe que le reste
+        de l'arbre.
+        """
 
-        couleur = _avec_alpha(
-            couleur,
-            opacite,
+        rng = random.Random(graine)
+
+        p_haut = self._point_axe_arbre(
+            x,
+            y_sol,
+            hauteur,
+            ratio_haut,
+            inclinaison,
         )
 
-        largeur = hauteur * 0.40
+        p_25 = self._point_axe_arbre(
+            x,
+            y_sol,
+            hauteur,
+            ratio_haut * 0.25,
+            inclinaison,
+        )
 
-        hauteur_tronc = hauteur * 0.25
+        p_70 = self._point_axe_arbre(
+            x,
+            y_sol,
+            hauteur,
+            ratio_haut * 0.70,
+            inclinaison,
+        )
 
-        # Tronc
-        rect_tronc = QRectF(
-            x - hauteur * 0.035,
-            y_sol - hauteur_tronc,
-            hauteur * 0.07,
-            hauteur_tronc,
+        largeur_haut = largeur_base * 0.43
+
+        # ------------------------------------------------------------------
+        # Racines
+        # ------------------------------------------------------------------
+
+        if niveau_details >= 0.45:
+
+            pen_racines = QPen(
+                _avec_alpha(
+                    _assombrir(
+                        self.couleur_tronc,
+                        0.14,
+                    ),
+                    int(opacite * 0.84),
+                )
+            )
+
+            pen_racines.setWidthF(
+                max(
+                    0.8,
+                    largeur_base * 0.18,
+                )
+            )
+
+            pen_racines.setCapStyle(Qt.PenCapStyle.RoundCap)
+
+            painter.setPen(pen_racines)
+            painter.setBrush(Qt.BrushStyle.NoBrush)
+
+            for sens in (-1, 1):
+
+                longueur = largeur_base * rng.uniform(
+                    0.75,
+                    1.25,
+                )
+
+                painter.drawLine(
+                    QPointF(
+                        x + sens * largeur_base * 0.18,
+                        y_sol - largeur_base * 0.04,
+                    ),
+                    QPointF(
+                        x + sens * longueur,
+                        y_sol + largeur_base * 0.07,
+                    ),
+                )
+
+        # ------------------------------------------------------------------
+        # Silhouette principale
+        # ------------------------------------------------------------------
+
+        path = QPainterPath()
+
+        path.moveTo(
+            x - largeur_base / 2,
+            y_sol,
+        )
+
+        path.cubicTo(
+            QPointF(
+                p_25.x() - largeur_base * 0.45,
+                p_25.y(),
+            ),
+            QPointF(
+                p_70.x() - largeur_base * 0.29,
+                p_70.y(),
+            ),
+            QPointF(
+                p_haut.x() - largeur_haut / 2,
+                p_haut.y(),
+            ),
+        )
+
+        path.lineTo(
+            p_haut.x() + largeur_haut / 2,
+            p_haut.y(),
+        )
+
+        path.cubicTo(
+            QPointF(
+                p_70.x() + largeur_base * 0.29,
+                p_70.y(),
+            ),
+            QPointF(
+                p_25.x() + largeur_base * 0.45,
+                p_25.y(),
+            ),
+            QPointF(
+                x + largeur_base / 2,
+                y_sol,
+            ),
+        )
+
+        path.closeSubpath()
+
+        # ------------------------------------------------------------------
+        # Volume du bois
+        # ------------------------------------------------------------------
+
+        gradient = QLinearGradient(
+            x - largeur_base / 2,
+            0,
+            x + largeur_base / 2,
+            0,
+        )
+
+        gradient.setColorAt(
+            0.0,
+            _avec_alpha(
+                _assombrir(
+                    self.couleur_tronc,
+                    0.29,
+                ),
+                opacite,
+            ),
+        )
+
+        gradient.setColorAt(
+            0.34,
+            _avec_alpha(
+                _eclaircir(
+                    self.couleur_tronc,
+                    0.10,
+                ),
+                opacite,
+            ),
+        )
+
+        gradient.setColorAt(
+            0.68,
+            _avec_alpha(
+                self.couleur_tronc,
+                opacite,
+            ),
+        )
+
+        gradient.setColorAt(
+            1.0,
+            _avec_alpha(
+                _assombrir(
+                    self.couleur_tronc,
+                    0.24,
+                ),
+                opacite,
+            ),
         )
 
         painter.setPen(Qt.PenStyle.NoPen)
 
-        painter.setBrush(
+        painter.setBrush(QBrush(gradient))
+
+        painter.drawPath(path)
+
+        # ------------------------------------------------------------------
+        # Écorce
+        # ------------------------------------------------------------------
+
+        if niveau_details >= 0.65 and hauteur >= 80:
+
+            pen_ecorce = QPen(
+                _avec_alpha(
+                    _assombrir(
+                        self.couleur_tronc,
+                        0.34,
+                    ),
+                    int(opacite * 0.33),
+                )
+            )
+
+            pen_ecorce.setWidthF(
+                max(
+                    0.65,
+                    largeur_base * 0.065,
+                )
+            )
+
+            pen_ecorce.setCapStyle(Qt.PenCapStyle.RoundCap)
+
+            painter.setPen(pen_ecorce)
+
+            for _ in range(3):
+
+                ratio_1 = rng.uniform(
+                    0.08,
+                    ratio_haut * 0.67,
+                )
+
+                ratio_2 = min(
+                    ratio_haut * 0.88,
+                    ratio_1
+                    + rng.uniform(
+                        0.07,
+                        0.15,
+                    ),
+                )
+
+                p1 = self._point_axe_arbre(
+                    x,
+                    y_sol,
+                    hauteur,
+                    ratio_1,
+                    inclinaison,
+                )
+
+                p2 = self._point_axe_arbre(
+                    x,
+                    y_sol,
+                    hauteur,
+                    ratio_2,
+                    inclinaison,
+                )
+
+                decalage = largeur_base * rng.uniform(
+                    -0.18,
+                    0.18,
+                )
+
+                painter.drawLine(
+                    QPointF(
+                        p1.x() + decalage,
+                        p1.y(),
+                    ),
+                    QPointF(
+                        p2.x() + decalage * 0.55,
+                        p2.y(),
+                    ),
+                )
+
+    # --------------------------------------------------------------------------
+    # Branches des feuillus
+    # --------------------------------------------------------------------------
+
+    def _dessiner_branches_feuillu(
+        self,
+        painter: QPainter,
+        x: float,
+        y_sol: float,
+        hauteur: float,
+        inclinaison: float,
+        opacite: int,
+        graine: int,
+        niveau_details: float,
+    ) -> None:
+
+        if niveau_details <= 0.20:
+            return
+
+        rng = random.Random(graine + 113)
+
+        branches = (
+            (
+                0.42,
+                -1,
+                0.19,
+                0.16,
+            ),
+            (
+                0.48,
+                +1,
+                0.22,
+                0.20,
+            ),
+            (
+                0.55,
+                -1,
+                0.15,
+                0.15,
+            ),
+            (
+                0.60,
+                +1,
+                0.14,
+                0.14,
+            ),
+        )
+
+        pen = QPen(
             _avec_alpha(
-                self.couleur_tronc,
-                opacite,
+                _assombrir(
+                    self.couleur_tronc,
+                    0.10,
+                ),
+                int(opacite * 0.91),
             )
         )
 
-        painter.drawRect(rect_tronc)
+        pen.setCapStyle(Qt.PenCapStyle.RoundCap)
 
-        # Trois étages de feuillage
-        sommets = (
-            (0.00, 0.00, 0.48),
-            (0.22, 0.27, 0.70),
-            (0.45, 0.50, 0.92),
-        )
+        painter.setBrush(Qt.BrushStyle.NoBrush)
 
-        painter.setBrush(couleur)
+        for i, (
+            ratio,
+            sens,
+            dx,
+            dy,
+        ) in enumerate(branches):
 
-        for debut, fin, facteur_largeur in sommets:
+            if i >= 2 and niveau_details < 0.60:
+                break
 
-            y_haut = y_sol - hauteur + hauteur * debut
+            origine = self._point_axe_arbre(
+                x,
+                y_sol,
+                hauteur,
+                ratio,
+                inclinaison,
+            )
 
-            y_bas = y_sol - hauteur + hauteur * fin
+            largeur = hauteur * (0.016 if i < 2 else 0.010)
 
-            demi_largeur = largeur * facteur_largeur
+            pen.setWidthF(
+                max(
+                    0.8,
+                    largeur,
+                )
+            )
+
+            painter.setPen(pen)
+
+            longueur_x = (
+                hauteur
+                * dx
+                * rng.uniform(
+                    0.88,
+                    1.10,
+                )
+            )
+
+            montee = (
+                hauteur
+                * dy
+                * rng.uniform(
+                    0.90,
+                    1.10,
+                )
+            )
+
+            destination = QPointF(
+                origine.x() + sens * longueur_x,
+                origine.y() - montee,
+            )
+
+            controle = QPointF(
+                origine.x() + sens * longueur_x * 0.46,
+                origine.y() - montee * 0.23,
+            )
 
             path = QPainterPath()
 
-            path.moveTo(
-                x,
-                y_haut,
-            )
-
-            path.lineTo(
-                x - demi_largeur,
-                y_bas,
-            )
+            path.moveTo(origine)
 
             path.quadTo(
-                QPointF(
-                    x,
-                    y_bas - hauteur * 0.035,
-                ),
-                QPointF(
-                    x + demi_largeur,
-                    y_bas,
-                ),
+                controle,
+                destination,
             )
 
-            path.closeSubpath()
-
             painter.drawPath(path)
+
+    # --------------------------------------------------------------------------
+    # Feuillus
+    # --------------------------------------------------------------------------
 
     def _dessiner_feuillu(
         self,
@@ -391,162 +808,438 @@ class PaysageForet:
         couleur: QColor,
         opacite: int = 255,
         variante: int = 0,
+        inclinaison: float = 0.0,
+        niveau_details: float = 1.0,
     ) -> None:
-        """Dessine un arbre feuillu avec plusieurs masses de feuillage."""
+        """
+        Dessine un arbre feuillu structuré autour d'un même axe.
+
+        Le tronc et les branches sont peints en premier, puis le houppier
+        vient les recouvrir partiellement.
+        """
 
         if hauteur <= 0:
             return
+
+        rng = random.Random(self.graine + 9000 + variante)
 
         couleur = _avec_alpha(
             couleur,
             opacite,
         )
 
-        hauteur_tronc = hauteur * 0.48
-
-        largeur_tronc = hauteur * 0.075
-
-        rect_tronc = QRectF(
-            x - largeur_tronc / 2,
-            y_sol - hauteur_tronc,
-            largeur_tronc,
-            hauteur_tronc,
+        largeur_tronc = hauteur * rng.uniform(
+            0.060,
+            0.078,
         )
 
-        gradient = QLinearGradient(
-            rect_tronc.left(),
-            0,
-            rect_tronc.right(),
-            0,
+        # ------------------------------------------------------------------
+        # Bois
+        # ------------------------------------------------------------------
+
+        self._dessiner_tronc_arbre(
+            painter=painter,
+            x=x,
+            y_sol=y_sol,
+            hauteur=hauteur,
+            ratio_haut=0.66,
+            largeur_base=largeur_tronc,
+            inclinaison=inclinaison,
+            opacite=opacite,
+            graine=(self.graine + variante * 17),
+            niveau_details=niveau_details,
         )
 
-        gradient.setColorAt(
-            0.0,
-            _avec_alpha(
-                _assombrir(
-                    self.couleur_tronc,
-                    0.20,
-                ),
-                opacite,
-            ),
+        self._dessiner_branches_feuillu(
+            painter=painter,
+            x=x,
+            y_sol=y_sol,
+            hauteur=hauteur,
+            inclinaison=inclinaison,
+            opacite=opacite,
+            graine=(self.graine + variante * 31),
+            niveau_details=niveau_details,
         )
 
-        gradient.setColorAt(
-            0.5,
-            _avec_alpha(
-                _eclaircir(
-                    self.couleur_tronc,
-                    0.08,
-                ),
-                opacite,
-            ),
+        # ------------------------------------------------------------------
+        # Axe du houppier
+        # ------------------------------------------------------------------
+
+        centre_axe = self._point_axe_arbre(
+            x,
+            y_sol,
+            hauteur,
+            0.68,
+            inclinaison,
         )
 
-        gradient.setColorAt(
-            1.0,
-            _avec_alpha(
-                _assombrir(
-                    self.couleur_tronc,
-                    0.18,
-                ),
-                opacite,
-            ),
-        )
-
-        painter.setPen(Qt.PenStyle.NoPen)
-
-        painter.setBrush(QBrush(gradient))
-
-        painter.drawRoundedRect(
-            rect_tronc,
-            largeur_tronc * 0.30,
-            largeur_tronc * 0.30,
-        )
-
-        # Branches principales
-        pen_branches = QPen(
-            _avec_alpha(
-                self.couleur_tronc,
-                opacite,
-            )
-        )
-
-        pen_branches.setWidthF(
-            max(
-                1.0,
-                largeur_tronc * 0.42,
-            )
-        )
-
-        pen_branches.setCapStyle(Qt.PenCapStyle.RoundCap)
-
-        painter.setPen(pen_branches)
-
-        y_branches = y_sol - hauteur_tronc * 0.75
-
-        painter.drawLine(
-            QPointF(
-                x,
-                y_branches,
-            ),
-            QPointF(
-                x - hauteur * 0.17,
-                y_branches - hauteur * 0.18,
-            ),
-        )
-
-        painter.drawLine(
-            QPointF(
-                x,
-                y_branches,
-            ),
-            QPointF(
-                x + hauteur * 0.19,
-                y_branches - hauteur * 0.22,
-            ),
-        )
-
-        # Feuillage
-        rng = random.Random(self.graine + 9000 + variante)
-
-        painter.setPen(Qt.PenStyle.NoPen)
+        # Toutes les masses sont calculées autour de ce point :
+        # le feuillage suit donc naturellement l'inclinaison du tronc.
 
         masses = (
-            (-0.25, -0.52, 0.30),
-            (0.05, -0.62, 0.34),
-            (0.30, -0.48, 0.29),
-            (-0.08, -0.33, 0.38),
-            (0.23, -0.28, 0.32),
+            # dx     dy     rx     ry
+            (-0.18, 0.00, 0.20, 0.17),
+            (0.00, -0.11, 0.25, 0.21),
+            (0.19, -0.01, 0.20, 0.17),
+            (-0.07, 0.12, 0.25, 0.18),
+            (0.13, 0.11, 0.23, 0.17),
         )
+
+        painter.setPen(Qt.PenStyle.NoPen)
+
+        # ------------------------------------------------------------------
+        # Masses principales
+        # ------------------------------------------------------------------
 
         for i, (
             dx,
             dy,
-            rayon,
+            rayon_x,
+            rayon_y,
         ) in enumerate(masses):
 
-            variation = rng.uniform(
-                -0.06,
-                0.06,
+            centre = QPointF(
+                centre_axe.x() + dx * hauteur,
+                centre_axe.y() + dy * hauteur,
             )
 
-            c = _melanger(
-                couleur,
-                "#FFFFFF" if i % 2 == 0 else "#000000",
-                abs(variation),
+            if i in (0, 2):
+
+                couleur_locale = _assombrir(
+                    couleur,
+                    0.085,
+                )
+
+            elif i == 1:
+
+                couleur_locale = _eclaircir(
+                    couleur,
+                    0.035,
+                )
+
+            else:
+
+                couleur_locale = couleur
+
+            couleur_locale = _avec_alpha(
+                couleur_locale,
+                opacite,
             )
 
-            c.setAlpha(opacite)
+            painter.setBrush(couleur_locale)
 
-            painter.setBrush(c)
+            path = self._creer_masse_feuillage(
+                centre=centre,
+                rayon_x=(hauteur * rayon_x),
+                rayon_y=(hauteur * rayon_y),
+                rng=rng,
+                irregularite=(0.11 if niveau_details < 0.5 else 0.15),
+                n_points=(10 if niveau_details < 0.5 else 12),
+            )
 
-            painter.drawEllipse(
-                QPointF(
-                    x + dx * hauteur,
-                    y_sol + dy * hauteur,
+            painter.drawPath(path)
+
+        # ------------------------------------------------------------------
+        # Petites touches lumineuses
+        # ------------------------------------------------------------------
+
+        if niveau_details >= 0.55 and hauteur >= 75:
+
+            couleur_lumiere = _avec_alpha(
+                _eclaircir(
+                    couleur,
+                    0.13,
                 ),
-                hauteur * rayon,
-                hauteur * rayon * 0.72,
+                int(opacite * 0.72),
+            )
+
+            painter.setBrush(couleur_lumiere)
+
+            reflets = (
+                (
+                    -0.11,
+                    -0.13,
+                    0.10,
+                    0.065,
+                ),
+                (
+                    0.07,
+                    -0.18,
+                    0.11,
+                    0.070,
+                ),
+                (
+                    0.17,
+                    -0.06,
+                    0.075,
+                    0.050,
+                ),
+            )
+
+            for (
+                dx,
+                dy,
+                rayon_x,
+                rayon_y,
+            ) in reflets:
+
+                centre = QPointF(
+                    centre_axe.x() + dx * hauteur,
+                    centre_axe.y() + dy * hauteur,
+                )
+
+                path = self._creer_masse_feuillage(
+                    centre=centre,
+                    rayon_x=(hauteur * rayon_x),
+                    rayon_y=(hauteur * rayon_y),
+                    rng=rng,
+                    irregularite=0.18,
+                    n_points=9,
+                )
+
+                painter.drawPath(path)
+
+    # --------------------------------------------------------------------------
+    # Conifères
+    # --------------------------------------------------------------------------
+
+    def _dessiner_conifere(
+        self,
+        painter: QPainter,
+        x: float,
+        y_sol: float,
+        hauteur: float,
+        couleur: QColor,
+        opacite: int = 255,
+        variante: int = 0,
+        inclinaison: float = 0.0,
+        niveau_details: float = 1.0,
+    ) -> None:
+        """
+        Dessine un conifère plus naturel.
+
+        Le tronc monte profondément sous le feuillage et tous les étages
+        sont centrés sur le même axe incliné.
+        """
+
+        if hauteur <= 0:
+            return
+
+        rng = random.Random(self.graine + 12000 + variante)
+
+        couleur = _avec_alpha(
+            couleur,
+            opacite,
+        )
+
+        largeur_tronc = hauteur * rng.uniform(
+            0.045,
+            0.060,
+        )
+
+        # ------------------------------------------------------------------
+        # Tronc
+        # ------------------------------------------------------------------
+
+        self._dessiner_tronc_arbre(
+            painter=painter,
+            x=x,
+            y_sol=y_sol,
+            hauteur=hauteur,
+            ratio_haut=0.78,
+            largeur_base=largeur_tronc,
+            inclinaison=inclinaison,
+            opacite=opacite,
+            graine=(self.graine + variante * 23),
+            niveau_details=(niveau_details * 0.72),
+        )
+
+        # ------------------------------------------------------------------
+        # Étages du feuillage
+        #
+        # Les ratios sont mesurés depuis le sommet.
+        # Le dernier étage descend presque jusqu'au sol.
+        # ------------------------------------------------------------------
+
+        etages = (
+            # haut  bas   demi-largeur
+            (0.01, 0.30, 0.095),
+            (0.15, 0.48, 0.145),
+            (0.31, 0.64, 0.195),
+            (0.46, 0.79, 0.245),
+            (0.60, 0.91, 0.285),
+        )
+
+        painter.setPen(Qt.PenStyle.NoPen)
+
+        for i, (
+            ratio_haut,
+            ratio_bas,
+            demi_largeur,
+        ) in enumerate(etages):
+
+            sommet = self._point_axe_arbre(
+                x,
+                y_sol,
+                hauteur,
+                1.0 - ratio_haut,
+                inclinaison,
+            )
+
+            base = self._point_axe_arbre(
+                x,
+                y_sol,
+                hauteur,
+                1.0 - ratio_bas,
+                inclinaison,
+            )
+
+            largeur = (
+                hauteur
+                * demi_largeur
+                * rng.uniform(
+                    0.94,
+                    1.06,
+                )
+            )
+
+            gauche = QPointF(
+                base.x() - largeur,
+                base.y()
+                + hauteur
+                * rng.uniform(
+                    -0.008,
+                    0.008,
+                ),
+            )
+
+            droite = QPointF(
+                base.x() + largeur,
+                base.y()
+                + hauteur
+                * rng.uniform(
+                    -0.008,
+                    0.008,
+                ),
+            )
+
+            path = QPainterPath()
+
+            path.moveTo(sommet)
+
+            # Côté gauche : légèrement bombé.
+
+            path.cubicTo(
+                QPointF(
+                    sommet.x() - largeur * 0.20,
+                    sommet.y() + (base.y() - sommet.y()) * 0.42,
+                ),
+                QPointF(
+                    gauche.x() + largeur * 0.12,
+                    gauche.y() - hauteur * 0.025,
+                ),
+                gauche,
+            )
+
+            # Bas de la branche : légèrement retombant.
+
+            path.quadTo(
+                QPointF(
+                    base.x(),
+                    base.y() + hauteur * 0.030,
+                ),
+                droite,
+            )
+
+            # Côté droit.
+
+            path.cubicTo(
+                QPointF(
+                    droite.x() - largeur * 0.12,
+                    droite.y() - hauteur * 0.025,
+                ),
+                QPointF(
+                    sommet.x() + largeur * 0.20,
+                    sommet.y() + (base.y() - sommet.y()) * 0.42,
+                ),
+                sommet,
+            )
+
+            path.closeSubpath()
+
+            # Une très légère variation de teinte entre étages
+            # évite l'effet d'un seul bloc plat.
+
+            if i <= 1:
+
+                couleur_locale = _eclaircir(
+                    couleur,
+                    0.025,
+                )
+
+            elif i >= 4:
+
+                couleur_locale = _assombrir(
+                    couleur,
+                    0.05,
+                )
+
+            else:
+
+                couleur_locale = couleur
+
+            painter.setBrush(
+                _avec_alpha(
+                    couleur_locale,
+                    opacite,
+                )
+            )
+
+            painter.drawPath(path)
+
+        # ------------------------------------------------------------------
+        # Petite accroche lumineuse
+        # ------------------------------------------------------------------
+
+        if niveau_details >= 0.60 and hauteur >= 80:
+
+            pen = QPen(
+                _avec_alpha(
+                    _eclaircir(
+                        couleur,
+                        0.18,
+                    ),
+                    int(opacite * 0.32),
+                )
+            )
+
+            pen.setWidthF(
+                max(
+                    0.7,
+                    hauteur * 0.006,
+                )
+            )
+
+            pen.setCapStyle(Qt.PenCapStyle.RoundCap)
+
+            painter.setPen(pen)
+
+            p1 = self._point_axe_arbre(
+                x,
+                y_sol,
+                hauteur,
+                0.86,
+                inclinaison,
+            )
+
+            p2 = QPointF(
+                p1.x() - hauteur * 0.075,
+                p1.y() + hauteur * 0.075,
+            )
+
+            painter.drawLine(
+                p1,
+                p2,
             )
 
     # --------------------------------------------------------------------------
@@ -572,13 +1265,31 @@ class PaysageForet:
         """
         Dessine une rangée déterministe d'arbres.
 
-        Les arbres sont générés à partir de leur indice dans le monde afin
-        d'éviter qu'ils changent d'apparence pendant le défilement.
+        Chaque arbre possède un indice dans le monde. Cet indice détermine :
+
+            - sa position ;
+            - sa hauteur ;
+            - son espèce ;
+            - son inclinaison ;
+            - la forme de son feuillage ;
+            - ses branches ;
+            - son écorce.
+
+        Un arbre garde donc exactement la même apparence pendant tout le
+        défilement.
         """
 
         densite = max(
             0.20,
             densite,
+        )
+
+        proportion_coniferes = max(
+            0.0,
+            min(
+                1.0,
+                proportion_coniferes,
+            ),
         )
 
         espacement_reel = espacement / densite
@@ -598,11 +1309,17 @@ class PaysageForet:
             dernier_indice + 1,
         ):
 
-            rng = random.Random(self.graine + graine + indice * 7919)
+            seed = self.graine + graine + indice * 7919
+
+            rng = random.Random(seed)
+
+            # --------------------------------------------------------------
+            # Position dans le monde
+            # --------------------------------------------------------------
 
             x_monde = indice * espacement_reel + rng.uniform(
-                -espacement_reel * 0.25,
-                espacement_reel * 0.25,
+                -espacement_reel * 0.27,
+                espacement_reel * 0.27,
             )
 
             x = rect_scene.left() + x_monde - decalage_monde
@@ -613,12 +1330,44 @@ class PaysageForet:
             ):
                 continue
 
+            # --------------------------------------------------------------
+            # Caractéristiques de l'arbre
+            # --------------------------------------------------------------
+
             hauteur = rect_scene.height() * rng.uniform(
                 hauteur_min,
                 hauteur_max,
             )
 
             est_conifere = rng.random() < proportion_coniferes
+
+            # Très légère courbure naturelle.
+            #
+            # ±0.035 signifie que le sommet ne se décale jamais de plus
+            # d'environ 3.5 % de la hauteur totale.
+
+            inclinaison = rng.uniform(
+                -0.035,
+                0.035,
+            )
+
+            # Les petits arbres ont volontairement moins de détails.
+
+            if hauteur < 65:
+
+                niveau_details = 0.20
+
+            elif hauteur < 95:
+
+                niveau_details = 0.55
+
+            else:
+
+                niveau_details = 1.0
+
+            # --------------------------------------------------------------
+            # Dessin
+            # --------------------------------------------------------------
 
             if est_conifere:
 
@@ -629,6 +1378,9 @@ class PaysageForet:
                     hauteur=hauteur,
                     couleur=couleur,
                     opacite=opacite,
+                    variante=seed,
+                    inclinaison=(inclinaison * 0.65),
+                    niveau_details=niveau_details,
                 )
 
             else:
@@ -640,7 +1392,9 @@ class PaysageForet:
                     hauteur=hauteur,
                     couleur=couleur,
                     opacite=opacite,
-                    variante=indice,
+                    variante=seed,
+                    inclinaison=inclinaison,
+                    niveau_details=niveau_details,
                 )
 
     # --------------------------------------------------------------------------

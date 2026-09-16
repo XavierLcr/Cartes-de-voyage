@@ -26,11 +26,19 @@ from _4_Interface._4_3_Icones._4_3_54_gare_ancienne import GareAncienne
 from _4_Interface._4_3_Icones._4_3_55_foret import PaysageForet
 from _4_Interface._4_3_Icones._4_3_56_gare_depart import GareDepartArrivee
 from _4_Interface._4_3_Icones._4_3_57_montagnes_neige import PaysageMontagneEnneigee
+from _4_Interface._4_3_Icones._4_3_58_gare_moderne import GareModerne
 
 # 1 -- Génération des gares et paysages ---------------------------------------
 
 
 ### Gares ---------------------------------------------------------------------
+
+
+POIDS_GARES = {
+    "campagne": 0.4,
+    "ancienne": 0.3,
+    "moderne": 0.3,
+}
 
 
 def generer_gares(
@@ -42,10 +50,8 @@ def generer_gares(
 
     Organisation :
         - gares[0] : gare de départ ;
-        - gares[1] à gares[n - 1] : gares des pays intermédiaires ;
-        - gares[n] : gare d'arrivée, correspondant au dernier pays.
-
-    Le train est déjà présent dans la gare de départ au lancement.
+        - gares[1] à gares[n - 1] : gares intermédiaires ;
+        - gares[n] : gare d'arrivée.
     """
 
     rng = random.Random(graine)
@@ -66,24 +72,35 @@ def generer_gares(
     # Gares intermédiaires
     # ----------------------------------------------------------------------
 
+    types_gares = list(POIDS_GARES)
+    poids_gares = list(POIDS_GARES.values())
+
     for _ in range(max(0, n - 1)):
 
-        if rng.random() < 0.5:
+        type_gare = rng.choices(
+            types_gares,
+            weights=poids_gares,
+            k=1,
+        )[0]
+
+        if type_gare == "campagne":
 
             gare = GareCampagne(
                 avec_maison=rng.random() < 0.7,
-                maison_a_gauche=rng.choice(
-                    [
-                        True,
-                        False,
-                    ]
-                ),
+                maison_a_gauche=rng.choice((True, False)),
                 lampadaire_allume=False,
             )
 
-        else:
+        elif type_gare == "ancienne":
 
             gare = GareAncienne(
+                lampes_allumees=True,
+                etat_feu="rouge",
+            )
+
+        elif type_gare == "moderne":
+
+            gare = GareModerne(
                 lampes_allumees=True,
                 etat_feu="rouge",
             )
@@ -91,7 +108,7 @@ def generer_gares(
         gares.append(gare)
 
     # ----------------------------------------------------------------------
-    # Gare d'arrivée = gare du dernier pays
+    # Gare d'arrivée
     # ----------------------------------------------------------------------
 
     gares.append(

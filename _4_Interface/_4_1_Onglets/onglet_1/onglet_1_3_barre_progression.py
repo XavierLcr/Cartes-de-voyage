@@ -27,6 +27,7 @@ from _4_Interface._4_3_Icones._4_3_55_foret import PaysageForet
 from _4_Interface._4_3_Icones._4_3_56_gare_depart import GareDepartArrivee
 from _4_Interface._4_3_Icones._4_3_57_montagnes_neige import PaysageMontagneEnneigee
 from _4_Interface._4_3_Icones._4_3_58_gare_moderne import GareModerne
+from _4_Interface._4_3_Icones._4_3_59_gare_brighton import GareBalneaireBritannique
 
 # 1 -- Génération des gares et paysages ---------------------------------------
 
@@ -36,8 +37,9 @@ from _4_Interface._4_3_Icones._4_3_58_gare_moderne import GareModerne
 
 POIDS_GARES = {
     "campagne": 0.4,
-    "ancienne": 0.3,
+    "ancienne": 2,
     "moderne": 0.3,
+    "maritime": 1,
 }
 
 
@@ -101,6 +103,13 @@ def generer_gares(
         elif type_gare == "moderne":
 
             gare = GareModerne(
+                lampes_allumees=True,
+                etat_feu="rouge",
+            )
+
+        elif type_gare == "maritime":
+
+            gare = GareBalneaireBritannique(
                 lampes_allumees=True,
                 etat_feu="rouge",
             )

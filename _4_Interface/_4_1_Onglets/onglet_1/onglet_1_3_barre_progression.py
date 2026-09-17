@@ -29,6 +29,7 @@ from _4_Interface._4_3_Icones._4_3_57_montagnes_neige import PaysageMontagneEnne
 from _4_Interface._4_3_Icones._4_3_58_gare_moderne import GareModerne
 from _4_Interface._4_3_Icones._4_3_59_gare_brighton import GareBalneaireBritannique
 from _4_Interface._4_3_Icones._4_3_60_gare_montagne import GareMontagne
+from _4_Interface._4_3_Icones._4_3_61_paysage_maritime import PaysageMaritime
 
 # 1 -- Génération des gares et paysages ---------------------------------------
 
@@ -159,6 +160,10 @@ PAYSAGES_DISPONIBLES = {
         "fabrique": lambda graine: PaysageMontagneEnneigee(
             graine=graine, avec_brume=True
         ),
+    },
+    "maritime": {
+        "poids": 8.0,
+        "fabrique": PaysageMaritime,
     },
 }
 

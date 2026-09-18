@@ -28,6 +28,8 @@ transparence_alpha: 40
 ## Paramètres du top pays visités
 top_n_pays: null # null pour tous les avoir
 pct_ndigits: 0
-## Paramètres de recommandations
+
+
+# Onglet 4 - Recommandations
 recommandations_alpha: 0.015
 recommandations_beta: 0.4

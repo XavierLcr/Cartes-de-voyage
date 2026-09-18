@@ -44,6 +44,7 @@ class CarteRecommandationPays(QWidget):
 
     def __init__(
         self,
+        fonction_traduction,
         pays_nom: str,
         emoji: str,
         regions: list[str],
@@ -54,6 +55,7 @@ class CarteRecommandationPays(QWidget):
         self.pays_nom = pays_nom
         self.emoji = emoji
         self.regions = regions
+        self.fonction_traduction = fonction_traduction
         self.graine = random.random()
 
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
@@ -386,13 +388,13 @@ class CarteRecommandationPays(QWidget):
         painter.drawText(
             rect_voie,
             Qt.AlignmentFlag.AlignCenter,
-            "VOIE",
+            self.fonction_traduction("onglet_4_3_voie").upper(),
         )
 
         painter.drawText(
             rect_statut,
             Qt.AlignmentFlag.AlignCenter,
-            "STATUT",
+            self.fonction_traduction("onglet_4_3_statut").upper(),
         )
 
     # --------------------------------------------------------------------------
@@ -660,6 +662,11 @@ class CarteRecommandationPays(QWidget):
 
         painter.setPen(QColor("#D5A843"))
 
+        clef_temp = (
+            "onglet_4_3_decouvrir"
+            if random.Random(self.graine).random() < 0.5
+            else "onglet_4_3_explorer"
+        )
         painter.drawText(
             rect_statut.adjusted(
                 4,
@@ -668,7 +675,7 @@ class CarteRecommandationPays(QWidget):
                 0,
             ),
             Qt.AlignmentFlag.AlignCenter,
-            "À DÉCOUVRIR",
+            self.fonction_traduction(clef_temp).upper(),
         )
 
         # ----------------------------------------------------------------------

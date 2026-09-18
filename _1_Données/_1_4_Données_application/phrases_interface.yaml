@@ -134,11 +134,6 @@ hemicycle_position_alphabet : Alphabétique
 titre_sous_onglet_4_2 : Pays les plus visités
 classement_selon_regions : Selon les régions visitées
 classement_selon_departements : Selon les départements visités
-# Recommandations
-titre_sous_onglet_4_3 : Suggestions de destinations
-bouton_recommandations : Cliquez ici afin de trouver votre prochaine destination !
-titre_recommandations : Nos suggestions rien que pour vous
-recommandation_passeport : À vos passeports, prêts, voyagez !
 # Pays où l'on va le plus souvent
 titre_sous_onglet_4_4 : Vos pays de prédilection
 titre_graphique_n_voyages : Pays visités le plus grand nombre de fois
@@ -162,6 +157,17 @@ attente_label_4_7 : La génération de votre portrait peut prendre plusieurs min
 modele_4_7_tooltip : La création du portrait du voyageur se fait à l'aide de l'Intelligence artificielle. Il est nécessaire d'avoir téléchargé sur Ollama ainsi qu'au moins un modèle. Voici quelques modèles conseillés
 probleme_label_4_7_ollama : Afin d'utiliser cette fonctionnalité, il est nécessaire d'installer Ollama et de télécharger au moins un modèle
 probleme_label_4_7_modele : Ollama est détecté, mais aucun modèle ne semble installé. Voici une liste de modèles conseillés
+
+# Onglet 4 - Recommandations
+titre_sous_onglet_4_3 : Suggestions de destinations
+bouton_recommandations : Cliquez ici afin de trouver votre prochaine destination !
+titre_recommandations : Nos suggestions rien que pour vous
+recommandation_passeport : À vos passeports, prêts, voyagez !
+onglet_4_3_voie : Voie
+onglet_4_3_statut : Statut
+onglet_4_3_decouvrir : À découvrir
+onglet_4_3_explorer : À explorer
+
 
 # Onglet 5
 sous_titre_description_application : Création de cartes de voyages

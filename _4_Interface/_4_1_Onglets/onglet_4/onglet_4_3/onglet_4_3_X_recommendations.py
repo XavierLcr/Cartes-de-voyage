@@ -14,7 +14,6 @@ from PyQt6.QtWidgets import (
     QHBoxLayout,
     QVBoxLayout,
     QGridLayout,
-    QScrollArea,
 )
 
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import vider_layout
@@ -197,6 +196,7 @@ class PaysAVisiter(QWidget):
                 pays_nom=pays_traduit,
                 emoji=self.emojis_pays.get(pays, ""),
                 regions=df_pays["name_1"].tolist(),
+                fonction_traduction=self.fonction_traduire,
             )
 
             self.corps_recommandations.addWidget(carte)

@@ -313,9 +313,7 @@ class CompteurCirculaireWidget(QWidget):
         fondu = min(1.0, progress / 0.1, (1.0 - progress) / 0.1)
 
         taille = side * 0.09
-        rotation = (
-            0.0 if m["sens"] == 1 else math.pi
-        )  # mouette orientée dans le sens du vol
+
         phase_battement = progress * m["duree"] * 9.0  # fréquence du battement d'ailes
 
         painter.save()
@@ -324,8 +322,9 @@ class CompteurCirculaireWidget(QWidget):
             painter,
             centre=QPointF(x, y),
             taille=taille,
-            rotation=rotation,
+            rotation=0.0,
             phase=phase_battement,
+            inverse=m["sens"] != 1,
         )
         painter.restore()
 

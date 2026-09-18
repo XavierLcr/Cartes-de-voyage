@@ -38,6 +38,9 @@ from _4_Interface._4_1_Onglets.onglet_4.onglet_4_3.onglet_4_3_5_bouton import (
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_3.onglet_4_3_6_spinbox import (
     SpinBoxGare,
 )
+from _4_Interface._4_1_Onglets.onglet_4.onglet_4_3.onglet_4_3_7_scroll_area import (
+    ScrollAreaGare,
+)
 
 # 1 -- Classe de recommandations ----------------------------------------------
 
@@ -101,8 +104,8 @@ class PaysAVisiter(QWidget):
         widget_scroll = QWidget()
         widget_scroll.setLayout(self.corps_recommandations)
 
-        scroll_area = QScrollArea()
-        scroll_area.setWidgetResizable(True)
+        scroll_area = ScrollAreaGare()
+        # scroll_area.setWidgetResizable(True)
         scroll_area.setWidget(widget_scroll)
 
         layout_principal.addWidget(scroll_area)

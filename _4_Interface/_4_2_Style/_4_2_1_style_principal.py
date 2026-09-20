@@ -265,57 +265,6 @@ def style_dynamique_application(
         essais=limite_essais,
     )
 
-    # Barre d'outils (QToolBar / QToolButton)
-    couleur_toolbar_separateur = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#C9D3E0", sombre="#32475B"
-    )
-    couleur_toolbutton_texte = renvoyer_couleur_texte(
-        style=style,
-        couleur=couleur_widget,
-    )
-    couleur_toolbutton_hover_fond = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#DCEBFA", sombre="#1E3A4D"
-    )
-    couleur_toolbutton_hover_texte = renvoyer_couleur_texte(
-        style=style,
-        couleur=couleur_toolbutton_hover_fond,
-    )
-    couleur_toolbutton_hover_bord = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#9FC6F0", sombre="#2C8AA6"
-    )
-    couleur_toolbutton_presse = renvoyer_couleur_widget_differente(
-        style=style,
-        teinte=teinte,
-        nuances=nuances,
-        clair="#C2DCFA",
-        sombre="#155E73",
-        reference=couleur_toolbutton_hover_fond,
-        essais=limite_essais,
-    )
-    couleur_toolbutton_presse_texte = renvoyer_couleur_texte(
-        style=style,
-        couleur=couleur_toolbutton_presse,
-    )
-    couleur_toolbutton_coche_fond = renvoyer_couleur_widget_differente(
-        style=style,
-        teinte=teinte,
-        nuances=nuances,
-        clair="#B4D6FA",
-        sombre="#1C7A94",
-        reference=[couleur_toolbutton_hover_fond, couleur_toolbutton_presse],
-        essais=limite_essais,
-    )
-    couleur_toolbutton_coche_texte = renvoyer_couleur_texte(
-        style=style,
-        couleur=couleur_toolbutton_coche_fond,
-    )
-    couleur_toolbutton_coche_bord = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#5C9CEF", sombre="#26C6DA"
-    )
-    couleur_toolbutton_desactive_texte = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#A6ACB8", sombre="#565E70"
-    )
-
     return f"""
             QWidget {{
                 background-color: {couleur_widget};
@@ -605,44 +554,5 @@ def style_dynamique_application(
                 border: none;
                 spacing: 8px;
                 padding: 6px 8px;
-            }}
-
-            QToolBar::separator {{
-                width: 1px;
-                background: {couleur_toolbar_separateur};
-                margin: 6px 8px;
-            }}
-
-            QToolButton {{
-                background: transparent;
-                border: 1px solid transparent;
-                border-radius: 10px;
-                padding: 8px 14px;
-                color: {couleur_toolbutton_texte};
-                font-size: {font_size}px;
-                font-weight: 500;
-            }}
-
-            QToolButton:hover {{
-                background: {couleur_toolbutton_hover_fond};
-                color: {couleur_toolbutton_hover_texte};
-                border: 1px solid {couleur_toolbutton_hover_bord};
-            }}
-
-            QToolButton:pressed {{
-                background: {couleur_toolbutton_presse};
-                color: {couleur_toolbutton_presse_texte};
-                border: 1px solid {couleur_toolbutton_hover_bord};
-            }}
-
-            QToolButton:checked {{
-                background: {couleur_toolbutton_coche_fond};
-                color: {couleur_toolbutton_coche_texte};
-                border: 1px solid {couleur_toolbutton_coche_bord};
-                font-weight: 600;
-            }}
-
-            QToolButton:disabled {{
-                color: {couleur_toolbutton_desactive_texte};
             }}
         """

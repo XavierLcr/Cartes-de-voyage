@@ -118,14 +118,11 @@ def style_dynamique_application(
     )
     # Boites
     couleur_box = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#E6F5F1", sombre="#1696A9"
+        style=style, teinte=teinte, nuances=nuances, clair="#EDF5F3", sombre="#1696A9"
     )
     couleur_box_texte = renvoyer_couleur_texte(
         style=style,
         couleur=couleur_box,
-    )
-    couleur_QComboBox_hover = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#919191", sombre="#5599A3"
     )
 
     # Lignes
@@ -192,14 +189,6 @@ def style_dynamique_application(
         sombre="#2C5A6C",
         reference=[onglet_actuel, onglet_fond],
         essais=limite_essais,
-    )
-
-    # Barre de progression
-    couleur_barre_progression_debut = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#ADCEDB", sombre="#26C6DA"
-    )
-    couleur_barre_progression_fin = renvoyer_couleur_widget(
-        style=style, teinte=teinte, nuances=nuances, clair="#1E7FA3", sombre="#0891A8"
     )
 
     # Checkboxes
@@ -515,25 +504,7 @@ def style_dynamique_application(
                 background-color: {couleur_checkbox_cochee_fond};  /* laisse Qt dessiner le tick */
                 border: 2px solid {couleur_checkbox_bord};
             }}
-            QProgressBar {{
-                border: none; 
-                text-align: right;
-                color: {couleur_widget_texte};
-                padding-left: 10px;
-                padding-right: 130px;
-                background-color: transparent;
-                border-radius: 5px;
-            }}
 
-            QProgressBar::chunk {{
-                border-radius: 12px;
-                background-color: qlineargradient(
-                    x1: 0, y1: 0, x2: 1, y2: 0,
-                    stop: 0 {couleur_barre_progression_debut},
-                    stop: 1 {couleur_barre_progression_fin}
-                );
-                margin: 0px;
-            }}
             QListWidget {{
                 background-color: {couleur_widget_list_fond}; /* Très proche de ton fond principal, mais un peu plus lumineux */
                 color: {couleur_widget_list_texte};

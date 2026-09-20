@@ -42,12 +42,7 @@ def renvoyer_couleur_widget_differente(
 def style_dynamique_application(
     style,
     teinte=[i / 360 for i in range(0, 360, 45)],
-    nuances={
-        "min_luminosite": 0.8,
-        "max_luminosite": 0.95,
-        "min_saturation": 0.2,
-        "max_saturation": 0.4,
-    },
+    nuances={},
     limite_essais=20,
     font_size=12,
 ):

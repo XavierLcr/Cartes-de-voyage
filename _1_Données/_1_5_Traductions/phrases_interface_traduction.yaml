@@ -1,3 +1,209 @@
+? <b>Priorité aux départements :</b> pour un pays donné, si des départements sont
+  cochés, les régions visitées sont automatiquement déduites de ceux-ci. Les régions
+  cochées manuellement ne sont alors pas prises en compte
+: afrikaans: <b>Prioriteit aan departemente:</b> vir 'n gegewe land, as departemente
+    gemerk is, word die besoekte streke outomaties daaruit afgelei. Handmatig gemerkte
+    streke word dan nie in ag geneem nie.
+  albanais: <b>Prioritet departamenteve:</b> për një shtet të caktuar, nëse departamentet
+    janë të shënuara, rajonet e vizituara rrjedhin automatikisht prej tyre. Rajonet
+    e shënuara manualisht nuk merren parasysh.
+  allemand: <b>Priorität für Departements:</b> Wenn für ein bestimmtes Land Departements
+    ausgewählt sind, werden die besuchten Regionen automatisch daraus abgeleitet.
+    Manuell ausgewählte Regionen werden dann nicht berücksichtigt.
+  anglais: <b>Priority to departments:</b> for a given country, if departments are
+    checked, the visited regions are automatically derived from them. Manually checked
+    regions are then not taken into account.
+  arabe: <b>الأولوية للمقاطعات:</b> بالنسبة لبلد معين، إذا تم تحديد المقاطعات، فسيتم
+    استنتاج المناطق التي تمت زيارتها تلقائيًا منها. وبالتالي لن تؤخذ المناطق المحددة
+    يدويًا في الاعتبار.
+  arménien: '<b>Առաջնահերթություն դեպարտամենտներին.</b> տվյալ երկրի համար, եթե դեպարտամենտները
+    նշված են, այցելված տարածաշրջաններն ավտոմատ կերպով բխում են դրանցից։ Ձեռքով նշված
+    տարածաշրջաններն այդ դեպքում հաշվի չեն առնվում:'
+  basque: <b>Lehentasuna departamenduei:</b> herrialde jakin batean, departamenduak
+    hautatuta badaude, bisitatutako eskualdeak automatikoki eratortzen dira horietatik.
+    Eskuz hautatutako eskualdeak ez dira kontuan hartzen.
+  bengali: <b>বিভাগগুলির অগ্রাধিকার:</b> একটি নির্দিষ্ট দেশের জন্য, যদি विभागগুলি
+    টিক দেওয়া থাকে, তবে পরিদর্শিত অঞ্চলগুলি স্বয়ংক্রিয়ভাবে সেগুলি থেকে অনুমিত হয়।
+    ম্যানুয়ালি টিক দেওয়া অঞ্চলগুলি তখন বিবেচনায় নেওয়া হয় না।
+  birman: <b>ခရိုင်များကို ဦးစားပေးရန် -</b> ပေးထားသောနိုင်ငံတစ်ခုအတွက် ခရိုင်များကို
+    အမှันခြစ်ထားပါက လည်ပတ်ခဲ့သော တိုင်းဒေသကြီးများကို ၎င်းတို့မှ အလိုအလျောက် တွက်ချက်ယူပါမည်။
+    ကိုယ်တိုင်အမှန်ခြစ်ထားသော တိုင်းဒေသကြီးများကို ထည့်သွင်းစဉ်းစားမည်မဟုတ်ပါ။
+  breton: <b>Priorit d'an departamantoù :</b> evit ur vro resis, ma vez dibabet departamantoù,
+    e vez deduzet ent-automatek ar rannvroioù gweladennet diwarno. Ne vez ket lakaet
+    ar rannvroioù dibabet gant an dorn e kont neuze.
+  bulgare: <b>Приоритет на департаментите:</b> за дадена държава, ако са отметнати
+    департаменти, посетените региони се извличат автоматично от тях. Ръчно отметнатите
+    региони тогава не се вземат предвид.
+  catalan: <b>Prioritat als departaments:</b> per a un país donat, si hi ha departaments
+    marcats, les regions visitades es dedueixen automàticament d'aquests. Les regions
+    marcades manualment no es tenen en compte.
+  corse: <b>Priorità à i dipartimenti:</b> per un paese datu, s'è i dipartimenti sò
+    scelti, e regioni visitate sò dedotte automaticamente da elli. E regioni scelte
+    manualmente ùn sò micca pigliate in contu.
+  coréen: <b>행정구역(데파르트망) 우선:</b> 특정 국가의 경우, 행정구역이 선택되면 방문한 지역은 이로부터 자동으로 유추됩니다. 수동으로
+    선택한 지역은 고려되지 않습니다.
+  danois: <b>Prioritet til departementer:</b> for et givent land, hvis departementer
+    er markeret, udledes de besøgte regioner automatisk herfra. Manuelt markerede
+    regioner tages derefter ikke i betragtning.
+  espagnol: <b>Prioridad a los departamentos:</b> para un país determinado, si se
+    marcan departamentos, las regiones visitadas se deducen automáticamente de estos.
+    Las regiones marcadas manualmente no se tienen en cuenta.
+  esperanto: <b>Prioritato al departementoj:</b> por donita lando, se departementoj
+    estas markitaj, la vizititaj regionoj estas aŭtomate deduktitaj de ili. Mane markitaj
+    regionoj tiam ne estas konsiderataj.
+  estonien: <b>Prioriteet departemangudele:</b> kui antud riigi puhul on departemangud
+    märgitud, tuletatakse külastatud piirkonnad automaatselt nendest. Käsitsi märgitud
+    piirkondi siis arvesse ei võeta.
+  finnois: <b>Etusija departementeille:</b> jos maalle on valittu departementteja,
+    vieraillut alueet johdetaan automaattisesti niistä. Manuaalisementti valittuja
+    alueita ei tällöin oteta huomioon.
+  français: <b>Priorité aux départements :</b> pour un pays donné, si des départements
+    sont cochés, les régions visitées sont automatiquement déduites de ceux-ci. Les
+    régions cochées manuellement ne sont alors pas prises en compte
+  gallois: <b>Blaenoriaeth i adrannau:</b> ar gyfer gwlad benodol, os oes adrannau
+    wedi'u ticio, mae'r rhanbarthau yr ymwelwyd â nhw yn cael eu didynnu'n awtomatig
+    ohonynt. Ni chymerir y rhanbarthau sydd wedi'u ticio â llaw i ystyriaeth wedyn.
+  grec: <b>Προτεραιότητα στους νομούς:</b> για μια δεδομένη χώρα, εάν είναι επιλεγμένοι
+    οι νομοί, οι περιοχές που επισκεφθήκατε προκύπτουν αυτόματα από αυτούς. Οι περιοχές
+    που επιλέγονται χειροκίνητα δεν λαμβάνονται τότε υπόψη.
+  grec ancien: <b>Προτεραιότης τοῖς νομοῖς:</b> ἐάν τινι χώρᾳ οἱ νομοὶ σημειωθῶσι,
+    αἱ ἐπεσκεμμέναι χῶραι αὐτομάτως ἐξ αὐτῶν συνάγονται. Αἱ δὲ χειρὶ σημειωθεῖσαι
+    χῶραι τότε οὐκ εἰσφέρονται.
+  géorgien: <b>პრიორიტეტი დეპარტამენტებს:</b> მოცემული ქვეყნისთვის, თუ დეპარტამენტები
+    მონიშნულია, მონახულებული რეგიონები ავტომატურად განისაზღვრება მათგან. ხელით მონიშნული
+    რეგიონები ამ შემთხვევაში არ გაითვალისწინება.
+  hindi: <b>विभागों को प्राथमिकता:</b> किसी दिए गए देश के लिए, यदि विभागों पर टिक
+    किया गया है, तो विज़िट किए गए क्षेत्र स्वचालित रूप से उनसे अनुमानित हो जाते हैं।
+    मैन्युअल रूप से टिक किए गए क्षेत्रों पर ध्यान नहीं दिया जाता है।
+  hongrois: <b>Elsőbbség a megyéknek:</b> egy adott ország esetében, ha a megyék be
+    vannak jelölve, a meglátogatott régiók automatikusan ezekből kerülnek meghatározásra.
+    A manuálisan bejelölt régiók ekkor nem lesznek figyelembe véve.
+  indonésien: <b>Prioritas untuk departemen:</b> untuk negara tertentu, jika departemen
+    dicentang, wilayah yang dikunjungi akan secara otomatis disimpulkan dari departemen
+    tersebut. Wilayah yang dicentang secara manual tidak akan diperhitungkan.
+  irlandais: <b>Tosaíocht do ranna:</b> i gcás tíre áirithe, má tá ranna ticte, déantar
+    na réigiúin ar tugadh cuairt orthu a asbaint go huathoibríoch astu sin. Ní chuirtear
+    na réigiúin a ticáladh de láimh san áireamh ansin.
+  islandais: <b>Forgangur til deilda:</b> fyrir gefið land, ef hakað er við deildir,
+    eru heimsótt svæði sjálfkrafa dregin af þeim. Svæði sem hakað er við handvirkt
+    eru þá ekki tekin með í reikninginn.
+  italien: <b>Priorità ai dipartimenti:</b> per un dato paese, se i dipartimenti sono
+    selezionati, le regioni visitate vengono detratte automaticamente da questi. Le
+    regioni selezionate manualmente non vengono quindi prese in considerazione.
+  japonais: <b>県（デパルトマン）を優先：</b>指定された国において、県がチェックされている場合、訪問した地域はそれらから自動的に推出されます。手動でチェックされた地域は考慮されません。
+  kazakh: <b>Департаменттерге басымдық:</b> берілген ел үшін, егер департаменттер
+    белгіленсе, барылған аймақтар олардан автоматты түрде анықталады. Қолмен белгіленген
+    аймақтар бұл жағдайда ескерілмейді.
+  kirghize: <b>Департаменттерге артыкчылык:</b> берилген өлкө үчүн, эгер департаменттер
+    белгиленсе, барылган аймактар автоматтык түрдө алардан аныкталат. Кол менен белгиленген
+    аймактар бул учурда эсепке алынбайт.
+  kurde: <b>Pêşîndarî ji bo departmanan:</b> ji bo welatekî diyarkirî, heke departman
+    hatibin nîşankirin, herêmên ser đạo hatine bi xweber ji wan têne derxistin. Herêmên
+    ku bi destan hatine nîşankirin wê demê nayên hesibandin.
+  latin: <b>Praelatio praefecturis:</b> pro quadam civitate, si praefecturae selectae
+    sunt, regiones visitatae sponte ex iis colliguntur. Regiones manu selectae tunc
+    non habentur.
+  letton: <b>Prioritāte departamentiem:</b> konkrētai valstij, ja departamenti ir
+    atzīmēti, apmeklētie reģioni tiek automātiski atvasināti no tiem. Manuāli atzīmētie
+    reģioni netiek ņemti vērā.
+  lituanien: <b>Pirmenybė departamentams:</b> tam tikrai šaliai, jei departamentai
+    yra pažymėti, lankomi regionai automatiškai nustatomi pagal juos. Rankiniu būdu
+    pažymėti regionai tada nevertinami.
+  luxembourgeois: <b>Prioritéit fir d'Departementer:</b> fir e bestëmmte Land, wann
+    d'Departementer ugekräizt sinn, ginn déi besichte Regiounen automatesch dovun
+    ofgeleet. Manuell ugekräizte Regioune ginn dann net berécksichtegt.
+  macédonien: <b>Приоритет на департманите:</b> за дадена земја, ако се означени департманите,
+    посетените региони автоматски се изведуваат од нив. Рачно означените региони тогаш
+    не се земаат предвид.
+  malais: <b>Keutamaan kepada jabatan:</b> untuk negara tertentu, jika jabatan ditanda,
+    wilayah yang dilawati akan ditolak secara automatik daripadanya. Wilayah yang
+    ditanda secara manual tidak akan diambil kira.
+  malgache: <b>Laharam-pahamehana ho an'ny departemanta:</b> ho an'ny firenena iray,
+    raha voasafidy ny departemanta, dia alaina ho azy avy amin'izany ny faritra notsidihina.
+    Tsy raisina an-tanana kosa ny faritra nosafidiana tamin'ny tanana.
+  maltais: <b>Prijorità lid-dipartimenti:</b> għal pajjiż partikolari, jekk id-dipartimenti
+    huma mmarkati, ir-reġjuni li żarhom jiġu ddedotti awtomatikament minnhom. Reġjuni
+    mmarkati manwalment imbagħad ma jiġux ikkunsidrati.
+  mandarin standard: <b>省份优先：</b>对于特定国家，如果勾选了省份，则访问的区域将自动由此推导出来。手动勾选的区域届时将不予考虑。
+  mongol: <b>Департамeнтуудад тэргүүлэх ач холбогдол өгөх:</b> өгөгдсөн улсын хувьд
+    хэрэв департаментуудыг тэмдэглэсэн бол зочилсон бүс нутгуудыг тэдгээрээс автоматаар
+    тооцно. Гар аргаар тэмдэглэсэн бүс нутгуудыг тооцохгүй.
+  norvégien: <b>Prioritet til departementer:</b> for et gitt land, hvis departementer
+    er krysset av, blir de besøkte regionene automatisk utledet fra disse. Manuelt
+    avkrysset regioner blir da ikke tatt hensyn til.
+  néerlandais: <b>Prioriteit aan departementen:</b> voor een gegeven land worden,
+    als er departementen zijn aangevinkt, de bezochte regio's daar automatisch uit
+    afgeleid. Handmatig aangevinkte regio's worden dan niet in aanmerking genomen.
+  népalais: <b>विभागहरूलाई प्राथमिकता:</b> कुनै निश्चित देशको लागि, यदि विभागहरू टिक
+    गरिएका छन् भने, भ्रमण गरिएका क्षेत्रहरू स्वतः तिनीहरूबाट निकालिन्छन्। म्यानुअल
+    रूपमा टिक गरिएका क्षेत्रहरूलाई ध्यान दिइँदैन।
+  ourdou: <b>محکموں کو ترجیح:</b> کسی مخصوص ملک کے لیے، اگر محکموں کو نشان زد کیا
+    گیا ہے، تو دورہ کیے گئے علاقے خود بخود ان سے اخذ کیے جائیں گے۔ دستی طور پر نشان
+    زدہ علاقوں کو مدنظر نہیں رکھا جائے گا۔
+  ouzbek: <b>Departamentlarga ustuvorlik:</b> berilgan mamlakat üçün, agar departamentlar
+    belgilangan bo'lsa, tashrif buyurilgan hududlar avtomatik ravishda ulardan kelib
+    chiqadi. Qo'lda belgilangan hududlar hisobga olingmaydi.
+  pachto: <b>ډیپارټمنټونو ته لومړیتوب:</b> د یو ځانګړي هیواد لپاره، که ډیپارټمنټونه
+    نښه شوي وي، د لیدل شویو سیمو اتوماتیک د هغو څخه اخیستل کیږي. په لاسي ډول نښه شوې
+    سیمې بیا په پام کې نه نیول کیږي.
+  persan: <b>اولویت با دپارتمان‌ها:</b> برای یک کشور معین، اگر دپارتمان‌ها علامت‌گذاری
+    شده باشند، مناطق بازدید شده به‌طور خودکار از آن‌ها استخراج می‌شوند. در این صورت،
+    مناطق علامت‌گذاری شده به‌صورت دستی در نظر گرفته نمی‌شوند.
+  polonais: <b>Priorytet dla departamentów:</b> dla danego kraju, jeśli zaznaczono
+    departamenty, odwiedzone regiony są automatycznie z nich wnioskowane. Regiony
+    zaznaczone ręcznie nie są wtedy brane pod uwagę.
+  portugais: <b>Prioridade aos departamentos:</b> para um determinado país, se os
+    departamentos estiverem marcados, as regiões visitadas são deduzidas automaticamente
+    a partir destes. As regiões marcadas manualmente não são então levadas em consideração.
+  roumain: <b>Prioritate pentru departamente:</b> pentru o anumită țară, dacă sunt
+    bifate departamente, regiunile vizitate sunt deduse automat din acestea. Regiunile
+    bifate manual nu sunt atunci luate în considerare.
+  russe: <b>Приоритет департаментам:</b> для выбранной страны, если отмечены департаменты,
+    посещенные регионы автоматически выводятся из них. Вручную отмеченные регионы
+    в этом случае не учитываются.
+  serbo-croate: <b>Prioritet departmanima:</b> za određenu zemlju, ako su departmani
+    označeni, posjećene regije se automatski izvode iz njih. Ručno označene regije
+    tada se ne uzimaju u obzir.
+  slovaque: <b>Priorita pre departementy:</b> pre danú krajinu, ak sú začiarknuté
+    departementy, navštívené regióny sa automaticky odvodia z nich. Ručne začiarknuté
+    regióny sa potom neberú do úvahy.
+  slovène: <b>Prednost departmajem:</b> za določeno državo, če so departmaji označeni,
+    se obiskane regije samodejno izpeljejo iz njih. Ročno označene regije se takrat
+    ne upoštevajo.
+  suédois: <b>Prioritet till departement:</b> för ett givet land, om departement är
+    markerade, härleds de besökta regionerna automatiskt från dessa. Manuellt markerade
+    regioner tas då inte med i beräkningen.
+  swahili: <b>Kipaumbele kwa idara:</b> kwa nchi fulani, ikiwa idara zimekaguliwa,
+    mikoa iliyotembelewa inatolewa kiotomatiki kutoka kwayo. Mikoa iliyotiwa alama
+    kwa mikono basi haizingatiwi.
+  tadjik: <b>Афзалият ба департаментҳо:</b> барои кишвари додашуда, агар департаментҳо
+    интихоб шуда бошанд, минтақаҳои боздидшуда ба таври худкор аз онҳо бароварда мешаванд.
+    Минтақаҳои дастӣ интихобшуда ба назар гирифта намешаванд.
+  tamoul: <b>துறைகளுக்கு முன்னுரிமை:</b> கொடுக்கப்பட்ட ஒரு நாட்டிற்கு, துறைகள் குறிக்கப்பட்டிருந்தால்,
+    பார்வையிட்ட பகுதிகள் தானாகவே அவற்றிலிருந்து பெறப்படும். கைமுறையாக குறிக்கப்பட்ட
+    பகுதிகள் கணக்கில் எடுத்துக்கொள்ளப்படாது.
+  tchèque: <b>Priorita pro departementy:</b> pro danou zemi, pokud jsou zaškrtnuty
+    departementy, navštívené regiony jsou z nich automaticky odvozeny. Na ručně zaškrtnuté
+    regiony se pak nebere ohled.
+  thaï: <b>ให้ความสำคัญกับแผนกก่อน:</b> สำหรับประเทศที่กำหนด หากมีการเลือกแผนก ภูมิภาคที่เข้าชมจะถูกหักออกโดยอัตโนมัติจากแผนกเหล่านั้น
+    ภูมิภาคที่เลือกด้วยตนเองจะไม่ถูกนำมาพิจารณา
+  tibétain: <b>ས་གནས་སྡེ་ཚན་ལ་གཙོ་གནད།</b> རྒྱལ་ཁབ་བྱེ་བྲག་པ་ཞིག་གི་ཆེད་དུ། གལ་ཏེ་ས་གནས་སྡེ་ཚན་ཁག་རྟགས་བརྒྱབ་ཡོད་ན།
+    ལྟ་སྐོར་བྱས་པའི་ས་ཁུལ་ཁག་དེ་དག་ལས་རང་བཞིན་གྱིས་འདྲེན་པ་རེད། ལག་པས་རྟགས་བརྒྱབ་པའི་ས་ཁུལ་ཁག་དེ་དུས་རྩིས་སུ་མི་བགྲང་།
+  turc: <b>Departmanlara öncelik:</b> Belirli bir ülke için, departmanlar işaretlenmişse,
+    ziyaret edilen bölgeler otomatik olarak bunlardan türetilir. Manuel olarak işaretlenen
+    bölgeler bu durumda dikkate alınmaz.
+  turkmène: <b>Departamentlere ileri tutulma:</b> berlen ýurt üçin, departamentler
+    bellenen bolsa, baryp görlen sebitler awtomatiki usulda ondan çykarylar. Elde
+    bellenen sebitler hasaba alynmaz.
+  ukrainien: <b>Пріоритет департаментам:</b> для вибраної країни, якщо позначено департаменти,
+    відвідані регіони автоматично виводяться з них. Вручну позначені регіони в такому
+    разі не враховуються.
+  vietnamien: <b>Ưu tiên các bộ phận:</b> đối với một quốc gia nhất định, nếu các
+    bộ phận được chọn, các khu vực đã ghé thăm sẽ tự động được suy ra từ chúng. Các
+    khu vực được chọn thủ công sẽ không được tính đến.
+  zoulou: <b>Okubalulekile eminyangweni:</b> ezweni elithile, uma iminyango imakwe,
+    izifunda ezivakashelwe zithathwa kuzo ngokuzenzakalelayo. Izifunda ezimakwe ngesandla
+    azibe saticatshangelwa.
 ? '<h3>📌 Description :</h3>
 
   <p>Mes Voyages est une application permettant de créer des cartes personnalisées
@@ -2905,6 +3111,77 @@ Ajouter un voyage:
   ukrainien: Додати подорож
   vietnamien: Thêm một chuyến đi
   zoulou: Faka uhambo oluthe
+Alignement des pays:
+  afrikaans: Belyning van lande
+  albanais: Rreshtimi i vendeve
+  allemand: Ausrichtung der Länder
+  anglais: Alignment of countries
+  arabe: محاذاة الدول
+  arménien: Երկրների հավասարեցում
+  basque: Herrialdeen lerrokatzea
+  bengali: দেশের প্রান্তিককরণ
+  birman: နိုင်ငံများ ညှิနှိုင်းမှု
+  breton: Steudadur ar broioù
+  bulgare: Подравняване на страните
+  catalan: Alineació de països
+  corse: Allineamentu di i paesi
+  coréen: 국가 정렬
+  danois: Justering af lande
+  espagnol: Alineación de países
+  esperanto: Alineigo de landoj
+  estonien: Riikide joondamine
+  finnois: Maiden linjaus
+  français: Alignement des pays
+  gallois: Aliniad gwledydd
+  grec: Ευθυγράμμιση χωρών
+  grec ancien: Εὐθυγράμμισις τῶν χωρῶν
+  géorgien: ქვეყნების გასწორება
+  hindi: देशों का संरेखण
+  hongrois: Országok igazítása
+  indonésien: Penyelarasan negara
+  irlandais: Ailíniú tíortha
+  islandais: Samstilling landa
+  italien: Allineamento dei paesi
+  japonais: 国の整列
+  kazakh: Елдерді туралау
+  kirghize: Өlkölördü tegizdöö
+  kurde: Hevdemkirina welatan
+  latin: Ordinatio civitatum
+  letton: Valstu izlīdzināšana
+  lituanien: Šalių lygiavimas
+  luxembourgeois: Ausriichtung vun de Länner
+  macédonien: Порамнување на земјите
+  malais: Penyelarasan negara
+  malgache: Fampifanarahana ny firenena
+  maltais: Allinjament tal-pajjiżi
+  mandarin standard: 国家对齐
+  mongol: Улс орнуудын зэрэгцүүлэлт
+  norvégien: Justering av land
+  néerlandais: Uitlijning van landen
+  népalais: देशहरूको पङ्क्तिबद्धता
+  ourdou: ممالک کی صف بندی
+  ouzbek: Mamlakatlarni tekislash
+  pachto: د هیوادونو سمون
+  persan: همسویی کشورها
+  polonais: Wyrównanie krajów
+  portugais: Alinhamento dos países
+  roumain: Alinierea țărilor
+  russe: Выравнивание стран
+  serbo-croate: Poravnanje zemalja
+  slovaque: Zarovnanie krajín
+  slovène: Poravnava držav
+  suédois: Justering av länder
+  swahili: Upangaji wa nchi
+  tadjik: Ҳамоҳангсозии кишварҳо
+  tamoul: நாடுகளின் சீரமைப்பு
+  tchèque: Zarovnání zemí
+  thaï: การจัดตำแหน่งประเทศ
+  tibétain: རྒྱལ་ཁབ་ཁག་གི་སྒྲིག་སྦྱོར།
+  turc: Ülkelerin hizalanması
+  turkmène: Ýurtlaryň deňleşdirilmesi
+  ukrainien: Вирівнювання країн
+  vietnamien: Căn chỉnh các quốc gia
+  zoulou: Ukuvumelanisa kwamazwe
 Alignement des pays visités dans l'hémicycle:
   afrikaans: Lining up of countries visited in the semicircle
   albanais: Rreshtimi i vendeve të vizituara në gjysmërrethin
@@ -4561,6 +4838,77 @@ Cartes à publier:
   ukrainien: Картки для публікації
   vietnamien: Thẻ bài để đăng tải
   zoulou: Amakhadi okuzothunyelwa
+Ce champ est facultatif:
+  afrikaans: Hierdie veld is opsioneel
+  albanais: Kjo fushë është opsionale
+  allemand: Dieses Feld ist optional
+  anglais: This field is optional
+  arabe: هذا الحقل اختياري
+  arménien: Այս դաշտը պարտադիր չէ
+  basque: Eremu hau hautazkoa da
+  bengali: এই ক্ষেত্রটি ঐচ্ছিক
+  birman: ဤအကွက်ကို ဖြည့်စွက်ရန် မလိုပါ
+  breton: Ar maezienn-mañ zo diret
+  bulgare: Това поле е незадължително
+  catalan: Aquest camp és opcional
+  corse: Stu campu hè facultativu
+  coréen: 이 필드는 선택 사항입니다
+  danois: Dette felt er valgfrit
+  espagnol: Este campo es opcional
+  esperanto: Ĉi tiu kampo estas nedeviga
+  estonien: See väli on valikuline
+  finnois: Tämä kenttä on valinnainen
+  français: Ce champ est facultatif
+  gallois: Mae'r maes hwn yn ddewisol
+  grec: Αυτό το πεδίο είναι προαιρετικό
+  grec ancien: τοῦτο τὸ πεδίον οὐκ ἀναγκαῖόν ἐστιν
+  géorgien: ეს ველი არასავალდებულოა
+  hindi: यह फ़ील्ड वैकल्पिक है
+  hongrois: Ez a mező opcionális
+  indonésien: Kolom ini opsional
+  irlandais: Tá an réimse seo roghnach
+  islandais: Þessi reitur er valfrjáls
+  italien: Questo campo è facoltativo
+  japonais: この項目は任意です
+  kazakh: Бұл өріс міндетті емес
+  kirghize: Бул талаа милдеттүү эмес
+  kurde: Ev qad neçarî nîne
+  latin: Hoc spatium ad libitum est
+  letton: Šis lauks nav obligāts
+  lituanien: Šis laukas yra neprivalomas
+  luxembourgeois: Dëst Feld ass fakultativ
+  macédonien: Ова поле е изборно
+  malais: Medan ini adalah pilihan
+  malgache: Tsy voatery fenoina ity sehatra ity
+  maltais: Dan il-kamp huwa fakultattiv
+  mandarin standard: 此字段是可选的
+  mongol: Энэ талбар заавал биш
+  norvégien: Dette feltet er valgfritt
+  néerlandais: Dit veld is optioneel
+  népalais: यो क्षेत्र ऐच्छिक हो
+  ourdou: یہ خانہ اختیاری ہے
+  ouzbek: Bu maydon ixtiyoriy
+  pachto: دا ساحه اختیاري ده
+  persan: این فیلد اختیاری است
+  polonais: To pole jest opcjonalne
+  portugais: Este campo é opcional
+  roumain: Acest câmp este opțional
+  russe: Это поле необязательно
+  serbo-croate: Ovo polje nije obavezno
+  slovaque: Toto pole je voliteľné
+  slovène: To polje je neobvezno
+  suédois: Detta fält är valfritt
+  swahili: Sehemu hii si lazima
+  tadjik: Ин майдон ихтиёрӣ аст
+  tamoul: இந்த புலம் கட்டாயமற்றது
+  tchèque: Toto pole je volitelné
+  thaï: ช่องนี้ไม่จำเป็นต้องกรอก
+  tibétain: འདི་ནི་འདེམས་ཚན་རེད།
+  turc: Bu alan isteğe bağlıdır
+  turkmène: Bu meýdança meýletindir
+  ukrainien: Це поле необов'язкове
+  vietnamien: Trường này là không bắt buộc
+  zoulou: Le ndawo akuyona impoqo
 ? Cela permet de charger la liste des voyages effectués. L'ancien format avec les
   listes de régions ou départements par pays est également supporté.
 : afrikaans: Dit maak dit moontlik om die lys van uitgevoerde reise te laai. Die ou
@@ -5129,6 +5477,77 @@ Cliquez ici afin de trouver votre prochaine destination !:
   ukrainien: Натисніть тут, щоб знайти наступне місце призначення!
   vietnamien: Nhấp vào đây để tìm điểm đến tiếp theo của bạn!
   zoulou: Cofa lapha ukuze uthole indawo oya kuyo elandelayo!
+Compagnon(s) de voyage:
+  afrikaans: Reisgenoot (reisgenote)
+  albanais: Bashkëudhëtar(ë)
+  allemand: Reisebegleiter
+  anglais: Travel companion(s)
+  arabe: رفيق (رفقاء) السفر
+  arménien: Ճամփորդակից(ներ)
+  basque: Bidelagun(ak)
+  bengali: ভ্রমণসঙ্গী
+  birman: ခရီးသွားဖော်(များ)
+  breton: Kenseurt(ed)-veaj
+  bulgare: Спътник(ци)
+  catalan: Acompanyant(s) de viatge
+  corse: Cumpagnu(i) di viaghju
+  coréen: 여행 동반자(들)
+  danois: Rejseledsager(e)
+  espagnol: Compañero(s) de viaje
+  esperanto: Vojaĝkunulo(j)
+  estonien: Reisikaaslane (-lased)
+  finnois: Matkakumppani(t)
+  français: Compagnon(s) de voyage
+  gallois: Cyd-deithiwr (cyd-deithwyr)
+  grec: Συνταξιδιώτης(-ες)
+  grec ancien: Συνέκδημος (συνέκδημοι)
+  géorgien: თანამგზავრ(ებ)ი
+  hindi: सहयात्री
+  hongrois: Útitárs(ak)
+  indonésien: Teman perjalanan
+  irlandais: Compánach (compánaigh) taistil
+  islandais: Ferðafélagi (ferðafélagar)
+  italien: Compagno(i) di viaggio
+  japonais: 旅行の同行者
+  kazakh: Жолсерік(тер)
+  kirghize: Сапарлаш(тар)
+  kurde: Heval(ên) rêwîtiyê
+  latin: Comes (comites) viae
+  letton: Ceļabiedrs (-i)
+  lituanien: Kelionės draugas (-ai)
+  luxembourgeois: Reesbegleider
+  macédonien: Сопатник(ци)
+  malais: Teman perjalanan
+  malgache: Mpiara-dia
+  maltais: Sieħeb (sħab) tas-safra
+  mandarin standard: 旅伴
+  mongol: Аяллын хамтрагч(ид)
+  norvégien: Reisefølge(r)
+  néerlandais: Reisgenoot (reisgenoten)
+  népalais: सहयात्री
+  ourdou: ہمسفر
+  ouzbek: Sayohatdosh(lar)
+  pachto: د سفر ملګری (ملګري)
+  persan: همسفر (همسفران)
+  polonais: Towarzysz(e) podróży
+  portugais: Companheiro(s) de viagem
+  roumain: Tovarăș(i) de călătorie
+  russe: Попутчик(и)
+  serbo-croate: Saputnik(ci)
+  slovaque: Spoločník (spoločníci) na ceste
+  slovène: Sopotnik(i)
+  suédois: Reskamrat(er)
+  swahili: Mwenzi (wenzi) wa safari
+  tadjik: Ҳамсафар(он)
+  tamoul: பயணத் துணைவர்(கள்)
+  tchèque: Spolucestující
+  thaï: เพื่อนร่วมเดินทาง
+  tibétain: ལམ་རོགས།
+  turc: Yol arkadaşı (arkadaşları)
+  turkmène: Ýol ýoldaş(lar)y
+  ukrainien: Попутник(и)
+  vietnamien: Bạn đồng hành
+  zoulou: Umngane (abangane) wokuhamba
 Contexte du voyage:
   afrikaans: Reis konteks
   albanais: Konteksti i udhëtimit
@@ -6733,6 +7152,77 @@ Europe:
   ukrainien: Європа
   vietnamien: Châu Âu
   zoulou: I-Yurophu
+Exporter le fichier YAML des voyages effectués:
+  afrikaans: Voer die YAML-lêer van die gemaakte reise uit
+  albanais: Eksporto skedarin YAML të udhëtimeve të kryera
+  allemand: YAML-Datei der durchgeführten Reisen exportieren
+  anglais: Export the YAML file of the completed trips
+  arabe: تصدير ملف YAML للرحلات المنجزة
+  arménien: Արտահանել կատարված ուղևորությունների YAML ֆայլը
+  basque: Esportatu egindako bidaien YAML fitxategia
+  bengali: সম্পন্ন ভ্রমণের YAML ফাইলটি রপ্তানি করুন
+  birman: ပြုလုပ်ခဲ့သော ခရီးစဉ်များ၏ YAML ဖိုင်ကို ထုတ်ယူပါ
+  breton: Ezporzhiañ ar restr YAML eus ar beajoù graet
+  bulgare: Експортиране на YAML файла с извършените пътувания
+  catalan: Exportar el fitxer YAML dels viatges realitzats
+  corse: Esportà u schedariu YAML di i viaghji fatti
+  coréen: 완료된 여행의 YAML 파일 내보내기
+  danois: Eksporter YAML-filen over de foretagne rejser
+  espagnol: Exportar el archivo YAML de los viajes realizados
+  esperanto: Eksporti la YAML-dosieron de la faritaj vojaĝoj
+  estonien: Ekspordi tehtud reiside YAML-fail
+  finnois: Vie tehtyjen matkojen YAML-tiedosto
+  français: Exporter le fichier YAML des voyages effectués
+  gallois: Allforio ffeil YAML y teithiau a wnaed
+  grec: Εξαγωγή του αρχείου YAML των πραγματοποιηθέντων ταξιδιών
+  grec ancien: Ἐκφέρειν τὸ YAML ἀρχεῖον τῶν πεποιημένων ὁδοιποριῶν
+  géorgien: განხორციელებული მოგზაურობების YAML ფაილის ექსპორტი
+  hindi: किए गए दौरों की YAML फ़ाइल निर्यात करें
+  hongrois: A megtett utak YAML fájljának exportálása
+  indonésien: Ekspor file YAML dari perjalanan yang dilakukan
+  irlandais: Onnmhairigh an comhad YAML de na turais a rinneadh
+  islandais: Flytja út YAML skrá yfir farnar ferðir
+  italien: Esporta il file YAML dei viaggi effettuati
+  japonais: 完了した旅行のYAMLファイルをエクスポートする
+  kazakh: Жасалған сапарлардың YAML файлын экспорттау
+  kirghize: Жасалган сапарлардын YAML файлын экспорттоо
+  kurde: Pelgeya YAML ya geştên hatine kirin derxîne
+  latin: Exportare fasciculum YAML itinerum factorum
+  letton: Eksportēt veikto ceļojumu YAML failu
+  lituanien: Eksportuoti atliktų kelionių YAML failą
+  luxembourgeois: Den YAML-Fichier vun de gemaache Reese exportéieren
+  macédonien: Извези ја YAML-датотеката за реализираните патувања
+  malais: Eksport fail YAML bagi perjalanan yang telah dilakukan
+  malgache: Hanondrana ny rakitra YAML an'ireo dia natao
+  maltais: Esporta l-fajl YAML tal-vjaġġi li saru
+  mandarin standard: 导出已完成行程的 YAML 文件
+  mongol: Хийсэн аяллын YAML файлыг экспортлох
+  norvégien: Eksporter YAML-filen for de gjennomførte reisene
+  néerlandais: Exporteer het YAML-bestand van de gemaakte reizen
+  népalais: गरिएका यात्राहरूको YAML फाइल निर्यात गर्नुहोस्
+  ourdou: کئے گئے سفروں کی YAML فائل برآمد کریں
+  ouzbek: Amalga oshirilgan sayohatlarning YAML faylini eksport qilish
+  pachto: د شوي سفرونو YAML فایل صادر کړئ
+  persan: صادر کردن فایل YAML سفرهای انجام شده
+  polonais: Eksportuj plik YAML odbytych podróży
+  portugais: Exportar o arquivo YAML das viagens realizadas
+  roumain: Exportați fișierul YAML al călătoriilor efectuate
+  russe: Экспортировать YAML-файл совершённых поездок
+  serbo-croate: Izvezi YAML datoteku ostvarenih putovanja
+  slovaque: Exportovať súbor YAML uskutočnených ciest
+  slovène: Izvozi datoteko YAML opravljenih potovanj
+  suédois: Exportera YAML-filen för de genomförda resorna
+  swahili: Hamisha faili ya YAML ya safari zilizofanywa
+  tadjik: Содироти файли YAML-и сафарҳои анҷомдодашуда
+  tamoul: மேற்கொண்ட பயணங்களின் YAML கோப்பை ஏற்றுமதி செய்யவும்
+  tchèque: Exportovat soubor YAML uskutečněných cest
+  thaï: ส่งออกไฟล์ YAML ของการเดินทางที่เสร็จสิ้น
+  tibétain: བྱས་པའི་འགྲུལ་བཞུད་ཀྱི་ YAML ཡིག་ཆ་ཕྱིར་འདྲེན་བྱེད་པ།
+  turc: Gerçekleştirilen seyahatlerin YAML dosyasını dışa aktar
+  turkmène: Geçirilen syýahatlaryň YAML faýlyny eksport etmek
+  ukrainien: Експортувати YAML-файл здійснених поїздок
+  vietnamien: Xuất tệp YAML của các chuyến đi đã thực hiện
+  zoulou: Thumela ngaphandle ifayela le-YAML lohambo olwenziwe
 Faible:
   afrikaans: Swak
   albanais: I dobët
@@ -9750,6 +10240,77 @@ Il est nécessaire de choisir un dossier de stockage des cartes valide:
   ukrainien: Необхідно вибрати дійсну папку для збереження карт
   vietnamien: Cần chọn một thư mục lưu trữ thẻ hợp lệ
   zoulou: Kuyadingeka ukukhetha ifolda yokugcina amabalazwe evumelekile
+Informations:
+  afrikaans: Inligting
+  albanais: Informacione
+  allemand: Informationen
+  anglais: Information
+  arabe: معلومات
+  arménien: Տեղեկություններ
+  basque: Informazioa
+  bengali: তথ্য
+  birman: သတင်းအချက်အလက်
+  breton: Titouroù
+  bulgare: Информация
+  catalan: Informació
+  corse: Infurmazzione
+  coréen: 정보
+  danois: Informationer
+  espagnol: Información
+  esperanto: Informoj
+  estonien: Info
+  finnois: Tiedot
+  français: Informations
+  gallois: Gwybodaeth
+  grec: Πληροφορίες
+  grec ancien: Ἀγγελία
+  géorgien: ინფორმაცია
+  hindi: जानकारी
+  hongrois: Információk
+  indonésien: Informasi
+  irlandais: Eolas
+  islandais: Upplýsingar
+  italien: Informazioni
+  japonais: 情報
+  kazakh: Ақпарат
+  kirghize: Маалымат
+  kurde: Agahî
+  latin: Informationes
+  letton: Informācija
+  lituanien: Informacija
+  luxembourgeois: Informatiounen
+  macédonien: Информации
+  malais: Maklumat
+  malgache: Fampahalalana
+  maltais: Informazzjoni
+  mandarin standard: 信息
+  mongol: Мэдээлэл
+  norvégien: Informasjon
+  néerlandais: Informatie
+  népalais: जानकारी
+  ourdou: معلومات
+  ouzbek: Ma'lumotlar
+  pachto: معلومات
+  persan: اطلاعات
+  polonais: Informacje
+  portugais: Informações
+  roumain: Informații
+  russe: Информация
+  serbo-croate: Informacije
+  slovaque: Informácie
+  slovène: Informacije
+  suédois: Information
+  swahili: Taarifa
+  tadjik: Маълумот
+  tamoul: தகவல்
+  tchèque: Informace
+  thaï: ข้อมูล
+  tibétain: གནས་ཚུལ།
+  turc: Bilgiler
+  turkmène: Maglumatlar
+  ukrainien: Інформація
+  vietnamien: Thông tin
+  zoulou: Ulwazi
 Jours voyagés:
   afrikaans: Reisdae
   albanais: Ditë të udhëtuara
@@ -10866,6 +11427,77 @@ Nombre de visites:
   ukrainien: Кількість відвідувань
   vietnamien: Số lượt truy cập
   zoulou: Izivakashi
+Noms des compagnons de voyage:
+  afrikaans: Name van reisgenote
+  albanais: Emrat e bashkëudhëtarëve
+  allemand: Namen der Reisebegleiter
+  anglais: Names of travel companions
+  arabe: أسماء رفقاء السفر
+  arménien: Ճամփորդակիցների անունները
+  basque: Bidaideen izenak
+  bengali: ভ্রমণ সঙ্গীদের নাম
+  birman: ခရီးဖော်များ၏ အမည်များ
+  breton: Anvioù ar gompagnuned-veaj
+  bulgare: Имена на спътниците
+  catalan: Noms dels companys de viatge
+  corse: Nomi di i cumpagni di viaghju
+  coréen: 여행 동반자들의 이름
+  danois: Navne på rejsefæller
+  espagnol: Nombres de los compañeros de viaje
+  esperanto: Nomoj de la kunvojaĝantoj
+  estonien: Reisikaaslaste nimed
+  finnois: Matkakumppaneiden nimet
+  français: Noms des compagnons de voyage
+  gallois: Enwau cyd-deithwyr
+  grec: Ονόματα των συνταξιδιωτών
+  grec ancien: Ὀνόματα τῶν συνοδοιπόρων
+  géorgien: თანამგზავრების სახელები
+  hindi: सहयात्रियों के नाम
+  hongrois: Útitársak nevei
+  indonésien: Nama-nama teman perjalanan
+  irlandais: Ainmneacha na gcompánach taistil
+  islandais: Nöfn ferðafélaga
+  italien: Nomi dei compagni di viaggio
+  japonais: 同行者の名前
+  kazakh: Сапарластардың есімдері
+  kirghize: Сапарлаштардын ысымдары
+  kurde: Navên hevalên rêwîtiyê
+  latin: Nomina comitum viae
+  letton: Ceļabiedru vārdi
+  lituanien: Kelionės draugų vardai
+  luxembourgeois: Nimm vun de Reesbegleeder
+  macédonien: Имиња на сопатниците
+  malais: Nama-nama rakan perjalanan
+  malgache: Anaran'ireo mpiara-dia
+  maltais: Ismijiet tal-kumpanji tal-ivvjaġġar
+  mandarin standard: 旅行同伴的姓名
+  mongol: Хамт аялагчдын нэрс
+  norvégien: Navn på reisefeller
+  néerlandais: Namen van reisgenoten
+  népalais: यात्रा साथीहरूको नाम
+  ourdou: سفر کے ساتھیوں کے نام
+  ouzbek: Sayohat hamrohlari ismlari
+  pachto: د سفر د ملګرو نومونه
+  persan: نام همسفران
+  polonais: Imiona towarzyszy podróży
+  portugais: Nomes dos companheiros de viagem
+  roumain: Numele tovarășilor de călătorie
+  russe: Имена попутчиков
+  serbo-croate: Imena saputnika
+  slovaque: Mená spolucestujúcich
+  slovène: Imena sopotnikov
+  suédois: Reskamraters namn
+  swahili: Majina ya wasafiri wenzako
+  tadjik: Номҳои ҳамсафарон
+  tamoul: பயணத் தோழர்களின் பெயர்கள்
+  tchèque: Jména spolucestujících
+  thaï: รายชื่อเพื่อนร่วมเดินทาง
+  tibétain: ལམ་རོགས་ཚོའི་མིང་།
+  turc: Yol arkadaşlarının isimleri
+  turkmène: Ýoldaşlaryň atlary
+  ukrainien: Імена попутників
+  vietnamien: Tên của những người bạn đồng hành
+  zoulou: Amagama abangane bokuhamba
 Non:
   afrikaans: Nee
   albanais: Jo
@@ -15629,6 +16261,77 @@ Statistiques:
   ukrainien: Статистика
   vietnamien: Thống kê
   zoulou: Izibalo
+Statut:
+  afrikaans: Status
+  albanais: Statusi
+  allemand: Status
+  anglais: Status
+  arabe: حالة
+  arménien: Կարգավիճակ
+  basque: Egoera
+  bengali: স্থিতি
+  birman: အခြေအနေ
+  breton: Statud
+  bulgare: Статус
+  catalan: Estatus
+  corse: Statutu
+  coréen: 상태
+  danois: Status
+  espagnol: Estado
+  esperanto: Statuso
+  estonien: Staatus
+  finnois: Status
+  français: Statut
+  gallois: Statws
+  grec: Κατάσταση
+  grec ancien: στάσις
+  géorgien: სტატუსი
+  hindi: स्थिति
+  hongrois: Státusz
+  indonésien: Status
+  irlandais: Stádas
+  islandais: Staða
+  italien: Stato
+  japonais: ステータス
+  kazakh: Мәртебе
+  kirghize: Статус
+  kurde: Statû
+  latin: Status
+  letton: Statuss
+  lituanien: Statusas
+  luxembourgeois: Status
+  macédonien: Статус
+  malais: Status
+  malgache: Sata
+  maltais: Status
+  mandarin standard: 状态
+  mongol: Статус
+  norvégien: Status
+  néerlandais: Status
+  népalais: स्थिति
+  ourdou: حیثیت
+  ouzbek: Status
+  pachto: حالت
+  persan: وضعیت
+  polonais: Status
+  portugais: Estado
+  roumain: Statut
+  russe: Статус
+  serbo-croate: Status
+  slovaque: Status
+  slovène: Status
+  suédois: Status
+  swahili: Hali
+  tadjik: Статус
+  tamoul: நிலை
+  tchèque: Status
+  thaï: สถานะ
+  tibétain: གནས་བབས།
+  turc: Durum
+  turkmène: Status
+  ukrainien: Статус
+  vietnamien: Trạng thái
+  zoulou: Isimo
 Suggestions de destinations:
   afrikaans: Voorstelle vir bestemmings
   albanais: Sugjerime për destinacione
@@ -16836,6 +17539,77 @@ Version:
   ukrainien: Версія
   vietnamien: Phiên bản
   zoulou: Inguqulo
+Voie:
+  afrikaans: weg
+  albanais: rrugë
+  allemand: Weg
+  anglais: way
+  arabe: طريق
+  arménien: ուղի
+  basque: bide
+  bengali: পথ
+  birman: လမ်း
+  breton: hent
+  bulgare: път
+  catalan: via
+  corse: via
+  coréen: 길
+  danois: vej
+  espagnol: vía
+  esperanto: vojo
+  estonien: tee
+  finnois: väylä
+  français: voie
+  gallois: ffordd
+  grec: οδός
+  grec ancien: ὁδός
+  géorgien: გზა
+  hindi: मार्ग
+  hongrois: út
+  indonésien: jalur
+  irlandais: slí
+  islandais: vegur
+  italien: via
+  japonais: 道
+  kazakh: жол
+  kirghize: жол
+  kurde: rê
+  latin: via
+  letton: ceļš
+  lituanien: kelias
+  luxembourgeois: Wee
+  macédonien: пат
+  malais: laluan
+  malgache: lalana
+  maltais: triq
+  mandarin standard: 道路
+  mongol: зам
+  norvégien: vei
+  néerlandais: weg
+  népalais: बाटो
+  ourdou: راستہ
+  ouzbek: yoʻl
+  pachto: لار
+  persan: راه
+  polonais: droga
+  portugais: via
+  roumain: cale
+  russe: путь
+  serbo-croate: put
+  slovaque: cesta
+  slovène: pot
+  suédois: väg
+  swahili: njia
+  tadjik: роҳ
+  tamoul: வழி
+  tchèque: cesta
+  thaï: ทาง
+  tibétain: ལམ
+  turc: yol
+  turkmène: ýol
+  ukrainien: шлях
+  vietnamien: đường
+  zoulou: indlela
 Vos paramètres:
   afrikaans: Jou instellings
   albanais: Parametrat tuaja
@@ -17783,6 +18557,148 @@ voyages:
   ukrainien: подорожі
   vietnamien: du lịch
   zoulou: izohambo
+À découvrir:
+  afrikaans: Om te ontdek
+  albanais: Për t'u zbuluar
+  allemand: Zu entdecken
+  anglais: To discover
+  arabe: للاكتشاف
+  arménien: Բացահայտելու
+  basque: Ezagutzeko
+  bengali: আবিষ্কার করার জন্য
+  birman: ရှာဖွေရန်
+  breton: Da zizoloiñ
+  bulgare: За откриване
+  catalan: Per descobrir
+  corse: À scopre
+  coréen: 발견하기
+  danois: At opdage
+  espagnol: Por descubrir
+  esperanto: Malkovri
+  estonien: Avastamiseks
+  finnois: Löydettäväksi
+  français: À découvrir
+  gallois: I'w ddarganfod
+  grec: Προς ανακάλυψη
+  grec ancien: Ἀνευρίσκειν
+  géorgien: აღმოსაჩენად
+  hindi: खोजने के लिए
+  hongrois: Felfedezésre
+  indonésien: Untuk ditemukan
+  irlandais: Le fáil amach
+  islandais: Til að uppgötva
+  italien: Da scoprire
+  japonais: 発見する
+  kazakh: Ашу үшін
+  kirghize: Ачуу үчүн
+  kurde: Ji bo keşfkirinê
+  latin: Ad inveniendum
+  letton: Atklāšanai
+  lituanien: Atrasti
+  luxembourgeois: Ze entdecken
+  macédonien: За откривање
+  malais: Untuk diterokai
+  malgache: Ho hita
+  maltais: Biex tiskopri
+  mandarin standard: 待发现
+  mongol: Нээх
+  norvégien: Å oppdage
+  néerlandais: Te ontdekken
+  népalais: पत्ता लगाउनका लागि
+  ourdou: دریافت کرنے کے لئے
+  ouzbek: Kashf qilish uchun
+  pachto: د موندلو لپاره
+  persan: برای کشف
+  polonais: Do odkrycia
+  portugais: Para descobrir
+  roumain: De descoperit
+  russe: К открытию
+  serbo-croate: Za otkrivanje
+  slovaque: Na objavenie
+  slovène: Za odkrivanje
+  suédois: Att upptäcka
+  swahili: Kugundua
+  tadjik: Барои кашф кардан
+  tamoul: கண்டறிய
+  tchèque: K objevování
+  thaï: ที่น่าค้นหา
+  tibétain: གསར་རྙེད་བྱ་རྒྱུ།
+  turc: Keşfetmek için
+  turkmène: Açmak üçin
+  ukrainien: Для відкриття
+  vietnamien: Để khám phá
+  zoulou: Ukuthola
+À explorer:
+  afrikaans: Om te verken
+  albanais: Për të eksploruar
+  allemand: Zu erkunden
+  anglais: To explore
+  arabe: للاستكشاف
+  arménien: Բացահայտելու
+  basque: Esploratzeko
+  bengali: অন্বেষণ করতে
+  birman: စူးစမ်းလေ့လာရန်
+  breton: Da esplorañ
+  bulgare: За изследване
+  catalan: Per explorar
+  corse: Da splorà
+  coréen: 탐험하기
+  danois: At udforske
+  espagnol: Por explorar
+  esperanto: Esplori
+  estonien: Avastamiseks
+  finnois: Tutkittavaksi
+  français: À explorer
+  gallois: I'w archwilio
+  grec: Προς εξερεύνηση
+  grec ancien: Ἐξερευνᾶν
+  géorgien: აღმოსაჩენად
+  hindi: तलाशने के लिए
+  hongrois: Felfedezésre
+  indonésien: Untuk dijelajahi
+  irlandais: Le taiscéaladh
+  islandais: Til að kanna
+  italien: Da esplorare
+  japonais: 探索する
+  kazakh: Зерттеу үшін
+  kirghize: Изилдөө үчүн
+  kurde: Ji bo keşfkirinê
+  latin: Ad explorandum
+  letton: Izpētei
+  lituanien: Tyrinėti
+  luxembourgeois: Fir z'entdecken
+  macédonien: За истражување
+  malais: Untuk diterokai
+  malgache: Hizahàna
+  maltais: Biex tesplora
+  mandarin standard: 去探索
+  mongol: Судлах
+  norvégien: Å utforske
+  néerlandais: Te verkennen
+  népalais: अन्वेषण गर्न
+  ourdou: تلاش کرنے کے لئے
+  ouzbek: Tadqiq qilish uchun
+  pachto: د سپړلو لپاره
+  persan: برای کاوش
+  polonais: Do odkrycia
+  portugais: Para explorar
+  roumain: De explorat
+  russe: Исследовать
+  serbo-croate: Za istraživanje
+  slovaque: Na preskúmanie
+  slovène: Za raziskovanje
+  suédois: Att utforska
+  swahili: Kugundua
+  tadjik: Барои омӯхтан
+  tamoul: ஆராய
+  tchèque: K prozkoumání
+  thaï: เพื่อสำรวจ
+  tibétain: ཉུལ་ཞིབ་བྱ་རྒྱུ།
+  turc: Keşfedilecek
+  turkmène: Öwrenmek üçin
+  ukrainien: Дослідити
+  vietnamien: Để khám phá
+  zoulou: Ukuhlola
 À vos passeports, prêts, voyagez !:
   afrikaans: Paspoorte gereed, begin!
   albanais: Tek pasaportat, gati, udhëtoni!

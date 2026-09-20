@@ -8,7 +8,7 @@
 # 0 -- Initialisation ----------------------------------------------------------
 
 
-import os, sys, time, textwrap
+import os, sys, time, json, textwrap
 import google.genai
 
 sys.path.append(os.getcwd())
@@ -42,71 +42,72 @@ def creer_liste_pays_multilangue(
     modele_dict: dict,
     liste_deja_existante: dict,
     liste_langues: list,
-    blabla: int,
+    blabla: bool,
     version: int,
 ):
 
-    modele = modele_dict.get("modèle", "gemini-2.5-flash-lite")
-    limite_api_minute = modele_dict.get("limite_appels_minute", 30)
-    client = google.genai.Client(vertexai=False, api_key=clef_api_gemini)
+    modele_temp = modele_dict.get("modèle", "gemini-2.5-flash-lite")
+    limite_temp = modele_dict.get("limite_appels_minute", 30)
+    client_temp = google.genai.Client(vertexai=False, api_key=clef_api_gemini)
 
     resultat = liste_deja_existante or {}
     global api_jour_modele
 
     for i in sorted(set(liste_pays)):
 
-        premiere_trad = True
+        # Temps de départ
+        temps_debut = time.time()
 
         # Récupération des traduction du pays
-        resultat[i] = resultat.get(i, {})
+        resultat_temp = resultat.get(i, {})
 
-        # Traduction dans chaque langue
-        for j in liste_langues:
+        # Récupération des langues non traduites
+        langues_temp = [l for l in liste_langues if resultat_temp.get(l) is None]
 
-            temps_debut = time.time()
+        # Si tout est déjà traduit, passage à la clef suivante
+        if not langues_temp:
+            continue
 
-            if j in resultat[i]:
-                resultat[i][j] = resultat[i][j].strip(" .'\n")
-                continue
-            elif api_jour_modele >= modele_dict.get("limite_appels_jour", 200):
-                continue
+        # Suivi
+        if blabla:
+            print(textwrap.shorten(i, width=70))
 
-            if blabla >= 1 and premiere_trad == True:
-                print(textwrap.shorten(i.strip(" \n-="), width=50, placeholder="..."))
-                premiere_trad = False
-
-            if blabla >= 2:
-                print("    • ", j)
-
-            if (j == "anglais" and version == 0) or (j == "français" and version == 1):
-                resultat[i][j] = i
-                continue
-
-            phrase = (
-                f"Traduis le nom du pays (ou du groupe de pays) qui va t'être donné en {j} : {i}."
+        phrase = (
+            (
+                "Traduis le nom du pays (ou du groupe de pays)"
                 if version == 0
-                else f"Traduis la phrase qui va t'être donnée en {j} : {i}."
+                else "Traduis la phrase"
             )
-            try:
-                resultat[i][j] = client.models.generate_content(
-                    model=modele,
-                    contents=f"{phrase} "
-                    "Ne donne que la traduction, rien d'autre. "
-                    "N'inclus en aucun cas la prononciation. "
-                    "Si tu n'es pas certain, renvoie le nom non traduit. ",
-                ).text.strip("\n .'")
-            except Exception as e:
-                print(f"Erreur : {e}")
-                pass
+            + f" suivante dans toutes les langues demandées :\n\n"
+            + f"Texte : {i}\n"
+            + f"Langues : {', '.join(langues_temp)}\n\n"
+            + "Renvoie uniquement un dictionnaire JSON valide au format "
+            + '{"langue": "traduction", ...}. '
+            + "Les clés doivent être exactement les noms des langues fournis, "
+            + "sans les modifier ni les traduire. "
+            + "N'ajoute aucun commentaire, aucune explication et aucune prononciation. "
+            + "Si tu n'es pas certain d'une traduction, utilise le texte original."
+        )
 
-            # Attente si nécessaire
-            sleep_n_fois(n=limite_api_minute, time_ref=temps_debut)
+        try:
 
-            # Mise à jour du nombre d'appels
-            api_jour_modele = api_jour_modele + 1
+            trad_temp = client_temp.models.generate_content(
+                model=modele_temp, contents=f"{phrase} "
+            ).text.strip("\n .'")
+            resultat[i] = resultat_temp | json.loads(trad_temp)
 
-    if blabla >= 1:
-        print("")
+            if len(liste_langues) > len(resultat[i]):
+                print("Faire retourner")
+
+        except Exception as e:
+            print(f"Erreur : {e}")
+            pass
+
+        # Attente si nécessaire
+        sleep_n_fois(n=limite_temp, time_ref=temps_debut)
+
+        # Mise à jour du nombre d'appels
+        api_jour_modele = api_jour_modele + 1
 
     return resultat
 
@@ -180,15 +181,15 @@ for modele in modeles_google:
     # Appel API
     api_jour_modele = int(api_dict.get(date_jour, {}).get(modele["modèle"], 0))
 
-    # Pays
-    pays = creer_liste_pays_multilangue(
-        liste_pays=liste_pays,
-        modele_dict=modele,
-        liste_deja_existante=pays,
-        liste_langues=liste_langues,
-        version=0,
-        blabla=1,
-    )
+    # # Pays
+    # pays = creer_liste_pays_multilangue(
+    #     liste_pays=liste_pays,
+    #     modele_dict=modele,
+    #     liste_deja_existante=pays,
+    #     liste_langues=liste_langues,
+    #     version=0,
+    #     blabla=True,
+    # )
 
     # Interface
     interface = creer_liste_pays_multilangue(
@@ -198,7 +199,7 @@ for modele in modeles_google:
         liste_deja_existante=interface,
         liste_langues=liste_langues,
         version=1,
-        blabla=2,
+        blabla=True,
     )
 
     # Appels API
@@ -213,12 +214,12 @@ for modele in modeles_google:
 ## 4.1 -- Pays -----------------------------------------------------------------
 
 
-exporter_fichier(
-    objet=pays,
-    direction_fichier=direction_donnees_traductions,
-    nom_fichier="noms_pays_traduction.yaml",
-    sort_keys=True,
-)
+# exporter_fichier(
+#     objet=pays,
+#     direction_fichier=direction_donnees_traductions,
+#     nom_fichier="noms_pays_traduction.yaml",
+#     sort_keys=True,
+# )
 
 
 ## 4.2 -- Interface ------------------------------------------------------------

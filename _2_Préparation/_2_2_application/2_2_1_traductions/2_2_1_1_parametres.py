@@ -8,7 +8,7 @@
 # 0 -- Initialisation ----------------------------------------------------------
 
 
-import os, sys, time
+import os, sys, time, json
 import google.genai
 
 sys.path.append(os.getcwd())
@@ -31,27 +31,53 @@ from clefs_et_mots_de_passe import clef_api_gemini, modeles_google, liste_langue
 ## 1.1 -- Fonction de création du prompt ---------------------------------------
 
 
-def prompt(langue: str, texte: str):
+def prompt(
+    langue: str | list[str],
+    texte: str,
+) -> str:
+
+    # Normalisation en liste
+    langues = [langue] if isinstance(langue, str) else langue
+
+    # Affichage propre des langues dans le prompt
+    langues_str = ", ".join(langues)
 
     return f"""
-    Traduis ce libellé d'interface utilisateur du français vers {langue} :
+    Traduis ce libellé d'interface utilisateur du français vers toutes les
+    langues suivantes :
 
-    "{texte}"
+    Langues : {langues_str}
+    Texte : "{texte}"
 
     Règles impératives :
-    - Retourne uniquement le libellé traduit, sans explication ni commentaire.
-    - N'ajoute aucune ponctuation.
-    - Ne mets pas de guillemets.
     - Le texte source est toujours en français.
     - Utilise une formulation naturelle et idiomatique pour une interface logicielle.
     - Privilégie une traduction courte et concise, adaptée à un menu déroulant,
-    un paramètre ou une statistique.
+      un paramètre ou une statistique.
     - Conserve exactement le sens du libellé.
+    - N'ajoute aucune ponctuation qui n'est pas nécessaire au libellé.
     - Commence par une majuscule lorsque cela est naturel dans la langue cible.
     - Si plusieurs traductions sont possibles, choisis celle qui est la plus
-    naturelle dans une application de voyages.
+      naturelle dans une application de voyages.
+    - Lorsqu'un terme possède un sens spécifique dans le contexte de l'application,
+      privilégie ce sens plutôt qu'une traduction littérale.
+    - Pour le vocabulaire ferroviaire, utilise le sens employé dans une gare
+      (train, quai, voie, départ, arrivée, correspondance, etc.).
 
-    Réponds uniquement avec la traduction finale.
+    Format de sortie :
+    - Retourne uniquement un dictionnaire JSON valide.
+    - Une entrée doit être présente pour chaque langue demandée.
+    - Les clés doivent être exactement les noms de langues fournis.
+    - Les valeurs doivent contenir uniquement la traduction.
+    - Ne modifie, ne traduis et ne normalise jamais les clés.
+    - N'ajoute aucun commentaire, aucune explication ni aucun bloc Markdown.
+
+    Exemple de format attendu :
+    {{
+        "anglais": "Track",
+        "allemand": "Gleis",
+        "néerlandais": "Spoor"
+    }}
     """
 
 
@@ -97,7 +123,7 @@ def creer_liste_parametres_multilangue(
                     continue
 
                 try:
-                    resultat[i][j] = client.models.generate_content(
+                    resultat[i] = resultat[i] | client.models.generate_content(
                         model=modele, contents=prompt(langue=i, texte=j)
                     ).text.strip(" .'\n")
                 except Exception as e:

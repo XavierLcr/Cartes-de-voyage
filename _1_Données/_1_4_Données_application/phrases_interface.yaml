@@ -125,11 +125,6 @@ pop_up_yaml : Charger un fichier YAML
 # Onglet 4
 ## Hémicycle
 titre_sous_onglet_4_1: Pays visités par continent
-hemicycle_position_label : Alignement des pays
-hemicycle_position_gauche : Gauche
-hemicycle_position_alea : Aléatoire
-hemicycle_position_droite : Droite
-hemicycle_position_alphabet : Alphabétique
 ## Classement
 titre_sous_onglet_4_2 : Pays les plus visités
 classement_selon_regions : Selon les régions visitées

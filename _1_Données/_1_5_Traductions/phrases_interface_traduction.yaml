@@ -10240,6 +10240,150 @@ Il est nécessaire de choisir un dossier de stockage des cartes valide:
   ukrainien: Необхідно вибрати дійсну папку для збереження карт
   vietnamien: Cần chọn một thư mục lưu trữ thẻ hợp lệ
   zoulou: Kuyadingeka ukukhetha ifolda yokugcina amabalazwe evumelekile
+? Importer la liste des voyages effectués dans l'application. L'ancien format avec
+  les listes de régions ou départements par pays est également supporté.
+: afrikaans: Voer die lys van reise wat in die toepassing gemaak is in. Die ou formaat
+    met die lyste van streke of departemente per land word ook ondersteun.
+  albanais: Importoni listën e udhëtimeve të bëra në aplikacion. Mbështetet gjithashtu
+    formati i vjetër me listat e rajoneve ose departamenteve sipas shtetit.
+  allemand: Importieren Sie die Liste der in der Anwendung durchgeführten Reisen.
+    Das alte Format mit den Listen der Regionen oder Departements pro Land wird ebenfalls
+    unterstützt.
+  anglais: Import the list of trips made in the application. The old format with the
+    lists of regions or departments by country is also supported.
+  arabe: استيراد قائمة الرحلات التي تمت في التطبيق. التنسيق القديم مع قوائم المناطق
+    أو المحافظات حسب البلد مدعوم أيضًا.
+  arménien: 'Ներմուծել հավելվածում կատարված ուղևորությունների ցանկը: Աջակցվում է նաև
+    հին ձևաչափը՝ ըստ երկրների տարածաշրջանների կամ դեպարտամենտների ցուցակներով:'
+  basque: Aplikazioan egindako bidaien zerrenda inportatu. Herrialdekako eskualde
+    edo departamenduen zerrendak dituen formatu zaharra ere onartzen da.
+  bengali: অ্যাপ্লিকেশনে করা ভ্রমণের তালিকা আমদানি করুন। দেশ অনুসারে অঞ্চল বা বিভাগের
+    তালিকা সহ পুরানো ফর্ম্যাটটিও সমর্থিত।
+  birman: အက်ပ်တွင် ပြုလုပ်ထားသော ခရီးစဉ်များစာရင်းကို တင်သွင်းပါ။ နိုင်ငံအလိုက် တိုင်းဒေသကြီး
+    သို့မဟုတ် ခရိုင်စာရင်းများပါရှိသော ဖော်မတ်ဟောင်းကိုလည်း ပံ့ပိုးထားသည်။
+  breton: Enporzhiañ roll ar beajoù graet er gloadenn. Skoret eo ivez ar furmad kozh
+    gant rolloù ar rannvroioù pe an departamantoù dre vro.
+  bulgare: Импортиране на списъка с пътуванията, направени в приложението. Старият
+    формат със списъците с региони или департаменти по държави също се поддържа.
+  catalan: Importar la llista de viatges realitzats a l'aplicació. També s'admet l'antic
+    format amb les llistes de regions o departaments per país.
+  corse: Importà a lista di i viaghji fatti in l'applicazione. U vechju furmatu cù
+    i listini di rigioni o dipartimenti per paese hè ancu supportatu.
+  coréen: 애플리케이션에서 수행된 여행 목록을 가져옵니다. 국가별 지역 또는 부서 목록이 있는 이전 형식도 지원됩니다.
+  danois: Importer listen over foretagne rejser i applikationen. Det gamle format
+    med lister over regioner eller departementer efter land understøttes også.
+  espagnol: Importar la lista de viajes realizados en la aplicación. También se admite
+    el formato antiguo con las listas de regiones o departamentos por país.
+  esperanto: Importi la liston de vojaĝoj faritaj en la aplikaĵo. La malnova formato
+    kun la listoj de regionoj aŭ departementoj laŭ lando estas ankaŭ subtenata.
+  estonien: Impordi rakenduses tehtud reiside nimekiri. Toetatud on ka vana formaat
+    riikide piirkondade või departemangude nimekirjadega.
+  finnois: Tuo sovelluksessa tehtyjen matkojen luettelo. Myös vanha muoto, joka sisältää
+    maakohtaiset alue- tai departementtiluettelot, on tuettu.
+  français: Importer la liste des voyages effectués dans l'application. L'ancien format
+    avec les listes de régions ou départements par pays est également supporté.
+  gallois: Mewnforio'r rhestr o deithiau a wnaed yn y rhaglen. Cefnogir yr hen fformat
+    gyda'r rhestrau o ranbarthau neu adrannau fesul gwlad hefyd.
+  grec: Εισαγωγή της λίστας των ταξιδιών που πραγματοποιήθηκαν στην εφαρμογή. Υποστηρίζεται
+    επίσης η παλιά μορφή με τις λίστες περιοχών ή διαμερισμάτων ανά χώρα.
+  grec ancien: Εἰσάγειν τὸν κατάλογον τῶν ἐν τῇ ἐφαρμογῇ πεποιημένων ὁδοιποριῶν. Ὁ
+    δὲ ἀρχαῖος τύπος ἔχων τοὺς τῶν χωρῶν ἢ ἐπαρχιῶν καтὰ ἔθνος καταλόγους καὶ αὐτὸς
+    προσδέδεκται.
+  géorgien: აპლიკაციაში განხორციელებული მოგზაურობების სიის იმპორტი. ასევე მხარდაჭერილია
+    ძველი ფორმატი ქვეყნების მიხედვით რეგიონების ან დეპარტამენტების სიებით.
+  hindi: एप्लिकेशन में की गई यात्राओं की सूची आयात करें। प्रति देश क्षेत्रों या विभागों
+    की सूची वाला पुराना प्रारूप भी समर्थित है।
+  hongrois: Az alkalmazásban tett utazások listájának importálása. A régi formátum
+    is támogatott, az országonkénti régiók vagy megyék listájával.
+  indonésien: Impor daftar perjalanan yang dilakukan di aplikasi. Format lama dengan
+    daftar wilayah atau departemen per negara juga didukung.
+  irlandais: Iompórtáil liosta na dturas a rinneadh san fheidhmchlár. Tacaítear freisin
+    leis an seanyomadh leis na liostaí réigiún nó ranna de réir tíre.
+  islandais: Flytja inn lista yfir ferðir sem farnar eru í forritinu. Gamla sniðið
+    með listum yfir svæði eða sýslur eftir löndum er einnig stutt.
+  italien: Importa l'elenco dei viaggi effettuati nell'applicazione. È supportato
+    anche il vecchio formato con gli elenchi delle regioni o dei dipartimenti per
+    paese.
+  japonais: アプリで作成された旅行のリストをインポートします。国ごとの地域または部門のリストを含む古い形式もサポートされています。
+  kazakh: Қолданбада жасалған сапарлар тізімін импорттау. Сондай-ақ ел бойынша аймақтар
+    немесе департаменттер тізімдері бар ескі форматқа қолдау көрсетіледі.
+  kirghize: Тиркемеде жасалган саякаттардын тизмесин импорттоо. Ошондой эле өлкөлөр
+    боюнча аймактардын же департаменттердин тизмеси камтылган эски формат колдоого
+    алынат.
+  kurde: Lîsteya geştên ku di sepanê de hatine kirin îtxal bikin. Formata kevin a
+    ku lîsteyên herêm an departmanan li gorî welat tê de hene jî tê piştgirî kurdan.
+  latin: Importare catalogum itinerum in applicatione factorum. Vetus quoque forma
+    cum catalogis regionum vel provinciarum per civitates toleratur.
+  letton: Importēt lietotnē veikto ceļojumu sarakstu. Tiek atbalstīts arī vecais formāts
+    ar reģionu vai departamentu sarakstiem pa valstīm.
+  lituanien: Importuoti programėlėje atliktų kelionių sąrašą. Taip pat palaikomas
+    senasis formatas su regionų ar departamentų sąrašais pagal šalis.
+  luxembourgeois: D'Lëscht vun de Reese importéieren, déi an der Applikatioun gemaach
+    goufen. Dat aalt Format mat de Lëschte vu Regiounen oder Departementer pro Land
+    gëtt och ënnerstëtzt.
+  macédonien: Увезете ја листата на патувања направени во апликацијата. Стариот формат
+    со листите на региони или департмани по земја е исто така поддржан.
+  malais: Import senarai perjalanan yang dibuat dalam aplikasi. Format lama dengan
+    senarai wilayah atau jabatan mengikut negara juga disokong.
+  malgache: Hafatry ny lisitry ny dia natao tao amin'ny fampiharana. Ny endrika taloha
+    misy ny lisitry ny faritra na departemanta isaky ny firenena dia tohanana ihany
+    koa.
+  maltais: Importa l-lista ta' vjaġġi li saru fl-applikazzjoni. Il-format il-qadim
+    bil-listi ta' reġjuni u dipartimenti skont il-pajjiż huwa appoġġjat ukoll.
+  mandarin standard: 导入在应用程序中生成的行程列表。同时也支持包含按国家划分的地区或省份列表的旧格式。
+  mongol: Аппликейшн дээр хийсэн аяллын жагсаалтыг импортлох. Улс орноор бүс нутаг
+    эсвэл мужуудын жагсаалт бүхий хуучин форматыг мөн дэмждэг.
+  norvégien: Importer listen over reiser utført i applikasjonen. Det gamle formatet
+    med lister over regioner eller departementer per land støttes også.
+  néerlandais: Importeer de lijst met gemaakte reizen in de applicatie. Het oude formaat
+    met de lijsten van regio's of departementen per land wordt ook ondersteund.
+  népalais: अनुप्रयोगमा गरिएका यात्राहरूको सूची आयात गर्नुहोस्। देश अनुसार क्षेत्र
+    वा विभागहरूको सूची भएको पुरानो ढाँचा पनि समर्थित छ।
+  ourdou: ایپلی کیشن میں کیے گئے دوروں کی فہرست درآمد کریں۔ ملک کے لحاظ سے خطوں یا
+    محکموں کی فہرستوں کے ساتھ پرانے فارمیٹ کی بھی توثیق کی جاتی ہے۔
+  ouzbek: Ilovada amalga oshirilgan sayohatlar ro'yxatini import qiling. Mamlakatlar
+    bo'yicha hududlar yoki departamentlar ro'yxati keltirilgan eski format ham qo'llab-quvvatlanadi.
+  pachto: په اپلیکیشن کې د ترسره شویو سفرونو لیست وارد کړئ. د هیوادونو له مخې د سیمو
+    یا څانګو لیستونو سره زوړ بڼه هم ملاتړ کیږي.
+  persan: وارد کردن لیست سفرهای انجام شده در اپلیکیشن. قالب قدیمی با لیست مناطق یا
+    بخش‌ها بر اساس کشور نیز پشتیبانی می‌شود.
+  polonais: Importuj listę podróży odbytych w aplikacji. Stary format z listami regionów
+    lub departamentów według krajów jest również obsługiwany.
+  portugais: Importar a lista de viagens realizadas na aplicação. O formato antigo
+    com as listas de regiões ou departamentos por país também é suportado.
+  roumain: Importați lista de călătorii efectuate în aplicație. Vechiul format cu
+    listele de regiuni sau departamente pe țară este, de asemenea, acceptat.
+  russe: Импортировать список поездок, совершенных в приложении. Также поддерживается
+    старый формат со списками регионов или департаментов по странам.
+  serbo-croate: Uvezi popis putovanja ostvarenih u aplikaciji. Stari format s popisima
+    regija ili departmana po zemljama također je podržan.
+  slovaque: Importovať zoznam uskutočnených ciest v aplikácii. Podporovaný je aj starý
+    formát so zoznamami regiónov alebo departementov podľa krajín.
+  slovène: Uvozi seznam potovanj, opravljenih v aplikaciji. Podprt je tudi stari format
+    s seznami regij ali departmajev po državah.
+  suédois: Importera listan över resor gjorda i applikationen. Det gamla formatet
+    med listor över regioner eller departement per land stöds också.
+  swahili: Ingiza orodha ya safari zilizofanywa katika programu. Umbizo la zamani
+    lenye orodha za mikoa au idara kwa kila nchi pia linatumika.
+  tadjik: Ворид кардани рӯйхати сафарҳои дар замима иҷрошуда. Формати кӯҳна бо рӯйхати
+    минтақаҳо ё департаментҳо мувофиқи кишварҳо низ дастгирӣ мешавад.
+  tamoul: பயன்பாட்டில் மேற்கொள்ளப்பட்ட பயணங்களின் பட்டியலை இறக்குமதி செய்யவும். நாடு
+    வாரியாக பிராந்தியங்கள் அல்லது துறைகளின் பட்டியல்களைக் கொண்ட பழைய வடிவமைப்பும்
+    ஆதரிக்கப்படுகிறது.
+  tchèque: Importovat seznam uskutečněných cest v aplikaci. Podporován je také starý
+    formát se seznamy regionů nebo departementů podle zemí.
+  thaï: นำเข้ารายการการเดินทางที่ทำในแอปพลิเคชัน รูปแบบเก่าที่มีรายการภูมิภาคหรือจังหวัดตามประเทศก็ได้รับการรองรับเช่นกัน
+  tibétain: ཉེར་སྤྱོད་ནང་བསྐྱོད་པའི་སྐོར་བསྐྱོད་རེའུ་མིག་ནང་འདྲེན་བྱེད་པ། རྒྱལ་ཁབ་སོ་སོའི་ས་ཁུལ་ལམ་རྫོང་གི་རེའུ་མིག་ཡོད་པའི་རྣམ་པ་རྙིང་པ་དེའང་རྒྱབ་སྐྱོར་ཡོད།
+  turc: Uygulamada yapılan seyahatlerin listesini içe aktarın. Ülkelere göre bölge
+    veya departman listelerini içeren eski format da desteklenmektedir.
+  turkmène: Programmada amala aşyrylan syýahatlaryň sanawyny import ediň. Ýurtlar
+    boýunça sebitleriň ýa-da welaýatlaryň sanawlary bolan köne format hem goldanylýar.
+  ukrainien: Імпортувати список поїздок, здійснених у додатку. Також підтримується
+    старий формат зі списками регіонів або департаментів за країнами.
+  vietnamien: Nhập danh sách các chuyến đi đã thực hiện trong ứng dụng. Định dạng
+    cũ với danh sách các khu vực hoặc tỉnh thành theo quốc gia cũng được hỗ trợ.
+  zoulou: Ngenisa uhlu lwezinkambo ezenziwe kuhlelo lokusebenza. Ifomethi yakudala
+    enezinhlu zezifunda noma iminyango ngezwe ngalinye nayo iyasekelwa.
 Informations:
   afrikaans: Inligting
   albanais: Informacione
@@ -17540,76 +17684,76 @@ Version:
   vietnamien: Phiên bản
   zoulou: Inguqulo
 Voie:
-  afrikaans: weg
-  albanais: rrugë
-  allemand: Weg
-  anglais: way
-  arabe: طريق
-  arménien: ուղի
-  basque: bide
-  bengali: পথ
-  birman: လမ်း
-  breton: hent
-  bulgare: път
+  afrikaans: spoor
+  albanais: binar
+  allemand: Gleis
+  anglais: track
+  arabe: مسار
+  arménien: գիծ
+  basque: trenbide
+  bengali: ট্র্যাক
+  birman: ရထားလမ်း
+  breton: hent-houarn
+  bulgare: коловоз
   catalan: via
-  corse: via
-  coréen: 길
-  danois: vej
+  corse: binariu
+  coréen: 선로
+  danois: spor
   espagnol: vía
-  esperanto: vojo
-  estonien: tee
-  finnois: väylä
+  esperanto: trako
+  estonien: rööbastee
+  finnois: raide
   français: voie
-  gallois: ffordd
-  grec: οδός
-  grec ancien: ὁδός
-  géorgien: გზა
-  hindi: मार्ग
-  hongrois: út
+  gallois: trac
+  grec: γραμμή
+  grec ancien: τροχιά
+  géorgien: ლიანდაგი
+  hindi: ट्रैक
+  hongrois: vágány
   indonésien: jalur
-  irlandais: slí
-  islandais: vegur
-  italien: via
-  japonais: 道
+  irlandais: rian
+  islandais: spor
+  italien: binario
+  japonais: 番線
   kazakh: жол
   kirghize: жол
-  kurde: rê
-  latin: via
-  letton: ceļš
+  kurde: rêhesin
+  latin: orbita
+  letton: sliežu ceļš
   lituanien: kelias
-  luxembourgeois: Wee
-  macédonien: пат
-  malais: laluan
-  malgache: lalana
-  maltais: triq
-  mandarin standard: 道路
+  luxembourgeois: Gleis
+  macédonien: колосек
+  malais: landasan
+  malgache: lalamby
+  maltais: binarju
+  mandarin standard: 股道
   mongol: зам
-  norvégien: vei
-  néerlandais: weg
-  népalais: बाटो
-  ourdou: راستہ
+  norvégien: spor
+  néerlandais: spoor
+  népalais: ट्र्याक
+  ourdou: ٹریک
   ouzbek: yoʻl
-  pachto: لار
-  persan: راه
-  polonais: droga
+  pachto: پټلۍ
+  persan: خط
+  polonais: tor
   portugais: via
-  roumain: cale
+  roumain: linie
   russe: путь
-  serbo-croate: put
-  slovaque: cesta
-  slovène: pot
-  suédois: väg
-  swahili: njia
+  serbo-croate: kolosijek
+  slovaque: koľaj
+  slovène: tir
+  suédois: spår
+  swahili: reli
   tadjik: роҳ
-  tamoul: வழி
-  tchèque: cesta
-  thaï: ทาง
-  tibétain: ལམ
-  turc: yol
+  tamoul: தடம்
+  tchèque: kolej
+  thaï: ราง
+  tibétain: ལྕགས་ལམ
+  turc: hat
   turkmène: ýol
-  ukrainien: шлях
-  vietnamien: đường
-  zoulou: indlela
+  ukrainien: колія
+  vietnamien: đường ray
+  zoulou: ujantshi
 Vos paramètres:
   afrikaans: Jou instellings
   albanais: Parametrat tuaja

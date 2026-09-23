@@ -251,7 +251,7 @@ class MesVoyagesApplication(QWidget):
         if "pluie_emojis" in self.constantes.dict_themes_temporaires.keys():
             self.vue_pluie = VuePluieEmojis(
                 constantes=self.constantes,
-                duree_ms=15000,
+                duree_ms=10000,
                 intervalle_timer_ms=30,
                 force_vent_globale=1.5,
                 parent=self,

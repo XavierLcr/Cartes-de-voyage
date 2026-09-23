@@ -10,6 +10,7 @@
 
 from PyQt6.QtWidgets import QWidget, QVBoxLayout
 
+from _0_Utilitaires._0_1_fonctions_utiles_gen import ouvrir_fichier
 from _4_Interface._4_1_Onglets.onglet_4.onglet_4_1.onglet_4_1_3_hemicycle import (
     HemicycleWidget,
 )
@@ -26,7 +27,14 @@ class OngletHemicycle(QWidget):
         self.fonction_traduction = fonction_traduction
 
         # Ajout de l'hémicycle
-        self.hemicycle = HemicycleWidget(constantes=constantes)
+        self.hemicycle = HemicycleWidget(
+            constantes=constantes,
+            df_continents=ouvrir_fichier(
+                direction_fichier=constantes.direction_donnees_geographiques,
+                nom_fichier="carte_monde_continents_simpl.pkl",
+                defaut=None,
+            ),
+        )
 
         # Layout principal
         layout = QVBoxLayout(self)

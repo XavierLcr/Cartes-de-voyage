@@ -13,7 +13,7 @@ import pandas as pd
 
 from PyQt6.QtCore import QPointF, Qt
 from PyQt6.QtWidgets import QWidget, QToolTip
-from PyQt6.QtGui import QPainter, QColor
+from PyQt6.QtGui import QPainter, QColor, QPainterPath, QPen
 
 from _0_Utilitaires._0_2_fonctions_graphiques import interpoler_couleurs
 from _0_Utilitaires._0_07_fonctions_voyages import table_pays_visites
@@ -30,6 +30,7 @@ class HemicycleWidget(QWidget):
     def __init__(
         self,
         constantes,
+        df_continents,
     ):
 
         super().__init__()
@@ -42,6 +43,16 @@ class HemicycleWidget(QWidget):
         self.continents = constantes.liste_regions_monde
         self.traductions_pays = constantes.pays_differentes_langues
         self.liste_pays = list(constantes.hierarchie_par_pays.keys())
+        # Fond cartographique : on le projette et on le simplifie UNE SEULE FOIS.
+        # Une tolérance de 25 km est largement suffisante pour une couche de fond
+        # très transparente, y compris avec un zoom assez important.
+        self.tolerance_simplification_continents = 25_000.0
+
+        self.df_continents = df_continents
+
+        self._chemins_continents = self._precalculer_chemins_continents(
+            self.df_continents
+        )
 
         self.graphe_pays = constantes.graphe_pays
 
@@ -96,6 +107,13 @@ class HemicycleWidget(QWidget):
             "transparence_alpha"
         )
 
+        # Fond cartographique des continents. Même à 100 % de pays visités,
+        # la carte reste volontairement discrète derrière les arêtes et les points.
+        self.couleur_continent_neutre = QColor("#8B9098")
+        self.alpha_continent_min = 18
+        self.alpha_continent_max = 64
+        self.alpha_bord_continent = 26
+
         self.set_style()
 
         self.set_pays_visites(
@@ -104,6 +122,153 @@ class HemicycleWidget(QWidget):
                 "dep": {},
             }
         )
+
+    # --------------------------------------------------------------------------
+    # Pré-calcul des chemins cartographiques
+    # --------------------------------------------------------------------------
+
+    @staticmethod
+    def _iterer_polygones(geometry):
+        """Itère récursivement sur les Polygon contenus dans une géométrie Shapely."""
+
+        if geometry is None or getattr(geometry, "is_empty", True):
+            return
+
+        geom_type = getattr(geometry, "geom_type", "")
+
+        if geom_type == "Polygon":
+            yield geometry
+            return
+
+        if geom_type in {"MultiPolygon", "GeometryCollection"}:
+            for sous_geometrie in geometry.geoms:
+                yield from HemicycleWidget._iterer_polygones(sous_geometrie)
+
+    @staticmethod
+    def _deplier_anneau_geo(
+        coordonnees,
+        largeur_monde: float,
+        reference_x: float | None = None,
+    ) -> list[QPointF]:
+        """
+        Déplie un anneau autour de l'antiméridien dans les coordonnées EPSG:8857.
+
+        Le résultat reste en coordonnées géographiques/projetées, PAS en pixels.
+        Cela permet de construire les QPainterPath une seule fois puis de laisser
+        QPainter effectuer zoom et déplacement par simple transformation affine.
+        """
+
+        coords = list(coordonnees)
+
+        if len(coords) < 3:
+            return []
+
+        points = []
+        x_precedent = None
+
+        for coord in coords:
+            x = float(coord[0])
+            y = float(coord[1])
+
+            if x_precedent is not None and largeur_monde > 0:
+                while x - x_precedent > largeur_monde / 2:
+                    x -= largeur_monde
+
+                while x - x_precedent < -largeur_monde / 2:
+                    x += largeur_monde
+
+            points.append(QPointF(x, y))
+            x_precedent = x
+
+        # Replace l'anneau dans la période la plus proche de la référence.
+        if largeur_monde > 0 and points:
+            moyenne_x = sum(point.x() for point in points) / len(points)
+
+            if reference_x is None:
+                reference_x = 0.0
+
+            decalages = round((reference_x - moyenne_x) / largeur_monde)
+
+            if decalages:
+                decalage_x = decalages * largeur_monde
+                points = [
+                    QPointF(point.x() + decalage_x, point.y()) for point in points
+                ]
+
+        return points
+
+    @staticmethod
+    def _ajouter_points_au_chemin(
+        chemin: QPainterPath,
+        points: list[QPointF],
+    ):
+        if len(points) < 3:
+            return
+
+        chemin.moveTo(points[0])
+
+        for point in points[1:]:
+            chemin.lineTo(point)
+
+        chemin.closeSubpath()
+
+    @classmethod
+    def _precalculer_chemins_continents(cls, df_continents) -> dict:
+        """
+        Transforme les géométries Shapely simplifiées en QPainterPath UNE FOIS.
+
+        C'est le gros gain de performance : lors d'un drag ou d'un zoom, Python ne
+        reparcourt plus des dizaines/centaines de milliers de sommets. QPainter ne
+        fait qu'appliquer une matrice de transformation à quelques chemins déjà prêts.
+        """
+
+        if df_continents is None or getattr(df_continents, "empty", True):
+            return {}
+
+        # Largeur théorique mondiale de l'Equal Earth EPSG:8857.
+        largeur_monde = 34_487_918.12
+        chemins = {}
+
+        for ligne in df_continents.itertuples(index=False):
+            continent = getattr(ligne, "continent", None)
+            geometry = getattr(ligne, "geometry", None)
+
+            if continent is None or geometry is None:
+                continue
+
+            chemin_continent = chemins.setdefault(continent, QPainterPath())
+            chemin_continent.setFillRule(Qt.FillRule.OddEvenFill)
+
+            for polygone in cls._iterer_polygones(geometry):
+                exterieur = cls._deplier_anneau_geo(
+                    coordonnees=polygone.exterior.coords,
+                    largeur_monde=largeur_monde,
+                    reference_x=0.0,
+                )
+
+                if len(exterieur) < 3:
+                    continue
+
+                reference_polygone = sum(p.x() for p in exterieur) / len(exterieur)
+
+                cls._ajouter_points_au_chemin(
+                    chemin=chemin_continent,
+                    points=exterieur,
+                )
+
+                for interieur in polygone.interiors:
+                    trou = cls._deplier_anneau_geo(
+                        coordonnees=interieur.coords,
+                        largeur_monde=largeur_monde,
+                        reference_x=reference_polygone,
+                    )
+
+                    cls._ajouter_points_au_chemin(
+                        chemin=chemin_continent,
+                        points=trou,
+                    )
+
+        return chemins
 
     # --------------------------------------------------------------------------
     # Centre du widget
@@ -446,6 +611,141 @@ class HemicycleWidget(QWidget):
             )
             for ligne in df.itertuples(index=False)
         ]
+
+    # --------------------------------------------------------------------------
+    # Carte de fond des continents
+    # --------------------------------------------------------------------------
+
+    def _proportions_continents_visites(self) -> dict:
+        """Renvoie, pour chaque continent, la part de pays visités entre 0 et 1."""
+
+        if not hasattr(self, "df_pays") or self.df_pays is None or self.df_pays.empty:
+            return {}
+
+        if (
+            "continent" not in self.df_pays.columns
+            or "visite" not in self.df_pays.columns
+        ):
+            return {}
+
+        df = self.df_pays[["continent", "visite"]].copy()
+        df = df.loc[df["continent"].notna()].copy()
+
+        if df.empty:
+            return {}
+
+        df["visite"] = df["visite"].astype(bool).astype(float)
+
+        return (
+            df.groupby("continent", dropna=True)["visite"]
+            .mean()
+            .clip(0.0, 1.0)
+            .to_dict()
+        )
+
+    def _couleur_fond_continent(
+        self,
+        continent,
+        proportion_visitee: float,
+    ) -> QColor:
+        """
+        Interpole un gris neutre vers la couleur du continent selon la part visitée.
+        """
+
+        proportion_visitee = max(0.0, min(float(proportion_visitee), 1.0))
+
+        couleur_theme = QColor(
+            self.theme.continents_couleurs.get(
+                continent,
+                self.couleur_continent_neutre,
+            )
+        )
+
+        couleur = QColor(
+            interpoler_couleurs(
+                couleurs=[
+                    QColor(self.couleur_continent_neutre),
+                    couleur_theme,
+                ],
+                poids=[
+                    1.0 - proportion_visitee,
+                    proportion_visitee,
+                ],
+            )
+        )
+
+        alpha = self.alpha_continent_min + proportion_visitee * (
+            self.alpha_continent_max - self.alpha_continent_min
+        )
+        couleur.setAlpha(int(round(alpha)))
+
+        return couleur
+
+    def peindre_carte_continents(
+        self,
+        painter: QPainter,
+    ):
+        """
+        Peint le fond cartographique avec la même caméra que le réseau.
+
+        Les QPainterPath ont déjà été construits au chargement. Ici, aucun sommet
+        Shapely n'est reparcouru : zoom et déplacement ne font qu'appliquer une
+        transformation affine, ce qui est beaucoup plus léger.
+        """
+
+        if not self._chemins_continents:
+            return
+
+        if self.centre_camera_x is None or self.centre_camera_y is None:
+            return
+
+        echelle = self._echelle_monde * self.facteur_zoom
+
+        if echelle <= 0:
+            return
+
+        proportions = self._proportions_continents_visites()
+
+        # Les chemins ont été préparés en EPSG:8857, dont la période horizontale
+        # exacte vaut environ 34,49 millions de mètres.
+        largeur_monde = 34_487_918.12
+
+        painter.save()
+
+        # Coordonnées projetées -> coordonnées écran.
+        painter.translate(self.width() / 2, self.height() / 2)
+        painter.scale(echelle, -echelle)
+        painter.translate(-self.centre_camera_x, -self.centre_camera_y)
+
+        for continent, chemin in self._chemins_continents.items():
+            proportion = proportions.get(continent, 0.0)
+
+            couleur_remplissage = self._couleur_fond_continent(
+                continent=continent,
+                proportion_visitee=proportion,
+            )
+
+            couleur_bord = QColor(couleur_remplissage)
+            couleur_bord.setAlpha(self.alpha_bord_continent)
+
+            pen = QPen(couleur_bord)
+            pen.setWidthF(0.8)
+
+            # Le contour reste ~0.8 pixel quelle que soit l'échelle cartographique.
+            pen.setCosmetic(True)
+
+            painter.setPen(pen)
+            painter.setBrush(couleur_remplissage)
+
+            # Trois périodes suffisent puisque le zoom minimal montre au maximum
+            # environ un monde entier. QPainter coupe naturellement le hors-écran.
+            for decalage_x in (-largeur_monde, 0.0, largeur_monde):
+                painter.save()
+                painter.translate(decalage_x, 0.0)
+                painter.drawPath(chemin)
+                painter.restore()
+
+        painter.restore()
 
     # --------------------------------------------------------------------------
     # Dessin d'un segment d'arête
@@ -1023,7 +1323,15 @@ class HemicycleWidget(QWidget):
         df_temp = self._creer_table_graphe()
 
         # ----------------------------------------------------------------------
-        # Les lignes sont dessinées en premier
+        # Carte de fond : elle suit exactement la même caméra que le réseau
+        # ----------------------------------------------------------------------
+
+        self.peindre_carte_continents(
+            painter=painter,
+        )
+
+        # ----------------------------------------------------------------------
+        # Les lignes sont dessinées au-dessus de la carte
         # ----------------------------------------------------------------------
 
         self.peindre_aretes(

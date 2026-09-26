@@ -374,17 +374,13 @@ class OngletParametres(QWidget):
         self.creation_cartes_bouton = QPushButton()
 
         # Bouton de sauvegarde
-        self.bouton_sauvegarde = QPushButtonSauvegarde()
+        self.bouton_sauvegarde = QPushButtonSauvegarde(taille=50)
 
         # Ajouter les widgets dans la grille
         layout_valid_reinit.addWidget(self.creation_cartes_bouton, 0, 0)
         layout_valid_reinit.addWidget(self.bouton_sauvegarde, 0, 1)
 
-        # Ajuster les proportions : colonne 1 (droite) prend plus de place
-        layout_valid_reinit.setColumnStretch(0, 4)  # plus grande colonne au milieu
-        layout_valid_reinit.setColumnStretch(1, 1)  # petite colonne à gauche
-
-        layout.addLayout(layout_valid_reinit, stretch=1)
+        layout.addLayout(layout_valid_reinit, stretch=2)
 
     def set_langue(self, langue: str | None):
 

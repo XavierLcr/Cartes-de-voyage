@@ -15,6 +15,7 @@ from PyQt6.QtCore import (
     pyqtProperty,
     QRectF,
     QSize,
+    QPointF,
 )
 from PyQt6.QtGui import QPainter, QColor, QFontMetrics
 from PyQt6.QtWidgets import QCheckBox
@@ -29,7 +30,7 @@ from _0_Utilitaires._0_2_fonctions_graphiques import (
 
 
 class ToggleSwitch(QCheckBox):
-    """Un toggle switch animé avec support du texte et de l'icône."""
+    """Un toggle switch animé avec support du texte et d'une icône."""
 
     def __init__(
         self,
@@ -38,6 +39,8 @@ class ToggleSwitch(QCheckBox):
         parent=None,
         track_width=44,
         track_height=24,
+        fonction_dessin=None,
+        taille_icone=20,
     ):
         super().__init__(parent)
 
@@ -49,6 +52,13 @@ class ToggleSwitch(QCheckBox):
 
         self._text_spacing = 8
         self._icon_spacing = 8
+
+        # ------------------------------------------------------------------
+        # Icône dessinée directement
+        # ------------------------------------------------------------------
+
+        self._fonction_dessin = fonction_dessin
+        self._taille_icone = taille_icone
 
         # ------------------------------------------------------------------
         # Couleurs
@@ -67,8 +77,6 @@ class ToggleSwitch(QCheckBox):
 
         self.setCursor(Qt.CursorShape.PointingHandCursor)
 
-        # On désactive l'indicateur natif.
-        # Le dessin est entièrement réalisé dans paintEvent().
         self.setStyleSheet("QCheckBox::indicator { width: 0px; height: 0px; }")
 
         # ------------------------------------------------------------------
@@ -80,6 +88,7 @@ class ToggleSwitch(QCheckBox):
             b"knob_position",
             self,
         )
+
         self._animation.setDuration(150)
         self._animation.setEasingCurve(QEasingCurve.Type.InOutCubic)
 
@@ -95,9 +104,11 @@ class ToggleSwitch(QCheckBox):
     # =========================================================================
 
     def _animate_to_state(self, state):
+
         self._animation.stop()
 
         self._animation.setStartValue(self._knob_position)
+
         self._animation.setEndValue(1.0 if state else 0.0)
 
         self._animation.start()
@@ -106,6 +117,7 @@ class ToggleSwitch(QCheckBox):
         return self._knob_position
 
     def set_knob_position(self, value):
+
         self._knob_position = value
         self.update()
 
@@ -116,9 +128,11 @@ class ToggleSwitch(QCheckBox):
     )
 
     def setChecked(self, checked: bool):
+
         super().setChecked(checked)
 
         self._animation.stop()
+
         self.set_knob_position(1.0 if checked else 0.0)
 
     # =========================================================================
@@ -126,7 +140,32 @@ class ToggleSwitch(QCheckBox):
     # =========================================================================
 
     def setText(self, text):
+
         super().setText(text)
+
+        self.updateGeometry()
+        self.update()
+
+    # =========================================================================
+    # Icône vectorielle
+    # =========================================================================
+
+    def setFonctionDessin(
+        self,
+        fonction_dessin,
+        taille_icone=None,
+    ):
+        """
+        Définit une fonction de dessin vectoriel.
+
+        Si fonction_dessin vaut None, le ToggleSwitch revient au système
+        classique setIcon().
+        """
+
+        self._fonction_dessin = fonction_dessin
+
+        if taille_icone is not None:
+            self._taille_icone = taille_icone
 
         self.updateGeometry()
         self.update()
@@ -136,16 +175,31 @@ class ToggleSwitch(QCheckBox):
     # =========================================================================
 
     def sizeHint(self):
+
         fm = QFontMetrics(self.font())
 
         text = self.text()
+
         text_width = fm.horizontalAdvance(text) if text else 0
+
+        # ------------------------------------------------------------------
+        # Taille de l'icône
+        # ------------------------------------------------------------------
 
         icon_width = 0
         icon_height = 0
 
-        if not self.icon().isNull():
+        # Priorité à l'icône vectorielle
+        if self._fonction_dessin is not None:
+
+            icon_width = self._taille_icone
+            icon_height = self._taille_icone
+
+        # Sinon fallback sur QIcon
+        elif not self.icon().isNull():
+
             icon_size = self.iconSize()
+
             icon_width = icon_size.width()
             icon_height = icon_size.height()
 
@@ -166,7 +220,6 @@ class ToggleSwitch(QCheckBox):
         if text_width:
             contenu_width += text_width
 
-        # Espace entre le switch et le contenu
         if contenu_width:
             contenu_width += self._text_spacing
 
@@ -178,7 +231,10 @@ class ToggleSwitch(QCheckBox):
             icon_height,
         )
 
-        return QSize(width, height)
+        return QSize(
+            width,
+            height,
+        )
 
     def minimumSizeHint(self):
         return self.sizeHint()
@@ -195,15 +251,18 @@ class ToggleSwitch(QCheckBox):
     ):
 
         if style == 0:
+
             couleur = generer_couleur_aleatoire_hex(
                 preset=preset,
                 teintes_autorisees=teintes,
             )
 
         elif style == 1:
+
             couleur = "#ADCEDB"
 
         else:
+
             couleur = "#0C808F"
 
         texte_temp = str(
@@ -220,7 +279,10 @@ class ToggleSwitch(QCheckBox):
                 preset=preset,
                 teintes_autorisees=teintes,
             ),
-        }.get(style, "#FFFFFF")
+        }.get(
+            style,
+            "#FFFFFF",
+        )
 
         self._color_on = QColor(couleur)
         self._color_knob = QColor(poignee_temp)
@@ -236,7 +298,15 @@ class ToggleSwitch(QCheckBox):
 
         painter = QPainter(self)
 
-        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+        painter.setRenderHint(
+            QPainter.RenderHint.Antialiasing,
+            True,
+        )
+
+        painter.setRenderHint(
+            QPainter.RenderHint.TextAntialiasing,
+            True,
+        )
 
         painter.setPen(Qt.PenStyle.NoPen)
 
@@ -303,17 +373,50 @@ class ToggleSwitch(QCheckBox):
 
         x = self._track_width
 
-        has_icon = not self.icon().isNull()
+        has_vector_icon = self._fonction_dessin is not None
+
+        has_qicon = not has_vector_icon and not self.icon().isNull()
+
+        has_icon = has_vector_icon or has_qicon
+
         has_text = bool(self.text())
 
         if has_icon or has_text:
             x += self._text_spacing
 
         # ------------------------------------------------------------------
-        # Icône
+        # Icône vectorielle
         # ------------------------------------------------------------------
 
-        if has_icon:
+        if has_vector_icon:
+
+            taille = self._taille_icone
+
+            centre = QPointF(
+                x + taille / 2,
+                self.height() / 2,
+            )
+
+            painter.save()
+
+            self._fonction_dessin(
+                painter,
+                centre,
+                taille,
+            )
+
+            painter.restore()
+
+            x += taille
+
+            if has_text:
+                x += self._icon_spacing
+
+        # ------------------------------------------------------------------
+        # Ancien système QIcon
+        # ------------------------------------------------------------------
+
+        elif has_qicon:
 
             icon_size = self.iconSize()
 
@@ -370,7 +473,11 @@ class ToggleSwitch(QCheckBox):
 
         b = int(c1.blue() + (c2.blue() - c1.blue()) * t)
 
-        return QColor(r, g, b)
+        return QColor(
+            r,
+            g,
+            b,
+        )
 
     # =========================================================================
     # Clic

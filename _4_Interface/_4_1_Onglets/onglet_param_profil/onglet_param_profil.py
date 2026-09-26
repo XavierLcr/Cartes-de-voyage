@@ -32,7 +32,7 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     creer_QLabel_centre,
     creer_ligne_horizontale,
-    creer_icone_QLabel,
+    _QLabelIcone,
 )
 from _0_Utilitaires._0_14_QPushButton_QIcon import QPushButtonSauvegarde
 from _4_Interface._4_1_Onglets.onglet_param_profil.onglet_param_profil_switch import (
@@ -154,7 +154,7 @@ class OngletParametresProfil(QWidget):
         self.email_input = QLineEdit()
         self.email_input.setPlaceholderText("...")
         email_layout.addWidget(
-            creer_icone_QLabel(
+            _QLabelIcone(
                 fonction_dessin=partial(
                     _dessiner_icone_email,
                     arobase=True,

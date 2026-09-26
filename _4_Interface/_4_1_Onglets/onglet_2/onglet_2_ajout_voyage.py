@@ -34,7 +34,7 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
 )
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     reset_combo,
-    creer_icone_QLabel,
+    _QLabelIcone,
     creer_ligne_verticale,
 )
 from _0_Utilitaires._0_07_fonctions_voyages import creer_voyage, voyage_id
@@ -183,7 +183,7 @@ class CreerVoyage(QDialog):
         ligne_dates.setSpacing(10)
 
         ligne_dates.addWidget(
-            creer_icone_QLabel(fonction_dessin=_dessiner_icone_calendrier, taille_px=40)
+            _QLabelIcone(fonction_dessin=_dessiner_icone_calendrier, taille_px=40)
         )
 
         ligne_dates.addWidget(self.utiliser_date)

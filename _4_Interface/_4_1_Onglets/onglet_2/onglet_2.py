@@ -31,7 +31,7 @@ from _0_Utilitaires._0_1_fonctions_utiles_gen import (
 )
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     reset_combo,
-    creer_icone_QLabel,
+    _QLabelIcone,
 )
 from _0_Utilitaires._0_07_fonctions_voyages import (
     detecter_type_yaml,
@@ -98,9 +98,7 @@ class OngletSelectionnerDestinations(QWidget):
         # Avertissement
         layout_avertissement = QHBoxLayout()
         layout_avertissement.addWidget(
-            creer_icone_QLabel(
-                fonction_dessin=_dessiner_icone_avertissement, taille_px=31
-            )
+            _QLabelIcone(fonction_dessin=_dessiner_icone_avertissement, taille_px=31)
         )
         self.avertissement_prio = QLabel()
         self.avertissement_prio.setStyleSheet("font-size: 9pt;")

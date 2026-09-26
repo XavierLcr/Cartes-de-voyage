@@ -240,18 +240,62 @@ def creer_icone(fonction_dessin, taille_px: int = 50) -> QIcon:
 ## 8.2 -- Version pour un QLabel -----------------------------------------------
 
 
-def creer_icone_QLabel(fonction_dessin, taille_px: int) -> QLabel:
+class _QLabelIcone(QLabel):
 
-    label_temp = QLabel()
-    label_temp.setPixmap(
-        creer_icone(fonction_dessin=fonction_dessin, taille_px=taille_px).pixmap(
-            taille_px, taille_px
+    def __init__(
+        self,
+        fonction_dessin,
+        taille_px: int,
+        parent=None,
+    ):
+        super().__init__(parent)
+
+        self._fonction_dessin = fonction_dessin
+        self._taille_px = taille_px
+
+        self.setFixedSize(
+            taille_px,
+            taille_px,
         )
-    )
-    label_temp.setFixedSize(taille_px, taille_px)
 
-    # Renvoi
-    return label_temp
+    def paintEvent(self, event) -> None:
+        """
+        Dessine directement l'icône dans le QLabel,
+        sans passer par QPixmap / QIcon.
+        """
+
+        # Laisse QLabel faire son rendu normal éventuel
+        super().paintEvent(event)
+
+        painter = QPainter(self)
+
+        painter.setRenderHint(
+            QPainter.RenderHint.Antialiasing,
+            True,
+        )
+
+        painter.setRenderHint(
+            QPainter.RenderHint.TextAntialiasing,
+            True,
+        )
+
+        centre = QPointF(
+            self.width() / 2,
+            self.height() / 2,
+        )
+
+        taille = min(
+            self.width(),
+            self.height(),
+        )
+
+        self._fonction_dessin(
+            painter,
+            centre,
+            taille,
+        )
+
+        painter.end()
 
 
 # 9 -- Pastille de validation --------------------------------------------------

@@ -9,19 +9,27 @@
 
 
 import inspect
-from PyQt6.QtCore import QPointF, QSize, Qt, QTimer
-from PyQt6.QtGui import QIcon, QPainter, QPixmap
-from PyQt6.QtWidgets import QPushButton
+
+from PyQt6.QtCore import QPointF, QTimer
+from PyQt6.QtGui import QPainter
+from PyQt6.QtWidgets import QPushButton, QStyle, QStyleOptionButton
 
 from _4_Interface._4_3_Icones._4_3_25_disquette import _dessiner_icone_disquette
-from _4_Interface._4_3_Icones._4_3_27_CD import _dessiner_icone_cd
 
 # 1 -- Fonction générale -------------------------------------------------------
 
 
 class QPushButtonIcone(QPushButton):
-    """QPushButton affichant uniquement une icône, avec support optionnel
-    d'une pastille de validation (verte) ajoutable/retirable dynamiquement."""
+    """
+    QPushButton affichant uniquement un dessin vectoriel.
+
+    Le dessin est effectué directement dans paintEvent afin d'éviter
+    l'intermédiaire QPixmap -> QIcon, qui peut provoquer un léger flou
+    lors du rendu ou du redimensionnement par Qt.
+
+    Supporte également une pastille de validation optionnelle si la
+    fonction de dessin accepte le paramètre "validee".
+    """
 
     def __init__(
         self,
@@ -34,6 +42,8 @@ class QPushButtonIcone(QPushButton):
 
         self._fonction_dessin = fonction_dessin
         self._taille = taille
+        self._padding = padding
+
         self._validee = False
 
         # Détecte une seule fois si la fonction de dessin accepte "validee"
@@ -41,7 +51,6 @@ class QPushButtonIcone(QPushButton):
             "validee" in inspect.signature(fonction_dessin).parameters
         )
 
-        self.setIconSize(QSize(taille, taille))
         self.setFixedSize(taille, taille)
 
         self.setStyleSheet(f"""
@@ -51,54 +60,114 @@ class QPushButtonIcone(QPushButton):
                 margin: 0px;
                 background: transparent;
             }}
+
             QPushButton:hover {{
                 background: rgba(128, 128, 128, 30);
                 border-radius: 4px;
             }}
+
             QPushButton:pressed {{
                 background: rgba(128, 128, 128, 60);
                 border-radius: 4px;
             }}
         """)
 
-        self._mettre_a_jour_icone()
+    # -- Rendu interne ---------------------------------------------------------
 
-    # -- Rendu interne --------------------------------------------------
+    def paintEvent(self, event) -> None:
+        """
+        Dessine le bouton puis l'icône directement dessus.
 
-    def _mettre_a_jour_icone(self) -> None:
-        """Régénère le pixmap selon l'état actuel et l'applique au bouton."""
-        pixmap = QPixmap(self._taille, self._taille)
-        pixmap.fill(Qt.GlobalColor.transparent)
+        On laisse d'abord Qt dessiner le fond du QPushButton
+        (hover, pressed, etc.), puis on ajoute notre dessin vectoriel.
+        """
 
-        painter = QPainter(pixmap)
-        painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
-        centre = QPointF(self._taille / 2, self._taille / 2)
+        # ----------------------------------------------------------------------
+        # 1. Dessin standard du QPushButton
+        # ----------------------------------------------------------------------
+
+        option = QStyleOptionButton()
+        self.initStyleOption(option)
+
+        painter = QPainter(self)
+
+        self.style().drawControl(
+            QStyle.ControlElement.CE_PushButton,
+            option,
+            painter,
+            self,
+        )
+
+        # ----------------------------------------------------------------------
+        # 2. Dessin de l'icône
+        # ----------------------------------------------------------------------
+
+        painter.setRenderHint(
+            QPainter.RenderHint.Antialiasing,
+            True,
+        )
+
+        painter.setRenderHint(
+            QPainter.RenderHint.TextAntialiasing,
+            True,
+        )
+
+        # Le padding réduit directement la zone réellement dessinée.
+        taille_dessin = max(
+            1,
+            min(self.width(), self.height()) - 2 * self._padding,
+        )
+
+        centre = QPointF(
+            self.width() / 2,
+            self.height() / 2,
+        )
 
         if self._accepte_validee:
-            self._fonction_dessin(painter, centre, self._taille, validee=self._validee)
+
+            self._fonction_dessin(
+                painter,
+                centre,
+                taille_dessin,
+                validee=self._validee,
+            )
+
         else:
-            self._fonction_dessin(painter, centre, self._taille)
+
+            self._fonction_dessin(
+                painter,
+                centre,
+                taille_dessin,
+            )
 
         painter.end()
-        self.setIcon(QIcon(pixmap))
 
-    # -- API publique -----------------------------------------------------
+    # -- API publique ----------------------------------------------------------
 
     def definir_validee(self, validee: bool) -> None:
         """Active ou désactive la pastille verte de validation."""
+
         if validee != self._validee:
+
             self._validee = validee
-            self._mettre_a_jour_icone()
+            self.update()
 
     def basculer_validee(self) -> None:
         """Inverse l'état actuel de la pastille de validation."""
+
         self.definir_validee(not self._validee)
 
     def est_validee(self) -> bool:
+        """Renvoie l'état actuel de validation."""
+
         return self._validee
 
     def valider_temporairement(self, temps_ms: int):
-        """Affiche la pastille verte de validation pendant temps_ms, puis la retire."""
+        """
+        Affiche la pastille verte de validation pendant temps_ms,
+        puis la retire.
+        """
+
         self.definir_validee(True)
 
         QTimer.singleShot(

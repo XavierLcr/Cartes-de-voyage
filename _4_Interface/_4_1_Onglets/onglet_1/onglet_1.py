@@ -12,7 +12,7 @@ import os, multiprocessing
 from functools import partial
 from queue import Empty
 
-from PyQt6.QtCore import pyqtSignal, QObject, QSize, Qt, QThread, QTimer
+from PyQt6.QtCore import pyqtSignal, QObject, Qt, QThread, QTimer
 from PyQt6.QtWidgets import (
     QWidget,
     QHBoxLayout,
@@ -39,15 +39,14 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     creer_ligne_horizontale,
     creer_ligne_verticale,
     restaurer_valeur_combo,
-    creer_icone,
 )
 from _0_Utilitaires._0_11_classes_pop_up import PopupInfo
 from _0_Utilitaires._0_12_toggle_checkbox import ToggleSwitch
 from _0_Utilitaires._0_14_QPushButton_QIcon import QPushButtonSauvegarde
-from _4_Interface._4_1_Onglets.onglet_1.onglet_1_1_creation_cartes import CreerCartes
 from _4_Interface._4_1_Onglets.onglet_1.onglet_1_4_processus_cartes import (
     executer_creation_cartes,
 )
+from _4_Interface._4_1_Onglets.onglet_1.onglet_1_5_bouton import BoutonCreationCartes
 from _4_Interface._4_1_Onglets.onglet_1.onglet_1_2_combobox_coloree import (
     FondCarteCombo,
 )
@@ -365,10 +364,12 @@ class OngletParametres(QWidget):
         layout_valid_reinit = QGridLayout()
 
         # Création du bouton "Créer cartes"
-        self.creation_cartes_bouton = QPushButton()
+        self.creation_cartes_bouton = BoutonCreationCartes(
+            fonction_traduction=self.fonction_traduction, parent=self
+        )
 
         # Bouton de sauvegarde
-        self.bouton_sauvegarde = QPushButtonSauvegarde(taille=50)
+        self.bouton_sauvegarde = QPushButtonSauvegarde(taille=70)
 
         # Ajouter les widgets dans la grille
         layout_valid_reinit.addWidget(self.creation_cartes_bouton, 0, 0)
@@ -457,12 +458,7 @@ class OngletParametres(QWidget):
         )
 
         # Boutons en bas de l'onglet 1
-        self.creation_cartes_bouton.setText(
-            self.fonction_traduction("bouton_publier_cartes")
-        )
-        self.creation_cartes_bouton.setToolTip(
-            self.fonction_traduction("description_bouton_publier_cartes", suffixe=".")
-        )
+        self.creation_cartes_bouton.set_langue()
         self.bouton_sauvegarde.setToolTip(
             self.fonction_traduction("sauvegarder_profil", suffixe=".")
         )

@@ -179,7 +179,7 @@ class ArbreVoyages(QTreeWidget):
 
         elif isinstance(data, list):
             for item in sorted(data):
-                child = QTreeWidgetItem(parent_item, [f"• {str(item)}"])
+                child = QTreeWidgetItem(parent_item, [f"❉ {str(item)}"])
                 child.setBackground(
                     0, QtGui.QBrush(QtGui.QColor(Qt.GlobalColor.transparent))
                 )

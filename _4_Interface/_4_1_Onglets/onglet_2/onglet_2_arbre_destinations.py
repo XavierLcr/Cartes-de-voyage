@@ -172,7 +172,7 @@ class ArbreDestinations(QTreeWidget):
 
             elif isinstance(data, list):
                 for item_temp in data:
-                    nom = f"• {item_temp}"
+                    nom = f"❉ {item_temp}"
 
                     # Ajout de l'emoji (si souhaité)
                     if item_temp in self.emojis_pays and self.utiliser_emoji:

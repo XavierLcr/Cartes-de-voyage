@@ -19,7 +19,6 @@ from PyQt6.QtWidgets import (
     QVBoxLayout,
     QGridLayout,
     QLabel,
-    QPushButton,
     QComboBox,
     QCheckBox,
     QSlider,
@@ -52,6 +51,9 @@ from _4_Interface._4_1_Onglets.onglet_1.onglet_1_2_combobox_coloree import (
 )
 from _4_Interface._4_1_Onglets.onglet_1.onglet_1_3_barre_progression import (
     AnimationTrainPublication,
+)
+from _4_Interface._4_1_Onglets.onglet_1.onglet_1_6_barre_simple import (
+    AnimationCreationLegere,
 )
 from _4_Interface._4_3_Icones._4_3_30_stylo import _dessiner_icone_stylo_plume
 from _4_Interface._4_3_Icones._4_3_29_email import _dessiner_icone_email

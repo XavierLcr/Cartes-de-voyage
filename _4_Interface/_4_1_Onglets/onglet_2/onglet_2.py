@@ -137,7 +137,7 @@ class OngletSelectionnerDestinations(QWidget):
 
         # Bouton de sauvegarde
         self.bouton_sauvegarde = QPushButtonSauvegarde(parent=self, taille=35)
-        self.bouton_sauvegarde.clicked.connect(lambda: fct_sauvegarde)
+        self.bouton_sauvegarde.clicked.connect(fct_sauvegarde)
 
         # Bouton de dépliage
         self.deplier = QPushButtonIcone(

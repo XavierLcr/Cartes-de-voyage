@@ -90,7 +90,6 @@ class OngletSelectionnerDestinations(QWidget):
         # Fonctions et constantes
         self.constantes = constantes
         self.fonction_traduire = fct_traduire
-        self.fct_sauvegarde = fct_sauvegarde
 
         # Layout de l'onglet
         layout = QVBoxLayout()
@@ -137,7 +136,7 @@ class OngletSelectionnerDestinations(QWidget):
         self.chargement_yaml_bouton.clicked.connect(self.charger_yaml)
 
         # Bouton de sauvegarde
-        self.bouton_sauvegarde = QPushButtonSauvegarde(parent=self)
+        self.bouton_sauvegarde = QPushButtonSauvegarde(parent=self, taille=35)
         self.bouton_sauvegarde.clicked.connect(lambda: fct_sauvegarde)
 
         # Bouton de dépliage

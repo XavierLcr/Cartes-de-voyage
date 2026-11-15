@@ -161,7 +161,9 @@ class MesVoyagesApplication(QWidget):
         self.onglet_selection_destinations = onglet_2.OngletSelectionnerDestinations(
             constantes=self.constantes,
             fct_traduire=self.traduire_depuis_id,
-            fct_sauvegarde=self.exporter_liste_parametres,
+            fct_sauvegarde=lambda: self.exporter_liste_parametres(
+                date_publication=False
+            ),
             longueur=self.longueur_id_voyage,
         )
         self.onglet_selection_destinations.dict_modif.connect(

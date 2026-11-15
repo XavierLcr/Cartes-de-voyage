@@ -181,15 +181,15 @@ for modele in modeles_google:
     # Appel API
     api_jour_modele = int(api_dict.get(date_jour, {}).get(modele["modèle"], 0))
 
-    # # Pays
-    # pays = creer_liste_pays_multilangue(
-    #     liste_pays=liste_pays,
-    #     modele_dict=modele,
-    #     liste_deja_existante=pays,
-    #     liste_langues=liste_langues,
-    #     version=0,
-    #     blabla=True,
-    # )
+    # Pays
+    pays = creer_liste_pays_multilangue(
+        liste_pays=liste_pays,
+        modele_dict=modele,
+        liste_deja_existante=pays,
+        liste_langues=liste_langues,
+        version=0,
+        blabla=True,
+    )
 
     # Interface
     interface = creer_liste_pays_multilangue(
@@ -214,12 +214,12 @@ for modele in modeles_google:
 ## 4.1 -- Pays -----------------------------------------------------------------
 
 
-# exporter_fichier(
-#     objet=pays,
-#     direction_fichier=direction_donnees_traductions,
-#     nom_fichier="noms_pays_traduction.yaml",
-#     sort_keys=True,
-# )
+exporter_fichier(
+    objet=pays,
+    direction_fichier=direction_donnees_traductions,
+    nom_fichier="noms_pays_traduction.yaml",
+    sort_keys=True,
+)
 
 
 ## 4.2 -- Interface ------------------------------------------------------------

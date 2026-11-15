@@ -47,11 +47,9 @@ fennoscandia:
   - Sweden
   - Åland
 france:
-  categorie: France, Monaco and Channel Islands
+  categorie: France and Monaco
   liste:
   - France
-  - Jersey
-  - Guernsey
   - Monaco
 guam:
   categorie: Guam and Northern Mariana Islands
@@ -64,6 +62,11 @@ iles_britanniques:
   - Ireland
   - Isle of Man
   - United Kingdom
+iles_anglo_normandes:
+  categorie: Channel Islands
+  liste:
+  - Jersey
+  - Guernsey
 ile_hispaniola:
   categorie: Hispaniola Island
   liste:
@@ -75,11 +78,6 @@ ile_saint_martin:
   - Anguilla
   - Saint-Martin
   - Sint Maarten
-samoa:
-  categorie: Samoan Islands
-  liste:
-  - Samoa
-  - American Samoa
 iles_vierges:
   categorie: Virgin Islands
   liste:
@@ -120,6 +118,11 @@ pays_italiens:
   - Italy
   - San Marino
   - Vatican City
+samoa:
+  categorie: Samoan Islands
+  liste:
+  - Samoa
+  - American Samoa
 senegal_gambie:
   categorie: Senegal and Gambia
   liste:

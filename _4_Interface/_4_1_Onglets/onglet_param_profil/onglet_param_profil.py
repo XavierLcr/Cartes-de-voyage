@@ -35,6 +35,7 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     _QLabelIcone,
 )
 from _0_Utilitaires._0_14_QPushButton_QIcon import QPushButtonSauvegarde
+from _0_Utilitaires._0_16_selecteur_valeurs import SelecteurValeurs
 from _4_Interface._4_1_Onglets.onglet_param_profil.onglet_param_profil_switch import (
     BoutonSwitch,
 )
@@ -140,12 +141,25 @@ class OngletParametresProfil(QWidget):
         radio_layout.addWidget(self.radio_carte_3)
         radio_layout.addWidget(self.radio_carte_sans_limite)
 
+        # Type d'animation lors de la publication des cartes
+        self.type_animation = SelecteurValeurs(
+            parent=self,
+            valeurs=["■■■■", "✈", "🚆"],
+            valeur_initiale_index=1,
+        )
+
         # Groupbox des préférences de cartes
         self.preferences_cartes_groupbox = QGroupBox()
         preferences_cartes_layout = QVBoxLayout(self.preferences_cartes_groupbox)
         preferences_cartes_layout.addWidget(self.sortir_cartes_granu_inf)
         preferences_cartes_layout.addWidget(creer_ligne_horizontale())
         preferences_cartes_layout.addWidget(widget_nb_copies_cartes)
+        preferences_cartes_layout.addWidget(creer_ligne_horizontale())
+
+        # Groupbox du type d'animation
+        self.type_animation_groupbox = QGroupBox()
+        type_animation_layout = QHBoxLayout(self.type_animation_groupbox)
+        type_animation_layout.addWidget(self.type_animation)
 
         # Groupbox – e-mails
         self.email_groupbox = QGroupBox()
@@ -186,6 +200,9 @@ class OngletParametresProfil(QWidget):
         layout_temp.addWidget(self.theme_application_groupbox)
         layout_temp.addWidget(self.preferences_cartes_groupbox)
         layout.addLayout(layout_temp)
+
+        # Type d'animation
+        layout.addWidget(self.type_animation_groupbox)
 
         # Stretch
         layout.addStretch()
@@ -274,6 +291,22 @@ class OngletParametresProfil(QWidget):
             self.fonction_traduction("email_tooltip", suffixe=".")
         )
 
+        # Type d'animation
+        self.type_animation_groupbox.setTitle(
+            self.fonction_traduction("type_animation_titre")
+        )
+        self.type_animation.definir_valeurs(
+            [
+                # self.fonction_traduction("type_animation_barre_simple"),
+                # self.fonction_traduction("type_animation_avion"),
+                self.fonction_traduction("type_animation_train"),
+            ],
+            emettre_signal=False,
+        )
+        self.type_animation_groupbox.setToolTip(
+            self.fonction_traduction("type_animation_tooltip", suffixe=".")
+        )
+
         # Bouton de sauvegarde
         self.bouton_sauvegarde.setToolTip(
             self.fonction_traduction("sauvegarder_profil", suffixe=".")
@@ -345,6 +378,9 @@ class OngletParametresProfil(QWidget):
     def set_email(self, email: str):
         self.email_input.setText(email)
 
+    def get_type_animation(self):
+        self.type_animation.obtenir_valeur()
+
     def initialiser_param_profil(self, **kwargs):
 
         # Récupération des valeurs avec des valeurs par défaut
@@ -355,6 +391,7 @@ class OngletParametresProfil(QWidget):
         n_limite_cartes = kwargs.get("limite_n_cartes", 10)
         theme_application = kwargs.get("theme_application", True)
         adresse_email = kwargs.get("adresse_email", "")
+        type_animation = kwargs.get("type_animation", 0)
 
         # Langue
         self.langues_dispos.setCurrentIndex(
@@ -380,6 +417,9 @@ class OngletParametresProfil(QWidget):
         # Adresse e-mail
         self.set_email(email=adresse_email)
 
+        # Type de l'animation
+        self.type_animation.definir_valeur(index=type_animation)
+
     def creer_dict_parametres(self):
 
         return {
@@ -393,4 +433,5 @@ class OngletParametresProfil(QWidget):
             # Paramètres des cartes
             "sortir_cartes_granu_inf": self.get_sortir_cartes_granu_inf(),
             "limite_n_cartes": self.get_limite_de_cartes(),
+            "type_animation": self.get_type_animation(),
         }

@@ -49,10 +49,10 @@ from _4_Interface._4_1_Onglets.onglet_1.onglet_1_5_bouton import BoutonCreationC
 from _4_Interface._4_1_Onglets.onglet_1.onglet_1_2_combobox_coloree import (
     FondCarteCombo,
 )
-from _4_Interface._4_1_Onglets.onglet_1.onglet_1_3_barre_progression import (
+from _4_Interface._4_1_Onglets.onglet_1.onglet_1_3_animation_immersive import (
     AnimationTrainPublication,
 )
-from _4_Interface._4_1_Onglets.onglet_1.onglet_1_6_barre_simple import (
+from _4_Interface._4_1_Onglets.onglet_1.onglet_1_6_animation_legere import (
     AnimationCreationLegere,
 )
 from _4_Interface._4_3_Icones._4_3_30_stylo import _dessiner_icone_stylo_plume
@@ -371,7 +371,7 @@ class OngletParametres(QWidget):
         )
 
         # Bouton de sauvegarde
-        self.bouton_sauvegarde = QPushButtonSauvegarde(taille=70)
+        self.bouton_sauvegarde = QPushButtonSauvegarde(taille=76)
 
         # Ajouter les widgets dans la grille
         layout_valid_reinit.addWidget(self.creation_cartes_bouton, 0, 0)
@@ -534,7 +534,7 @@ class OngletParametres(QWidget):
             vitesse=130.0,
         )
 
-        # Bouton final de l'animation.
+        # Bouton final de l'animation
         self.animation_publication.retour_parametres.connect(
             self.revenir_aux_parametres
         )

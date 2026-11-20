@@ -130,7 +130,14 @@ class BarreProgressionVoyage(QWidget):
             self._valeur = valeur
             self.update()
 
-    # 1.3 -- Dessin -------------------------------------------------------------
+    # 1.3 -- API publique : phème ----------------------------------------------
+
+    def set_style(self, style):
+
+        if style in self.PALETTES:
+            self._theme = style
+
+    # 1.4 -- Dessin ------------------------------------------------------------
 
     def paintEvent(self, event):
         palette = self.PALETTES[self._theme]

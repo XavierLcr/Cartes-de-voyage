@@ -55,36 +55,13 @@ from _4_Interface._4_1_Onglets.onglet_1.onglet_1_3_animation_immersive import (
 from _4_Interface._4_1_Onglets.onglet_1.onglet_1_8_progression_locale import (
     ProgressionCreationLocale,
 )
+from _4_Interface._4_1_Onglets.onglet_1.onglet_1_09_chargment_gdf import (
+    GestionnaireChargementGDFS,
+)
 from _4_Interface._4_3_Icones._4_3_30_stylo import _dessiner_icone_stylo_plume
 from _4_Interface._4_3_Icones._4_3_29_email import _dessiner_icone_email
 
-# 1 -- Classe de chargement des GeoDataFrames ----------------------------------
-
-
-class WorkerChargement(QObject):
-    finished = pyqtSignal()
-    erreur = pyqtSignal(str)
-
-    def __init__(self, parent, direction):
-        super().__init__()
-        self.parent = parent
-        self.direction = direction
-
-    def run(self):
-        try:
-            # Chargement lourd
-            self.parent.liste_gdfs = charger_gdfs(
-                direction_base=self.direction,
-                max_niveau=2,
-            )
-
-            self.finished.emit()
-
-        except Exception as e:
-            self.erreur.emit(str(e))
-
-
-# 2 -- Classe de l'onglet des paramètres de cartes -----------------------------
+# 1 -- Classe de l'onglet des paramètres de cartes -----------------------------
 
 
 class OngletParametres(QWidget):
@@ -379,6 +356,15 @@ class OngletParametres(QWidget):
 
         layout.addLayout(layout_valid_reinit, stretch=2)
 
+        # --------------------------------------------------------------------------
+        # Chargement des données géographiques
+        # --------------------------------------------------------------------------
+
+        self.gestionnaire_chargement = GestionnaireChargementGDFS(self)
+        self.gestionnaire_chargement.donnees_chargees.connect(self._recevoir_gdfs)
+        self.gestionnaire_chargement.erreur.connect(self._gerer_erreur_chargement)
+        self._callback_chargement = None
+
     def set_langue(self, langue: str | None):
 
         # Récupération de la langue
@@ -624,37 +610,31 @@ class OngletParametres(QWidget):
         return probleme
 
     def lancer_chargement_gdfs(self, callback=None):
+        """Lance le chargement des GeoDataFrames."""
 
-        # Création du thread
-        self.thread_chargement = QThread()
+        self._callback_chargement = callback
 
-        # Worker
-        self.worker_chargement = WorkerChargement(
-            parent=self, direction=self.constantes.direction_donnees_geographiques
+        self.gestionnaire_chargement.lancer(
+            direction=self.constantes.direction_donnees_geographiques
         )
 
-        # Déplacement dans le thread
-        self.worker_chargement.moveToThread(self.thread_chargement)
+    def _recevoir_gdfs(self, liste_gdfs):
+        """Récupère les données chargées dans le thread principal."""
 
-        # Lancement
-        self.thread_chargement.started.connect(self.worker_chargement.run)
+        self.liste_gdfs = liste_gdfs
 
-        # Fin normale
-        self.worker_chargement.finished.connect(self.thread_chargement.quit)
-        self.worker_chargement.finished.connect(self.worker_chargement.deleteLater)
-        self.thread_chargement.finished.connect(self.thread_chargement.deleteLater)
+        # Exécuter le callback une fois les données disponibles
+        if self._callback_chargement is not None:
+            self._callback_chargement()
 
-        # Callback optionnel
-        if callback:
-            self.worker_chargement.finished.connect(callback)
+        self._callback_chargement = None
 
-        # Gestion erreurs
-        self.worker_chargement.erreur.connect(
-            lambda e: print(f"Erreur chargement : {e}")
-        )
+    def _gerer_erreur_chargement(self, message):
+        """Gère les erreurs survenues pendant le chargement."""
 
-        # Start
-        self.thread_chargement.start()
+        print(f"Erreur chargement des GeoDataFrames : {message}")
+
+        self._callback_chargement = None
 
     def lancer_creation_cartes_processus(self, settings) -> None:
         """Lance la création des cartes dans un processus indépendant."""

@@ -111,10 +111,8 @@ class OngletParametres(QWidget):
         # Page 2 : animation immersive (uniquement pour le mode "immersif")
         # --------------------------------------------------------------------------
 
-        # "immersif" : train plein écran.
-        # Toute autre valeur ("animation", etc.) : progression locale, qui
-        # remplace uniquement le bouton « Créer cartes ».
-        self.mode_progression = "animation"
+        # Valeurs possibles : "immersif", "animation", "classique"
+        self.mode_progression = "classique"
 
         self.page_animation = QWidget()
         self.layout_animation = QVBoxLayout(self.page_animation)
@@ -803,6 +801,9 @@ class OngletParametres(QWidget):
 
     def fonction_principale(self, settings):
 
+        # Modification du type d'animation
+        self.set_mode_progression(mode=settings.get("type_animation", 0))
+
         # ----------------------------------------------------------------------
         # Vérification des paramètres
         # ----------------------------------------------------------------------
@@ -950,3 +951,11 @@ class OngletParametres(QWidget):
             # Labelliser les territoires
             "labelliser_territoires": self.labellisation_checkbox.isChecked(),
         }
+
+    def set_mode_progression(self, mode: int):
+
+        self.mode_progression = {
+            0: "classique",
+            1: "animation",
+            2: "immersif",
+        }.get(mode, "classique")

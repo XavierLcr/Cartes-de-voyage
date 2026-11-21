@@ -154,7 +154,6 @@ class OngletParametresProfil(QWidget):
         preferences_cartes_layout.addWidget(self.sortir_cartes_granu_inf)
         preferences_cartes_layout.addWidget(creer_ligne_horizontale())
         preferences_cartes_layout.addWidget(widget_nb_copies_cartes)
-        preferences_cartes_layout.addWidget(creer_ligne_horizontale())
 
         # Groupbox du type d'animation
         self.type_animation_groupbox = QGroupBox()

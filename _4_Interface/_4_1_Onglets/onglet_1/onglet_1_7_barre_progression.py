@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
 # _4_Interface/_4_1_Onglets/onglet_1/                                          #
-# Onglet 1.7 – Barre de progression classique                                  #
+# Onglet 1.07 – Barre de progression classique                                 #
 ################################################################################
 
 
@@ -76,7 +76,6 @@ class BarreProgressionVoyage(QWidget):
         parent=None,
     ):
         super().__init__(parent)
-
         if theme not in self.PALETTES:
             raise ValueError("Le thème doit être 'clair' ou 'sombre'.")
         if maximum < 0:

@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
 # _4_Interface/_4_1_Onglets/onglet_1/                                          #
-# Onglet 1.8 – Widget contenant la barre de progression ou l'animation légère  #                                 #
+# Onglet 1.08 – Widget contenant la barre de progression ou l'animation légère #                                 #
 ################################################################################
 
 

@@ -12,7 +12,7 @@ import os, multiprocessing
 from functools import partial
 from queue import Empty
 
-from PyQt6.QtCore import pyqtSignal, QObject, Qt, QThread, QTimer
+from PyQt6.QtCore import Qt, QTimer
 from PyQt6.QtWidgets import (
     QWidget,
     QHBoxLayout,
@@ -26,10 +26,10 @@ from PyQt6.QtWidgets import (
     QSpacerItem,
     QSizePolicy,
     QStackedLayout,
+    QStackedWidget,
 )
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
-    charger_gdfs,
     obtenir_clef_par_valeur,
 )
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
@@ -66,6 +66,9 @@ from _4_Interface._4_3_Icones._4_3_29_email import _dessiner_icone_email
 
 class OngletParametres(QWidget):
 
+    # Délai (ms) pendant lequel la progression locale reste visible à 100 %.
+    DELAI_FIN_PROGRESSION_LOCALE = 800
+
     def __init__(self, constantes, fct_traduction):
 
         super().__init__()
@@ -100,44 +103,40 @@ class OngletParametres(QWidget):
         self.page_parametres = QWidget()
 
         layout = QVBoxLayout(self.page_parametres)
-        layout.setContentsMargins(
-            0,
-            0,
-            0,
-            0,
-        )
+        layout.setContentsMargins(0, 0, 0, 0)
 
         self.layout_principal.addWidget(self.page_parametres)
 
         # --------------------------------------------------------------------------
-        # Page 2 : animation de publication
+        # Page 2 : animation immersive (uniquement pour le mode "immersif")
         # --------------------------------------------------------------------------
+
+        # "immersif" : train plein écran.
+        # Toute autre valeur ("animation", etc.) : progression locale, qui
+        # remplace uniquement le bouton « Créer cartes ».
+        self.mode_progression = "animation"
 
         self.page_animation = QWidget()
         self.layout_animation = QVBoxLayout(self.page_animation)
-        self.layout_animation.setContentsMargins(
-            0,
-            0,
-            0,
-            0,
-        )
+        self.layout_animation.setContentsMargins(0, 0, 0, 0)
 
         self.layout_principal.addWidget(self.page_animation)
 
         # La page normale est affichée au lancement.
         self.layout_principal.setCurrentWidget(self.page_parametres)
 
-        self.animation_publication = None
+        self.animation_publication = None  # mode immersif (page entière)
+        self.progression_locale = None  # mode local (remplace le bouton)
         self._indice_publication = 0
 
-        # Ajouter le layout à la group box et la group box au layout général
+        # --------------------------------------------------------------------------
+        # Granularité
+        # --------------------------------------------------------------------------
 
-        # Créer un QGroupBox pour les choix de granularité
         self.groupe_granularite = QGroupBox()
 
-        # Choix de la granularité
+        # Granularité des pays visités
         self.label_granularite_visite = creer_QLabel_centre()
-
         self.granularite_visite = QComboBox()
         layout_granularite_visite = QHBoxLayout()
         layout_granularite_visite.addWidget(self.label_granularite_visite, stretch=2)
@@ -150,15 +149,17 @@ class OngletParametres(QWidget):
         layout_granularite_fond.addWidget(self.label_granularite_fond, stretch=2)
         layout_granularite_fond.addWidget(self.granularite_fond, stretch=4)
 
-        # Ajouter le layout horizontal à la group box
+        # Ajouter les layouts horizontaux à la group box
         layout_granularite = QHBoxLayout()
         layout_granularite.addLayout(layout_granularite_visite, stretch=5)
         layout_granularite.addWidget(creer_ligne_verticale(), stretch=2)
         layout_granularite.addLayout(layout_granularite_fond, stretch=5)
         self.groupe_granularite.setLayout(layout_granularite)
-        layout.addWidget(self.groupe_granularite, stretch=3)
 
-        # Création des cases à cocher
+        # --------------------------------------------------------------------------
+        # Cartes à créer
+        # --------------------------------------------------------------------------
+
         self.groupe_cartes_a_creer = QGroupBox()
         self.carte_monde = QCheckBox()
         self.carte_pays = QCheckBox()
@@ -173,9 +174,6 @@ class OngletParametres(QWidget):
 
         self.carte_pays.setChecked(True)
         self.europe.setChecked(True)
-
-        # Création du layout des cartes à créer et des couleurs
-        layout_cartes_et_couleurs = QHBoxLayout()
 
         # Layout des cartes à créer
         layout_cartes_a_creer = QGridLayout()
@@ -199,19 +197,22 @@ class OngletParametres(QWidget):
         layout_cartes_a_creer.addWidget(self.amerique, ligne_regions_1, 2, 1, 2)
         layout_cartes_a_creer.addWidget(self.asie, ligne_regions_1, 4, 1, 2)
 
-        ligne_regions_1 = 3
-        layout_cartes_a_creer.addWidget(self.europe, ligne_regions_1, 0, 1, 2)
-        layout_cartes_a_creer.addWidget(self.moyen_orient, ligne_regions_1, 2, 1, 2)
-        layout_cartes_a_creer.addWidget(self.autres_regions, ligne_regions_1, 4, 1, 2)
+        ligne_regions_2 = 3
+        layout_cartes_a_creer.addWidget(self.europe, ligne_regions_2, 0, 1, 2)
+        layout_cartes_a_creer.addWidget(self.moyen_orient, ligne_regions_2, 2, 1, 2)
+        layout_cartes_a_creer.addWidget(self.autres_regions, ligne_regions_2, 4, 1, 2)
 
-        # Ajout du layout au QGroupBox puis ajout au layout principal
         self.groupe_cartes_a_creer.setLayout(layout_cartes_a_creer)
+
+        # Colonne de gauche : granularité + cartes à créer
         layout_granu_cartes_a_creer = QVBoxLayout()
         layout_granu_cartes_a_creer.addWidget(self.groupe_granularite, stretch=3)
         layout_granu_cartes_a_creer.addWidget(self.groupe_cartes_a_creer, stretch=5)
-        # layout.addWidget(self.groupe_cartes_a_creer)
 
-        # Boîte des couleurs
+        # --------------------------------------------------------------------------
+        # Couleurs
+        # --------------------------------------------------------------------------
+
         self.groupe_couleurs = QGroupBox()
         layout_theme_couleurs = QVBoxLayout(self.groupe_couleurs)
 
@@ -254,14 +255,17 @@ class OngletParametres(QWidget):
         )
         layout_theme_couleurs.addLayout(layout_couleur_fond)
 
-        # # Ajout des groupbox des cartes et des couleurs
+        # Ajout des groupbox des cartes et des couleurs
+        layout_cartes_et_couleurs = QHBoxLayout()
         layout_cartes_et_couleurs.addLayout(layout_granu_cartes_a_creer)
         layout_cartes_et_couleurs.addWidget(self.groupe_couleurs)
 
-        # # Ajouter ce layout horizontal au layout principal
         layout.addLayout(layout_cartes_et_couleurs, stretch=8)
 
-        # Group box et layout des paramètres de publication
+        # --------------------------------------------------------------------------
+        # Paramètres de publication
+        # --------------------------------------------------------------------------
+
         self.groupe_params_publication = QGroupBox()
         layout_params_publication = QVBoxLayout()
 
@@ -331,28 +335,44 @@ class OngletParametres(QWidget):
         layout_mail_texte.addWidget(self.email_checkbox)
         layout_format_qualite.addLayout(layout_mail_texte)
 
-        # Ajouter le layout horizontal au layout principal
+        # Ajouter le layout horizontal au layout de la group box
         layout_params_publication.addLayout(layout_format_qualite)
-        # Ajouter le layout principal à la group box
         self.groupe_params_publication.setLayout(layout_params_publication)
 
         # Ajouter le QGroupBox au layout principal
         layout.addWidget(self.groupe_params_publication, stretch=3)
 
-        # Bouton de validation
-        layout_valid_reinit = QGridLayout()
+        # --------------------------------------------------------------------------
+        # Zone d'action : bouton « Créer cartes » OU progression locale
+        # --------------------------------------------------------------------------
 
-        # Création du bouton "Créer cartes"
+        # Bouton de création
         self.creation_cartes_bouton = BoutonCreationCartes(
             fonction_traduction=self.fonction_traduction, parent=self
         )
 
+        # Conteneur qui accueillera la progression locale
+        self.conteneur_progression_locale = QWidget()
+        self.layout_progression_locale = QVBoxLayout(self.conteneur_progression_locale)
+        self.layout_progression_locale.setContentsMargins(0, 0, 0, 0)
+
+        # Pile : un seul des deux est visible à la fois
+        self.zone_action = QStackedWidget()
+        self.zone_action.addWidget(self.creation_cartes_bouton)  # index 0
+        self.zone_action.addWidget(self.conteneur_progression_locale)  # index 1
+        self.zone_action.setCurrentWidget(self.creation_cartes_bouton)
+
         # Bouton de sauvegarde
         self.bouton_sauvegarde = QPushButtonSauvegarde(taille=76)
 
-        # Ajouter les widgets dans la grille
-        layout_valid_reinit.addWidget(self.creation_cartes_bouton, 0, 0)
+        # Grille du bas : (zone d'action | sauvegarde)
+        # IMPORTANT : le bouton « Créer cartes » n'est PAS ajouté ici. Il
+        # appartient déjà à `zone_action` ; l'ajouter une seconde fois à une
+        # grille l'en retirerait.
+        layout_valid_reinit = QGridLayout()
+        layout_valid_reinit.addWidget(self.zone_action, 0, 0)
         layout_valid_reinit.addWidget(self.bouton_sauvegarde, 0, 1)
+        layout_valid_reinit.setColumnStretch(0, 1)
 
         layout.addLayout(layout_valid_reinit, stretch=2)
 
@@ -365,6 +385,8 @@ class OngletParametres(QWidget):
         self.gestionnaire_chargement.erreur.connect(self._gerer_erreur_chargement)
         self._callback_chargement = None
 
+    # 2 -- Langue et style -------------------------------------------------------
+
     def set_langue(self, langue: str | None):
 
         # Récupération de la langue
@@ -376,10 +398,10 @@ class OngletParametres(QWidget):
         # Granularité des cartes
         self.groupe_granularite.setTitle(self.fonction_traduction("titre_granularite"))
         self.label_granularite_visite.setText(
-            self.fonction_traduction("granularite_pays_visites", suffixe=" :")
+            self.fonction_traduction("granularite_pays_visites", suffixe=" :")
         )
         self.label_granularite_fond.setText(
-            self.fonction_traduction("granularite_pays_non_visites", suffixe=" :")
+            self.fonction_traduction("granularite_pays_non_visites", suffixe=" :")
         )
 
         # Choix des cartes à publier
@@ -400,10 +422,10 @@ class OngletParametres(QWidget):
             self.fonction_traduction("titre_params_esthetiques")
         )
         self.color_label.setText(
-            self.fonction_traduction(clef="cartes_couleurs", suffixe=" :")
+            self.fonction_traduction(clef="cartes_couleurs", suffixe=" :")
         )
         self.theme_label.setText(
-            self.fonction_traduction(clef="cartes_theme", suffixe=" :")
+            self.fonction_traduction(clef="cartes_theme", suffixe=" :")
         )
         self.utiliser_theme.setText(self.fonction_traduction("tick_style_dans_app"))
         self.utiliser_theme.setToolTip(
@@ -411,7 +433,7 @@ class OngletParametres(QWidget):
         )
 
         self.couleur_fond_label.setText(
-            self.fonction_traduction("cartes_couleurs_fond", suffixe=" :")
+            self.fonction_traduction("cartes_couleurs_fond", suffixe=" :")
         )
         self.couleur_fond_label.setToolTip(
             self.fonction_traduction(clef="cartes_couleurs_fond_tool_tip", suffixe=".")
@@ -423,10 +445,10 @@ class OngletParametres(QWidget):
             self.fonction_traduction("titre_params_techniques")
         )
         self.label_format.setText(
-            self.fonction_traduction("cartes_format", suffixe=" :")
+            self.fonction_traduction("cartes_format", suffixe=" :")
         )
         self.label_qualite.setText(
-            self.fonction_traduction("cartes_qualite", suffixe=" :")
+            self.fonction_traduction("cartes_qualite", suffixe=" :")
         )
         self.label_qualite_max.setText(self.fonction_traduction("qualite_elevee"))
         self.label_qualite_min.setText(self.fonction_traduction("qualite_faible"))
@@ -481,7 +503,7 @@ class OngletParametres(QWidget):
         )
 
     def set_style(self, style, preset, teintes):
-
+        self.style = style
         # Bouton de style
         self.utiliser_theme.set_style(style=style, preset=preset, teintes=teintes)
 
@@ -497,69 +519,103 @@ class OngletParametres(QWidget):
             }
             """)
 
-    def initialiser_animation_publication(
-        self,
-        n: int,
-    ) -> None:
-        """
-        Crée l'animation de publication et remplace temporairement
-        les paramètres par celle-ci.
-        """
+    # 3 -- Progression de la création --------------------------------------------
+
+    def _activer_boutons_action(self, actif: bool) -> None:
+        """Active ou désactive les boutons d'action (création et sauvegarde)."""
+
+        self.creation_cartes_bouton.setEnabled(actif)
+        self.bouton_sauvegarde.setEnabled(actif)
+
+    def initialiser_animation_publication(self, n: int) -> None:
+        """Affiche la progression adaptée au mode choisi."""
 
         self._indice_publication = 0
+        self._nettoyer_progression()  # sécurité si un ancien widget traîne
 
-        # Suppression éventuelle d'une ancienne animation.
-        if self.animation_publication is not None:
+        # Les boutons restent bloqués pendant toute la création.
+        self._activer_boutons_action(False)
 
-            self.layout_animation.removeWidget(self.animation_publication)
-            self.animation_publication.deleteLater()
+        if self.mode_progression == "immersif":
+            self._demarrer_progression_immersive(n)
+        else:
+            self._demarrer_progression_locale(n)
 
-        # Nouvelle animation.
-        self.animation_publication = AnimationTrainPublication(
-            n=n,
-            vitesse=130.0,
-        )
+    def _demarrer_progression_immersive(self, n: int) -> None:
+        """Remplace toute la page des paramètres (train)."""
 
-        # Bouton final de l'animation
+        self.animation_publication = AnimationTrainPublication(n=n, vitesse=130.0)
         self.animation_publication.retour_parametres.connect(
             self.revenir_aux_parametres
         )
 
-        # L'animation remplit toute sa page.
         self.layout_animation.addWidget(self.animation_publication)
-
-        # On change simplement de "page".
         self.layout_principal.setCurrentWidget(self.page_animation)
 
-    def revenir_aux_parametres(
-        self,
-    ) -> None:
-        """Revient à l'écran de paramétrage des cartes."""
+    def _demarrer_progression_locale(self, n: int) -> None:
+        """Remplace uniquement le bouton « Créer cartes » (barre / avion)."""
 
-        self.layout_principal.setCurrentWidget(self.page_parametres)
-        self.creation_cartes_bouton.setEnabled(True)
+        self.progression_locale = ProgressionCreationLocale(
+            mode=self.mode_progression,
+            theme="clair" if self.style == 1 else "sombre",
+        )
+
+        # Évite une zone d'action plus petite que le bouton qu'elle remplace.
+        self.progression_locale.setMinimumHeight(
+            self.creation_cartes_bouton.sizeHint().height()
+        )
+
+        self.progression_locale.set_texte_haut("Création de vos cartes de voyage")
+        self.progression_locale.set_texte_bas("Préparation des destinations…")
+        self.progression_locale.set_maximum(n)
+        self.progression_locale.set_valeur(0)
+        self.progression_locale.demarrer()
+
+        self.layout_progression_locale.addWidget(self.progression_locale)
+        self.zone_action.setCurrentWidget(self.conteneur_progression_locale)
+        # La page des paramètres reste affichée : layout_principal n'est pas touché.
+
+    def _nettoyer_progression(self) -> None:
+        """Détruit tout widget de progression et restaure l'état normal."""
+
+        if self.progression_locale is not None:
+            self.progression_locale.arreter()
+            self.layout_progression_locale.removeWidget(self.progression_locale)
+            self.progression_locale.deleteLater()
+            self.progression_locale = None
 
         if self.animation_publication is not None:
-
             self.layout_animation.removeWidget(self.animation_publication)
             self.animation_publication.deleteLater()
             self.animation_publication = None
 
-    def afficher_avancement(
-        self,
-        libelle_pays: str,
-    ) -> None:
-        """Transmet la progression au train."""
+        self.layout_principal.setCurrentWidget(self.page_parametres)
+        self.zone_action.setCurrentWidget(self.creation_cartes_bouton)
+        self._activer_boutons_action(True)
 
-        if self.animation_publication is None:
-            return
+    def revenir_aux_parametres(self) -> None:
+        """Slot du signal `retour_parametres` de l'animation immersive."""
+
+        self._nettoyer_progression()
+
+    def afficher_avancement(self, libelle_pays: str) -> None:
+        """Transmet l'avancement au widget de progression actif."""
 
         self._indice_publication += 1
 
-        self.animation_publication.recevoir_signal(
-            i=self._indice_publication,
-            nom_pays=libelle_pays,
-        )
+        if self.progression_locale is not None:
+            self.progression_locale.set_valeur(self._indice_publication)
+            self.progression_locale.set_texte_bas(
+                f"Création de la carte : {libelle_pays}"
+            )
+
+        elif self.animation_publication is not None:
+            self.animation_publication.recevoir_signal(
+                i=self._indice_publication,
+                nom_pays=libelle_pays,
+            )
+
+    # 4 -- Vérifications et chargement des données ------------------------------
 
     def soulever_probleme(self, dict_voyages: dict, dossier_stockage: str):
 
@@ -624,10 +680,11 @@ class OngletParametres(QWidget):
         self.liste_gdfs = liste_gdfs
 
         # Exécuter le callback une fois les données disponibles
-        if self._callback_chargement is not None:
-            self._callback_chargement()
-
+        callback = self._callback_chargement
         self._callback_chargement = None
+
+        if callback is not None:
+            callback()
 
     def _gerer_erreur_chargement(self, message):
         """Gère les erreurs survenues pendant le chargement."""
@@ -635,6 +692,11 @@ class OngletParametres(QWidget):
         print(f"Erreur chargement des GeoDataFrames : {message}")
 
         self._callback_chargement = None
+
+        # Sans cela, les boutons resteraient bloqués indéfiniment.
+        self._activer_boutons_action(True)
+
+    # 5 -- Processus de création -------------------------------------------------
 
     def lancer_creation_cartes_processus(self, settings) -> None:
         """Lance la création des cartes dans un processus indépendant."""
@@ -656,45 +718,75 @@ class OngletParametres(QWidget):
 
         self.timer_messages_creation.start()
 
-    def _lire_messages_creation(
-        self,
-    ) -> None:
-        """Traite les messages reçus du processus de création."""
+    def _vider_file_messages(self) -> bool:
+        """Traite les messages en attente.
+
+        Renvoie True si un message final (« finished » ou « erreur ») a été
+        traité, c'est-à-dire si la lecture doit s'arrêter.
+        """
+
+        while self.file_messages_creation is not None:
+
+            try:
+                type_message, valeur = self.file_messages_creation.get_nowait()
+            except Empty:
+                return False
+
+            if type_message == "nb_graphes":
+                self.initialiser_animation_publication(n=valeur)
+
+            elif type_message == "progression":
+                self.afficher_avancement(libelle_pays=valeur)
+
+            elif type_message == "finished":
+                self._terminer_processus_creation()
+                self._fin_creation()
+                return True
+
+            elif type_message == "erreur":
+                print(f"Erreur pendant la création des cartes : {valeur}")
+                self._terminer_processus_creation()
+                self._nettoyer_progression()
+                return True
+
+        return True
+
+    def _lire_messages_creation(self) -> None:
+        """Appelée par le timer : lit les messages du processus de création."""
 
         if self.file_messages_creation is None:
             return
 
-        while True:
+        if self._vider_file_messages():
+            return
 
-            try:
+        # Le processus est mort sans avoir envoyé de message final (plantage) :
+        # on relit une dernière fois la file, puis on débloque l'interface.
+        if (
+            self.processus_creation is not None
+            and not self.processus_creation.is_alive()
+        ):
 
-                type_message, valeur = self.file_messages_creation.get_nowait()
-
-            except Empty:
-
-                break
-
-            if type_message == "nb_graphes":
-
-                self.initialiser_animation_publication(n=valeur)
-
-            elif type_message == "progression":
-
-                self.afficher_avancement(libelle_pays=valeur)
-
-            elif type_message == "finished":
-
-                self._terminer_processus_creation()
+            if self._vider_file_messages():
                 return
 
-            elif type_message == "erreur":
+            print("Le processus de création des cartes s'est arrêté prématurément.")
+            self._terminer_processus_creation()
+            self._nettoyer_progression()
 
-                self._terminer_processus_creation()
-                return
+    def _fin_creation(self) -> None:
+        """Fin normale : le retour à l'état initial dépend du mode."""
 
-    def _terminer_processus_creation(
-        self,
-    ) -> None:
+        # Immersif : on attend que l'utilisateur clique sur « retour ».
+        if self.animation_publication is not None:
+            return
+
+        # Local : on laisse 100 % visible un instant, puis on remet le bouton.
+        # Aucun widget (ex. 0 carte à créer) : retour immédiat.
+        delai = self.DELAI_FIN_PROGRESSION_LOCALE if self.progression_locale else 0
+        QTimer.singleShot(delai, self._nettoyer_progression)
+
+    def _terminer_processus_creation(self) -> None:
         """Nettoie le processus lorsque le calcul est terminé."""
 
         self.timer_messages_creation.stop()
@@ -709,10 +801,7 @@ class OngletParametres(QWidget):
             self.file_messages_creation.close()
             self.file_messages_creation = None
 
-    def fonction_principale(
-        self,
-        settings,
-    ):
+    def fonction_principale(self, settings):
 
         # ----------------------------------------------------------------------
         # Vérification des paramètres
@@ -725,7 +814,7 @@ class OngletParametres(QWidget):
             return
 
         # Évite plusieurs clics pendant le travail.
-        self.creation_cartes_bouton.setEnabled(False)
+        self._activer_boutons_action(False)
 
         # ----------------------------------------------------------------------
         # Chargement préalable des données géographiques
@@ -746,11 +835,13 @@ class OngletParametres(QWidget):
         settings["liste_dfs"] = self.liste_gdfs
         self.lancer_creation_cartes_processus(settings=settings)
 
+    # 6 -- Initialisation et export des paramètres -------------------------------
+
     def initialiser_onglet(self, **kwargs):
 
         # Indicatrices
         checkboxes = {
-            # cartes à publier
+            # Cartes à publier
             "carte_du_monde": self.carte_monde,
             "cartes_des_pays": self.carte_pays,
             "asie": self.asie,

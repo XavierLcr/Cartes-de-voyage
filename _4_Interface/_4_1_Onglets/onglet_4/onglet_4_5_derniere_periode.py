@@ -18,12 +18,11 @@ from PyQt6.QtWidgets import (
     QToolTip,
     QSizePolicy,
 )
-from PyQt6.QtCore import Qt, QRectF, QPointF, QTimer
+from PyQt6.QtCore import Qt, QRectF, QPointF
 from PyQt6.QtGui import QPainter, QColor, QFont, QPen, QMouseEvent
 
 from _0_Utilitaires._0_10_selecteur_date import SelecteurDate
 from _0_Utilitaires._0_2_fonctions_graphiques import generer_couleur_aleatoire_hex
-from _4_Interface._4_3_Icones._4_3_48_avion._4_3_48_X_avion import Avion
 
 # 1 -- Fonctions de traitement des données -------------------------------------
 
@@ -202,27 +201,13 @@ class DiagrammeGantt(QWidget):
     HAUTEUR_BARRE_MIN = 6
     ESPACE_BARRE_MIN = 2
 
-    INTERVALLE_ANIMATION_MS = 25
-
     # 2.1 -- Initialisation ----------------------------------------------------
 
-    def __init__(
-        self,
-        parent=None,
-    ):
+    def __init__(self, parent=None):
 
-        super().__init__(
-            parent=parent,
-        )
+        super().__init__(parent=parent)
 
-        self.setMouseTracking(
-            True,
-        )
-
-        self.setMinimumHeight(
-            200,
-        )
-
+        self.setMouseTracking(True)
         self.setSizePolicy(
             QSizePolicy.Policy.Expanding,
             QSizePolicy.Policy.Expanding,
@@ -240,26 +225,6 @@ class DiagrammeGantt(QWidget):
         self.titre = ""
 
         self.barre_survolee = None
-
-        # ----------------------------------------------------------------------
-        # Avion
-        # ----------------------------------------------------------------------
-
-        self.init_avion()
-
-        self._timer_avion = QTimer(
-            self,
-        )
-
-        self._timer_avion.setInterval(
-            self.INTERVALLE_ANIMATION_MS,
-        )
-
-        self._timer_avion.timeout.connect(
-            self._animer_avion,
-        )
-
-        self._timer_avion.start()
 
         # ----------------------------------------------------------------------
         # Dimensions des barres
@@ -303,8 +268,6 @@ class DiagrammeGantt(QWidget):
             - les règles de validation ;
             - la manière de convertir les dates.
         """
-
-        self.init_avion()
 
         self.barre_survolee = None
 
@@ -369,25 +332,7 @@ class DiagrammeGantt(QWidget):
 
         self.update()
 
-    # 2.3 -- Animation de l'avion ---------------------------------------------
-
-    def _animer_avion(
-        self,
-    ) -> None:
-        """Fait avancer l'avion sur sa trajectoire."""
-
-        if not self.barres:
-            return
-
-        delta_s = self._timer_avion.interval() / 1000
-
-        self.avion.animer(
-            delta_s=delta_s,
-        )
-
-        self.update()
-
-    # 2.4 -- Calcul des dimensions des barres ----------------------------------
+    # 2.3 -- Calcul des dimensions des barres ----------------------------------
 
     def _calculer_dimensions_barres(
         self,
@@ -430,13 +375,10 @@ class DiagrammeGantt(QWidget):
 
         unite_min = self.HAUTEUR_BARRE_MIN + self.ESPACE_BARRE_MIN
 
-        unite = hauteur_disponible / nb if nb else unite_max
+        unite = hauteur_disponible / nb
 
         unite = max(
-            min(
-                unite,
-                unite_max,
-            ),
+            min(unite, unite_max),
             unite_min,
         )
 
@@ -454,16 +396,11 @@ class DiagrammeGantt(QWidget):
 
     # 2.6 -- Redimensionnement -------------------------------------------------
 
-    def resizeEvent(
-        self,
-        event,
-    ):
+    def resizeEvent(self, event):
 
         self._mettre_a_jour_taille_barres()
 
-        super().resizeEvent(
-            event,
-        )
+        super().resizeEvent(event)
 
     # 2.7 -- Conversion d'une date en position X -------------------------------
 
@@ -482,34 +419,12 @@ class DiagrammeGantt(QWidget):
 
         return self.MARGE_GAUCHE + (offset / total) * largeur_zone
 
-    # 2.8 -- Initialisation de l'avion -----------------------------------------
+    # 2.8 -- Rendu -------------------------------------------------------------
 
-    def init_avion(
-        self,
-    ):
+    def paintEvent(self, event):
 
-        self.avion = Avion(
-            avion="ligne",
-            taille=50,
-            vitesse=60,
-            tension=1.0,
-            marge_sortie=50,
-        )
-
-    # 2.9 -- Rendu -------------------------------------------------------------
-
-    def paintEvent(
-        self,
-        event,
-    ):
-
-        painter = QPainter(
-            self,
-        )
-
-        painter.setRenderHint(
-            QPainter.RenderHint.Antialiasing,
-        )
+        painter = QPainter(self)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
 
         largeur = self.width()
         hauteur = self.height()
@@ -524,21 +439,13 @@ class DiagrammeGantt(QWidget):
 
             font_titre = QFont()
 
-            font_titre.setPointSize(
-                13,
-            )
-
-            font_titre.setBold(
-                True,
-            )
+            font_titre.setPointSize(13)
+            font_titre.setBold(True)
+            painter.setFont(font_titre)
 
             font_titre.setLetterSpacing(
                 QFont.SpacingType.PercentageSpacing,
                 102,
-            )
-
-            painter.setFont(
-                font_titre,
             )
 
             painter.drawText(
@@ -559,12 +466,7 @@ class DiagrammeGantt(QWidget):
             largeur_trait = 44
             y_trait = 34
 
-            painter.setPen(
-                QPen(
-                    self.couleur_accent,
-                    2,
-                )
-            )
+            painter.setPen(QPen(self.couleur_accent, 2))
 
             painter.drawLine(
                 QPointF(
@@ -591,26 +493,12 @@ class DiagrammeGantt(QWidget):
         # Graduation de l'axe X
         # ----------------------------------------------------------------------
 
-        painter.setFont(
-            QFont(
-                "",
-                8,
-            )
-        )
+        painter.setFont(QFont("", 8))
 
         for d, texte in self._graduations_mensuelles():
 
-            x = self._x_pour_date(
-                d,
-                largeur_zone,
-            )
-
-            painter.setPen(
-                QPen(
-                    self.couleur_grille,
-                    1,
-                )
-            )
+            x = self._x_pour_date(d, largeur_zone)
+            painter.setPen(QPen(self.couleur_grille, 1))
 
             painter.drawLine(
                 QPointF(
@@ -623,9 +511,7 @@ class DiagrammeGantt(QWidget):
                 ),
             )
 
-            painter.setPen(
-                self.couleur_axe,
-            )
+            painter.setPen(self.couleur_axe)
 
             painter.drawText(
                 QRectF(
@@ -639,15 +525,13 @@ class DiagrammeGantt(QWidget):
             )
 
         # ----------------------------------------------------------------------
-        # Barres + points traversés par l'avion
+        # Barres
         # ----------------------------------------------------------------------
 
         rayon_arrondi = min(
             4,
             self.hauteur_barre / 2,
         )
-
-        points_avion = []
 
         for i, barre in enumerate(self.barres):
 
@@ -678,27 +562,6 @@ class DiagrammeGantt(QWidget):
             barre["rect"] = rect
 
             # ------------------------------------------------------------------
-            # Points visités par l'avion :
-            # début du voyage puis fin du voyage
-            # ------------------------------------------------------------------
-
-            points_avion.append(
-                QPointF(
-                    x_deb,
-                    rect.center().y(),
-                )
-            )
-
-            if x_deb < x_fin:
-
-                points_avion.append(
-                    QPointF(
-                        x_fin,
-                        rect.center().y(),
-                    )
-                )
-
-            # ------------------------------------------------------------------
             # Barre
             # ------------------------------------------------------------------
 
@@ -723,29 +586,6 @@ class DiagrammeGantt(QWidget):
                 rayon_arrondi,
                 rayon_arrondi,
             )
-
-        # ----------------------------------------------------------------------
-        # Avion
-        # ----------------------------------------------------------------------
-
-        # Zone dans laquelle sont tirées les hauteurs aléatoires
-        # des points d'entrée et de sortie.
-
-        rect_zone_avion = QRectF(
-            0,
-            self.MARGE_HAUT,
-            largeur,
-            max(
-                0,
-                hauteur - self.MARGE_HAUT - self.MARGE_BAS,
-            ),
-        )
-
-        self.avion.dessiner(
-            painter=painter,
-            points_passage=points_avion,
-            rect_zone=rect_zone_avion,
-        )
 
         painter.end()
 

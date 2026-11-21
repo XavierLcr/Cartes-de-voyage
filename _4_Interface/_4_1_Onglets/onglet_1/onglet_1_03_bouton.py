@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
 # _4_Interface/_4_1_Onglets/onglet_1/                                          #
-# Onglet 1.5 – Bouton de création des cartes                                   #
+# Onglet 1.03 – Bouton de création des cartes                                  #
 ################################################################################
 
 

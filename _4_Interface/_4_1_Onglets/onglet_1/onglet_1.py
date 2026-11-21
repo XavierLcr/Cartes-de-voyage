@@ -45,7 +45,7 @@ from _0_Utilitaires._0_14_QPushButton_QIcon import QPushButtonSauvegarde
 from _4_Interface._4_1_Onglets.onglet_1.onglet_1_4_processus_cartes import (
     executer_creation_cartes,
 )
-from _4_Interface._4_1_Onglets.onglet_1.onglet_1_5_bouton import BoutonCreationCartes
+from _4_Interface._4_1_Onglets.onglet_1.onglet_1_03_bouton import BoutonCreationCartes
 from _4_Interface._4_1_Onglets.onglet_1.onglet_1_01_combobox_coloree import (
     FondCarteCombo,
 )

@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
 # _4_Interface/_4_1_Onglets/onglet_1/                                          #
-# 1.09 – Gestionnaire de chargement des GeoDataFrames                          #
+# 1.02 – Gestionnaire de chargement des GeoDataFrames                          #
 ################################################################################
 
 

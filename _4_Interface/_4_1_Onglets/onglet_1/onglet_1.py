@@ -55,7 +55,7 @@ from _4_Interface._4_1_Onglets.onglet_1.onglet_1_3_animation_immersive import (
 from _4_Interface._4_1_Onglets.onglet_1.onglet_1_8_progression_locale import (
     ProgressionCreationLocale,
 )
-from _4_Interface._4_1_Onglets.onglet_1.onglet_1_09_chargment_gdf import (
+from _4_Interface._4_1_Onglets.onglet_1.onglet_1_02_chargment_gdf import (
     GestionnaireChargementGDFS,
 )
 from _4_Interface._4_3_Icones._4_3_30_stylo import _dessiner_icone_stylo_plume

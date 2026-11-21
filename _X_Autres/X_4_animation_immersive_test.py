@@ -29,7 +29,7 @@ from PyQt6.QtWidgets import (
     QWidget,
 )
 
-from _4_Interface._4_1_Onglets.onglet_1.onglet_1_3_animation_immersive import (
+from _4_Interface._4_1_Onglets.onglet_1.onglet_1_08_animation_immersive import (
     AnimationTrainPublication,
 )
 

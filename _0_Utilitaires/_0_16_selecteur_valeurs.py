@@ -19,7 +19,6 @@ from PyQt6.QtWidgets import (
     QPushButton,
     QButtonGroup,
     QLabel,
-    QVBoxLayout,
 )
 
 # 1 -- Sélecteur de valeurs ----------------------------------------------------
@@ -29,42 +28,36 @@ class SelecteurValeurs(QWidget):
 
     valeur_changee = pyqtSignal(int)
 
-    # Style graphique
-    STYLE_CONTENEUR = """
-        QWidget#selecteur {
-            background-color: #E9ECF2;
-            border-radius: 10px;
-        }
-    """
-
-    STYLE_BOUTON = """
-        QPushButton {
-            background-color: transparent;
-            color: #687386;
-            border: none;
-            border-radius: 7px;
-            padding: 5px 12px;
-            font-size: 10pt;
-            font-weight: 500;
-        }
-
-        QPushButton:hover:!checked {
-            background-color: rgba(255, 255, 255, 100);
-            color: #34445C;
-        }
-
-        QPushButton:checked {
-            background-color: #FFFFFF;
-            color: #34445C;
-            font-weight: 600;
-        }
-    """
+    # Styles graphiques
+    STYLES = {
+        "clair": {
+            "fond": "#E9EDF4",
+            "bouton": "#DCE3EF",
+            "bouton_survol": "#D0D9EA",
+            "bouton_selectionne": "#C9C5E0",
+            "texte": "#737D91",
+            "texte_survol": "#4F5870",
+            "texte_selectionne": "#45415F",
+            "texte_desactive": "#AEB6C5",
+        },
+        "sombre": {
+            "fond": "#292F40",
+            "bouton": "#414B61",
+            "bouton_survol": "#56627C",
+            "bouton_selectionne": "#BDB5DC",
+            "texte": "#D0D6E3",
+            "texte_survol": "#FFFFFF",
+            "texte_selectionne": "#1B1927",
+            "texte_desactive": "#778197",
+        },
+    }
 
     def __init__(
         self,
         valeurs,
         valeur_initiale_index: int = 0,
         layout_horizontal: bool = True,
+        style: str = "sombre",
         parent=None,
     ):
         super().__init__(parent)
@@ -74,6 +67,7 @@ class SelecteurValeurs(QWidget):
         self.index = None
         self.boutons = {}
         self.layout_horizontal = layout_horizontal
+        self.style_actuel = None
 
         # Initialisation de l'interface
         self._initialiser_interface()
@@ -84,22 +78,18 @@ class SelecteurValeurs(QWidget):
             valeur_initiale_index=valeur_initiale_index,
         )
 
+        # Application du style
+        self.set_style(style)
+
     # 1.1 -- Initialisation de l'interface -------------------------------------
 
     def _initialiser_interface(self):
 
-        self.setObjectName("selecteur")
-        self.setStyleSheet(self.STYLE_CONTENEUR)
+        classe_layout = QHBoxLayout if self.layout_horizontal else QVBoxLayout
+        self.layout_principal = classe_layout(self)
 
-        self.layout_principal = {
-            True: QHBoxLayout,
-            False: QVBoxLayout,
-        }.get(
-            self.layout_horizontal, QHBoxLayout
-        )(self)
-
-        self.layout_principal.setContentsMargins(3, 3, 3, 3)
-        self.layout_principal.setSpacing(2)
+        self.layout_principal.setContentsMargins(4, 4, 4, 4)
+        self.layout_principal.setSpacing(3)
 
         self.groupe = QButtonGroup(self)
         self.groupe.setExclusive(True)
@@ -109,12 +99,11 @@ class SelecteurValeurs(QWidget):
         bouton = QPushButton(str(self.valeurs[index]))
         bouton.setCheckable(True)
         bouton.setCursor(Qt.CursorShape.PointingHandCursor)
-        bouton.setMinimumHeight(32)
+        bouton.setMinimumHeight(34)
         bouton.setSizePolicy(
             bouton.sizePolicy().Policy.Expanding,
             bouton.sizePolicy().Policy.Preferred,
         )
-        bouton.setStyleSheet(self.STYLE_BOUTON)
 
         bouton.clicked.connect(lambda checked, i=index: self._changer_valeur(i))
 
@@ -125,7 +114,62 @@ class SelecteurValeurs(QWidget):
 
         return bouton
 
-    # 1.2 -- Gestion des valeurs -----------------------------------------------
+    # 1.2 -- Gestion des styles ------------------------------------------------
+
+    def set_style(self, style="clair"):
+
+        if style not in self.STYLES:
+            raise ValueError(
+                f"Style inconnu : {style}. "
+                f"Valeurs possibles : {', '.join(self.STYLES)}."
+            )
+
+        self.style_actuel = style
+        couleurs = self.STYLES[style]
+
+        # Style du conteneur
+        self.setStyleSheet(f"""
+            QWidget {{
+                background-color: {couleurs["fond"]};
+                border-radius: 10px;
+            }}
+        """)
+
+        # Style des boutons
+        style_bouton = f"""
+            QPushButton {{
+                background-color: {couleurs["bouton"]};
+                color: {couleurs["texte"]};
+                border: 1px solid transparent;
+                border-radius: 7px;
+                padding: 5px 12px;
+                font-size: 10pt;
+                font-weight: 500;
+            }}
+
+            QPushButton:hover:!checked:!disabled {{
+                background-color: {couleurs["bouton_survol"]};
+                color: {couleurs["texte_survol"]};
+            }}
+
+            QPushButton:checked {{
+                background-color: {couleurs["bouton_selectionne"]};
+                color: {couleurs["texte_selectionne"]};
+                font-weight: 600;
+                border: 1px solid {couleurs["bouton_selectionne"]};
+            }}
+
+            QPushButton:disabled {{
+                background-color: transparent;
+                color: {couleurs["texte_desactive"]};
+                border: 1px solid transparent;
+            }}
+        """
+
+        for bouton in self.boutons.values():
+            bouton.setStyleSheet(style_bouton)
+
+    # 1.3 -- Gestion des valeurs -----------------------------------------------
 
     def _valider_valeurs(self, valeurs, valeur_initiale_index):
 
@@ -186,11 +230,15 @@ class SelecteurValeurs(QWidget):
             if index == self.index:
                 bouton.setChecked(True)
 
+        # Réappliquer le style aux nouveaux boutons
+        if self.style_actuel is not None:
+            self.set_style(self.style_actuel)
+
         # Émettre le signal si nécessaire
         if emettre_signal and ancien_index != nouvel_index:
             self.valeur_changee.emit(nouvel_index)
 
-    # 1.3 -- Gestion de la sélection -------------------------------------------
+    # 1.4 -- Gestion de la sélection -------------------------------------------
 
     def _changer_valeur(self, index):
 
@@ -218,7 +266,7 @@ class SelecteurValeurs(QWidget):
 
         return self.index
 
-    # 1.4 -- Gestion des boutons -----------------------------------------------
+    # 1.5 -- Gestion des boutons -----------------------------------------------
 
     def definir_activation(self, index, actif=True):
 
@@ -237,31 +285,41 @@ if __name__ == "__main__":
 
     fenetre = QWidget()
     fenetre.setWindowTitle("Test - Sélecteur de valeurs")
-    fenetre.resize(460, 220)
+    fenetre.resize(500, 300)
+    fenetre.setStyleSheet("background-color: #F3F4F8;")
 
     layout = QVBoxLayout(fenetre)
     layout.setContentsMargins(30, 30, 30, 30)
-    layout.setSpacing(20)
+    layout.setSpacing(18)
 
     titre = QLabel("Granularité géographique")
+    titre.setStyleSheet("color: #55516F; font-size: 12pt; font-weight: 600;")
 
     selecteur = SelecteurValeurs(
         valeurs=["Pays", "Continents", "Régions", "Départements"],
         valeur_initiale_index=2,
+        style="clair",
     )
 
     resultat = QLabel(f"Index sélectionné : {selecteur.obtenir_valeur()}")
+    resultat.setStyleSheet("color: #737D91; font-size: 10pt;")
 
     selecteur.valeur_changee.connect(
         lambda index: resultat.setText(f"Index sélectionné : {index}")
     )
 
-    # Modification de la liste (exemple)
-    # selecteur.definir_valeurs(["Faible", "Moyen", "Élevé"])
+    # Démonstration du changement de thème
+    bouton_style = QPushButton("Changer de thème")
+    bouton_style.clicked.connect(
+        lambda: selecteur.set_style(
+            "sombre" if selecteur.style_actuel == "clair" else "clair"
+        )
+    )
 
     layout.addWidget(titre)
     layout.addWidget(selecteur)
     layout.addWidget(resultat)
+    layout.addWidget(bouton_style)
     layout.addStretch()
 
     fenetre.show()

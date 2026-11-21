@@ -297,8 +297,8 @@ class OngletParametresProfil(QWidget):
         )
         self.type_animation.definir_valeurs(
             [
-                # self.fonction_traduction("type_animation_barre_simple"),
-                # self.fonction_traduction("type_animation_avion"),
+                self.fonction_traduction("type_animation_barre_simple"),
+                self.fonction_traduction("type_animation_avion"),
                 self.fonction_traduction("type_animation_train"),
             ],
             emettre_signal=False,
@@ -317,6 +317,7 @@ class OngletParametresProfil(QWidget):
 
     def set_style(self, theme: bool):
         self.suppression_profil.setStyleSheet(style_bouton_de_suppression(sombre=theme))
+        self.type_animation.set_style(style="clair" if not theme else "sombre")
 
     def get_dossier(self):
         return self.dossier_stockage

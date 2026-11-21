@@ -31,6 +31,7 @@ from PyQt6.QtWidgets import (
 
 from _4_Interface._4_3_Icones._4_3_48_avion._4_3_48_X_avion import Avion
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import _QColor_avec_alpha
+from _0_Utilitaires._0_15_dates import est_jour_militaire
 
 # 1 -- Constantes --------------------------------------------------------------
 
@@ -99,7 +100,7 @@ class ZoneAvion(QWidget):
 
         # Avion
         self.avion = AvionHorizontal(
-            avion="ligne",
+            avion="rafale" if est_jour_militaire() else "ligne",
             taille=34,
             vitesse=75,
             marge_sortie=18,

@@ -23,7 +23,6 @@ from PyQt6.QtGui import QPainter, QColor, QFont, QPen, QMouseEvent
 
 from _0_Utilitaires._0_10_selecteur_date import SelecteurDate
 from _0_Utilitaires._0_2_fonctions_graphiques import generer_couleur_aleatoire_hex
-from _0_Utilitaires._0_15_dates import est_jour_militaire
 from _4_Interface._4_3_Icones._4_3_48_avion._4_3_48_X_avion import Avion
 
 # 1 -- Fonctions de traitement des données -------------------------------------
@@ -489,16 +488,8 @@ class DiagrammeGantt(QWidget):
         self,
     ):
 
-        avion_temp = (
-            "rafale"
-            if est_jour_militaire(
-                date_jour=None,
-            )
-            else "ligne"
-        )
-
         self.avion = Avion(
-            avion=avion_temp,
+            avion="ligne",
             taille=50,
             vitesse=60,
             tension=1.0,

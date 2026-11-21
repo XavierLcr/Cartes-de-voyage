@@ -380,7 +380,7 @@ class OngletParametresProfil(QWidget):
         self.email_input.setText(email)
 
     def get_type_animation(self):
-        self.type_animation.obtenir_valeur()
+        return self.type_animation.obtenir_valeur()
 
     def initialiser_param_profil(self, **kwargs):
 

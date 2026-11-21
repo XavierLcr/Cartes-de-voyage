@@ -1,7 +1,7 @@
 ################################################################################
-# Projet de cartes de voyage
-# _4_Interface/_4_3_Icones/
-# Animation légère de création des cartes
+# Projet de cartes de voyage                                                   #
+# _4_Interface/_4_1_Onglets/onglet_1/                                          #
+# Onglet 1.06 – Animation légère                                               #
 ################################################################################
 
 

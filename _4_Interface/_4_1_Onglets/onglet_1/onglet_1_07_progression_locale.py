@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
 # _4_Interface/_4_1_Onglets/onglet_1/                                          #
-# Onglet 1.08 – Widget contenant la barre de progression ou l'animation légère #                                 #
+# Onglet 1.07 – Widget contenant la barre de progression et l'animation légère #                                 #
 ################################################################################
 
 
@@ -10,10 +10,10 @@
 
 from PyQt6.QtWidgets import QWidget, QVBoxLayout
 
-from _4_Interface._4_1_Onglets.onglet_1.onglet_1_6_animation_legere import (
+from _4_Interface._4_1_Onglets.onglet_1.onglet_1_06_animation_legere import (
     AnimationCreationLegere,
 )
-from _4_Interface._4_1_Onglets.onglet_1.onglet_1_7_barre_progression import (
+from _4_Interface._4_1_Onglets.onglet_1.onglet_1_05_barre_progression import (
     BarreProgressionVoyage,
 )
 

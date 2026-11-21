@@ -49,10 +49,10 @@ from _4_Interface._4_1_Onglets.onglet_1.onglet_1_03_bouton import BoutonCreation
 from _4_Interface._4_1_Onglets.onglet_1.onglet_1_01_combobox_coloree import (
     FondCarteCombo,
 )
-from _4_Interface._4_1_Onglets.onglet_1.onglet_1_3_animation_immersive import (
+from _4_Interface._4_1_Onglets.onglet_1.onglet_1_08_animation_immersive import (
     AnimationTrainPublication,
 )
-from _4_Interface._4_1_Onglets.onglet_1.onglet_1_8_progression_locale import (
+from _4_Interface._4_1_Onglets.onglet_1.onglet_1_07_progression_locale import (
     ProgressionCreationLocale,
 )
 from _4_Interface._4_1_Onglets.onglet_1.onglet_1_02_chargment_gdf import (

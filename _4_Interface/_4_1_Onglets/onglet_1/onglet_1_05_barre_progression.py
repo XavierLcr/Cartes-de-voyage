@@ -1,7 +1,7 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
 # _4_Interface/_4_1_Onglets/onglet_1/                                          #
-# Onglet 1.07 – Barre de progression classique                                 #
+# Onglet 1.05 – Barre de progression classique                                 #
 ################################################################################
 
 

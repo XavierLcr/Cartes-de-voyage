@@ -11,7 +11,7 @@
 import traceback
 import importlib
 
-from _4_Interface._4_1_Onglets.onglet_1.onglet_1_1_creation_cartes import (
+from _4_Interface._4_1_Onglets.onglet_1.onglet_1_04_publication_cartes import (
     CreerCartes,
 )
 

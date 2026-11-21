@@ -391,7 +391,10 @@ class OngletParametresProfil(QWidget):
         n_limite_cartes = kwargs.get("limite_n_cartes", 10)
         theme_application = kwargs.get("theme_application", True)
         adresse_email = kwargs.get("adresse_email", "")
-        type_animation = kwargs.get("type_animation", 0)
+        type_animation = kwargs.get("type_animation") or 0
+
+        # Type de l'animation
+        self.type_animation.definir_valeur(index=type_animation)
 
         # Langue
         self.langues_dispos.setCurrentIndex(
@@ -416,9 +419,6 @@ class OngletParametresProfil(QWidget):
 
         # Adresse e-mail
         self.set_email(email=adresse_email)
-
-        # Type de l'animation
-        self.type_animation.definir_valeur(index=type_animation)
 
     def creer_dict_parametres(self):
 

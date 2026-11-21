@@ -1,6 +1,6 @@
 ################################################################################
 # Projet de cartes de voyage                                                   #
-# _4_Interface/_4_1_Onglets/                                                   #
+# _4_Interface/_4_1_Onglets/onglet_param_profil/                               #
 # Onglet des paramètres du profil                                              #
 ################################################################################
 

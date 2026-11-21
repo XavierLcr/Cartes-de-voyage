@@ -42,7 +42,7 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
 from _0_Utilitaires._0_11_classes_pop_up import PopupInfo
 from _0_Utilitaires._0_12_toggle_checkbox import ToggleSwitch
 from _0_Utilitaires._0_14_QPushButton_QIcon import QPushButtonSauvegarde
-from _4_Interface._4_1_Onglets.onglet_1.onglet_1_4_processus_cartes import (
+from _4_Interface._4_1_Onglets.onglet_1.onglet_1_04_publication_cartes import (
     executer_creation_cartes,
 )
 from _4_Interface._4_1_Onglets.onglet_1.onglet_1_03_bouton import BoutonCreationCartes

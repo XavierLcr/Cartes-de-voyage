@@ -7,8 +7,10 @@
 
 # 0 -- Initialisation ----------------------------------------------------------
 
-
+import traceback
+import importlib
 from PyQt6.QtCore import pyqtSignal, QObject
+
 from _3_Calculs._3_4_carte_main import (
     creer_multiples_cartes,
     lister_cartes_a_publier,
@@ -188,3 +190,69 @@ class CreerCartes(QObject):
         )
 
         self.finished.emit()
+
+
+# 2 -- Processus ---------------------------------------------------------------
+
+
+def executer_creation_cartes(
+    params,
+    nom_module_constantes,
+    file_messages,
+):
+    """
+    Exécute CreerCartes dans un processus Python indépendant.
+
+    Les signaux PyQt restent internes au processus et sont convertis
+    en petits messages transmis à l'interface principale.
+    """
+
+    constantes = importlib.import_module(nom_module_constantes)
+
+    try:
+
+        creation_cartes = CreerCartes(
+            params=params,
+            constantes=constantes,
+        )
+
+        # Nombre total de cartes
+        creation_cartes.nb_graphes.connect(
+            lambda n: file_messages.put(
+                (
+                    "nb_graphes",
+                    n,
+                )
+            )
+        )
+
+        # Une carte terminée
+        creation_cartes.tracker_signal.connect(
+            lambda nom_pays: file_messages.put(
+                (
+                    "progression",
+                    nom_pays,
+                )
+            )
+        )
+
+        # Fin
+        creation_cartes.finished.connect(
+            lambda: file_messages.put(
+                (
+                    "finished",
+                    None,
+                )
+            )
+        )
+
+        creation_cartes.run()
+
+    except Exception:
+
+        file_messages.put(
+            (
+                "erreur",
+                traceback.format_exc(),
+            )
+        )

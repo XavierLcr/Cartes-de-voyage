@@ -40,8 +40,8 @@ class ThemeCarteClassement:
                 style=style,
                 teinte=teinte,
                 nuances=nuances,
-                clair="#F6FED8",
-                sombre="#1B2130",  # bleu-gris sombre, un cran au-dessus de #10141C
+                clair="#FFF5EF",
+                sombre="#1B2130",
             )
         )
         self.texte = QColor(
@@ -58,8 +58,8 @@ class ThemeCarteClassement:
                 style=style,
                 teinte=teinte,
                 nuances=nuances,
-                clair="#FAD27D",  # indigo doux
-                sombre="#3DD6C6",  # turquoise clair
+                clair="#FAD27D",
+                sombre="#51DCCE",
             )
         )
         self.badge_fin = QColor(
@@ -67,8 +67,8 @@ class ThemeCarteClassement:
                 style=style,
                 teinte=teinte,
                 nuances=nuances,
-                clair="#F54B1C",  # indigo plus profond
-                sombre="#1F9E92",  # turquoise plus profond
+                clair="#F54B1C",
+                sombre="#28B9AA",
                 reference=self.badge_debut.name(),
                 essais=limite_essais,
             )

@@ -8,58 +8,62 @@
 # 0 -- Initialisation ----------------------------------------------------------
 
 
+from dataclasses import dataclass
 from datetime import date, datetime
+from operator import attrgetter
 
+from PyQt6.QtCore import QPointF, QRectF, Qt
+from PyQt6.QtGui import QColor, QFont, QMouseEvent, QPainter, QPen
 from PyQt6.QtWidgets import (
-    QWidget,
-    QVBoxLayout,
-    QLabel,
     QHBoxLayout,
-    QToolTip,
+    QLabel,
     QSizePolicy,
+    QToolTip,
+    QVBoxLayout,
+    QWidget,
 )
-from PyQt6.QtCore import Qt, QRectF, QPointF
-from PyQt6.QtGui import QPainter, QColor, QFont, QPen, QMouseEvent
 
 from _0_Utilitaires._0_10_selecteur_date import SelecteurDate
 from _0_Utilitaires._0_2_fonctions_graphiques import generer_couleur_aleatoire_hex
 
-# 1 -- Fonctions de traitement des données -------------------------------------
+# 1 -- Données ----------------------------------------------------------------
 
 
-## 1.1 -- Conversion d'une valeur en date --------------------------------------
+## 1.1 -- Structure d'un voyage normalisé --------------------------------------
+
+
+@dataclass(frozen=True, slots=True)
+class Voyage:
+    """Voyage nettoyé : le widget graphique n'a plus rien à valider."""
+
+    id: object
+    label: str
+    deb: date
+    fin: date
+
+
+## 1.2 -- Conversion d'une valeur en date --------------------------------------
 
 
 def convertir_date(valeur) -> date:
     """
-    Convertit une valeur de date en objet ``datetime.date``.
+    Convertit une valeur en ``datetime.date``.
 
-    Accepte notamment :
-        - datetime.datetime ;
-        - datetime.date ;
-        - chaîne au format YYYY-MM-DD ;
-        - valeur dont les 10 premiers caractères suivent ce format.
+    Accepte ``datetime``, ``date`` ou toute valeur dont les 10 premiers
+    caractères suivent le format ``YYYY-MM-DD``.
     """
 
-    if isinstance(
-        valeur,
-        datetime,
-    ):
+    # ``datetime`` hérite de ``date`` : il doit donc être testé en premier.
+    if isinstance(valeur, datetime):
         return valeur.date()
 
-    if isinstance(
-        valeur,
-        date,
-    ):
+    if isinstance(valeur, date):
         return valeur
 
-    return datetime.strptime(
-        str(valeur)[:10],
-        "%Y-%m-%d",
-    ).date()
+    return date.fromisoformat(str(valeur)[:10])
 
 
-## 1.2 -- Nettoyage et normalisation des voyages --------------------------------
+## 1.3 -- Nettoyage et normalisation des voyages --------------------------------
 
 
 def traiter_voyages(
@@ -67,119 +71,52 @@ def traiter_voyages(
     voyage_label: str = "nom",
     date_min_label: str = "date_debut",
     date_max_label: str = "date_fin",
-) -> list[dict]:
+) -> list[Voyage]:
     """
-    Nettoie et normalise les voyages une seule fois.
+    Normalise les voyages une seule fois, triés chronologiquement.
 
-    Les voyages sans nom, sans date de début, sans date de fin ou possédant
-    une date invalide sont ignorés.
-
-    La structure renvoyée est volontairement indépendante de la structure
-    d'origine afin que le widget graphique n'ait plus à effectuer de
-    nettoyage ou de conversion.
-
-    Retour :
-        [
-            {
-                "id": ...,
-                "label": ...,
-                "deb": date(...),
-                "fin": date(...),
-            },
-            ...
-        ]
+    Les voyages sans nom, sans date ou avec une date invalide sont ignorés.
     """
 
-    voyages_traites = []
+    resultat = []
 
     for identifiant, item in voyages.items():
 
-        label = item.get(
-            voyage_label,
-            "",
-        )
+        label = item.get(voyage_label)
+        debut = item.get(date_min_label)
+        fin = item.get(date_max_label)
 
-        date_debut = item.get(
-            date_min_label,
-        )
-
-        date_fin = item.get(
-            date_max_label,
-        )
-
-        # ----------------------------------------------------------------------
-        # Informations indispensables
-        # ----------------------------------------------------------------------
-
-        if not label or not date_debut or not date_fin:
+        if not (label and debut and fin):
             continue
-
-        # ----------------------------------------------------------------------
-        # Conversion des dates
-        # ----------------------------------------------------------------------
 
         try:
-
-            date_debut = convertir_date(
-                date_debut,
+            resultat.append(
+                Voyage(
+                    identifiant,
+                    str(label),
+                    convertir_date(debut),
+                    convertir_date(fin),
+                )
             )
-
-            date_fin = convertir_date(
-                date_fin,
-            )
-
         except (ValueError, TypeError):
-
             continue
 
-        # ----------------------------------------------------------------------
-        # Ajout
-        # ----------------------------------------------------------------------
+    resultat.sort(key=attrgetter("deb", "fin", "label"))
 
-        voyages_traites.append(
-            {
-                "id": identifiant,
-                "label": str(label),
-                "deb": date_debut,
-                "fin": date_fin,
-            }
-        )
-
-    # --------------------------------------------------------------------------
-    # Tri chronologique effectué une seule fois
-    # --------------------------------------------------------------------------
-
-    voyages_traites.sort(
-        key=lambda x: (
-            x["deb"],
-            x["fin"],
-            x["label"],
-        )
-    )
-
-    return voyages_traites
+    return resultat
 
 
-## 1.3 -- Filtrage des voyages selon la période affichée -----------------------
+## 1.4 -- Filtrage selon la période affichée ------------------------------------
 
 
 def filtrer_voyages(
-    voyages: list[dict],
+    voyages: list[Voyage],
     date_min: date,
     date_max: date,
-) -> list[dict]:
-    """
-    Conserve les voyages qui intersectent la période demandée.
+) -> list[Voyage]:
+    """Conserve les voyages qui intersectent la période demandée."""
 
-    Les dates des voyages sont déjà normalisées : aucune conversion ni
-    validation supplémentaire n'est donc nécessaire ici.
-    """
-
-    return [
-        voyage
-        for voyage in voyages
-        if voyage["fin"] >= date_min and voyage["deb"] <= date_max
-    ]
+    return [v for v in voyages if v.fin >= date_min and v.deb <= date_max]
 
 
 # 2 -- Widget de dessin du Gantt -----------------------------------------------
@@ -193,13 +130,19 @@ class DiagrammeGantt(QWidget):
     MARGE_HAUT = 50
     MARGE_BAS = 40
 
-    # Hauteur/espacement "confortables" utilisés quand la place ne manque pas
+    # Barre + espace "confortables" quand la place ne manque pas
     HAUTEUR_BARRE_MAX = 22
     ESPACE_BARRE_MAX = 10
 
-    # Valeurs minimales conservées pour garder les barres lisibles
+    # Valeurs minimales pour garder les barres lisibles
     HAUTEUR_BARRE_MIN = 6
     ESPACE_BARRE_MIN = 2
+
+    UNITE_MAX = HAUTEUR_BARRE_MAX + ESPACE_BARRE_MAX
+    UNITE_MIN = HAUTEUR_BARRE_MIN + ESPACE_BARRE_MIN
+
+    LARGEUR_BARRE_MIN = 4
+    NB_GRADUATIONS_MAX = 6
 
     # 2.1 -- Initialisation ----------------------------------------------------
 
@@ -213,482 +156,287 @@ class DiagrammeGantt(QWidget):
             QSizePolicy.Policy.Expanding,
         )
 
-        # ----------------------------------------------------------------------
-        # Données
-        # ----------------------------------------------------------------------
+        # Données : liste de (Voyage, QColor)
+        self._barres: list[tuple[Voyage, QColor]] = []
+        self._graduations: list[tuple[date, str]] = []
+        self._survol: int | None = None
 
-        self.barres = []
-
-        self.date_min = None
-        self.date_max = None
-
+        self.date_min = date.today()
+        self.date_max = date.today()
+        self._nb_jours = 1
         self.titre = ""
 
-        self.barre_survolee = None
+        # Objets de dessin créés une seule fois (et non à chaque paintEvent)
+        self.couleur_accent = QColor("#10B981")
 
-        # ----------------------------------------------------------------------
-        # Dimensions des barres
-        # ----------------------------------------------------------------------
+        self._pen_grille = QPen(QColor("#e5e7eb"), 1)
+        self._pen_axe = QPen(QColor("#9ca3af"), 1)
+        self._pen_accent = QPen(self.couleur_accent, 2)
 
-        self.hauteur_barre = self.HAUTEUR_BARRE_MAX
-        self.espace_barre = self.ESPACE_BARRE_MAX
-
-        # ----------------------------------------------------------------------
-        # Couleurs
-        # ----------------------------------------------------------------------
-
-        self.couleur_grille = QColor(
-            "#e5e7eb",
+        self._font_titre = QFont()
+        self._font_titre.setPointSize(13)
+        self._font_titre.setBold(True)
+        self._font_titre.setLetterSpacing(
+            QFont.SpacingType.PercentageSpacing,
+            102,
         )
 
-        self.couleur_axe = QColor(
-            "#9ca3af",
-        )
-
-        self.couleur_accent = QColor(
-            "#10B981",
-        )
+        self._font_axe = QFont()
+        self._font_axe.setPointSize(8)
 
     # 2.2 -- Chargement des données -------------------------------------------
 
     def set_donnees(
         self,
-        data: list[dict],
-        couleurs_voyages: dict | None = None,
+        voyages: list[Voyage],
+        couleurs: dict[object, QColor] | None = None,
         date_min: date | None = None,
         date_max: date | None = None,
         titre: str = "",
     ):
-        """
-        Charge des données déjà nettoyées et normalisées.
+        """Charge des voyages déjà normalisés et leurs couleurs (QColor)."""
 
-        Le widget graphique ne connaît donc plus :
-            - les noms des colonnes d'origine ;
-            - la structure du dictionnaire source ;
-            - les règles de validation ;
-            - la manière de convertir les dates.
-        """
+        couleurs = couleurs or {}
 
-        self.barre_survolee = None
-
-        if couleurs_voyages is None:
-            couleurs_voyages = {}
-
-        # ----------------------------------------------------------------------
-        # Création des barres
-        # ----------------------------------------------------------------------
-
-        self.barres = []
-
-        for item in data:
-
-            couleur = QColor(
-                couleurs_voyages.get(
-                    item["id"],
-                    "#10B981",
-                )
-            )
-
-            self.barres.append(
-                {
-                    "id": item["id"],
-                    "label": item["label"],
-                    "deb": item["deb"],
-                    "fin": item["fin"],
-                    "couleur": couleur,
-                    "rect": None,
-                }
-            )
-
-        # ----------------------------------------------------------------------
-        # Bornes du graphique
-        # ----------------------------------------------------------------------
-
-        self.date_min = (
-            date_min
-            if date_min is not None
-            else min(
-                (barre["deb"] for barre in self.barres),
-                default=date.today(),
-            )
-        )
-
-        self.date_max = (
-            date_max
-            if date_max is not None
-            else max(
-                (barre["fin"] for barre in self.barres),
-                default=date.today(),
-            )
-        )
-
+        self._barres = [(v, couleurs.get(v.id, self.couleur_accent)) for v in voyages]
+        self._survol = None
         self.titre = titre
 
-        # ----------------------------------------------------------------------
-        # Mise à jour
-        # ----------------------------------------------------------------------
+        aujourdhui = date.today()
 
-        self._calculer_dimensions_barres()
+        self.date_min = date_min or min(
+            (v.deb for v in voyages),
+            default=aujourdhui,
+        )
+        self.date_max = date_max or max(
+            (v.fin for v in voyages),
+            default=aujourdhui,
+        )
+
+        # Calculs qui ne dépendent que des données : faits ici, pas au rendu
+        self._nb_jours = max((self.date_max - self.date_min).days, 1)
+        self._graduations = self._calculer_graduations()
+
+        self.setMinimumHeight(
+            self.MARGE_HAUT
+            + self.MARGE_BAS
+            + max(len(self._barres), 1) * self.UNITE_MIN
+        )
 
         self.update()
 
-    # 2.3 -- Calcul des dimensions des barres ----------------------------------
+    # 2.3 -- Graduations mensuelles --------------------------------------------
 
-    def _calculer_dimensions_barres(
-        self,
-    ):
+    def _calculer_graduations(self) -> list[tuple[date, str]]:
+        """Premiers de chaque mois compris dans la période (~6 maximum)."""
 
-        nb = max(
-            len(self.barres),
+        d_min, d_max = self.date_min, self.date_max
+
+        # Indice absolu de mois : premier mois dont le 1er est >= date_min
+        premier = d_min.year * 12 + d_min.month - 1 + (d_min.day != 1)
+        dernier = d_max.year * 12 + d_max.month - 1
+
+        graduations = [
+            (
+                date(indice // 12, indice % 12 + 1, 1),
+                date(indice // 12, indice % 12 + 1, 1).strftime("%b %Y"),
+            )
+            for indice in range(premier, dernier + 1)
+        ]
+
+        pas = -(-len(graduations) // self.NB_GRADUATIONS_MAX) or 1
+
+        return graduations[::pas]
+
+    # 2.4 -- Géométrie ---------------------------------------------------------
+
+    def _geometrie(self) -> tuple[float, float, float]:
+        """
+        Renvoie ``(hauteur_barre, pas_vertical, largeur_zone)``.
+
+        Calculé à la demande (opération arithmétique triviale) : aucun état
+        à synchroniser lors des redimensionnements.
+        """
+
+        unite = (self.height() - self.MARGE_HAUT - self.MARGE_BAS) / max(
+            len(self._barres),
             1,
         )
+        unite = min(max(unite, self.UNITE_MIN), self.UNITE_MAX)
 
-        marges = self.MARGE_HAUT + self.MARGE_BAS
-
-        unite_min = self.HAUTEUR_BARRE_MIN + self.ESPACE_BARRE_MIN
-
-        hauteur_plancher = marges + nb * unite_min
-
-        self.setMinimumHeight(int(hauteur_plancher))
-
-        self._mettre_a_jour_taille_barres()
-
-    # 2.5 -- Mise à jour de la taille des barres -------------------------------
-
-    def _mettre_a_jour_taille_barres(
-        self,
-    ):
-
-        nb = max(
-            len(self.barres),
-            1,
-        )
-
-        marges = self.MARGE_HAUT + self.MARGE_BAS
-
-        hauteur_disponible = max(
-            self.height() - marges,
-            0,
-        )
-
-        unite_max = self.HAUTEUR_BARRE_MAX + self.ESPACE_BARRE_MAX
-
-        unite_min = self.HAUTEUR_BARRE_MIN + self.ESPACE_BARRE_MIN
-
-        unite = hauteur_disponible / nb
-
-        unite = max(
-            min(unite, unite_max),
-            unite_min,
-        )
-
-        ratio_barre = self.HAUTEUR_BARRE_MAX / unite_max
-
-        self.hauteur_barre = max(
-            unite * ratio_barre,
+        hauteur = max(
+            unite * self.HAUTEUR_BARRE_MAX / self.UNITE_MAX,
             self.HAUTEUR_BARRE_MIN,
         )
+        espace = max(unite - hauteur, self.ESPACE_BARRE_MIN)
 
-        self.espace_barre = max(
-            unite - self.hauteur_barre,
-            self.ESPACE_BARRE_MIN,
+        largeur_zone = self.width() - self.MARGE_GAUCHE - self.MARGE_DROITE
+
+        return hauteur, hauteur + espace, largeur_zone
+
+    def _x_pour_date(self, d: date, largeur_zone: float) -> float:
+        """Position X d'une date, bornée à la zone affichée."""
+
+        offset = min(max((d - self.date_min).days, 0), self._nb_jours)
+
+        return self.MARGE_GAUCHE + offset / self._nb_jours * largeur_zone
+
+    def _rect_barre(
+        self,
+        i: int,
+        voyage: Voyage,
+        geometrie: tuple[float, float, float],
+    ) -> QRectF:
+        """Rectangle de la i-ème barre (source unique : rendu ET survol)."""
+
+        hauteur, pas, largeur_zone = geometrie
+
+        x_deb = self._x_pour_date(voyage.deb, largeur_zone)
+        x_fin = self._x_pour_date(voyage.fin, largeur_zone)
+
+        return QRectF(
+            x_deb,
+            self.MARGE_HAUT + i * pas,
+            max(x_fin - x_deb, self.LARGEUR_BARRE_MIN),
+            hauteur,
         )
 
-    # 2.6 -- Redimensionnement -------------------------------------------------
-
-    def resizeEvent(self, event):
-
-        self._mettre_a_jour_taille_barres()
-
-        super().resizeEvent(event)
-
-    # 2.7 -- Conversion d'une date en position X -------------------------------
-
-    def _x_pour_date(
-        self,
-        d: date,
-        largeur_zone: float,
-    ) -> float:
-
-        if self.date_max == self.date_min:
-            return self.MARGE_GAUCHE
-
-        total = (self.date_max - self.date_min).days
-
-        offset = (d - self.date_min).days
-
-        return self.MARGE_GAUCHE + (offset / total) * largeur_zone
-
-    # 2.8 -- Rendu -------------------------------------------------------------
+    # 2.5 -- Rendu -------------------------------------------------------------
 
     def paintEvent(self, event):
 
         painter = QPainter(self)
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
 
-        largeur = self.width()
-        hauteur = self.height()
+        self._dessiner_titre(painter)
 
-        largeur_zone = largeur - self.MARGE_GAUCHE - self.MARGE_DROITE
+        if self._barres:
 
-        # ----------------------------------------------------------------------
-        # Titre
-        # ----------------------------------------------------------------------
+            geometrie = self._geometrie()
 
-        if self.titre:
+            self._dessiner_graduations(painter, geometrie[2])
+            self._dessiner_barres(painter, geometrie)
 
-            font_titre = QFont()
+        painter.end()
 
-            font_titre.setPointSize(13)
-            font_titre.setBold(True)
-            painter.setFont(font_titre)
+    def _dessiner_titre(self, painter: QPainter):
 
-            font_titre.setLetterSpacing(
-                QFont.SpacingType.PercentageSpacing,
-                102,
-            )
-
-            painter.drawText(
-                QRectF(
-                    0,
-                    8,
-                    largeur,
-                    25,
-                ),
-                Qt.AlignmentFlag.AlignHCenter,
-                self.titre,
-            )
-
-            # ------------------------------------------------------------------
-            # Petit trait décoratif
-            # ------------------------------------------------------------------
-
-            largeur_trait = 44
-            y_trait = 34
-
-            painter.setPen(QPen(self.couleur_accent, 2))
-
-            painter.drawLine(
-                QPointF(
-                    largeur / 2 - largeur_trait / 2,
-                    y_trait,
-                ),
-                QPointF(
-                    largeur / 2 + largeur_trait / 2,
-                    y_trait,
-                ),
-            )
-
-        # ----------------------------------------------------------------------
-        # Pas de données
-        # ----------------------------------------------------------------------
-
-        if not self.barres or self.date_min is None or self.date_max is None:
-
-            painter.end()
-
+        if not self.titre:
             return
 
-        # ----------------------------------------------------------------------
-        # Graduation de l'axe X
-        # ----------------------------------------------------------------------
+        largeur = self.width()
 
-        painter.setFont(QFont("", 8))
+        painter.setFont(self._font_titre)
+        painter.drawText(
+            QRectF(0, 8, largeur, 25),
+            Qt.AlignmentFlag.AlignHCenter,
+            self.titre,
+        )
 
-        for d, texte in self._graduations_mensuelles():
+        # Petit trait décoratif
+        painter.setPen(self._pen_accent)
+        painter.drawLine(
+            QPointF(largeur / 2 - 22, 34),
+            QPointF(largeur / 2 + 22, 34),
+        )
 
-            x = self._x_pour_date(d, largeur_zone)
-            painter.setPen(QPen(self.couleur_grille, 1))
+    def _dessiner_graduations(self, painter: QPainter, largeur_zone: float):
 
+        bas = self.height() - self.MARGE_BAS
+
+        positions = [
+            (self._x_pour_date(d, largeur_zone), texte)
+            for d, texte in self._graduations
+        ]
+
+        # Lignes de grille, puis textes : un seul changement de stylo chacun
+        painter.setPen(self._pen_grille)
+
+        for x, _ in positions:
             painter.drawLine(
-                QPointF(
-                    x,
-                    self.MARGE_HAUT - 5,
-                ),
-                QPointF(
-                    x,
-                    hauteur - self.MARGE_BAS,
-                ),
+                QPointF(x, self.MARGE_HAUT - 5),
+                QPointF(x, bas),
             )
 
-            painter.setPen(self.couleur_axe)
+        painter.setFont(self._font_axe)
+        painter.setPen(self._pen_axe)
 
+        for x, texte in positions:
             painter.drawText(
-                QRectF(
-                    x - 30,
-                    hauteur - self.MARGE_BAS + 5,
-                    60,
-                    20,
-                ),
+                QRectF(x - 30, bas + 5, 60, 20),
                 Qt.AlignmentFlag.AlignHCenter,
                 texte,
             )
 
-        # ----------------------------------------------------------------------
-        # Barres
-        # ----------------------------------------------------------------------
+    def _dessiner_barres(self, painter: QPainter, geometrie):
 
-        rayon_arrondi = min(
-            4,
-            self.hauteur_barre / 2,
-        )
+        rayon = min(4, geometrie[0] / 2)
 
-        for i, barre in enumerate(self.barres):
+        painter.setPen(Qt.PenStyle.NoPen)
 
-            y = self.MARGE_HAUT + i * (self.hauteur_barre + self.espace_barre)
+        for i, (voyage, couleur) in enumerate(self._barres):
 
-            x_deb = self._x_pour_date(
-                barre["deb"],
-                largeur_zone,
-            )
-
-            x_fin = self._x_pour_date(
-                barre["fin"],
-                largeur_zone,
-            )
-
-            largeur_barre = max(
-                x_fin - x_deb,
-                4,
-            )
-
-            rect = QRectF(
-                x_deb,
-                y,
-                largeur_barre,
-                self.hauteur_barre,
-            )
-
-            barre["rect"] = rect
-
-            # ------------------------------------------------------------------
-            # Barre
-            # ------------------------------------------------------------------
-
-            couleur = barre["couleur"]
-
-            if barre is self.barre_survolee:
-
-                couleur = couleur.lighter(
-                    115,
-                )
-
-            painter.setPen(
-                Qt.PenStyle.NoPen,
-            )
-
-            painter.setBrush(
-                couleur,
-            )
-
+            painter.setBrush(couleur.lighter(115) if i == self._survol else couleur)
             painter.drawRoundedRect(
-                rect,
-                rayon_arrondi,
-                rayon_arrondi,
+                self._rect_barre(i, voyage, geometrie),
+                rayon,
+                rayon,
             )
 
-        painter.end()
+    # 2.6 -- Gestion du survol -------------------------------------------------
 
-    # 2.10 -- Création des graduations mensuelles ------------------------------
+    def _barre_sous_curseur(self, pos: QPointF) -> int | None:
+        """
+        Indice de la barre située sous ``pos``, ou None.
 
-    def _graduations_mensuelles(
-        self,
-    ):
+        La ligne est déduite directement de Y : pas de parcours de toutes les
+        barres, donc coût constant quel que soit le nombre de voyages.
+        """
 
-        graduations = []
+        geometrie = self._geometrie()
 
-        courant = self.date_min.replace(
-            day=1,
-        )
+        i = int((pos.y() - self.MARGE_HAUT) // geometrie[1])
 
-        while courant <= self.date_max:
+        if not 0 <= i < len(self._barres):
+            return None
 
-            graduations.append(
-                (
-                    courant,
-                    courant.strftime("%b %Y"),
-                )
-            )
+        rect = self._rect_barre(i, self._barres[i][0], geometrie)
 
-            annee = courant.year + courant.month // 12
+        return i if rect.contains(pos) else None
 
-            mois = courant.month % 12 + 1
+    def mouseMoveEvent(self, event: QMouseEvent):
 
-            courant = courant.replace(
-                year=annee,
-                month=mois,
-                day=1,
-            )
+        i = self._barre_sous_curseur(event.position())
 
-        # ----------------------------------------------------------------------
-        # Limite à environ 6 graduations
-        # ----------------------------------------------------------------------
-
-        if len(graduations) > 6:
-
-            pas = len(graduations) // 6 + 1
-
-            graduations = graduations[::pas]
-
-        return graduations
-
-    # 2.11 -- Gestion du survol ------------------------------------------------
-
-    def mouseMoveEvent(
-        self,
-        event: QMouseEvent,
-    ):
-
-        pos = event.position()
-
-        survol_precedent = self.barre_survolee
-
-        self.barre_survolee = None
-
-        for barre in self.barres:
-
-            rect = barre.get(
-                "rect",
-            )
-
-            if rect and rect.contains(pos):
-
-                self.barre_survolee = barre
-
-                texte = (
-                    f"{barre['label']}\n"
-                    f"{barre['deb'].strftime('%d/%m/%Y')} - "
-                    f"{barre['fin'].strftime('%d/%m/%Y')}"
-                )
-
-                QToolTip.showText(
-                    event.globalPosition().toPoint(),
-                    texte,
-                    self,
-                )
-
-                break
-
-        if self.barre_survolee is None:
+        if i is None:
 
             QToolTip.hideText()
 
-        if survol_precedent is not self.barre_survolee:
+        else:
 
+            voyage = self._barres[i][0]
+
+            QToolTip.showText(
+                event.globalPosition().toPoint(),
+                f"{voyage.label}\n" f"{voyage.deb:%d/%m/%Y} - {voyage.fin:%d/%m/%Y}",
+                self,
+            )
+
+        if i != self._survol:
+
+            self._survol = i
             self.update()
 
-    # 2.12 -- Sortie de la souris ---------------------------------------------
-
-    def leaveEvent(
-        self,
-        event,
-    ):
-
-        self.barre_survolee = None
+    def leaveEvent(self, event):
 
         QToolTip.hideText()
 
-        self.update()
+        if self._survol is not None:
+
+            self._survol = None
+            self.update()
+
+        super().leaveEvent(event)
 
 
 # 3 -- Classe PyQt6 : onglet Calendrier des voyages ---------------------------
@@ -704,311 +452,141 @@ class CalendrierVisite(QWidget):
         parent=None,
     ):
 
-        super().__init__(
-            parent=parent,
-        )
+        super().__init__(parent=parent)
 
         self.langue = "français"
-
         self.fct_traduction = fct_traduction
 
-        # ----------------------------------------------------------------------
-        # Voyages
-        # ----------------------------------------------------------------------
+        # Voyages normalisés (les données brutes ne sont pas conservées)
+        self.voyages_traites: list[Voyage] = []
 
-        # Les données brutes ne sont pas conservées :
-        # seule leur version propre et normalisée est utile à l'onglet.
+        # identifiant du voyage -> QColor
+        # Les couleurs survivent aux changements de bornes ou de langue.
+        self.couleurs_voyages: dict[object, QColor] = {}
 
-        self.voyages_traites = []
-
-        # Association :
-        # identifiant du voyage -> couleur hexadécimale
-        #
-        # Cela évite que les couleurs changent lorsque l'utilisateur ne fait
-        # que déplacer les bornes temporelles ou changer la langue.
-
-        self.couleurs_voyages = {}
-
-        # ----------------------------------------------------------------------
         # Style par défaut
-        # ----------------------------------------------------------------------
-
         self.style = 1
         self.teinte = None
         self.nuances = {}
 
-        # ----------------------------------------------------------------------
-        # Dates de départ
-        # ----------------------------------------------------------------------
-
+        # Sélecteurs de dates : de "il y a un an" à aujourd'hui
         aujourdhui = date.today()
 
         try:
-
-            date_il_y_a_un_an = aujourdhui.replace(
-                year=aujourdhui.year - 1,
-            )
-
-        except ValueError:
-
-            # Cas particulier du 29 février
-            date_il_y_a_un_an = aujourdhui.replace(
-                year=aujourdhui.year - 1,
-                day=28,
-            )
-
-        # ----------------------------------------------------------------------
-        # Début du graphique
-        # ----------------------------------------------------------------------
+            il_y_a_un_an = aujourdhui.replace(year=aujourdhui.year - 1)
+        except ValueError:  # 29 février
+            il_y_a_un_an = aujourdhui.replace(year=aujourdhui.year - 1, day=28)
 
         self.debut_voyage_label = QLabel()
-
         self.debut_voyage = SelecteurDate(
             parent=self,
-            date=date_il_y_a_un_an.strftime("%Y-%m-%d"),
+            date=il_y_a_un_an.isoformat(),
         )
-
-        self.debut_voyage.dateChanged.connect(
-            self.creer_graphique,
-        )
-
-        # ----------------------------------------------------------------------
-        # Fin du graphique
-        # ----------------------------------------------------------------------
 
         self.fin_voyage_label = QLabel()
-
         self.fin_voyage = SelecteurDate(
             parent=self,
-            date=aujourdhui.strftime("%Y-%m-%d"),
+            date=aujourdhui.isoformat(),
         )
 
-        self.fin_voyage.dateChanged.connect(
-            self.creer_graphique,
-        )
+        self.debut_voyage.dateChanged.connect(self.creer_graphique)
+        self.fin_voyage.dateChanged.connect(self.creer_graphique)
 
-        # ----------------------------------------------------------------------
-        # Disposition des dates
-        # ----------------------------------------------------------------------
-
+        # Disposition
         layout_dates = QHBoxLayout()
+        layout_dates.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        layout_dates.addWidget(self.debut_voyage_label)
+        layout_dates.addWidget(self.debut_voyage)
+        layout_dates.addSpacing(50)
+        layout_dates.addWidget(self.fin_voyage_label)
+        layout_dates.addWidget(self.fin_voyage)
 
-        layout_dates.setAlignment(
-            Qt.AlignmentFlag.AlignCenter,
-        )
+        self.diagramme = DiagrammeGantt(parent=self)
 
-        layout_dates.addWidget(
-            self.debut_voyage_label,
-        )
-
-        layout_dates.addWidget(
-            self.debut_voyage,
-        )
-
-        layout_dates.addSpacing(
-            50,
-        )
-
-        layout_dates.addWidget(
-            self.fin_voyage_label,
-        )
-
-        layout_dates.addWidget(
-            self.fin_voyage,
-        )
-
-        # ----------------------------------------------------------------------
-        # Diagramme
-        # ----------------------------------------------------------------------
-
-        self.diagramme = DiagrammeGantt(
-            parent=self,
-        )
-
-        # ----------------------------------------------------------------------
-        # Layout principal
-        # ----------------------------------------------------------------------
-
-        self.layout = QVBoxLayout(
-            self,
-        )
-
-        self.layout.addLayout(
-            layout_dates,
-        )
-
-        self.layout.addWidget(
-            self.diagramme,
-            stretch=1,
-        )
+        # Nommé ``layout_principal`` : ``self.layout`` masquerait la méthode
+        # ``QWidget.layout()``.
+        self.layout_principal = QVBoxLayout(self)
+        self.layout_principal.addLayout(layout_dates)
+        self.layout_principal.addWidget(self.diagramme, stretch=1)
 
     # 3.2 -- Mise à jour de la langue -----------------------------------------
 
-    def set_langue(
-        self,
-        langue: str,
-    ):
+    def set_langue(self, langue: str):
 
         self.langue = langue
 
         self.debut_voyage_label.setText(
-            self.fct_traduction(
-                "general_voyage_debut",
-                suffixe=" :",
-            )
+            self.fct_traduction("general_voyage_debut", suffixe=" :")
         )
-
         self.fin_voyage_label.setText(
-            self.fct_traduction(
-                "general_voyage_fin",
-                suffixe=" :",
-            )
+            self.fct_traduction("general_voyage_fin", suffixe=" :")
         )
-
-        # Aucun retraitement des données
-        # et aucune régénération des couleurs.
 
         self.creer_graphique()
 
     # 3.3 -- Mise à jour des voyages ------------------------------------------
 
-    def set_voyages(
-        self,
-        voyages: dict,
-    ):
+    def set_voyages(self, voyages: dict):
 
-        # ----------------------------------------------------------------------
-        # Nettoyage effectué UNE SEULE FOIS
-        # ----------------------------------------------------------------------
+        self.voyages_traites = traiter_voyages(voyages)
 
-        self.voyages_traites = traiter_voyages(
-            voyages=voyages,
-            voyage_label="nom",
-            date_min_label="date_debut",
-            date_max_label="date_fin",
-        )
-
-        # ----------------------------------------------------------------------
-        # Couleurs
-        # ----------------------------------------------------------------------
-
-        # Les couleurs déjà attribuées aux voyages existants sont conservées.
-        # Seuls les nouveaux voyages reçoivent une nouvelle couleur.
-
-        self._mettre_a_jour_couleurs_voyages(
-            forcer=False,
-        )
-
-        # ----------------------------------------------------------------------
-        # Graphique
-        # ----------------------------------------------------------------------
+        # Les voyages déjà connus gardent leur couleur
+        self._mettre_a_jour_couleurs_voyages(forcer=False)
 
         self.creer_graphique()
 
     # 3.4 -- Mise à jour du style ---------------------------------------------
 
-    def set_style(
-        self,
-        style,
-        teinte,
-        nuances,
-    ):
+    def set_style(self, style, teinte, nuances):
 
         self.style = style
         self.teinte = teinte
         self.nuances = nuances
 
-        # Le thème change :
-        # il est donc logique de recréer toutes les couleurs.
-
-        self._mettre_a_jour_couleurs_voyages(
-            forcer=True,
-        )
+        # Le thème change : toutes les couleurs sont recréées
+        self._mettre_a_jour_couleurs_voyages(forcer=True)
 
         self.creer_graphique()
 
-    # 3.5 -- Mise à jour des couleurs des voyages ------------------------------
+    # 3.5 -- Couleurs des voyages ---------------------------------------------
 
-    def _mettre_a_jour_couleurs_voyages(
-        self,
-        forcer: bool = False,
-    ):
+    def _mettre_a_jour_couleurs_voyages(self, forcer: bool = False):
         """
-        Affecte une couleur à chaque voyage.
+        Affecte une couleur (QColor) à chaque voyage.
 
-        Si ``forcer`` vaut False, les couleurs existantes sont conservées.
-        Si ``forcer`` vaut True, toutes les couleurs sont recréées.
+        Si ``forcer`` vaut False, les couleurs existantes sont conservées ;
+        sinon toutes sont recréées. Les voyages disparus sont purgés.
         """
 
-        if forcer:
-            couleurs_precedentes = {}
-        else:
-            couleurs_precedentes = self.couleurs_voyages
+        anciennes = {} if forcer else self.couleurs_voyages
 
-        nouvelles_couleurs = {}
-
-        for voyage in self.voyages_traites:
-
-            identifiant = voyage["id"]
-
-            if identifiant in couleurs_precedentes:
-
-                couleur = couleurs_precedentes[identifiant]
-
-            else:
-
-                couleur = generer_couleur_aleatoire_hex(
-                    preset=self.nuances,
-                    teintes_autorisees=self.teinte,
+        self.couleurs_voyages = {
+            v.id: (
+                anciennes[v.id]
+                if v.id in anciennes
+                else QColor(
+                    generer_couleur_aleatoire_hex(
+                        preset=self.nuances,
+                        teintes_autorisees=self.teinte,
+                    )
                 )
-
-            nouvelles_couleurs[identifiant] = couleur
-
-        self.couleurs_voyages = nouvelles_couleurs
+            )
+            for v in self.voyages_traites
+        }
 
     # 3.6 -- Création du graphique --------------------------------------------
 
-    def creer_graphique(
-        self,
-    ):
-
-        # ----------------------------------------------------------------------
-        # Bornes temporelles
-        # ----------------------------------------------------------------------
-
-        # Seulement DEUX conversions de chaînes vers date à chaque mise à jour :
-        # les dates sélectionnées par l'utilisateur.
+    def creer_graphique(self):
 
         try:
-
             date_min = convertir_date(self.debut_voyage.obtenir_date_str())
-
             date_max = convertir_date(self.fin_voyage.obtenir_date_str())
-
         except (ValueError, TypeError):
-
             return
 
-        # ----------------------------------------------------------------------
-        # Filtrage
-        # ----------------------------------------------------------------------
-
-        # Ici, aucune donnée brute n'est reconstruite ou revalidée.
-        # Les dates de tous les voyages sont déjà des datetime.date.
-
-        voyages_affiches = filtrer_voyages(
-            voyages=self.voyages_traites,
-            date_min=date_min,
-            date_max=date_max,
-        )
-
-        # ----------------------------------------------------------------------
-        # Mise à jour du diagramme
-        # ----------------------------------------------------------------------
-
         self.diagramme.set_donnees(
-            data=voyages_affiches,
-            couleurs_voyages=self.couleurs_voyages,
+            voyages=filtrer_voyages(self.voyages_traites, date_min, date_max),
+            couleurs=self.couleurs_voyages,
             date_min=date_min,
             date_max=date_max,
             titre=self.fct_traduction("titre_graphique_calendrier_voyages"),

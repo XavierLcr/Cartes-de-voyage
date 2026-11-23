@@ -62,7 +62,7 @@ class CreerCartes(QObject):
             sortir_cartes_granu_inf=self.parametres.get(
                 "sortir_cartes_granu_inf", False
             ),
-            granularite_objectif=self.recuperer_granularite(clef="granularite"),
+            granularite_objectif=self.recuperer_granularite_visite(clef="granularite"),
         )
 
         # Gestion du cas "couleur du pays"
@@ -79,10 +79,8 @@ class CreerCartes(QObject):
             )
             self.parametres["couleur"] = "Multicolore"
 
-    def recuperer_granularite(self, clef: str):
-        return {"Pays": 0, "Région": 1, "Département": 2}.get(
-            self.parametres.get(clef), -1
-        )
+    def recuperer_granularite_visite(self, clef: str):
+        return -1 if clef not in [1, 2, 3] else clef
 
     def recuperer_continents(self):
 
@@ -152,8 +150,8 @@ class CreerCartes(QObject):
                 dict_regions=dict_regions, dict_dep=dict_deps
             ),
             # Granularités
-            granularite_visite=self.recuperer_granularite(clef="granularite"),
-            granularite_reste=self.recuperer_granularite(clef="granularite_fond"),
+            granularite_visite=self.recuperer_granularite_visite(clef="granularite"),
+            granularite_reste=self.parametres["granularite_fond"],
             # Cartes à sortir
             dict_cartes=self.liste_cartes,
             # Format et taille

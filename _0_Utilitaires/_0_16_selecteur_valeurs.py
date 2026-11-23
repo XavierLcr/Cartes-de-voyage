@@ -681,9 +681,11 @@ class SelecteurValeurs(QWidget):
             emettre_signal=True,
         )
 
-    def obtenir_valeur(self):
-
-        return self.index
+    def obtenir_valeur(self, index: bool = True):
+        if index:
+            return self.index
+        else:
+            return self.valeurs[self.index]
 
     # 1.12 -- Gestion de l'activation ------------------------------------------
 

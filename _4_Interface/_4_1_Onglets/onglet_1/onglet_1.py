@@ -42,6 +42,7 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
 from _0_Utilitaires._0_11_classes_pop_up import PopupInfo
 from _0_Utilitaires._0_12_toggle_checkbox import ToggleSwitch
 from _0_Utilitaires._0_14_QPushButton_QIcon import QPushButtonSauvegarde
+from _0_Utilitaires._0_16_selecteur_valeurs import SelecteurValeurs
 from _4_Interface._4_1_Onglets.onglet_1.onglet_1_04_publication_cartes import (
     executer_creation_cartes,
 )
@@ -135,23 +136,37 @@ class OngletParametres(QWidget):
 
         # Granularité des pays visités
         self.label_granularite_visite = creer_QLabel_centre()
-        self.granularite_visite = QComboBox()
-        layout_granularite_visite = QHBoxLayout()
-        layout_granularite_visite.addWidget(self.label_granularite_visite, stretch=2)
-        layout_granularite_visite.addWidget(self.granularite_visite, stretch=4)
+        self.granularite_visite = SelecteurValeurs(
+            valeurs=["Pays", "Région", "Département", "Amusant"],
+            layout_horizontal=False,
+        )
+        layout_granularite_visite = QVBoxLayout()
+        layout_granularite_visite.addWidget(self.label_granularite_visite)
+        layout_granularite_visite.addWidget(self.granularite_visite)
 
         # Granularité de fond
         self.label_granularite_fond = creer_QLabel_centre()
-        self.granularite_fond = QComboBox()
-        layout_granularite_fond = QHBoxLayout()
-        layout_granularite_fond.addWidget(self.label_granularite_fond, stretch=2)
-        layout_granularite_fond.addWidget(self.granularite_fond, stretch=4)
+        self.granularite_fond = SelecteurValeurs(
+            valeurs=["Pays", "Région", "Département"], layout_horizontal=False
+        )
+        layout_granularite_fond = QVBoxLayout()
+        layout_granularite_fond.addWidget(self.label_granularite_fond)
+        layout_granularite_fond.addWidget(self.granularite_fond)
+        layout_granularite_fond.addStretch()
+
+        # Possibilité d'écrire le nom du territoire sur la carte
+        self.labellisation_checkbox = ToggleSwitch(
+            fonction_dessin=_dessiner_icone_stylo_plume, taille_icone=40
+        )
 
         # Ajouter les layouts horizontaux à la group box
-        layout_granularite = QHBoxLayout()
-        layout_granularite.addLayout(layout_granularite_visite, stretch=5)
-        layout_granularite.addWidget(creer_ligne_verticale(), stretch=2)
-        layout_granularite.addLayout(layout_granularite_fond, stretch=5)
+        layout_granularite_temp = QHBoxLayout()
+        layout_granularite = QVBoxLayout()
+        layout_granularite.setAlignment(Qt.AlignmentFlag.AlignHCenter)
+        layout_granularite_temp.addLayout(layout_granularite_visite, stretch=1)
+        layout_granularite_temp.addLayout(layout_granularite_fond, stretch=1)
+        layout_granularite.addLayout(layout_granularite_temp)
+        layout_granularite.addWidget(self.labellisation_checkbox)
         self.groupe_granularite.setLayout(layout_granularite)
 
         # --------------------------------------------------------------------------
@@ -265,7 +280,6 @@ class OngletParametres(QWidget):
         # --------------------------------------------------------------------------
 
         self.groupe_params_publication = QGroupBox()
-        layout_params_publication = QVBoxLayout()
 
         # Layout horizontal pour la qualité de l'image et le format
         layout_format_qualite = QHBoxLayout()
@@ -305,11 +319,6 @@ class OngletParametres(QWidget):
             taille_icone=40,
         )
 
-        # Possibilité d'écrire le nom du territoire sur la carte
-        self.labellisation_checkbox = ToggleSwitch(
-            fonction_dessin=_dessiner_icone_stylo_plume, taille_icone=40
-        )
-
         # Ajout des widgets au layout horizontal
         layout_format_qualite.addWidget(self.label_format)
         layout_format_qualite.addWidget(self.format_cartes)
@@ -328,14 +337,10 @@ class OngletParametres(QWidget):
             )
         )
         layout_format_qualite.addWidget(creer_ligne_verticale())
-        layout_mail_texte = QVBoxLayout()
-        layout_mail_texte.addWidget(self.labellisation_checkbox)
-        layout_mail_texte.addWidget(self.email_checkbox)
-        layout_format_qualite.addLayout(layout_mail_texte)
+        layout_format_qualite.addWidget(self.email_checkbox)
 
         # Ajouter le layout horizontal au layout de la group box
-        layout_params_publication.addLayout(layout_format_qualite)
-        self.groupe_params_publication.setLayout(layout_params_publication)
+        self.groupe_params_publication.setLayout(layout_format_qualite)
 
         # Ajouter le QGroupBox au layout principal
         layout.addWidget(self.groupe_params_publication, stretch=3)
@@ -396,10 +401,10 @@ class OngletParametres(QWidget):
         # Granularité des cartes
         self.groupe_granularite.setTitle(self.fonction_traduction("titre_granularite"))
         self.label_granularite_visite.setText(
-            self.fonction_traduction("granularite_pays_visites", suffixe=" :")
+            self.fonction_traduction("granularite_pays_visites")
         )
         self.label_granularite_fond.setText(
-            self.fonction_traduction("granularite_pays_non_visites", suffixe=" :")
+            self.fonction_traduction("granularite_pays_non_visites")
         )
 
         # Choix des cartes à publier
@@ -477,8 +482,12 @@ class OngletParametres(QWidget):
             for k in ["Pays", "Région", "Département", "Amusant"]
         ]
 
-        reset_combo(combo=self.granularite_visite, items=liste_granularite)
-        reset_combo(combo=self.granularite_fond, items=liste_granularite[:-1])
+        self.granularite_visite.definir_valeurs(
+            valeurs=liste_granularite, valeur_initiale_index=None
+        )
+        self.granularite_fond.definir_valeurs(
+            valeurs=liste_granularite[:-1], valeur_initiale_index=None
+        )
 
         # Mise à jour des teintes
         reset_combo(
@@ -510,6 +519,10 @@ class OngletParametres(QWidget):
         self.labellisation_checkbox.set_style(
             style=style, preset=preset, teintes=teintes
         )
+
+        # Granularité
+        self.granularite_visite.set_style(style="clair" if style == 1 else "sombre")
+        self.granularite_fond.set_style(style="clair" if style == 1 else "sombre")
 
         self.creation_cartes_bouton.setStyleSheet("""
             QPushButton {
@@ -873,8 +886,8 @@ class OngletParametres(QWidget):
         )
         self.format_cartes.setCurrentText(kwargs.get("format") or "png")
 
-        # Menus déroulants
-        combo_configs = {
+        # Sélecteurs
+        select_configs = {
             # Granularité des pays visités
             self.granularite_visite: {
                 "dict_key": "granularite",
@@ -882,9 +895,18 @@ class OngletParametres(QWidget):
             },
             # Granularités des pays non visités
             self.granularite_fond: {
-                "dict_key": "granularite",
-                "valeur": kwargs.get("granularite_fond"),
+                "dict_clef": "granularite",
+                "valeur": kwargs.get("granularite_fond") or 0,
             },
+        }
+        for clef, config in select_configs.items():
+            val_temp = config["valeur"]
+            if not isinstance(val_temp, int):
+                val_temp = 0
+            clef.definir_valeur(index=val_temp)
+
+        # Menus déroulants
+        combo_configs = {
             # Thème
             self.theme_combo: {
                 "dict_key": "themes_cartes",
@@ -919,14 +941,8 @@ class OngletParametres(QWidget):
         params_traduits = self.constantes.parametres_traduits.copy()
 
         return {
-            "granularite": obtenir_clef_par_valeur(
-                valeur=self.granularite_visite.currentText(),
-                dictionnaire=params_traduits["granularite"][langue],
-            ),
-            "granularite_fond": obtenir_clef_par_valeur(
-                valeur=self.granularite_fond.currentText(),
-                dictionnaire=params_traduits["granularite"][langue],
-            ),
+            "granularite": self.granularite_visite.obtenir_valeur(index=True),
+            "granularite_fond": self.granularite_fond.obtenir_valeur(index=True),
             "couleur": obtenir_clef_par_valeur(
                 valeur=self.color_combo.currentText(),
                 dictionnaire=params_traduits["teintes_couleurs"][langue],

@@ -14,6 +14,7 @@ from PyQt6.QtWidgets import (
     QLabel,
     QWidget,
     QApplication,
+    QLayout,
     QScrollArea,
     QGraphicsDropShadowEffect,
 )
@@ -357,7 +358,7 @@ def creer_ombre(couleur: QColor, parent=None):
     return ombre_temp
 
 
-## 10. 2 -- Ombre des widgets de l'onglet 4.6 ----------------------------------
+## 10.2 -- Ombre des widgets de l'onglet 4.6 -----------------------------------
 
 
 def ombre_onglet_4_6(style: int, parent=None):
@@ -366,3 +367,24 @@ def ombre_onglet_4_6(style: int, parent=None):
         couleur=_QColor_avec_alpha("#707070", alpha=60 if style == 1 else 120),
         parent=parent,
     )
+
+
+# 11 -- QHBoxLayout centré -----------------------------------------------------
+
+
+def QHBoxLayout_centre(liste: list | QWidget | QLayout):
+
+    layout_temp = QHBoxLayout()
+    layout_temp.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+    if not isinstance(liste, list):
+        liste = [liste]
+
+    for item_temp in liste:
+
+        if isinstance(item_temp, QWidget):
+            layout_temp.addWidget(item_temp)
+        elif isinstance(item_temp, QLayout):
+            layout_temp.addLayout(item_temp)
+
+    return layout_temp

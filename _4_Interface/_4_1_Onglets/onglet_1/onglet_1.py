@@ -38,6 +38,7 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
     creer_ligne_horizontale,
     creer_ligne_verticale,
     restaurer_valeur_combo,
+    QHBoxLayout_centre,
 )
 from _0_Utilitaires._0_11_classes_pop_up import PopupInfo
 from _0_Utilitaires._0_12_toggle_checkbox import ToggleSwitch
@@ -158,9 +159,6 @@ class OngletParametres(QWidget):
         self.labellisation_checkbox = ToggleSwitch(
             fonction_dessin=_dessiner_icone_stylo_plume, taille_icone=40
         )
-        layout_labellisation = QHBoxLayout()
-        layout_labellisation.setAlignment(Qt.AlignmentFlag.AlignHCenter)
-        layout_labellisation.addWidget(self.labellisation_checkbox)
 
         # Ajouter les layouts horizontaux à la group box
         layout_granularite_temp = QHBoxLayout()
@@ -168,7 +166,7 @@ class OngletParametres(QWidget):
         layout_granularite_temp.addLayout(layout_granularite_visite, stretch=1)
         layout_granularite_temp.addLayout(layout_granularite_fond, stretch=1)
         layout_granularite.addLayout(layout_granularite_temp)
-        layout_granularite.addLayout(layout_labellisation)
+        layout_granularite.addLayout(QHBoxLayout_centre(self.labellisation_checkbox))
         self.groupe_granularite.setLayout(layout_granularite)
 
         # --------------------------------------------------------------------------
@@ -221,8 +219,7 @@ class OngletParametres(QWidget):
 
         # Colonne de gauche : granularité + cartes à créer
         layout_granu_cartes_a_creer = QVBoxLayout()
-        layout_granu_cartes_a_creer.addWidget(self.groupe_granularite, stretch=3)
-        layout_granu_cartes_a_creer.addWidget(self.groupe_cartes_a_creer, stretch=5)
+        layout_granu_cartes_a_creer.addWidget(self.groupe_granularite)
 
         # --------------------------------------------------------------------------
         # Couleurs
@@ -338,14 +335,20 @@ class OngletParametres(QWidget):
                 20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding
             )
         )
-        layout_format_qualite.addWidget(creer_ligne_verticale())
-        layout_format_qualite.addWidget(self.email_checkbox)
+        lauout_technique = QVBoxLayout()
+        lauout_technique.addLayout(layout_format_qualite)
+        lauout_technique.addWidget(creer_ligne_horizontale())
+        lauout_technique.addWidget(self.email_checkbox)
 
         # Ajouter le layout horizontal au layout de la group box
-        self.groupe_params_publication.setLayout(layout_format_qualite)
+        self.groupe_params_publication.setLayout(lauout_technique)
 
         # Ajouter le QGroupBox au layout principal
-        layout.addWidget(self.groupe_params_publication, stretch=3)
+        layout_bas = QHBoxLayout()
+        layout_bas.addWidget(self.groupe_cartes_a_creer)
+        layout_bas.addWidget(self.groupe_params_publication)
+
+        layout.addLayout(layout_bas)
 
         # --------------------------------------------------------------------------
         # Zone d'action : bouton « Créer cartes » OU progression locale

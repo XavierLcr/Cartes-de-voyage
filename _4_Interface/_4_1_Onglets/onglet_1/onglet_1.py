@@ -158,15 +158,17 @@ class OngletParametres(QWidget):
         self.labellisation_checkbox = ToggleSwitch(
             fonction_dessin=_dessiner_icone_stylo_plume, taille_icone=40
         )
+        layout_labellisation = QHBoxLayout()
+        layout_labellisation.setAlignment(Qt.AlignmentFlag.AlignHCenter)
+        layout_labellisation.addWidget(self.labellisation_checkbox)
 
         # Ajouter les layouts horizontaux à la group box
         layout_granularite_temp = QHBoxLayout()
         layout_granularite = QVBoxLayout()
-        layout_granularite.setAlignment(Qt.AlignmentFlag.AlignHCenter)
         layout_granularite_temp.addLayout(layout_granularite_visite, stretch=1)
         layout_granularite_temp.addLayout(layout_granularite_fond, stretch=1)
         layout_granularite.addLayout(layout_granularite_temp)
-        layout_granularite.addWidget(self.labellisation_checkbox)
+        layout_granularite.addLayout(layout_labellisation)
         self.groupe_granularite.setLayout(layout_granularite)
 
         # --------------------------------------------------------------------------

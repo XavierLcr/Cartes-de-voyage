@@ -231,16 +231,25 @@ class OngletParametres(QWidget):
         # Choix du thème
         self.theme_label = creer_QLabel_centre()
         self.theme_combo = QComboBox()
-        layout_theme = QHBoxLayout()
-        layout_theme.addWidget(self.theme_label)
-        layout_theme.addWidget(self.theme_combo)
 
         # Choix des couleurs
         self.color_label = creer_QLabel_centre()
         self.color_combo = QComboBox()
-        layout_couleurs = QHBoxLayout()
-        layout_couleurs.addWidget(self.color_label)
-        layout_couleurs.addWidget(self.color_combo)
+
+        # Layout général
+        layout_theme_teintes = QGridLayout()
+        layout_theme_teintes.addWidget(
+            self.theme_label, 0, 0, alignment=Qt.AlignmentFlag.AlignLeft
+        )
+        layout_theme_teintes.addWidget(self.theme_combo, 0, 1)
+        layout_theme_teintes.addWidget(
+            self.color_label, 1, 0, alignment=Qt.AlignmentFlag.AlignLeft
+        )
+        layout_theme_teintes.addWidget(self.color_combo, 1, 1)
+
+        # Répartition des colonnes
+        layout_theme_teintes.setColumnStretch(0, 1)
+        layout_theme_teintes.setColumnStretch(1, 2)
 
         # Utilisation ou non du thème dans l'interface
         self.utiliser_theme = ToggleSwitch()
@@ -257,8 +266,7 @@ class OngletParametres(QWidget):
         )
 
         # Ajout des widgets au layout vertical
-        layout_theme_couleurs.addLayout(layout_theme)
-        layout_theme_couleurs.addLayout(layout_couleurs)
+        layout_theme_couleurs.addLayout(layout_theme_teintes)
         layout_theme_couleurs.addWidget(
             self.utiliser_theme, alignment=Qt.AlignmentFlag.AlignCenter
         )

@@ -23,8 +23,6 @@ from PyQt6.QtWidgets import (
     QCheckBox,
     QSlider,
     QGroupBox,
-    QSpacerItem,
-    QSizePolicy,
     QStackedLayout,
     QStackedWidget,
 )
@@ -537,9 +535,6 @@ class OngletParametres(QWidget):
         self._indice_publication = 0
         self._nettoyer_progression()  # sécurité si un ancien widget traîne
 
-        # Les boutons restent bloqués pendant toute la création.
-        self._activer_boutons_action(False)
-
         if self.mode_progression == "immersif":
             self._demarrer_progression_immersive(n)
         else:
@@ -549,9 +544,7 @@ class OngletParametres(QWidget):
         """Remplace toute la page des paramètres (train)."""
 
         self.animation_publication = AnimationTrainPublication(n=n, vitesse=130.0)
-        self.animation_publication.retour_parametres.connect(
-            self.revenir_aux_parametres
-        )
+        self.animation_publication.retour_parametres.connect(self._nettoyer_progression)
 
         self.layout_animation.addWidget(self.animation_publication)
         self.layout_principal.setCurrentWidget(self.page_animation)
@@ -596,11 +589,6 @@ class OngletParametres(QWidget):
         self.layout_principal.setCurrentWidget(self.page_parametres)
         self.zone_action.setCurrentWidget(self.creation_cartes_bouton)
         self._activer_boutons_action(True)
-
-    def revenir_aux_parametres(self) -> None:
-        """Slot du signal `retour_parametres` de l'animation immersive."""
-
-        self._nettoyer_progression()
 
     def afficher_avancement(self, libelle_pays: str) -> None:
         """Transmet l'avancement au widget de progression actif."""
@@ -880,23 +868,17 @@ class OngletParametres(QWidget):
         self.format_cartes.setCurrentText(kwargs.get("format") or "png")
 
         # Sélecteurs
-        select_configs = {
+        select_configs = [
             # Granularité des pays visités
-            self.granularite_visite: {
-                "dict_key": "granularite",
-                "valeur": kwargs.get("granularite"),
-            },
+            (self.granularite_visite, kwargs.get("granularite")),
             # Granularités des pays non visités
-            self.granularite_fond: {
-                "dict_clef": "granularite",
-                "valeur": kwargs.get("granularite_fond") or 0,
-            },
-        }
-        for clef, config in select_configs.items():
-            val_temp = config["valeur"]
-            if not isinstance(val_temp, int):
-                val_temp = 0
-            clef.definir_valeur(index=val_temp)
+            (self.granularite_fond, kwargs.get("granularite_fond")),
+        ]
+        for selecteur, valeur in select_configs:
+            if not isinstance(valeur, int):
+                valeur = 0
+
+            selecteur.definir_valeur(index=valeur)
 
         # Menus déroulants
         combo_configs = {
@@ -931,18 +913,18 @@ class OngletParametres(QWidget):
     def creer_dict_parametres(self):
 
         langue = self.langue
-        params_traduits = self.constantes.parametres_traduits.copy()
+        trad_temp = self.constantes.parametres_traduits
 
         return {
             "granularite": self.granularite_visite.obtenir_valeur(index=True),
             "granularite_fond": self.granularite_fond.obtenir_valeur(index=True),
             "couleur": obtenir_clef_par_valeur(
                 valeur=self.color_combo.currentText(),
-                dictionnaire=params_traduits["teintes_couleurs"][langue],
+                dictionnaire=trad_temp["teintes_couleurs"][langue],
             ),
             "theme": obtenir_clef_par_valeur(
                 valeur=self.theme_combo.currentText(),
-                dictionnaire=params_traduits["themes_cartes"][langue],
+                dictionnaire=trad_temp["themes_cartes"][langue],
             ),
             "couleur_fond_carte": self.combo_couleur_fond.valeur_en_francais(),
             "qualite": self.curseur_qualite.value(),

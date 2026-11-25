@@ -28,12 +28,10 @@ from _0_Utilitaires._0_10_selecteur_date import SelecteurDate
 from _0_Utilitaires._0_12_toggle_checkbox import ToggleSwitch
 
 from _0_Utilitaires._0_1_fonctions_utiles_gen import (
-    obtenir_clef_par_valeur,
     construire_dictionnaire_imbrique,
     tronquer_dict,
 )
 from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
-    reset_combo,
     _QLabelIcone,
     creer_ligne_verticale,
 )
@@ -217,10 +215,12 @@ class CreerVoyage(QDialog):
         self.liste_des_pays.currentIndexChanged.connect(self.maj_liste_reg_dep_pays)
 
         # Sélection de la granularité
-        self.liste_niveaux = QComboBox()
-        self.liste_niveaux.addItems(["Régions", "Départements"])
-        self.liste_niveaux.currentIndexChanged.connect(self.supprimer_filtre_pattern)
-        self.liste_niveaux.currentIndexChanged.connect(self.maj_liste_reg_dep_pays)
+        self.liste_niveaux = SelecteurValeurs(
+            valeurs=["Régions", "Départements"],
+            style="clair" if style == 1 else "sombre",
+        )
+        self.liste_niveaux.valeur_changee.connect(self.supprimer_filtre_pattern)
+        self.liste_niveaux.valeur_changee.connect(self.maj_liste_reg_dep_pays)
 
         # Filtre textuel
         self.filtre_pattern = QLineEdit()
@@ -282,7 +282,7 @@ class CreerVoyage(QDialog):
                 )
 
                 # Sélection de la granularité
-                self.liste_niveaux.setCurrentIndex(i)
+                self.liste_niveaux.definir_valeur(index=i)
 
                 # Sortie de la boucle
                 break
@@ -320,12 +320,11 @@ class CreerVoyage(QDialog):
         self.groupe_selection_lieux.setTitle(
             self.fct_traduction("titre_choix_destinations_visitees")
         )
-        reset_combo(
-            self.liste_niveaux,
-            [
+        self.liste_niveaux.definir_valeurs(
+            valeurs=[
                 self.granularite_traductions[self.langue][k]
                 for k in ["Régions", "Départements"]
-            ],
+            ]
         )
         self.filtre_pattern.setPlaceholderText(
             self.fct_traduction("onglet_2_filtre_pattern", suffixe="...")
@@ -391,17 +390,14 @@ class CreerVoyage(QDialog):
         # Si le pays a moins de deux niveaux de granularité, mise automatique sur la Région
         if self.granularite_max_pays.get(pays_i, 2) < 2:
             self.liste_niveaux.blockSignals(True)
-            self.liste_niveaux.setCurrentIndex(0)
+            self.liste_niveaux.definir_valeur(index=0)
             self.liste_niveaux.setEnabled(False)
             self.liste_niveaux.blockSignals(False)
         else:
             self.liste_niveaux.setEnabled(True)
 
         # Récupération du niveau de granularité
-        niveau_i = obtenir_clef_par_valeur(
-            valeur=self.liste_niveaux.currentText(),
-            dictionnaire=self.granularite_traductions[self.langue],
-        )
+        niveau_i = self.liste_niveaux.obtenir_valeur(index=True)
 
         # Liste vidée
         self.liste_endroits.blockSignals(True)
@@ -412,14 +408,14 @@ class CreerVoyage(QDialog):
             df=self.df_hierarchie,
             pays=pays_i,
             pattern=self.filtre_pattern.text(),
-            niveau_tronc=2 - (niveau_i == "Régions"),
+            niveau_tronc=niveau_i + 1,
         )
 
         if not data:
             self.liste_endroits.blockSignals(False)
             return
 
-        if niveau_i == "Régions":
+        if niveau_i == 0:
 
             # Liste plate de régions cochables
             for region in data:
@@ -488,15 +484,7 @@ class CreerVoyage(QDialog):
         texte = item.text()
 
         # Détermine la clé du dictionnaire selon le niveau
-        clef = (
-            "region"
-            if obtenir_clef_par_valeur(
-                valeur=self.liste_niveaux.currentText(),
-                dictionnaire=self.granularite_traductions[self.langue],
-            )
-            == "Régions"
-            else "dep"
-        )
+        clef = "region" if self.liste_niveaux.obtenir_valeur(index=True) == 0 else "dep"
 
         # Initialise le dictionnaire pour le pays s’il n’existe pas
         self.dicts_granu[clef] = self.dicts_granu.get(clef) or {}

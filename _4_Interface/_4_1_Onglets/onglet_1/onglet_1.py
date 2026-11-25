@@ -229,12 +229,16 @@ class OngletParametres(QWidget):
         layout_theme_couleurs = QVBoxLayout(self.groupe_couleurs)
 
         # Choix du thème
-        self.theme_label = creer_QLabel_centre()
+        self.theme_label = QLabel()
         self.theme_combo = QComboBox()
 
         # Choix des couleurs
-        self.color_label = creer_QLabel_centre()
+        self.color_label = QLabel()
         self.color_combo = QComboBox()
+
+        # Choix de la couleur de fond
+        self.couleur_fond_label = QLabel()
+        self.combo_couleur_fond = FondCarteCombo(constantes=self.constantes)
 
         # Layout général
         layout_theme_teintes = QGridLayout()
@@ -246,6 +250,10 @@ class OngletParametres(QWidget):
             self.color_label, 1, 0, alignment=Qt.AlignmentFlag.AlignLeft
         )
         layout_theme_teintes.addWidget(self.color_combo, 1, 1)
+        layout_theme_teintes.addWidget(
+            self.couleur_fond_label, 3, 0, alignment=Qt.AlignmentFlag.AlignLeft
+        )
+        layout_theme_teintes.addWidget(self.combo_couleur_fond, 3, 1)
 
         # Répartition des colonnes
         layout_theme_teintes.setColumnStretch(0, 1)
@@ -254,26 +262,11 @@ class OngletParametres(QWidget):
         # Utilisation ou non du thème dans l'interface
         self.utiliser_theme = ToggleSwitch()
 
-        # Choix de la couleur de fond
-        layout_couleur_fond = QHBoxLayout()
-        self.couleur_fond_label = QLabel()
-        self.combo_couleur_fond = FondCarteCombo(constantes=self.constantes)
-        layout_couleur_fond.addWidget(
-            self.couleur_fond_label, alignment=Qt.AlignmentFlag.AlignHCenter
-        )
-        layout_couleur_fond.addWidget(
-            self.combo_couleur_fond, alignment=Qt.AlignmentFlag.AlignHCenter
-        )
-
         # Ajout des widgets au layout vertical
         layout_theme_couleurs.addLayout(layout_theme_teintes)
         layout_theme_couleurs.addWidget(
             self.utiliser_theme, alignment=Qt.AlignmentFlag.AlignCenter
         )
-        layout_theme_couleurs.addWidget(
-            creer_ligne_horizontale(lStretch=0, ligne_largeur=1, rStretch=0)
-        )
-        layout_theme_couleurs.addLayout(layout_couleur_fond)
 
         # Ajout des groupbox des cartes et des couleurs
         layout_cartes_et_couleurs = QHBoxLayout()
@@ -285,11 +278,6 @@ class OngletParametres(QWidget):
         # --------------------------------------------------------------------------
         # Paramètres de publication
         # --------------------------------------------------------------------------
-
-        self.groupe_params_publication = QGroupBox()
-
-        # Layout horizontal pour la qualité de l'image et le format
-        layout_format_qualite = QHBoxLayout()
 
         # Curseur pour la qualité de l’image
         self.label_qualite = creer_QLabel_centre()
@@ -307,6 +295,11 @@ class OngletParametres(QWidget):
         self.curseur_qualite.setValue(
             int((self.curseur_qualite_min + self.curseur_qualite_max) / 2)
         )
+        layout_qualite = QHBoxLayout()
+        layout_qualite.addWidget(self.label_qualite)
+        layout_qualite.addWidget(self.label_qualite_min)
+        layout_qualite.addWidget(self.curseur_qualite)
+        layout_qualite.addWidget(self.label_qualite_max)
 
         # Choix du format d'image
         self.label_format = creer_QLabel_centre()
@@ -326,30 +319,17 @@ class OngletParametres(QWidget):
             taille_icone=40,
         )
 
-        # Ajout des widgets au layout horizontal
-        layout_format_qualite.addWidget(self.label_format)
-        layout_format_qualite.addWidget(self.format_cartes)
-        layout_format_qualite.addItem(
-            QSpacerItem(
-                20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding
-            )
-        )
-        layout_format_qualite.addWidget(self.label_qualite)
-        layout_format_qualite.addWidget(self.label_qualite_min)
-        layout_format_qualite.addWidget(self.curseur_qualite)
-        layout_format_qualite.addWidget(self.label_qualite_max)
-        layout_format_qualite.addItem(
-            QSpacerItem(
-                20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding
-            )
-        )
-        lauout_technique = QVBoxLayout()
-        lauout_technique.addLayout(layout_format_qualite)
-        lauout_technique.addWidget(creer_ligne_horizontale())
-        lauout_technique.addWidget(self.email_checkbox)
+        layout_param_l1 = QHBoxLayout()
+        layout_param_l1.addWidget(self.label_format, stretch=2)
+        layout_param_l1.addWidget(self.format_cartes, stretch=3)
+        layout_param_l1.addWidget(creer_ligne_verticale(), stretch=1)
+        layout_param_l1.addWidget(self.email_checkbox, stretch=5)
 
-        # Ajouter le layout horizontal au layout de la group box
-        self.groupe_params_publication.setLayout(lauout_technique)
+        # Layout vertical des paramètres techniques
+        self.groupe_params_publication = QGroupBox()
+        layout_params_tech = QVBoxLayout(self.groupe_params_publication)
+        layout_params_tech.addLayout(layout_param_l1)
+        layout_params_tech.addLayout(layout_qualite)
 
         # Ajouter le QGroupBox au layout principal
         layout_bas = QHBoxLayout()

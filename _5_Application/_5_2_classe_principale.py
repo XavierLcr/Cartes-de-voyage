@@ -101,6 +101,7 @@ class MesVoyagesApplication(QWidget):
         profil_modif_layout.setSpacing(2)
         profile_layout.setContentsMargins(8, 0, 8, 0)
         self.nom_individu = QComboBox(self)
+        self.nom_individu.setObjectName("profilCombo")
         self.nom_individu.setSizePolicy(
             QSizePolicy.Policy.Preferred,
             QSizePolicy.Policy.Expanding,

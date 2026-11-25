@@ -550,4 +550,27 @@ def style_dynamique_application(
                 spacing: 8px;
                 padding: 6px 8px;
             }}
+            QComboBox#profilCombo {{
+                background-color: rgba(190, 210, 225, 45);
+                color: {couleur_widget_texte};
+
+                border: 1px solid rgba(150, 175, 195, 65);
+                border-radius: 15px;
+
+                padding: 5px 10px;
+                padding-right: 22px;
+
+                font-size: 11px;
+                font-weight: 500;
+            }}
+
+            QComboBox#profilCombo:hover {{
+                background-color: rgba(190, 210, 225, 85);
+                border: 1px solid rgba(150, 175, 195, 110);
+            }}
+
+            QComboBox#profilCombo::drop-down {{
+                border: none;
+                width: 22px;
+            }}
         """

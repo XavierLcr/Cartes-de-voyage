@@ -387,30 +387,61 @@ def style_dynamique_application(
             }}
 
             QComboBox {{
-                background-color: {couleur_box};
+                background-color: rgba(180, 200, 220, 35);
                 color: {couleur_box_texte};
-                border: 1px solid rgba(255,255,255,40);
-                padding: 5px 10px;
-                border-radius: 10px;
+                border: 1px solid rgba(150, 175, 195, 55);
+                border-radius: 9px;
+
+                padding: 6px 10px;
+                padding-right: 26px;
             }}
-            QComboBox QAbstractItemView {{ 
-                border: none; outline: none; 
-            }} 
-            QComboBox QAbstractItemView::item {{ 
-                padding: 5px; height: 20px; /* Hauteur de chaque élément de la liste */ 
+
+            QComboBox:hover {{
+                background-color: rgba(180, 200, 220, 65);
+                border: 1px solid rgba(150, 175, 195, 100);
             }}
-            QComboBox::drop-down {{
-                border: 0px;
-                width: 20px;
-                height: 20px;
+
+            QComboBox:focus {{
+                border: 1px solid rgba(120, 165, 190, 150);
             }}
-            QComboBox::down-arrow {{
-                width: 32px;
+
+            QComboBox QAbstractItemView {{
+                background-color: {couleur_widget};
+                color: {couleur_widget_texte};
+                font-size: 11px;
                 border: none;
+                outline: none;
+
+                padding: 5px;
+                selection-background-color: rgba(150, 190, 215, 65);
+                selection-color: {couleur_widget_texte};
             }}
-            QComboBox::disabled {{
-                background-color: {couleur_push_desactive};
+
+            QComboBox QAbstractItemView::item {{
+                padding: 3px 5px;
+                min-height: 13px;
+                border-radius: 5px;
+            }}
+
+            QComboBox QAbstractItemView::item:hover {{
+                background-color: rgba(150, 190, 215, 55);
+                color: {couleur_widget_texte};
+            }}
+
+            QComboBox QAbstractItemView::item:selected {{
+                background-color: rgba(150, 190, 215, 85);
+                color: {couleur_widget_texte};
+            }}
+
+            QComboBox::drop-down {{
+                border: none;
+                width: 24px;
+            }}
+
+            QComboBox:disabled {{
+                background-color: rgba(150, 160, 175, 25);
                 color: {couleur_push_texte_desactive};
+                border: 1px solid rgba(150, 160, 175, 35);
             }}
 
             QScrollArea {{
@@ -560,8 +591,7 @@ def style_dynamique_application(
                 padding: 5px 10px;
                 padding-right: 22px;
 
-                font-size: 11px;
-                font-weight: 500;
+                font-weight: 600;
             }}
 
             QComboBox#profilCombo:hover {{

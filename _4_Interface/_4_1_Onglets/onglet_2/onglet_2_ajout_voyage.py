@@ -39,6 +39,7 @@ from _0_Utilitaires._0_3_fonctions_utiles_pyqt6 import (
 )
 from _0_Utilitaires._0_07_fonctions_voyages import creer_voyage, voyage_id
 from _0_Utilitaires._0_11_classes_pop_up import PopupInfo
+from _0_Utilitaires._0_16_selecteur_valeurs import SelecteurValeurs
 from _4_Interface._4_1_Onglets.onglet_2.onglet_2_compagnons_voyage import SaisieTags
 from _4_Interface._4_2_Style._4_2_2_styles_complementaires import (
     style_bouton_de_suppression,
@@ -209,15 +210,19 @@ class CreerVoyage(QDialog):
         self.groupe_selection_lieux = QGroupBox()
         layout_selection_lieux = QVBoxLayout()
 
-        # Périmètre de sélection
+        # Sélection du pays
         self.liste_des_pays = QComboBox()
         self.liste_des_pays.addItems(self.liste_pays)
         self.liste_des_pays.currentIndexChanged.connect(self.supprimer_filtre_pattern)
         self.liste_des_pays.currentIndexChanged.connect(self.maj_liste_reg_dep_pays)
+
+        # Sélection de la granularité
         self.liste_niveaux = QComboBox()
         self.liste_niveaux.addItems(["Régions", "Départements"])
         self.liste_niveaux.currentIndexChanged.connect(self.supprimer_filtre_pattern)
         self.liste_niveaux.currentIndexChanged.connect(self.maj_liste_reg_dep_pays)
+
+        # Filtre textuel
         self.filtre_pattern = QLineEdit()
         self.filtre_pattern.setPlaceholderText("...")
         self.filtre_pattern.textChanged.connect(self.maj_liste_reg_dep_pays)
